@@ -347,7 +347,7 @@ class WP_JSON_Server implements WP_JSON_ResponseHandler {
 			default:
 				return new WP_Error( 'json_unsupported_method', __( 'Unsupported request method' ), array( 'status' => 400 ) );
 		}
-
+		
 		foreach ( $this->get_routes() as $route => $handlers ) {
 			foreach ( $handlers as $handler ) {
 				$callback = $handler[0];
@@ -362,7 +362,7 @@ class WP_JSON_Server implements WP_JSON_ResponseHandler {
 				if ( ! $match ) {
 					continue;
 				}
-
+				
 				if ( ! is_callable( $callback ) ) {
 					return new WP_Error( 'json_invalid_handler', __( 'The handler for the route is invalid' ), array( 'status' => 500 ) );
 				}

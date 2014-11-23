@@ -93,6 +93,7 @@ require( get_template_directory() . '/inc/custom-function.php' );
 #load all the classes
 require_once (get_template_directory().'/classes/product.class.php');
 require_once (get_template_directory().'/classes/productList.class.php');
+require_once (get_template_directory().'/classes/setting.class.php');
 #load all the classes
 
 #load all the apis
@@ -1140,8 +1141,8 @@ function register_menu() {
     'manage_options', 'product_settings', 'set_product_settings');
   add_submenu_page( 'product_settings', 'Settings page title', 'Products', 
     'manage_options', 'theme-op-settings', 'show_list_products');
-  // add_submenu_page( 'product_settings', 'Import', 'Import', 
-  //   'manage_options', 'theme-op-faq', 'import_products');
+  add_submenu_page( 'product_settings', 'Settings', 'Settings', 
+    'manage_options', 'theme-op-faq', 'settings');
 
 }
 add_action('admin_menu', 'register_menu');
@@ -1150,21 +1151,23 @@ add_action('admin_menu', 'register_menu');
 function set_product_settings(){
 
     global $wpdb;
-    $product_type_table = $wpdb->prefix . "product_type";
+    $product_type_table = $wpdb->prefix . "defaults";
     $product_type_option = "";
     #get the values from product_type table
-    $product_types = $wpdb->get_results( "SELECT id, name FROM $product_type_table" );
+
+    $product_types = $wpdb->get_results( "SELECT * FROM $product_type_table where type='product_type'" );
     foreach ( $product_types as $product_type ) 
     {
-        $product_type_option .= "<option value='".$product_type->id."'>".$product_type->name."</option>";
+        $product_type_option .= "<option value='".$product_type->id."'>".$product_type->value."</option>";
     }
 
 ?> 
 
 <html>
 <h2>Add Product</h2>
-<label id="response_msg" class="alert"></label>
+
 <form id="add_product_form" enctype="multipart/form-data" method="POST">
+<div id="response_msg" ></div>
 <table class="widefat">
     <tbody>
         <tr>
@@ -1174,6 +1177,9 @@ function set_product_settings(){
         <tr >
             <td class="row-title"><label for="tablecell">Active</label></td>
             <td><input name="active" type="checkbox" id="active" value="1"  checked /></td>
+        </tr>
+        <tr>
+        	<td><label for="tablecell">Upload Image </label></td>
             <td>
                 <a href="#" class="custom_media_upload">Upload</a>
                 <img class="custom_media_image" src="" />
@@ -1184,6 +1190,8 @@ function set_product_settings(){
             <td class="row-title"><label for="tablecell">Short Description</label></td>
             <td><textarea id="short_desc" required name="short_desc" cols="80" rows="10"></textarea></td>
         </tr>
+
+       
         <tr >
             <td class="row-title"><label for="tablecell">Product Type</label></td>
             <td><select required  id="product_type" name="product_type">
@@ -1193,15 +1201,15 @@ function set_product_settings(){
         </tr>
         <tr >
             <td class="row-title"><label for="tablecell">Frequncy</label></td>
-            <td><select required id="frequency" name="frequency">
-                <option value=""></option>
-                <option  value="1" >Anytime</option>
-                <option value="2" >Scheduled</option>
-            </select></td>
+            <td><label title='g:i a'>
+            	<input type="radio" id="1" class="radio" name="example" checked value="" /> <span>Anytime</span></label>
+				<label title='g:i a'>
+				<input type="radio" id="2" class="radio" name="example" value="" /> <span>Scheduled</span></label>
+				<input type="hidden" id="frequency" name="frequency" value="1" /></td>
         </tr>
         <tr >
             <td class="row-title"><label for="serving_per_day">Serving per day</label></td>
-            <td><select required id="serving_per_day_anytime" name="serving_per_day_anytime">
+            <td><select required id="serving_per_day_anytime"  name="serving_per_day_anytime">
                 <option value=""></option>
                 <option  value="1" >1</option>
                 <option value="2" >2</option>
@@ -1213,16 +1221,24 @@ function set_product_settings(){
                 <option value="8" >8</option>
                 <option value="9" >9</option>
                 <option value="10" >10</option>
+                <option value="asperbmi">As per BMI</otpuion>
             </select>
-            <select required id="serving_per_day_scheduled" name="serving_per_day_scheduled" style="display:none" >
+            <select required id="serving_per_day_scheduled" class="add_row_class" name="serving_per_day_scheduled" style="display:none" >
                 <option value=""></option>
-                <option  value="1">Once</option>
-                <option value="2">Twice</option>
+                <option  value="Once">Once</option>
+                <option value="Twice">Twice</option>
+                <!--<option value="asperbmi">As per BMI</otpuion>-->
                 </select></td>
         </tr>
-        <tr id="row_when" style="display:none">
-            <td class="row-title"><label for="when">When</label></td>
-            <td><select required id="when" name="when">
+        <tr id="add_table_weight">
+            
+        </tr>
+        <tr >
+        	<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="0"></td>
+            <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" /></td>
+     
+            <td  class="row-title"><label id="row_when" style="display:none" for="when">When</label></td>
+            <td><select required id="when" name="when" style="display:none">
                 <option value=""></option>
                 <option  value="1" >Morning before Meal</option>
                 <option value="2" >Morning with Meal</option>
@@ -1231,13 +1247,10 @@ function set_product_settings(){
                 
             </select></td>
         </tr>
-        <tr>
-            <td class="row-title"><label for="serving_size">Serving Size</label></td>
-            <td><input type="text" required id="serving_size" name="serving_size" value="" class="small-text" /></td>
-        </tr>
+        <tr id="clone"></tr>
         <tr>
             <td class="row-title"><label for="serving_per_container">Serving per Container</label></td>
-            <td><input type="text" required id="serving_per_container" name="serving_per_container" value="" class="small-text" /></td>
+            <td><input type="text" required  id="serving_per_container" name="serving_per_container" value="" class="small-text" /></td>
         </tr>
         <tr>
             <td class="row-title"><label for="total">Total</label></td>
@@ -1292,20 +1305,89 @@ function show_list_products(){
 
 <?php
 }
-//function to show import button
-function import_products(){
+//function to show settings
+function settings(){
+
+	//get default settings
+	global $setting;
+
+	$setting = new setting();
+	$response = $setting->get_settings();
+	$no_of_days ="";
+	$id ="";
+	$morning_from ="";
+	$morning_to ="";
+	$evening_from ="";
+	$evening_to ="";
+	if(is_array($response))
+	{
+		$object = json_decode($response['response']->value);
+		$no_of_days = $object->no_of_days;
+		$morning_from = $object->morning_from;
+		$morning_to = $object->morning_to;
+		$evening_from = $object->evening_from;
+		$evening_to = $object->evening_to;
+		$id = $response['response']->id;
+	}
+	
 
 ?>
 <html>
-<h2>Import</h2></br/>
-<form id="import_products_form" enctype="multipart/form-data" action="" method="post">
-<div>
-<input name="fileUpload" id="fileUpload" type="file"></br></br>
-<input class="button-primary" id="import" type="submit" name="import" value="<?php _e( 'Import' ); ?>" />    
-</div>
+<h2>Settings</h2></br/>
+<form id="settings_form" enctype="multipart/form-data" action="" method="post">
+<div id="response_msg"></div>	
+<table>
+	<tr>
+		<td>
+			<label for="serving_per_container">No of Days Left</label>
+		</td>
+		<td>
+			<input type="text" required  id="no_of_days" name="no_of_days" value="<?php echo $no_of_days ;?>" class="small-text" />
+			<input type="hidden" id="settings_id" name="settings_id" value="<?php echo $id;?>" />
+		</td>
+
+	</tr>
+	<tr>
+		<td>
+			<label for="serving_per_container">Morning Time</label>
+		</td>
+		<td>
+			<input type="text" required  id="morning_from" name="morning_from" value="<?php echo $morning_from ;?>" class="small-text" />
+			&nbsp;<input type="text" required  id="morning_to" name="morning_to" value="<?php echo $morning_to ;?>" class="small-text" />
+			
+		</td>
+
+	</tr>
+	<tr>
+		<td>
+			<label for="serving_per_container">Evening Time</label>
+		</td>
+		<td>
+			<input type="text" required  id="evening_from" name="evening_from" value="<?php echo $evening_from ;?>" class="small-text" />
+			&nbsp;<input type="text" required  id="evening_to" name="evening_to" value="<?php echo $evening_to ;?>" class="small-text" />
+			
+		</td>
+
+	</tr>
+
+</table>
+<br/>
+<input class="button-primary" id="save" type="submit" name="save" value="<?php _e( 'Save' ); ?>" />    
+
 </form>
 </html>
 
 
 <?php
+
+
+
 }
+
+function test_modify_user_table( $column ) {
+    $column['xooma_id'] = 'XoomaID';
+
+    return $column;
+}
+
+add_filter( 'manage_users_columns', 'test_modify_user_table' );

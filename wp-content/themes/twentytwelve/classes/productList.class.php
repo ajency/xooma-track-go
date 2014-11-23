@@ -24,9 +24,13 @@ class ProductList
     	$product_type_option = "";
 		    
 		#get all the terms/products 
-		$term = get_terms('category', array(
- 				'hide_empty' => 0));
+		//TODO : use the existing table and existing meta xooma id
 
+    	// get the product category id
+		$product_id = get_category_by_slug('product');
+		$term = get_categories('parent='.$product_id->term_id.'&hide_empty=0');
+		
+		
 		#check if term_id is blank
 		if(isset($term_id) && $term_id !="")
 		{
@@ -36,14 +40,14 @@ class ProductList
 			$term[0] = $terms_array;
 			// form a dropdown for product type
 	    	global $wpdb;
-		    $product_type_table = $wpdb->prefix . "product_type";
+		    $product_type_table = $wpdb->prefix . "defaults";
 		    #get the values from product_type table
-		    $product_types = $wpdb->get_results( "SELECT id, name FROM $product_type_table" );
+		    $product_types = $wpdb->get_results( "SELECT * FROM $product_type_table where type='product_type'");
 		    foreach ( $product_types as $product_type ) 
 		    {
 		    	$selected = get_term_meta($terms_array->term_id, 'product_type', true) == $product_type->id ? 'selected': "";
 
-		        $product_type_option .= "<option value='".$product_type->id."' ".$selected.">".$product_type->name."</option>";
+		        $product_type_option .= "<option value='".$product_type->id."' ".$selected.">".$product_type->value."</option>";
 		    }
 
 
@@ -66,7 +70,8 @@ class ProductList
         	$frequency = (get_term_meta($term_data->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
         	$active = (get_term_meta($term_data->term_id, 'active', true) == 1) ? 'Yes' : 'No';
         	#total is calculated and set
-			$total  = intval(get_term_meta($term_data->term_id, 'serving_size', true)) * 
+        	$size = explode('|', get_term_meta($term_data->term_id, 'serving_size', true));   
+			$total  = (intval($size[0]) + intval($size[1])) * 
 					intval(get_term_meta($term_data->term_id, 'serving_per_container', true));
 			$terms_array[] =array(
 				'id'        			=> $term_data->term_id,
@@ -86,15 +91,21 @@ class ProductList
 				'active_value'			=> get_term_meta($term_data->term_id, 'active', true),
 				'total'					=> $total,
 				'product_type'			=> $product_type_option,
-				'total_products'		=> count($term)
+				'total_products'		=> count($term),
+				'bmi'					=> get_term_meta($term_data->term_id, 'BMI', true)
 
 				);
 		}
+		if($terms_array){
+
+			return array('stauts' => 200 ,'response' => $terms_array);
+		}
+		else
+		{
+			new WP_Error( 'json_taxonomy_terms_not_found', __( 'Xooma Products not found.' ), array( 'status' => 500 ) );
 		
-		$response = is_array($term) ? $terms_array : 
-				new WP_Error( 'json_taxonomy_terms_not_found', __( 'Xooma Products not found.' ), array( 'status' => 500 ) );
+		}
 		
-		return $response;
 		
 
 	}
