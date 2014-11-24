@@ -287,12 +287,14 @@ jQuery(document).ready(function($) {
 
             tetbox_tet = '<td width="30%" class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>';
             tetbox = '<input type="text" number required id="serving_size_clone" name="serving_size_clone" value="" class="small-text" />'; 
-
+            console.log($("table .widefat tr #clone td").length);
+            if($("table .widefat #clone td").length == 0)
+            {
             $(".widefat").find('#clone').append($('<td>').append(tetbox_tet),
     		$('<td>').append(tetbox), $('<td>').append(dropdown_tet),$('<td>').append(dropdown)
 			);
 			$('#count').val(0);
-		  
+		  }
 		}
 
 	})

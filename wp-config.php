@@ -69,7 +69,7 @@ $table_prefix  = 'wp_';
  * in their development environments.
  */
 define('WP_DEBUG', false);
-
+define('ENV', 'production');
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
