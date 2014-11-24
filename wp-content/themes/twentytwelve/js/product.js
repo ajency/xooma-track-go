@@ -34,6 +34,7 @@ jQuery(document).ready(function($) {
 						$('html, body').animate({
 								scrollTop: 0
 								}, 'slow')
+						load_products();
 					}
 					else
 					{
@@ -595,7 +596,7 @@ jQuery(document).ready(function($) {
 
 				'<br/>'+
 				'<input class="button-primary" type="submit" name="save_edit" id="save_edit" value="Save" /> '+
-				'<input class="button-primary" type="button" name="cancel" id="cancel" value="Cancel" /> '+
+				// '<input class="button-primary" type="button" name="cancel" id="cancel" value="Cancel" /> '+
 				'</form>'+
 				'</html>';
 
@@ -627,7 +628,8 @@ jQuery(document).ready(function($) {
 					$('#response_msg').text('Product was updated successfully');
 					$('html, body').animate({
 								scrollTop: 0
-								}, 'slow')
+								}, 'slow');
+					load_products();
 
 				},
 				error:function(error){

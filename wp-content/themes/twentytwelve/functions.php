@@ -1262,8 +1262,8 @@ function set_product_settings(){
 
 <br/>
 <input class="button-primary" type="submit" name="save" id="save" value="Save" /> 
-<input class="button-primary" type="button" name="cancel" id="cancel" value="Cancel" /> 
-</form>
+<!-- <input class="button-primary" type="button" name="cancel" id="cancel" value="Cancel" /> 
+ --></form>
 </html>
 
 <?php
@@ -1353,7 +1353,7 @@ function settings(){
 		</td>
 		<td>
 			<input type="text" required  id="morning_from" name="morning_from" value="<?php echo $morning_from ;?>" class="small-text" />
-			&nbsp;<input type="text" required  id="morning_to" name="morning_to" value="<?php echo $morning_to ;?>" class="small-text" />
+			&nbsp;to&nbsp;<input type="text" required  id="morning_to" name="morning_to" value="<?php echo $morning_to ;?>" class="small-text" />
 			
 		</td>
 
@@ -1364,7 +1364,7 @@ function settings(){
 		</td>
 		<td>
 			<input type="text" required  id="evening_from" name="evening_from" value="<?php echo $evening_from ;?>" class="small-text" />
-			&nbsp;<input type="text" required  id="evening_to" name="evening_to" value="<?php echo $evening_to ;?>" class="small-text" />
+			&nbsp;to&nbsp;<input type="text" required  id="evening_to" name="evening_to" value="<?php echo $evening_to ;?>" class="small-text" />
 			
 		</td>
 
