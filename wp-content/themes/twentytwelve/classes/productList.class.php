@@ -77,7 +77,7 @@ class ProductList
 				'id'        			=> $term_data->term_id,
 				'name'					=> $term_data->name,
 				'description'			=> $term_data->description,
-				'product_type_name'			=> $product_type->name,
+				'product_type_name'		=> $product_type->name,
 				'frequency'				=> $frequency,
 				'frequency_value'		=> get_term_meta($term_data->term_id, 'frequency', true),
 				'serving_size'			=> get_term_meta($term_data->term_id, 'serving_size', true),

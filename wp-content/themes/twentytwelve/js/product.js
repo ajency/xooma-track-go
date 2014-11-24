@@ -262,7 +262,7 @@ jQuery(document).ready(function($) {
 			);
 		     $(".widefat #clone td").remove();
 		     $('#count').val($("table .add_rows tr").length);
-		     console.log($('#count').val());
+		     $('#clone_id').val(0)
 
 		}
 		else if(this.value == 'Once')
@@ -270,6 +270,7 @@ jQuery(document).ready(function($) {
 			$(".widefat #add_table_weight td").remove();
 		     $(".widefat #clone td").remove();
 		     $('#count').val(0);
+		     $('#clone_id').val(0)
 		}
 		else
 		{
@@ -287,8 +288,8 @@ jQuery(document).ready(function($) {
 
             tetbox_tet = '<td width="30%" class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>';
             tetbox = '<input type="text" number required id="serving_size_clone" name="serving_size_clone" value="" class="small-text" />'; 
-            console.log($("table .widefat tr #clone td").length);
-            if($("table .widefat #clone td").length == 0)
+            
+            if($('#clone_id').val() != 1)
             {
             $(".widefat").find('#clone').append($('<td>').append(tetbox_tet),
     		$('<td>').append(tetbox), $('<td>').append(dropdown_tet),$('<td>').append(dropdown)
@@ -584,7 +585,7 @@ jQuery(document).ready(function($) {
                 when_text+'</select></td>'+
         '</tr>'+
         '<tr id="clone" >'+when_clone_text+'</tr>'+
-				        '<tr>'+
+				        '<tr><input type="hidden" id="clone_id" name="clone_id" value="" />'+
 				            '<td class="row-title"><label for="serving_per_container">Serving per Container</label></td>'+
 				            '<td><input type="text" required number id="serving_per_container" name="serving_per_container" value="'+response[0].serving_per_container+'" class="small-text" /></td>'+
 				        '</tr>'+
@@ -604,6 +605,9 @@ jQuery(document).ready(function($) {
 
 		$('#form_data').html(html);
 		$('.custom_media_image').attr('src',response[0].image);
+		if(when_clone_text!= ""){
+			$('#clone_id').val(1);
+		}
 		// initialize validate plugin for product edit form
 		$("#edit_product_form").validate({
 			rules: {
