@@ -2,7 +2,9 @@
 
 class User
 {
-	public function email_exists(){
+	public function get_user_details($id){
+
+
 		
 	}
 }
