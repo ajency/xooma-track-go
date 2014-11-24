@@ -1112,11 +1112,12 @@ if (! is_development_environment() ) {
 
     function xooma_production_enqueue_script() {
 
-            wp_localize_script(  "$module-script", "SITEURL", site_url() );
-            wp_localize_script(  "$module-script", "AJAXURL", admin_url( "admin-ajax.php" ) );
-            wp_localize_script(  "$module-script", "ajaxurl", admin_url( "admin-ajax.php" ) );
-            wp_localize_script(  "$module-script", "UPLOADURL", admin_url( "async-upload.php" ) );
-            wp_localize_script(  "$module-script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
+    		wp_enqueue_media();
+            wp_localize_script( "product_script", "SITEURL", site_url() );
+            wp_localize_script(  "product_script", "AJAXURL", admin_url( "admin-ajax.php" ) );
+            wp_localize_script(  "product_script", "ajaxurl", admin_url( "admin-ajax.php" ) );
+            wp_localize_script(  "product_script", "UPLOADURL", admin_url( "async-upload.php" ) );
+            wp_localize_script(  "product_script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
                   
     }
 
@@ -1233,7 +1234,7 @@ function set_product_settings(){
         <tr id="add_table_weight">
             
         </tr>
-        <tr >
+        <tr ><input type="hidden" id="clone_id" name="clone_id" value="" />
         	<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="0"></td>
             <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" /></td>
      
