@@ -43,7 +43,16 @@ class User_API
     	//get details of the user id passed
     	global $user;
 
-    	$response = $user->get_user_details();
+    	$response = $user->get_user_details($id);
+
+    }
+
+    public function xooma_update_user_details($id)
+    {
+        //update details of the user id passed
+        global $user;
+
+        $response = $user->update_user_details($id);
 
     }
 }

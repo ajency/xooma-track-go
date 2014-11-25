@@ -94,6 +94,7 @@ require( get_template_directory() . '/inc/custom-function.php' );
 require_once (get_template_directory().'/classes/product.class.php');
 require_once (get_template_directory().'/classes/productList.class.php');
 require_once (get_template_directory().'/classes/setting.class.php');
+require_once (get_template_directory().'/classes/user.class.php');
 #load all the classes
 
 #load all the apis
@@ -1201,7 +1202,7 @@ function set_product_settings(){
             </select></td>
         </tr>
         <tr >
-            <td class="row-title"><label for="tablecell">Frequncy</label></td>
+            <td class="row-title"><label for="tablecell">Frequency</label></td>
             <td><label title='g:i a'>
             	<input type="radio" id="1" class="radio" name="example" checked value="" /> <span>Anytime</span></label>
 				<label title='g:i a'>

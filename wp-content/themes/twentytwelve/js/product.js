@@ -98,7 +98,8 @@ jQuery(document).ready(function($) {
 	$('.radio').live('click',function(event){
 
 		if(parseInt(this.id) == 1){
-			$('#serving_per_day_anytime').attr("required");
+			$('#serving_per_day_anytime').val("");
+			$('#serving_per_day_anytime').prop("required", true);
 			$('#serving_per_day_scheduled').removeAttr("required");
 			$('#when').removeAttr("required");
 			$('#serving_per_day_anytime').show();
@@ -108,9 +109,11 @@ jQuery(document).ready(function($) {
 			$(".widefat #clone td").remove();
 		}
 		else{
+			$('#serving_per_day_scheduled').val("");
+			$('#when').val("");
 			$('#serving_per_day_anytime').removeAttr("required");
-			$('#serving_per_day_scheduled').attr("required");
-			$('#when').attr("required");
+			$('#serving_per_day_scheduled').prop("required", true);
+			$('#when').prop("required", true);
 			$('#serving_per_day_anytime').hide();
 			$('#serving_per_day_scheduled').show();
 			$('#row_when').show();
@@ -556,7 +559,7 @@ jQuery(document).ready(function($) {
 				            '</select></td>'+
 				        '</tr>'+
 				        '<tr >'+
-				            '<td class="row-title"><label for="tablecell">Frequncy</label></td>'+
+				            '<td class="row-title"><label for="tablecell">Frequency</label></td>'+
 				            '<td><label title="g:i a">'+
 				            	'<input type="radio" id="1" class="radio" '+anytime_selected+' name="example" value="" /> <span>Anytime</span></label>'+
 								'<label title="g:i a">'+
@@ -623,7 +626,7 @@ jQuery(document).ready(function($) {
 			  },
 
 		submitHandler: function(form) {
-			
+			console.log($('#edit_product_form').serializeArray());
 			$.ajax({
 				type : 'PUT',
 				url : SITEURL+'/wp-json/products/'+$('#id').val(),
@@ -830,7 +833,7 @@ jQuery(document).ready(function($) {
 			return false;
 	})
 
-
+	
 	
 
 
