@@ -275,7 +275,8 @@ jQuery(document).ready(function($) {
 		     $('#count').val(0);
 		     $('#clone_id').val(0)
 		}
-		else
+		else if(this.value == 'Twice')
+		
 		{
 			$('#count').val(0);
 			$(".widefat #add_table_weight td").remove();
@@ -299,6 +300,13 @@ jQuery(document).ready(function($) {
 			);
 			$('#count').val(0);
 		  }
+		}
+		else
+		{
+			$(".widefat #add_table_weight td").remove();
+		     $(".widefat #clone td").remove();
+		     $('#count').val(0);
+		     $('#clone_id').val(0)
 		}
 
 	})
@@ -835,6 +843,5 @@ jQuery(document).ready(function($) {
 
 	
 	
-
 
 });

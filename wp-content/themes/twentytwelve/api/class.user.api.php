@@ -22,7 +22,7 @@ class User_API
 {
 
 	public function register_routes( $routes ) {
-        $routes['/users'] = array(
+        $routes['/users/(?P<id>\d+)'] = array(
             array( array( $this, 'xooma_get_user_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_details'), WP_JSON_Server::EDITABLE ),
             
@@ -45,6 +45,8 @@ class User_API
 
     	$response = $user->get_user_details($id);
 
+        return $response;
+
     }
 
     public function xooma_update_user_details($id)
@@ -53,6 +55,8 @@ class User_API
         global $user;
 
         $response = $user->update_user_details($id);
+
+        return $response;
 
     }
 }

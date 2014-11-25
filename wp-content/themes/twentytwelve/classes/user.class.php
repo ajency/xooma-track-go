@@ -5,9 +5,31 @@ class User
 	public function get_user_details($id){
 
 		//get user meta for the user
-
+		$data = array();
+		$user  = get_userdata( $id );
 		$user_details = get_user_meta($id,'user_details',true);
-		print_r($user_details);
+		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
+		if($user_details){
+			$user_details =   unserialize($user_details);
+			$data = array(
+				'id'				=> $user->ID,
+				'name'      		=> $user->user_login,
+				'email'				=> $user->user_email,
+				'xooma_member_id'	=> $xooma_member_id,
+				'phone_no'			=> $user_details['phone_no'],
+				'gender'			=> $user_details['gender'],
+				'birth_date'		=> $user_details['birth_date'],
+				'timezone'			=> $user_details['timezone'],
+				'weight'			=> $user_details['weight'],
+				'height'			=> $user_details['height'],
+				);
+			
+			return array('status' => 200 ,'response' => $data);
+		}
+		else
+		{
+			new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+		}
 
 
 		
@@ -33,7 +55,7 @@ class User
            
         }
         //getting all the post parameters
-		// $data = array();
+		$data = array();
 		// $new_array[0] = array(
   //               'key'   => 'email_id',
   //               'value' => 'surekha@ajency.in'
@@ -43,12 +65,16 @@ class User
   //               'value' => 12344
   //               );
 		// $new_array[2] = array(
-  //               'key'   => 'birthe_date',
+  //               'key'   => 'birth_date',
   //               'value' => '2014-11-09'
   //               );
 		// $new_array[3] = array(
   //               'key'   => 'name',
   //               'value' => 'suru'
+  //               );
+		// $new_array[4] = array(
+  //               'key'   => 'xooma_member_id',
+  //               'value' => 123456
   //               );
         # get all the data paseed from the browser
         $flag = 0;
@@ -72,11 +98,12 @@ class User
         }
 		//update user meta for the user
         $user_meta_value = serialize($data);
+        $xooma_member_id = update_user_meta($id,'xooma_member_id',$data['xooma_member_id']);
         $user_details = update_user_meta($id,'user_details',$user_meta_value);
 
-        if($user_details){
+        if($user_details && $xooma_member_id){
 
-        	return array('status' => 200 ,'response' => 'User details updated successfully');
+        	return array('status' => 200 ,'response' => $user_details);
         }
 		else
 		{
