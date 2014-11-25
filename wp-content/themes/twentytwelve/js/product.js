@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
 			$.ajax({
 				type : 'POST',
 				url : SITEURL+'/wp-json/products',
-				data : $('#add_product_form').serializeArray(),
+				data : $('#add_product_form').serialize(),
 				success:function(response){
 					$('#response_msg').text('Product was created successfully');
 					$('html, body').animate({
@@ -79,12 +79,18 @@ jQuery(document).ready(function($) {
 
     wp.media.editor.send.attachment = function(props, attachment) {
 
-    	console.log(attachment);
-
-        $('.custom_media_image').attr('src', attachment.url);
-        $('.custom_media_url').val(attachment.url);
-        $('.custom_media_id').val(attachment.id);
-
+    	console.log(attachment.sizes.thumbnail);
+    	if(attachment.sizes.thumbnail != undefined){
+	        $('.custom_media_image').attr('src', attachment.sizes.thumbnail.url);
+	        $('.custom_media_url').val(attachment.sizes.thumbnail.url);
+	        $('.custom_media_id').val(attachment.id);
+    	}
+    	else
+    	{
+    		$('.custom_media_image').attr('src', attachment.url);
+        	$('.custom_media_url').val(attachment.url);
+        	$('.custom_media_id').val(attachment.id);
+    	}
         wp.media.editor.send.attachment = send_attachment_bkp;
     }
 
@@ -282,7 +288,7 @@ jQuery(document).ready(function($) {
 			$(".widefat #add_table_weight td").remove();
 			dropdown_tet = '<label for="when_clone">When</label>';
 			dropdown = '<select  required id="when_clone" name="when_clone">'+
-                '<option value=""></option>'+
+                '<option value="">Please select</option>'+
                 '<option  value="1" >Morning before Meal</option>'+
                 '<option value="2" >Morning with Meal</option>'+
                 '<option value="3" >Evening before Meal</option>'+
@@ -364,16 +370,19 @@ jQuery(document).ready(function($) {
 
 
 
-		id=$('#'+this.id).attr('data-del');
-
-		if(id == 0)
+		id = $('#'+this.id).attr('data-del');
+		console.log(id);
+		if(parseInt(id) == 0){
 			$('#response_msg').text('Enter atleast one BMI Value ')
 			$('html, body').animate({
 									scrollTop: 0
 									}, 'slow')
 			return false;
-
+		}	
 		$('#row'+id).hide();
+		$('#weight_from'+id).removeAttr('required');
+		$('#weight_to'+id).removeAttr('required');
+		$('#quantity'+id).removeAttr('required');
 		$('#hide'+id).val('1');
 
 	})
@@ -475,6 +484,7 @@ jQuery(document).ready(function($) {
 		if(!(jQuery.isEmptyObject(bmi)))
 		{
 			bmi_display = "";
+			bmi_text = '<td><input type="button" name="add" id="add" value="Add Values for BMI" ></td><td><table class="add_rows">';
 			$.each(bmi,function(inde,value) {
 				console.log(value);
 				range = value.range;
@@ -484,13 +494,14 @@ jQuery(document).ready(function($) {
 				quantity = value.quantity;
 				console.log(quantity);
 				i = inde
-				bmi_text = '<td><input type="button" name="add" id="add" value="Add Values for BMI" ></td>'+
-		    	'<td><table class="add_rows"><tr><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
+				bmi_text += 
+		    	'<tr id="row'+i+'"><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
 				'<td><input type="textbox" class="check_number" required id="weight_to'+i+'" name="weight_to'+i+'" value="'+range_arr[1]+'"></td>'+
 				'<td><input type="textbox" class="check_number" required id="quantity'+i+'" name="quantity'+i+'" value="'+quantity+'"></td>'+
 				'<td><input type="button" class="del" data-del="'+i+'" name="del'+i+'" id="del'+i+'" value="Del" ></td>'+
-				'<input type="hidden" name="hide'+i+'" id="hide'+i+'" value="0"></td></tr></table></td>';
+				'<input type="hidden" name="hide'+i+'" id="hide'+i+'" value="0"></td></tr>';
 			});
+			bmi_text += '</table></td>';
 		
 
 		}
@@ -510,18 +521,21 @@ jQuery(document).ready(function($) {
 			required_anytime = "required";
 			display_anytime = "display:none";
 		}
+		when_clone_text = "";
+		when_selected_clone_text = '<option>Please select</option>';
+			
 		$.each(when_array, function(index,value){
 			
 			when_selected = parseInt(when[0]) == parseInt(index) + 1 ? 'selected' : "";
 			when_selected = parseInt(response[0].frequency_value) == 2 ? when_selected : "";
 			when_text += '<option value="'+(parseInt(index) + 1)+'" '+when_selected+'>'+value+'</option>';
-			when_clone_text = "";
 			if(when[1] !="")
 			{
 				when_selected_clone = parseInt(when[1]) == parseInt(index) + 1 ? 'selected' : "";
 				when_selected_clone = parseInt(response[0].frequency_value) == 2 ? when_selected_clone : "";
+				
 				when_selected_clone_text += '<option value="'+(parseInt(index) + 1)+'" '+when_selected_clone+'>'+value+'</option>';
-				when_clone_text += 
+				when_clone_text = 
         	'<td class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>'+
             '<td><input type="text" number style="'+display_schedule+'" '+required_schedule+' id="serving_size_clone" name="serving_size_clone" value="'+serving_size[1]+'" class="small-text" /></td>'+
      
@@ -577,11 +591,11 @@ jQuery(document).ready(function($) {
 				        '<tr >'+
 				            '<td class="row-title"><label for="serving_per_day">Serving per day</label></td>'+
 				            '<td><select required id="serving_per_day_anytime"  name="serving_per_day_anytime" style="'+display_anytime+'" '+required_anytime+'>'+
-				                '<option value=""></option>'+
+				                '<option value="">Please select</option>'+
 				                time_text+
 				            '</select>'+
 				            '<select required id="serving_per_day_scheduled" class="add_row_class" name="serving_per_day_scheduled" style="'+display_schedule+'" '+required_schedule+'>'+
-				                '<option value=""></option>'+schedule_text+
+				                '<option value="">Please select</option>'+schedule_text+
 				                '</select></td>'+
 				        '</tr>'+
 				        '<tr id="add_table_weight">'+
@@ -634,12 +648,12 @@ jQuery(document).ready(function($) {
 			  },
 
 		submitHandler: function(form) {
-			console.log($('#edit_product_form').serializeArray());
+			console.log($('#edit_product_form').serialize());
 			$.ajax({
 				type : 'PUT',
 				url : SITEURL+'/wp-json/products/'+$('#id').val(),
 				//url : AJAXURL+'?action=update_product',
-				data : $('#edit_product_form').serializeArray(),
+				data : $('#edit_product_form').serialize(),
 				success:function(response){
 					$('#response_msg').text('');
 					$('#response_msg').text('Product was updated successfully');

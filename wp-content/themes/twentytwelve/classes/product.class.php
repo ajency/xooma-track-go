@@ -10,9 +10,9 @@ class Product
 		$product_id = get_category_by_slug('product');
 		
 		#wordpress function to create a term/product
-		$term = wp_insert_term($args['name'],'category',array(
-        		'description' => $args['short_desc'],
-                'slug' => $args['name'],
+		$term = wp_insert_term(urldecode($args['name']),'category',array(
+        		'description' => urldecode($args['short_desc']),
+                'slug' =>urldecode($args['name']),
                 'parent'=> $product_id->term_id
             ));
 		
@@ -58,11 +58,11 @@ class Product
 		// get the product category id
 		$product_id = get_category_by_slug('product');
 
-
+		
 		#wordpress function to update a term/product
 		$term = wp_update_term($args['id'],'category',array(
-				'name' => $args['name'],
-        		'description' => $args['short_desc'],
+				'name' => urldecode($args['name']),
+        		'description' =>urldecode($args['short_desc']),
                 'parent'=> $product_id->term_id
             ));
 		#check if insert was successful

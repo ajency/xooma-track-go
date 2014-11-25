@@ -12,7 +12,7 @@ function im_json_api_default_filters_users( $server ) {
     $user_api = new User_API( $server);
 
     
-	add_filter( 'json_endpoints', array( $user_api, 'register_routes' ) );
+	add_filter( 'json_endpoints', array( $user_api, 'register_routes' ) ); 
 
 }
 add_action( 'wp_json_server_before_serve', 'im_json_api_default_filters_users', 12, 1 );

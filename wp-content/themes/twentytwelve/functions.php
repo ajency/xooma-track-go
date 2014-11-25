@@ -1212,7 +1212,7 @@ function set_product_settings(){
         <tr >
             <td class="row-title"><label for="serving_per_day">Serving per day</label></td>
             <td><select required id="serving_per_day_anytime"  name="serving_per_day_anytime">
-                <option value=""></option>
+                <option value="">Please select</option>
                 <option  value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
@@ -1226,7 +1226,7 @@ function set_product_settings(){
                 <option value="asperbmi">As per BMI</otpuion>
             </select>
             <select required id="serving_per_day_scheduled" class="add_row_class" name="serving_per_day_scheduled" style="display:none" >
-                <option value=""></option>
+                <option value="">Please select</option>
                 <option  value="Once">Once</option>
                 <option value="Twice">Twice</option>
                 <!--<option value="asperbmi">As per BMI</otpuion>-->
@@ -1241,7 +1241,7 @@ function set_product_settings(){
      
             <td  class="row-title"><label id="row_when" style="display:none" for="when">When</label></td>
             <td><select required id="when" name="when" style="display:none">
-                <option value=""></option>
+                <option value="">Please select</option>
                 <option  value="1" >Morning before Meal</option>
                 <option value="2" >Morning with Meal</option>
                 <option value="3" >Evening before Meal</option>
