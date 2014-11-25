@@ -94,6 +94,7 @@ require( get_template_directory() . '/inc/custom-function.php' );
 require_once (get_template_directory().'/classes/product.class.php');
 require_once (get_template_directory().'/classes/productList.class.php');
 require_once (get_template_directory().'/classes/setting.class.php');
+require_once (get_template_directory().'/classes/user.class.php');
 #load all the classes
 
 #load all the apis
@@ -1201,7 +1202,7 @@ function set_product_settings(){
             </select></td>
         </tr>
         <tr >
-            <td class="row-title"><label for="tablecell">Frequncy</label></td>
+            <td class="row-title"><label for="tablecell">Frequency</label></td>
             <td><label title='g:i a'>
             	<input type="radio" id="1" class="radio" name="example" checked value="" /> <span>Anytime</span></label>
 				<label title='g:i a'>
@@ -1211,7 +1212,7 @@ function set_product_settings(){
         <tr >
             <td class="row-title"><label for="serving_per_day">Serving per day</label></td>
             <td><select required id="serving_per_day_anytime"  name="serving_per_day_anytime">
-                <option value=""></option>
+                <option value="">Please select</option>
                 <option  value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
@@ -1225,7 +1226,7 @@ function set_product_settings(){
                 <option value="asperbmi">As per BMI</otpuion>
             </select>
             <select required id="serving_per_day_scheduled" class="add_row_class" name="serving_per_day_scheduled" style="display:none" >
-                <option value=""></option>
+                <option value="">Please select</option>
                 <option  value="Once">Once</option>
                 <option value="Twice">Twice</option>
                 <!--<option value="asperbmi">As per BMI</otpuion>-->
@@ -1240,7 +1241,7 @@ function set_product_settings(){
      
             <td  class="row-title"><label id="row_when" style="display:none" for="when">When</label></td>
             <td><select required id="when" name="when" style="display:none">
-                <option value=""></option>
+                <option value="">Please select</option>
                 <option  value="1" >Morning before Meal</option>
                 <option value="2" >Morning with Meal</option>
                 <option value="3" >Evening before Meal</option>

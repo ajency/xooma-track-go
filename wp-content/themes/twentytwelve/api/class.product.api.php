@@ -62,7 +62,7 @@ class Product_API
         //getting all the BMI values
         $bmi = array();
         $count = $_REQUEST['count'];
-        for ($i=0; $i < $count; $i++) { 
+        for ($i=0; $i <= $count; $i++) { 
             if($_REQUEST['hide'.$i] == 0) 
             {
                 $from           = $_REQUEST['weight_from'.$i];
@@ -134,7 +134,7 @@ class Product_API
         //getting all the BMI values
         $bmi = array();
         $count = $data['count'];
-        for ($i=0; $i < $count; $i++) { 
+        for ($i=0; $i <= $count; $i++) { 
             if($data['hide'.$i] == 0) 
             {
                 $from           = $data['weight_from'.$i];
