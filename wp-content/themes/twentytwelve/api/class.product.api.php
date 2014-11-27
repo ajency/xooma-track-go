@@ -63,7 +63,7 @@ class Product_API
         $bmi = array();
         $count = $_REQUEST['count'];
         for ($i=0; $i <= $count; $i++) { 
-            if($_REQUEST['hide'.$i] == 0) 
+            if($_REQUEST['hide'.$i] == 0 && isset($_REQUEST['hide'.$i]))
             {
                 $from           = $_REQUEST['weight_from'.$i];
                 $to             = $_REQUEST['weight_to'.$i];
@@ -79,6 +79,7 @@ class Product_API
 
             
         }
+        
         $data = array();
 		$data['name'] 						= $_REQUEST['name'];
 		$data['active'] 					= $_REQUEST['active'];
@@ -115,6 +116,7 @@ class Product_API
         $putdata = '';
         while($data = fread($putfp, 1024))
             $putdata .= $data;
+        
         $new_array = array();
         $putdata_array = explode('&', $putdata);
         foreach ($putdata_array as $key => $value) {
@@ -126,6 +128,7 @@ class Product_API
            
         }
         
+        $data = array();
         # get all the data paseed from the browser
         foreach ($new_array as $key => $value) {
             $data[$value['key']] = $value['value'];
@@ -134,8 +137,9 @@ class Product_API
         //getting all the BMI values
         $bmi = array();
         $count = $data['count'];
+
         for ($i=0; $i <= $count; $i++) { 
-            if($data['hide'.$i] == 0) 
+            if($data['hide'.$i] == 0 && isset($data['hide'.$i])) 
             {
                 $from           = $data['weight_from'.$i];
                 $to             = $data['weight_to'.$i];
@@ -152,8 +156,9 @@ class Product_API
 
             
         }
+        
 		$data['bmi'] = $bmi;
-
+        
         
     	$response = $product->update_product($data);
 

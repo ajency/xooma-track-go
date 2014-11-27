@@ -24,7 +24,7 @@ class ProductList
     	$product_type_option = "";
 		    
 		#get all the terms/products 
-		//TODO : use the existing table and existing meta xooma id
+		
 
     	// get the product category id
 		$product_id = get_category_by_slug('product');

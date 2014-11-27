@@ -25,6 +25,13 @@ class User_API
         $routes['/users/(?P<id>\d+)'] = array(
             array( array( $this, 'xooma_get_user_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_details'), WP_JSON_Server::EDITABLE ),
+
+            
+        );
+
+        $routes['/measurements/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_get_user_details'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_update_user_measurement_details'), WP_JSON_Server::EDITABLE ),
             
         );
         
@@ -55,6 +62,17 @@ class User_API
         global $user;
 
         $response = $user->update_user_details($id);
+
+        return $response;
+
+    }
+
+    public function xooma_update_user_measurement_details($id){
+
+        //update measurements details of the user id passed
+        global $user;
+
+        $response = $user->update_user_measurement_details($id);
 
         return $response;
 

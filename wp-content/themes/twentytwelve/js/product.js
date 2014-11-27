@@ -105,17 +105,32 @@ jQuery(document).ready(function($) {
 
 		if(parseInt(this.id) == 1){
 			$('#serving_per_day_anytime').val("");
+			$('#serving_per_day_scheduled').val("");
+			$('#serving_per_day_anytime').prop('selectedIndex', "");
+			$('#serving_per_day_scheduled').prop('selectedIndex', "");
 			$('#serving_per_day_anytime').prop("required", true);
 			$('#serving_per_day_scheduled').removeAttr("required");
 			$('#when').removeAttr("required");
 			$('#serving_per_day_anytime').show();
 			$('#serving_per_day_scheduled').hide();
+			$("label[for='when']").hide()
 			$('#row_when').hide();
 			$('#when').hide();
+			$('#when').val("");
+			$('#when').prop('selectedIndex', "");
 			$(".widefat #clone td").remove();
+			$( "#serving_size" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
+			$('#clone_id').val(0)
+
 		}
 		else{
+
+			$('#serving_per_day_anytime').val("");
 			$('#serving_per_day_scheduled').val("");
+			$('#serving_per_day_anytime').prop('selectedIndex', "");
+			$('#serving_per_day_scheduled').prop('selectedIndex', "");
+			$('#when').prop('selectedIndex', "");
 			$('#when').val("");
 			$('#serving_per_day_anytime').removeAttr("required");
 			$('#serving_per_day_scheduled').prop("required", true);
@@ -124,6 +139,10 @@ jQuery(document).ready(function($) {
 			$('#serving_per_day_scheduled').show();
 			$('#row_when').show();
 			$('#when').show();
+			$(".widefat #add_table_weight td").remove();
+		 	$('#count').val(0);
+		 	$( "#serving_size_clone" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
 		} 
 		$('#frequency').val(this.id);
 
@@ -244,37 +263,7 @@ jQuery(document).ready(function($) {
 	$('.add_row_class').live('change',function(event){
 		i = 0; 
 		
-		if(this.value == 'asperbmi')
-		{
-
-			row = '<input type="button" name="add" id="add" value="Add Values for BMI" >';
-		    row2 = '<table class="add_rows">'+ 
-		            	'<tr id="row'+i+'">'+
-		            		'<td>'+
-		            			'<input type="textbox" required class="check_number" id="weight_from'+i+'" name="weight_from'+i+'" value="">'+
-		            		'</td>'+
-		            		'<td>'+
-		            			'<input type="textbox" required class="check_number" id="weight_to'+i+'" name="weight_to'+i+'" value="">'+
-		            		'</td>'+
-		            		'<td>'+
-		            			'<input type="textbox" required class="check_number" id="quantity'+i+'" name="quantity'+i+'" value="">'+
-		            		'</td>'+
-		            		'<td>'+
-		            			'<input type="button" class="del" data-del="'+i+'"  name="del" id="del" value="del" >'+
-		            			'<input type="hidden" name="hide'+i+'" id="hide'+i+'" value="0">'+
-		            		'</td>'+
-		            	'</tr>'+
-		            '</table>';
-
-		     $(".widefat").find('#add_table_weight').append($('<td>').append(row),
-    		$('<td>').append(row2)
-			);
-		     $(".widefat #clone td").remove();
-		     $('#count').val($("table .add_rows tr").length);
-		     $('#clone_id').val(0)
-
-		}
-		else if(this.value == 'Once')
+		if(this.value == 'Once' || this.value == "")
 		{
 			$(".widefat #add_table_weight td").remove();
 		     $(".widefat #clone td").remove();
@@ -304,17 +293,10 @@ jQuery(document).ready(function($) {
             $(".widefat").find('#clone').append($('<td>').append(tetbox_tet),
     		$('<td>').append(tetbox), $('<td>').append(dropdown_tet),$('<td>').append(dropdown)
 			);
-			$('#count').val(0);
+			$('#count').val(1);
 		  }
 		}
-		else
-		{
-			$(".widefat #add_table_weight td").remove();
-		     $(".widefat #clone td").remove();
-		     $('#count').val(0);
-		     $('#clone_id').val(0)
-		}
-
+		
 	})
 	//to load shedule servings
 	// $('#serving_per_day_scheduled').live('change',function(event){
@@ -480,7 +462,7 @@ jQuery(document).ready(function($) {
 			schedule_text += '<option value="'+schedule_array[index]+'" '+schedule_selected+'>'+bmi_value+'</option>';
 		});
 		bmi = response[0].bmi;
-		console.log(bmi.length);
+		
 		if(!(jQuery.isEmptyObject(bmi)))
 		{
 			bmi_display = "";
@@ -522,8 +504,8 @@ jQuery(document).ready(function($) {
 			display_anytime = "display:none";
 		}
 		when_clone_text = "";
-		when_selected_clone_text = '<option>Please select</option>';
-			
+		when_selected_clone_text = '<option value="">Please select</option>';
+		when_text = '<option value="">Please select</option>';	
 		$.each(when_array, function(index,value){
 			
 			when_selected = parseInt(when[0]) == parseInt(index) + 1 ? 'selected' : "";
@@ -584,7 +566,7 @@ jQuery(document).ready(function($) {
 				            '<td class="row-title"><label for="tablecell">Frequency</label></td>'+
 				            '<td><label title="g:i a">'+
 				            	'<input type="radio" id="1" class="radio" '+anytime_selected+' name="example" value="" /> <span>Anytime</span></label>'+
-								'<label title="g:i a">'+
+								'&nbsp;&nbsp;&nbsp;<label title="g:i a">'+
 								'<input type="radio" id="2" class="radio" '+schedule_freq_selected+' name="example" value="" /> <span>Scheduled</span></label>'+
 								'<input type="hidden" id="frequency" name="frequency" value="'+response[0].frequency_value+'" /></td>'+
 				        '</tr>'+
@@ -660,10 +642,11 @@ jQuery(document).ready(function($) {
 					$('html, body').animate({
 								scrollTop: 0
 								}, 'slow');
-					load_products();
+					
 
 				},
 				error:function(error){
+
 					$('#response_msg').text('');
 					$('#response_msg').text('There was some problem updating the product');
 					$('html, body').animate({
@@ -855,7 +838,7 @@ jQuery(document).ready(function($) {
 			return false;
 	})
 
-	
+
 	
 
 });

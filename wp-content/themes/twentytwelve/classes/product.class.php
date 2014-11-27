@@ -65,6 +65,7 @@ class Product
         		'description' =>urldecode($args['short_desc']),
                 'parent'=> $product_id->term_id
             ));
+		
 		#check if insert was successful
 		if(!(is_wp_error($term)))
 		{
