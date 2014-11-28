@@ -45,13 +45,14 @@ class User
 	{
 		
 		//getting all the post parameters
-		$putfp = fopen("php://input", "r");
-
+		$putfp = fopen("php://input",  "rb");
+        print_r(fread($putfp, 1024));
         $putdata = '';
         while($data = fread($putfp, 1024))
             $putdata .= $data;
         $new_array = array();
         $putdata_array = explode('&', $putdata);
+        print_r($putdata);
         foreach ($putdata_array as $key => $value) {
             $value_arr  = explode('=', $value);
             $new_array[] = array(
@@ -62,36 +63,9 @@ class User
         }
         //getting all the post parameters
     		$data = array();
-    		$new_array[0] = array(
-                    'key'   => 'email_id',
-                    'value' => 'surekha@ajency.in'
-                    );
-    		$new_array[1] = array(
-                    'key'   => 'phone_no',
-                    'value' => 1111
-                    );
-    		$new_array[2] = array(
-                    'key'   => 'birth_date',
-                    'value' => '20-11-09'
-                    );
-    		$new_array[3] = array(
-                    'key'   => 'name',
-                    'value' => 'suru'
-                    );
-    		$new_array[4] = array(
-                    'key'   => 'xooma_member_id',
-                    'value' => 123456
-                    );
-        $new_array[5] = array(
-                    'key'   => 'gender',
-                    'value' => 'male'
-                    );
-        $new_array[6] = array(
-                    'key'   => 'time_zone',
-                    'value' => 'male'
-                    );
+    		
         # get all the data paseed from the browser
-        
+        print_r($new_array);
       
         foreach ($new_array as $key => $value) {
           //ignoring email id ans name

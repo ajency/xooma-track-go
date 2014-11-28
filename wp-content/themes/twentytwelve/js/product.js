@@ -152,9 +152,17 @@ jQuery(document).ready(function($) {
 	$('#serving_size').live('change',function(event){
 		
 		size = this.value == "" ? 0 : this.value;
+		console.log($('#serving_size_clone').val());
 		serving = $('#serving_per_container').val()== "" ? 0 : $('#serving_per_container').val();
-		serving_size_clone =($('#serving_size_clone').val() == undefined) 
-							? 0 : $('#serving_size_clone').val();
+		if($('#serving_size_clone').val() == "" || $('#serving_size_clone').val() == undefined)
+		{
+			serving_size_clone = 0;
+		}
+		else
+		{
+			serving_size_clone = $('#serving_size_clone').val();
+		}
+		
 		total =  (parseInt(size) + parseInt(serving_size_clone))* parseInt(serving) ;
 		$('#total').text(total);
 
@@ -165,7 +173,7 @@ jQuery(document).ready(function($) {
 	//to calculate the value based upon the size entered
 	$('#serving_size_clone').live('change',function(event){
 		
-		serving_size_clone = (this.value == undefined) ? 0 : this.value;
+		serving_size_clone = (this.value == "") ? 0 : this.value;
 		serving = $('#serving_per_container').val()== "" ? 0 : $('#serving_per_container').val();
 		size = $('#serving_size').val()== "" ? 0 : $('#serving_size').val();
 		total =  (parseInt(size) + parseInt(serving_size_clone))* parseInt(serving) ;
@@ -179,8 +187,16 @@ jQuery(document).ready(function($) {
 	$('#serving_per_container').live('change',function(event){
 
 		size = $('#serving_size').val() == "" ? 0 : $('#serving_size').val();
-		serving_size_clone = ($('#serving_size_clone').val() == undefined)
-							 ? 0 : $('#serving_size_clone').val();
+		console.log($('#serving_size_clone').val());
+		if($('#serving_size_clone').val() =="" || $('#serving_size_clone').val() == undefined)
+		{
+			serving_size_clone = 0;
+		}
+		else
+		{
+			serving_size_clone = $('#serving_size_clone').val();
+		}
+		
 		serving = this.value == "" ? 0 : this.value;
 		total =  (parseInt(size) + parseInt(serving_size_clone))* parseInt(serving) ;
 		$('#total').text(total);
@@ -269,14 +285,20 @@ jQuery(document).ready(function($) {
 		     $(".widefat #clone td").remove();
 		     $('#count').val(0);
 		     $('#clone_id').val(0)
+		     $( "#serving_size" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
 		}
 		else if(this.value == 'Twice')
 		
 		{
 			$('#count').val(0);
 			$(".widefat #add_table_weight td").remove();
-			dropdown_tet = '<label for="when_clone">When</label>';
-			dropdown = '<select  required id="when_clone" name="when_clone">'+
+			
+
+            tetbox_tet = '<label class="row-title" for="serving_size_clone">Quantity per servings</label>';
+            tetbox = '<input type="text" number required id="serving_size_clone" name="serving_size_clone" value="" class="small-text" />'; 
+            tetbox += '&nbsp;&nbsp;&nbsp;<label for="when_clone">When</label>';
+			tetbox += '&nbsp;&nbsp;<select  required id="when_clone" name="when_clone">'+
                 '<option value="">Please select</option>'+
                 '<option  value="1" >Morning before Meal</option>'+
                 '<option value="2" >Morning with Meal</option>'+
@@ -284,17 +306,15 @@ jQuery(document).ready(function($) {
                 '<option value="4" >Evening with Meal</option>'+
                 
             '</select>';
-
-            tetbox_tet = '<td width="30%" class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>';
-            tetbox = '<input type="text" number required id="serving_size_clone" name="serving_size_clone" value="" class="small-text" />'; 
-            
             if($('#clone_id').val() != 1)
             {
             $(".widefat").find('#clone').append($('<td>').append(tetbox_tet),
-    		$('<td>').append(tetbox), $('<td>').append(dropdown_tet),$('<td>').append(dropdown)
+    		$('<td>').append(tetbox)
 			);
 			$('#count').val(1);
 		  }
+		  $( "#serving_size_clone" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
 		}
 		
 	})
@@ -518,11 +538,11 @@ jQuery(document).ready(function($) {
 				
 				when_selected_clone_text += '<option value="'+(parseInt(index) + 1)+'" '+when_selected_clone+'>'+value+'</option>';
 				when_clone_text = 
-        	'<td class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>'+
-            '<td><input type="text" number style="'+display_schedule+'" '+required_schedule+' id="serving_size_clone" name="serving_size_clone" value="'+serving_size[1]+'" class="small-text" /></td>'+
+        	'<td class="row-title"><label class="row-title" for="serving_size_clone">Quantity per servings</label></td>'+
+            '<td><input type="text" number style="'+display_schedule+'" '+required_schedule+' id="serving_size_clone" name="serving_size_clone" value="'+serving_size[1]+'" class="small-text" />'+
      
-            '<td  class="row-title"><label id="row_when"  for="when">When</label></td>'+
-            '<td><select style="'+display_schedule+'" '+required_schedule+' id="when_clone" name="when_clone">'+
+            '&nbsp;&nbsp;&nbsp;<label class="row-title" id="row_when"  for="when">When</label>'+
+            '&nbsp;&nbsp<select style="'+display_schedule+'" '+required_schedule+' id="when_clone" name="when_clone">'+
                 when_selected_clone_text+
                 
             '</select></td>';
@@ -585,10 +605,10 @@ jQuery(document).ready(function($) {
         				'</tr>'+
 				        '<tr  >'+
         	'<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="'+bmi.length+'"></td>'+
-            '<td><input type="text" required id="serving_size" number name="serving_size" value="'+serving_size[0]+'" class="small-text" /></td>'+
+            '<td><input type="text" required id="serving_size" number name="serving_size" value="'+serving_size[0]+'" class="small-text" />'+
      
-            '<td  class="row-title"><label id="row_when" style="'+display_schedule+'" for="when">When</label></td>'+
-            '<td><select '+required_schedule+' id="when" name="when" style="'+display_schedule+'" >'+
+            '&nbsp;&nbsp;&nbsp;<label  class="row-title" id="row_when" style="'+display_schedule+'" for="when">When</label>'+
+            '&nbsp;&nbsp;<select '+required_schedule+' id="when" name="when" style="'+display_schedule+'" >'+
                 when_text+'</select></td>'+
         '</tr>'+
         '<tr id="clone" >'+when_clone_text+'</tr>'+

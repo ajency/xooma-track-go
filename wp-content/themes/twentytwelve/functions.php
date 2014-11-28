@@ -104,6 +104,7 @@ require_once (get_template_directory().'/functions/functions.php');
 
 #load all the apis
 require_once (get_template_directory().'/api/class.product.api.php');
+require_once (get_template_directory().'/api/class.user.api.php');
 #load all the apis
 
 
@@ -1243,10 +1244,10 @@ function set_product_settings(){
         <tr ><input type="hidden" id="clone_id" name="clone_id" value="" />
 
         	<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="0"></td>
-            <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" /></td>
+            <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" />
      
-            <td  class="row-title"><label id="row_when" style="display:none" for="when">When</label></td>
-            <td><select required id="when" name="when" style="display:none">
+            &nbsp;&nbsp;&nbsp;<label id="row_when" style="display:none" for="when">When</label>
+            <select required id="when" name="when" style="display:none">
                 <option value="">Please select</option>
                 <option  value="1" >Morning before Meal</option>
                 <option value="2" >Morning with Meal</option>

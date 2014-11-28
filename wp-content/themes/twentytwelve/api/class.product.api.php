@@ -44,6 +44,13 @@ class Product_API
             
         );
 
+        $routes['/profiles/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_get_user_details'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_update_user_details'), WP_JSON_Server::EDITABLE ),
+
+            
+        );
+
 
 
         
