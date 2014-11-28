@@ -91,14 +91,20 @@ require( get_template_directory() . '/inc/custom-header.php' );
 require( get_template_directory() . '/inc/custom-function.php' );
 
 #load all the classes
+require_once (get_template_directory().'/vendor/autoload.php');
+
+require_once (get_template_directory().'/vendor/vlucas/valitron/src/Valitron/Validator.php');
 require_once (get_template_directory().'/classes/product.class.php');
 require_once (get_template_directory().'/classes/productList.class.php');
 require_once (get_template_directory().'/classes/setting.class.php');
 require_once (get_template_directory().'/classes/user.class.php');
+require_once (get_template_directory().'/functions/functions.php');
 #load all the classes
+
 
 #load all the apis
 require_once (get_template_directory().'/api/class.product.api.php');
+require_once (get_template_directory().'/api/class.user.api.php');
 #load all the apis
 
 
@@ -1205,7 +1211,7 @@ function set_product_settings(){
             <td class="row-title"><label for="tablecell">Frequency</label></td>
             <td><label title='g:i a'>
             	<input type="radio" id="1" class="radio" name="example" checked value="" /> <span>Anytime</span></label>
-				<label title='g:i a'>
+				&nbsp;&nbsp;&nbsp;<label title='g:i a'>
 				<input type="radio" id="2" class="radio" name="example" value="" /> <span>Scheduled</span></label>
 				<input type="hidden" id="frequency" name="frequency" value="1" /></td>
         </tr>
@@ -1236,11 +1242,12 @@ function set_product_settings(){
             
         </tr>
         <tr ><input type="hidden" id="clone_id" name="clone_id" value="" />
+
         	<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="0"></td>
-            <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" /></td>
+            <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" />
      
-            <td  class="row-title"><label id="row_when" style="display:none" for="when">When</label></td>
-            <td><select required id="when" name="when" style="display:none">
+            &nbsp;&nbsp;&nbsp;<label id="row_when" style="display:none" for="when">When</label>
+            <select required id="when" name="when" style="display:none">
                 <option value="">Please select</option>
                 <option  value="1" >Morning before Meal</option>
                 <option value="2" >Morning with Meal</option>

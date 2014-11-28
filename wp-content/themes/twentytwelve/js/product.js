@@ -105,17 +105,32 @@ jQuery(document).ready(function($) {
 
 		if(parseInt(this.id) == 1){
 			$('#serving_per_day_anytime').val("");
+			$('#serving_per_day_scheduled').val("");
+			$('#serving_per_day_anytime').prop('selectedIndex', "");
+			$('#serving_per_day_scheduled').prop('selectedIndex', "");
 			$('#serving_per_day_anytime').prop("required", true);
 			$('#serving_per_day_scheduled').removeAttr("required");
 			$('#when').removeAttr("required");
 			$('#serving_per_day_anytime').show();
 			$('#serving_per_day_scheduled').hide();
+			$("label[for='when']").hide()
 			$('#row_when').hide();
 			$('#when').hide();
+			$('#when').val("");
+			$('#when').prop('selectedIndex', "");
 			$(".widefat #clone td").remove();
+			$( "#serving_size" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
+			$('#clone_id').val(0)
+
 		}
 		else{
+
+			$('#serving_per_day_anytime').val("");
 			$('#serving_per_day_scheduled').val("");
+			$('#serving_per_day_anytime').prop('selectedIndex', "");
+			$('#serving_per_day_scheduled').prop('selectedIndex', "");
+			$('#when').prop('selectedIndex', "");
 			$('#when').val("");
 			$('#serving_per_day_anytime').removeAttr("required");
 			$('#serving_per_day_scheduled').prop("required", true);
@@ -124,6 +139,10 @@ jQuery(document).ready(function($) {
 			$('#serving_per_day_scheduled').show();
 			$('#row_when').show();
 			$('#when').show();
+			$(".widefat #add_table_weight td").remove();
+		 	$('#count').val(0);
+		 	$( "#serving_size_clone" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
 		} 
 		$('#frequency').val(this.id);
 
@@ -133,9 +152,17 @@ jQuery(document).ready(function($) {
 	$('#serving_size').live('change',function(event){
 		
 		size = this.value == "" ? 0 : this.value;
+		console.log($('#serving_size_clone').val());
 		serving = $('#serving_per_container').val()== "" ? 0 : $('#serving_per_container').val();
-		serving_size_clone =($('#serving_size_clone').val() == undefined) 
-							? 0 : $('#serving_size_clone').val();
+		if($('#serving_size_clone').val() == "" || $('#serving_size_clone').val() == undefined)
+		{
+			serving_size_clone = 0;
+		}
+		else
+		{
+			serving_size_clone = $('#serving_size_clone').val();
+		}
+		
 		total =  (parseInt(size) + parseInt(serving_size_clone))* parseInt(serving) ;
 		$('#total').text(total);
 
@@ -146,7 +173,7 @@ jQuery(document).ready(function($) {
 	//to calculate the value based upon the size entered
 	$('#serving_size_clone').live('change',function(event){
 		
-		serving_size_clone = (this.value == undefined) ? 0 : this.value;
+		serving_size_clone = (this.value == "") ? 0 : this.value;
 		serving = $('#serving_per_container').val()== "" ? 0 : $('#serving_per_container').val();
 		size = $('#serving_size').val()== "" ? 0 : $('#serving_size').val();
 		total =  (parseInt(size) + parseInt(serving_size_clone))* parseInt(serving) ;
@@ -160,8 +187,16 @@ jQuery(document).ready(function($) {
 	$('#serving_per_container').live('change',function(event){
 
 		size = $('#serving_size').val() == "" ? 0 : $('#serving_size').val();
-		serving_size_clone = ($('#serving_size_clone').val() == undefined)
-							 ? 0 : $('#serving_size_clone').val();
+		console.log($('#serving_size_clone').val());
+		if($('#serving_size_clone').val() =="" || $('#serving_size_clone').val() == undefined)
+		{
+			serving_size_clone = 0;
+		}
+		else
+		{
+			serving_size_clone = $('#serving_size_clone').val();
+		}
+		
 		serving = this.value == "" ? 0 : this.value;
 		total =  (parseInt(size) + parseInt(serving_size_clone))* parseInt(serving) ;
 		$('#total').text(total);
@@ -244,50 +279,26 @@ jQuery(document).ready(function($) {
 	$('.add_row_class').live('change',function(event){
 		i = 0; 
 		
-		if(this.value == 'asperbmi')
-		{
-
-			row = '<input type="button" name="add" id="add" value="Add Values for BMI" >';
-		    row2 = '<table class="add_rows">'+ 
-		            	'<tr id="row'+i+'">'+
-		            		'<td>'+
-		            			'<input type="textbox" required class="check_number" id="weight_from'+i+'" name="weight_from'+i+'" value="">'+
-		            		'</td>'+
-		            		'<td>'+
-		            			'<input type="textbox" required class="check_number" id="weight_to'+i+'" name="weight_to'+i+'" value="">'+
-		            		'</td>'+
-		            		'<td>'+
-		            			'<input type="textbox" required class="check_number" id="quantity'+i+'" name="quantity'+i+'" value="">'+
-		            		'</td>'+
-		            		'<td>'+
-		            			'<input type="button" class="del" data-del="'+i+'"  name="del" id="del" value="del" >'+
-		            			'<input type="hidden" name="hide'+i+'" id="hide'+i+'" value="0">'+
-		            		'</td>'+
-		            	'</tr>'+
-		            '</table>';
-
-		     $(".widefat").find('#add_table_weight').append($('<td>').append(row),
-    		$('<td>').append(row2)
-			);
-		     $(".widefat #clone td").remove();
-		     $('#count').val($("table .add_rows tr").length);
-		     $('#clone_id').val(0)
-
-		}
-		else if(this.value == 'Once')
+		if(this.value == 'Once' || this.value == "")
 		{
 			$(".widefat #add_table_weight td").remove();
 		     $(".widefat #clone td").remove();
 		     $('#count').val(0);
 		     $('#clone_id').val(0)
+		     $( "#serving_size" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
 		}
 		else if(this.value == 'Twice')
 		
 		{
 			$('#count').val(0);
 			$(".widefat #add_table_weight td").remove();
-			dropdown_tet = '<label for="when_clone">When</label>';
-			dropdown = '<select  required id="when_clone" name="when_clone">'+
+			
+
+            tetbox_tet = '<label class="row-title" for="serving_size_clone">Quantity per servings</label>';
+            tetbox = '<input type="text" number required id="serving_size_clone" name="serving_size_clone" value="" class="small-text" />'; 
+            tetbox += '&nbsp;&nbsp;&nbsp;<label for="when_clone">When</label>';
+			tetbox += '&nbsp;&nbsp;<select  required id="when_clone" name="when_clone">'+
                 '<option value="">Please select</option>'+
                 '<option  value="1" >Morning before Meal</option>'+
                 '<option value="2" >Morning with Meal</option>'+
@@ -295,26 +306,17 @@ jQuery(document).ready(function($) {
                 '<option value="4" >Evening with Meal</option>'+
                 
             '</select>';
-
-            tetbox_tet = '<td width="30%" class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>';
-            tetbox = '<input type="text" number required id="serving_size_clone" name="serving_size_clone" value="" class="small-text" />'; 
-            
             if($('#clone_id').val() != 1)
             {
             $(".widefat").find('#clone').append($('<td>').append(tetbox_tet),
-    		$('<td>').append(tetbox), $('<td>').append(dropdown_tet),$('<td>').append(dropdown)
+    		$('<td>').append(tetbox)
 			);
-			$('#count').val(0);
+			$('#count').val(1);
 		  }
+		  $( "#serving_size_clone" ).trigger( "change" );
+			$( "#serving_per_container" ).trigger( "change" );
 		}
-		else
-		{
-			$(".widefat #add_table_weight td").remove();
-		     $(".widefat #clone td").remove();
-		     $('#count').val(0);
-		     $('#clone_id').val(0)
-		}
-
+		
 	})
 	//to load shedule servings
 	// $('#serving_per_day_scheduled').live('change',function(event){
@@ -480,7 +482,7 @@ jQuery(document).ready(function($) {
 			schedule_text += '<option value="'+schedule_array[index]+'" '+schedule_selected+'>'+bmi_value+'</option>';
 		});
 		bmi = response[0].bmi;
-		console.log(bmi.length);
+		
 		if(!(jQuery.isEmptyObject(bmi)))
 		{
 			bmi_display = "";
@@ -522,8 +524,8 @@ jQuery(document).ready(function($) {
 			display_anytime = "display:none";
 		}
 		when_clone_text = "";
-		when_selected_clone_text = '<option>Please select</option>';
-			
+		when_selected_clone_text = '<option value="">Please select</option>';
+		when_text = '<option value="">Please select</option>';	
 		$.each(when_array, function(index,value){
 			
 			when_selected = parseInt(when[0]) == parseInt(index) + 1 ? 'selected' : "";
@@ -536,11 +538,11 @@ jQuery(document).ready(function($) {
 				
 				when_selected_clone_text += '<option value="'+(parseInt(index) + 1)+'" '+when_selected_clone+'>'+value+'</option>';
 				when_clone_text = 
-        	'<td class="row-title"><label for="serving_size_clone">Quantity per servings</label></td>'+
-            '<td><input type="text" number style="'+display_schedule+'" '+required_schedule+' id="serving_size_clone" name="serving_size_clone" value="'+serving_size[1]+'" class="small-text" /></td>'+
+        	'<td class="row-title"><label class="row-title" for="serving_size_clone">Quantity per servings</label></td>'+
+            '<td><input type="text" number style="'+display_schedule+'" '+required_schedule+' id="serving_size_clone" name="serving_size_clone" value="'+serving_size[1]+'" class="small-text" />'+
      
-            '<td  class="row-title"><label id="row_when"  for="when">When</label></td>'+
-            '<td><select style="'+display_schedule+'" '+required_schedule+' id="when_clone" name="when_clone">'+
+            '&nbsp;&nbsp;&nbsp;<label class="row-title" id="row_when"  for="when">When</label>'+
+            '&nbsp;&nbsp<select style="'+display_schedule+'" '+required_schedule+' id="when_clone" name="when_clone">'+
                 when_selected_clone_text+
                 
             '</select></td>';
@@ -584,7 +586,7 @@ jQuery(document).ready(function($) {
 				            '<td class="row-title"><label for="tablecell">Frequency</label></td>'+
 				            '<td><label title="g:i a">'+
 				            	'<input type="radio" id="1" class="radio" '+anytime_selected+' name="example" value="" /> <span>Anytime</span></label>'+
-								'<label title="g:i a">'+
+								'&nbsp;&nbsp;&nbsp;<label title="g:i a">'+
 								'<input type="radio" id="2" class="radio" '+schedule_freq_selected+' name="example" value="" /> <span>Scheduled</span></label>'+
 								'<input type="hidden" id="frequency" name="frequency" value="'+response[0].frequency_value+'" /></td>'+
 				        '</tr>'+
@@ -603,10 +605,10 @@ jQuery(document).ready(function($) {
         				'</tr>'+
 				        '<tr  >'+
         	'<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="'+bmi.length+'"></td>'+
-            '<td><input type="text" required id="serving_size" number name="serving_size" value="'+serving_size[0]+'" class="small-text" /></td>'+
+            '<td><input type="text" required id="serving_size" number name="serving_size" value="'+serving_size[0]+'" class="small-text" />'+
      
-            '<td  class="row-title"><label id="row_when" style="'+display_schedule+'" for="when">When</label></td>'+
-            '<td><select '+required_schedule+' id="when" name="when" style="'+display_schedule+'" >'+
+            '&nbsp;&nbsp;&nbsp;<label  class="row-title" id="row_when" style="'+display_schedule+'" for="when">When</label>'+
+            '&nbsp;&nbsp;<select '+required_schedule+' id="when" name="when" style="'+display_schedule+'" >'+
                 when_text+'</select></td>'+
         '</tr>'+
         '<tr id="clone" >'+when_clone_text+'</tr>'+
@@ -660,10 +662,11 @@ jQuery(document).ready(function($) {
 					$('html, body').animate({
 								scrollTop: 0
 								}, 'slow');
-					load_products();
+					
 
 				},
 				error:function(error){
+
 					$('#response_msg').text('');
 					$('#response_msg').text('There was some problem updating the product');
 					$('html, body').animate({
@@ -855,7 +858,7 @@ jQuery(document).ready(function($) {
 			return false;
 	})
 
-	
+
 	
 
 });

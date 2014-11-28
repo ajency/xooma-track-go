@@ -18,7 +18,48 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-
+<!--Css-->
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.common.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.rtl.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.default.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.dataviz.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.dataviz.default.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.mobile.all.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.metroblack.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
+    <style scoped>
+  #buttongroup-home .head {
+    display: block;
+      margin: 1em;
+    height: 110px;
+    background: url(../content/mobile/shared/sales.jpg) no-repeat center center;
+      -webkit-background-size: 100% auto;
+      background-size: 100% auto;
+  }
+  .km-ios .head,
+  .km-blackberry .head {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+  }
+  #select-period {
+      margin: auto;
+  }
+  #buttongroup-home .km-list span {
+    float: right;
+  }
+  #buttongroup-home .sales-up {
+    color: green;
+  }
+  #buttongroup-home .sales-down {
+    color: red;
+  }
+  #buttongroup-home .sales-hold {
+    color: blue;
+  }
+  </style>
+<!--css-->  
 <?php wp_head(); ?>
 </head>
 
@@ -26,64 +67,55 @@
 
 
 <body>
+<!-- #header-region -->
+<div id="header-region">
 
 
-<script type="text/javascript">
- window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '376973229145085',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.1' // use version 2.1
-  });
+</div>
 
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
+<!-- main-region -->
+<div data-role="view" id="main-region" data-title="" data-show="mobileSalesViewInit" data-title="Sales Report">
 
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
 
-  };
 
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+
+</div>
+
+<!-- footer-region -->
+<div id="footer-region"></div>
+
 
  
-
-
-
-</script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery.validation/dist/jquery.validate.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/underscore/underscore.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.marionette/lib/core/backbone.marionette.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.wreqr/lib/backbone.wreqr.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script type="text/javascript">
-$('#fb-button').click(function(event){
+<!--Script-->  
+    <script src="<?php echo get_template_directory_uri(); ?>/js/angular.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/kendo.all.min.js"></script>
+<!--Script-->
 
-	window.currentUser.authenticate('facebook');
-})
+  
+
+
+ 
+<script>
+window.Xoomapp = {};
 </script>
+<!--load all the apps-->
+<script src="<?php echo get_template_directory_uri(); ?>/common/profile/ProfilePersonalInfoController.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/common/profile/ProfilePersonalInfoView.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>
+  
+   <script>
+      var app = new kendo.mobile.Application(document.body);
 
-<input type="button" id="fb-button" value="Fb" >
+  </script>
+
 <?php wp_footer(); ?>	
 </body>	
 </html>
