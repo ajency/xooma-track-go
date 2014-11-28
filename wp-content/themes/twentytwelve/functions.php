@@ -42,7 +42,7 @@ if ( ! isset( $content_width ) )
  * @since Twenty Twelve 1.0
  */
 
-
+require_once 'xooma-functions.php';
 
 function twentytwelve_setup() {
 	/*
@@ -73,6 +73,8 @@ function twentytwelve_setup() {
 	add_theme_support( 'custom-background', array(
 		'default-color' => 'e6e6e6',
 	) );
+
+	show_admin_bar(false );
 
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support( 'post-thumbnails' );
@@ -1072,7 +1074,7 @@ function load_scripts(){
         
 
 }
-add_action('init' , load_scripts);
+add_action('admin_enqueue_scripts' , load_scripts);
 
 #load all the custom scripts
 
