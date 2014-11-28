@@ -1,6 +1,6 @@
 <?php
 /*
-		Template Name: Xooma Template
+    Template Name: Xooma Template
 */
 ?>
 <!DOCTYPE html>
@@ -18,17 +18,8 @@
     <title><?php wp_title( '|', true, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-    <!--Css-->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.common.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.rtl.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.default.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.dataviz.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.dataviz.default.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.mobile.all.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.metroblack.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
+
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/style.css">
     <style scoped>
         #buttongroup-home .head {
           display: block;
@@ -59,14 +50,10 @@
           color: blue;
         }
     </style>
-    <?php wp_head(); ?>
 </head>
 <body>
 
 <div ui-region></div>
-<!-- <div id="header-region"></div>
-<div data-role="view" id="main-region" data-title="" data-show="mobileSalesViewInit" data-title="Sales Report"></div>
-<div id="footer-region"></div> -->
 
 <!-- Templates -->
 <script id="login-template" type="h-template">
@@ -76,23 +63,21 @@
 
 </script>
 
-
- 
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/underscore/underscore.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/marionette.state/dist/marionette.state.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/kendo.all.min.js"></script>
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <script>
-window.Xoomapp = {};
+window.XoomApp = {};
+Marionette.RegionControllers.prototype.controllers = XoomApp
 </script>
 <!--load all the apps-->
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/profile/ProfilePersonalInfoView.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/profile/ProfilePersonalInfoController.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>
-<?php wp_footer(); ?>	
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoController.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 </body>	
 </html>

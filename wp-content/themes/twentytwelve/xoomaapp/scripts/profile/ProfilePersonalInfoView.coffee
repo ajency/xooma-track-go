@@ -1,6 +1,6 @@
 
 
-class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
+class XoomApp.ProfilePersonalInfoView extends Marionette.ItemView
 
 	template : '<div data-role="listview" data-style="inset" class="km-steps">
 			           <form id="add_user_details" ><div class="container">

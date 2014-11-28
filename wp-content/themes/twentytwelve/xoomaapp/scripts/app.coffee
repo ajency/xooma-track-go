@@ -1,27 +1,27 @@
 #start of the application
-Marionette.RegionControllers::controllers = Xoomapp
-Xoomapp.LoginCtrl = Ajency.LoginCtrl
+XoomApp.LoginCtrl = Ajency.LoginCtrl
 
 class ProfileView extends Marionette.LayoutView
 	template : '<a class="btn btn-primary" href="#/profile/personal-info">Personal Info</a>
 				<a class="btn btn-primary" href="#/profile/measurements">Measurements</a>
 				<div ui-region></div>'
 
-class Xoomapp.ProfileCtrl extends Marionette.RegionController
+class XoomApp.ProfileCtrl extends Marionette.RegionController
 	initialize : ->
 		@show new ProfileView
+		
 
 class PersonalInfoView extends Marionette.LayoutView
 	template : 'My Personal info view'
 
-class Xoomapp.PersonalInfoCtrl extends Marionette.RegionController
+class XoomApp.PersonalInfoCtrl extends Marionette.RegionController
 	initialize : ->
 		@show new PersonalInfoView
 
 class MeasurementsView extends Marionette.LayoutView
 	template : 'My Measurements'
 
-class Xoomapp.MeasurementsCtrl extends Marionette.RegionController
+class XoomApp.MeasurementsCtrl extends Marionette.RegionController
 	initialize : ->
 		@show new MeasurementsView
 

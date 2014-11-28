@@ -3,9 +3,7 @@ var AppStates, MeasurementsView, PersonalInfoView, ProfileView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Marionette.RegionControllers.prototype.controllers = Xoomapp;
-
-Xoomapp.LoginCtrl = Ajency.LoginCtrl;
+XoomApp.LoginCtrl = Ajency.LoginCtrl;
 
 ProfileView = (function(_super) {
   __extends(ProfileView, _super);
@@ -20,7 +18,7 @@ ProfileView = (function(_super) {
 
 })(Marionette.LayoutView);
 
-Xoomapp.ProfileCtrl = (function(_super) {
+XoomApp.ProfileCtrl = (function(_super) {
   __extends(ProfileCtrl, _super);
 
   function ProfileCtrl() {
@@ -48,7 +46,7 @@ PersonalInfoView = (function(_super) {
 
 })(Marionette.LayoutView);
 
-Xoomapp.PersonalInfoCtrl = (function(_super) {
+XoomApp.PersonalInfoCtrl = (function(_super) {
   __extends(PersonalInfoCtrl, _super);
 
   function PersonalInfoCtrl() {
@@ -76,7 +74,7 @@ MeasurementsView = (function(_super) {
 
 })(Marionette.LayoutView);
 
-Xoomapp.MeasurementsCtrl = (function(_super) {
+XoomApp.MeasurementsCtrl = (function(_super) {
   __extends(MeasurementsCtrl, _super);
 
   function MeasurementsCtrl() {
