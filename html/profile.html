@@ -97,7 +97,16 @@
               </li>
                <li>
                   <label>Gender
-                      <input type="text" value="" placeholder="text"/>
+                        <div class="rd-gender">
+                      <label class="wrap">
+                        <input type="radio" name="city" class="radio" checked="checked"/>
+                        <span class="rd-visual male" title="Male"></span>
+                      </label>
+                      <label class="wrap">
+                        <input type="radio" name="city" class="radio"/>
+                        <span class="rd-visual female" title="Female"></span>
+                      </label>
+                    </div>
                   </label>
               </li>
               <li>
@@ -117,9 +126,9 @@
    <div class="col-sm-3">   </div>  
   </div>
   <br>
-      <!-- Login Button -->
+      <!-- NEXT Button -->
            <button id="next-btn" class="k-primary k-button">Next</button>
-    <!-- Login Button -->
+    <!-- NEXT Button -->
   <br>
       </div>
 </div>
@@ -205,11 +214,16 @@
                                                 </label>
                                             </li>
                                </ul>
+
                            </div>  
                            <div class="col-sm-2"> </div>
                          </div>
                      </div>          
-
+ <br>
+      <!-- NEXT Button -->
+           <button id="next-btn" class="k-primary k-button">Next</button>
+    <!-- NEXT Button -->
+  <br>
 
 
       </div>
@@ -222,7 +236,7 @@
               <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">
-                     <button id="login-btn" class="k-primary k-button"><i class="fa fa-plus-circle"></i> Add Products</button>
+                   
                             <ul data-role="listview" data-style="inset" >
                                    <li>Berry <a data-role="detailbutton" data-style="contactadd"></a></li>
                                    <li>Focus Up<a data-role="detailbutton" data-style="contactadd"></a></li>
@@ -232,7 +246,11 @@
                      </div>
                   <div class="col-md-3"></div>
               </div>
-
+               <br>
+                  <!-- NEXT Button -->
+                       <button id="next-btn" class="k-primary k-button">Next</button>
+                <!-- NEXT Button -->
+              <br>
         </div>  
 
       </div>
@@ -247,14 +265,41 @@
               <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">
-                     
+                       <button id="login-btn" class="k-primary k-button"><i class="fa fa-plus-circle"></i> Add Products</button>
                       <br>
-                            <ul data-role="listview" data-style="inset" >
+                            <ul data-role="listview" data-style="inset"  class="myproduct">
                                    <li>
-                                    <h4>X2O</h4>
-                                    <h5>Anytime</h5>
+                                      <a>
+                                          <h4>X2O</h4>
+                                          <h5>Anytime</h5>
+                                          <img src="img/bottle.png" height="80px"/>
+                                          <img src="img/bottle.png "height="80px"/>
+                                          <img src="img/bottle.png" height="80px"/>
+                                      </a>
                                    </li>
-                                  
+                                       <li> 
+                                        <a>
+                                          <b class="text-success"> Any time Suppliments</b>
+                                     
+                                          <h4>FOCUS UP</h4>
+                                          <h5>Twice a day <b>3 capsules </b></h5>
+                                         
+                                          <h4>Xooma Blast</h4>
+                                          <h5>Once a day <b>1 Stick pack </b></h5>
+                                      </a>
+                                   </li>
+                                      <li> 
+                                        <a>
+                                          <b class="text-success"> Suppliments Define Time</b>
+                                     
+                                          <h4>Berry Balance</h4>
+                                          <h5>
+                                            <i class="fa fa-sun-o text-info"></i> <b>3 capsules </b> &nbsp;&nbsp;
+                                            <i class="fa fa-moon-o text-info"></i> <b>2 capsules </b> 
+                                          </h5>
+                                         
+                                      </a>
+                                   </li>
                              </ul>
                                
 
@@ -264,7 +309,11 @@
               </div>
 
         </div>  
-
+ <br>
+                  <!-- NEXT Button -->
+                       <button id="next-btn" class="k-primary k-button">Done</button>
+                <!-- NEXT Button -->
+              <br>
       </div>
 <!--Fourth  Step--> 
   <script>
