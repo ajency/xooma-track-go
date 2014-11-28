@@ -62,22 +62,19 @@
     <?php wp_head(); ?>
 </head>
 <body>
+
+<div ui-region></div>
+<!-- <div id="header-region"></div>
+<div data-role="view" id="main-region" data-title="" data-show="mobileSalesViewInit" data-title="Sales Report"></div>
+<div id="footer-region"></div> -->
+
+<!-- Templates -->
+<script id="login-template" type="h-template">
     
-<div id="header-region">
+    <h1>Login Screen</h1>
+    <a class="btn btn-primary" href="#/profile/personal-info">Login</a>
 
-
-</div>
-
-<!-- main-region -->
-<div data-role="view" id="main-region" data-title="" data-show="mobileSalesViewInit" data-title="Sales Report">
-
-
-
-
-</div>
-
-<!-- footer-region -->
-<div id="footer-region"></div>
+</script>
 
 
  
@@ -86,14 +83,15 @@
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/kendo.all.min.js"></script>
 <script>
 window.Xoomapp = {};
 </script>
 <!--load all the apps-->
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/profile/ProfilePersonalInfoController.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/profile/ProfilePersonalInfoView.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/profile/ProfilePersonalInfoController.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>
 <?php wp_footer(); ?>	
 </body>	
