@@ -234,8 +234,3 @@ class User
 
   }
 }
-global $user;
-
-$user = new User();
-
-$user->update_user_measurement_details(2);
