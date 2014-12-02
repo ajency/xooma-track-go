@@ -57,12 +57,12 @@
 
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    
     <h1>Login Screen</h1>
-    <a class="btn btn-primary" href="#/profile/personal-info">Login</a>
-
+    <a class="btn btn-primary" href="#/personal-info">Login</a>
 </script>
-
+<script id="no-access-template" type="h-template">
+    <h1>No Access Template</h1>
+</script>
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
@@ -71,13 +71,18 @@
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/config.js"></script>
 <script>
-window.XoomApp = {};
-Marionette.RegionControllers.prototype.controllers = XoomApp
+App = new Marionette.Application
+App.LoginCtrl = Ajency.LoginCtrl
 </script>
 <!--load all the apps-->
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoController.js"></script>
+<!-- Profile module --
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/personalinfo.ctrl.js"></script> 
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.states.js"></script> 
+-->
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script> 
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.states.js"></script> 
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 </body>	
 </html>
