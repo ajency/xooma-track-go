@@ -5,8 +5,8 @@ window.App = new Marionette.Application
 
 
 @mainRegion =  new Marionette.Region el : '#main-region'
-@profileapp = new Xoomapp.ProfilePersonalInfoController region : @mainRegion
-console.log Xoomapp
+@profileapp = new Xoomapp.MeasurementController region : @mainRegion
+
 
 
 

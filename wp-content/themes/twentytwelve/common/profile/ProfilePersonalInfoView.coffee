@@ -2,11 +2,12 @@
 
 class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 
-	template : '<div data-role="listview" data-style="inset" class="km-steps">
+	template : '<div ><div class="response_msg"></div>
 			           <form id="add_user_details" ><div class="container">
 			          <div class="row">
 			              <img src="http://localhost/xooma/wp-content/themes/twentytwelve/img/profile.jpg"  class="img-circle"/>
 			              	<input type="hidden" name="image" id="image" value="http://localhost/xooma/wp-content/themes/twentytwelve/img/profile.jpg" /> 
+			              	<<input type="hidden" name="attachment_id" id="attachment_id" value="" /> >
 			                <div class="title">
 			                   <p><b>YOU are on the the spot! </b><br>Let us know something about you.</p>
 			                </div> 
@@ -17,9 +18,9 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			        </div>    
 			  <div class="col-sm-6">
 
-			  <div id="forms" data-init="initForm" data-use-native-scrolling="true">
+			  <div id="forms" >
 			      
-			          <ul data-role="listview" data-style="inset">
+			          <ul >
 
 			           
 			              <li>
@@ -29,7 +30,7 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			              </li>
 			              <li>
 			                  <label>Name
-			                      <input type="text" id="name" name="naem" value="Chris Brown" placeholder="text" disabled/>
+			                      <input type="text" id="name" name="name" value="Chris Brown" placeholder="text" disabled/>
 			                  </label>
 			              </li>
 			              <li>
@@ -54,7 +55,7 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			              </li>
 			               <li>
 			                  <label>Timezone
-			                         <input id="countries" name="countries" />
+			                         <input id="timezone" name="timezone" />
 			                  </label>
 			              </li>
 			          </ul>
@@ -65,7 +66,7 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			  </div>
 			  <br>
 			      <!-- Login Button -->
-			           <button  type="submit" id="add_user" class="k-primary k-button">Next</button>
+			           <button  type="submit" id="add_user" >Next</button>
 			    <!-- Login Button -->
 			  <br>
 			     </form>  </div>
@@ -73,18 +74,47 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 
 	events:
 		'click #add_user':(event)->
-			validator = $("#add_user_details").kendoValidator().data("kendoValidator")
-			event.preventDefault();
-			console.log $('#add_user_details').serialize()
-			$.ajax
-					method : 'PUT',
-					url : 'http://localhost/xooma/wp-json/profiles/2',
-					data : $('#add_user_details').serialize(),
-					success:(response)->
-						console.log('response')
-					
-					error:(error)->
-						console.log('error')
+			#to initialize validate plugin
+			$("#add_user_details").validate({
+
+				rules:
+				    xooma_member_id:
+				      number: true
+				    
+				    phone_no:
+				      number: true
+				    
+				   
+			  
+
+				submitHandler: (form)->
+
+
+					$.ajax
+							method : 'POST',
+							url : SITEURL+'/wp-json/profiles/2',
+							data : $('#add_user_details').serialize(),
+							success:(response)->
+								console.log(response)
+								if response.status == 404
+									$('.response_msg').text "Something went wrong"
+								else
+									$('.response_msg').text "User details saved successfully"
+
+							
+							error:(error)->
+								$('.response_msg').text "Something went wrong"
+
+
+
+			})
+
+	
+
+
+
+
+
 						
            
 					

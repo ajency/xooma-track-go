@@ -74,7 +74,7 @@
 </div>
 
 <!-- main-region -->
-<div data-role="view" id="main-region" data-title="" data-show="mobileSalesViewInit" data-title="Sales Report">
+<div  id="main-region" >
 
 
 
@@ -95,8 +95,6 @@
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!--Script-->  
-    <script src="<?php echo get_template_directory_uri(); ?>/js/angular.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/kendo.all.min.js"></script>
 <!--Script-->
 
   
@@ -105,16 +103,18 @@
  
 <script>
 window.Xoomapp = {};
+var AJAXURL = '<?php echo admin_url('admin-ajax.php') ?>';
+var SITEURL = '<?php echo site_url() ?>';
+
 </script>
 <!--load all the apps-->
 <script src="<?php echo get_template_directory_uri(); ?>/common/profile/ProfilePersonalInfoController.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/common/profile/ProfilePersonalInfoView.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/common/measurements/MeasurementController.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/common/measurements/MeasurementView.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>
   
-   <script>
-      var app = new kendo.mobile.Application(document.body);
-
-  </script>
+   
 
 <?php wp_footer(); ?>	
 </body>	
