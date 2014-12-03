@@ -5,7 +5,7 @@ class Xoomapp.MeasurementController extends Ajency.RegionController
 
 		@user = @_get_measurement_details()
 
-		@view = new Xoomapp.MeasurementView @user
+		@view = new Xoomapp.MeasurementView 
 
 		@show @view
 

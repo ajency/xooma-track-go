@@ -18,48 +18,7 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<!--Css-->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.common.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.rtl.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.default.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.dataviz.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.dataviz.default.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.mobile.all.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.metroblack.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/kendo.bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
-    <style scoped>
-  #buttongroup-home .head {
-    display: block;
-      margin: 1em;
-    height: 110px;
-    background: url(../content/mobile/shared/sales.jpg) no-repeat center center;
-      -webkit-background-size: 100% auto;
-      background-size: 100% auto;
-  }
-  .km-ios .head,
-  .km-blackberry .head {
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-  }
-  #select-period {
-      margin: auto;
-  }
-  #buttongroup-home .km-list span {
-    float: right;
-  }
-  #buttongroup-home .sales-up {
-    color: green;
-  }
-  #buttongroup-home .sales-down {
-    color: red;
-  }
-  #buttongroup-home .sales-hold {
-    color: blue;
-  }
-  </style>
-<!--css-->  
+ 
 <?php wp_head(); ?>
 </head>
 

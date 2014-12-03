@@ -4,13 +4,14 @@ class Xoomapp.MeasurementView extends Marionette.ItemView
 
 	template : '<div>
                  <div class="container">
+                 	<form id="add_measurements">
                       <div class="row">
                         <br> <br>
                             <div class="title">
                                <p><b>Set your mesurements </b><br>Knowing this information will help us determine the</br>ideal amount of X2O water that your bodyneeds on a daily basis </p>
                             </div> 
                             <br> 
-                        <form id="add_measurements">
+                        
                            <div class="col-sm-3">   </div>  
                                 <div >
                                        <ul >
@@ -40,7 +41,7 @@ class Xoomapp.MeasurementView extends Marionette.ItemView
                               <img src="img/body-part.jpg" class="center-block " height="530px"/>
                            </div> 
                             <div class="col-sm-4">  
-                               <ul data-role="listview" data-style="inset">
+                               <ul >
                                           <li>
                                                 <label>Neck
                                                     <input type="text" name="neck" id="neck" value="" placeholder=""/>

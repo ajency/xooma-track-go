@@ -101,12 +101,12 @@ class User_API
 
     }
 
-    public function xooma_get_user_measurement_details($id,$date){
+    public function xooma_get_user_measurement_details($id){
 
         //get measurements details of the user id passed
         global $user;
 
-        $response = $user->get_user_measurement_details($id);
+        $response = $user->get_user_measurement_details($id,$date="");
 
         return $response;
 

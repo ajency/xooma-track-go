@@ -11,7 +11,7 @@ Xoomapp.MeasurementController = (function(_super) {
 
   MeasurementController.prototype.initialize = function() {
     this.user = this._get_measurement_details();
-    this.view = new Xoomapp.MeasurementView(this.user);
+    this.view = new Xoomapp.MeasurementView;
     return this.show(this.view);
   };
 

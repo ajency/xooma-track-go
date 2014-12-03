@@ -108,10 +108,9 @@ class User
 
         //insert measurements entery into post table with 
         $user_meta_value = serialize($args);
-        $sql_query = $wpdb->get_results( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
         
-
-        if(count($sql_query) == 0)
+        if(count($sql_query) == 0 || $sql_query!= null)
         {
             
               $insert_id = $wpdb->insert( 
@@ -130,7 +129,7 @@ class User
 
               if($insert_id){
 
-                return array('status' => 200 ,'response' => $user_details);
+                return array('status' => 200 ,'response' => $insert_id);
               }
               else
               {
@@ -149,18 +148,26 @@ class User
   }
 
 
-  public function get_user_measurement_details($id){
+  public function get_user_measurement_details($id,$date){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
 
-        $sql_query = $wpdb->get_results( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$id."" );
+        if($date != ""){
+            $date = $date;
+        } 
+        else
+        {
+            $date = date('Y-m-d');
+        }
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
+       
         
-        echo "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$id."";
 
         $data = array();
-        if(count($sql_query) != 0){
+        if(count($sql_query) != 0 || $sql_query!= null){
             $user_details =   unserialize($sql_query->value);
+           
             $data = array(
                 'id'                        => $id,
                 'height'                    => $user_details['height'],
@@ -179,7 +186,7 @@ class User
         }
         else
         {
-            new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ), array( 'status' => 500 ) );
+            return new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ), array( 'status' => 500 ) );
         }
 
 
