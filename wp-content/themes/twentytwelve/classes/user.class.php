@@ -149,19 +149,12 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date){
+  public function get_user_measurement_details($id){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
 
-        if($date == ""){
-            $date = $date;
-        } 
-        else
-        {
-            $date = date('Y-m-d');
-        }
-        $sql_query = $wpdb->get_results( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
+        $sql_query = $wpdb->get_results( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$id."" );
         
         echo "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$id."";
 
