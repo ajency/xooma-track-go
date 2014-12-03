@@ -4,19 +4,19 @@ class XoomaAppRootView extends Marionette.LayoutView
 	template : '<div>Some extra markup here</div>
 				<div ui-region></div>'
 
+class LoginLayoutView extends Marionette.ItemView
+	template : 'Universitites view'
+
 
 class App.Login1Ctrl extends Ajency.RegionController
+	initialize: (options)->
+		@show new XoomaAppRootView
 
-	initialize : ->
-		console.log arguments
+class App.UniversitiesCtrl extends Ajency.RegionController
+	
+	initialize : (options = {})->
+		params = Marionette.getOption @, 'stateParams'
+		@show new LoginLayoutView
 
-App.controller 'XoomaAppRootCtrl', 
-		
-		initialize : (options)->
-			@show new XoomaAppRootView
 
-	.controller 'Root1Ctrl', 
-
-		initialize : ->
-			console.log 'Root1Ctrl'
 

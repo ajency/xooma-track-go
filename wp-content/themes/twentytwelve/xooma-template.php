@@ -52,37 +52,51 @@
     </style>
 </head>
 <body>
-
-<div ui-region></div>
-
+<div ui-region>
+    
+</div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
     <h1>Login Screen</h1>
     <a class="btn btn-primary" href="#/personal-info">Login</a>
 </script>
+<script id="404-template" type="h-template">
+<h3>Nothing found</h3>
+</script>
 <script id="no-access-template" type="h-template">
+    sss
+    {{#if noaccess}}
     <h1>No Access Template</h1>
+    {{/if}}
+    {{#if noaccesslogin}}
+    <h1>No Access Template. Please  login</h1>
+    {{/if}}
+    {{#if notdefined}}
+    <h1>Not defined. Please configure</h1>
+    {{/if}}
+
 </script>
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/config.js"></script>
-<script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/config.js"></script>
+<script "text/javascript">
 App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
+App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
 </script>
 <!--load all the apps-->
 <!-- Profile module --
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/personalinfo.ctrl.js"></script> 
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.states.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/personalinfo.ctrl.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.states.js"></script> 
 -->
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script> 
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.states.js"></script> 
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.states.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 </body>	
 </html>
