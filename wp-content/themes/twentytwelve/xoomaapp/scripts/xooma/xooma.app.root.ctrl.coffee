@@ -1,22 +1,13 @@
 
 
 class XoomaAppRootView extends Marionette.LayoutView
-	template : '<div>Some extra markup here</div>
-				<div ui-region></div>'
+	className : 'animated bounceInLeft'
+	template : '#xooma-app-template'
+	
+class App.PersonalInfoCtrl extends Ajency.RegionController
+	initialize: (options)->
+		@show new Marionette.ItemView template : '<div>Some profile screen here</div>'
 
-class LoginLayoutView extends Marionette.ItemView
-	template : 'Universitites view'
-
-
-class App.Login1Ctrl extends Ajency.RegionController
+class App.XoomaCtrl extends Ajency.RegionController
 	initialize: (options)->
 		@show new XoomaAppRootView
-
-class App.UniversitiesCtrl extends Ajency.RegionController
-	
-	initialize : (options = {})->
-		params = Marionette.getOption @, 'stateParams'
-		@show new LoginLayoutView
-
-
-
