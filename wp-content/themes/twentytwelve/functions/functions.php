@@ -40,7 +40,7 @@
 
     // Create the attachment
 
-    //$attach_id = wp_insert_attachment($attachment, $file, $post_id);
+    $attach_id = wp_insert_attachment($attachment, $file);
 
 
     // Include image.php
@@ -61,7 +61,7 @@
     // And finally assign featured image to post
 
     //set_post_thumbnail($post_id, $attach_id);
-    $image_array = array( 'attachid' => $attachment, 'file' => $file );
+    $image_array = array( 'attachid' => $attach_id, 'file' => $file );
 
     return $image_array;
 }

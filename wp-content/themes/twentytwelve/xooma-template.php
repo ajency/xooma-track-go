@@ -55,7 +55,7 @@
 </head>
 <body>
 <div ui-region class="container-fluid">
-    
+
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
@@ -65,7 +65,6 @@
 <script id="404-template" type="h-template">
 <h3>Add 404 View Here</h3>
 </script>
-
 <script id="xooma-app-template" type="h-template">
     <h1>Add xooma header template here</h1>
     <div ui-region></div>
@@ -102,5 +101,6 @@ App.NothingFoundCtrl = Ajency.NothingFoundCtrl
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>  
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 <!-- endbuild -->
+
 </body>	
 </html>

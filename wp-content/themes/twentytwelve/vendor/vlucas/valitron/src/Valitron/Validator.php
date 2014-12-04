@@ -154,9 +154,9 @@ class Validator
      */
     protected function validateEquals($field, $value, array $params)
     {
-        echo $field2 = $params[0];
-        echo $this->_fields[$field2];
-        echo "sss".$value;
+        $field2 = $params[0];
+        $this->_fields[$field2];
+       
 
         return isset($this->_fields[$field2]) && $value == $this->_fields[$field2];
     }
@@ -542,7 +542,7 @@ class Validator
      */
     protected function validateDateFormat($field, $value, $params)
     {
-            echo $params[0];
+
         $parsed = date_parse_from_format($params[0], $value);
 
         return $parsed['error_count'] === 0 && $parsed['warning_count'] === 0;
