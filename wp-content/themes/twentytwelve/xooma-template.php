@@ -93,7 +93,12 @@
 
 <!-- build:js(.) scripts/application.js -->
 <script "text/javascript">
-App = new Marionette.Application
+
+var APIURL = '<?php echo esc_url_raw( get_json_url()) ?>';
+var WP_JSON_API_NONCE = '<?php echo  wp_create_nonce( "wp_json" )  ?>';
+jQuery.ajaxSetup({headers : { 'X-WP-Nonce': WP_JSON_API_NONCE}});
+
+var App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
 </script>
