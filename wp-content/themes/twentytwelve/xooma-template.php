@@ -93,14 +93,11 @@
 
 <!-- build:js(.) scripts/application.js -->
 <script "text/javascript">
-
-var APIURL = '<?php echo esc_url_raw( get_json_url()) ?>';
-var WP_JSON_API_NONCE = '<?php echo  wp_create_nonce( "wp_json" )  ?>';
-jQuery.ajaxSetup({headers : { 'X-WP-Nonce': WP_JSON_API_NONCE}});
-
+<?php echo get_wp_json_rest_api_vars() ?>
 var App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
+// $.post(APIURL + '/authenticate', {}, function(resp){console.log(resp);}, 'json');
 </script>
 <!--load all the apps-->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>  
