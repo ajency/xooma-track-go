@@ -23,6 +23,8 @@
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/style.css">
     <style scoped>
         #buttongroup-home .head {
@@ -57,28 +59,33 @@
 
 </head>
 <body>
-<div ui-region>
-    
+<div ui-region class="container-fluid">
+
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    <h1>Login Screen</h1>
-    <a class="btn btn-primary" href="#/personal-info">Login</a>
+    <h1>Add Login Screen Markup Here</h1>
+    <a class="btn btn-primary" href="#/">Login</a>
 </script>
 <script id="404-template" type="h-template">
-<h3>Nothing found</h3>
+<h3>Add 404 View Here</h3>
 </script>
+<script id="xooma-app-template" type="h-template">
+    <h1>Add xooma header template here</h1>
+    <div ui-region></div>
+</script>
+
 <script id="no-access-template" type="h-template">
-    sss
-    {{#if noaccess}}
-    <h1>No Access Template</h1>
+    {{#if no_access}}
+    <h1>Add no access View Here</h1>
     {{/if}}
-    {{#if noaccesslogin}}
-    <h1>No Access Template. Please  login</h1>
+    {{#if no_access_login}}
+    <h1>Add no access with login options View Here</h1>
     {{/if}}
-    {{#if notdefined}}
-    <h1>Not defined. Please configure</h1>
+    {{#if not_defined}}
+    <h1>This view is not configured. Please contact administrator</h1>
     {{/if}}
+
 
 </script>
 <!-- main-region -->
@@ -127,28 +134,30 @@ var SITEURL = '<?php echo site_url() ?>';
 <?php wp_footer(); ?>	
 
 </script>
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+<!-- build:js({.tmp,app}) scripts/vendors.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/config.js"></script>
+<!-- endbuild -->
+
+<!-- build:js(.) scripts/application.js -->
 <script "text/javascript">
-App = new Marionette.Application
+<?php echo get_wp_json_rest_api_vars() ?>
+var App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
+// $.post(APIURL + '/authenticate', {}, function(resp){console.log(resp);}, 'json');
 </script>
 <!--load all the apps-->
-<!-- Profile module --
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/personalinfo.ctrl.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.states.js"></script> 
--->
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.states.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>  
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
+<!-- endbuild -->
+
 
 </body>	
 </html>
