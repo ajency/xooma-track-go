@@ -64,8 +64,30 @@
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    <h1>Add Login Screen Markup Here</h1>
-    <a class="btn btn-primary" href="#/">Login</a>
+    <div class="row">
+            <div class="col-xs-12">
+                <div class="form-wrap">
+                <h1>Log in with your email account</h1>
+                    <form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" name="user_login" id="email" class="form-control" placeholder="somebody@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Password</label>
+                            <input type="password" name="user_pass" id="key" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                            <span class="character-checkbox" onclick="showPassword()"></span>
+                            <span class="label">Show password</span>
+                        </div>
+                        <input type="button" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in">
+                    </form>
+                    <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>
+                    <hr>
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
 </script>
 <script id="404-template" type="h-template">
 <h3>Add 404 View Here</h3>
@@ -130,7 +152,6 @@ var SITEURL = '<?php echo site_url() ?>';
 var App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
-// $.post(APIURL + '/authenticate', {}, function(resp){console.log(resp);}, 'json');
 </script>
 <!--load all the apps-->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>  

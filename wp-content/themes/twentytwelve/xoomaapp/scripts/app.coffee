@@ -1,6 +1,8 @@
 #start of the Application
 jQuery(document).ready ($)->
-	App.state 'login'
+
+	App.state 'login',
+
 
 		.state 'xooma',
 				url : '/'
@@ -11,10 +13,10 @@ jQuery(document).ready ($)->
 
 
 	App.addInitializer ->
-		App.currentUser.set 'caps', 
-							'access_login' : true
-							'access_personalInfo' : true
-							'access_xooma' : true
 		Backbone.history.start()
+		if not App.currentUser.isLoggedIn()
+			App.navigate '/login', true
+		else
+			App.navigate '/', true
 	
 	App.start()
