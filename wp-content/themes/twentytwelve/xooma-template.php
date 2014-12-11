@@ -23,8 +23,8 @@
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/bower_components/animate.css/animate.min.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/style.css">
     <style scoped>
         #buttongroup-home .head {
@@ -100,35 +100,13 @@
 <div id="footer-region"></div>
 
 
- 
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery.validation/dist/jquery.validate.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/underscore/underscore.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.marionette/lib/core/backbone.marionette.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.wreqr/lib/backbone.wreqr.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<!--Script-->  
-<!--Script-->
-
-  
-
-
- 
 <script>
 window.Xoomapp = {};
 var AJAXURL = '<?php echo admin_url('admin-ajax.php') ?>';
 var SITEURL = '<?php echo site_url() ?>';
 
 </script>
-<!--load all the apps-->
-<script src="<?php echo get_template_directory_uri(); ?>/common/profile/ProfilePersonalInfoController.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/common/profile/ProfilePersonalInfoView.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/common/measurements/MeasurementController.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/common/measurements/MeasurementView.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>
-  
+ 
    
 
 <?php wp_footer(); ?>	
@@ -136,18 +114,19 @@ var SITEURL = '<?php echo site_url() ?>';
 </script>
 
 <!-- build:js({.tmp,app}) scripts/vendors.js -->
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/underscore/underscore.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/marionette.state/dist/marionette.state.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/marionette.state/dist/marionette.state.js"></script>
 <!-- endbuild -->
 
 <!-- build:js(.) scripts/application.js -->
 <script "text/javascript">
-<?php echo get_wp_json_rest_api_vars() ?>
+
 var App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
@@ -155,7 +134,9 @@ App.NothingFoundCtrl = Ajency.NothingFoundCtrl
 </script>
 <!--load all the apps-->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>  
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>	
 <!-- endbuild -->
 
 

@@ -20,7 +20,7 @@ class ProductList
 
 		global $wpdb;
    
-    	$product_type_table = $wpdb->prefix . "product_type";
+    	$product_type_table = $wpdb->prefix . "defaults";
     	$product_type_option = "";
 		    
 		#get all the terms/products 
@@ -66,7 +66,7 @@ class ProductList
     		$image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
         	'/img/placeholder.jpg';
 
-        	$product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($term_data->term_id, 'product_type', true));
+        	$product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($term_data->term_id, 'product_type', true)." and type='product_type'");
         	$frequency = (get_term_meta($term_data->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
         	$active = (get_term_meta($term_data->term_id, 'active', true) == 1) ? 'Yes' : 'No';
         	#total is calculated and set
@@ -77,7 +77,7 @@ class ProductList
 				'id'        			=> $term_data->term_id,
 				'name'					=> $term_data->name,
 				'description'			=> $term_data->description,
-				'product_type_name'		=> $product_type->name,
+				'product_type_name'		=> $product_type->value,
 				'frequency'				=> $frequency,
 				'frequency_value'		=> get_term_meta($term_data->term_id, 'frequency', true),
 				'serving_size'			=> get_term_meta($term_data->term_id, 'serving_size', true),

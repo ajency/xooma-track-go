@@ -1,5 +1,5 @@
 
-class Xoomapp.ProfilePersonalInfoController extends Ajency.RegionController
+class Xoomapp.ProfilePersonalInfoCtrl extends Ajency.RegionController
 
 	initialize:->
 

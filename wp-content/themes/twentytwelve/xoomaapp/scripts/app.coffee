@@ -1,12 +1,11 @@
 #start of the Application
 jQuery(document).ready ($)->
-
 	App.state 'login'
 
 		.state 'xooma',
 				url : '/'
 
-		.state 'personalInfo',
+		.state 'ProfilePersonalInfo',
 				url : '/profile/personal-info'
 				parent : 'xooma'
 

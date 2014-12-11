@@ -10,6 +10,7 @@ class User
 		$user  = get_userdata( $id );
 		$user_details = get_user_meta($id,'user_details',true);
 		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
+        $user_products = get_user_meta($id,'user_products',true);
         if($user_details){
 			$user_details =   unserialize($user_details);
             $images = wp_get_attachment_image_src($user_details['attachment_id'] );
@@ -25,7 +26,8 @@ class User
 				'birth_date'		        => $user_details['birth_date'],
 				'timezone'			        => $user_details['timezone'],
 				'image'                     => $image,
-                'attachment_id'             => $user_details['attachment_id']
+                'attachment_id'             => $user_details['attachment_id'],
+                'user_products'             => $user_products
 				);
 			
 			return array('status' => 200 ,'response' => $data);
@@ -138,7 +140,21 @@ class User
         }
         else
         {
-          return array('status' => 404 ,'response' => 'Data already exists');
+              $insert_id = $wpdb->update( 
+                    $measurements_table, 
+                    array( 
+                      'user_id' => $args['id'], 
+                      'date' => date('Y-m-d'),
+                      'value' => $user_meta_value 
+                    ), 
+                    array( 'ID' => $sql_query->id ), 
+                    array( 
+                      '%d', 
+                      '%s', 
+                      '%s' 
+                    ),
+                    array( '%d' ) 
+                  );
         }
         
         
@@ -191,5 +207,60 @@ class User
 
 
         
+    }
+
+    public function save_user_product_details($id,$pid){
+
+        global $ProductList;
+
+
+        $products_data = $ProductList->get_products($pid);
+
+        
+
+        
+        //function to save Anytime users details
+        $response = save_anytime_product_details($id,$products_data['response']);
+
+        if($products_data['response']['frequency_value']==2){
+            //function to update schedule users details
+            $response = save_schedule_product_details($id,$products_data['response']);
+        }
+
+
+
+
+    }
+
+    public function update_user_product_details($id,$pid,$data){
+
+        //function to update Anytime users details
+        $response = update_anytime_product_details($id,$pid,$products_data['response']);
+
+        if($data['frequency_type']==2){
+            //function to update schedule users details
+            $response = update_schedule_product_details($id,$pid,$products_data['response']);
+        }
+
+    }
+
+    public function delete_user_product_details($id,$pid){
+
+        global $wpdb;
+        $product_main_table = $wpdb->prefix . "product_main";
+
+        $wpdb->update( 
+            $product_main_table, 
+            array( 
+                'deleted_flag' => 1
+            ), 
+            array( 'user_id'        => $id,
+                   'product_id'     => $pid    
+            ), 
+            array( '%d'), 
+            array( '%d',
+                   '%d'
+            ) 
+        );
     }
 }
