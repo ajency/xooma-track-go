@@ -1,0 +1,17 @@
+{
+	"name": "Xooma Staging",                           // [Xooma Staging Build]
+	// "name": "Xooma Learning",   // [Xooma Production Build]
+
+	"description": "Xooma Android App",
+
+	"version": "Staging-0.0.1",                      // [Xooma Staging Version]
+	// "version": "Production-0.0.1",                   // [Xooma Production Version]
+
+	"permissions": ["<all_urls>", "storage", "unlimitedStorage"],
+
+	"app": {
+		"background": { "scripts": ["background.js"] }
+	},
+
+	
+}
