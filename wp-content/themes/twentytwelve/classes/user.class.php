@@ -10,6 +10,7 @@ class User
 		$user  = get_userdata( $id );
 		$user_details = get_user_meta($id,'user_details',true);
 		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
+        $user_products = get_user_meta($id,'user_products',true);
         if($user_details){
 			$user_details =   unserialize($user_details);
             $images = wp_get_attachment_image_src($user_details['attachment_id'] );
@@ -25,7 +26,8 @@ class User
 				'birth_date'		        => $user_details['birth_date'],
 				'timezone'			        => $user_details['timezone'],
 				'image'                     => $image,
-                'attachment_id'             => $user_details['attachment_id']
+                'attachment_id'             => $user_details['attachment_id'],
+                'user_products'             => $user_products
 				);
 			
 			return array('status' => 200 ,'response' => $data);
@@ -108,10 +110,9 @@ class User
 
         //insert measurements entery into post table with 
         $user_meta_value = serialize($args);
-        $sql_query = $wpdb->get_results( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
         
-
-        if(count($sql_query) == 0)
+        if(count($sql_query) == 0 || $sql_query!= null)
         {
             
               $insert_id = $wpdb->insert( 
@@ -130,7 +131,7 @@ class User
 
               if($insert_id){
 
-                return array('status' => 200 ,'response' => $user_details);
+                return array('status' => 200 ,'response' => $insert_id);
               }
               else
               {
@@ -139,7 +140,21 @@ class User
         }
         else
         {
-          return array('status' => 404 ,'response' => 'Data already exists');
+              $insert_id = $wpdb->update( 
+                    $measurements_table, 
+                    array( 
+                      'user_id' => $args['id'], 
+                      'date' => date('Y-m-d'),
+                      'value' => $user_meta_value 
+                    ), 
+                    array( 'ID' => $sql_query->id ), 
+                    array( 
+                      '%d', 
+                      '%s', 
+                      '%s' 
+                    ),
+                    array( '%d' ) 
+                  );
         }
         
         
@@ -149,18 +164,26 @@ class User
   }
 
 
-  public function get_user_measurement_details($id){
+  public function get_user_measurement_details($id,$date){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
 
-        $sql_query = $wpdb->get_results( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$id."" );
+        if($date != ""){
+            $date = $date;
+        } 
+        else
+        {
+            $date = date('Y-m-d');
+        }
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
+       
         
-        echo "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$id."";
 
         $data = array();
-        if(count($sql_query) != 0){
+        if(count($sql_query) != 0 || $sql_query!= null){
             $user_details =   unserialize($sql_query->value);
+           
             $data = array(
                 'id'                        => $id,
                 'height'                    => $user_details['height'],
@@ -179,10 +202,65 @@ class User
         }
         else
         {
-            new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ), array( 'status' => 500 ) );
+            return new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ), array( 'status' => 500 ) );
         }
 
 
         
+    }
+
+    public function save_user_product_details($id,$pid){
+
+        global $ProductList;
+
+
+        $products_data = $ProductList->get_products($pid);
+
+        
+
+        
+        //function to save Anytime users details
+        $response = save_anytime_product_details($id,$products_data['response']);
+
+        if($products_data['response']['frequency_value']==2){
+            //function to update schedule users details
+            $response = save_schedule_product_details($id,$products_data['response']);
+        }
+
+
+
+
+    }
+
+    public function update_user_product_details($id,$pid,$data){
+
+        //function to update Anytime users details
+        $response = update_anytime_product_details($id,$pid,$products_data['response']);
+
+        if($data['frequency_type']==2){
+            //function to update schedule users details
+            $response = update_schedule_product_details($id,$pid,$products_data['response']);
+        }
+
+    }
+
+    public function delete_user_product_details($id,$pid){
+
+        global $wpdb;
+        $product_main_table = $wpdb->prefix . "product_main";
+
+        $wpdb->update( 
+            $product_main_table, 
+            array( 
+                'deleted_flag' => 1
+            ), 
+            array( 'user_id'        => $id,
+                   'product_id'     => $pid    
+            ), 
+            array( '%d'), 
+            array( '%d',
+                   '%d'
+            ) 
+        );
     }
 }

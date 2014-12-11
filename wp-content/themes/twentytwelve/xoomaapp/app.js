@@ -5,7 +5,7 @@ this.mainRegion = new Marionette.Region({
   el: '#main-region'
 });
 
-this.profileapp = new Xoomapp.MeasurementController({
+this.profileapp = new Xoomapp.ProfilePersonalInfoCtrl({
   region: this.mainRegion
 });
 

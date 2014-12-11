@@ -2,20 +2,20 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Xoomapp.ProfilePersonalInfoController = (function(_super) {
-  __extends(ProfilePersonalInfoController, _super);
+Xoomapp.ProfilePersonalInfoCtrl = (function(_super) {
+  __extends(ProfilePersonalInfoCtrl, _super);
 
-  function ProfilePersonalInfoController() {
-    return ProfilePersonalInfoController.__super__.constructor.apply(this, arguments);
+  function ProfilePersonalInfoCtrl() {
+    return ProfilePersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }
 
-  ProfilePersonalInfoController.prototype.initialize = function() {
+  ProfilePersonalInfoCtrl.prototype.initialize = function() {
     this.user = this._get_user_details();
     this.view = new Xoomapp.ProfilePersonalInfoView(this.user);
     return this.show(this.view);
   };
 
-  ProfilePersonalInfoController.prototype._get_user_details = function() {
+  ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
     return $.ajax({
       method: 'GET',
       url: SITEURL + '/wp-json/profiles/2',
@@ -40,6 +40,6 @@ Xoomapp.ProfilePersonalInfoController = (function(_super) {
     });
   };
 
-  return ProfilePersonalInfoController;
+  return ProfilePersonalInfoCtrl;
 
 })(Ajency.RegionController);

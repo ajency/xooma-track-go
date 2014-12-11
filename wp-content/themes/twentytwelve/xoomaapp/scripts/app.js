@@ -8,14 +8,15 @@
       parent: 'xooma'
     });
     App.addInitializer(function() {
-      App.currentUser.set('caps', {
-        'access_login': true,
-        'access_personalInfo': true,
-        'access_xooma': true
-      });
-      return Backbone.history.start();
-    });
-    return App.start();
-  });
+      Backbone.history.start();
+      if (!App.currentUser.isLoggedIn()) {
+        return App.navigate('/login', true);
+      } else {
+        return App.navigate('/', true);
+      }
 
-}).call(this);
+    });
+   
+  });
+  return App.start();
+});
