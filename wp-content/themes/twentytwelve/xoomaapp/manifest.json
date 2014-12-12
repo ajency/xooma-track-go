@@ -1,6 +1,6 @@
 {
 	"name": "Xooma Staging",                           // [Xooma Staging Build]
-	// "name": "Xooma Learning",   // [Xooma Production Build]
+	// "name": "Xooma Production",   // [Xooma Production Build]
 
 	"description": "Xooma Android App",
 
@@ -11,7 +11,7 @@
 
 	"app": {
 		"background": { "scripts": ["background.js"] }
-	},
+	}
 
 	
 }
