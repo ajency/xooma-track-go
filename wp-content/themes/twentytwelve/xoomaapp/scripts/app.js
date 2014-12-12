@@ -3,20 +3,15 @@
   jQuery(document).ready(function($) {
     App.state('login').state('xooma', {
       url: '/'
-    }).state('personalInfo', {
+    }).state('ProfilePersonalInfo', {
       url: '/profile/personal-info',
       parent: 'xooma'
     });
     App.addInitializer(function() {
       Backbone.history.start();
-      if (!App.currentUser.isLoggedIn()) {
-        return App.navigate('/login', true);
-      } else {
-        return App.navigate('/', true);
-      }
-
+      return App.navigate('/login', true);
     });
-   
+    return App.start();
   });
-  return App.start();
-});
+
+}).call(this);
