@@ -36,7 +36,7 @@
                               </a>
                         </div>
                     </div>
-                       <div class="col-sm-9 col-xs-2">
+                       <div class="col-sm-9 col-xs-7">
                         <a href="#menu"> <h5><i class="fa fa-cog pull-right "></i></h5></a>
                     </div>
                 </div>
@@ -140,40 +140,65 @@
   
     <div id="measuremnt" class="section">
         <div class="container">
-         
+
                 <div class="row">
                     <div class="col-sm-6">
-                          <h6 class="text-center bold">Set your mesurements</h6>
+                        <h5  class="text-center bold">Set your mesurements</h5>
                         <p class="text-center">Knowing this information will help us determine the
                             ideal amount of X2O water that your bodyneeds on a daily basis </p>
-                        <div class="row">
-                            <div class="col-md-5"><img src="assets/images/weight.jpg" class="pull-right m-t-40" ></div>
-                            
-                            <div class="col-md-7">
-                            </h4>  <h4 class="text-left"> <output></output><small>inchs</small></h4> </div>
-                          
-                            <input type="range" min="1" max="7" step="0.1" value="1.1" data-rangeslider>
-
-                        </div>  </br></br>
-           <div class="row">
-                            <div class="col-md-5"><img src="assets/images/weight.jpg" class="pull-right m-t-40" ></div>
-                            
-                            <div class="col-md-7">
-                            </h4>  <h4 class="text-left"> <output></output><small>pounds</small></h4> </div>
-                          
-                           
- <input type="range" min="25" max="190" step="25" value="25" data-rangeslider>
-                        </div>     
-  </br></br>
-            
-            
+                                    <div class="row">
+                                        <div class="col-md-5 col-xs-6">
+                                            <img src="assets/images/height.png" class="pull-right m-t-40" >
+                                        </div>
+                                        <div class="col-md-7">
+                                            <h4 class="text-left"> <output></output><small>Feet</small></h4> 
+                                        </div>
+                                        <input type="range" min="4" max="9" step="0.1" value="1.1" data-rangeslider>
+                                    </div>  </br></br>
+                                    <div class="row">
+                                        <div class="col-md-5 col-xs-6">
+                                            <img src="assets/images/weight.jpg" class="pull-right m-t-40" >
+                                        </div>
+                                        <div class="col-md-7 ">
+                                            <h4 class="text-left"> <output></output><small>pounds</small></h4>
+                                        </div>
+                                        <input type="range" min="25" max="500" step="1" value="25" data-rangeslider>
+                                    </div>   </br></br>
+                                </div>
+                    <div class="col-sm-6 imageMap">
+                            <a id="element" tabindex="0" class="hotspot-neck "  data-toggle="popover" title="Neck" data-content="<input                               type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                            <a id="element1" tabindex="0" class="hotspot-chest "  data-toggle="popover" title="Chest" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                            <a id="element2" tabindex="0" class="hotspot-arm "  data-toggle="popover" title="Upper Arm" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                            <a id="element3" tabindex="0" class="hotspot-abdomen "  data-toggle="popover" title="Abdomen" 
+                               data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                            <a id="element4" tabindex="0" class="hotspot-waist "  data-toggle="popover" title="Waist" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                            <a id="element5" tabindex="0" class="hotspot-hips "  data-toggle="popover" title="Hips" 
+                               data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                             <a id="element6" tabindex="0" class="hotspot-thigh "  data-toggle="popover" title="Upper Thigh" 
+                               data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                        <a id="element7" tabindex="0" class="hotspot-midcalf "  data-toggle="popover" title="Mid Calf" 
+                               data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                            <img src="assets/images/humanbody.png" class="center-block" >
+                     </div>
+                        
                     </div>
-                    <div class="col-sm-6">asda</div>
                 </div>
             </div>
-     </div>
    
-
+    
+   <!--Section 3-->  
+<!--
+    <div id="xoomaproduct" class="section">
+        <div class="container">
+                <div class="">
+                </div>
+             <div>
+                </div>
+         
+       </div>
+    </div>
+  
+-->
     <!-- Site footer -->
         <footer class="footer">
             <div class="container">
@@ -204,9 +229,9 @@
 
     
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../assets/js/jquery.mmenu.min.all.js"></script>
-     <script type="text/javascript" src="../../assets/js/rangeslider.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/jquery.mmenu.min.all.js"></script>
+  <script type="text/javascript" src="../../assets/js/rangeslider.min.js"></script>
 <!--    <script src="assets/js/bootstrap-material-design/ripples.min.js"></script>
     <script src="assets/js/bootstrap-material-design/material.min.js"></script>
     
@@ -217,11 +242,23 @@
             });
         
     </script>-->
-    
+   <!-- Mobile menu & popover -->
     <script type="text/javascript">
+        
 			$(function() {
 				$('nav#menu').mmenu();
 			});
+          $(function () { 
+              
+              $("#element").popover({html : true });
+              $("#element1").popover({html : true });
+              $("#element2").popover({html : true });
+              $("#element3").popover({html : true });
+              $("#element4").popover({html : true });
+              $("#element5").popover({html : true });
+              $("#element6").popover({html : true });
+               $("#element7").popover({html : true });
+          });
 		</script>
     
  <script>
@@ -294,3 +331,4 @@
 </body>
 
 </html>
+
