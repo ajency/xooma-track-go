@@ -49,6 +49,6 @@
 
     return XoomaCtrl;
 
-  })(Ajency.RegionController);
+  })(Marionette.RegionController);
 
 }).call(this);
