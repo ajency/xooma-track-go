@@ -59,35 +59,34 @@
 
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script>
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '376973229145085',
+        cookie     : true,  // enable cookies to allow the server to access 
+                            // the session
+        version:  'v1.0',
+        xfbml      : true,  
+      });
+    };
+    // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+    </script>
 <div ui-region class="container-fluid">
 
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    <div class="row">
-            <div class="col-xs-12">
-                <div class="form-wrap">
-                <h1>Log in with your email account</h1>
-                    <form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off">
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="user_login" id="email" class="form-control" placeholder="somebody@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="key" class="sr-only">Password</label>
-                            <input type="password" name="user_pass" id="key" class="form-control" placeholder="Password">
-                        </div>
-                        <div class="checkbox">
-                            <span class="character-checkbox" onclick="showPassword()"></span>
-                            <span class="label">Show password</span>
-                        </div>
-                        <input type="button" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in">
-                    </form>
-                    <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>
-                    <hr>
-                </div>
-            </div> <!-- /.col-xs-12 -->
-        </div> <!-- /.row -->
+    <h1>Add Login Screen Markup Here</h1>
+    <a class="btn btn-primary" href="#/">Login</a>
 </script>
 <script id="404-template" type="h-template">
 <h3>Add 404 View Here</h3>
@@ -134,30 +133,60 @@ var SITEURL = '<?php echo site_url() ?>';
 <?php wp_footer(); ?>	
 
 </script>
-
+<input type="button" name="login" id="login" value="login" onclick="checklogin()" />
 <!-- build:js({.tmp,app}) scripts/vendors.js -->
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/underscore/underscore.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/jquery/dist/jquery.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/marionette.state/dist/marionette.state.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/handlebars/handlebars.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/marionette.state/dist/marionette.state.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script><script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/bower_components/backbone/backbone.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <!-- endbuild -->
 
 <!-- build:js(.) scripts/application.js -->
 <script "text/javascript">
+function checklogin() {
+  FB.login(function (response) {
+    if (response.authResponse) {
+      var access_token =   FB.getAuthResponse()['accessToken'];
+     console.log('Access Token = '+ response);
+     FB.api('/me', {fields:'email,picture,id,first_name,last_name'} , function(response) {
+     console.log('Good to see you, ' + response.picture.data.url + '.');
+     data = 'id='+response.id+'&first_name='+response.first_name+'&last_name='+response.last_name+'&email='+response.email+'&picture='+response.picture.data.url
+     $.ajax({
+                type : 'POST',
+                url : SITEURL+'/wp-json/tokens',
+                data : data,
+                success:function(response){
+                    console.log(response);
+                },
+                error:function(error){
+                    console.log(error); 
+                    
+                } 
+            });
+     });
+      
+      
+      }
+    else {
+      alert("Login attempt failed!");
+    }
+  }, { scope: 'email,user_photos,publish_actions' });
 
+}
 var App = new Marionette.Application
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl 
+// $.post(APIURL + '/authenticate', {}, function(resp){console.log(resp);}, 'json');
 </script>
 <!--load all the apps-->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>  
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/app.js"></script>	
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 <!-- endbuild -->
 
 
