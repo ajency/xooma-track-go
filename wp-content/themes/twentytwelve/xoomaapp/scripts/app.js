@@ -8,8 +8,7 @@
       parent: 'xooma'
     });
     App.addInitializer(function() {
-      Backbone.history.start();
-      return App.navigate('/login', true);
+      return Backbone.history.start();
     });
     return App.start();
   });

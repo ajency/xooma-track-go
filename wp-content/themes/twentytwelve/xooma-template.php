@@ -52,7 +52,7 @@
         }
     </style>
 </head>
-<body>
+<body class="gradient">
 <div ui-region>
 </div>
 <!-- Templates -->

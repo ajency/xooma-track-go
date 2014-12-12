@@ -11,7 +11,7 @@
       return XoomaAppRootView.__super__.constructor.apply(this, arguments);
     }
 
-    XoomaAppRootView.prototype.className = 'animated bounceInLeft';
+    XoomaAppRootView.prototype.className = 'animated zoomIn';
 
     XoomaAppRootView.prototype.template = '#xooma-app-template';
 

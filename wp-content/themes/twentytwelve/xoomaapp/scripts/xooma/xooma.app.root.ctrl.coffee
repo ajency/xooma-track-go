@@ -1,7 +1,7 @@
 
 
 class XoomaAppRootView extends Marionette.LayoutView
-	className : 'animated bounceInLeft'
+	className : 'animated zoomIn'
 	template : '#xooma-app-template'
 	
 class App.PersonalInfoCtrl extends Ajency.RegionController
