@@ -1,4 +1,6 @@
 #start of the Application
+
+
 jQuery(document).ready ($)->
 
 	App.state 'login'
@@ -8,6 +10,11 @@ jQuery(document).ready ($)->
 
 		.state 'ProfilePersonalInfo',
 				url : '/profile/personal-info'
+				parent : 'xooma'
+
+		.state 'profileMeasurement',
+				url : '/profile/measurements'
+				ctrl : 'ProfileMeasurementsCtrl'
 				parent : 'xooma'
 
 

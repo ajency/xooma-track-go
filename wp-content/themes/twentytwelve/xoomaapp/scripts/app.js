@@ -6,6 +6,10 @@
     }).state('ProfilePersonalInfo', {
       url: '/profile/personal-info',
       parent: 'xooma'
+    }).state('profileMeasurement', {
+      url: '/profile/measurements',
+      ctrl: 'ProfileMeasurementsCtrl',
+      parent: 'xooma'
     });
     App.addInitializer(function() {
       return Backbone.history.start();

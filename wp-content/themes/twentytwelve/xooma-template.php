@@ -87,11 +87,14 @@
             <div class="row">
                 <div class="col-sm-12">
                         <ul class="list-inline" >
-                            <li class="selected"><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">MEASUREMENT</span></a></li>
-                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
-                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">MYPRODUCTS</span></a></li>
-                            
+                            <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
+                                <span class="hidden-xs">PERSONAL INFO</span></a></li>
+                            <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
+                                <span class="hidden-xs">MEASUREMENT</span></a></li>
+                            <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
+                                <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
+                            <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+                                <span class="hidden-xs">MYPRODUCTS</span></a></li>
                         </ul>
                 </div>
             </div>
@@ -110,7 +113,125 @@
     <h1>This view is not configured. Please contact administrator</h1>
     {{/if}}
 </script>
+<script id="profile-personal-info-template" type="h-template">
+    <div id="personalinfo" class="section">
+        <div class="container">
+            <img src="assets/images/profile.jpg" alt="..." class="img-circle center-block" width="150px" height="150px">
+            <h6 class="text-center bold">You are on the the spot!</h6>
+            <p class="text-center">Let us know something about you.</p>
+            <br>
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label for="text1" class=" col-sm-3 control-label">xooma id</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="text1" placeholder="0001">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="text2" class=" col-sm-3 control-label">Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="text2" placeholder="Martin Luther">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="text3" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" class="form-control" id="text3" placeholder="xyz@mail.com">
+                        </div>
+                      </div>
+                     <div class="form-group">
+                        <label for="text4" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="text4" placeholder="0010100100">
+                        </div>
+                      </div>
+                     <div class="form-group">
+                        <label for="text5" class=" col-sm-3 control-label">Gender</label>
+                        <div class="col-sm-9">
+                        <div class="rd-gender">
+                                  <label class="wrap">
+                                    <input type="radio" name="city" class="radio" checked="checked"/>
+                                    <span class="rd-visual male" title="Male"></span>
+                                  </label>
+                                  <label class="wrap">
+                                    <input type="radio" name="city" class="radio"/>
+                                    <span class="rd-visual female" title="Female"></span>
+                                  </label>
+                            </div>
+                        </div>
+                      </div>
+                        <div class="form-group">
+                            <label for="text7" class=" col-sm-3 control-label">Birth date</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="text7" placeholder="">
+                            </div>
+                      </div>  
+                       <div class="form-group">
+                            <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="text8" placeholder="">
+                            </div>
+                      </div> 
+                
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <button type="button" class="btn btn-primary btn-lg pull-right">Next</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="profile-measurements-template" type="h-template">
+    <div id="measuremnt" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5 class="text-center bold">Set your mesurements</h5>
+                    <p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-6">
+                            <img src="assets/images/height.png" class="pull-right m-t-40">
+                        </div>
+                        <div class="col-md-7">
+                            <h4 class="text-left"> <output></output><small>Feet</small></h4>
+                        </div>
+                        <input type="range" min="4" max="9" step="0.1" value="1.1" data-rangeslider>
+                    </div>
+                    </br>
+                    </br>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-6">
+                            <img src="assets/images/weight.jpg" class="pull-right m-t-40">
+                        </div>
+                        <div class="col-md-7 ">
+                            <h4 class="text-left"> <output></output><small>pounds</small></h4>
+                        </div>
+                        <input type="range" min="25" max="500" step="1" value="25" data-rangeslider>
+                    </div>
+                    </br>
+                    </br>
+                </div>
+                <div class="col-sm-6 imageMap">
+                    <a id="element" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input                               type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element1" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element2" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element3" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element4" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element5" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element6" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element7" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <img src="assets/images/humanbody.png" class="center-block">
+                </div>
 
+            </div>
+        </div>
+    </div>
+</script>
 <!-- build:js({.js}) scripts/vendors.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>

@@ -4,9 +4,21 @@ class XoomaAppRootView extends Marionette.LayoutView
 	className : 'animated zoomIn'
 	template : '#xooma-app-template'
 	
-class App.PersonalInfoCtrl extends Ajency.RegionController
+class ProfilePersonalInfoView extends Marionette.ItemView
+	className : 'animated zoomIn'
+	template : '#profile-personal-info-template'
+
+class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
-		@show new Marionette.ItemView template : '<div>Some profile screen here</div>'
+		@show new ProfilePersonalInfoView
+
+class ProfileMeasurementsView extends Marionette.ItemView
+	className : 'animated zoomIn'
+	template : '#profile-measurements-template'
+
+class App.ProfileMeasurementsCtrl extends Marionette.RegionController
+	initialize: (options)->
+		@show new ProfileMeasurementsView
 
 class App.XoomaCtrl extends Marionette.RegionController
 	initialize: (options)->
