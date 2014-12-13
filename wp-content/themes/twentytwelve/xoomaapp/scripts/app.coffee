@@ -1,22 +1,21 @@
 #start of the Application
-jQuery(document).ready ($)->
+(->
+	document.addEventListener "deviceready", (->
+		_.notificationCall()
+		App.state("login").state("xooma",
+			url: "/"
+		).state "personalInfo",
+			url: "/profile/personal-info"
+			parent: "xooma"
 
-	App.state 'login',
-
-
-		.state 'xooma',
-				url : '/'
-
-		.state 'ProfilePersonalInfo',
-				url : '/profile/personal-info'
-				parent : 'xooma'
-
-
-	App.addInitializer ->
-		Backbone.history.start()
-		if not App.currentUser.isLoggedIn()
-			App.navigate '/login', true
-		else
-			App.navigate '/', true
-	
-	App.start()
+		App.addInitializer ->
+			Backbone.history.start()
+			unless App.currentUser.isLoggedIn()
+				App.navigate "/login", true
+			else
+				App.navigate "/", true
+		window.plugin.notification.local.onclick = ()->
+			App.navigate "/login", true
+		App.start()
+	), false
+).call()
