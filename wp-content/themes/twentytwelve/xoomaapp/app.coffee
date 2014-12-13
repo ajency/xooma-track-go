@@ -6,12 +6,6 @@ window.App = new Marionette.Application
 @mainRegion =  new Marionette.Region el : '#main-region'
 @profileapp = new Xoomapp.ProfilePersonalInfoCtrl region : @mainRegion
 
-
-
-
-
-
-
-
-
 App.start()
+
+# document.addEventListener('deviceready', this.onDeviceReady, false);

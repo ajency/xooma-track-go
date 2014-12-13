@@ -5,8 +5,8 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 	template : '<div ><div class="response_msg"></div>
 			           <form id="add_user_details" ><div class="container">
 			          <div class="row">
-			              <img src="http://localhost/xooma/wp-content/themes/twentytwelve/img/profile.jpg"  class="img-circle"/>
-			              	<input type="hidden" name="image" id="image" value="http://localhost/xooma/wp-content/themes/twentytwelve/img/profile.jpg" /> 
+			              <img src="img/profile.jpg"  class="img-circle"/>
+			              	<input type="hidden" name="image" id="image" value="img/profile.jpg" /> 
 			              	<<input type="hidden" name="attachment_id" id="attachment_id" value="" /> >
 			                <div class="title">
 			                   <p><b>YOU are on the the spot! </b><br>Let us know something about you.</p>
