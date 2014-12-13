@@ -54,6 +54,7 @@
 </head>
 <body class="gradient">
 <div ui-region>
+<div id="fb-root"></div>
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
@@ -261,12 +262,29 @@
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
-<script>
+
+
+<script type="text/javascript">
+  userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
+  App                   = new Marionette.Application()  
+  //App.LoginCtrl         = Ajency.LoginCtrl  
+  App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
+  APIURL                = '<?php echo json_url() ?>';
+  _SITEURL              = '<?php echo site_url() ?>';
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '1548551822025926',
       xfbml      : true,
       version    : 'v2.2'
+    });
+
+    FB.getLoginStatus(function(response){
+      if(response.status === 'connected'){
+          FB.api('/me', function(user){
+            App.currentUser.authenticate('facebook', user, response.authResponse.accessToken);
+          });
+      }
     });
   };
 
@@ -278,17 +296,8 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
-<script type="text/javascript">
-    userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
-    App                   = new Marionette.Application()  
-    //App.LoginCtrl         = Ajency.LoginCtrl  
-    App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-    APIURL                = '<?php echo json_url() ?>';
-    _SITEURL              = '<?php echo site_url() ?>';
-</script>
-
 <!-- build:js(*.js) application.js -->
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 <!-- endbuild -->

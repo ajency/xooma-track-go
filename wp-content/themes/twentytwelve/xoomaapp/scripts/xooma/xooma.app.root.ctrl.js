@@ -11,7 +11,7 @@
       return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
     }
 
-    ProfilePersonalInfoView.prototype.className = 'animated zoomIn';
+    ProfilePersonalInfoView.prototype.className = 'animated fadeIn';
 
     ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
@@ -41,7 +41,7 @@
       return ProfileMeasurementsView.__super__.constructor.apply(this, arguments);
     }
 
-    ProfileMeasurementsView.prototype.className = 'animated zoomIn';
+    ProfileMeasurementsView.prototype.className = 'animated fadeIn';
 
     ProfileMeasurementsView.prototype.template = '#profile-measurements-template';
 
@@ -71,7 +71,7 @@
       return ProfileCtrlView.__super__.constructor.apply(this, arguments);
     }
 
-    ProfileCtrlView.prototype.className = 'animated zoomIn';
+    ProfileCtrlView.prototype.className = 'animated fadeIn';
 
     ProfileCtrlView.prototype.template = '#profile-template';
 
@@ -111,7 +111,7 @@
       return XoomaAppRootView.__super__.constructor.apply(this, arguments);
     }
 
-    XoomaAppRootView.prototype.className = 'animated zoomIn';
+    XoomaAppRootView.prototype.className = 'animated fadeIn';
 
     XoomaAppRootView.prototype.template = '#xooma-app-template';
 
