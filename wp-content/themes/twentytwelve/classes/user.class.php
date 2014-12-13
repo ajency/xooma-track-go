@@ -249,7 +249,7 @@ class User
         global $wpdb;
         $product_main_table = $wpdb->prefix . "product_main";
 
-        $wpdb->update( 
+        $updated_id = $wpdb->update( 
             $product_main_table, 
             array( 
                 'deleted_flag' => 1
@@ -262,5 +262,14 @@ class User
                    '%d'
             ) 
         );
+
+        if($updated_id){
+
+            return array('status'=>200,'response'=>$updated_id);
+        }
+        else
+        {
+            return new WP_Error( 'json_user_not_deleted', __( 'User not deleted.' ), array( 'status' => 500 ) );
+        }
     }
 }

@@ -73,6 +73,8 @@ function save_anytime_product_details($id,$data){
                 ) 
               );
         //saving quantity per servings
+    for($i=0;$i<$data['time_set'];$i++){
+
         $meta_id = $wpdb->insert( 
                 $product_meta_table, 
                 array( 
@@ -86,6 +88,9 @@ function save_anytime_product_details($id,$data){
                   '%s'
                 ) 
               );
+
+    }
+        
         //saving no of containers
         $meta_id = $wpdb->insert( 
                 $product_meta_table, 
@@ -164,40 +169,26 @@ function save_schedule_product_details($id,$data){
                   '%s' 
                 ) 
             );
-
-    $meta_id = $wpdb->insert( 
-                $product_meta_table, 
-                array( 
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array(
-                                                    'qty'  => $data['serving_size_clone'],
-                                                    'when' => $data['when_clone']
-
-                                                ))
-                ), 
-                array( 
-                  '%d', 
-                  '%s',
-                  '%s' 
-                ) 
-            );
-
-    //saving no of containers
+    if($data['serving_size_clone'] != "" && $data['when_clone'] != ""){
         $meta_id = $wpdb->insert( 
-                $product_meta_table, 
-                array( 
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_containers' => $data['serving_size']))
-                ), 
-                array( 
-                  '%d', 
-                  '%s',
-                  '%s'
-                ) 
-              );
+                    $product_meta_table, 
+                    array( 
+                      'main_id'                     => $main_id,
+                      'key'                         => 'qty_per_servings',
+                      'value'                       => serialize(array(
+                                                        'qty'  => $data['serving_size_clone'],
+                                                        'when' => $data['when_clone']
 
+                                                    ))
+                    ), 
+                    array( 
+                      '%d', 
+                      '%s',
+                      '%s' 
+                    ) 
+                );
+    }
+    
     
     
     if($main_id && $meta_id){
@@ -324,10 +315,6 @@ function update_schedule_product_details($id,$pid,$data){
 
     $product_meta_table = $wpdb->prefix . "product_meta";
 
-    $product_configuration_table = $wpdb->prefix . "product_configuration";
-
-    $product_reminder_table = $wpdb->prefix . "product_reminder";
-
     $main_id = $wpdb->insert( 
                 $product_main_table, 
                 array( 
@@ -342,28 +329,8 @@ function update_schedule_product_details($id,$pid,$data){
                 ) 
               );
 
-    $meta_id = $wpdb->insert( 
-                $product_meta_table, 
-                array( 
-                  'main_id'                     => $main_id,
-                  'frequency_type'              => $data['frequency_type'],
-                  'no_of_servings'              => $data['no_of_servings'],
-                  'no_of_containers'            => $no_of_containers,
-                  'available_count'             => $available_count,
-                  'reminder_flag'               => $data['set_reminder']
-                ), 
-                array( 
-                  '%d', 
-                  '%s',
-                  '%s',
-                  '%d',
-                  '%d',
-                  '%d' 
-                ) 
-              );
 
-    
-        for($i=0;$i<$data['servings_count'];$i++){
+    for($i=0;$i<$data['servings_count'];$i++){
 
             $config_id = $wpdb->insert( 
                     $product_configuration_table, 
@@ -402,13 +369,13 @@ function update_schedule_product_details($id,$pid,$data){
                   );
 
 
-        }
+    }
         
 
         
    
 
-    if($main_id && $meta_id && $config_id && $reminder_id){
+    if($main_id && $meta_id ){
 
         return array('status' => 200 ,'response' => $main_id);
 
@@ -419,8 +386,7 @@ function update_schedule_product_details($id,$pid,$data){
         if($user !=null){
             $wpdb->delete( $product_main_table, array( 'user_id' => $id ), array( '%d' ) );
             $wpdb->delete( $product_meta_table, array( 'main_id' => $user->id ), array( '%d' ) );
-            $wpdb->delete( $product_configuration_table, array( 'main_id' => $user->id ), array( '%d' ) );
-            $wpdb->delete( $product_reminder_table, array( 'main_id' => $user->id ), array( '%d' ) );
+            
 
         }
         
@@ -429,5 +395,95 @@ function update_schedule_product_details($id,$pid,$data){
     }
 
 
+}
+
+function get_fblogin_status($data){
+
+        $user_newid = 'FB_'.$data['id'];
+     
+        $user_name = username_exists( $user_newid );
+
+        //register the user if not exist
+        if ( !$user_name && email_exists($data->email) == false ) {
+            $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
+            $user_name = wp_create_user( $user_newid, $random_password, $data['email'] );
+        }
+
+        $user = get_user_by('email', $data['email'] );
+
+       
+
+        //set user data
+        $userprofiledata = array(
+                        'ID' => $user->ID,
+                        'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
+                        'display_name' => $data['first_name'],
+                        'user_nicename' => sanitize_title($user->user_login),
+                        'user_url' => $data['url']
+            );
+
+        wp_update_user( $userprofiledata );
+
+
+
+        $avatar_url = $data['url'];
+
+        //Update user meta
+        update_user_meta( $user->ID, 'facebook_uid', $data['id'] );
+        update_user_meta( $user->ID, 'facebook_avatar_full', $avatar_url );
+        update_user_meta( $user->ID, 'facebook_avatar_thumb', $avatar_url );
+        update_user_meta( $user->ID, 'first_name', $data['first_name'] );
+        update_user_meta( $user->ID, 'last_name', $data['last_name']);
+        update_user_meta( $user->ID, 'display_name', $data['first_name'] );
+        
+    
+
+        if ( !is_wp_error( $user ) )
+                {
+                    wp_clear_auth_cookie();
+                    wp_set_current_user ( $user->ID );
+                    
+            //get the user id
+                   $user_id = $user->ID;
+
+                    $response = login_response($user_id);
+
+                }
+
+
+           else{
+                $response = array('status'=>false);
+            }
+
+
+    return $response;
+
+}
+
+function login_response($user_id){
+ 
+    global $user_ID,  $wp_roles ;
+    $user = array();
+    $user_info = get_userdata($user_id);
+    $usermeta = get_user_meta($user_id);
+    $attchid = $usermeta['avatar_attachment'][0];
+    $facebook_avatar = $usermeta['facebook_avatar_full'][0];
+    $avatar_url = wp_get_attachment_image_src($attchid, 'thumbnail' )[0]; 
+    $user['status'] = 'true';
+    $user['id'] = $user_id;
+    $user['user_login'] = $user_info->data->user_login;
+    $user['user_email'] = $user_info->data->user_email; 
+    $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0]; 
+    $user['role'] =  key($user_info->caps) ;
+    $user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
+    if($facebook_avatar){
+       $user['avatar_url'] = $facebook_avatar; 
+   }else{
+        $user['avatar_url'] = $avatar_url;
+   }
+   
+    
+    return  $user;
 }
 

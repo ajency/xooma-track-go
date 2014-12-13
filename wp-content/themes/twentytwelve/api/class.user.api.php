@@ -28,23 +28,27 @@ class User_API
 
             
         );
-
+        //measurements
         $routes['/measurements/(?P<id>\d+)'] = array(
             array( array( $this, 'xooma_get_user_measurement_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_measurement_details'), WP_JSON_Server::CREATABLE ),
             
         );
-
+        //users 
         $routes['/users/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
             array( array( $this, 'xooma_save_user_product_details'), WP_JSON_Server::CREATABLE),
             array( array( $this, 'xooma_get_user_product_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_remove_user_product_details'), WP_JSON_Server::DELETABLE),
             
         );
-
+        //update user's product
         $routes['/trackers/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
             array( array( $this, 'xooma_update_user_product_details'), WP_JSON_Server::CREATABLE)
             
+        );
+        //facebook login route
+        $routes['/tokens'] = array(
+            array( array( $this, 'store_user_login_details'), WP_JSON_Server::CREATABLE)
         );
         
 
@@ -172,6 +176,20 @@ class User_API
         global $user;
 
         $response = $user->delete_user_product_details($id,$pid);
+
+        return $response;
+    }
+
+    public function store_user_login_details()
+    {
+        //pass access
+        $data = array();
+        $data['id']             = $_REQUEST['id'];
+        $data['email']          = $_REQUEST['email'];
+        $data['url']            = $_REQUEST['picture'];
+        $data['first_name']     = $_REQUEST['first_name'];
+        $data['last_name']      = $_REQUEST['last_name'];
+        $response               = get_fblogin_status($data);
 
         return $response;
     }
