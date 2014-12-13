@@ -21,6 +21,9 @@ jQuery(document).ready ($)->
 				ctrl : 'ProfileMeasurementsCtrl'
 				parent : 'profile'
 
+		.state 'settings',
+				url : '/settings'
+				parent : 'xooma'
 
 	App.addInitializer ->
 		Backbone.history.start()

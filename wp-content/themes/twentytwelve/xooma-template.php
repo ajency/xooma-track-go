@@ -82,7 +82,8 @@
               </div>
         </nav>
     </div>
-    <div ui-region></div>
+    <div class="clearfix"></div>
+    <div ui-region style="margin-top:60px"></div>
 </script>
 <script id="profile-template" type="h-template">
 <div class="sub-header">
@@ -103,7 +104,11 @@
         </div>
     </div>    
 </div>
+<div class="clearfix"></div>
 <div ui-region></div>
+</script>
+<script id="settings-template" type="text/template">
+    <h2>THis is the settings template </h2>
 </script>
 <script id="no-access-template" type="h-template">
     {{#if no_access}}

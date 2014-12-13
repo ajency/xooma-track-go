@@ -6380,7 +6380,7 @@ body > .container {
   font-weight: 500;
 }
 .section {
-  padding: 150px 0px 10px 0px;
+  padding: 50px 0px 10px 0px;
 }
 /* Top - Header */
 .topheader {
@@ -6555,10 +6555,7 @@ body > .container {
 .sub-header {
   background: #e6e6e6;
   padding: 8px;
-  position: fixed;
   width: 100%;
-  top: 60px;
-  z-index: 1000;
 }
 .sub-header ul {
   display: block;

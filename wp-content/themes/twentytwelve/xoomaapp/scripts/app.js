@@ -13,6 +13,9 @@
       url: '/measurements',
       ctrl: 'ProfileMeasurementsCtrl',
       parent: 'profile'
+    }).state('settings', {
+      url: '/settings',
+      parent: 'xooma'
     });
     App.addInitializer(function() {
       return Backbone.history.start();

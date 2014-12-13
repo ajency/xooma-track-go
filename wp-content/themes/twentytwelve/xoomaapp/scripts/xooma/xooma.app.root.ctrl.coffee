@@ -42,3 +42,14 @@ class XoomaAppRootView extends Marionette.LayoutView
 class App.XoomaCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new XoomaAppRootView
+
+
+class SettingsView extends Marionette.ItemView
+	className : 'animated fadeIn clearfix'
+	template : '#settings-template'
+
+class App.SettingsCtrl extends Marionette.RegionController
+	initialize: (options)->
+		@show new SettingsView
+
+
