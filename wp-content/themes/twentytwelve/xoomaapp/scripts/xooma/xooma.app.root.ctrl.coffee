@@ -1,8 +1,5 @@
 
 
-class XoomaAppRootView extends Marionette.LayoutView
-	className : 'animated zoomIn'
-	template : '#xooma-app-template'
 	
 class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated zoomIn'
@@ -19,6 +16,15 @@ class ProfileMeasurementsView extends Marionette.ItemView
 class App.ProfileMeasurementsCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new ProfileMeasurementsView
+
+class XoomaAppRootView extends Marionette.LayoutView
+	className : 'animated zoomIn'
+	template : '#xooma-app-template'
+	ui :
+		ul : '.list-inline'
+	behaviors :
+		ActiveLink :
+			behaviorClass : Ajency.ActiveLinkBehavior
 
 class App.XoomaCtrl extends Marionette.RegionController
 	initialize: (options)->

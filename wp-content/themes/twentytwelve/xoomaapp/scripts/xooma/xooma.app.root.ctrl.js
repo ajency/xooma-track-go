@@ -4,21 +4,6 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  XoomaAppRootView = (function(_super) {
-    __extends(XoomaAppRootView, _super);
-
-    function XoomaAppRootView() {
-      return XoomaAppRootView.__super__.constructor.apply(this, arguments);
-    }
-
-    XoomaAppRootView.prototype.className = 'animated zoomIn';
-
-    XoomaAppRootView.prototype.template = '#xooma-app-template';
-
-    return XoomaAppRootView;
-
-  })(Marionette.LayoutView);
-
   ProfilePersonalInfoView = (function(_super) {
     __extends(ProfilePersonalInfoView, _super);
 
@@ -78,6 +63,31 @@
     return ProfileMeasurementsCtrl;
 
   })(Marionette.RegionController);
+
+  XoomaAppRootView = (function(_super) {
+    __extends(XoomaAppRootView, _super);
+
+    function XoomaAppRootView() {
+      return XoomaAppRootView.__super__.constructor.apply(this, arguments);
+    }
+
+    XoomaAppRootView.prototype.className = 'animated zoomIn';
+
+    XoomaAppRootView.prototype.template = '#xooma-app-template';
+
+    XoomaAppRootView.prototype.ui = {
+      ul: '.list-inline'
+    };
+
+    XoomaAppRootView.prototype.behaviors = {
+      ActiveLink: {
+        behaviorClass: Ajency.ActiveLinkBehavior
+      }
+    };
+
+    return XoomaAppRootView;
+
+  })(Marionette.LayoutView);
 
   App.XoomaCtrl = (function(_super) {
     __extends(XoomaCtrl, _super);

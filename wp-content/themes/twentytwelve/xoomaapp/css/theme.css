@@ -6576,8 +6576,8 @@ body > .container {
     padding: 0px 20px !important;
   }
 }
-.sub-header ul li.selected a,
-.sub-header ul li.selected i {
+.sub-header ul li.active a,
+.sub-header ul li.active i {
   color: #3099ea;
 }
 /* Site Elements */
