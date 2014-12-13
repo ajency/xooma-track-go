@@ -3,13 +3,16 @@
   jQuery(document).ready(function($) {
     App.state('login').state('xooma', {
       url: '/'
+    }).state('profile', {
+      url: '/profile',
+      parent: 'xooma'
     }).state('ProfilePersonalInfo', {
-      url: '/profile/personal-info',
-      parent: 'xooma'
+      url: '/personal-info',
+      parent: 'profile'
     }).state('profileMeasurement', {
-      url: '/profile/measurements',
+      url: '/measurements',
       ctrl: 'ProfileMeasurementsCtrl',
-      parent: 'xooma'
+      parent: 'profile'
     });
     App.addInitializer(function() {
       return Backbone.history.start();

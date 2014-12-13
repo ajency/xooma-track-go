@@ -8,14 +8,18 @@ jQuery(document).ready ($)->
 		.state 'xooma',
 				url : '/'
 
-		.state 'ProfilePersonalInfo',
-				url : '/profile/personal-info'
+		.state 'profile',
+				url : '/profile'
 				parent : 'xooma'
 
+		.state 'ProfilePersonalInfo',
+				url : '/personal-info'
+				parent : 'profile'
+
 		.state 'profileMeasurement',
-				url : '/profile/measurements'
+				url : '/measurements'
 				ctrl : 'ProfileMeasurementsCtrl'
-				parent : 'xooma'
+				parent : 'profile'
 
 
 	App.addInitializer ->

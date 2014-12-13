@@ -82,25 +82,28 @@
               </div>
         </nav>
     </div>
-    <div class="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                        <ul class="list-inline" >
-                            <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                            <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">MEASUREMENT</span></a></li>
-                            <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
-                            <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">MYPRODUCTS</span></a></li>
-                        </ul>
-                </div>
-            </div>
-        </div>    
-    </div>
     <div ui-region></div>
+</script>
+<script id="profile-template" type="h-template">
+<div class="sub-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                    <ul class="list-inline" >
+                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">PERSONAL INFO</span></a></li>
+                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">MEASUREMENT</span></a></li>
+                        <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
+                        <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">MYPRODUCTS</span></a></li>
+                    </ul>
+            </div>
+        </div>
+    </div>    
+</div>
+<div ui-region></div>
 </script>
 <script id="no-access-template" type="h-template">
     {{#if no_access}}
