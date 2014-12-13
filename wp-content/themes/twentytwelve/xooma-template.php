@@ -58,7 +58,7 @@
 <!-- Templates -->
 <script id="login-template" type="h-template">
     <h1>Add Login Screen Markup Here</h1>
-    <a class="btn btn-primary" href="#/">Login</a>
+    <div class="btn btn-primary f-login-button" >Login With Facebook</div>
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -261,10 +261,28 @@
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1548551822025926',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 <script type="text/javascript">
     userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
     App                   = new Marionette.Application()  
-    App.LoginCtrl         = Ajency.LoginCtrl  
+    //App.LoginCtrl         = Ajency.LoginCtrl  
     App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';

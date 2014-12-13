@@ -1,5 +1,36 @@
 #start of the Application
 
+class LoginView extends Marionette.ItemView
+	template : '#login-template'
+	initialize : (opts)->
+		super opts
+	ui : 
+		fbLoginButton : '.f-login-button'
+	events : 
+		'click @ui.fbLoginButton' : 'loginWithFacebook'
+
+	loginWithFacebook : (evt)=>
+		FB.login (response)=>
+			if response.authResponse
+				FB.api '/me', (user)=>
+					@triggerMethod 'facebook:login:success', user, response.authResponse.accessToken
+			else
+				@triggerMethod 'facebook:login:cancel'
+		, scope: 'email'
+
+class App.LoginCtrl extends Ajency.LoginCtrl
+	initialize : ->
+		loginView = new LoginView
+		@listenTo loginView, 'facebook:login:success', @_facebookAuthSuccess
+		@listenTo loginView, 'facebook:login:cancel', @_facebookAuthCancel
+		@show loginView
+
+	_facebookAuthSuccess : (args...)->
+		App.currentUser.authenticate 'facebook', args...
+
+	_facebookAuthCancel : ->
+		App.currentUser.trigger 'user:auth:cancel'
+  
 
 jQuery(document).ready ($)->
 
@@ -27,6 +58,7 @@ jQuery(document).ready ($)->
 
 	App.addInitializer ->
 		Backbone.history.start()
-		#App.navigate '/login', true
+		App.currentUser.on 'user:auth:success', ->
+			App.navigate '/profile', true
 	
 	App.start()
