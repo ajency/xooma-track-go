@@ -15,8 +15,7 @@
       if (timeDifference <= 0) {
         time_for_notification = new Date(scheduledTime);
         window.plugin.notification.local.add({
-          id: '1',
-          autoCancel: true,
+          id: '3',
           title: "Xooma Track & Go",
           message: 'Time Scheduled Gear up xooma time! ',
           date: time_for_notification
@@ -25,19 +24,32 @@
         alert("Select a valid time");
       }
     },
-    notificationCall: function() {
-      var count, scheduledTimeAfterEverySec, _60_seconds_from_now;
-      count = 0;
+    notificationCall: function(id) {
+      var badgeValue, scheduledTimeAfterEverySec, _60_seconds_from_now;
+      if (id === '1') {
+        badgeValue = window.plugin.notification.local.getDefaults().badge;
+      } else {
+        badgeValue = window.plugin.notification.local.getDefaults().badge;
+      }
       scheduledTimeAfterEverySec = new Date().getTime();
       _60_seconds_from_now = new Date(scheduledTimeAfterEverySec + 60 * 1000);
       window.plugin.notification.local.add({
-        id: '2',
+        id: id,
         autoCancel: true,
-        title: "Xooma Track & Go",
+        title: "Xooma Track & Go for product" + id + "",
         message: 'Gear up xooma time!',
-        repeat: 'minutely',
+        badge: badgeValue,
         date: _60_seconds_from_now
       });
+      window.plugin.notification.local.ontrigger = function(id, state, json) {
+        var badge;
+        console.log("ontrigger");
+        badgeValue = badgeValue + 1;
+        badge = {
+          badge: badgeValue
+        };
+        return window.plugin.notification.local.setDefaults(badge);
+      };
     }
   });
 
