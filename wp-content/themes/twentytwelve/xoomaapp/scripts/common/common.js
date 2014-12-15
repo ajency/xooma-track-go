@@ -38,6 +38,31 @@
       } else if (_.isObject(args[0])) {
         return $.post("" + APIURL + "/authenticate", args[0], responseFn, "json");
       }
+    },
+    getFacebookPicture: function() {
+      return FB.api("/me/picture", {
+        "redirect": false,
+        "height": "200",
+        "type": "normal",
+        "width": "200"
+      }, (function(_this) {
+        return function(resp) {
+          var _picture;
+          if (resp && !resp.error) {
+            _picture = {
+              'id': 0,
+              'sizes': {
+                "thumbnail": {
+                  "height": 150,
+                  "width": 150,
+                  "url": resp.data.url
+                }
+              }
+            };
+            return _this.set('profile_picture', _picture);
+          }
+        };
+      })(this));
     }
   });
 

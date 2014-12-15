@@ -9,7 +9,7 @@
     __extends(ProfilePersonalInfoView, _super);
 
     function ProfilePersonalInfoView() {
-      this.displayProfilePicture = __bind(this.displayProfilePicture, this);
+      this.updatePicture = __bind(this.updatePicture, this);
       return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
     }
 
@@ -17,18 +17,12 @@
 
     ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
-    ProfilePersonalInfoView.prototype.onShow = function() {
-      return FB.api("/me/picture", {
-        "redirect": false,
-        "height": "200",
-        "type": "normal",
-        "width": "200"
-      }, this.displayProfilePicture);
+    ProfilePersonalInfoView.prototype.modelEvents = {
+      'change:profile_picture': 'updatePicture'
     };
 
-    ProfilePersonalInfoView.prototype.displayProfilePicture = function(resp) {
-      console.log(resp);
-      return this.$('.profile-picture').attr('src', resp.data.url);
+    ProfilePersonalInfoView.prototype.updatePicture = function(model) {
+      return this.$('.profile-picture').attr('src', model.get('profile_picture').sizes.thumbnail.url);
     };
 
     return ProfilePersonalInfoView;
@@ -43,7 +37,9 @@
     }
 
     ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
-      return this.show(new ProfilePersonalInfoView);
+      return this.show(new ProfilePersonalInfoView({
+        model: App.currentUser
+      }));
     };
 
     return ProfilePersonalInfoCtrl;

@@ -289,11 +289,10 @@
     App.addInitializer(function(){
       FB.getLoginStatus(function(response){
         if(response.status === 'connected'){
-            FB.api('/me', function(user){
-              App.currentUser.authenticate('facebook', user, response.authResponse.accessToken);
-            });
+            App.currentUser.getFacebookPicture()
         }
       });
+      
     });
     App.start()
   };

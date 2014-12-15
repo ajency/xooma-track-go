@@ -4,25 +4,14 @@
 class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated fadeIn'
 	template : '#profile-personal-info-template'
-	onShow : ->
-		FB.api "/me/picture", {
-				"redirect": false,
-				"height": "200",
-				"type": "normal",
-				"width": "200"
-			}, @displayProfilePicture
-
-	displayProfilePicture :(resp)=>
-		console.log resp
-		@$('.profile-picture').attr 'src', resp.data.url
-				
-					
-
-
+	modelEvents : 
+		'change:profile_picture' : 'updatePicture'
+	updatePicture : (model)=>
+		@$('.profile-picture').attr 'src', model.get('profile_picture').sizes.thumbnail.url
 
 class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
-		@show new ProfilePersonalInfoView
+		@show new ProfilePersonalInfoView model : App.currentUser
 
 class ProfileMeasurementsView extends Marionette.ItemView
 	className : 'animated fadeIn'
