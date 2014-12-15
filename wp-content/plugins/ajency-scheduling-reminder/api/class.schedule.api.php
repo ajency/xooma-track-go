@@ -46,18 +46,4 @@ class AjencyScheduleAPI{
 		return $response;
 
 	}
-
 }
-
-
-add_action('init', function(){
-	$schedule_data = array(
-			'user_id' => 3,
-			'action' => 'product_intake',
-			'item_id' => 34,
-			'rrule' => 'TEXTADDS:223423'
-		);
-	$r = AjSchedule::add($schedule_data);
-	var_dump($r);
-	die;
-});
