@@ -2,12 +2,25 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
+  }).state('profile', {
+    url: '/profile',
+    parent: 'xooma'
   }).state('ProfilePersonalInfo', {
-    url: '/profile/personal-info',
+    url: '/personal-info',
+    parent: 'profile'
+  }).state('profileMeasurement', {
+    url: '/measurements',
+    ctrl: 'ProfileMeasurementsCtrl',
+    parent: 'profile'
+  }).state('settings', {
+    url: '/settings',
     parent: 'xooma'
   });
   App.addInitializer(function() {
-    return Backbone.history.start();
+    Backbone.history.start();
+    return App.currentUser.on('user:auth:success', function() {
+      return App.navigate('/profile', true);
+    });
   });
   return App.start();
 });

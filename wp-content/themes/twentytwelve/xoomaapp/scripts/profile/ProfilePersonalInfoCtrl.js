@@ -9,30 +9,29 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
     return ProfilePersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }
 
-  ProfilePersonalInfoCtrl.prototype.initialize = function() {
-    console.log("sssssssssss");
+  ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
     this.user = this._get_user_details();
-    this.view = new ProfilePersonalInfoView(this.user);
-    return this.show(this.view);
+    return this.show(new ProfilePersonalInfoView(this.user));
   };
 
   ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
     return $.ajax({
       method: 'GET',
-      url: SITEURL + '/wp-json/profiles/2',
+      url: _SITEURL + '/wp-json/profiles/2',
       data: '',
       success: function(response) {
-        var user_model;
-        user_model = new Backbone.Model;
-        user_model.set('xooma_member_id', response.xooma_member_id);
-        user_model.set('name', response.name);
-        user_model.set('email_id', response.email);
-        user_model.set('image', response.image);
-        user_model.set('gender', response.gender);
-        user_model.set('phone_no', response.phone_no);
-        user_model.set('timezone', response.timezone);
-        user_model.set('attachment_id', response.attachment_id);
-        user_model.set('user_products', response.user_products);
+        var response_data, user_model;
+        response_data = response;
+        user_model = App.currentUser;
+        user_model.set('xooma_member_id', response_data.response.xooma_member_id);
+        user_model.set('name', response_data.response.name);
+        user_model.set('email_id', response_data.response.email);
+        user_model.set('image', response_data.response.image);
+        user_model.set('gender', response_data.response.gender);
+        user_model.set('phone_no', response_data.response.phone_no);
+        user_model.set('timezone', response_data.response.timezone);
+        user_model.set('attachment_id', response_data.response.attachment_id);
+        user_model.set('user_products', response_data.response.user_products);
         return user_model;
       },
       error: function(error) {
@@ -43,4 +42,4 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
 
   return ProfilePersonalInfoCtrl;
 
-})(Ajency.RegionController);
+})(Marionette.RegionController);

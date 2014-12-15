@@ -46,6 +46,9 @@ register_deactivation_hook(__FILE__, array("ajencyWorkflow", "deactivate"));
 function aj_workflow() {
 	return ajencyWorkflow::get_instance();
 }
-
+function aj_workflow_tables() {
+	return new tables();
+}
 // add workflow instance to globals
 $GLOBALS['aj_workflow'] = aj_workflow();
+$GLOBALS['table'] = aj_workflow_tables();

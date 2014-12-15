@@ -14,14 +14,14 @@ class tables{
         $workflow_sql = "CREATE TABLE IF NOT EXISTS $workflow_tbl (
                                id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,           
                                workflow_name varchar(75) NOT NULL,
-                               status varchar(75) NOT NULL,
+                               status varchar(75) NOT NULL
                                );";
 
 		$workflow_forms_sql = "CREATE TABLE IF NOT EXISTS $workflow_forms_tbl (
                                id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,  
                                workflow_id int(100) NOT NULL,       
                                form_name varchar(75) NOT NULL,
-                               sequence int(50) NOT NULL,
+                               sequence int(50) NOT NULL
                                );";
 
 		$workflow_user_sql = "CREATE TABLE IF NOT EXISTS $workflow_user_tbl (

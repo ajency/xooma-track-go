@@ -45,7 +45,9 @@ class User
 	{
 		
 		//image upload//
-        $attachment_id = uploadImage($args['image']);
+        if($args['image']!=""){
+            $attachment_id = uploadImage($args['image']);
+        }
 
         if(!(is_array($attachment_id)))
         {
@@ -83,7 +85,7 @@ class User
         //all the rules defined//
 
         if(!($v->validate())) {
-           return array('status' => 404 ,'response' => 'Data sent to the serer is not proper');
+           return array('status' => 404 ,'response' => 'Data sent to the serer is not in the required format');
         }
 
 		    //update user meta for the user

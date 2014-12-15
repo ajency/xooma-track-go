@@ -54,11 +54,12 @@
 </head>
 <body class="gradient">
 <div ui-region>
+<div id="fb-root"></div>
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
     <h1>Add Login Screen Markup Here</h1>
-    <a class="btn btn-primary" href="#/">Login</a>
+    <div class="btn btn-primary f-login-button" >Login With Facebook</div>
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -82,22 +83,33 @@
               </div>
         </nav>
     </div>
-    <div class="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                        <ul class="list-inline" >
-                            <li class="selected"><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">MEASUREMENT</span></a></li>
-                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
-                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">MYPRODUCTS</span></a></li>
-                            
-                        </ul>
-                </div>
+    <div class="clearfix"></div>
+    <div ui-region style="margin-top:60px"></div>
+</script>
+<script id="profile-template" type="h-template">
+<div class="sub-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                    <ul class="list-inline" >
+                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">PERSONAL INFO</span></a></li>
+                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">MEASUREMENT</span></a></li>
+                        <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
+                        <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">MYPRODUCTS</span></a></li>
+                    </ul>
             </div>
-        </div>    
-    </div>
-    <div ui-region></div>
+        </div>
+    </div>    
+</div>
+<div class="clearfix"></div>
+<div ui-region></div>
+</script>
+<script id="settings-template" type="text/template">
+    <h2>THis is the settings template </h2>
 </script>
 <script id="no-access-template" type="h-template">
     {{#if no_access}}
@@ -110,9 +122,134 @@
     <h1>This view is not configured. Please contact administrator</h1>
     {{/if}}
 </script>
+<script id="profile-personal-info-template" type="h-template">
 
+    <div id="personalinfo" class="section">
+        <div class="container">
+            <img src="assets/images/profile.jpg" alt="..." class="img-circle center-block" width="150px" height="150px">
+            <input type="hidden" class="form-control" name="image" id="image" value="http://localhost/xooma/wp-content/themes/twentytwelve/img/profile.jpg" /> 
+            <input type="hidden" class="form-control" name="attachment_id" id="attachment_id" value="" /> 
+            <h6 class="text-center bold">You are on the the spot!</h6>
+            <p class="text-center">Let us know something about you.</p>
+            <br>
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                <div class="response_msg"></div>
+                    <form id="add_user_details" class="form-horizontal" role="form" method="POST">
+                      <div class="form-group">
+                        <label for="text1" class=" col-sm-3 control-label">xooma id</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required placeholder="0001">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="text2" class=" col-sm-3 control-label">Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="name" name="name" placeholder="Martin Luther">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="text3" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" readonly class="form-control" id="email_id" name="email_id" placeholder="xyz@mail.com">
+                        </div>
+                      </div>
+                     <div class="form-group">
+                        <label for="text4" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="phone_no" name="phone_no" placeholder="0010100100">
+                        </div>
+                      </div>
+                     <div class="form-group">
+                        <label for="text5" class=" col-sm-3 control-label">Gender</label>
+                        <div class="col-sm-9">
+                        <div class="rd-gender">
+                                  <label class="wrap">
+                                    <input type="radio" name="radio_grp" id="male" class="radio" value="male" checked="checked"/>
+                                    <span class="rd-visual male" title="Male"></span>
+                                  </label>
+                                  <label class="wrap">
+                                    <input type="radio" name="radio_grp" id="female" class="radio" value="female"/>
+                                    <span class="rd-visual female" title="Female"></span>
+                                  </label>
+                            </div>
+                            <input type="hidden" name="gender" id="gender" value = "male" />
+                        </div>
+                      </div>
+                        <div class="form-group">
+                            <label for="text7" class=" col-sm-3 control-label">Birth date</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="birth_date"  name="birth_date" required placeholder="">
+                            </div>
+                      </div>  
+                       <div class="form-group">
+                            <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="timezone" name="timezone" placeholder="">
+                            </div>
+                      </div> 
+                
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Next</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="profile-measurements-template" type="h-template">
+    <div id="measuremnt" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5 class="text-center bold">Set your mesurements</h5>
+                    <p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-6">
+                            <img src="assets/images/height.png" class="pull-right m-t-40">
+                        </div>
+                        <div class="col-md-7">
+                            <h4 class="text-left"> <output></output><small>Feet</small></h4>
+                        </div>
+                        <input type="range" min="4" max="9" step="0.1" value="1.1" data-rangeslider>
+                    </div>
+                    </br>
+                    </br>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-6">
+                            <img src="assets/images/weight.jpg" class="pull-right m-t-40">
+                        </div>
+                        <div class="col-md-7 ">
+                            <h4 class="text-left"> <output></output><small>pounds</small></h4>
+                        </div>
+                        <input type="range" min="25" max="500" step="1" value="25" data-rangeslider>
+                    </div>
+                    </br>
+                    </br>
+                </div>
+                <div class="col-sm-6 imageMap">
+                    <a id="element" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input                               type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element1" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element2" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element3" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element4" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element5" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element6" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element7" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <img src="assets/images/humanbody.png" class="center-block">
+                </div>
 
-<!-- build:js({.tmp,app}) scripts/vendors.js -->
+            </div>
+        </div>
+    </div>
+</script>
+<!-- build:js({.js}) scripts/vendors.js -->
+<!-- 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/detectizr/dist/detectizr.js"></script>  -->
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
@@ -131,19 +268,45 @@
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
-<script type="text/javascript">
-    App                   = new Marionette.Application()  
-    App.LoginCtrl         = Ajency.LoginCtrl  
-    App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-    APIURL                = '<?php echo json_url() ?>';
-    _SITEURL              = '<?php echo site_url() ?>';
-</script>
 
+
+<script type="text/javascript">
+        App                   = new Marionette.Application()  
+        //App.LoginCtrl         = Ajency.LoginCtrl  
+        App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
+        APIURL                = '<?php echo json_url() ?>';
+        _SITEURL              = '<?php echo site_url() ?>';
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1548551822025926',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+
+    FB.getLoginStatus(function(response){
+      if(response.status === 'connected'){
+          FB.api('/me', function(user){
+            App.currentUser.authenticate('facebook', user, response.authResponse.accessToken);
+          });
+      }
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 <!-- build:js(*.js) application.js -->
 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 <!-- endbuild -->
 

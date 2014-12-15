@@ -1,31 +1,30 @@
 
-class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
+class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
+	initialize: (options)->
 
-	initialize:->
-		console.log "sssssssssss"
 		@user = @_get_user_details()
 
-		@view = new ProfilePersonalInfoView @user
+		@show new ProfilePersonalInfoView @user
 
-		@show @view
 
 
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : SITEURL+'/wp-json/profiles/2',
+			url : _SITEURL+'/wp-json/profiles/2',
 			data : '',
 			success:(response)->
-				user_model = new Backbone.Model 
-				user_model.set 'xooma_member_id' , response.xooma_member_id
-				user_model.set 'name' , response.name
-				user_model.set 'email_id' , response.email
-				user_model.set 'image' , response.image
-				user_model.set 'gender' , response.gender
-				user_model.set 'phone_no' , response.phone_no
-				user_model.set 'timezone' , response.timezone
-				user_model.set 'attachment_id' , response.attachment_id
-				user_model.set 'user_products' , response.user_products
+				response_data = response
+				user_model = App.currentUser
+				user_model.set 'xooma_member_id' , response_data.response.xooma_member_id
+				user_model.set 'name' , response_data.response.name
+				user_model.set 'email_id' , response_data.response.email
+				user_model.set 'image' , response_data.response.image
+				user_model.set 'gender' , response_data.response.gender
+				user_model.set 'phone_no' , response_data.response.phone_no
+				user_model.set 'timezone' , response_data.response.timezone
+				user_model.set 'attachment_id' , response_data.response.attachment_id
+				user_model.set 'user_products' , response_data.response.user_products
 				return user_model
 				
 

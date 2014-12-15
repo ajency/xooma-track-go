@@ -110,8 +110,6 @@ class ajencyWorkflow{
 		// TODO: Define activation functionality here
 		global $table;
 
-		$table = new tables();
-
 		$table->create_tables();
 
 

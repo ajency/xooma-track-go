@@ -19,6 +19,8 @@ if (!defined("WP_UNINSTALL_PLUGIN")) {
 /**
  * Delete database tables
  */
+	
 	global $table;
 
+	$table = new tables();
 	$table->delete_tables();
