@@ -16,6 +16,14 @@
  * @author  Team Ajency <team@ajency.in>
  */
 class AjencySchedulingReminder{
+
+	/**
+	 * Table names
+	 * @var string
+	 */
+	public static $aj_schedule_table = 'aj_schedules';
+	public static $aj_occurence_meta_table = 'aj_occurence_meta';
+
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
@@ -106,6 +114,10 @@ class AjencySchedulingReminder{
 		AjencySchedulingReminder::create_tables();
 	}
 
+	/**
+	 * Create the required table for the plugin
+	 * @return [type] [description]
+	 */
 	public static function create_tables(){
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -113,6 +125,10 @@ class AjencySchedulingReminder{
 		AjencySchedulingReminder::create_occurence_meta_table();
 	}
 
+	/**
+	 * [create_schedules_table description]
+	 * @return [type] [description]
+	 */
 	public static function create_schedules_table(){
 		global $wpdb;
 
@@ -121,7 +137,7 @@ class AjencySchedulingReminder{
 		$sql = "CREATE TABLE {$wpdb->prefix}aj_schedules(
 				  id mediumint(9) NOT NULL AUTO_INCREMENT,
 				  user_id mediumint(9) NOT NULL,
-				  type varchar(55) DEFAULT '' NOT NULL,
+				  action varchar(55) DEFAULT '' NOT NULL,
 				  item_id mediumint(9) NOT NULL,
 				  rrule text NOT NULL,
 				  UNIQUE KEY id (id)
@@ -130,6 +146,10 @@ class AjencySchedulingReminder{
 		dbDelta( $sql );
 	}
 
+	/**
+	 * [create_occurence_meta_table description]
+	 * @return [type] [description]
+	 */
 	public static function create_occurence_meta_table(){
 		global $wpdb;
 

@@ -28,6 +28,10 @@ if (!defined("WPINC")) {
 	die;
 }
 
+//plugin files
+require_once(plugin_dir_path(__FILE__) . "classes/class.schedule.php");
+require_once(plugin_dir_path(__FILE__) . "api/class.schedule.api.php");
+
 require_once(plugin_dir_path(__FILE__) . "AjencySchedulingReminder.php");
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
