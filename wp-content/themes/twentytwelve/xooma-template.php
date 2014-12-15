@@ -18,10 +18,9 @@
     <title><?php wp_title( '|', true, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/css/bootstrap.css">
+    
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/style.css">
     <style scoped>
         #buttongroup-home .head {
           display: block;
@@ -53,8 +52,8 @@
         }
     </style>
 </head>
-<body>
-<div ui-region class="container-fluid">
+<body class="gradient">
+<div ui-region>
 </div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
@@ -65,7 +64,39 @@
     <h3>Add 404 View Here</h3>
 </script>
 <script id="xooma-app-template" type="h-template">
-    <h1>Add xooma header template here</h1>
+    <div class="topheader">
+       <nav class="navbar " role="navigation">
+              <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-5">
+                      <div class="navbar-header">
+                              <a  href="#">
+                                <img alt="Brand" src="http://localhost/xooma/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
+                              </a>
+                        </div>
+                    </div>
+                       <div class="col-sm-9 col-xs-7">
+                        <a href="#menu"> <h5><i class="fa fa-cog pull-right "></i></h5></a>
+                    </div>
+                </div>
+              </div>
+        </nav>
+    </div>
+    <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                        <ul class="list-inline" >
+                            <li class="selected"><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">PERSONAL INFO</span></a></li>
+                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">MEASUREMENT</span></a></li>
+                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
+                            <li><a><i class="fa fa-check-circle-o"></i> <span class="hidden-xs">MYPRODUCTS</span></a></li>
+                            
+                        </ul>
+                </div>
+            </div>
+        </div>    
+    </div>
     <div ui-region></div>
 </script>
 <script id="no-access-template" type="h-template">
@@ -101,7 +132,6 @@
 <!-- endbuild -->
 
 <script type="text/javascript">
-    userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
     App                   = new Marionette.Application()  
     App.LoginCtrl         = Ajency.LoginCtrl  
     App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
@@ -110,7 +140,13 @@
 </script>
 
 <!-- build:js(*.js) application.js -->
+
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
+<!-- endbuild -->
 
 </body>	
 </html>
+  

@@ -1,11 +1,11 @@
 
-class Xoomapp.ProfilePersonalInfoCtrl extends Ajency.RegionController
+class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
 
 	initialize:->
-
+		console.log "sssssssssss"
 		@user = @_get_user_details()
 
-		@view = new Xoomapp.ProfilePersonalInfoView @user
+		@view = new ProfilePersonalInfoView @user
 
 		@show @view
 

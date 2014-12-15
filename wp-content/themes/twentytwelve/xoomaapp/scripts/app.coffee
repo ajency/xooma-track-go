@@ -13,6 +13,6 @@ jQuery(document).ready ($)->
 
 	App.addInitializer ->
 		Backbone.history.start()
-		App.navigate '/login', true
+		#App.navigate '/login', true
 	
 	App.start()

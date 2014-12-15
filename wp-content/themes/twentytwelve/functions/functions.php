@@ -444,10 +444,12 @@ function get_fblogin_status($data){
                     wp_clear_auth_cookie();
                     wp_set_current_user ( $user->ID );
                     
-            //get the user id
-                   $user_id = $user->ID;
-
-                    $response = login_response($user_id);
+                    
+                  //get the user id
+                  $user_id = $user->ID;
+                  send_notifications_to_admin($user_id);
+                  send_notifications_to_user($user_id);
+                  $response = login_response($user_id);
 
                 }
 
@@ -474,6 +476,7 @@ function login_response($user_id){
     $user['id'] = $user_id;
     $user['user_login'] = $user_info->data->user_login;
     $user['user_email'] = $user_info->data->user_email; 
+    $user['user_registered'] = $user_info->data->user_registered; 
     $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0]; 
     $user['role'] =  key($user_info->caps) ;
     $user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
@@ -487,3 +490,92 @@ function login_response($user_id){
     return  $user;
 }
 
+
+function send_notifications_to_admin($user_id){
+
+
+  global $aj_comm;
+
+  $args = array(
+    'component'             => 'xooma_users',
+    'communication_type'    => 'xooma_admin_email',
+    'user_id'               => $user_id
+
+    );
+  // user data
+  $user = login_response($user_id);
+
+  $meta = array(
+    'username'        => $user['user_login'],
+    'email'           => $user['user_email'],
+    'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
+    'registered'      => $user['registered'],
+    'siteurl'         => site_url().'/wp-admin'
+
+
+    );
+  //get all the admins
+  $arguments = array(
+        'role' => 'Administrator',
+        'orderby' => 'ID',
+        'order' => 'ASC',
+        'offset' => 0,
+        'number' => 0
+    );
+  $admins = get_users($arguments);
+
+  foreach ((array) $admins as $value) {
+
+    $recipients_args = array(
+      'user_id'     => $user_id,
+      'type'        => 'email',
+      'value'       => $value->user_email
+
+    );
+
+    $aj_comm->create_communication($args,$meta,$recipients_args);
+        
+    }
+  
+
+  
+
+  return true;
+
+
+}
+
+
+function send_notifications_to_user($user_id){
+
+
+  global $aj_comm;
+
+  $args = array(
+    'component'             => 'xooma_users',
+    'communication_type'    => 'xooma_user_email',
+    'user_id'               => $user_id
+
+    );
+  // user data
+  $user = login_response($user_id);
+
+  $meta = array(
+    'siteurl'         => site_url().'/wp-admin'
+
+
+    );
+
+  $recipients_args = array(
+      'user_id'     => $user_id,
+      'type'        => 'email',
+      'value'       =>  $user['user_email']
+
+    );
+
+  $aj_comm->create_communication($args,$meta,$recipients_args);
+
+  return true;
+
+
+}
