@@ -132,7 +132,7 @@
 <script id="profile-personal-info-template" type="h-template">
     <div id="personalinfo" class="section">
         <div class="container">
-            <img src="" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
+            <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
