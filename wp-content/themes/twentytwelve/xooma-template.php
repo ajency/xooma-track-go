@@ -66,7 +66,7 @@
     <h1>Add Login Screen Markup Here</h1>
     <br />
     <br />
-    <div class="btn btn-primary f-login-button" >Login With Facebook</div>
+    <div class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
