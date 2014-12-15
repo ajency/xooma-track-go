@@ -1,8 +1,11 @@
 <?php
+
+namespace ajency;
+
 /**
  * The Schedule class
  */
-class AjSchedule{
+class Schedule{
 
 
 
@@ -12,10 +15,10 @@ class AjSchedule{
 	 */
 	static function add($schedule_data){
 
-		// if(!current_user_can('edit_schedule'))
-		// 	return new WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
+		if(!current_user_can('edit_schedule'))
+			return new WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
-		return AjSchedule::_insert_schedule($schedule_data);
+		return Schedule::_insert_schedule($schedule_data);
 	}
 
 	/**
@@ -23,7 +26,7 @@ class AjSchedule{
 	 * @param  [type] $schedule_id [description]
 	 * @return [type]              [description]
 	 */
-	static function get_schedule($schedule_id){
+	static function get($schedule_id){
 		global $wpdb;
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
@@ -35,7 +38,7 @@ class AjSchedule{
 		if($schedule === null)
 			return WP_Error('invalid_schedule_id', __('Invalid schedule ID'));
 
-		return $schedule;
+		return apply_filters('aj_schedule_model', $schedule);
 	}
 
 	/**
