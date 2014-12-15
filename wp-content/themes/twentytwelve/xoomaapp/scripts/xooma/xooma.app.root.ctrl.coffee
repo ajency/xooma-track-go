@@ -6,14 +6,17 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	template : '#profile-personal-info-template'
 	onShow : ->
 		FB.api "/me/picture", {
-		        "redirect": false,
-		        "height": "200",
-		        "type": "normal",
-		        "width": "200"
-		    }, (resp)->
-		    	console.log resp
-		    	
-		    		
+				"redirect": false,
+				"height": "200",
+				"type": "normal",
+				"width": "200"
+			}, @displayProfilePicture
+
+	displayProfilePicture :(resp)=>
+		console.log resp
+		@$('.profile-picture').attr 'src', resp.data.url
+				
+					
 
 
 
