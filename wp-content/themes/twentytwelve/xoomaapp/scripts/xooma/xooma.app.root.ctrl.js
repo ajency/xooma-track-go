@@ -15,6 +15,17 @@
 
     ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
+    ProfilePersonalInfoView.prototype.onShow = function() {
+      return FB.api("/me/picture", {
+        "redirect": false,
+        "height": "200",
+        "type": "normal",
+        "width": "200"
+      }, function(resp) {
+        return console.log(resp);
+      });
+    };
+
     return ProfilePersonalInfoView;
 
   })(Marionette.ItemView);

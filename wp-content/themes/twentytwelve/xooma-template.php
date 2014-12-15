@@ -53,12 +53,19 @@
     </style>
 </head>
 <body class="gradient">
-<div ui-region>
+<div ui-region></div>
 <div id="fb-root"></div>
-</div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <h1>Add Login Screen Markup Here</h1>
+    <br />
+    <br />
     <div class="btn btn-primary f-login-button" >Login With Facebook</div>
 </script>
 <script id="404-template" type="h-template">
@@ -274,18 +281,21 @@
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '1548551822025926',
+      appId      : '1536913533218407',
       xfbml      : true,
       version    : 'v2.2'
     });
 
-    FB.getLoginStatus(function(response){
-      if(response.status === 'connected'){
-          FB.api('/me', function(user){
-            App.currentUser.authenticate('facebook', user, response.authResponse.accessToken);
-          });
-      }
+    App.addInitializer(function(){
+      FB.getLoginStatus(function(response){
+        if(response.status === 'connected'){
+            FB.api('/me', function(user){
+              App.currentUser.authenticate('facebook', user, response.authResponse.accessToken);
+            });
+        }
+      });
     });
+    App.start()
   };
 
   (function(d, s, id){

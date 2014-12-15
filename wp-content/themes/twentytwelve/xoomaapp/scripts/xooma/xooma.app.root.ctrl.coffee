@@ -4,6 +4,18 @@
 class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated fadeIn'
 	template : '#profile-personal-info-template'
+	onShow : ->
+		FB.api "/me/picture", {
+		        "redirect": false,
+		        "height": "200",
+		        "type": "normal",
+		        "width": "200"
+		    }, (resp)->
+		    	console.log resp
+		    	
+		    		
+
+
 
 class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->

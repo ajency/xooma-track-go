@@ -17,13 +17,12 @@
       url: '/settings',
       parent: 'xooma'
     });
-    App.addInitializer(function() {
+    return App.addInitializer(function() {
       Backbone.history.start();
       return App.currentUser.on('user:auth:success', function() {
         return App.navigate('/profile', true);
       });
     });
-    return App.start();
   });
 
 }).call(this);

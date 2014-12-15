@@ -52,6 +52,8 @@
 
     LoginView.prototype.template = '#login-template';
 
+    LoginView.prototype.className = 'text-center';
+
     LoginView.prototype.initialize = function(opts) {
       LoginView.__super__.initialize.call(this, opts);
       return this.on('show', this.checkFbLoginStatus);

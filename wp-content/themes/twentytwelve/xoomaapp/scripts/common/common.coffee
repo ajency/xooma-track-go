@@ -32,10 +32,10 @@ _.extend Ajency.CurrentUser::,
 
 class LoginView extends Marionette.ItemView
 	template : '#login-template'
+	className: 'text-center'
 	initialize : (opts)->
 		super opts
 		@on 'show', @checkFbLoginStatus
-
 	ui : 
 		fbLoginButton : '.f-login-button'
 	events : 

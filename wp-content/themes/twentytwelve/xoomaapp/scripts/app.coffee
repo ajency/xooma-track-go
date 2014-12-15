@@ -28,4 +28,4 @@ jQuery(document).ready ($)->
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate '/profile', true
 	
-	App.start()
+	
