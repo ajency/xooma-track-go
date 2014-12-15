@@ -17,12 +17,46 @@
       }).state('settings', {
         url: '/settings',
         parent: 'xooma'
+      }).state('notification', {
+        url: '/notification-info'
       });
       App.addInitializer(function() {
         Backbone.history.start();
         App.navigate('/login', true);
-        return window.plugin.notification.local.onclick = function() {
-          return App.navigate("/login", true);
+        return window.plugin.notification.local.onclick = function(id, state, json) {
+          var badge, badgeValue, setbadgeValue;
+          setbadgeValue = 0;
+          badgeValue = window.plugin.notification.local.getDefaults().badge;
+          if (badgeValue !== 0) {
+            if (id === '1') {
+              badgeValue = 0;
+              badge = {
+                badge: setbadgeValue
+              };
+              window.plugin.notification.local.setDefaults(badge);
+            } else if (id === '2') {
+              badgeValue = 0;
+              badge = {
+                badge: setbadgeValue
+              };
+              window.plugin.notification.local.setDefaults(badge);
+            } else if (id === '3') {
+              badgeValue = 0;
+              badge = {
+                badge: setbadgeValue
+              };
+              window.plugin.notification.local.setDefaults(badge);
+            } else if (id === '4') {
+              badgeValue = 0;
+              badge = {
+                badge: setbadgeValue
+              };
+              window.plugin.notification.local.setDefaults(badge);
+            }
+          }
+          App.navigate("/notification-info", true);
+          $('#time_for_notification').text(JSON.parse(json).date);
+          return $('#Message_for_notification').text(JSON.parse(json).test);
         };
       });
       return App.start();

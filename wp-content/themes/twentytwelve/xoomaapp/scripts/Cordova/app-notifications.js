@@ -2,44 +2,115 @@
 (function() {
   _.mixin({
     setNotificationTime: function() {
-      var current_time, date, dateValue, getNotificationTime, laterDate, scheduledTime, timeDifference, time_for_notification, time_selected, today;
+      var badgeValue, convertTo12hourFormat, current_time, date, dateValue, getNotificationTime, laterDate, scheduledTime, timeDifference, time_for_notification, time_selected, today;
       current_time = moment().format("HH:mm");
       getNotificationTime = $("#timeupdate").val();
       time_selected = moment(getNotificationTime, "HH:mm").format("HH:mm");
       today = new Date();
       date = "" + (today.getFullYear()) + "-" + (today.getMonth() + 1) + "-" + (today.getDate());
       laterDate = moment(date + " " + getNotificationTime);
+      convertTo12hourFormat = laterDate.format('hh:mm:ss A');
       dateValue = laterDate.toDate();
       scheduledTime = dateValue.getTime();
       timeDifference = moment(current_time, "HH:mm").diff(moment(time_selected, "HH:mm"));
       if (timeDifference <= 0) {
+        badgeValue = window.plugin.notification.local.getDefaults().badge;
         time_for_notification = new Date(scheduledTime);
         window.plugin.notification.local.add({
-          id: '3',
+          id: '4',
+          autoCancel: true,
           title: "Xooma Track & Go",
           message: 'Time Scheduled Gear up xooma time! ',
-          date: time_for_notification
+          date: time_for_notification,
+          json: JSON.stringify({
+            test: "Its Xooma Time!!",
+            date: convertTo12hourFormat
+          }),
+          badge: badgeValue
         });
       } else {
         alert("Select a valid time");
       }
+      window.plugin.notification.local.ontrigger = function(id, state, json) {
+        var badge;
+        console.log("ontrigger");
+        badgeValue = badgeValue + 1;
+        badge = {
+          badge: badgeValue
+        };
+        if (id === '4') {
+          return window.plugin.notification.local.setDefaults(badge);
+        }
+      };
     },
     notificationCall: function(id) {
-      var badgeValue, scheduledTimeAfterEverySec, _60_seconds_from_now;
+      var badgeValue, concatDateAndTime, convertTo12hourFormat, convertToMilliSecs, date, newDate, notificationMessage, one_min, time;
       if (id === '1') {
         badgeValue = window.plugin.notification.local.getDefaults().badge;
-      } else {
+      } else if (id === '2') {
+        badgeValue = window.plugin.notification.local.getDefaults().badge;
+      } else if (id === '3') {
         badgeValue = window.plugin.notification.local.getDefaults().badge;
       }
-      scheduledTimeAfterEverySec = new Date().getTime();
-      _60_seconds_from_now = new Date(scheduledTimeAfterEverySec + 60 * 1000);
+      if (badgeValue === 0) {
+        notificationMessage = 'Gear up xooma time!';
+      } else {
+        notificationMessage = 'Gear up xooma time! ' + "                                     " + ' ' + badgeValue + ' ';
+      }
+      newDate = new Date();
+      date = "" + (newDate.getFullYear()) + "-" + (newDate.getMonth() + 1) + "-" + (newDate.getDate());
+      convertToMilliSecs = newDate.getTime();
+      one_min = new Date(convertToMilliSecs + 3 * 1000);
+      time = one_min.getHours() + ':' + one_min.getMinutes() + ':' + one_min.getSeconds();
+      concatDateAndTime = moment(date + " " + time);
+      convertTo12hourFormat = concatDateAndTime.format('hh:mm:ss A');
       window.plugin.notification.local.add({
         id: id,
         autoCancel: true,
         title: "Xooma Track & Go for product" + id + "",
-        message: 'Gear up xooma time!',
+        message: notificationMessage,
         badge: badgeValue,
-        date: _60_seconds_from_now
+        json: JSON.stringify({
+          test: "Xooma Track & Go!!",
+          date: convertTo12hourFormat
+        }),
+        date: time
+      });
+      return window.plugin.notification.local.ontrigger = function(id, state, json) {
+        var badge;
+        console.log("ontrigger");
+        badgeValue = badgeValue + 1;
+        badge = {
+          badge: badgeValue
+        };
+        if (id === '1') {
+          return window.plugin.notification.local.setDefaults(badge);
+        } else if (id === '2') {
+          return window.plugin.notification.local.setDefaults(badge);
+        } else if (id === '3') {
+          return window.plugin.notification.local.setDefaults(badge);
+        }
+      };
+    },
+    notificationCallForBadgeValues: function(id) {
+      var badgeValue, notificationMessage, scheduledTimeAfterEverySec, _60_seconds_from_now;
+      badgeValue = window.plugin.notification.local.getDefaults().badge;
+      scheduledTimeAfterEverySec = new Date().getTime();
+      _60_seconds_from_now = new Date(scheduledTimeAfterEverySec + 60 * 1000);
+      if (badgeValue === 0) {
+        notificationMessage = 'Gear up xooma time!';
+      } else {
+        notificationMessage = 'Gear up xooma time! ' + "                                     " + ' ' + badgeValue + ' ';
+      }
+      window.plugin.notification.local.add({
+        id: id,
+        autoCancel: true,
+        title: "Xooma Track & Go for product" + id + "",
+        message: notificationMessage,
+        badge: badgeValue,
+        json: JSON.stringify({
+          test: "Its Xooma Time!!"
+        })
       });
       window.plugin.notification.local.ontrigger = function(id, state, json) {
         var badge;
