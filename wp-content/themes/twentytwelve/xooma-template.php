@@ -168,7 +168,7 @@
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="phone_no" name="phone_no" placeholder="0010100100">
+                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{phone_no}}">
                         </div>
                       </div>
                      <div class="form-group">
@@ -190,7 +190,7 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="birth_date"  name="birth_date" required placeholder="">
+                                <input type="text" class="form-control" id="birth_date"  name="birth_date" required value="{{birth_date}}">
                             </div>
                       </div>  
                        <div class="form-group">

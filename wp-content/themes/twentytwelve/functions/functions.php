@@ -399,43 +399,43 @@ function update_schedule_product_details($id,$pid,$data){
 
 function get_fblogin_status($data){
 
-        $user_newid = 'FB_'.$data['id'];
+        $user_newid = 'FB_'.$data['userData']['id'];
      
         $user_name = username_exists( $user_newid );
 
         //register the user if not exist
         if ( !$user_name && email_exists($data->email) == false ) {
             $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-            $user_name = wp_create_user( $user_newid, $random_password, $data['email'] );
+            $user_name = wp_create_user( $user_newid, $random_password, $data['userData']['email'] );
         }
 
-        $user = get_user_by('email', $data['email'] );
+        $user = get_user_by('email', $data['userData']['email'] );
 
        
 
         //set user data
         $userprofiledata = array(
                         'ID' => $user->ID,
-                        'first_name' => $data['first_name'],
-                        'last_name' => $data['last_name'],
-                        'display_name' => $data['first_name'],
+                        'first_name' => $data['userData']['first_name'],
+                        'last_name' => $data['userData']['last_name'],
+                        'display_name' => $data['userData']['first_name'],
                         'user_nicename' => sanitize_title($user->user_login),
-                        'user_url' => $data['url']
+                        'user_url' => $data['userData']['link']
             );
 
         wp_update_user( $userprofiledata );
 
 
 
-        $avatar_url = $data['url'];
+        $avatar_url = $data['userData']['link'];
 
         //Update user meta
-        update_user_meta( $user->ID, 'facebook_uid', $data['id'] );
+        update_user_meta( $user->ID, 'facebook_uid', $data['userData']['id'] );
         update_user_meta( $user->ID, 'facebook_avatar_full', $avatar_url );
         update_user_meta( $user->ID, 'facebook_avatar_thumb', $avatar_url );
-        update_user_meta( $user->ID, 'first_name', $data['first_name'] );
-        update_user_meta( $user->ID, 'last_name', $data['last_name']);
-        update_user_meta( $user->ID, 'display_name', $data['first_name'] );
+        update_user_meta( $user->ID, 'first_name', $data['userData']['first_name'] );
+        update_user_meta( $user->ID, 'last_name', $data['userData']['last_name']);
+        update_user_meta( $user->ID, 'display_name', $data['userData']['first_name'] );
         
     
 
@@ -478,8 +478,8 @@ function login_response($user_id){
     $user['user_email'] = $user_info->data->user_email; 
     $user['user_registered'] = $user_info->data->user_registered; 
     $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0]; 
-    $user['role'] =  key($user_info->caps) ;
-    $user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
+    //$user['role'] =  key($user_info->caps) ;
+    //$user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
     if($facebook_avatar){
        $user['avatar_url'] = $facebook_avatar; 
    }else{
@@ -589,7 +589,7 @@ function get_all_timezones(){
       $country_code = geoip_country_code_by_name($term_data->name);
 
       $temp_arr = DateTimeZone::listIdentifiers(DateTimeZone::PER_COUNTRY,$country_code );
-      
+
 
 
     }
