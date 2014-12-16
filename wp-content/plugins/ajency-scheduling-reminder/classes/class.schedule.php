@@ -8,7 +8,6 @@ namespace ajency;
 class Schedule{
 
 
-
 	/**
 	 * public api function to add a schedule
 	 * @param [type] $schedule_data [description]

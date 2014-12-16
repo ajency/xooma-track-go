@@ -1074,7 +1074,7 @@ function load_scripts(){
         
 
 }
-add_action('admin_enqueue_scripts' , load_scripts);
+add_action('admin_enqueue_scripts' , 'load_scripts');
 
 #load all the custom scripts
 
