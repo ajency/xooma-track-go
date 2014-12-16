@@ -16,7 +16,7 @@ class Occurrence{
 		if(!current_user_can('edit_occurrence'))
 			return new WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
-		$id = occurrence::_insert_occurrence($occurrence_data);
+		$id = self::_insert_occurrence($occurrence_data);
 
 		return $id;
 	}
@@ -44,6 +44,16 @@ class Occurrence{
 
 		if(empty($occurrence_args['occurrence']))
 			return new WP_Error('occurrence', __('occurrence must be a valid date time'));
+
+		// $schedule = Schedule::get($occurrence_args['schedule_id']);
+
+		// if(is_wp_error($schedule))
+		// 	return $schedule;
+
+		// $rrule = $schedule['rrule'];
+
+		// $rule = new \When\When();
+		// $occurrences = $rule->rrule($rrule)->getOccurrences();
 
 		$table_name = "{$wpdb->prefix}aj_occurrence_meta";
 		$record = $occurrence_args;
