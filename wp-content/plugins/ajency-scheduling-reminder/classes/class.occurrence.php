@@ -80,7 +80,7 @@ class Occurrence{
 
 		$occurrence['meta_value'] = maybe_unserialize($occurrence['meta_value']);
 
-		if(is_array($occurrence['meta_value']){
+		if(is_array($occurrence['meta_value'])){
 			$occurrence = array_merge($occurrence, $occurrence['meta_value']);
 		}
 

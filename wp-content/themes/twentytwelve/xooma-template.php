@@ -262,6 +262,8 @@
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -274,8 +276,6 @@
 <script type="text/javascript">
   userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
   App                   = new Marionette.Application()  
-  //App.LoginCtrl         = Ajency.LoginCtrl  
-  App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
   APIURL                = '<?php echo json_url() ?>';
   _SITEURL              = '<?php echo site_url() ?>';
 
