@@ -1,6 +1,6 @@
 <?php
 
-namespace ajency;
+namespace ajency\ScheduleReminder;
 
 /**
  * The Schedule class

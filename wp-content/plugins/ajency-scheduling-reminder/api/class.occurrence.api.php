@@ -38,14 +38,14 @@ class AjencyOccurrenceAPI{
 	 */
 	public function add_occurrence($occurrence_data){
 
-		$id = \ajency\Occurrence::add($occurrence_data);
+		$id = \ajency\ScheduleReminder\Occurrence::add($occurrence_data);
 
 		if(is_wp_error($id )){
 			$id->add_data(array('status' => 400));
 			return $id;
 		}
 
-		$occurrence = \ajency\Occurrence::get($id);
+		$occurrence = \ajency\ScheduleReminder\Occurrence::get($id);
 
 		$response = new WP_JSON_Response( $occurrence );
 
