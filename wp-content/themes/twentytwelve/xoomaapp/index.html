@@ -46,7 +46,16 @@
 <!-- Templates -->
 <!-- Templates -->
 <script id="login-template" type="h-template">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <h1>Add Login Screen Markup Here</h1>
+    <br />
+    <br />
+    <div class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
     <span>"Schedule the time for notification"</span>
     <input id="timeupdate" type="time" step="1" oninput="_.setNotificationTime()"/>
     </br>
@@ -60,10 +69,6 @@
         <span>"Product 2"</span>
         <button class="btn btn-primary" onclick = "_.notificationCall('2');">Click</button>
     </div>
-    // <div>
-    //     <span>"Product 3"</span>
-    //     <button class="btn btn-primary" onclick = "_.notificationCallForBadgeValues('4')">Click</button>
-    // </div>
     
     <a class="btn btn-primary" href="#/profile/personal-info">Login</a>
     
@@ -143,7 +148,7 @@
 <script id="profile-personal-info-template" type="h-template">
     <div id="personalinfo" class="section">
         <div class="container">
-            <img src="assets/images/profile.jpg" alt="..." class="img-circle center-block" width="150px" height="150px">
+            <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
@@ -153,7 +158,7 @@
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="text1" placeholder="0001">
+                          <input type="number" class="form-control" id="text1" placeholder="0001">
                         </div>
                       </div>
                       <div class="form-group">
@@ -171,7 +176,7 @@
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="text4" placeholder="0010100100">
+                          <input type="number" class="form-control" id="text4" placeholder="0010100100">
                         </div>
                       </div>
                      <div class="form-group">
@@ -192,7 +197,7 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="text7" placeholder="">
+                                <input type="date" class="form-control" id="text7" placeholder="">
                             </div>
                       </div>  
                        <div class="form-group">
@@ -275,6 +280,8 @@
 <script type="text/javascript" src="bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="bower_components/cryptojslib/rollups/md5.js"></script>
 <script "text/javascript" src="bower_components/moment/moment.js"></script> 
+<script "text/javascript" src="bower_components/rrule/lib/rrule.js"></script> 
+<script "text/javascript" src="bower_components/rrule/lib/nlp.js"></script> 
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -289,6 +296,32 @@
     App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
     APIURL                = '';
     _SITEURL              = '';
+
+    window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1536913533218407',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+
+    App.addInitializer(function(){
+      FB.getLoginStatus(function(response){
+        if(response.status === 'connected'){
+            App.currentUser.getFacebookPicture()
+        }
+      });
+      
+    });
+    App.start()
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 </script>
 
 <!-- build:js(*.js) application.js -->

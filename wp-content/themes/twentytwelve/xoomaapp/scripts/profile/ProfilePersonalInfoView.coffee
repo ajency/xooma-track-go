@@ -25,7 +25,9 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			           
 			              <li>
 			                  <label>xooma id
-			                      <input type="text" value="" required id="xooma_member_id" name="xooma_member_id" placeholder="text"/>
+
+			                  
+			                      <input type="number" value="" required id="xooma_member_id" name="xooma_member_id" placeholder="text"/>
 			                  </label>
 			              </li>
 			              <li>
@@ -40,7 +42,7 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			              </li>
 			              <li>
 			                  <label>Phone No
-			                      <input type="text" id="phone_no" name="phone_no" value="" placeholder="text"/>
+			                      <input type="number" id="phone_no" name="phone_no" value="" placeholder="text"/>
 			                  </label>
 			              </li>
 			              <li>
@@ -66,13 +68,17 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 			  </div>
 			  <br>
 			      <!-- Login Button -->
-			           <button  type="submit" id="add_user" >Next</button>
+			           <button type="submit" id="add_user" >Next</button>
 			    <!-- Login Button -->
 			  <br>
 			     </form>  </div>
 			</div>'
 
 	events:
+		# $('#add_user').on('keyup', :(e)
+		'keyup #add_user':(event)->
+			alert "value"
+			console.log event
 		'click #add_user':(event)->
 			#to initialize validate plugin
 			$("#add_user_details").validate({
@@ -108,6 +114,10 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 
 
 			})
+
+
+	# onShow:->
+
 
 	
 

@@ -1,3 +1,4 @@
+notificationIdAndBadgeValue = []
 _.mixin
 
 
@@ -45,19 +46,97 @@ _.mixin
 			if id is '4'
 				window.plugin.notification.local.setDefaults(badge)
 			
-
 		return
 
 
 
 	notificationCall : (id)->
-		if id is '1'
-			badgeValue = window.plugin.notification.local.getDefaults().badge;
-		else if id is '2'
-			badgeValue = window.plugin.notification.local.getDefaults().badge;
+		
+		value = _.getNotificationBadgeNumber()
+		ids = []
+		badgeValues = []
+		
+		if not _.isNull(value)
+			
+			option = JSON.parse(value)
 
-		else if id is '3'
+			collection = new Backbone.Collection option
+
+			# badgeValue = _.chain(collection.where({'ids':id})).last().value().get('badgeValues');
+			getId = _.chain(collection.where({'ids':id})).last().value()
+
+			if _.isUndefined(getId) 
+				badgeValue = 0;
+				notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+				_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+			else
+				badgeValue = getId.get('badgeValues');
+
+			# if not badgeValue
+			# 	badgeValue = 0;
+			# 	notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+			# 	_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+
+
+
+		else
 			badgeValue = window.plugin.notification.local.getDefaults().badge;
+			
+			notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+
+			_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+
+
+			# lengthOfOption = _.size(option)
+			# for i in [0..lengthOfOption-1] by 1
+
+			# 	if _.has(option[i].ids, id)
+			# 		badgeValue = option[i].badgeValues;
+			# 		# notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+
+			# 		# _.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+
+			# 	else
+			# 		badgeValue = 0;
+					
+					
+			# 		notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+
+			# 		_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+		# 	forEach = (values, i)->
+		# 		if values.ids is id
+		# 			badgeValue = values.badgeValues;
+		# 			i = i+1
+		# 			if i<lengthOfOption
+		# 				forEach option[i], i
+		# 			else
+		# 				badgeValue = values.badgeValues;
+						
+		# 		else
+		# 			i = i+1
+		# 			if i<lengthOfOption
+		# 				forEach option[i], i
+
+		# 			else
+		# 				badgeValue = 0;
+		# 				notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+		# 				_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+		# 				return true
+
+
+		# 	forEach option[0], 0
+		
+		# else
+		# 	badgeValue = window.plugin.notification.local.getDefaults().badge;
+		# 	# ids = ids[0]
+		# 	# badgeValues = badgeValues[0]
+			
+		# 	notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+
+		# 	_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+
+		
+
 
 		if badgeValue is 0
 			notificationMessage = 'Gear up xooma time!'
@@ -70,6 +149,7 @@ _.mixin
 
 		convertToMilliSecs = newDate.getTime();
 
+		#change secs to 60 once testing is done
 		one_min = new Date(convertToMilliSecs + 3*1000);
 
 		time = one_min.getHours()+':'+one_min.getMinutes()+':'+one_min.getSeconds()
@@ -90,17 +170,40 @@ _.mixin
 
 
 
-		window.plugin.notification.local.ontrigger = (id, state, json)->
-			console.log "ontrigger"
-			badgeValue = badgeValue+1
-			badge = {badge : badgeValue}
-			if id is '1'
-				window.plugin.notification.local.setDefaults(badge)
-			else if id is '2'
-				window.plugin.notification.local.setDefaults(badge)
 
-			else if id is '3'
-				window.plugin.notification.local.setDefaults(badge)
+		window.plugin.notification.local.ontrigger = (id, state, json)->
+			ids = []
+			badgeValues = []
+			value = _.getNotificationBadgeNumber()
+			console.log "ontrigger"
+
+			
+			option = JSON.parse(value)
+			lengthOfOption = _.size(option)
+			console.log notificationIdAndBadgeValue
+			for i in [0..lengthOfOption-1] by 1
+				if id is option[i].ids
+					option[i].badgeValues = badgeValue+1
+
+				
+					badge = {badge : option[i].badgeValues}
+
+					# ids = ids[i]
+					# badgeValues = badgeValues[i]
+					# if id is option.id
+					window.plugin.notification.local.setDefaults(badge)
+					console.log notificationIdAndBadgeValue
+					notificationIdAndBadgeValue.push { ids : option[i].ids, badgeValues : option[i].badgeValues}
+					# delete notificationIdAndBadgeValue[i];
+					console.log notificationIdAndBadgeValue
+					notificationIdAndBadgeValue.splice(i, 1);
+					_.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+				
+				# else if id is '2'
+				# 	window.plugin.notification.local.setDefaults(badge)
+
+				# else if id is '3'
+			# 	window.plugin.notification.local.setDefaults(badge)
 			
 		
 
@@ -110,40 +213,40 @@ _.mixin
 
 
 
-	notificationCallForBadgeValues : (id)->
+	# notificationCallForBadgeValues : (id)->
 
-		badgeValue = window.plugin.notification.local.getDefaults().badge;
-		scheduledTimeAfterEverySec = new Date().getTime();
+	# 	badgeValue = window.plugin.notification.local.getDefaults().badge;
+	# 	scheduledTimeAfterEverySec = new Date().getTime();
 
-		_60_seconds_from_now = new Date(scheduledTimeAfterEverySec + 60*1000);
+	# 	_60_seconds_from_now = new Date(scheduledTimeAfterEverySec + 60*1000);
 
-		if badgeValue is 0
-			notificationMessage = 'Gear up xooma time!'
-		else
-			notificationMessage = 'Gear up xooma time! '+ "                                     "+' ' + badgeValue + ' '
+	# 	if badgeValue is 0
+	# 		notificationMessage = 'Gear up xooma time!'
+	# 	else
+	# 		notificationMessage = 'Gear up xooma time! '+ "                                     "+' ' + badgeValue + ' '
 		
 
-		window.plugin.notification.local.add
-			id:         id,
-			autoCancel: true,
-			title:      "Xooma Track & Go for product"+id+"",
-			message: notificationMessage,
-			badge: badgeValue,
-			json: JSON.stringify({ test: "Its Xooma Time!!"})
+	# 	window.plugin.notification.local.add
+	# 		id:         id,
+	# 		autoCancel: true,
+	# 		title:      "Xooma Track & Go for product"+id+"",
+	# 		message: notificationMessage,
+	# 		badge: badgeValue,
+	# 		json: JSON.stringify({ test: "Its Xooma Time!!"})
 
-		window.plugin.notification.local.ontrigger = (id, state, json)->
-			console.log "ontrigger"
-			# window.plugin.notification.local.cancel(id, ->
-			# 		alert "cancelled"
-			# 	)
-			# cordova.plugins.notification.badge.set(badgeValue,
-			# 	id,
-			# 	JSON.parse(json).test)
+	# 	window.plugin.notification.local.ontrigger = (id, state, json)->
+	# 		console.log "ontrigger"
+	# 		# window.plugin.notification.local.cancel(id, ->
+	# 		# 		alert "cancelled"
+	# 		# 	)
+	# 		# cordova.plugins.notification.badge.set(badgeValue,
+	# 		# 	id,
+	# 		# 	JSON.parse(json).test)
 				
 
-			badgeValue = badgeValue+1
-			badge = {badge : badgeValue}
-			window.plugin.notification.local.setDefaults(badge)
+	# 		badgeValue = badgeValue+1
+	# 		badge = {badge : badgeValue}
+	# 		window.plugin.notification.local.setDefaults(badge)
 
 
-		return
+	# 	return

@@ -13,6 +13,14 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new ProfilePersonalInfoView model : App.currentUser
 
+class NotificationView extends Marionette.ItemView
+	className : 'animated fadeIn'
+	template : '#notification-info-template'
+
+class App.NotificationCtrl extends Marionette.RegionController
+	initialize: (options)->
+		@show new NotificationView
+
 class ProfileMeasurementsView extends Marionette.ItemView
 	className : 'animated fadeIn'
 	template : '#profile-measurements-template'
