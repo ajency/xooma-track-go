@@ -16,18 +16,27 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.events = {
     'click .radio': function(event) {
+      console.log(event.id.value);
       return $('#gender').val(event.id.value);
     }
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
+    console.log(this.model);
+    jQuery.validator.addMethod("equalLength", function(value, element) {
+      return this.optional(element) || (parseInt(value.length) === 6);
+    }, "* Enter valid 6 digit Xooma ID");
     return $("#add_user_details").validate({
       rules: {
         xooma_member_id: {
-          number: true
+          number: true,
+          equalLength: true
         },
         phone_no: {
           number: true
+        },
+        radio_grp: {
+          required: true
         }
       },
       submitHandler: function(form) {

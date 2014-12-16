@@ -579,3 +579,18 @@ function send_notifications_to_user($user_id){
 
 
 }
+
+function get_all_timezones(){
+
+    $country_id = get_category_by_slug('country');
+    $term = get_categories('parent='.$country_id->term_id.'&hide_empty=0');
+    foreach ($term as $term_data) {
+
+      $country_code = geoip_country_code_by_name($term_data->name);
+
+      $temp_arr = DateTimeZone::listIdentifiers(DateTimeZone::PER_COUNTRY,$country_code );
+      
+
+
+    }
+}

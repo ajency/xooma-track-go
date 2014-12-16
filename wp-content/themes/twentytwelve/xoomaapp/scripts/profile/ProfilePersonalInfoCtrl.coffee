@@ -1,10 +1,14 @@
 
-class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
+class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
 	initialize: (options)->
 
 		@user = @_get_user_details()
 
-		@show new ProfilePersonalInfoView @user
+		App.execute "when:fetched", [@user], =>
+			console.log @user
+			@show new ProfilePersonalInfoView 
+					model: @user
+					
 
 
 
@@ -15,19 +19,26 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 			data : '',
 			success:(response)->
 				response_data = response
-				user_model = App.currentUser
-				user_model.set 'xooma_member_id' , response_data.response.xooma_member_id
-				user_model.set 'name' , response_data.response.name
-				user_model.set 'email_id' , response_data.response.email
-				user_model.set 'image' , response_data.response.image
-				user_model.set 'gender' , response_data.response.gender
-				user_model.set 'phone_no' , response_data.response.phone_no
-				user_model.set 'timezone' , response_data.response.timezone
-				user_model.set 'attachment_id' , response_data.response.attachment_id
-				user_model.set 'user_products' , response_data.response.user_products
-				return user_model
+				App.currentUser.set 'xooma_member_id' , response_data.response.xooma_member_id
+				App.currentUser.set 'name' , response_data.response.name
+				App.currentUser.set 'email_id' , response_data.response.email
+				App.currentUser.set 'image' , response_data.response.image
+				App.currentUser.set 'gender' , response_data.response.gender
+				App.currentUser.set 'phone_no' , response_data.response.phone_no
+				App.currentUser.set 'timezone' , response_data.response.timezone
+				App.currentUser.set 'attachment_id' , response_data.response.attachment_id
+				App.currentUser.set 'user_products' , response_data.response.user_products
+				
+				
 				
 
 			
 			error:(error)->
 				$('.response_msg').text "Something went wrong" 
+
+
+			return App.currentUser
+
+
+
+

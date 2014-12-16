@@ -11,7 +11,14 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
 
   ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
     this.user = this._get_user_details();
-    return this.show(new ProfilePersonalInfoView(this.user));
+    return App.execute("when:fetched", [this.user], (function(_this) {
+      return function() {
+        console.log(App.currentUser);
+        return _this.show(new ProfilePersonalInfoView({
+          model: App.currentUser
+        }));
+      };
+    })(this));
   };
 
   ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
@@ -20,19 +27,17 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
       url: _SITEURL + '/wp-json/profiles/2',
       data: '',
       success: function(response) {
-        var response_data, user_model;
+        var response_data;
         response_data = response;
-        user_model = App.currentUser;
-        user_model.set('xooma_member_id', response_data.response.xooma_member_id);
-        user_model.set('name', response_data.response.name);
-        user_model.set('email_id', response_data.response.email);
-        user_model.set('image', response_data.response.image);
-        user_model.set('gender', response_data.response.gender);
-        user_model.set('phone_no', response_data.response.phone_no);
-        user_model.set('timezone', response_data.response.timezone);
-        user_model.set('attachment_id', response_data.response.attachment_id);
-        user_model.set('user_products', response_data.response.user_products);
-        return user_model;
+        App.currentUser.set('xooma_member_id', response_data.response.xooma_member_id);
+        App.currentUser.set('name', response_data.response.name);
+        App.currentUser.set('email_id', response_data.response.email);
+        App.currentUser.set('image', response_data.response.image);
+        App.currentUser.set('gender', response_data.response.gender);
+        App.currentUser.set('phone_no', response_data.response.phone_no);
+        App.currentUser.set('timezone', response_data.response.timezone);
+        App.currentUser.set('attachment_id', response_data.response.attachment_id);
+        return App.currentUser.set('user_products', response_data.response.user_products);
       },
       error: function(error) {
         return $('.response_msg').text("Something went wrong");

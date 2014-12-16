@@ -16,7 +16,6 @@ jQuery(document).ready ($)->
 
 		.state 'profileMeasurement',
 				url : '/measurements'
-				ctrl : 'ProfileMeasurementsCtrl'
 				parent : 'profile'
 
 		.state 'settings',
@@ -28,4 +27,4 @@ jQuery(document).ready ($)->
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate '/profile', true
 	
-	App.start()
+	

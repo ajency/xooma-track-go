@@ -1,13 +1,23 @@
-
-
-	
-class ProfileMeasurementsView extends Marionette.ItemView
+class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated fadeIn'
-	template : '#profile-measurements-template'
+	template : '#profile-personal-info-template'
+	modelEvents : 
+		'change:profile_picture' : 'updatePicture'
+	updatePicture : (model)=>
+		@$('.profile-picture').attr 'src', model.get('profile_picture').sizes.thumbnail.url
 
-class App.ProfileMeasurementsCtrl extends Marionette.RegionController
+class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
-		@show new ProfileMeasurementsView
+		@show new ProfilePersonalInfoView model : App.currentUser
+
+
+# class ProfileMeasurementsView extends Marionette.ItemView
+# 	className : 'animated fadeIn'
+# 	template : '#profile-measurements-template'
+
+# class App.ProfileMeasurementsCtrl extends Marionette.RegionController
+# 	initialize: (options)->
+# 		@show new ProfileMeasurementsView
 
 class ProfileCtrlView extends Marionette.LayoutView
 	className : 'animated fadeIn'
@@ -43,6 +53,14 @@ class SettingsView extends Marionette.ItemView
 class App.SettingsCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new SettingsView
+
+App.commands.setHandler "when:fetched", (entities, callback) ->
+        xhrs = _.chain([entities]).flatten().pluck("_fetch").value()
+        $.when(xhrs...).done ->
+            callback()
+
+
+
 
 
 

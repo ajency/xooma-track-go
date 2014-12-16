@@ -8,19 +8,32 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	events:
 		'click .radio':(event)->
+			console.log event.id.value
 			$('#gender').val event.id.value
 
 
 	onShow:->
+			console.log @model
+			jQuery.validator.addMethod("equalLength",  (value, element)-> 
+			    return this.optional(element) || (parseInt(value.length) == 6);
+			  "* Enter valid 6 digit Xooma ID");
+
 			#to initialize validate plugin
 			$("#add_user_details").validate({
 
 				rules:
 				    xooma_member_id:
 				    	number: true
+				    	equalLength :true
 				    
 				    phone_no:
 				      	number: true
+
+				    radio_grp:
+				    	required:true
+
+				   	
+
 
 				    
 

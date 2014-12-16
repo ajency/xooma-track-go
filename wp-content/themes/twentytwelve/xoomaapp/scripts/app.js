@@ -10,17 +10,15 @@ jQuery(document).ready(function($) {
     parent: 'profile'
   }).state('profileMeasurement', {
     url: '/measurements',
-    ctrl: 'ProfileMeasurementsCtrl',
     parent: 'profile'
   }).state('settings', {
     url: '/settings',
     parent: 'xooma'
   });
-  App.addInitializer(function() {
+  return App.addInitializer(function() {
     Backbone.history.start();
     return App.currentUser.on('user:auth:success', function() {
       return App.navigate('/profile', true);
     });
   });
-  return App.start();
 });
