@@ -53,12 +53,20 @@
     </style>
 </head>
 <body class="gradient">
-<div ui-region>
-</div>
+<div ui-region></div>
+<div id="fb-root"></div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <h1>Add Login Screen Markup Here</h1>
-    <a class="btn btn-primary" href="#/">Login</a>
+    <br />
+    <br />
+    <div class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -82,25 +90,33 @@
               </div>
         </nav>
     </div>
-    <div class="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                        <ul class="list-inline" >
-                            <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                            <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">MEASUREMENT</span></a></li>
-                            <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
-                            <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
-                                <span class="hidden-xs">MYPRODUCTS</span></a></li>
-                        </ul>
-                </div>
+    <div class="clearfix"></div>
+    <div ui-region style="margin-top:60px"></div>
+</script>
+<script id="profile-template" type="h-template">
+<div class="sub-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                    <ul class="list-inline" >
+                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">PERSONAL INFO</span></a></li>
+                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">MEASUREMENT</span></a></li>
+                        <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
+                        <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+                            <span class="hidden-xs">MYPRODUCTS</span></a></li>
+                    </ul>
             </div>
-        </div>    
-    </div>
-    <div ui-region></div>
+        </div>
+    </div>    
+</div>
+<div class="clearfix"></div>
+<div ui-region></div>
+</script>
+<script id="settings-template" type="text/template">
+    <h2>THis is the settings template </h2>
 </script>
 <script id="no-access-template" type="h-template">
     {{#if no_access}}
@@ -116,7 +132,7 @@
 <script id="profile-personal-info-template" type="h-template">
     <div id="personalinfo" class="section">
         <div class="container">
-            <img src="assets/images/profile.jpg" alt="..." class="img-circle center-block" width="150px" height="150px">
+            <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
@@ -233,6 +249,9 @@
     </div>
 </script>
 <!-- build:js({.js}) scripts/vendors.js -->
+<!-- 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script> 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/detectizr/dist/detectizr.js"></script>  -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
@@ -243,6 +262,8 @@
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -250,16 +271,42 @@
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
-<script type="text/javascript">
-    userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
-    App                   = new Marionette.Application()  
-    App.LoginCtrl         = Ajency.LoginCtrl  
-    App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-    APIURL                = '<?php echo json_url() ?>';
-    _SITEURL              = '<?php echo site_url() ?>';
-</script>
 
+
+<script type="text/javascript">
+  userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
+  App                   = new Marionette.Application()  
+  APIURL                = '<?php echo json_url() ?>';
+  _SITEURL              = '<?php echo site_url() ?>';
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1536913533218407',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+
+    App.addInitializer(function(){
+      FB.getLoginStatus(function(response){
+        if(response.status === 'connected'){
+            App.currentUser.getFacebookPicture()
+        }
+      });
+      
+    });
+    App.start()
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 <!-- build:js(*.js) application.js -->
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 <!-- endbuild -->
