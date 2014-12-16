@@ -28,9 +28,13 @@ if (!defined("WPINC")) {
 	die;
 }
 
-//plugin files
+//classes
 require_once(plugin_dir_path(__FILE__) . "classes/class.schedule.php");
+require_once(plugin_dir_path(__FILE__) . "classes/class.occurrence.php");
+
+//api
 require_once(plugin_dir_path(__FILE__) . "api/class.schedule.api.php");
+require_once(plugin_dir_path(__FILE__) . "api/class.occurrence.api.php");
 
 require_once(plugin_dir_path(__FILE__) . "AjencySchedulingReminder.php");
 

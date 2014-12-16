@@ -139,6 +139,7 @@ class AjencySchedulingReminder{
 				  user_id mediumint(9) NOT NULL,
 				  action varchar(55) DEFAULT '' NOT NULL,
 				  item_id mediumint(9) NOT NULL,
+				  start_dt datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				  rrule text NOT NULL,
 				  UNIQUE KEY id (id)
 				) $charset_collate;";
