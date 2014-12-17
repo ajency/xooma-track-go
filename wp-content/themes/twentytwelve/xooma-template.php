@@ -58,18 +58,52 @@
 <div id="fb-root"></div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    <div class="text-center">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <h1>Add Login Screen Markup Here</h1>
-        <br />
-        <br />
-        <div fb-scope="email" class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
-    </div>
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <br><br>
+    
+    <!-- Indicators -->
+                       <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                          </ol> 
+                             <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                          <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
+                              <div class="carousel-caption text-center">
+                              <h3>Xooma Track & Go</h3>
+                                  <p>Has been desiged to help you track your personal x2o water consumption</p>
+                              </div>
+                            </div>
+                           <div class="item ">
+                          <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt=""  class="center-block">
+                              <div class="carousel-caption text-center">
+                              <h3>Xooma Track & Go</h3>
+                                  <p>Has been desiged to help you track your personal x2o water consumption</p>
+                              </div>
+                            </div>
+                                <div class="item ">
+                          <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
+                              <div class="carousel-caption text-center">
+                              <h3>Xooma Track & Go</h3>
+                                  <p>Has been desiged to help you track your personal x2o water consumption</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>      
+                      
+                    <!-- Login Button  -->
+                     
+                    
+                </div>
+            </div><button type="button" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+             </div>
+        
+  
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -106,8 +140,6 @@
                             <span class="hidden-xs">PERSONAL INFO</span></a></li>
                         <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
                             <span class="hidden-xs">MEASUREMENT</span></a></li>
-                        <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
-                            <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
                         <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
                             <span class="hidden-xs">MYPRODUCTS</span></a></li>
                     </ul>
@@ -142,9 +174,7 @@
             
 
             <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
-            <input type="hidden" class="form-control" name="image" id="image" value="" /> 
-            <input type="hidden" class="form-control" name="attachment_id" id="attachment_id" value="{{profile_picture.id}}" /> 
-
+            
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
@@ -294,6 +324,12 @@
         </div>
     </div>
 </script>
+
+<script id="home-template" type="h-template">
+<div>
+Add Home template here
+</div>
+</script>
 <!-- build:js({.js}) scripts/vendors.js -->
 <!-- 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script> 
@@ -329,7 +365,7 @@
         _SITEURL              = '<?php echo site_url() ?>';
     window.fbAsyncInit = function() {
     FB.init({
-      appId      : '376973229145085',
+      appId      : '355178387994693',
       xfbml      : true,
       version    : 'v2.2'
     });

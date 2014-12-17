@@ -14,11 +14,13 @@ jQuery(document).ready(function($) {
   }).state('settings', {
     url: '/settings',
     parent: 'xooma'
+  }).state('home', {
+    url: '/home'
   });
   return App.addInitializer(function() {
     Backbone.history.start();
     return App.currentUser.on('user:auth:success', function() {
-      return App.navigate('/profile', true);
+      return App.navigate(App.currentUser.get('state'), true);
     });
   });
 });

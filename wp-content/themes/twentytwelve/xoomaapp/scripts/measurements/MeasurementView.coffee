@@ -22,14 +22,17 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.form.validate submitHandler: @formSubmitHandler
 
 	formSubmitHandler : (form)=>
-		_formData = Backbone.Syphon.serialize @
-
+		console.log "aaaaaaaaaaaa"
+		_formData = $('#add_measurements').serialize()
+		console.log  _formData
 		$.ajax
 			method : 'POST',
-			url : _SITEURL+'/wp-json/measurements/2',
+			url : _SITEURL+'/wp-json/measurements/'+App.currentUser.get('ID'),
 			data : _formData,
 			success: @successHandler      
 			error: @errorHandler
+
+		return false
 
 	successHandler : (response, status)=>
 		if status is 404

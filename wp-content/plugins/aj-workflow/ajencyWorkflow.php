@@ -270,7 +270,7 @@ class ajencyWorkflow{
 
 		//getting the array of all forms in a proper sequence
 		foreach ($forms as $key => $value) {
-			$forms_array[$value->id]  = $value->form_name;
+			$forms_array[$value->id]  = $value->url;
 		}
 		
 		foreach ($forms_array as $key => $value) {
@@ -363,11 +363,15 @@ class ajencyWorkflow{
 			array( 
 				'status' => $status['complete']	
 			), 
-			array( 'ID' => $user_id ), 
+			array( 'user_id' => $user_id,
+			       'form_id' => $form_id 
+			), 
 			array( 
 				'%s'
 			), 
-			array( '%d' ) 
+			array( '%d', 
+				   '%d' 
+			)
 		);
 
 		if($update_id === false){
@@ -380,6 +384,63 @@ class ajencyWorkflow{
 			return array('status' => 200 , 'response' => $updated_id);
 		}
 
+
+
+
+	}
+
+
+	public function workflow_needed($user_id){
+
+		//fetch all the forms based on the workflow name specified
+
+		global $wpdb;
+
+		global $aj_workflow;
+
+		$workflow_user_tbl = $wpdb->prefix."workflow_user";
+
+		$forms = workflow_get_forms($workflow_name);
+		
+		if(is_wp_error($forms)){
+
+			return $forms;
+		}
+		
+		$forms_array = array();
+		$flag = 0;
+		//getting the array of all forms in a proper sequence
+		foreach ($forms as $key => $value) {
+			$form_id = $value->id;
+			$sql_query = $wpdb->get_row("SELECT * FROM $workflow_user_tbl WHERE form_id =".$form_id." and user_id=".$user_id);
+			if(!(is_null($sql_query)))
+			{
+				//get workflow completion status
+				$status = workflow_get_status($sql_query->form_id);
+
+				if(($status['complete']) == $sql_query->status){
+					
+					$flag = '/home';
+					
+				}
+				else
+				{
+					$flag = $aj_workflow->workflow_process('login',$user_id);
+					return $flag;
+					exit();
+
+				}
+
+			}
+
+
+			return $flag;
+
+			
+
+
+
+		}
 
 
 

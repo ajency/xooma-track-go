@@ -8,8 +8,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	events:
 		'click .radio':(e)->
-			$('#gender').val e.target.id.value
 
+			$('#gender').val $('#'+e.target.id).val()
+			console.log $('#gender').val()
 
 	onShow:->
 			console.log @model
@@ -37,11 +38,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				    
 
 				submitHandler: (form)->
-					$('#image').val App.
-
 					$.ajax
 							method : 'POST',
-							url : _SITEURL+'/wp-json/profiles/2',
+							url : _SITEURL+'/wp-json/profiles/'+App.currentUser.get('ID'),
 							data : $('#add_user_details').serialize(),
 							success:(response)->
 								if response.status == 404

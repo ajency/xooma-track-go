@@ -55,7 +55,6 @@ class Schedule{
 		$schedules = $wpdb->get_results($query);
 
 		return (array) $schedules;
-
 	}
 
 	/**
@@ -83,7 +82,7 @@ class Schedule{
 			return new WP_Error('action_param_missing', __('Action is empty'));
 
 		if(empty($schedule_args['rrule']))
-			return new WP_Error('rrule_param_missing', __('Rrule is empty. Provide occurence rule'));
+			return new WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
