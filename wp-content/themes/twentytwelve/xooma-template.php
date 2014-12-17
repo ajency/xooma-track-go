@@ -80,7 +80,7 @@
                     <div class="col-sm-3 col-xs-5">
                       <div class="navbar-header">
                               <a  href="#">
-                                <img alt="Brand" src="http://localhost/xooma/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
+                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
                               </a>
                         </div>
                     </div>

@@ -1,0 +1,52 @@
+{
+  "name": "marionette.state",
+  "version": "0.1.4",
+  "homepage": "https://github.com/surajair/marionette-state",
+  "authors": [
+    "Suraj Air <surajair@live.com>"
+  ],
+  "description": "State based routing for marionette js applications",
+  "main": "dist/marionette.state.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "MarionetteJS",
+    "ui-router",
+    "state",
+    "routing",
+    "state",
+    "machine"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "jquery": "~2.1.1",
+    "backbone": "~1.1.2",
+    "backbone.marionette": "~2.2.2",
+    "handlebars": "~2.0.0"
+  },
+  "devDependencies": {
+    "jasmine-jquery": "~2.0.5",
+    "jasmine-ajax": "~2.99.0"
+  },
+  "_release": "0.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.4",
+    "commit": "8cd7da3cb54ffb1c7d4edd8749c8e5a557e8b714"
+  },
+  "_source": "https://github.com/ajency/marionette.state.git",
+  "_target": "~0.1.4",
+  "_originalSource": "https://github.com/ajency/marionette.state.git"
+}
