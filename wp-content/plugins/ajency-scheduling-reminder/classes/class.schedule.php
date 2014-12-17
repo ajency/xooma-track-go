@@ -41,6 +41,24 @@ class Schedule{
 	}
 
 	/**
+	 * [get description]
+	 * @param  [type] $schedule_id [description]
+	 * @return [type]              [description]
+	 */
+	static function get_schedules($user_id){
+		global $wpdb;
+
+		$table_name = "{$wpdb->prefix}aj_schedules";
+
+		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE user_id=%d", $user_id);
+
+		$schedules = $wpdb->get_results($query);
+
+		return (array) $schedules;
+
+	}
+
+	/**
 	 * Core function to add a schedule
 	 * This function will not perform any capability checks caller function needs to
 	 * perform the capability check
