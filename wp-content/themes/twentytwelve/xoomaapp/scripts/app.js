@@ -17,10 +17,11 @@ jQuery(document).ready(function($) {
   }).state('home', {
     url: '/home'
   });
-  return App.addInitializer(function() {
+  App.addInitializer(function() {
     Backbone.history.start();
     return App.currentUser.on('user:auth:success', function() {
       return App.navigate(App.currentUser.get('state'), true);
     });
   });
+  return App.start();
 });

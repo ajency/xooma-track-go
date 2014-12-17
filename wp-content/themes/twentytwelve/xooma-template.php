@@ -347,7 +347,6 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
-
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -355,42 +354,14 @@ Add Home template here
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
-
-
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/common/facebook.js"></script>
 <script type="text/javascript">
-        App                   = new Marionette.Application()  
-        //App.LoginCtrl         = Ajency.LoginCtrl  
-        App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-        APIURL                = '<?php echo json_url() ?>';
-        _SITEURL              = '<?php echo site_url() ?>';
-    window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '355178387994693',
-      xfbml      : true,
-      version    : 'v2.2'
-    });
-
-    App.addInitializer(function(){
-      FB.getLoginStatus(function(response){
-        if(response.status === 'connected'){
-            App.currentUser.getFacebookPicture()
-        }
-      });
-      
-    });
-    App.start()
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+    App                   = new Marionette.Application()  
+    APIURL                = '<?php echo json_url() ?>';
+    _SITEURL              = '<?php echo site_url() ?>';
+    facebookConnectPlugin.browserInit('355178387994693', 'v2.2');
 </script>
 <!-- build:js(*.js) application.js -->
-
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
