@@ -4,6 +4,7 @@
     return document.addEventListener("deviceready", (function() {
       var notificationIdAndBadgeValue;
       notificationIdAndBadgeValue = [];
+      cordova.plugins.notification.badge;
       _.cordovaLocalStorage();
       App.state('login').state('xooma', {
         url: '/'
@@ -25,7 +26,7 @@
       });
       App.addInitializer(function() {
         Backbone.history.start();
-        App.navigate('/login', true);
+        App.navigate('/profile/personal-info', true);
         return window.plugin.notification.local.onclick = function(id, state, json) {
           var badge, badgeValue, badgeValues, i, ids, option, setbadgeValue, value, _i, _ref;
           setbadgeValue = 0;

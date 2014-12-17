@@ -76,9 +76,9 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 
 	events:
 		# $('#add_user').on('keyup', :(e)
-		'keyup #add_user':(event)->
-			alert "value"
-			console.log event
+		# 'keyup #gender':(event)->
+		# 	alert "value"
+		# 	console.log event
 		'click #add_user':(event)->
 			#to initialize validate plugin
 			$("#add_user_details").validate({
@@ -114,6 +114,13 @@ class Xoomapp.ProfilePersonalInfoView extends Marionette.ItemView
 
 
 			})
+
+	goToNext:(event)->
+		theEvent = event or window.event;
+		keyPressed = theEvent.keyCode or theEvent.which;
+		if keyPressed is 13
+			alert "goToNext"
+
 
 
 	# onShow:->

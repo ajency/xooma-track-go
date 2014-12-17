@@ -56,6 +56,7 @@
     <br />
     <br />
     <div class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
+    <br />
     <span>"Schedule the time for notification"</span>
     <input id="timeupdate" type="time" step="1" oninput="_.setNotificationTime()"/>
     </br>
@@ -203,7 +204,7 @@
                        <div class="form-group">
                             <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="text8" placeholder="">
+                                <input type="text" onkeyup = "goToNext()" class="form-control" id="text8" placeholder="">
                             </div>
                       </div> 
                 
@@ -217,6 +218,7 @@
             </div>
         </div>
     </div>
+
 </script>
 <script id="profile-measurements-template" type="h-template">
     <div id="measuremnt" class="section">
@@ -325,7 +327,10 @@
 </script>
 
 <!-- build:js(*.js) application.js -->
-<script "text/javascript" src="scripts/xooma/xooma.app.root.ctrl.js"></script>   
+<script "text/javascript" src="scripts/common/common.js"></script>
+<script "text/javascript" src="scripts/xooma/xooma.app.root.ctrl.js"></script>
+<script "text/javascript" src="scripts/profile/ProfilePersonalInfoCtrl.js"></script>
+<script "text/javascript" src="scripts/profile/ProfilePersonalInfoView.js"></script>   
 <script "text/javascript" src="scripts/app.js"></script>
 <script "text/javascript" src="scripts/Cordova/app-localstorage.js"></script>
 <script "text/javascript" src="scripts/Cordova/app-notifications.js"></script>

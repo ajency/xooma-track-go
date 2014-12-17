@@ -28,9 +28,9 @@ _.mixin
 				id:         '4',
 				autoCancel: true,
 				title:      "Xooma Track & Go",
-				message: 'Time Scheduled Gear up xooma time! ',
+				message: 'Time Scheduled  &#09; hiee',
 				date:    time_for_notification,
-				json : JSON.stringify({ test: "Its Xooma Time!!", date: convertTo12hourFormat}),
+				json : JSON.stringify({ test: "Its Xooma  Time!!", date: convertTo12hourFormat}),
 				badge: badgeValue
 
 			# cordova.plugins.notification.badge.set(1);
@@ -45,6 +45,15 @@ _.mixin
 			badge = {badge : badgeValue}
 			if id is '4'
 				window.plugin.notification.local.setDefaults(badge)
+
+
+			cordova.plugins.notification.badge.configure
+				title: '%d Xooma Track & Go',
+				message : 'Time Scheduled Gear up xooma time!'
+
+			cordova.plugins.notification.badge.get (badge) ->
+				console.log('badge number: ' + badge);
+			
 			
 		return
 
@@ -250,3 +259,54 @@ _.mixin
 
 
 	# 	return
+
+
+
+	notificationCall2:->
+		newDate = new Date()
+
+		date = "#{newDate.getFullYear()}-#{newDate.getMonth()+1}-#{newDate.getDate()}"
+
+		convertToMilliSecs = newDate.getTime();
+
+		#change secs to 60 once testing is done
+		one_min = new Date(convertToMilliSecs + 3*1000);
+
+		time = one_min.getHours()+':'+one_min.getMinutes()+':'+one_min.getSeconds()
+
+		concatDateAndTime = moment(date+" "+time)
+
+		convertTo12hourFormat = concatDateAndTime.format('hh:mm:ss A');
+
+
+		window.plugin.notification.local.add
+			id:         id,
+			autoCancel: true,
+			title:      "Xooma Track & Go for product"+id+"",
+			message: notificationMessage,
+			badge: badgeValue,
+			json : JSON.stringify({ test: "Xooma Track & Go!!", date: convertTo12hourFormat}),
+			date : time
+
+
+
+		window.plugin.notification.local.isScheduled(id, ->
+				console.log "data"
+				parseInt(id)
+				cordova.plugins.notification.badge.set(parseInt(id));
+			)
+
+		window.plugin.notification.local.ontrigger = (id, state, json)->
+			ids = []
+			badgeValues = []
+			value = _.getNotificationBadgeNumber()
+			console.log "ontrigger"
+
+
+		
+	add:(event)->
+		theEvent = event or window.event;
+		keyPressed = theEvent.keyCode or theEvent.which;
+		if keyPressed is 13
+			alert "hello"
+		

@@ -3,6 +3,7 @@
 (->
 	document.addEventListener "deviceready", (->
 		notificationIdAndBadgeValue = []
+		cordova.plugins.notification.badge
 		_.cordovaLocalStorage()
 		
 		App.state 'login'
@@ -33,7 +34,8 @@
 
 		App.addInitializer ->
 			Backbone.history.start()
-			App.navigate '/login', true
+			# App.navigate '/login', true
+			App.navigate '/profile/personal-info', true
 			window.plugin.notification.local.onclick = (id, state, json)->
 				setbadgeValue = 0
 				ids = []
