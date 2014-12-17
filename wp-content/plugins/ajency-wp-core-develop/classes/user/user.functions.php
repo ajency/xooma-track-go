@@ -61,6 +61,8 @@ function aj_get_user_model($user_id = 0){
 
 	$user_model->ID = (int) $user_data->ID;
 
+	
+
 	return apply_filters( 'aj_user_model', $user_model );
 }
 

@@ -125,9 +125,7 @@ class ajencyWorkflow{
 	public static function deactivate($network_wide) {
 		// TODO: Define deactivation functionality here
 
-		global $table;
-
-		$table->delete_tables();
+		
 	}
 
 	/**
@@ -262,7 +260,7 @@ class ajencyWorkflow{
 		//fetch all the forms based on the workflow name specified
 
 		$forms = workflow_get_forms($workflow_name);
-
+		
 		if(is_wp_error($forms)){
 
 			return $forms;
@@ -272,12 +270,11 @@ class ajencyWorkflow{
 
 		//getting the array of all forms in a proper sequence
 		foreach ($forms as $key => $value) {
-			$forms_array[$value->id]  = $value->name;
+			$forms_array[$value->id]  = $value->form_name;
 		}
-
+		
 		foreach ($forms_array as $key => $value) {
 			//check if entry is present in workflow_user table
-
 			$workflow_user_id = workflow_check_user($key,$user_id);
 
 			if(is_null($workflow_user_id)){
@@ -291,9 +288,9 @@ class ajencyWorkflow{
 
 				$status = workflow_get_status($workflow_user_id->form_id);
 
-				if($workflow_user_status == $status['defaults']){
-
-					return $workflow_user_id->name;
+				if($workflow_user_status == $status['default']){
+					return $value;
+					exit();
 				}
 				else{
 
@@ -312,32 +309,38 @@ class ajencyWorkflow{
 
 	}
 
-	public function workflow_insert_main($args){
+	public function workflow_insert_main($args,$status){
 
 		global $wpdb;
 		$workflow_tbl = $wpdb->prefix."workflow";
+		$workflow_name = $args['name'];
+		$sql_query = $wpdb->get_row("SELECT * FROM $workflow_tbl WHERE workflow_name LIKE '%$workflow_name%'");
+		
+
 
 		//insert into workflow user table
-		$insert_id = $wpdb->insert( 
-			$workflow_tbl, 
-			array( 
-				'workflow_name'		=> $args['name'], 
-				'status'			=> $args['status']		 
-			), 
-			array( 
-				'%s', 
-				'%s' 
-			) 
-		);
+		if(is_null($sql_query)){
+			$insert_id = $wpdb->insert( 
+				$workflow_tbl, 
+				array( 
+					'workflow_name'		=> $args['name'], 
+					'status'			=> serialize($status)		 
+				), 
+				array( 
+					'%s', 
+					'%s' 
+				) 
+			);
 
-		if($insert_id){
+			if($insert_id){
 
-			return array('status' => 200 , 'response' => $insert_id);
-		}
-		else{
+				return array('status' => 200 , 'response' => $insert_id);
+			}
+			else{
 
-			return new WP_Error( 'Workflow_user_not_inserted', __( 'User Worklfow not inserted.' ), array( 'status' => 500 ) );
+				return new WP_Error( 'Workflow_user_not_inserted', __( 'User Worklfow not inserted.' ), array( 'status' => 500 ) );
 
+			}
 		}
 
 

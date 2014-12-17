@@ -7,9 +7,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	template : '#profile-personal-info-template'
 
 	events:
-		'click .radio':(event)->
-			console.log event.id.value
-			$('#gender').val event.id.value
+		'click .radio':(e)->
+			$('#gender').val e.target.id.value
 
 
 	onShow:->
@@ -38,7 +37,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				    
 
 				submitHandler: (form)->
-
+					$('#image').val 
 
 					$.ajax
 							method : 'POST',

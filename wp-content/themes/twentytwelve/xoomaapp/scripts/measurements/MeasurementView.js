@@ -14,15 +14,10 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.className = 'animated fadeIn';
 
-  return ProfileMeasurementsView;
-
-})(Marionette.ItemView);
-
-({
-  onShow: function() {
+  ProfileMeasurementsView.prototype.onShow = function() {
     return $("#add_measurements").validate({
       submitHandler: function(form) {
-        return $.ajax({
+        $.ajax({
           method: 'POST',
           url: _SITEURL + '/wp-json/measurements/2',
           data: $('#add_measurements').serialize(),
@@ -38,7 +33,11 @@ ProfileMeasurementsView = (function(_super) {
             return $('.response_msg').text("Something went wrong");
           }
         });
+        return false;
       }
     });
-  }
-});
+  };
+
+  return ProfileMeasurementsView;
+
+})(Marionette.ItemView);

@@ -15,9 +15,8 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
   ProfilePersonalInfoView.prototype.events = {
-    'click .radio': function(event) {
-      console.log(event.id.value);
-      return $('#gender').val(event.id.value);
+    'click .radio': function(e) {
+      return $('#gender').val(e.target.id.value);
     }
   };
 
@@ -40,6 +39,7 @@ ProfilePersonalInfoView = (function(_super) {
         }
       },
       submitHandler: function(form) {
+        $('#image').val;
         $.ajax({
           method: 'POST',
           url: _SITEURL + '/wp-json/profiles/2',

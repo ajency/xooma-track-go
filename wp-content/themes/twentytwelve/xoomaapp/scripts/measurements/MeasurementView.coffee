@@ -2,13 +2,12 @@
 
 class ProfileMeasurementsView extends Marionette.ItemView
 
-  template  : '#profile-measurements-template'
+  	template  : '#profile-measurements-template'
 
-  className : 'animated fadeIn'
+  	className : 'animated fadeIn'
 
-	onShow:->
-		  #to initialize validate plugin
-			$("#add_measurements").validate({
+  	onShow:->
+  		$("#add_measurements").validate({
 
 				submitHandler: (form)->
 
@@ -27,6 +26,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 							
 							error:(error)->
 								$('.response_msg').text "Something went wrong"
+
+					return false;
 
 
 

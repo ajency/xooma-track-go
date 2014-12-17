@@ -47,7 +47,7 @@ class User_API
             
         );
         //facebook login route
-        $routes['/authenticate'] = array(
+        $routes['/tokens'] = array(
             array( array( $this, 'store_user_login_details'), WP_JSON_Server::CREATABLE)
         );
         

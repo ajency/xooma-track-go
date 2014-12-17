@@ -141,7 +141,7 @@
 
             <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
             <input type="hidden" class="form-control" name="image" id="image" value="" /> 
-            <input type="hidden" class="form-control" name="attachment_id" id="attachment_id" value="" /> 
+            <input type="hidden" class="form-control" name="attachment_id" id="attachment_id" value="{{profile_picture.id}}" /> 
 
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
@@ -251,37 +251,37 @@
                     <p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
                     <div class="row">
                         <div class="col-md-5 col-xs-6">
-                            <img src="images/height.png" class="pull-right m-t-40">
+                            <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
                         </div>
                         <div class="col-md-7">
                             <h4 class="text-left"> <output></output><small>Feet</small></h4>
                         </div>
-                        <input type="range" min="4" max="9" step="0.1" value="1.1" id="height" name="height" data-rangeslider>
+                        <input type="range" min="4" max="9" step="0.1" value="{{height}}" id="height" name="height" required data-rangeslider>
                     </div>
                     </br>
                     </br>
                     <div class="row">
                         <div class="col-md-5 col-xs-6">
-                            <img src="images/weight.jpg" class="pull-right m-t-40">
+                            <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-40">
                         </div>
                         <div class="col-md-7 ">
                             <h4 class="text-left"> <output></output><small>pounds</small></h4>
                         </div>
-                        <input type="range" min="25" max="500" step="1" value="25" id="weight" name="weight" data-rangeslider>
+                        <input type="range" min="25" max="500" step="1" value="{{weight}}" id="weight" name="weight" required data-rangeslider>
                     </div>
                     </br>
                     </br>
                 </div>
                 <div class="col-sm-6 imageMap">
-                    <a name="neck" id="neck" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input                               type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="chest" id="chest" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="arm" id="arm" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="abdomen" id="abdomen" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="hips" id="waist" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="hips" id="hips" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="thigh" id="thigh" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a name="midcalf" id="midcalf" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <img src="images/humanbody.png" class="center-block">
+                    <a  tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
                 </div>
                 <div class="row">
                            <div class="col-sm-12">

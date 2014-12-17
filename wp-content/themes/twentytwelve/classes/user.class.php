@@ -45,15 +45,15 @@ class User
 	{
 		
 		//image upload//
-        if($args['image']!=""){
-            $attachment_id = uploadImage($args['image']);
-        }
+        // if($args['image']!=""){
+        //     $attachment_id = uploadImage($args['image']);
+        // }
 
-        if(!(is_array($attachment_id)))
-        {
-          return array('status' => 404 ,'response' => 'Image could not be uploaded');
-        }
-        $args['attachment_id'] = $attachment_id['attachid'];
+        // if(!(is_array($attachment_id)))
+        // {
+        //   return array('status' => 404 ,'response' => 'Image could not be uploaded');
+        // }
+        // $args['attachment_id'] = $attachment_id['attachid'];
 
         //image upload//
         //server side valiadation//
@@ -95,6 +95,8 @@ class User
         
         if($user_details && $xooma_member_id){
 
+            global $aj_workflow;
+            $aj_workflow->workflow_update_user($args['id'],'profile');
         	return array('status' => 200 ,'response' => $user_details);
         }
 		else
@@ -114,7 +116,7 @@ class User
         $user_meta_value = serialize($args);
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
         
-        if(count($sql_query) == 0 || $sql_query!= null)
+        if(count($sql_query) == 0 && $sql_query == null)
         {
             
               $insert_id = $wpdb->insert( 
@@ -131,14 +133,7 @@ class User
                 ) 
               );
 
-              if($insert_id){
-
-                return array('status' => 200 ,'response' => $insert_id);
-              }
-              else
-              {
-                new WP_Error( 'json_user_measurement_details_not_updated', __( 'User Measurement details not updated.' ), array( 'status' => 500 ) );
-              }
+              
         }
         else
         {
@@ -159,7 +154,14 @@ class User
                   );
         }
         
-        
+        if($insert_id){
+
+                return array('status' => 200 ,'response' => $insert_id);
+              }
+        else
+              {
+                new WP_Error( 'json_user_measurement_details_not_updated', __( 'User Measurement details not updated.' ), array( 'status' => 500 ) );
+              }
 
 
 

@@ -11,19 +11,29 @@ App.ProfileMeasurementCtrl = (function(_super) {
 
   ProfileMeasurementCtrl.prototype.initialize = function(options) {
     this.user = this._get_measurement_details();
-    return this.show(new ProfileMeasurementsView);
+    return App.execute("when:fetched", [this.user], (function(_this) {
+      return function() {
+        return _this.show(new ProfileMeasurementsView({
+          model: _this.user
+        }));
+      };
+    })(this));
   };
 
   ProfileMeasurementCtrl.prototype._get_measurement_details = function() {
-    return $.ajax({
+    $.ajax({
       method: 'GET',
       url: _SITEURL + '/wp-json/measurements/2',
       data: '',
-      success: function(response) {},
+      success: function(response) {
+        App.currentUser.set('height', response.response.height);
+        return App.currentUser.set('weight', response.response.weight);
+      },
       error: function(error) {
         return $('.response_msg').text("Something went wrong");
       }
     });
+    return App.currentUser;
   };
 
   return ProfileMeasurementCtrl;

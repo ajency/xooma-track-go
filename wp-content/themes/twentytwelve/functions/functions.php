@@ -447,8 +447,8 @@ function get_fblogin_status($data){
                     
                   //get the user id
                   $user_id = $user->ID;
-                  send_notifications_to_admin($user_id);
-                  send_notifications_to_user($user_id);
+                  
+                  
                   $response = login_response($user_id);
 
                 }
@@ -485,7 +485,7 @@ function login_response($user_id){
    }else{
         $user['avatar_url'] = $avatar_url;
    }
-   
+    $user['state'] = $avatar_url;
     
     return  $user;
 }
@@ -509,11 +509,12 @@ function send_notifications_to_admin($user_id){
     'username'        => $user['user_login'],
     'email'           => $user['user_email'],
     'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
-    'registered'      => $user['registered'],
+    'registered'      => $user['user_registered'],
     'siteurl'         => site_url().'/wp-admin'
 
 
     );
+
   //get all the admins
   $arguments = array(
         'role' => 'Administrator',
@@ -527,12 +528,15 @@ function send_notifications_to_admin($user_id){
   foreach ((array) $admins as $value) {
 
     $recipients_args = array(
-      'user_id'     => $user_id,
-      'type'        => 'email',
-      'value'       => $value->user_email
+              array(
+              'user_id'     => $user_id,
+              'type'        => 'email',
+              'value'       => $value->user_email
 
-    );
+            )
 
+      );
+    
     $aj_comm->create_communication($args,$meta,$recipients_args);
         
     }
@@ -567,11 +571,14 @@ function send_notifications_to_user($user_id){
     );
 
   $recipients_args = array(
-      'user_id'     => $user_id,
-      'type'        => 'email',
-      'value'       =>  $user['user_email']
+                        array(
+                          'user_id'     => $user_id,
+                          'type'        => 'email',
+                          'value'       =>  $user['user_email']
 
-    );
+                        )
+
+                    );
 
   $aj_comm->create_communication($args,$meta,$recipients_args);
 
@@ -593,4 +600,46 @@ function get_all_timezones(){
 
 
     }
+}
+
+//filter to check workflow process 
+add_filter( 'aj_user_model', 'check_workflow' );
+
+//send emails 
+add_action( 'user_register', 'send_emails', 10, 1 );
+
+function send_emails($user_id){
+
+  send_notifications_to_admin($user_id);
+  send_notifications_to_user($user_id);
+}
+function check_workflow($user_model){
+
+
+  
+
+  //workflow plugin code
+    global $aj_workflow;
+    $args = array(
+        'name'    => 'login',
+        
+    );
+    $status = array(
+        'default'   => 'incomplete',
+        'complete'  => 'complete'
+          
+
+      );
+    $aj_workflow->workflow_insert_main($args,$status);
+
+    //call workflow function
+
+    $state = $aj_workflow->workflow_process('login',$user_model->ID);
+
+    //call workflow function
+    //workflow plugin code
+
+    $user_model->state = $state;
+
+    return $user_model;
 }

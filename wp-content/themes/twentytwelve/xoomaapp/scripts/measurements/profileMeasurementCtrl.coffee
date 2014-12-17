@@ -5,7 +5,9 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 
 		@user = @_get_measurement_details()
 
-		@show new ProfileMeasurementsView
+		App.execute "when:fetched", [@user], =>
+			@show new ProfileMeasurementsView
+				model : @user
 
 
 	_get_measurement_details:->
@@ -14,9 +16,12 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 			url : _SITEURL+'/wp-json/measurements/2',
 			data : '',
 			success:(response)->
-				
+				App.currentUser.set 'height' , response.response.height
+				App.currentUser.set 'weight' , response.response.weight
 				
 
 			
 			error:(error)->
 				$('.response_msg').text "Something went wrong" 
+
+		return App.currentUser
