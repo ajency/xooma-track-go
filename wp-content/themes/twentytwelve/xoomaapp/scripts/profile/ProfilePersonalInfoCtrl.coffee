@@ -15,7 +15,7 @@ class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/2',
+			url : _SITEURL+'/wp-json/profiles/'+App.currentUser.get('ID'),
 			data : '',
 			success:(response)->
 				response_data = response

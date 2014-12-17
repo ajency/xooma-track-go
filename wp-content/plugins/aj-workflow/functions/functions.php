@@ -114,7 +114,7 @@ function workflow_form_id($form){
         $workflow_forms_tbl=$wpdb->prefix."workflow_forms";
 
         $sql_form = $wpdb->get_row("SELECT * FROM $workflow_forms_tbl WHERE form_name LIKE '%$form%'");
-
+        
         if(!(is_null($sql_form))){
 
         	return $sql_form->id;

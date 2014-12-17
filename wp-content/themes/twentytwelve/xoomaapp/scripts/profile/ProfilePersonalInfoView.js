@@ -16,7 +16,8 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.events = {
     'click .radio': function(e) {
-      return $('#gender').val(e.target.id.value);
+      $('#gender').val($('#' + e.target.id).val());
+      return console.log($('#gender').val());
     }
   };
 
@@ -39,9 +40,9 @@ ProfilePersonalInfoView = (function(_super) {
         }
       },
       submitHandler: function(form) {
-        $('#image').val(App.$.ajax({
+        $.ajax({
           method: 'POST',
-          url: _SITEURL + '/wp-json/profiles/2',
+          url: _SITEURL + '/wp-json/profiles/' + App.currentUser.get('ID'),
           data: $('#add_user_details').serialize(),
           success: function(response) {
             if (response.status === 404) {
@@ -53,7 +54,7 @@ ProfilePersonalInfoView = (function(_super) {
           error: function(error) {
             return $('.response_msg').text("Details could not be saved");
           }
-        }));
+        });
         return false;
       }
     });
