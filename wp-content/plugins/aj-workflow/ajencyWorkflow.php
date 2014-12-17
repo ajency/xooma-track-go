@@ -125,7 +125,7 @@ class ajencyWorkflow{
 	public static function deactivate($network_wide) {
 		// TODO: Define deactivation functionality here
 
-		
+
 	}
 
 	/**
@@ -260,19 +260,19 @@ class ajencyWorkflow{
 		//fetch all the forms based on the workflow name specified
 
 		$forms = workflow_get_forms($workflow_name);
-		
+
 		if(is_wp_error($forms)){
 
 			return $forms;
 		}
-		
+
 		$forms_array = array();
 
 		//getting the array of all forms in a proper sequence
 		foreach ($forms as $key => $value) {
 			$forms_array[$value->id]  = $value->url;
 		}
-		
+
 		foreach ($forms_array as $key => $value) {
 			//check if entry is present in workflow_user table
 			$workflow_user_id = workflow_check_user($key,$user_id);
@@ -300,7 +300,7 @@ class ajencyWorkflow{
 
 
 
-			
+
 		}
 
 
@@ -315,21 +315,21 @@ class ajencyWorkflow{
 		$workflow_tbl = $wpdb->prefix."workflow";
 		$workflow_name = $args['name'];
 		$sql_query = $wpdb->get_row("SELECT * FROM $workflow_tbl WHERE workflow_name LIKE '%$workflow_name%'");
-		
+
 
 
 		//insert into workflow user table
 		if(is_null($sql_query)){
-			$insert_id = $wpdb->insert( 
-				$workflow_tbl, 
-				array( 
-					'workflow_name'		=> $args['name'], 
-					'status'			=> serialize($status)		 
-				), 
-				array( 
-					'%s', 
-					'%s' 
-				) 
+			$insert_id = $wpdb->insert(
+				$workflow_tbl,
+				array(
+					'workflow_name'		=> $args['name'],
+					'status'			=> serialize($status)
+				),
+				array(
+					'%s',
+					'%s'
+				)
 			);
 
 			if($insert_id){
@@ -358,19 +358,19 @@ class ajencyWorkflow{
 		//get workflow completion status
 		$status = workflow_get_status($form_id);
 
-		$update_id = $wpdb->update( 
-			$workflow_user_tbl, 
-			array( 
-				'status' => $status['complete']	
-			), 
+		$update_id = $wpdb->update(
+			$workflow_user_tbl,
+			array(
+				'status' => $status['complete']
+			),
 			array( 'user_id' => $user_id,
-			       'form_id' => $form_id 
-			), 
-			array( 
+			       'form_id' => $form_id
+			),
+			array(
 				'%s'
-			), 
-			array( '%d', 
-				   '%d' 
+			),
+			array( '%d',
+				   '%d'
 			)
 		);
 
@@ -393,7 +393,7 @@ class ajencyWorkflow{
 	public function workflow_needed($user_id){
 
 		//fetch all the forms based on the workflow name specified
-
+		return;
 		global $wpdb;
 
 		global $aj_workflow;
@@ -407,12 +407,12 @@ class ajencyWorkflow{
 			$aj_workflow->workflow_process('login',$user_id);
 		}
 		$forms = workflow_get_forms($workflow_name);
-		
+
 		if(is_wp_error($forms)){
 
 			return $forms;
 		}
-		
+
 		$forms_array = array();
 		$flag = 0;
 		//getting the array of all forms in a proper sequence
@@ -425,9 +425,9 @@ class ajencyWorkflow{
 				$status = workflow_get_status($sql_query->form_id);
 
 				if(($status['complete']) == $sql_query->status){
-					
+
 					$flag = '/home';
-					
+
 				}
 				else
 				{
@@ -442,7 +442,7 @@ class ajencyWorkflow{
 
 			return $flag;
 
-			
+
 
 
 

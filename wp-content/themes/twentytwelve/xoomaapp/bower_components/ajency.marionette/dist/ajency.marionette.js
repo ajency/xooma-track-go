@@ -392,14 +392,12 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       }
       _scope = this.ui.fbLoginButton.attr('fb-scope');
       _scope = !_.isString(_scope) ? '' : _scope;
-      return FB.login(this._fbLoginHandler, {
-        scope: _scope
-      });
+      return facebookConnectPlugin.login(_.flatten([_scope]), this._fbLoginHandler, function(){});
     };
 
     LoginView.prototype._fbLoginHandler = function(response) {
       if (response.authResponse) {
-        return FB.api('/me', (function(_this) {
+        return facebookConnectPlugin.api('/me',[], (function(_this) {
           return function(user) {
             return _this.triggerMethod('facebook:login:success', user, response.authResponse.accessToken);
           };

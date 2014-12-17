@@ -147,14 +147,16 @@ if (!window.cordova) {
         // Browser wrapper API ONLY
         browserInit: function (appId, version) {
             if (!version) {
-                version = "v2.0";
+                version = "v2.2";
             }
-            FB.init({
-                appId      : appId,
-                cookie     : true,
-                xfbml      : true,
-                version    : version
-            });
+             window.fbAsyncInit = function(){
+                FB.init({
+                    appId      : appId,
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : version
+                });
+            }
         }
     };
     
