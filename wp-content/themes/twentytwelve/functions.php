@@ -1402,3 +1402,18 @@ function test_modify_user_table( $column ) {
 }
 
 add_filter( 'manage_users_columns', 'test_modify_user_table' );
+
+
+//communication module//
+function dba_add_communication_components($defined_comm_components){
+
+	$defined_comm_components['xooma_users'] = array(
+				'xooma_admin_email' => array('preference'=>1),
+				'xooma_user_email'  => array('preference'=>1)
+
+		);
+
+	return $defined_comm_components;
+}
+add_filter('add_commponents_filter','dba_add_communication_components',10,1); 
+

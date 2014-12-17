@@ -2,6 +2,7 @@
 /*
     Template Name: Xooma Template
 */
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 7]>
@@ -130,37 +131,47 @@
     {{/if}}
 </script>
 <script id="profile-personal-info-template" type="h-template">
+
     <div id="personalinfo" class="section">
         <div class="container">
+
+
+            <form id="add_user_details" class="form-horizontal" role="form" method="POST">
+            
+
             <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
+            <input type="hidden" class="form-control" name="image" id="image" value="" /> 
+            <input type="hidden" class="form-control" name="attachment_id" id="attachment_id" value="{{profile_picture.id}}" /> 
+
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
-                    <form class="form-horizontal" role="form">
+                <div class="response_msg"></div>
+                    
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="text1" placeholder="0001">
+                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required value="{{xooma_member_id}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="text2" placeholder="Martin Luther">
+                          <input type="text" readonly class="form-control" id="name" name="name" value="{{name}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text3" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control" id="text3" placeholder="xyz@mail.com">
+                          <input type="email" readonly class="form-control" id="email_id" name="email_id" value="{{email_id}}">
                         </div>
                       </div>
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="text4" placeholder="0010100100">
+                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{phone_no}}">
                         </div>
                       </div>
                      <div class="form-group">
@@ -168,82 +179,115 @@
                         <div class="col-sm-9">
                         <div class="rd-gender">
                                   <label class="wrap">
-                                    <input type="radio" name="city" class="radio" checked="checked"/>
+                                    <input type="radio" name="radio_grp" id="male" class="radio" value="male" />
                                     <span class="rd-visual male" title="Male"></span>
                                   </label>
                                   <label class="wrap">
-                                    <input type="radio" name="city" class="radio"/>
+                                    <input type="radio" name="radio_grp" id="female" class="radio" value="female"/>
                                     <span class="rd-visual female" title="Female"></span>
                                   </label>
                             </div>
+                            <input type="hidden" name="gender" id="gender" value = "" />
                         </div>
                       </div>
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="text7" placeholder="">
+                                <input type="text" class="form-control" id="birth_date"  name="birth_date" required value="{{birth_date}}">
                             </div>
                       </div>  
                        <div class="form-group">
                             <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="text8" placeholder="">
+                                <select id="timezone" name="timezone">
+                                    <option value="Asia/Tehran">(GMT+03:30) Tehran</option>
+                                    <option value="Asia/Dubai">(GMT+04:00) Abu Dhabi, Muscat</option>
+                                    <option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
+                                    <option value="Asia/Kabul">(GMT+04:30) Kabul</option>
+                                    <option value="Asia/Yekaterinburg">(GMT+05:00) Ekaterinburg</option>
+                                    <option value="Asia/Tashkent">(GMT+05:00) Tashkent</option>
+                                    <option value="Asia/Kolkata">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+                                    <option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
+                                    <option value="Asia/Dhaka">(GMT+06:00) Astana, Dhaka</option>
+                                    <option value="Asia/Novosibirsk">(GMT+06:00) Novosibirsk</option>
+                                    <option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
+                                    <option value="Asia/Bangkok">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+                                    <option value="Asia/Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
+                                    <option value="Asia/Hong_Kong">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
+                                    <option value="Asia/Irkutsk">(GMT+08:00) Irkutsk, Ulaan Bataar</option>
+                                    <option value="Australia/Perth">(GMT+08:00) Perth</option>
+                                    <option value="Australia/Eucla">(GMT+08:45) Eucla</option>
+                                    <option value="Asia/Tokyo">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
+                                    <option value="Asia/Seoul">(GMT+09:00) Seoul</option>
+                                    <option value="Asia/Yakutsk">(GMT+09:00) Yakutsk</option>
+                                    <option value="Australia/Adelaide">(GMT+09:30) Adelaide</option>
+                                    <option value="Australia/Darwin">(GMT+09:30) Darwin</option>
+                                    <option value="Australia/Brisbane">(GMT+10:00) Brisbane</option>
+                                    <option value="Australia/Hobart">(GMT+10:00) Hobart</option>
+                                    <option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
+                                </select>
                             </div>
                       </div> 
                 
                         <div class="row">
                            <div class="col-sm-12">
-                              <button type="button" class="btn btn-primary btn-lg pull-right">Next</button>
+                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Next</button>
                             </div>
                         </div>
-                    </form>
+                    
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </script>
 <script id="profile-measurements-template" type="h-template">
     <div id="measuremnt" class="section">
         <div class="container">
+        <form id="add_measurements" class="form-horizontal" role="form" method="POST">
             <div class="row">
                 <div class="col-sm-6">
                     <h5 class="text-center bold">Set your mesurements</h5>
                     <p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
                     <div class="row">
                         <div class="col-md-5 col-xs-6">
-                            <img src="assets/images/height.png" class="pull-right m-t-40">
+                            <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
                         </div>
                         <div class="col-md-7">
                             <h4 class="text-left"> <output></output><small>Feet</small></h4>
                         </div>
-                        <input type="range" min="4" max="9" step="0.1" value="1.1" data-rangeslider>
+                        <input type="range" min="4" max="9" step="0.1" value="{{height}}" id="height" name="height" required data-rangeslider>
                     </div>
                     </br>
                     </br>
                     <div class="row">
                         <div class="col-md-5 col-xs-6">
-                            <img src="assets/images/weight.jpg" class="pull-right m-t-40">
+                            <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-40">
                         </div>
                         <div class="col-md-7 ">
                             <h4 class="text-left"> <output></output><small>pounds</small></h4>
                         </div>
-                        <input type="range" min="25" max="500" step="1" value="25" data-rangeslider>
+                        <input type="range" min="25" max="500" step="1" value="{{weight}}" id="weight" name="weight" required data-rangeslider>
                     </div>
                     </br>
                     </br>
                 </div>
                 <div class="col-sm-6 imageMap">
-                    <a id="element" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input                               type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element1" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element2" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element3" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element4" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element5" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element6" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element7" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <img src="assets/images/humanbody.png" class="center-block">
+                    <a  tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a  tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
                 </div>
-
+                <div class="row">
+                           <div class="col-sm-12">
+                              <button type="submit" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right">Save</button>
+                            </div>
+                </div>
             </div>
         </div>
     </div>
@@ -252,36 +296,40 @@
 <!-- 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script> 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/detectizr/dist/detectizr.js"></script>  -->
+
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/moxie.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/mustache/mustache.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
+
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/mustache/mustache.js"></script>
 <!-- endbuild -->
 
 
 
 <script type="text/javascript">
-  userData = <?php echo json_encode(aj_get_user_model(get_current_user_id())); ?>;
-  App                   = new Marionette.Application()  
-  APIURL                = '<?php echo json_url() ?>';
-  _SITEURL              = '<?php echo site_url() ?>';
-
-  window.fbAsyncInit = function() {
+        App                   = new Marionette.Application()  
+        //App.LoginCtrl         = Ajency.LoginCtrl  
+        App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
+        APIURL                = '<?php echo json_url() ?>';
+        _SITEURL              = '<?php echo site_url() ?>';
+    window.fbAsyncInit = function() {
     FB.init({
-      appId      : '1536913533218407',
+      appId      : '376973229145085',
       xfbml      : true,
       version    : 'v2.2'
     });
@@ -306,10 +354,16 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 <!-- build:js(*.js) application.js -->
+
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/profileMeasurementCtrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/MeasurementView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>	
 <!-- endbuild -->
 
 </body>	
 </html>
+  
