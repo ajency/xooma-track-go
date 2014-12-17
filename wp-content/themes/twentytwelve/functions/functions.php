@@ -634,12 +634,17 @@ function check_workflow($user_model){
 
     //call workflow function
 
-    $state = $aj_workflow->workflow_process('login',$user_model->ID);
+    $state = $aj_workflow->workflow_needed($user_model->ID);
 
     //call workflow function
     //workflow plugin code
 
+    
     $user_model->state = $state;
+   
+    
+
+    
 
     return $user_model;
 }

@@ -157,6 +157,9 @@ class User
         
         if($insert_id){
 
+                global $aj_workflow;
+                $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
+
                 return array('status' => 200 ,'response' => $insert_id);
               }
         else

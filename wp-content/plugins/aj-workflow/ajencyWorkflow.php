@@ -270,7 +270,7 @@ class ajencyWorkflow{
 
 		//getting the array of all forms in a proper sequence
 		foreach ($forms as $key => $value) {
-			$forms_array[$value->id]  = $value->form_name;
+			$forms_array[$value->id]  = $value->url;
 		}
 		
 		foreach ($forms_array as $key => $value) {
@@ -396,6 +396,8 @@ class ajencyWorkflow{
 
 		global $wpdb;
 
+		global $aj_workflow;
+
 		$workflow_user_tbl = $wpdb->prefix."workflow_user";
 
 		$forms = workflow_get_forms($workflow_name);
@@ -406,7 +408,7 @@ class ajencyWorkflow{
 		}
 		
 		$forms_array = array();
-
+		$flag = 0;
 		//getting the array of all forms in a proper sequence
 		foreach ($forms as $key => $value) {
 			$form_id = $value->id;
@@ -414,8 +416,27 @@ class ajencyWorkflow{
 			if(!(is_null($sql_query)))
 			{
 				//get workflow completion status
-		$status = workflow_get_status($form_id);
+				$status = workflow_get_status($sql_query->form_id);
+
+				if(($status['complete']) == $sql_query->status){
+					
+					$flag = '/home';
+					
+				}
+				else
+				{
+					$flag = $aj_workflow->workflow_process('login',$user_id);
+					return $flag;
+					exit();
+
+				}
+
 			}
+
+
+			return $flag;
+
+			
 
 
 

@@ -23,7 +23,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
   ProfileMeasurementCtrl.prototype._get_measurement_details = function() {
     $.ajax({
       method: 'GET',
-      url: _SITEURL + '/wp-json/measurements/2',
+      url: _SITEURL + '/wp-json/measurements/' + App.currentUser.get('ID'),
       data: '',
       success: function(response) {
         App.currentUser.set('height', response.response.height);

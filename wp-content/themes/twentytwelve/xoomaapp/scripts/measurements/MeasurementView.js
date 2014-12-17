@@ -51,14 +51,17 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
     var _formData;
-    _formData = Backbone.Syphon.serialize(this);
-    return $.ajax({
+    console.log("aaaaaaaaaaaa");
+    _formData = $('#add_measurements').serialize();
+    console.log(_formData);
+    $.ajax({
       method: 'POST',
-      url: _SITEURL + '/wp-json/measurements/2',
+      url: _SITEURL + '/wp-json/measurements/' + App.currentUser.get('ID'),
       data: _formData,
       success: this.successHandler,
       error: this.errorHandler
     });
+    return false;
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status) {
