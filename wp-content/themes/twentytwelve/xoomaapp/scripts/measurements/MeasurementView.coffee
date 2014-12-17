@@ -31,8 +31,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			success: @successHandler      
 			error: @errorHandler
 
-	successHandler : (response)=>
-		if response.status is 404
+	successHandler : (response, status)=>
+		if status is 404
 			@ui.responseMessage.text "Something went wrong"
 		else
 			@ui.responseMessage.text "User details saved successfully"

@@ -107,9 +107,13 @@ class Product_API
         
     	$response = $product->create_product($data);
 
-    	return $response;
-    	
+        if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+        }
 
+        $response->set_status( 201 );
+
+        return $response;
 
     }
 
