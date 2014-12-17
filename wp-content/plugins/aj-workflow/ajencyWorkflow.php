@@ -400,6 +400,12 @@ class ajencyWorkflow{
 
 		$workflow_user_tbl = $wpdb->prefix."workflow_user";
 
+		$sqlquery = $wpdb->get_results("SELECT * FROM $workflow_user_tbl WHERE user_id=".$user_id);
+
+		if(count($sqlquery) ==0 ){
+
+			$aj_workflow->workflow_process('login',$user_id);
+		}
 		$forms = workflow_get_forms($workflow_name);
 		
 		if(is_wp_error($forms)){

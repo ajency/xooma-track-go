@@ -633,7 +633,7 @@ function check_workflow($user_model){
     $aj_workflow->workflow_insert_main($args,$status);
 
     //call workflow function
-
+    
     $state = $aj_workflow->workflow_needed($user_model->ID);
 
     //call workflow function
