@@ -187,20 +187,8 @@ class User
         $data = array();
         if(count($sql_query) != 0 || $sql_query!= null){
             $user_details =   unserialize($sql_query->value);
-           
-            $data = array(
-                'id'                        => $id,
-                'height'                    => $user_details['height'],
-                'weight'                    => $user_details['weight'],
-                'neck'                      => $user_details['neck'],
-                'check'                     => $user_details['check'],
-                'waist'                     => $user_details['waist'],
-                'abdomen'                   => $user_details['abdomen'],
-                'hips'                      => $user_details['hips'],
-                'thigh'                     => $user_details['thigh'],
-                'midcalf'                   => $user_details['midcalf'],
-                'calf'                      => $user_details['calf']
-                );
+            
+            $data = $user_details;
             
             return array('status' => 200 ,'response' => $data);
         }

@@ -27,7 +27,14 @@ App.ProfileMeasurementCtrl = (function(_super) {
       data: '',
       success: function(response) {
         App.currentUser.set('height', response.response.height);
-        return App.currentUser.set('weight', response.response.weight);
+        App.currentUser.set('weight', response.response.weight);
+        App.currentUser.set('neck', response.response.neck);
+        App.currentUser.set('chest', response.response.chest);
+        App.currentUser.set('arm', response.response.arm);
+        App.currentUser.set('waist', response.response.waist);
+        App.currentUser.set('hips', response.response.hips);
+        App.currentUser.set('thigh', response.response.thigh);
+        return App.currentUser.set('midcalf', response.response.midcalf);
       },
       error: function(error) {
         return $('.response_msg').text("Something went wrong");
