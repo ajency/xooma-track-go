@@ -171,7 +171,7 @@
 
 .carousel-indicators {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
   left: 50%;
   z-index: 15;
   width: 60%;
@@ -186,7 +186,7 @@
     height: 10px;
     margin: 1px;
     text-indent: -999px;
-    border: 1px solid @carousel-indicator-border-color;
+    border: 1px solid #ccc;
     border-radius: 10px;
     cursor: pointer;
 
@@ -213,16 +213,16 @@
 // -----------------------------
 // Hidden by default for smaller viewports
 .carousel-caption {
-  position: absolute;
+  /*position: absolute;*/
   left: 15%;
   right: 15%;
-  bottom: 20px;
+  margin-top: -40px;
   z-index: 10;
-  padding-top: 20px;
+  padding-top: 0px;
   padding-bottom: 20px;
-  color: @carousel-caption-color;
+  color: #999;
   text-align: center;
-  text-shadow: @carousel-text-shadow;
+  /*text-shadow: @carousel-text-shadow;*/
   & .btn {
     text-shadow: none; // No shadow for button elements in carousel-caption
   }
@@ -260,8 +260,5 @@
     padding-bottom: 30px;
   }
 
-  // Move up the indicators
-  .carousel-indicators {
-    bottom: 20px;
-  }
+
 }
