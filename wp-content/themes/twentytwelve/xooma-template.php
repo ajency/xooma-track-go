@@ -82,7 +82,7 @@
                     <div class="col-sm-3 col-xs-5">
                       <div class="navbar-header">
                               <a  href="#">
-                                <img alt="Brand" src="http://localhost/xooma/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
+                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
                               </a>
                         </div>
                     </div>
@@ -275,14 +275,14 @@
                     </br>
                 </div>
                 <div class="col-sm-6 imageMap">
-                    <a id="element1" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' >"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element2" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element3" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element4" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element5" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element6" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element7" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element8" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element1" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element2" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element3" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element4" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element5" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element6" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element7" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element8" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
                     <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
                 </div>
                 <div class="row">
@@ -329,7 +329,7 @@
         _SITEURL              = '<?php echo site_url() ?>';
     window.fbAsyncInit = function() {
     FB.init({
-      appId      : '355178387994693',
+      appId      : '376973229145085',
       xfbml      : true,
       version    : 'v2.2'
     });

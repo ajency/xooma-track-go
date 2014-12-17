@@ -37,7 +37,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				    
 
 				submitHandler: (form)->
-					$('#image').val 
+					$('#image').val App.
 
 					$.ajax
 							method : 'POST',

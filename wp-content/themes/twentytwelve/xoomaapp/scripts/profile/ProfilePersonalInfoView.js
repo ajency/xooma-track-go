@@ -39,8 +39,7 @@ ProfilePersonalInfoView = (function(_super) {
         }
       },
       submitHandler: function(form) {
-        $('#image').val;
-        $.ajax({
+        $('#image').val(App.$.ajax({
           method: 'POST',
           url: _SITEURL + '/wp-json/profiles/2',
           data: $('#add_user_details').serialize(),
@@ -54,7 +53,7 @@ ProfilePersonalInfoView = (function(_super) {
           error: function(error) {
             return $('.response_msg').text("Details could not be saved");
           }
-        });
+        }));
         return false;
       }
     });
