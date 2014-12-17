@@ -22,6 +22,28 @@ class Occurrence{
 	}
 
 	/**
+	 * [get_occurrences description]
+	 * @param  [type] $schedule_id [description]
+	 * @param  [type] $start_dt    [description]
+	 * @return [type]              [description]
+	 */
+	public static function get_occurrences($schedule_id, $start_dt){
+
+		global $wpdb;
+
+		$table_name = "{$wpdb->prefix}aj_occurrence_meta";
+
+		$schedule = Schedule::get($schedule_id);
+
+		$rrule = $schedule->rrule;
+
+		$r = new \When\When();
+		$r->startDate(new DateTime($start_dt))->rrule($rrule)->generateOccurrences();
+
+		return $r->occurrences;
+	}
+
+	/**
 	 * [_insert_occurrence description]
 	 * @param  [type] $occurrence_data [description]
 	 * @return [type]                 [description]

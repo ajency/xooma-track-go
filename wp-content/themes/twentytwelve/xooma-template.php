@@ -365,7 +365,7 @@ Add Home template here
         _SITEURL              = '<?php echo site_url() ?>';
     window.fbAsyncInit = function() {
     FB.init({
-      appId      : '376973229145085',
+      appId      : '355178387994693',
       xfbml      : true,
       version    : 'v2.2'
     });
