@@ -58,16 +58,18 @@
 <div id="fb-root"></div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <h1>Add Login Screen Markup Here</h1>
-    <br />
-    <br />
-    <div class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
+    <div class="text-center">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1>Add Login Screen Markup Here</h1>
+        <br />
+        <br />
+        <div fb-scope="email" class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
+    </div>
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -307,7 +309,6 @@
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/mustache/mustache.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
 
@@ -316,7 +317,6 @@
 <!-- build:js({*.js}) scripts/ajency.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/mustache/mustache.js"></script>
 <!-- endbuild -->
 
 
@@ -329,7 +329,7 @@
         _SITEURL              = '<?php echo site_url() ?>';
     window.fbAsyncInit = function() {
     FB.init({
-      appId      : '376973229145085',
+      appId      : '355178387994693',
       xfbml      : true,
       version    : 'v2.2'
     });
