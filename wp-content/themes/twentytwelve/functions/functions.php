@@ -464,7 +464,7 @@ function get_fblogin_status($data){
 }
 
 function login_response($user_id){
- 
+    return;
     global $user_ID,  $wp_roles ;
     $user = array();
     $user_info = get_userdata($user_id);
