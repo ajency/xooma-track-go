@@ -1,6 +1,6 @@
 <?php
 
-namespace ajency;
+namespace ajency\ScheduleReminder;
 
 /**
  * The Schedule class
@@ -17,7 +17,7 @@ class Schedule{
 		if(!current_user_can('edit_schedule'))
 			return new WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
-		return Schedule::_insert_schedule($schedule_data);
+		return self::_insert_schedule($schedule_data);
 	}
 
 	/**

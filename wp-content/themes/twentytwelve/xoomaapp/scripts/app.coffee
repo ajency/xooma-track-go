@@ -26,5 +26,10 @@ jQuery(document).ready ($)->
 		Backbone.history.start()
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate '/profile', true
+
+		if window.location.hash is ''
+			App.navigate '/login', true
+		
+
 	
 	

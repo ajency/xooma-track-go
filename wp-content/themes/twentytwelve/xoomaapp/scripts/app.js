@@ -17,8 +17,11 @@ jQuery(document).ready(function($) {
   });
   return App.addInitializer(function() {
     Backbone.history.start();
-    return App.currentUser.on('user:auth:success', function() {
+    App.currentUser.on('user:auth:success', function() {
       return App.navigate('/profile', true);
     });
+    if (window.location.hash === '') {
+      return App.navigate('/login', true);
+    }
   });
 });
