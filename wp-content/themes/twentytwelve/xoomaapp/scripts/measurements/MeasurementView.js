@@ -4,6 +4,8 @@ var ProfileMeasurementsView,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 ProfileMeasurementsView = (function(_super) {
+  var valueOutput;
+
   __extends(ProfileMeasurementsView, _super);
 
   function ProfileMeasurementsView() {
@@ -15,6 +17,53 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.className = 'animated fadeIn';
 
   ProfileMeasurementsView.prototype.onShow = function() {
+    var $document, $element, i, selector;
+    $("#element1").popover({
+      html: true
+    });
+    $("#element2").popover({
+      html: true
+    });
+    $("#element3").popover({
+      html: true
+    });
+    $("#element4").popover({
+      html: true
+    });
+    $("#element5").popover({
+      html: true
+    });
+    $("#element6").popover({
+      html: true
+    });
+    $("#element7").popover({
+      html: true
+    });
+    $("#element8").popover({
+      html: true
+    });
+    $document = $(document);
+    selector = '[data-rangeslider]';
+    $element = $(selector);
+    i = $element.length - 1;
+    while (i >= 0) {
+      valueOutput($element[i]);
+      i--;
+    }
+    $document.on('change', 'input[type="range"]', function(e) {
+      return valueOutput(e.target);
+    });
+    $element.rangeslider({
+      polyfill: false,
+      onSlide: function(position, value) {
+        console.log('onSlide');
+        return console.log('position: ' + position, 'value: ' + value);
+      },
+      onSlideEnd: function(position, value) {
+        console.log('onSlideEnd');
+        return console.log('position: ' + position, 'value: ' + value);
+      }
+    });
     return $("#add_measurements").validate({
       submitHandler: function(form) {
         $.ajax({
@@ -36,6 +85,13 @@ ProfileMeasurementsView = (function(_super) {
         return false;
       }
     });
+  };
+
+  valueOutput = function(element) {
+    var output, value;
+    value = element.value;
+    output = element.parentNode.getElementsByTagName("output")[0];
+    output.innerHTML = value;
   };
 
   return ProfileMeasurementsView;
