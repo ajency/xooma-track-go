@@ -100,7 +100,7 @@
 
 
                 </div>
-            </div><button type="button" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+            </div><button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
              </div>
 
 
