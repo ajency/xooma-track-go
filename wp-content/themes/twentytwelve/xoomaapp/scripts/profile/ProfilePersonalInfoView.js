@@ -1,9 +1,8 @@
 (function() {
-  var ProfilePersonalInfoView,
-    __hasProp = {}.hasOwnProperty,
+  var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  ProfilePersonalInfoView = (function(_super) {
+  App.ProfilePersonalInfoView = (function(_super) {
     __extends(ProfilePersonalInfoView, _super);
 
     function ProfilePersonalInfoView() {
@@ -43,7 +42,7 @@
         submitHandler: function(form) {
           $.ajax({
             method: 'POST',
-            url: _SITEURL + '/wp-json/profiles/128',
+            url: _SITEURL + '/wp-json/profiles/134',
             data: $('#add_user_details').serialize(),
             success: function(response) {
               if (response.status === 404) {

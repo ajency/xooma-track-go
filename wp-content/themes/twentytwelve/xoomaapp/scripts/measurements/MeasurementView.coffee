@@ -1,6 +1,4 @@
-
-
-class ProfileMeasurementsView extends Marionette.ItemView
+class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	template  : '#profile-measurements-template'
 
