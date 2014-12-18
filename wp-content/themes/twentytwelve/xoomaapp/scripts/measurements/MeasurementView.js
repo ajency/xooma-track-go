@@ -52,14 +52,7 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
     var _formData;
     _formData = $('#add_measurements').serialize();
-    console.log(_formData);
-    $.ajax({
-      method: 'POST',
-      url: _SITEURL + '/wp-json/measurements/' + App.currentUser.get('ID'),
-      data: _formData,
-      success: this.successHandler,
-      error: this.errorHandler
-    });
+    this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
     return false;
   };
 

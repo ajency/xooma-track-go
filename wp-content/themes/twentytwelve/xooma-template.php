@@ -19,7 +19,7 @@
     <title><?php wp_title( '|', true, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-    
+
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
     <style scoped>
@@ -63,13 +63,13 @@
                 <div class="col-sm-12">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <br><br>
-    
+
     <!-- Indicators -->
                        <ol class="carousel-indicators">
                             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                          </ol> 
+                          </ol>
                              <div class="carousel-inner" role="listbox">
                             <div class="item active">
                           <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
@@ -94,16 +94,16 @@
                             </div>
                           </div>
 
-                        </div>      
-                      
+                        </div>
+
                     <!-- Login Button  -->
-                     
-                    
+
+
                 </div>
             </div><button type="button" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
              </div>
-        
-  
+
+
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -136,16 +136,16 @@
         <div class="row">
             <div class="col-sm-12">
                     <ul class="list-inline" >
-                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
+                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
+                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">MEASUREMENT</span></a></li>
                         <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
                             <span class="hidden-xs">MYPRODUCTS</span></a></li>
                     </ul>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 <div class="clearfix"></div>
 <div ui-region></div>
@@ -171,17 +171,17 @@
 
 
             <form id="add_user_details" class="form-horizontal" role="form" method="POST">
-            
+
 
             <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
-            
+
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
                 <div class="response_msg"></div>
-                    
+
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
@@ -227,7 +227,7 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="birth_date"  name="birth_date" required value="{{birth_date}}">
                             </div>
-                      </div>  
+                      </div>
                        <div class="form-group">
                             <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
                             <div class="col-sm-9">
@@ -259,14 +259,14 @@
                                     <option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
                                 </select>
                             </div>
-                      </div> 
-                
+                      </div>
+
                         <div class="row">
                            <div class="col-sm-12">
                               <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Next</button>
                             </div>
                         </div>
-                    
+
                     </div>
                 </div>
             </form>
@@ -331,11 +331,11 @@ Add Home template here
 </div>
 </script>
 <!-- build:js({.js}) scripts/vendors.js -->
-<!-- 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script> 
+<!--
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/detectizr/dist/detectizr.js"></script>  -->
 
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
@@ -348,7 +348,7 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>  
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <!-- endbuild -->
 
@@ -360,20 +360,31 @@ Add Home template here
 <!-- endbuild -->
 
 <script type="text/javascript">
-    App                   = new Marionette.Application()  
+_.extend(Marionette.Application.prototype, {
+  initialize: function() {
+    return this._stateChangeCallbacks = new Marionette.Callbacks();
+  },
+  stateChangeHandler: function(callback) {
+    return this._stateChangeCallbacks.add(callback);
+  }
+});
+    App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    facebookConnectPlugin.browserInit('376973229145085', 'v2.2');
+    FBAPPID               = '355178387994693';
+    if(typeof FBAPPID !== 'undefined')
+      facebookConnectPlugin.browserInit(FBAPPID);
+
 </script>
 <!-- build:js(*.js) application.js -->
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/profileMeasurementCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/MeasurementView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
     <!-- endbuild -->
-</body>	
+</body>
 </html>
-  
+
