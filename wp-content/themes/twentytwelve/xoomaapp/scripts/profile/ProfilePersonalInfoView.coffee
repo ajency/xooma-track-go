@@ -26,34 +26,34 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 				$("#add_user_details").validate({
 
 					rules:
-							xooma_member_id:
+						xooma_member_id:
+							number: true
+							equalLength :true
+						
+						phone_no:
 								number: true
-								equalLength :true
-							
-							phone_no:
-									number: true
 
-							radio_grp:
-								required:true
+						radio_grp:
+							required:true
 					
 					submitHandler: (form)->
 						$.ajax
-								method : 'POST',
-								url : _SITEURL+'/wp-json/profiles/134'#+App.currentUser.get('ID'), Id changed for mobile
-								data : $('#add_user_details').serialize(),
-								success:(response)->
-									if response.status == 404
-										$('.response_msg').text response.response
-									else
-										$('.response_msg').text "User details saved successfully"
+							method : 'POST',
+							url : _SITEURL+'/wp-json/profiles/134'#+App.currentUser.get('ID'), Id changed for mobile
+							data : $('#add_user_details').serialize(),
+							success:(response)->
+								if response.status == 404
+									$('.response_msg').text response.response
+								else
+									$('.response_msg').text "User details saved successfully"
 
-								
-								error:(error)->
-									$('.response_msg').text "Details could not be saved"
+							
+							error:(error)->
+								$('.response_msg').text "Details could not be saved"
 
 
 						return false;
-			})
+				})
 
 	
 
