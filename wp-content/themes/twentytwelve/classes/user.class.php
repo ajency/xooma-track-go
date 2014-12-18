@@ -195,7 +195,7 @@ class User
 
             $user_details =   maybe_unserialize($sql_query->value);
 
-            print_r($user_details);
+            
 
             $data['height']  = $user_details['height'];
             $data['weight']  = $user_details['weight'];
