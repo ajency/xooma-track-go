@@ -10,7 +10,11 @@
     }
 
     ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
-      this.user = this._get_user_details();
+      if (_.onlineStatus() === false) {
+        window.plugins.toast.showLongBottom("Please check your internet connection.");
+      } else {
+        this.user = this._get_user_details();
+      }
       return App.execute("when:fetched", [this.user], (function(_this) {
         return function() {
           console.log(_this.user);
@@ -24,7 +28,7 @@
     ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
       $.ajax({
         method: 'GET',
-        url: _SITEURL + '/wp-json/profiles/134',
+        url: _SITEURL + '/wp-json/profiles/2',
         data: '',
         success: function(response) {
           var response_data;
