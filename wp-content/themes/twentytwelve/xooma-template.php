@@ -363,7 +363,7 @@ Add Home template here
     App                   = new Marionette.Application()  
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    facebookConnectPlugin.browserInit('355178387994693', 'v2.2');
+    facebookConnectPlugin.browserInit('376973229145085', 'v2.2');
 </script>
 <!-- build:js(*.js) application.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
