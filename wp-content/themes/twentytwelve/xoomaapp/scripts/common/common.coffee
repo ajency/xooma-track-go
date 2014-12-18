@@ -9,7 +9,7 @@ _.extend Ajency.CurrentUser::,
 			@set 'measurements', measurements
 
 		$.ajax
-			method : 'PUT',
+			method : 'POST',
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
 			success: _successHandler  

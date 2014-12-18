@@ -15,7 +15,7 @@ _.extend(Ajency.CurrentUser.prototype, {
       };
     })(this);
     return $.ajax({
-      method: 'PUT',
+      method: 'POST',
       url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
       data: measurements,
       success: _successHandler
