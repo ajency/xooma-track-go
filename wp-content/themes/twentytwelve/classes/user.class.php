@@ -197,7 +197,7 @@ class User
             
             
             
-            return array('status' => 200 ,'response' => $maybe_unserialize($sql_query->value));
+            return array('status' => 200 ,'response' => maybe_unserialize($sql_query->value));
         }
         else
         {
