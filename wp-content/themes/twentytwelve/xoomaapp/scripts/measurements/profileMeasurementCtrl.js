@@ -40,7 +40,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
   };
 
   ProfileMeasurementCtrl.prototype.errorHandler = function(error) {
-    return this.show(new Ajency.HTTPRequestFailView);
+    return this.show(new Ajency.HTTPRequestFailView());
   };
 
   ProfileMeasurementCtrl.prototype.successHandler = function(response, status) {
