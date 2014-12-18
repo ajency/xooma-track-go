@@ -185,16 +185,19 @@ class User
             $date = date('Y-m-d');
         }
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id."" );
-       
+        
         
 
         $data = array();
         if(count($sql_query) != 0 || $sql_query!= null){
-            $user_details =   unserialize($sql_query->value);
+
             
-            $data = $user_details;
+
+            $user_details =   ($sql_query->value);
             
-            return array('status' => 200 ,'response' => $data);
+            
+            print_r(maybe_unserialize($sql_query->value));
+            return array('status' => 200 ,'response' => $user_details);
         }
         else
         {
