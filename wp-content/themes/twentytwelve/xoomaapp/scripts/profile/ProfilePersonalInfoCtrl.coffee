@@ -20,7 +20,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 				response_data = response
 				App.currentUser.set 'xooma_member_id' , response_data.response.xooma_member_id
 				App.currentUser.set 'name' , response_data.response.name
-				App.currentUser.set 'email_id' , response_data.response.user_email
+				App.currentUser.set 'email_id' , response_data.response.email
 				App.currentUser.set 'display_name' , response_data.response.display_name
 				App.currentUser.set 'gender' , response_data.response.gender
 				App.currentUser.set 'phone_no' , response_data.response.phone_no
