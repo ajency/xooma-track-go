@@ -14,6 +14,11 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
+  ProfilePersonalInfoView.prototype.modelEvents = {
+    'change': 'render',
+    'change:profile_picture': 'render'
+  };
+
   ProfilePersonalInfoView.prototype.events = {
     'click .radio': function(e) {
       return $('#gender').val($('#' + e.target.id).val());

@@ -20,6 +20,27 @@ _.extend(Ajency.CurrentUser.prototype, {
       data: measurements,
       success: _successHandler
     });
+  },
+  getFacebookPicture: function() {
+    var options;
+    options = {
+      "redirect": false,
+      "height": "200",
+      "type": "normal",
+      "width": "200"
+    };
+    return FB.api("/me/picture", options, function(resp) {
+      if (resp && !resp.error) {
+        return App.currentUser.set('profile_picture', {
+          id: 0,
+          sizes: {
+            thumbnail: {
+              url: resp.data.url
+            }
+          }
+        });
+      }
+    });
   }
 });
 
