@@ -30,5 +30,5 @@ jQuery(document).ready ($)->
 		Backbone.history.start()
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate App.currentUser.get('state'), true
-	
-	
+
+	App.start()

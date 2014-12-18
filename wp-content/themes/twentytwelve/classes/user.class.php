@@ -184,7 +184,7 @@ class User
         {
             $date = date('Y-m-d');
         }
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id."" );
        
         
 
