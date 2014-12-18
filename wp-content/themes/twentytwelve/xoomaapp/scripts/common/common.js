@@ -17,5 +17,19 @@ _.extend(Ajency.CurrentUser.prototype, {
       data: measurements,
       success: _successHandler
     });
+  },
+  getFacebookPicture: function() {
+    return facebookConnectPlugin.api("/me/picture", [], function(resp) {
+      if (resp && !resp.error) {
+        return App.currentUser.set('profile_picture', {
+          id: 0,
+          sizes: {
+            thumbnail: {
+              url: resp.data.url
+            }
+          }
+        });
+      }
+    });
   }
 });

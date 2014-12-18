@@ -159,18 +159,7 @@ if (!window.cordova) {
 
                 FB.getLoginStatus(function(response){
                 	if (response.status === 'connected') {
-		                FB.api( "/me/picture", function (resp) {
-						    if (resp && !resp.error) {
-						        App.currentUser.set('profile_picture', {
-						        	id : 0,
-						        	sizes : {
-						        		thumbnail : {
-						        			url : resp.data.url
-						        		}
-						        	}
-						        });
-						      }
-						});
+		                App.currentUser.getFacebookPicture()
 		            }
 				});
             }
