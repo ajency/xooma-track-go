@@ -32,8 +32,10 @@
     "plupload": "~2.1.2",
     "modernizr": "~2.8.3",
     "detectizr": "~2.0.0",
+    "mustache": "~0.8.2",
     "rrule": "~2.1.0",
-    "mustache": "~0.8.2"
+    "jQuery.mmenu": "~4.7.5",
+    "rangeslider.js": "~0.3.7"
   },
   "resolutions": {
     "underscore": ">=1.5.0",

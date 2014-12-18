@@ -1,7 +1,6 @@
 
 class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
-
 		@user = @_get_user_details()
 
 		App.execute "when:fetched", [@user], =>
@@ -15,7 +14,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/128',
+			url : _SITEURL+'/wp-json/profiles/'+App.currentUser.get('ID'),
 			data : '',
 			success:(response)->
 				response_data = response
@@ -26,7 +25,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 				App.currentUser.set 'gender' , response_data.response.gender
 				App.currentUser.set 'phone_no' , response_data.response.phone_no
 				App.currentUser.set 'timezone' , response_data.response.timezone
-				App.currentUser.set 'attachment_id' , response_data.response.attachment_id
+				App.currentUser.set 'birth_date' , response_data.response.birth_date
 				App.currentUser.set 'user_products' , response_data.response.user_products
 				
 				
