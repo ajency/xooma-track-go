@@ -3,7 +3,6 @@
 	document.addEventListener "deviceready", (->
 		notificationIdAndBadgeValue = []
 		cordova.plugins.notification.badge
-		_.cordovaLocalStorage()
 		_.enableCordovaBackbuttonNavigation()
 
 
