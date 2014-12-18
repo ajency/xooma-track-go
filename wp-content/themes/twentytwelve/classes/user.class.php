@@ -195,7 +195,7 @@ class User
 
             $user_details =   maybe_unserialize($sql_query->value);
 
-            
+
 
             $data['height']  = $user_details['height'];
             $data['weight']  = $user_details['weight'];
@@ -208,7 +208,7 @@ class User
             $data['midcalf']  = $user_details['midcalf'];
             
             
-            return array('status' => 200 ,'response' => $data);
+            return array('status' => 200 ,'response' => unserialize(base64_decode($sql_query->value));
         }
         else
         {
