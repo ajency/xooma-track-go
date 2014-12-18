@@ -399,43 +399,43 @@ function update_schedule_product_details($id,$pid,$data){
 
 function get_fblogin_status($data){
 
-        $user_newid = 'FB_'.$data['id'];
+        $user_newid = 'FB_'.$data['userData']['id'];
      
         $user_name = username_exists( $user_newid );
 
         //register the user if not exist
         if ( !$user_name && email_exists($data->email) == false ) {
             $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-            $user_name = wp_create_user( $user_newid, $random_password, $data['email'] );
+            $user_name = wp_create_user( $user_newid, $random_password, $data['userData']['email'] );
         }
 
-        $user = get_user_by('email', $data['email'] );
+        $user = get_user_by('email', $data['userData']['email'] );
 
        
 
         //set user data
         $userprofiledata = array(
                         'ID' => $user->ID,
-                        'first_name' => $data['first_name'],
-                        'last_name' => $data['last_name'],
-                        'display_name' => $data['first_name'],
+                        'first_name' => $data['userData']['first_name'],
+                        'last_name' => $data['userData']['last_name'],
+                        'display_name' => $data['userData']['first_name'],
                         'user_nicename' => sanitize_title($user->user_login),
-                        'user_url' => $data['url']
+                        'user_url' => $data['userData']['link']
             );
 
         wp_update_user( $userprofiledata );
 
 
 
-        $avatar_url = $data['url'];
+        $avatar_url = $data['userData']['link'];
 
         //Update user meta
-        update_user_meta( $user->ID, 'facebook_uid', $data['id'] );
+        update_user_meta( $user->ID, 'facebook_uid', $data['userData']['id'] );
         update_user_meta( $user->ID, 'facebook_avatar_full', $avatar_url );
         update_user_meta( $user->ID, 'facebook_avatar_thumb', $avatar_url );
-        update_user_meta( $user->ID, 'first_name', $data['first_name'] );
-        update_user_meta( $user->ID, 'last_name', $data['last_name']);
-        update_user_meta( $user->ID, 'display_name', $data['first_name'] );
+        update_user_meta( $user->ID, 'first_name', $data['userData']['first_name'] );
+        update_user_meta( $user->ID, 'last_name', $data['userData']['last_name']);
+        update_user_meta( $user->ID, 'display_name', $data['userData']['first_name'] );
         
     
 
@@ -444,10 +444,12 @@ function get_fblogin_status($data){
                     wp_clear_auth_cookie();
                     wp_set_current_user ( $user->ID );
                     
-            //get the user id
-                   $user_id = $user->ID;
-
-                    $response = login_response($user_id);
+                    
+                  //get the user id
+                  $user_id = $user->ID;
+                  
+                  
+                  $response = login_response($user_id);
 
                 }
 
@@ -474,16 +476,170 @@ function login_response($user_id){
     $user['id'] = $user_id;
     $user['user_login'] = $user_info->data->user_login;
     $user['user_email'] = $user_info->data->user_email; 
+    $user['user_registered'] = $user_info->data->user_registered; 
     $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0]; 
-    $user['role'] =  key($user_info->caps) ;
-    $user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
+    //$user['role'] =  key($user_info->caps) ;
+    //$user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
     if($facebook_avatar){
        $user['avatar_url'] = $facebook_avatar; 
    }else{
         $user['avatar_url'] = $avatar_url;
    }
-   
+    $user['state'] = $avatar_url;
     
     return  $user;
 }
 
+
+function send_notifications_to_admin($user_id){
+
+
+  global $aj_comm;
+
+  $args = array(
+    'component'             => 'xooma_users',
+    'communication_type'    => 'xooma_admin_email',
+    'user_id'               => $user_id
+
+    );
+  // user data
+  $user = login_response($user_id);
+
+  $meta = array(
+    'username'        => $user['user_login'],
+    'email'           => $user['user_email'],
+    'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
+    'registered'      => $user['user_registered'],
+    'siteurl'         => site_url().'/wp-admin'
+
+
+    );
+
+  //get all the admins
+  $arguments = array(
+        'role' => 'Administrator',
+        'orderby' => 'ID',
+        'order' => 'ASC',
+        'offset' => 0,
+        'number' => 0
+    );
+  $admins = get_users($arguments);
+
+  foreach ((array) $admins as $value) {
+
+    $recipients_args = array(
+              array(
+              'user_id'     => $user_id,
+              'type'        => 'email',
+              'value'       => $value->user_email
+
+            )
+
+      );
+    
+    $aj_comm->create_communication($args,$meta,$recipients_args);
+        
+    }
+  
+
+  
+
+  return true;
+
+
+}
+
+
+function send_notifications_to_user($user_id){
+
+
+  global $aj_comm;
+
+  $args = array(
+    'component'             => 'xooma_users',
+    'communication_type'    => 'xooma_user_email',
+    'user_id'               => $user_id
+
+    );
+  // user data
+  $user = login_response($user_id);
+
+  $meta = array(
+    'siteurl'         => site_url().'/wp-admin'
+
+
+    );
+
+  $recipients_args = array(
+                        array(
+                          'user_id'     => $user_id,
+                          'type'        => 'email',
+                          'value'       =>  $user['user_email']
+
+                        )
+
+                    );
+
+  $aj_comm->create_communication($args,$meta,$recipients_args);
+
+  return true;
+
+
+}
+
+function get_all_timezones(){
+
+    $country_id = get_category_by_slug('country');
+    $term = get_categories('parent='.$country_id->term_id.'&hide_empty=0');
+    foreach ($term as $term_data) {
+
+      $country_code = geoip_country_code_by_name($term_data->name);
+
+      $temp_arr = DateTimeZone::listIdentifiers(DateTimeZone::PER_COUNTRY,$country_code );
+
+
+
+    }
+}
+
+//filter to check workflow process 
+add_filter( 'aj_user_model', 'check_workflow' );
+
+//send emails 
+add_action( 'user_register', 'send_emails', 10, 1 );
+
+function send_emails($user_id){
+
+  send_notifications_to_admin($user_id);
+  send_notifications_to_user($user_id);
+}
+function check_workflow($user_model){
+
+
+  
+
+  //workflow plugin code
+    global $aj_workflow;
+    $args = array(
+        'name'    => 'login',
+        
+    );
+    $status = array(
+        'default'   => 'incomplete',
+        'complete'  => 'complete'
+          
+
+      );
+    $aj_workflow->workflow_insert_main($args,$status);
+
+    //call workflow function
+
+    $state = $aj_workflow->workflow_process('login',$user_model->ID);
+
+    //call workflow function
+    //workflow plugin code
+
+    $user_model->state = $state;
+
+    return $user_model;
+}

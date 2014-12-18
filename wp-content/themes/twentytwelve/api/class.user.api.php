@@ -184,11 +184,10 @@ class User_API
     {
         //pass access
         $data = array();
-        $data['id']             = $_REQUEST['id'];
-        $data['email']          = $_REQUEST['email'];
-        $data['url']            = $_REQUEST['picture'];
-        $data['first_name']     = $_REQUEST['first_name'];
-        $data['last_name']      = $_REQUEST['last_name'];
+        $data['user_login']             = $_REQUEST['user_login'];
+        $data['user_pass']              = $_REQUEST['user_pass'];
+        $data['userData']               = $_REQUEST['userData'];
+        
         $response               = get_fblogin_status($data);
 
         return $response;

@@ -2,6 +2,11 @@
 (function() {
   (function() {
     return document.addEventListener("deviceready", (function() {
+      var notificationIdAndBadgeValue;
+      notificationIdAndBadgeValue = [];
+      cordova.plugins.notification.badge;
+      _.cordovaLocalStorage();
+      _.enableCordovaBackbuttonNavigation();
       App.state('login').state('xooma', {
         url: '/'
       }).state('profile', {
@@ -12,7 +17,6 @@
         parent: 'profile'
       }).state('profileMeasurement', {
         url: '/measurements',
-        ctrl: 'ProfileMeasurementsCtrl',
         parent: 'profile'
       }).state('settings', {
         url: '/settings',
@@ -22,31 +26,28 @@
       });
       App.addInitializer(function() {
         Backbone.history.start();
+        _.cordovaHideSplashscreen();
         App.navigate('/login', true);
         return window.plugin.notification.local.onclick = function(id, state, json) {
-          var badge, badgeValue, setbadgeValue;
+          var badge, badgeValue, badgeValues, i, ids, option, setbadgeValue, value, _i, _ref;
           setbadgeValue = 0;
-          badgeValue = window.plugin.notification.local.getDefaults().badge;
-          if (badgeValue !== 0) {
-            if (id === '1') {
+          ids = [];
+          badgeValues = [];
+          value = _.getNotificationBadgeNumber();
+          option = JSON.parse(value);
+          for (i = _i = 0, _ref = option.length - 1; _i <= _ref; i = _i += 1) {
+            if (id === option[i].ids) {
               badgeValue = 0;
               badge = {
-                badge: setbadgeValue
+                badge: badgeValue
               };
-              window.plugin.notification.local.setDefaults(badge);
-            } else if (id === '2') {
-              badgeValue = 0;
-              badge = {
-                badge: setbadgeValue
-              };
-              window.plugin.notification.local.setDefaults(badge);
-            } else if (id === '3') {
-              badgeValue = 0;
-              badge = {
-                badge: setbadgeValue
-              };
-              window.plugin.notification.local.setDefaults(badge);
-            } else if (id === '4') {
+              notificationIdAndBadgeValue.push({
+                ids: id,
+                badgeValues: badgeValue
+              });
+              _.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+            }
+            if (id === '4') {
               badgeValue = 0;
               badge = {
                 badge: setbadgeValue
