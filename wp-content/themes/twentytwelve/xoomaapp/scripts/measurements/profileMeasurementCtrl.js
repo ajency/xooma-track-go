@@ -19,7 +19,7 @@
     };
 
     ProfileMeasurementCtrl.prototype._showView = function() {
-      return this.show(new ProfileMeasurementsView({
+      return this.show(new App.ProfileMeasurementsView({
         model: App.currentUser
       }));
     };
@@ -29,7 +29,7 @@
       if (!App.currentUser.has('measurements')) {
         return $.ajax({
           method: 'GET',
-          url: "" + _SITEURL + "/wp-json/users/128/measurements",
+          url: "" + _SITEURL + "/wp-json/measurements/128",
           success: this.successHandler
         });
       } else {
