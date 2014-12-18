@@ -31,7 +31,4 @@ jQuery(document).ready ($)->
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate App.currentUser.get('state'), true
 
-	App.on 'before:state:change', (args...)->
-		console.log args...
-
 	App.start()

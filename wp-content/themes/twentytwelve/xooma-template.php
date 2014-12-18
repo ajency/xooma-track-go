@@ -360,14 +360,6 @@ Add Home template here
 <!-- endbuild -->
 
 <script type="text/javascript">
-_.extend(Marionette.Application.prototype, {
-  initialize: function() {
-    return this._stateChangeCallbacks = new Marionette.Callbacks();
-  },
-  stateChangeHandler: function(callback) {
-    return this._stateChangeCallbacks.add(callback);
-  }
-});
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
