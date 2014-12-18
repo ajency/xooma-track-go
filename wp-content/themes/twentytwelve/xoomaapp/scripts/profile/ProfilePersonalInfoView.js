@@ -21,6 +21,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
+    Backbone.Syphon.deserialize(this, this.model);
     this.$el.find("#timezone option[value='" + this.model.get('timezone') + "']").attr("selected", "selected");
     $("input[name=radio_grp][value=" + this.model.get('gender') + "]").prop('checked', true);
     $('#gender').val(this.model.get('gender'));
