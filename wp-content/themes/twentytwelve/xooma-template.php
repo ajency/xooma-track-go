@@ -100,7 +100,7 @@
 
 
                 </div>
-            </div><button type="button" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+            </div><button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
              </div>
 
 
@@ -191,7 +191,7 @@
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" readonly class="form-control" id="name" name="name" value="{{name}}">
+                          <input type="text" readonly class="form-control" id="name" name="name" value="{{display_name}}">
                         </div>
                       </div>
                       <div class="form-group">
@@ -357,6 +357,7 @@ Add Home template here
 <!-- build:js({*.js}) scripts/ajency.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <!-- endbuild -->
 
 <script type="text/javascript">
@@ -365,7 +366,7 @@ Add Home template here
     _SITEURL              = '<?php echo site_url() ?>';
     FBAPPID               = '<?php echo FBAPPID ?>';
     if(typeof FBAPPID !== 'undefined')
-      facebookConnectPlugin.browserInit(FBAPPID);
+        facebookConnectPlugin.browserInit(FBAPPID);
 
 </script>
 <!-- build:js(*.js) application.js -->

@@ -445,16 +445,16 @@ class ajencyWorkflow{
 				}
 
 			}
+			
 
-
-			return $flag;
-
+			
 
 
 
 
 		}
 
+		return $flag;
 
 
 	}

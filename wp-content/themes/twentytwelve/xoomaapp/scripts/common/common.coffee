@@ -9,10 +9,11 @@ _.extend Ajency.CurrentUser::,
 			@set 'measurements', measurements
 
 		$.ajax
-			method : 'PUT',
+			method : 'POST',
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
-			success: _successHandler
+			success: _successHandler  
+			   
 
 	getFacebookPicture : ->
 		options =
@@ -29,3 +30,9 @@ _.extend Ajency.CurrentUser::,
 						thumbnail :
 							url : resp.data.url
 
+class Ajency.HTTPRequestFailView extends Marionette.ItemView
+
+	template : 'Request page not  Found' 
+			
+
+	

@@ -8,13 +8,14 @@ App.ProfileMeasurementCtrl = (function(_super) {
 
   function ProfileMeasurementCtrl() {
     this.successHandler = __bind(this.successHandler, this);
+    this._showView = __bind(this._showView, this);
     return ProfileMeasurementCtrl.__super__.constructor.apply(this, arguments);
   }
 
   ProfileMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
     xhr = this._get_measurement_details();
-    return xhr.done(this._showView).fail(this.errorHandler);
+    return xhr.done(this._showView).fail(this._showView);
   };
 
   ProfileMeasurementCtrl.prototype._showView = function() {
@@ -32,14 +33,13 @@ App.ProfileMeasurementCtrl = (function(_super) {
         success: this.successHandler
       });
     } else {
-      deferred = Marionette.Deferred;
-      return deferred.resolve();
+      deferred = Marionette.Deferred();
+      deferred.resolve(true);
+      return deferred.promise();
     }
   };
 
-  ProfileMeasurementCtrl.prototype.errorHandler = function(error) {
-    return this.show(new Ajency.HTTPRequestFailView);
-  };
+  ProfileMeasurementCtrl.prototype.errorHandler = function(error) {};
 
   ProfileMeasurementCtrl.prototype.successHandler = function(response, status) {
     return App.currentUser.set('measurements', response);

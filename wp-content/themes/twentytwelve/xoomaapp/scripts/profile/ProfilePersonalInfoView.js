@@ -15,7 +15,6 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
   ProfilePersonalInfoView.prototype.modelEvents = {
-    'change': 'render',
     'change:profile_picture': 'render'
   };
 

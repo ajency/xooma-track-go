@@ -7,7 +7,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	template : '#profile-personal-info-template'
 
 	modelEvents :
-		'change' : 'render'
 		'change:profile_picture' : 'render'
 
 	events:
@@ -20,6 +19,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		@$el.find("#timezone option[value='"+@model.get('timezone')+"']").attr("selected","selected")
 		$("input[name=radio_grp][value=" + @model.get('gender') + "]").prop('checked', true);
 		$('#gender').val @model.get('gender');
+
 		jQuery.validator.addMethod("equalLength",  (value, element)->
 		    return this.optional(element) || (parseInt(value.length) == 6);
 		  "* Enter valid 6 digit Xooma ID");

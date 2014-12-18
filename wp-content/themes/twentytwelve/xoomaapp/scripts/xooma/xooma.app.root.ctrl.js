@@ -142,11 +142,3 @@ App.HomeCtrl = (function(_super) {
   return HomeCtrl;
 
 })(Marionette.RegionController);
-
-App.commands.setHandler("when:fetched", function(entities, callback) {
-  var xhrs;
-  xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
-  return $.when.apply($, xhrs).done(function() {
-    return callback();
-  });
-});

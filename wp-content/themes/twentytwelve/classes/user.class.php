@@ -26,7 +26,7 @@ class User
 				'birth_date'		        => $user_details['birth_date'],
 				'timezone'			        => $user_details['timezone'],
 				'image'                     => $image,
-                'attachment_id'             => $user_details['attachment_id'],
+                'display_name'              => $user->display_name,
                 'user_products'             => $user_products
 				);
 			
