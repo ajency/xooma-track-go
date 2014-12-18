@@ -42,7 +42,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				submitHandler: (form)->
 					$.ajax
 							method : 'POST',
-							url : _SITEURL+'/wp-json/profiles/'+App.currentUser.get('ID'),
+							url : _SITEURL+'/wp-json/profiles/128'#+App.currentUser.get('ID'), Id changed for mobile
 							data : $('#add_user_details').serialize(),
 							success:(response)->
 								if response.status == 404

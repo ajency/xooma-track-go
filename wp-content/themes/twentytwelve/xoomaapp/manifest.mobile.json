@@ -1,6 +1,0 @@
-{
-  "packageId": "com.xooma.alpha",         // [Synapse Staging Package]
-  // "packageId": "com.xooma.production",    // [Synapse Production Package]
-  "versionCode": 2,
-  "CFBundleVersion": "1.1.1"
-}
