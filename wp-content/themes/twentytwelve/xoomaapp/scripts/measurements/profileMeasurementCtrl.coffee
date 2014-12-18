@@ -3,7 +3,7 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 
 	initialize: (options)->
 		xhr = @_get_measurement_details()
-		xhr.done(@_showView).fail @errorHandler
+		xhr.done(@_showView).fail @_showView
 
 	_showView : ->
 		@show new ProfileMeasurementsView
