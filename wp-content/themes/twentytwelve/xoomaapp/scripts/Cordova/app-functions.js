@@ -22,6 +22,13 @@
     },
     removeCordovaBackbuttonEventListener: function() {
       return document.removeEventListener("backbutton", _.onDeviceBackButtonClick, false);
+    },
+    onlineStatus: function() {
+      if (navigator.connection.type === Connection.NONE) {
+        return false;
+      } else {
+        return true;
+      }
     }
   });
 
