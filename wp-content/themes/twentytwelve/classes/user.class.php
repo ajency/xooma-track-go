@@ -192,11 +192,11 @@ class User
         if(count($sql_query) != 0 || $sql_query!= null){
 
             
-            print_r($sql_query->value);
-            $user_details =   unserialize(base64_decode($sql_query->value));
+
+            $user_details =   ($sql_query->value);
             
             
-            print_r(unserialize($sql_query->value));
+            print_r(maybe_unserialize($sql_query->value));
             return array('status' => 200 ,'response' => $user_details);
         }
         else
