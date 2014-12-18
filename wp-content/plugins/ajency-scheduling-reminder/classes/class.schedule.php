@@ -15,7 +15,7 @@ class Schedule{
 	static function add($schedule_data){
 
 		if(!current_user_can('edit_schedule'))
-			return new WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
+			return new \WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
 		return self::_insert_schedule($schedule_data);
 	}
@@ -32,10 +32,10 @@ class Schedule{
 
 		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE id=%d", $schedule_id);
 
-		$schedule = $wpdb->get_row($query);
+		$schedule = (array)$wpdb->get_row($query);
 
 		if($schedule === null)
-			return WP_Error('invalid_schedule_id', __('Invalid schedule ID'));
+			return new \WP_Error('invalid_schedule_id', __('Invalid schedule ID'));
 
 		return apply_filters('aj_schedule_model', $schedule);
 	}
@@ -99,3 +99,19 @@ class Schedule{
 
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

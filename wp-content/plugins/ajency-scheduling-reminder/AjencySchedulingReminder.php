@@ -136,8 +136,8 @@ class AjencySchedulingReminder{
 
 		$sql = "CREATE TABLE {$wpdb->prefix}aj_schedules(
 				  id mediumint(9) NOT NULL AUTO_INCREMENT,
-				  action varchar(55) DEFAULT '' NOT NULL,
-				  item_id mediumint(9) NOT NULL,
+				  object_type varchar(55) DEFAULT '' NOT NULL,
+				  object_id mediumint(9) NOT NULL,
 				  rrule text NOT NULL,
 				  UNIQUE KEY id (id)
 				) $charset_collate;";
@@ -154,10 +154,10 @@ class AjencySchedulingReminder{
 
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE {$wpdb->prefix}aj_occurence_meta(
+		$sql = "CREATE TABLE {$wpdb->prefix}aj_occurrence_meta(
 				  meta_id mediumint(9) NOT NULL AUTO_INCREMENT,
 				  schedule_id mediumint(9) NOT NULL,
-				  occurence datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				  occurrence datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				  meta_value text NOT NULL,
 				  UNIQUE KEY meta_id (meta_id)
 				) $charset_collate;";
