@@ -24,7 +24,7 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
   ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
     $.ajax({
       method: 'GET',
-      url: _SITEURL + '/wp-json/profiles/2',
+      url: _SITEURL + '/wp-json/profiles/' + App.currentUser.get('ID'),
       data: '',
       success: function(response) {
         var response_data;
@@ -36,7 +36,7 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
         App.currentUser.set('gender', response_data.response.gender);
         App.currentUser.set('phone_no', response_data.response.phone_no);
         App.currentUser.set('timezone', response_data.response.timezone);
-        App.currentUser.set('attachment_id', response_data.response.attachment_id);
+        App.currentUser.set('birth_date', response_data.response.birth_date);
         return App.currentUser.set('user_products', response_data.response.user_products);
       },
       error: function(error) {

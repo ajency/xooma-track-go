@@ -16,13 +16,14 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.events = {
     'click .radio': function(e) {
-      $('#gender').val($('#' + e.target.id).val());
-      return console.log($('#gender').val());
+      return $('#gender').val($('#' + e.target.id).val());
     }
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    console.log(this.model);
+    this.$el.find("#timezone option[value='" + this.model.get('timezone') + "']").attr("selected", "selected");
+    $("input[name=radio_grp][value=" + this.model.get('gender') + "]").prop('checked', true);
+    $('#gender').val(this.model.get('gender'));
     jQuery.validator.addMethod("equalLength", function(value, element) {
       return this.optional(element) || (parseInt(value.length) === 6);
     }, "* Enter valid 6 digit Xooma ID");

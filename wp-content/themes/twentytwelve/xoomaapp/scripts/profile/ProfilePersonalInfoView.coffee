@@ -10,10 +10,12 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		'click .radio':(e)->
 
 			$('#gender').val $('#'+e.target.id).val()
-			console.log $('#gender').val()
+			
 
 	onShow:->
-			console.log @model
+			@$el.find("#timezone option[value='"+@model.get('timezone')+"']").attr("selected","selected")
+			$("input[name=radio_grp][value=" + @model.get('gender') + "]").prop('checked', true);
+			$('#gender').val @model.get('gender');
 			jQuery.validator.addMethod("equalLength",  (value, element)-> 
 			    return this.optional(element) || (parseInt(value.length) == 6);
 			  "* Enter valid 6 digit Xooma ID");

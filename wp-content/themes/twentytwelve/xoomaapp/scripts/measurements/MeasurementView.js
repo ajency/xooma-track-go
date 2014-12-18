@@ -51,7 +51,6 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
     var _formData;
-    console.log("aaaaaaaaaaaa");
     _formData = $('#add_measurements').serialize();
     console.log(_formData);
     $.ajax({
