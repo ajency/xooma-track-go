@@ -2,7 +2,7 @@ App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 
 _.extend Ajency.CurrentUser::,
-	
+
 	saveMeasurements : (measurements)->
 
 		_successHandler = (resp)=>
@@ -12,4 +12,4 @@ _.extend Ajency.CurrentUser::,
 			method : 'PUT',
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
-			success: _successHandler      
+			success: _successHandler

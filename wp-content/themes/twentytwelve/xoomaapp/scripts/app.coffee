@@ -2,7 +2,7 @@
 jQuery(document).ready ($)->
 
 	App.state 'login'
-	
+
 		.state 'xooma',
 				url : '/'
 
@@ -24,11 +24,14 @@ jQuery(document).ready ($)->
 
 		.state 'home',
 				url : '/home'
-				
+
 
 	App.addInitializer ->
 		Backbone.history.start()
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate App.currentUser.get('state'), true
+
+	App.on 'before:state:change', (args...)->
+		console.log args...
 
 	App.start()
