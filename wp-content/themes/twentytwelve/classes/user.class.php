@@ -196,7 +196,7 @@ class User
             $user_details =   unserialize($sql_query->value);
             
             
-            
+            print_r($user_details);
             return array('status' => 200 ,'response' => $user_details);
         }
         else
