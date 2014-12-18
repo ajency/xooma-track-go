@@ -364,7 +364,7 @@ Add Home template here
     App                   = new Marionette.Application()  
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '355178387994693';
+    FBAPPID               = '355569161288949';
     if(typeof FBAPPID !== 'undefined')  
       facebookConnectPlugin.browserInit(FBAPPID);
 

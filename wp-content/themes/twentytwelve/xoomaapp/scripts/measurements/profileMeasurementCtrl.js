@@ -8,6 +8,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
 
   function ProfileMeasurementCtrl() {
     this.successHandler = __bind(this.successHandler, this);
+    this._showView = __bind(this._showView, this);
     return ProfileMeasurementCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -32,7 +33,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
         success: this.successHandler
       });
     } else {
-      deferred = Marionette.Deferred;
+      console.log(deferred = Marionette.Deferred);
       return deferred.resolve();
     }
   };

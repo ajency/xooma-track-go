@@ -5,7 +5,7 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 		xhr = @_get_measurement_details()
 		xhr.done(@_showView).fail @errorHandler
 
-	_showView : ->
+	_showView :=>
 		@show new ProfileMeasurementsView
 								model : App.currentUser
 
@@ -16,7 +16,7 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
 				success: @successHandler
 		else
-			deferred = Marionette.Deferred
+			console.log deferred = Marionette.Deferred
 			deferred.resolve()
 
 	errorHandler : (error)->
