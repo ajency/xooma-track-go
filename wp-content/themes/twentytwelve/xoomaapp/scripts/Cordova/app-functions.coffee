@@ -36,3 +36,6 @@ _.mixin
 	removeCordovaBackbuttonEventListener : ->
 
 		document.removeEventListener("backbutton", _.onDeviceBackButtonClick, false)
+
+
+	
