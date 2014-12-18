@@ -13,7 +13,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			
 
 	onShow:->
-			Backbone.Syphon.deserialize(@, @model);
 			@$el.find("#timezone option[value='"+@model.get('timezone')+"']").attr("selected","selected")
 			$("input[name=radio_grp][value=" + @model.get('gender') + "]").prop('checked', true);
 			$('#gender').val @model.get('gender');
