@@ -1,7 +1,11 @@
 
 class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
-		@user = @_get_user_details()
+		if _.onlineStatus() is false
+			window.plugins.toast.showLongBottom("Please check your internet connection.");
+			# return false
+		else
+			@user = @_get_user_details()
 
 		App.execute "when:fetched", [@user], =>
 			console.log @user
@@ -14,7 +18,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/134'#+App.currentUser.get('ID'), Id changed for mobile
+			url : _SITEURL+'/wp-json/profiles/2'#+App.currentUser.get('ID'), Id changed for mobile
 			data : '',
 			success:(response)->
 				response_data = response
