@@ -11,7 +11,7 @@ class User
 		$user_details = get_user_meta($id,'user_details',true);
 		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
         $user_products = get_user_meta($id,'user_products',true);
-        if($user_details){
+        if($user){
 			$user_details =   unserialize($user_details);
             $images = wp_get_attachment_image_src($user_details['attachment_id'] );
             $image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
@@ -34,7 +34,7 @@ class User
 		}
 		else
 		{
-			new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
 		}
 
 
