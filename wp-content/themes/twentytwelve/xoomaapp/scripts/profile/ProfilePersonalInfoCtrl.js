@@ -11,14 +11,9 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
 
   ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
     this.user = this._get_user_details();
-    return App.execute("when:fetched", [this.user], (function(_this) {
-      return function() {
-        console.log(_this.user);
-        return _this.show(new ProfilePersonalInfoView({
-          model: _this.user
-        }));
-      };
-    })(this));
+    return this.show(new ProfilePersonalInfoView({
+      model: this.user
+    }));
   };
 
   ProfilePersonalInfoCtrl.prototype._get_user_details = function() {

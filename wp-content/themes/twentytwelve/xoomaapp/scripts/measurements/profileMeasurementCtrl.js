@@ -15,7 +15,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
   ProfileMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
     xhr = this._get_measurement_details();
-    return xhr.done(this._showView).fail(this.errorHandler);
+    return xhr.done(this._showView).fail(this._showView);
   };
 
   ProfileMeasurementCtrl.prototype._showView = function() {
@@ -39,9 +39,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
     }
   };
 
-  ProfileMeasurementCtrl.prototype.errorHandler = function(error) {
-    return show(new Ajency.HTTPRequestFailView);
-  };
+  ProfileMeasurementCtrl.prototype.errorHandler = function(error) {};
 
   ProfileMeasurementCtrl.prototype.successHandler = function(response, status) {
     return App.currentUser.set('measurements', response);

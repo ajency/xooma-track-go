@@ -3,9 +3,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@user = @_get_user_details()
 
-		App.execute "when:fetched", [@user], =>
-			console.log @user
-			@show new ProfilePersonalInfoView 
+		@show new ProfilePersonalInfoView 
 					model: @user
 					
 
