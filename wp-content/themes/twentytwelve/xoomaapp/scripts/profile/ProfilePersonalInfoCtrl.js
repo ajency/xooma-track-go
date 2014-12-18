@@ -14,7 +14,7 @@
       return App.execute("when:fetched", [this.user], (function(_this) {
         return function() {
           console.log(_this.user);
-          return _this.show(new ProfilePersonalInfoView({
+          return _this.show(new App.ProfilePersonalInfoView({
             model: _this.user
           }));
         };
@@ -24,7 +24,7 @@
     ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
       $.ajax({
         method: 'GET',
-        url: _SITEURL + '/wp-json/profiles/128',
+        url: _SITEURL + '/wp-json/profiles/134',
         data: '',
         success: function(response) {
           var response_data;

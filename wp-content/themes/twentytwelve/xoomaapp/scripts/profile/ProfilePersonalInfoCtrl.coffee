@@ -5,7 +5,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 
 		App.execute "when:fetched", [@user], =>
 			console.log @user
-			@show new ProfilePersonalInfoView 
+			@show new App.ProfilePersonalInfoView 
 					model: @user
 					
 
@@ -14,7 +14,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/128'#+App.currentUser.get('ID'), Id changed for mobile
+			url : _SITEURL+'/wp-json/profiles/134'#+App.currentUser.get('ID'), Id changed for mobile
 			data : '',
 			success:(response)->
 				response_data = response
