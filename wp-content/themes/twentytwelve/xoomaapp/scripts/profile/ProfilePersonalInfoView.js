@@ -22,46 +22,43 @@ App.ProfilePersonalInfoView = (function(_super) {
     this.$el.find("#timezone option[value='" + this.model.get('timezone') + "']").attr("selected", "selected");
     $("input[name=radio_grp][value=" + this.model.get('gender') + "]").prop('checked', true);
     $('#gender').val(this.model.get('gender'));
-    if (_.onlineStatus() === false) {
-      return alert("Please check your internet connection.");
-    } else {
-      jQuery.validator.addMethod("equalLength", function(value, element) {
-        return this.optional(element) || (parseInt(value.length) === 6);
-      }, "* Enter valid 6 digit Xooma ID");
-      return $("#add_user_details").validate({
-        rules: {
-          xooma_member_id: {
-            number: true,
-            equalLength: true
-          },
-          phone_no: {
-            number: true
-          },
-          radio_grp: {
-            required: true
+    return jQuery.validator.addMethod("equalLength", function(value, element) {
+      return this.optional(element) || (parseInt(value.length) === 6);
+    }, "* Enter valid 6 digit Xooma ID");
+  };
+
+  $("#add_user_details").validate({
+    rules: {
+      xooma_member_id: {
+        number: true,
+        equalLength: true
+      },
+      phone_no: {
+        number: true
+      },
+      radio_grp: {
+        required: true
+      }
+    },
+    submitHandler: function(form) {
+      $.ajax({
+        method: 'POST',
+        url: _SITEURL + '/wp-json/profiles/2',
+        data: $('#add_user_details').serialize(),
+        success: function(response) {
+          if (response.status === 404) {
+            return $('.response_msg').text(response.response);
+          } else {
+            return $('.response_msg').text("User details saved successfully");
           }
         },
-        submitHandler: function(form) {
-          $.ajax({
-            method: 'POST',
-            url: _SITEURL + '/wp-json/profiles/134',
-            data: $('#add_user_details').serialize(),
-            success: function(response) {
-              if (response.status === 404) {
-                return $('.response_msg').text(response.response);
-              } else {
-                return $('.response_msg').text("User details saved successfully");
-              }
-            },
-            error: function(error) {
-              return $('.response_msg').text("Details could not be saved");
-            }
-          });
-          return false;
+        error: function(error) {
+          return $('.response_msg').text("Details could not be saved");
         }
       });
+      return false;
     }
-  };
+  });
 
   return ProfilePersonalInfoView;
 
