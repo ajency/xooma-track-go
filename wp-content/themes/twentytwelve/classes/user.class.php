@@ -208,7 +208,7 @@ class User
             $data['midcalf']  = $user_details['midcalf'];
             
             
-            return array('status' => 200 ,'response' => unserialize(base64_decode($sql_query->value));
+            return array('status' => 200 ,'response' => unserialize(base64_decode($sql_query->value)));
         }
         else
         {
