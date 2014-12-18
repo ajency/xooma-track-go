@@ -1,184 +1,181 @@
-(function() {
-  var HomeView, NotificationView, ProfileCtrlView, SettingsView, XoomaAppRootView,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var HomeView, NotificationView, ProfileCtrlView, SettingsView, XoomaAppRootView,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  ProfileCtrlView = (function(_super) {
-    __extends(ProfileCtrlView, _super);
+ProfileCtrlView = (function(_super) {
+  __extends(ProfileCtrlView, _super);
 
-    function ProfileCtrlView() {
-      return ProfileCtrlView.__super__.constructor.apply(this, arguments);
+  function ProfileCtrlView() {
+    return ProfileCtrlView.__super__.constructor.apply(this, arguments);
+  }
+
+  ProfileCtrlView.prototype.className = 'animated fadeIn';
+
+  ProfileCtrlView.prototype.template = '#profile-template';
+
+  ProfileCtrlView.prototype.ui = {
+    ul: '.list-inline'
+  };
+
+  ProfileCtrlView.prototype.behaviors = {
+    ActiveLink: {
+      behaviorClass: Ajency.ActiveLinkBehavior
     }
+  };
 
-    ProfileCtrlView.prototype.className = 'animated fadeIn';
+  return ProfileCtrlView;
 
-    ProfileCtrlView.prototype.template = '#profile-template';
+})(Marionette.LayoutView);
 
-    ProfileCtrlView.prototype.ui = {
-      ul: '.list-inline'
-    };
+App.ProfileCtrl = (function(_super) {
+  __extends(ProfileCtrl, _super);
 
-    ProfileCtrlView.prototype.behaviors = {
-      ActiveLink: {
-        behaviorClass: Ajency.ActiveLinkBehavior
-      }
-    };
+  function ProfileCtrl() {
+    return ProfileCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-    return ProfileCtrlView;
+  ProfileCtrl.prototype.initialize = function(options) {
+    return this.show(new ProfileCtrlView);
+  };
 
-  })(Marionette.LayoutView);
+  return ProfileCtrl;
 
-  App.ProfileCtrl = (function(_super) {
-    __extends(ProfileCtrl, _super);
+})(Marionette.RegionController);
 
-    function ProfileCtrl() {
-      return ProfileCtrl.__super__.constructor.apply(this, arguments);
+XoomaAppRootView = (function(_super) {
+  __extends(XoomaAppRootView, _super);
+
+  function XoomaAppRootView() {
+    return XoomaAppRootView.__super__.constructor.apply(this, arguments);
+  }
+
+  XoomaAppRootView.prototype.className = 'animated fadeIn';
+
+  XoomaAppRootView.prototype.template = '#xooma-app-template';
+
+  XoomaAppRootView.prototype.ui = {
+    ul: '.list-inline'
+  };
+
+  XoomaAppRootView.prototype.behaviors = {
+    ActiveLink: {
+      behaviorClass: Ajency.ActiveLinkBehavior
     }
+  };
 
-    ProfileCtrl.prototype.initialize = function(options) {
-      return this.show(new ProfileCtrlView);
-    };
+  return XoomaAppRootView;
 
-    return ProfileCtrl;
+})(Marionette.LayoutView);
 
-  })(Marionette.RegionController);
+App.XoomaCtrl = (function(_super) {
+  __extends(XoomaCtrl, _super);
 
-  XoomaAppRootView = (function(_super) {
-    __extends(XoomaAppRootView, _super);
+  function XoomaCtrl() {
+    return XoomaCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-    function XoomaAppRootView() {
-      return XoomaAppRootView.__super__.constructor.apply(this, arguments);
-    }
+  XoomaCtrl.prototype.initialize = function(options) {
+    return this.show(new XoomaAppRootView);
+  };
 
-    XoomaAppRootView.prototype.className = 'animated fadeIn';
+  return XoomaCtrl;
 
-    XoomaAppRootView.prototype.template = '#xooma-app-template';
+})(Marionette.RegionController);
 
-    XoomaAppRootView.prototype.ui = {
-      ul: '.list-inline'
-    };
+SettingsView = (function(_super) {
+  __extends(SettingsView, _super);
 
-    XoomaAppRootView.prototype.behaviors = {
-      ActiveLink: {
-        behaviorClass: Ajency.ActiveLinkBehavior
-      }
-    };
+  function SettingsView() {
+    return SettingsView.__super__.constructor.apply(this, arguments);
+  }
 
-    return XoomaAppRootView;
+  SettingsView.prototype.className = 'animated fadeIn clearfix';
 
-  })(Marionette.LayoutView);
+  SettingsView.prototype.template = '#settings-template';
 
-  App.XoomaCtrl = (function(_super) {
-    __extends(XoomaCtrl, _super);
+  return SettingsView;
 
-    function XoomaCtrl() {
-      return XoomaCtrl.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.ItemView);
 
-    XoomaCtrl.prototype.initialize = function(options) {
-      return this.show(new XoomaAppRootView);
-    };
+App.SettingsCtrl = (function(_super) {
+  __extends(SettingsCtrl, _super);
 
-    return XoomaCtrl;
+  function SettingsCtrl() {
+    return SettingsCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-  })(Marionette.RegionController);
+  SettingsCtrl.prototype.initialize = function(options) {
+    return this.show(new SettingsView);
+  };
 
-  SettingsView = (function(_super) {
-    __extends(SettingsView, _super);
+  return SettingsCtrl;
 
-    function SettingsView() {
-      return SettingsView.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.RegionController);
 
-    SettingsView.prototype.className = 'animated fadeIn clearfix';
+HomeView = (function(_super) {
+  __extends(HomeView, _super);
 
-    SettingsView.prototype.template = '#settings-template';
+  function HomeView() {
+    return HomeView.__super__.constructor.apply(this, arguments);
+  }
 
-    return SettingsView;
+  HomeView.prototype.className = 'animated fadeIn clearfix';
 
-  })(Marionette.ItemView);
+  HomeView.prototype.template = '#home-template';
 
-  App.SettingsCtrl = (function(_super) {
-    __extends(SettingsCtrl, _super);
+  return HomeView;
 
-    function SettingsCtrl() {
-      return SettingsCtrl.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.ItemView);
 
-    SettingsCtrl.prototype.initialize = function(options) {
-      return this.show(new SettingsView);
-    };
+App.HomeCtrl = (function(_super) {
+  __extends(HomeCtrl, _super);
 
-    return SettingsCtrl;
+  function HomeCtrl() {
+    return HomeCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-  })(Marionette.RegionController);
+  HomeCtrl.prototype.initialize = function(options) {
+    return this.show(new HomeView);
+  };
 
-  HomeView = (function(_super) {
-    __extends(HomeView, _super);
+  return HomeCtrl;
 
-    function HomeView() {
-      return HomeView.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.RegionController);
 
-    HomeView.prototype.className = 'animated fadeIn clearfix';
+NotificationView = (function(_super) {
+  __extends(NotificationView, _super);
 
-    HomeView.prototype.template = '#home-template';
+  function NotificationView() {
+    return NotificationView.__super__.constructor.apply(this, arguments);
+  }
 
-    return HomeView;
+  NotificationView.prototype.className = 'animated fadeIn';
 
-  })(Marionette.ItemView);
+  NotificationView.prototype.template = '#notification-info-template';
 
-  App.HomeCtrl = (function(_super) {
-    __extends(HomeCtrl, _super);
+  return NotificationView;
 
-    function HomeCtrl() {
-      return HomeCtrl.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.ItemView);
 
-    HomeCtrl.prototype.initialize = function(options) {
-      return this.show(new HomeView);
-    };
+App.NotificationCtrl = (function(_super) {
+  __extends(NotificationCtrl, _super);
 
-    return HomeCtrl;
+  function NotificationCtrl() {
+    return NotificationCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-  })(Marionette.RegionController);
+  NotificationCtrl.prototype.initialize = function(options) {
+    return this.show(new NotificationView);
+  };
 
-  NotificationView = (function(_super) {
-    __extends(NotificationView, _super);
+  return NotificationCtrl;
 
-    function NotificationView() {
-      return NotificationView.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.RegionController);
 
-    NotificationView.prototype.className = 'animated fadeIn';
-
-    NotificationView.prototype.template = '#notification-info-template';
-
-    return NotificationView;
-
-  })(Marionette.ItemView);
-
-  App.NotificationCtrl = (function(_super) {
-    __extends(NotificationCtrl, _super);
-
-    function NotificationCtrl() {
-      return NotificationCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    NotificationCtrl.prototype.initialize = function(options) {
-      return this.show(new NotificationView);
-    };
-
-    return NotificationCtrl;
-
-  })(Marionette.RegionController);
-
-  App.commands.setHandler("when:fetched", function(entities, callback) {
-    var xhrs;
-    xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
-    return $.when.apply($, xhrs).done(function() {
-      return callback();
-    });
+App.commands.setHandler("when:fetched", function(entities, callback) {
+  var xhrs;
+  xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
+  return $.when.apply($, xhrs).done(function() {
+    return callback();
   });
-
-}).call(this);
+});
