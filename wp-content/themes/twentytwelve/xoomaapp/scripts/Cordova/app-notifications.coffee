@@ -28,9 +28,9 @@ _.mixin
 				id:         '4',
 				autoCancel: true,
 				title:      "Xooma Track & Go",
-				message: 'Time Scheduled  &#09; hiee',
+				message: 'Time Scheduled Gear up xooma time!',
 				date:    time_for_notification,
-				json : JSON.stringify({ test: "Its Xooma  Time!!", date: convertTo12hourFormat}),
+				json : JSON.stringify({ test: "Its Xooma Time!!", date: convertTo12hourFormat}),
 				badge: badgeValue
 
 			# cordova.plugins.notification.badge.set(1);
@@ -150,7 +150,8 @@ _.mixin
 		if badgeValue is 0
 			notificationMessage = 'Gear up xooma time!'
 		else
-			notificationMessage = 'Gear up xooma time! '+ "                                     "+' ' + badgeValue + ' '
+			# notificationMessage = 'Gear up xooma time! '+ "                                     "+' ' + badgeValue + ' '
+			notificationMessage = 'Gear up xooma time! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + badgeValue + ' '
 
 		newDate = new Date()
 
@@ -301,12 +302,4 @@ _.mixin
 			badgeValues = []
 			value = _.getNotificationBadgeNumber()
 			console.log "ontrigger"
-
-
-		
-	add:(event)->
-		theEvent = event or window.event;
-		keyPressed = theEvent.keyCode or theEvent.which;
-		if keyPressed is 13
-			alert "hello"
 		

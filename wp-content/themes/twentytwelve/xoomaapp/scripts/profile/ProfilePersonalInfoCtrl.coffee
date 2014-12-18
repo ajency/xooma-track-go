@@ -1,5 +1,5 @@
 
-class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
+class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
 
 		@user = @_get_user_details()

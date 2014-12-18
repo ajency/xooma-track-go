@@ -24,10 +24,10 @@
           id: '4',
           autoCancel: true,
           title: "Xooma Track & Go",
-          message: 'Time Scheduled  &#09; hiee',
+          message: 'Time Scheduled Gear up xooma time!',
           date: time_for_notification,
           json: JSON.stringify({
-            test: "Its Xooma  Time!!",
+            test: "Its Xooma Time!!",
             date: convertTo12hourFormat
           }),
           badge: badgeValue
@@ -86,7 +86,7 @@
       if (badgeValue === 0) {
         notificationMessage = 'Gear up xooma time!';
       } else {
-        notificationMessage = 'Gear up xooma time! ' + "                                     " + ' ' + badgeValue + ' ';
+        notificationMessage = 'Gear up xooma time! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + badgeValue + ' ';
       }
       newDate = new Date();
       date = "" + (newDate.getFullYear()) + "-" + (newDate.getMonth() + 1) + "-" + (newDate.getDate());
@@ -172,14 +172,6 @@
         value = _.getNotificationBadgeNumber();
         return console.log("ontrigger");
       };
-    },
-    add: function(event) {
-      var keyPressed, theEvent;
-      theEvent = event || window.event;
-      keyPressed = theEvent.keyCode || theEvent.which;
-      if (keyPressed === 13) {
-        return alert("hello");
-      }
     }
   });
 
