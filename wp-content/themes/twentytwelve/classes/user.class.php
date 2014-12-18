@@ -114,7 +114,7 @@ class User
         $measurements_table = $wpdb->prefix . "measurements";
 
         //insert measurements entery into post table with 
-        $user_meta_value = serialize($args);
+        $user_meta_value = maybe_serialize($args);
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
         
         if(count($sql_query) == 0 && $sql_query == null)
@@ -208,7 +208,7 @@ class User
             $data['midcalf']  = $user_details['midcalf'];
             
             
-            return array('status' => 200 ,'response' => unserialize(base64_decode($sql_query->value)));
+            return array('status' => 200 ,'response' => $data);
         }
         else
         {
