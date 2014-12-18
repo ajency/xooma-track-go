@@ -5,7 +5,7 @@ _.extend Ajency.CurrentUser::,
 	
 	saveMeasurements : (measurements)->
 
-		_successHandler : (resp)=>
+		_successHandler = (resp)=>
 			@set 'measurements', measurements
 
 		$.ajax
