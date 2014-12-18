@@ -32,7 +32,7 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
         App.currentUser.set('xooma_member_id', response_data.response.xooma_member_id);
         App.currentUser.set('name', response_data.response.name);
         App.currentUser.set('email_id', response_data.response.email);
-        App.currentUser.set('image', response_data.response.image);
+        App.currentUser.set('display_name', response_data.response.display_name);
         App.currentUser.set('gender', response_data.response.gender);
         App.currentUser.set('phone_no', response_data.response.phone_no);
         App.currentUser.set('timezone', response_data.response.timezone);

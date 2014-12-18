@@ -191,7 +191,7 @@
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" readonly class="form-control" id="name" name="name" value="">
+                          <input type="text" readonly class="form-control" id="name" name="name" value="{{display_name}}">
                         </div>
                       </div>
                       <div class="form-group">
