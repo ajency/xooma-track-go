@@ -19,7 +19,14 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getFacebookPicture: function() {
-    return facebookConnectPlugin.api("/me/picture", [], function(resp) {
+    var options;
+    options = {
+      "redirect": false,
+      "height": "200",
+      "type": "normal",
+      "width": "200"
+    };
+    return FB.api("/me/picture", options, function(resp) {
       if (resp && !resp.error) {
         return App.currentUser.set('profile_picture', {
           id: 0,

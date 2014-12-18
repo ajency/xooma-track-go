@@ -15,7 +15,13 @@ _.extend Ajency.CurrentUser::,
 			success: _successHandler
 
 	getFacebookPicture : ->
-		facebookConnectPlugin.api "/me/picture",[],(resp)->
+		options =
+			"redirect": false
+			"height": "200"
+			"type": "normal"
+			"width": "200"
+
+		FB.api "/me/picture",options,(resp)->
 			if resp and not resp.error
 				App.currentUser.set 'profile_picture',
 					id : 0
