@@ -28,6 +28,9 @@
 					url : '/settings'
 					parent : 'xooma'
 
+			.state 'home',
+					url : '/home'
+
 			.state 'notification',
 					url : '/notification-info'
 

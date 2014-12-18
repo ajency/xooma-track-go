@@ -377,32 +377,35 @@
     App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
     APIURL                = '';
     _SITEURL              = 'http://www.xooma.ajency.in';
+    FBAPPID               = '355178387994693';
+    if(typeof FBAPPID !== 'undefined')  
+      facebookConnectPlugin.browserInit(FBAPPID);
 
-    window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1536913533218407',
-      xfbml      : true,
-      version    : 'v2.2'
-    });
+  //   window.fbAsyncInit = function() {
+  //   FB.init({
+  //     appId      : '1536913533218407',
+  //     xfbml      : true,
+  //     version    : 'v2.2'
+  //   });
 
-    App.addInitializer(function(){
-      FB.getLoginStatus(function(response){
-        if(response.status === 'connected'){
-            App.currentUser.getFacebookPicture()
-        }
-      });
+  //   App.addInitializer(function(){
+  //     FB.getLoginStatus(function(response){
+  //       if(response.status === 'connected'){
+  //           App.currentUser.getFacebookPicture()
+  //       }
+  //     });
       
-    });
-    App.start()
-  };
+  //   });
+  //   App.start()
+  // };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+  // (function(d, s, id){
+  //    var js, fjs = d.getElementsByTagName(s)[0];
+  //    if (d.getElementById(id)) {return;}
+  //    js = d.createElement(s); js.id = id;
+  //    js.src = "//connect.facebook.net/en_US/sdk.js";
+  //    fjs.parentNode.insertBefore(js, fjs);
+  //  }(document, 'script', 'facebook-jssdk'));
 </script>
 
 <!-- build:js(*.js) application.js -->

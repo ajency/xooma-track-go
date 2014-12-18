@@ -13,7 +13,8 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 		if not App.currentUser.has 'measurements'
 			$.ajax
 				method : 'GET'
-				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+				# url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+				url : "#{_SITEURL}/wp-json/users/128/measurements"
 				success: @successHandler
 		else
 			deferred = Marionette.Deferred

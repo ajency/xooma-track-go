@@ -49,10 +49,18 @@ class App.HomeCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new HomeView
 
+class NotificationView extends Marionette.ItemView
+	className : 'animated fadeIn'
+	template : '#notification-info-template'
+
+class App.NotificationCtrl extends Marionette.RegionController
+	initialize: (options)->
+		@show new NotificationView
+
 App.commands.setHandler "when:fetched", (entities, callback) ->
-        xhrs = _.chain([entities]).flatten().pluck("_fetch").value()
-        $.when(xhrs...).done ->
-            callback()
+				xhrs = _.chain([entities]).flatten().pluck("_fetch").value()
+				$.when(xhrs...).done ->
+						callback()
 
 
 

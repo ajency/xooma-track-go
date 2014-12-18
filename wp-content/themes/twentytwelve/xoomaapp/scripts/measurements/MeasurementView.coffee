@@ -20,6 +20,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@ui.form.validate submitHandler: @formSubmitHandler
+		@cordovaEventsForModuleDescriptionView()
 
 	formSubmitHandler : (form)=>
 		_formData = $('#add_measurements').serialize()
@@ -38,6 +39,24 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
 
+	onPauseSessionClick : =>
+			console.log 'Invoked onPauseSessionClick'
+			Backbone.history.history.back()
+
+
+			document.removeEventListener("backbutton", @onPauseSessionClick, false)
+
+		
+		
+	cordovaEventsForModuleDescriptionView : ->
+		# Cordova backbutton event
+		navigator.app.overrideBackbutton(true)
+		document.addEventListener("backbutton", @onPauseSessionClick, false)
+
+		# Cordova pause event
+		document.addEventListener("pause", @onPauseSessionClick, false)
+
+
 	
 
 
@@ -45,7 +64,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 
 						
-		   
+			 
 					
 			
 

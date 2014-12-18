@@ -14,7 +14,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/'+App.currentUser.get('ID'),
+			url : _SITEURL+'/wp-json/profiles/128'#+App.currentUser.get('ID'), Id changed for mobile
 			data : '',
 			success:(response)->
 				response_data = response
