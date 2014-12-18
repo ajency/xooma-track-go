@@ -1,14 +1,11 @@
-(function() {
-  _.mixin({
-    cordovaLocalStorage: function() {
-      return _.localStorage = window.localStorage;
-    },
-    setNotificationBadgeNumber: function(Value) {
-      return _.localStorage.setItem("notification_value", JSON.stringify(Value));
-    },
-    getNotificationBadgeNumber: function() {
-      return _.localStorage.getItem("notification_value");
-    }
-  });
-
-}).call(this);
+_.mixin({
+  localStorage: function() {
+    return window.localStorage;
+  },
+  setNotificationBadgeNumber: function(Value) {
+    return this.localStorage().setItem("notification_value", JSON.stringify(Value));
+  },
+  getNotificationBadgeNumber: function() {
+    return this.localStorage().getItem("notification_value");
+  }
+});
