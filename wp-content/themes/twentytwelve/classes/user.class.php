@@ -172,7 +172,7 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date){
+  public function get_user_measurement_details($id,$date=""){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
