@@ -192,7 +192,7 @@ class User
         if(count($sql_query) != 0 || $sql_query!= null){
 
             
-
+            print_r($sql_query->value);
             $user_details =   unserialize($sql_query->value);
             
             
