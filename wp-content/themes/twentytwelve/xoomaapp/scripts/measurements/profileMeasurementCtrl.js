@@ -33,8 +33,9 @@ App.ProfileMeasurementCtrl = (function(_super) {
         success: this.successHandler
       });
     } else {
-      console.log(deferred = Marionette.Deferred);
-      return deferred.resolve();
+      deferred = Marionette.Deferred();
+      deferred.resolve(true);
+      return deferred.promise();
     }
   };
 

@@ -12,4 +12,9 @@ _.extend Ajency.CurrentUser::,
 			method : 'PUT',
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
-			success: _successHandler      
+			success: _successHandler  
+			   
+
+class Ajency.HTTPRequestFailView extends Marionette.ItemView
+
+	template : 'Request page not  Found' 

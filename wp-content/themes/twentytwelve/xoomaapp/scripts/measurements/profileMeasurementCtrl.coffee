@@ -16,8 +16,9 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
 				success: @successHandler
 		else
-			console.log deferred = Marionette.Deferred
-			deferred.resolve()
+			deferred = Marionette.Deferred()
+			deferred.resolve(true)
+			deferred.promise()
 
 	errorHandler : (error)->
 		@show new Ajency.HTTPRequestFailView
