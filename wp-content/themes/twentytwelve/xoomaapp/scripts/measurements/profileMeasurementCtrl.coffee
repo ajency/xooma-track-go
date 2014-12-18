@@ -2,31 +2,25 @@
 class App.ProfileMeasurementCtrl extends Marionette.RegionController
 
 	initialize: (options)->
+		xhr = @_get_measurement_details()
+		xhr.done(@_showView).fail @errorHandler
 
-		@user = @_get_measurement_details()
-
-		App.execute "when:fetched", [@user], =>
-			@show new ProfileMeasurementsView
-				model : @user
-
+	_showView : ->
+		@show new ProfileMeasurementsView
+								model : App.currentUser
 
 	_get_measurement_details:->
-		$.ajax
-			method : 'GET',
-			url : _SITEURL+'/wp-json/measurements/'+App.currentUser.get('ID'),
-			data : '',
-			success:(response)->
-				App.currentUser.set 'height' , response.response.height
-				App.currentUser.set 'weight' , response.response.weight
-				App.currentUser.set 'neck' , response.response.neck
-				App.currentUser.set 'chest' , response.response.chest
-				App.currentUser.set 'arm' , response.response.arm
-				App.currentUser.set 'waist' , response.response.waist
-				App.currentUser.set 'hips' , response.response.hips
-				App.currentUser.set 'thigh' , response.response.thigh
-				App.currentUser.set 'midcalf' , response.response.midcalf
-				
-			error:(error)->
-				$('.response_msg').text "Something went wrong" 
+		if not App.currentUser.has 'measurements'
+			$.ajax
+				method : 'GET'
+				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+				success: @successHandler
+		else
+			deferred = Marionette.Deferred
+			deferred.resolve()
 
-		return App.currentUser
+	errorHandler : (error)->
+		@show new Ajency.HTTPRequestFailView
+
+	successHandler : (response, status)=>
+		App.currentUser.set 'measurements', response

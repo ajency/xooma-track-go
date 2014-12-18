@@ -23,14 +23,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	formSubmitHandler : (form)=>
 		_formData = $('#add_measurements').serialize()
-		console.log  _formData
-		$.ajax
-			method : 'POST',
-			url : _SITEURL+'/wp-json/measurements/'+App.currentUser.get('ID'),
-			data : _formData,
-			success: @successHandler      
-			error: @errorHandler
-
+		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
 		return false
 
 	successHandler : (response, status)=>
