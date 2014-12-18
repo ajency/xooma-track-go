@@ -45,6 +45,7 @@
       $("#element8").popover({
         html: true
       });
+      this.cordovaEventsForModuleDescriptionView();
       $document = $(document);
       selector = '[data-rangeslider]';
       $element = $(selector);
@@ -71,7 +72,7 @@
         submitHandler: function(form) {
           $.ajax({
             method: 'POST',
-            url: _SITEURL + '/wp-json/measurements/2',
+            url: _SITEURL + '/wp-json/measurements/128',
             data: $('#add_measurements').serialize(),
             success: function(response) {
               console.log(response);

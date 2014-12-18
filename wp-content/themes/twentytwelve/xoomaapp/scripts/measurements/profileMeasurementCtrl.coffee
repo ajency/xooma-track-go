@@ -13,7 +13,7 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 	_get_measurement_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/measurements/2',
+			url : _SITEURL+'/wp-json/measurements/128',
 			data : '',
 			success:(response)->
 				App.currentUser.set 'height' , response.response.height

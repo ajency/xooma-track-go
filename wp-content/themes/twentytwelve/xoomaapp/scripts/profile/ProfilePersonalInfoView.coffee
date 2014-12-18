@@ -41,7 +41,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 					$.ajax
 							method : 'POST',
-							url : _SITEURL+'/wp-json/profiles/2',
+							url : _SITEURL+'/wp-json/profiles/128',
 							data : $('#add_user_details').serialize(),
 							success:(response)->
 								if response.status == 404

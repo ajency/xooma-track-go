@@ -15,7 +15,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/2',
+			url : _SITEURL+'/wp-json/profiles/128',
 			data : '',
 			success:(response)->
 				response_data = response
@@ -37,7 +37,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 				$('.response_msg').text "Something went wrong" 
 
 
-			return App.currentUser
+		return App.currentUser
 
 
 

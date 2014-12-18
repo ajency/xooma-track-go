@@ -1,5 +1,4 @@
 
-
 class ProfileMeasurementsView extends Marionette.ItemView
 
 		template  : '#profile-measurements-template'
@@ -24,7 +23,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 				});$("#element8").popover({
 						html: true
 				});
-			# @cordovaEventsForModuleDescriptionView()
+			@cordovaEventsForModuleDescriptionView()
 
 				
 				
@@ -61,7 +60,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 					$.ajax
 							method : 'POST',
-							url : _SITEURL+'/wp-json/measurements/2',
+							url : _SITEURL+'/wp-json/measurements/128',
 							data : $('#add_measurements').serialize(),
 							success:(response)->
 								console.log(response)
