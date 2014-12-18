@@ -193,7 +193,7 @@ class User
 
             
             print_r($sql_query->value);
-            $user_details =   unserialize($sql_query->value);
+            $user_details =   unserialize(base64_decode($sql_query->value));
             
             
             print_r(unserialize($sql_query->value));
