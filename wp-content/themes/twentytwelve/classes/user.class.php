@@ -196,8 +196,8 @@ class User
             $user_details =   ($sql_query->value);
             
             
-            print_r(maybe_unserialize($sql_query->value));
-            return array('status' => 200 ,'response' => $user_details);
+            
+            return array('status' => 200 ,'response' => $maybe_unserialize($sql_query->value));
         }
         else
         {
