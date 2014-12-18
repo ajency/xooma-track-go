@@ -193,11 +193,20 @@ class User
 
             
 
-            $user_details =   ($sql_query->value);
+            $user_details =   maybe_unserialize($sql_query->value);
+
+            $data['height']  = $user_details['height'];
+            $data['weight']  = $user_details['weight'];
+            $data['neck']  = $user_details['neck'];
+            $data['chest']  = $user_details['chest'];
+            $data['abdomen']  = $user_details['abdomen'];
+            $data['waist']  = $user_details['waist'];
+            $data['hips']  = $user_details['hips'];
+            $data['thigh']  = $user_details['thigh'];
+            $data['midcalf']  = $user_details['midcalf'];
             
             
-            
-            return array('status' => 200 ,'response' => var_dump(unserialize($sql_query->value)));
+            return array('status' => 200 ,'response' => $data);
         }
         else
         {
