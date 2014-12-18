@@ -22,7 +22,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.form.validate submitHandler: @formSubmitHandler
 
 	formSubmitHandler : (form)=>
-		console.log "aaaaaaaaaaaa"
 		_formData = $('#add_measurements').serialize()
 		console.log  _formData
 		$.ajax

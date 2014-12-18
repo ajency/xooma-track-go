@@ -393,7 +393,7 @@ class ajencyWorkflow{
 	public function workflow_needed($user_id){
 
 		//fetch all the forms based on the workflow name specified
-		return;
+		
 		global $wpdb;
 
 		global $aj_workflow;
@@ -401,7 +401,7 @@ class ajencyWorkflow{
 		$workflow_user_tbl = $wpdb->prefix."workflow_user";
 
 		$sqlquery = $wpdb->get_results("SELECT * FROM $workflow_user_tbl WHERE user_id=".$user_id);
-
+		
 		if(count($sqlquery) ==0 ){
 
 			$aj_workflow->workflow_process('login',$user_id);

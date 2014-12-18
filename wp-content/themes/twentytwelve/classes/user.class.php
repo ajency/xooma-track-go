@@ -102,7 +102,7 @@ class User
         }
 		else
 		{
-			new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
 
 		}
 
@@ -172,7 +172,7 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date){
+  public function get_user_measurement_details($id,$date=""){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
@@ -184,7 +184,7 @@ class User
         {
             $date = date('Y-m-d');
         }
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id."" );
        
         
 
