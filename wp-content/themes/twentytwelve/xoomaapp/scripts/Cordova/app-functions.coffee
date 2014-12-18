@@ -38,4 +38,9 @@ _.mixin
 		document.removeEventListener("backbutton", _.onDeviceBackButtonClick, false)
 
 
-	
+	onlineStatus :->
+		if navigator.connection.type is Connection.NONE	then false else true
+
+
+
+
