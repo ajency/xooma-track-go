@@ -7,7 +7,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 
 	_showView :=>
 		@show new ProfilePersonalInfoView
-								model : App.currentUser
+					model : App.currentUser
 
 
 	_get_user_details:->

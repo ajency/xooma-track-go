@@ -10,6 +10,7 @@ ProfilePersonalInfoView = (function(_super) {
   function ProfilePersonalInfoView() {
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
+    this.formSubmitHandler = __bind(this.formSubmitHandler, this);
     return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
   }
 
@@ -79,7 +80,7 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.formSubmitHandler = function(form) {
     var _formData;
     _formData = $('#add_user_details').serialize();
-    App.currentUser.saveProfiles(_formData).done(this.successHandler).fail(this.errorHandler);
+    this.model.saveProfiles(_formData).done(this.successHandler).fail(this.errorHandler);
     return false;
   };
 

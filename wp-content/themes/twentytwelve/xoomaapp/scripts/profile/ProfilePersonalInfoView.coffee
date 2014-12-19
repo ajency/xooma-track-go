@@ -61,10 +61,10 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		return false
 
 	#to initialize validate plugin
-	formSubmitHandler: (form)->
-				_formData = $('#add_user_details').serialize()
-				App.currentUser.saveProfiles(_formData).done(@successHandler).fail(@errorHandler)
-				return false
+	formSubmitHandler: (form)=>
+		_formData = $('#add_user_details').serialize()
+		@model.saveProfiles(_formData).done(@successHandler).fail(@errorHandler)
+		return false
 				
 							
 	successHandler:(response, status)=>

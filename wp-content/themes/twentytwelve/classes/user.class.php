@@ -98,7 +98,12 @@ class User
 
             global $aj_workflow;
             $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
-        	return array('status' => 200 ,'response' => $user_details);
+
+            if ( ! ( $user_details instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $user_details );
+            }
+            $response->set_status( 201 );
+        	return $response;
         }
 		else
 		{
