@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
+    
     <style scoped>
         #buttongroup-home .head {
           display: block;
@@ -136,11 +137,11 @@
         <div class="row">
             <div class="col-sm-12">
                     <ul class="list-inline" >
-                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
+                        <li class="selected"><a id="profile" href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
+                        <li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">MEASUREMENT</span></a></li>
-                        <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+                        <li><a id="product" href="#/12/products"><i class="fa fa-check-circle-o"></i> 
                             <span class="hidden-xs">MYPRODUCTS</span></a></li>
                     </ul>
             </div>
@@ -226,7 +227,8 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                              <input class="fieldset__input js__datepicker form-control" type="text" placeholder="Try me&hellip;">
+                              <input class="fieldset__input js__datepicker form-control" type="text" id="birth_date" 
+                              name="birth_date" required >
                             </div>
                       </div>
                        <div class="form-group">
@@ -264,7 +266,7 @@
 
                         <div class="row">
                            <div class="col-sm-12">
-                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Next</button>
+                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Save</button>
                             </div>
                         </div>
 
@@ -346,6 +348,7 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.date.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/moxie.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
@@ -379,6 +382,7 @@ Add Home template here
 
 
     <!-- endbuild -->
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/themes/classic.date.css">
 </body>
 </html>
 

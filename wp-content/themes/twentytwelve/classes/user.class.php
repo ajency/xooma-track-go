@@ -93,7 +93,7 @@ class User
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 
-        if($user_details && $xooma_member_id){
+        if($user_details){
             
 
             global $aj_workflow;

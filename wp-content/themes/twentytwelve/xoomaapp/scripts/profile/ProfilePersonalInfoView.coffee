@@ -15,11 +15,22 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		'click .radio':(e)->
 			$('#gender').val $('#'+e.target.id).val()
 
+		'click #measurement':(e)->
+			e.preventDefault()
+
 
 	onShow:->
+		$input = $('.js__datepicker').pickadate(
+			 formatSubmit: 'yyyy-mm-dd'
+			 
+
+			)
+		picker = $input.pickadate('picker')
+		picker.open()
+		picker.set('select',@model.get('profiles').birth_date , { format: 'yyyy-mm-dd' })
 		@$el.find("#timezone option[value='"+@model.get('profiles').timezone+"']").attr("selected","selected")
 		@$el.find("input[name=radio_grp][value=" + @model.get('profiles').gender + "]").prop('checked', true);
-		@$el.find('#gender').val @model.get('gender');
+		@$el.find('#gender').val @model.get('profiles').gender
 		@ui.form.validate 
 			rules:
 			    xooma_member_id:

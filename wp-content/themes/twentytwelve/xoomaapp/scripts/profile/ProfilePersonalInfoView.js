@@ -25,13 +25,25 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.events = {
     'click .radio': function(e) {
       return $('#gender').val($('#' + e.target.id).val());
+    },
+    'click #measurement': function(e) {
+      return e.preventDefault();
     }
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
+    var $input, picker;
+    $input = $('.js__datepicker').pickadate({
+      formatSubmit: 'yyyy-mm-dd'
+    });
+    picker = $input.pickadate('picker');
+    picker.open();
+    picker.set('select', this.model.get('profiles').birth_date, {
+      format: 'yyyy-mm-dd'
+    });
     this.$el.find("#timezone option[value='" + this.model.get('profiles').timezone + "']").attr("selected", "selected");
     this.$el.find("input[name=radio_grp][value=" + this.model.get('profiles').gender + "]").prop('checked', true);
-    this.$el.find('#gender').val(this.model.get('gender'));
+    this.$el.find('#gender').val(this.model.get('profiles').gender);
     this.ui.form.validate({
       rules: {
         xooma_member_id: {

@@ -24,6 +24,27 @@ ProfileCtrlView = (function(_super) {
     }
   };
 
+  ProfileCtrlView.prototype.onShow = function() {
+    if (window.location.hash === '#/profile/personal-info') {
+      $('#profile').parent().addClass('active');
+      $('#measurement').bind('click', this.disabler);
+      $('#measurement').css('cursor', 'default');
+      $('#product').bind('click', this.disabler);
+      return $('#product').css('cursor', 'default');
+    } else if (window.location.hash === '#/profile/measurements') {
+      $('#measurement').parent().addClass('active');
+      $('#product').bind('click', this.disabler);
+      return $('#product').css('cursor', 'default');
+    } else {
+      return $('#product').parent().addClass('active');
+    }
+  };
+
+  ProfileCtrlView.prototype.disabler = function(e) {
+    e.preventDefault();
+    return false;
+  };
+
   return ProfileCtrlView;
 
 })(Marionette.LayoutView);
