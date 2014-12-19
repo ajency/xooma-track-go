@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
-    
+
     <style scoped>
         #buttongroup-home .head {
           display: block;
@@ -172,22 +172,22 @@
         <div class="container">
 
 
-            <form id="add_user_details" class="form-horizontal" role="form" method="POST">
+            <form id="add_user_details" class="form-horizontal" role="form">
 
 
-            <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
+            <img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture" width="150px" height="150px">
 
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
             <br>
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
-                
+
 
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required value="{{profiles.xooma_member_id}}">
+                          <input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" id="xooma_member_id" name="xooma_member_id"  value="{{profiles.xooma_member_id}}">
                         </div>
                       </div>
                       <div class="form-group">
@@ -205,7 +205,7 @@
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{profiles.phone_no}}">
+                          <input type="text" aj-inputmask="(999) 999 9999" class="form-control" id="phone_no" name="phone_no" value="{{profiles.phone_no}}">
                         </div>
                       </div>
                      <div class="form-group">
@@ -227,7 +227,7 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                              <input class="fieldset__input js__datepicker form-control" type="text" id="birth_date" 
+                              <input class="fieldset__input js__datepicker form-control" type="text" id="birth_date"
                               name="birth_date" required >
                             </div>
                       </div>
@@ -266,7 +266,7 @@
 
                         <div class="row">
                            <div class="col-sm-12">
-                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Save</button>
+                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
                             </div>
                         </div>
 
@@ -350,7 +350,8 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/parsleyjs/dist/parsley.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.date.js"></script>

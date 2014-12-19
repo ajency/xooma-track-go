@@ -18,6 +18,12 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
+  ProfilePersonalInfoView.prototype.behaviors = {
+    FormBehavior: {
+      behaviorClass: Ajency.FormBehavior
+    }
+  };
+
   ProfilePersonalInfoView.prototype.ui = {
     form: '#add_user_details',
     responseMessage: '.response_msg'
@@ -43,7 +49,7 @@ ProfilePersonalInfoView = (function(_super) {
     }
   };
 
-  ProfilePersonalInfoView.prototype.onShow = function() {
+  ProfilePersonalInfoView.prototype.onsShow = function() {
     $('#profile').parent().addClass('active');
     $('#measurement').bind('click', this.disabler);
     $('#measurement').css('cursor', 'default');
