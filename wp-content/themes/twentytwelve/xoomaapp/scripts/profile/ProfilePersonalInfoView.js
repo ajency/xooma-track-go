@@ -10,13 +10,19 @@ ProfilePersonalInfoView = (function(_super) {
   function ProfilePersonalInfoView() {
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
-    this.formSubmitHandler = __bind(this.formSubmitHandler, this);
+    this.onFormSubmit = __bind(this.onFormSubmit, this);
     return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
   }
 
   ProfilePersonalInfoView.prototype.className = 'animated fadeIn';
 
   ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
+
+  ProfilePersonalInfoView.prototype.behaviors = {
+    FormBehavior: {
+      behaviorClass: Ajency.FormBehavior
+    }
+  };
 
   ProfilePersonalInfoView.prototype.ui = {
     form: '#add_user_details',
@@ -43,7 +49,7 @@ ProfilePersonalInfoView = (function(_super) {
     }
   };
 
-  ProfilePersonalInfoView.prototype.onShow = function() {
+  ProfilePersonalInfoView.prototype.onsShow = function() {
     $('#profile').parent().addClass('active');
     $('#measurement').bind('click', this.disabler);
     $('#measurement').css('cursor', 'default');
@@ -51,25 +57,7 @@ ProfilePersonalInfoView = (function(_super) {
     $('#product').css('cursor', 'default');
     this.$el.find("#timezone option[value='" + this.model.get('profiles').timezone + "']").attr("selected", "selected");
     this.$el.find("input[name=radio_grp][value=" + this.model.get('profiles').gender + "]").prop('checked', true);
-    this.$el.find('#gender').val(this.model.get('profiles').gender);
-    this.ui.form.validate({
-      rules: {
-        xooma_member_id: {
-          number: true,
-          equalLength: true
-        },
-        phone_no: {
-          number: true
-        },
-        radio_grp: {
-          required: true
-        }
-      },
-      submitHandler: this.formSubmitHandler
-    });
-    return jQuery.validator.addMethod("equalLength", function(value, element) {
-      return this.optional(element) || (parseInt(value.length) === 6);
-    }, "* Enter valid 6 digit Xooma ID");
+    return this.$el.find('#gender').val(this.model.get('profiles').gender);
   };
 
   ProfilePersonalInfoView.prototype.disabler = function(e) {
@@ -77,19 +65,15 @@ ProfilePersonalInfoView = (function(_super) {
     return false;
   };
 
-  ProfilePersonalInfoView.prototype.formSubmitHandler = function(form) {
-    var _formData;
-    _formData = $('#add_user_details').serialize();
+  ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
     this.model.saveProfiles(_formData).done(this.successHandler).fail(this.errorHandler);
     return false;
   };
 
-  ProfilePersonalInfoView.prototype.successHandler = function(response, status, responseCode) {
-    if (responseCode.status === 404) {
-      return this.ui.responseMessage.text(response.response);
-    } else {
-      return this.ui.responseMessage.text("User details saved successfully");
-    }
+  ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
+    $('#product').unbind('click', this.disabler);
+    $('#measurement').css('cursor', 'pointer');
+    return this.showSuccessMessage();
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {

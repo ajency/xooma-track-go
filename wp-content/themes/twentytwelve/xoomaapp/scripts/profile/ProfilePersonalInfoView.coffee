@@ -6,11 +6,16 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	template : '#profile-personal-info-template'
 
-	ui : 
+	behaviors :
+		FormBehavior :
+			behaviorClass : Ajency.FormBehavior
+
+	ui :
 		form : '#add_user_details'
 		responseMessage : '.response_msg'
 		dateElement : '.js__datepicker'
 		
+
 
 	events:
 		'click .radio':(e)->
@@ -26,11 +31,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			)
 			picker = $input.pickadate('picker')
 			picker.set('select',@model.get('profiles').birth_date , { format: 'yyyy-mm-dd' })
-		
 
 
 
-	onShow:->
+
+	onsShow:->
 		$('#profile').parent().addClass 'active'
 		$('#measurement').bind('click',@disabler)
 		$('#measurement').css('cursor', 'default')
@@ -39,40 +44,23 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		@$el.find("#timezone option[value='"+@model.get('profiles').timezone+"']").attr("selected","selected")
 		@$el.find("input[name=radio_grp][value=" + @model.get('profiles').gender + "]").prop('checked', true);
 		@$el.find('#gender').val @model.get('profiles').gender
-		@ui.form.validate 
-			rules:
-			    xooma_member_id:
-			    	number: true
-			    	equalLength :true
-
-			    phone_no:
-			      	number: true
-
-			    radio_grp:
-			    	required:true
-
-			submitHandler: @formSubmitHandler
-
-		jQuery.validator.addMethod("equalLength",  (value, element)->
-		    return this.optional(element) || (parseInt(value.length) == 6);
-		  "* Enter valid 6 digit Xooma ID");
+		
 
 	disabler:(e)->
 		e.preventDefault()
 		return false
 
 	#to initialize validate plugin
-	formSubmitHandler: (form)=>
-		_formData = $('#add_user_details').serialize()
+	onFormSubmit: (_formData)=>
 		@model.saveProfiles(_formData).done(@successHandler).fail(@errorHandler)
 		return false
 				
 							
-	successHandler:(response, status,responseCode)=>
-		if responseCode.status is 404
-			@ui.responseMessage.text response.response
-		else
-			@ui.responseMessage.text "User details saved successfully"
+	successHandler:(response, status)=>
+		$('#product').unbind('click',@disabler)
+		$('#measurement').css('cursor', 'pointer')
+		@showSuccessMessage()
+
 
 	errorHandler:(error)=>
 		@ui.responseMessage.text "Details could not be saved"
