@@ -43,7 +43,8 @@ class Occurrence{
 		$r = new \When\When();
 		$r->startDate(new \DateTime($start_dt))
 		  ->until(new \DateTime($end_dt))
-		  ->rrule($rrule)->generateOccurrences();
+		  ->rrule($rrule)
+		  ->generateOccurrences();
 
 		return $r->occurrences;
 	}
