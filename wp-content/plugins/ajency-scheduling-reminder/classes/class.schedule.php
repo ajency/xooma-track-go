@@ -70,8 +70,8 @@ class Schedule{
 		$user_id = get_current_user_id();
 
 		$defaults = array(
-					'action' => '',
-					'item_id' => 0,
+					'object_type' => '',
+					'object_id' => 0,
 					'rrule' => '',
 				);
 
