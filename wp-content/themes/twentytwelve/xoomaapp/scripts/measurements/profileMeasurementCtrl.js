@@ -8,6 +8,7 @@
 
     function ProfileMeasurementCtrl() {
       this.successHandler = __bind(this.successHandler, this);
+      this._showView = __bind(this._showView, this);
       return ProfileMeasurementCtrl.__super__.constructor.apply(this, arguments);
     }
 
@@ -28,18 +29,17 @@
       if (!App.currentUser.has('measurements')) {
         return $.ajax({
           method: 'GET',
-          url: "" + _SITEURL + "/wp-json/measurements/128",
+          url: "" + _SITEURL + "/wp-json/users/139/measurements",
           success: this.successHandler
         });
       } else {
-        deferred = Marionette.Deferred;
-        return deferred.resolve();
+        deferred = Marionette.Deferred();
+        deferred.resolve(true);
+        return deferred.promise();
       }
     };
 
-    ProfileMeasurementCtrl.prototype.errorHandler = function(error) {
-      return this.show(new Ajency.HTTPRequestFailView);
-    };
+    ProfileMeasurementCtrl.prototype.errorHandler = function(error) {};
 
     ProfileMeasurementCtrl.prototype.successHandler = function(response, status) {
       return App.currentUser.set('measurements', response);

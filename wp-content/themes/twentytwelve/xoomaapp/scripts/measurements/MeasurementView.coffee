@@ -1,3 +1,5 @@
+
+
 class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	template  : '#profile-measurements-template'
@@ -35,7 +37,7 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 		@ui.responseMessage.text "Something went wrong"
 
 	valueOutput : (element) =>
-		$(element).parent().find("output").html $(element).val()
+		$(element).parent().find("output").html $(element).val()		
 
 	onPauseSessionClick : =>
 			console.log 'Invoked onPauseSessionClick'
@@ -53,23 +55,3 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 
 		# Cordova pause event
 		document.addEventListener("pause", @onPauseSessionClick, false)
-
-
-	
-
-
-
-
-
-						
-			 
-					
-			
-
-
-				
-
-	
-				
-
-		

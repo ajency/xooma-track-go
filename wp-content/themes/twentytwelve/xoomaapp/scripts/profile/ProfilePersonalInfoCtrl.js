@@ -15,20 +15,15 @@
       } else {
         this.user = this._get_user_details();
       }
-      return App.execute("when:fetched", [this.user], (function(_this) {
-        return function() {
-          console.log(_this.user);
-          return _this.show(new App.ProfilePersonalInfoView({
-            model: _this.user
-          }));
-        };
-      })(this));
+      return this.show(new App.ProfilePersonalInfoView({
+        model: this.user
+      }));
     };
 
     ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
       $.ajax({
         method: 'GET',
-        url: _SITEURL + '/wp-json/profiles/2',
+        url: _SITEURL + '/wp-json/profiles/139',
         data: '',
         success: function(response) {
           var response_data;
@@ -36,7 +31,7 @@
           App.currentUser.set('xooma_member_id', response_data.response.xooma_member_id);
           App.currentUser.set('name', response_data.response.name);
           App.currentUser.set('email_id', response_data.response.email);
-          App.currentUser.set('image', response_data.response.image);
+          App.currentUser.set('display_name', response_data.response.display_name);
           App.currentUser.set('gender', response_data.response.gender);
           App.currentUser.set('phone_no', response_data.response.phone_no);
           App.currentUser.set('timezone', response_data.response.timezone);

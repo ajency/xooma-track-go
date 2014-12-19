@@ -5,9 +5,8 @@
 		cordova.plugins.notification.badge
 		_.enableCordovaBackbuttonNavigation()
 
-
 		App.state 'login'
-		
+
 			.state 'xooma',
 					url : '/'
 
@@ -33,11 +32,13 @@
 			.state 'notification',
 					url : '/notification-info'
 
-		# App.addInitializer ->
-		# 	Backbone.history.start()
-		# 	App.currentUser.on 'user:auth:success', ->
-		# 		App.navigate '/profile', true
 
+	# App.addInitializer ->
+	# 	Backbone.history.start()
+	# 	App.currentUser.on 'user:auth:success', ->
+	# 		App.navigate App.currentUser.get('state'), true
+
+	# App.start()
 		App.addInitializer ->
 			Backbone.history.start()
 			# App.navigate '/login', true
@@ -104,5 +105,3 @@
 		App.start()
 	), false
 ).call()
-	
-	

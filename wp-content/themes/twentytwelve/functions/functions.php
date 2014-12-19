@@ -464,7 +464,7 @@ function get_fblogin_status($data){
 }
 
 function login_response($user_id){
- 
+    return;
     global $user_ID,  $wp_roles ;
     $user = array();
     $user_info = get_userdata($user_id);
@@ -633,13 +633,18 @@ function check_workflow($user_model){
     $aj_workflow->workflow_insert_main($args,$status);
 
     //call workflow function
-
-    $state = $aj_workflow->workflow_process('login',$user_model->ID);
+    
+    $state = $aj_workflow->workflow_needed($user_model->ID);
 
     //call workflow function
     //workflow plugin code
 
+    
     $user_model->state = $state;
+   
+    
+
+    
 
     return $user_model;
 }
