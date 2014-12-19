@@ -1,12 +1,9 @@
 
-class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
+class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	initialize: (options)->
-
 		@user = @_get_user_details()
 
-		App.execute "when:fetched", [@user], =>
-			console.log @user
-			@show new ProfilePersonalInfoView 
+		@show new ProfilePersonalInfoView 
 					model: @user
 					
 
@@ -15,18 +12,18 @@ class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/2',
+			url : _SITEURL+'/wp-json/profiles/'+App.currentUser.get('ID'),
 			data : '',
 			success:(response)->
 				response_data = response
 				App.currentUser.set 'xooma_member_id' , response_data.response.xooma_member_id
 				App.currentUser.set 'name' , response_data.response.name
 				App.currentUser.set 'email_id' , response_data.response.email
-				App.currentUser.set 'image' , response_data.response.image
+				App.currentUser.set 'display_name' , response_data.response.display_name
 				App.currentUser.set 'gender' , response_data.response.gender
 				App.currentUser.set 'phone_no' , response_data.response.phone_no
 				App.currentUser.set 'timezone' , response_data.response.timezone
-				App.currentUser.set 'attachment_id' , response_data.response.attachment_id
+				App.currentUser.set 'birth_date' , response_data.response.birth_date
 				App.currentUser.set 'user_products' , response_data.response.user_products
 				
 				
@@ -37,7 +34,7 @@ class App.ProfilePersonalInfoCtrl extends Ajency.RegionController
 				$('.response_msg').text "Something went wrong" 
 
 
-			return App.currentUser
+		return App.currentUser
 
 
 

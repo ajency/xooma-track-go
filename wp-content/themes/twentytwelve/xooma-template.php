@@ -19,7 +19,7 @@
     <title><?php wp_title( '|', true, 'right' ); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-    
+
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
     <style scoped>
@@ -58,18 +58,52 @@
 <div id="fb-root"></div>
 <!-- Templates -->
 <script id="login-template" type="h-template">
-    <div class="text-center">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <h1>Add Login Screen Markup Here</h1>
-        <br />
-        <br />
-        <div fb-scope="email" class="btn btn-primary aj-fb-login-button" >Login With Facebook</div>
-    </div>
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <br><br>
+
+    <!-- Indicators -->
+                       <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                          </ol>
+                             <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                          <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
+                              <div class="carousel-caption text-center">
+                              <h3>Xooma Track & Go</h3>
+                                  <p>Has been desiged to help you track your personal x2o water consumption</p>
+                              </div>
+                            </div>
+                           <div class="item ">
+                          <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt=""  class="center-block">
+                              <div class="carousel-caption text-center">
+                              <h3>Xooma Track & Go</h3>
+                                  <p>Has been desiged to help you track your personal x2o water consumption</p>
+                              </div>
+                            </div>
+                                <div class="item ">
+                          <img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
+                              <div class="carousel-caption text-center">
+                              <h3>Xooma Track & Go</h3>
+                                  <p>Has been desiged to help you track your personal x2o water consumption</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                    <!-- Login Button  -->
+
+
+                </div>
+            </div><button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+             </div>
+
+
 </script>
 <script id="404-template" type="h-template">
     <h3>Add 404 View Here</h3>
@@ -102,18 +136,16 @@
         <div class="row">
             <div class="col-sm-12">
                     <ul class="list-inline" >
-                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i> 
+                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i> 
+                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">MEASUREMENT</span></a></li>
-                        <li><a href="#/xooma-products"><i class="fa fa-check-circle-o"></i> 
-                            <span class="hidden-xs">XOOMA PRODUCTS</span></a></li>
                         <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
                             <span class="hidden-xs">MYPRODUCTS</span></a></li>
                     </ul>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 <div class="clearfix"></div>
 <div ui-region></div>
@@ -139,11 +171,9 @@
 
 
             <form id="add_user_details" class="form-horizontal" role="form" method="POST">
-            
+
 
             <img src="{{profile_picture.sizes.thumbnail.url}}" alt="..." class="img-circle center-block profile-picture" width="150px" height="150px">
-            <input type="hidden" class="form-control" name="image" id="image" value="" /> 
-            <input type="hidden" class="form-control" name="attachment_id" id="attachment_id" value="{{profile_picture.id}}" /> 
 
             <h6 class="text-center bold">You are on the the spot!</h6>
             <p class="text-center">Let us know something about you.</p>
@@ -151,7 +181,7 @@
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
                 <div class="response_msg"></div>
-                    
+
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
@@ -161,7 +191,7 @@
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" readonly class="form-control" id="name" name="name" value="{{name}}">
+                          <input type="text" readonly class="form-control" id="name" name="name" value="{{display_name}}">
                         </div>
                       </div>
                       <div class="form-group">
@@ -197,7 +227,7 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="birth_date"  name="birth_date" required value="{{birth_date}}">
                             </div>
-                      </div>  
+                      </div>
                        <div class="form-group">
                             <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
                             <div class="col-sm-9">
@@ -229,14 +259,14 @@
                                     <option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
                                 </select>
                             </div>
-                      </div> 
-                
+                      </div>
+
                         <div class="row">
                            <div class="col-sm-12">
                               <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Next</button>
                             </div>
                         </div>
-                    
+
                     </div>
                 </div>
             </form>
@@ -275,14 +305,14 @@
                     </br>
                 </div>
                 <div class="col-sm-6 imageMap">
-                    <a id="element1" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element2" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element3" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element4" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element5" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element6" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element7" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element8" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
                     <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
                 </div>
                 <div class="row">
@@ -294,78 +324,60 @@
         </div>
     </div>
 </script>
+
+<script id="home-template" type="h-template">
+<div>
+Add Home template here
+</div>
+</script>
 <!-- build:js({.js}) scripts/vendors.js -->
-<!-- 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script> 
+<!--
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/detectizr/dist/detectizr.js"></script>  -->
 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/moxie.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/rrule.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
-
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <!-- endbuild -->
+
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/facebook.js"></script>
 
 <!-- build:js({*.js}) scripts/ajency.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <!-- endbuild -->
 
-
-
 <script type="text/javascript">
-        App                   = new Marionette.Application()  
-        //App.LoginCtrl         = Ajency.LoginCtrl  
-        App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-        APIURL                = '<?php echo json_url() ?>';
-        _SITEURL              = '<?php echo site_url() ?>';
-    window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '376973229145085',
-      xfbml      : true,
-      version    : 'v2.2'
-    });
+    App                   = new Marionette.Application()
+    APIURL                = '<?php echo json_url() ?>';
+    _SITEURL              = '<?php echo site_url() ?>';
+    FBAPPID               = '<?php echo FBAPPID ?>';
+    if(typeof FBAPPID !== 'undefined')
+        facebookConnectPlugin.browserInit(FBAPPID);
 
-    App.addInitializer(function(){
-      FB.getLoginStatus(function(response){
-        if(response.status === 'connected'){
-            App.currentUser.getFacebookPicture()
-        }
-      });
-      
-    });
-    App.start()
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
 </script>
 <!-- build:js(*.js) application.js -->
-
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>   
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>   
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/profileMeasurementCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/MeasurementView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/bootstrap.min.js"></script>    <!-- endbuild -->
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.mmenu.min.all.js"></script>	
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/rangeslider.min.js"></script>    <!-- endbuild -->
-<script type="text/javascript"></script>
-</body>	
+    <!-- endbuild -->
+</body>
 </html>
-  
+

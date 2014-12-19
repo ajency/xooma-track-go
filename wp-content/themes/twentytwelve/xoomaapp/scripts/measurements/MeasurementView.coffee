@@ -2,92 +2,41 @@
 
 class ProfileMeasurementsView extends Marionette.ItemView
 
-  	template  : '#profile-measurements-template'
+	template  : '#profile-measurements-template'
 
-  	className : 'animated fadeIn'
+	className : 'animated fadeIn'
 
-  	onShow:->
-  		$("#element1").popover({
-            html: true,
-        });$("#element2").popover({
-            html: true,
-        });$("#element3").popover({
-            html: true
-        });$("#element4").popover({
-            html: true
-        });$("#element5").popover({
-            html: true
-        });$("#element6").popover({
-            html: true
-        });$("#element7").popover({
-            html: true
-        });$("#element8").popover({
-            html: true
-        });
-        
-        
-        
-        
-        
-        
-        
-  		$document = $(document);
-  		selector = '[data-rangeslider]';
-  		$element = $(selector);
+	ui : 
+		popoverElements : '.popover-element'
+		form : '#add_measurements'
+		rangeSliders : '[data-rangeslider]'
+		responseMessage : '.response_msg'
 
-  		i = $element.length - 1 ;
-  		while i >= 0
-  			valueOutput $element[i]
-  			i--
-		
-  		$document.on('change', 'input[type="range"]', (e)->
-            valueOutput(e.target);
-        );
-  		$element.rangeslider(
-            
-            polyfill: false,
-            
-            onSlide:  (position, value)->
-                console.log('onSlide');
-                console.log('position: ' + position, 'value: ' + value);
-           
-            
-            onSlideEnd: (position, value)->
-                console.log('onSlideEnd');
-                console.log('position: ' + position, 'value: ' + value);
-            
-        );
-  		$("#add_measurements").validate({
+	events : 
+		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
-				submitHandler: (form)->
+	onShow:->
+		@ui.popoverElements.popover html: true    
+		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
+		@ui.rangeSliders.rangeslider polyfill: false
+		@ui.form.validate submitHandler: @formSubmitHandler
 
+	formSubmitHandler : (form)=>
+		_formData = $('#add_measurements').serialize()
+		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
+		return false
 
-					$.ajax
-							method : 'POST',
-							url : _SITEURL+'/wp-json/measurements/2',
-							data : $('#add_measurements').serialize(),
-							success:(response)->
-								console.log(response)
-								if response.status == 404
-									$('.response_msg').text "Something went wrong"
-								else
-									$('.response_msg').text "User details saved successfully"
+	successHandler : (response, status)=>
+		if status is 404
+			@ui.responseMessage.text "Something went wrong"
+		else
+			@ui.responseMessage.text "User details saved successfully"
 
-							
-							error:(error)->
-								$('.response_msg').text "Something went wrong"
+	errorHandler : (error)=>
+		@ui.responseMessage.text "Something went wrong"
 
-					return false;
-
-
-
-			})
-
-  	valueOutput = (element) ->
-		  value = element.value
-		  output = element.parentNode.getElementsByTagName("output")[0]
-		  output.innerHTML = value
-		  return
+	valueOutput : (element) =>
+		$(element).parent().find("output").html $(element).val()
 
 	
 
@@ -96,14 +45,14 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 
 						
-           
+		   
 					
 			
 
 
-            	
+				
 
 	
-                
+				
 
 		

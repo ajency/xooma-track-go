@@ -11,20 +11,15 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
 
   ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
     this.user = this._get_user_details();
-    return App.execute("when:fetched", [this.user], (function(_this) {
-      return function() {
-        console.log(App.currentUser);
-        return _this.show(new ProfilePersonalInfoView({
-          model: App.currentUser
-        }));
-      };
-    })(this));
+    return this.show(new ProfilePersonalInfoView({
+      model: this.user
+    }));
   };
 
   ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
-    return $.ajax({
+    $.ajax({
       method: 'GET',
-      url: _SITEURL + '/wp-json/profiles/2',
+      url: _SITEURL + '/wp-json/profiles/' + App.currentUser.get('ID'),
       data: '',
       success: function(response) {
         var response_data;
@@ -32,17 +27,18 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
         App.currentUser.set('xooma_member_id', response_data.response.xooma_member_id);
         App.currentUser.set('name', response_data.response.name);
         App.currentUser.set('email_id', response_data.response.email);
-        App.currentUser.set('image', response_data.response.image);
+        App.currentUser.set('display_name', response_data.response.display_name);
         App.currentUser.set('gender', response_data.response.gender);
         App.currentUser.set('phone_no', response_data.response.phone_no);
         App.currentUser.set('timezone', response_data.response.timezone);
-        App.currentUser.set('attachment_id', response_data.response.attachment_id);
+        App.currentUser.set('birth_date', response_data.response.birth_date);
         return App.currentUser.set('user_products', response_data.response.user_products);
       },
       error: function(error) {
         return $('.response_msg').text("Something went wrong");
       }
     });
+    return App.currentUser;
   };
 
   return ProfilePersonalInfoCtrl;

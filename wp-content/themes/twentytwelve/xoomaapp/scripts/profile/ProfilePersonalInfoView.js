@@ -14,14 +14,20 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.template = '#profile-personal-info-template';
 
+  ProfilePersonalInfoView.prototype.modelEvents = {
+    'change:profile_picture': 'render'
+  };
+
   ProfilePersonalInfoView.prototype.events = {
     'click .radio': function(e) {
-      return $('#gender').val(e.target.id.value);
+      return $('#gender').val($('#' + e.target.id).val());
     }
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    console.log(this.model);
+    this.$el.find("#timezone option[value='" + this.model.get('timezone') + "']").attr("selected", "selected");
+    $("input[name=radio_grp][value=" + this.model.get('gender') + "]").prop('checked', true);
+    $('#gender').val(this.model.get('gender'));
     jQuery.validator.addMethod("equalLength", function(value, element) {
       return this.optional(element) || (parseInt(value.length) === 6);
     }, "* Enter valid 6 digit Xooma ID");
@@ -39,9 +45,9 @@ ProfilePersonalInfoView = (function(_super) {
         }
       },
       submitHandler: function(form) {
-        $('#image').val(App.$.ajax({
+        $.ajax({
           method: 'POST',
-          url: _SITEURL + '/wp-json/profiles/2',
+          url: _SITEURL + '/wp-json/profiles/' + App.currentUser.get('ID'),
           data: $('#add_user_details').serialize(),
           success: function(response) {
             if (response.status === 404) {
@@ -53,7 +59,7 @@ ProfilePersonalInfoView = (function(_super) {
           error: function(error) {
             return $('.response_msg').text("Details could not be saved");
           }
-        }));
+        });
         return false;
       }
     });

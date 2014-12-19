@@ -15,6 +15,9 @@
  * @package ajencyWorkflow
  * @author  Team Ajency <team@ajency.in>
  */
+
+//#_TODO: Please maintain proper indentation and formatiing for code.
+
 class ajencyWorkflow{
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -107,7 +110,7 @@ class ajencyWorkflow{
 	 * @param    boolean $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 	 */
 	public static function activate($network_wide) {
-		// TODO: Define activation functionality here
+		//#_TODO: globals for everything is a bad idea. Initialize the table class here and run the function
 		global $table;
 
 		$table->create_tables();
@@ -125,7 +128,7 @@ class ajencyWorkflow{
 	public static function deactivate($network_wide) {
 		// TODO: Define deactivation functionality here
 
-		
+
 	}
 
 	/**
@@ -260,19 +263,19 @@ class ajencyWorkflow{
 		//fetch all the forms based on the workflow name specified
 
 		$forms = workflow_get_forms($workflow_name);
-		
+
 		if(is_wp_error($forms)){
 
 			return $forms;
 		}
-		
+
 		$forms_array = array();
 
 		//getting the array of all forms in a proper sequence
 		foreach ($forms as $key => $value) {
-			$forms_array[$value->id]  = $value->form_name;
+			$forms_array[$value->id]  = $value->url;
 		}
-		
+
 		foreach ($forms_array as $key => $value) {
 			//check if entry is present in workflow_user table
 			$workflow_user_id = workflow_check_user($key,$user_id);
@@ -300,7 +303,7 @@ class ajencyWorkflow{
 
 
 
-			
+
 		}
 
 
@@ -314,27 +317,29 @@ class ajencyWorkflow{
 		global $wpdb;
 		$workflow_tbl = $wpdb->prefix."workflow";
 		$workflow_name = $args['name'];
+
+		//#_TODO: use $wpdb->prepare()
 		$sql_query = $wpdb->get_row("SELECT * FROM $workflow_tbl WHERE workflow_name LIKE '%$workflow_name%'");
-		
+
 
 
 		//insert into workflow user table
 		if(is_null($sql_query)){
-			$insert_id = $wpdb->insert( 
-				$workflow_tbl, 
-				array( 
-					'workflow_name'		=> $args['name'], 
-					'status'			=> serialize($status)		 
-				), 
-				array( 
-					'%s', 
-					'%s' 
-				) 
+			$insert_id = $wpdb->insert(
+				$workflow_tbl,
+				array(
+					'workflow_name'		=> $args['name'],
+					'status'			=> serialize($status) //#_TODO: use maybe_serialize()
+				),
+				array(
+					'%s',
+					'%s'
+				)
 			);
 
 			if($insert_id){
 
-				return array('status' => 200 , 'response' => $insert_id);
+				return array('status' => 200 , 'response' => $insert_id); //#_TODO: status is not part of response. It mus tbe part of response header
 			}
 			else{
 
@@ -358,16 +363,20 @@ class ajencyWorkflow{
 		//get workflow completion status
 		$status = workflow_get_status($form_id);
 
-		$update_id = $wpdb->update( 
-			$workflow_user_tbl, 
-			array( 
-				'status' => $status['complete']	
-			), 
-			array( 'ID' => $user_id ), 
-			array( 
+		$update_id = $wpdb->update(
+			$workflow_user_tbl,
+			array(
+				'status' => $status['complete']
+			),
+			array( 'user_id' => $user_id,
+			       'form_id' => $form_id
+			),
+			array(
 				'%s'
-			), 
-			array( '%d' ) 
+			),
+			array( '%d',
+				   '%d'
+			)
 		);
 
 		if($update_id === false){
@@ -385,4 +394,70 @@ class ajencyWorkflow{
 
 	}
 
+
+	public function workflow_needed($user_id){
+
+		//fetch all the forms based on the workflow name specified
+
+		global $wpdb;
+
+		global $aj_workflow;
+
+		$workflow_user_tbl = $wpdb->prefix."workflow_user";
+
+		//#_TODO: use $wpdb->prepare() to generate queries
+		$sqlquery = $wpdb->get_results("SELECT * FROM $workflow_user_tbl WHERE user_id=".$user_id);
+
+		if(count($sqlquery) ==0 ){
+
+			$aj_workflow->workflow_process('login',$user_id);
+		}
+		$forms = workflow_get_forms($workflow_name);
+
+		if(is_wp_error($forms)){
+
+			return $forms;
+		}
+
+		$forms_array = array();
+		$flag = 0;
+		//getting the array of all forms in a proper sequence
+		foreach ($forms as $key => $value) {
+			$form_id = $value->id;
+			//#_TODO: use $wpdb->prepare() to generate queries
+			$sql_query = $wpdb->get_row("SELECT * FROM $workflow_user_tbl WHERE form_id =".$form_id." and user_id=".$user_id);
+			if(!(is_null($sql_query)))
+			{
+				//get workflow completion status
+				$status = workflow_get_status($sql_query->form_id);
+
+				if(($status['complete']) == $sql_query->status){
+
+					$flag = '/home';
+
+				}
+				else
+				{
+					$flag = $aj_workflow->workflow_process('login',$user_id);
+					return $flag;
+					exit(); //#_TODO: Code will never reach here. Why is this needed?
+
+				}
+
+			}
+			
+
+			
+
+
+
+
+		}
+
+		return $flag;
+
+
+	}
+
 }
+

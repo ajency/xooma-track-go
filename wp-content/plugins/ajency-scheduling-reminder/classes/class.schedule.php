@@ -15,7 +15,7 @@ class Schedule{
 	static function add($schedule_data){
 
 		if(!current_user_can('edit_schedule'))
-			return new WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
+			return new \WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
 		return self::_insert_schedule($schedule_data);
 	}
@@ -32,12 +32,29 @@ class Schedule{
 
 		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE id=%d", $schedule_id);
 
-		$schedule = $wpdb->get_row($query);
+		$schedule = (array)$wpdb->get_row($query);
 
 		if($schedule === null)
-			return WP_Error('invalid_schedule_id', __('Invalid schedule ID'));
+			return new \WP_Error('invalid_schedule_id', __('Invalid schedule ID'));
 
 		return apply_filters('aj_schedule_model', $schedule);
+	}
+
+	/**
+	 * [get description]
+	 * @param  [type] $schedule_id [description]
+	 * @return [type]              [description]
+	 */
+	static function get_schedules($user_id){
+		global $wpdb;
+
+		$table_name = "{$wpdb->prefix}aj_schedules";
+
+		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE user_id=%d", $user_id);
+
+		$schedules = $wpdb->get_results($query);
+
+		return (array) $schedules;
 	}
 
 	/**
@@ -53,7 +70,6 @@ class Schedule{
 		$user_id = get_current_user_id();
 
 		$defaults = array(
-					'user_id' => $user_id,
 					'action' => '',
 					'item_id' => 0,
 					'rrule' => '',
@@ -65,7 +81,7 @@ class Schedule{
 			return new WP_Error('action_param_missing', __('Action is empty'));
 
 		if(empty($schedule_args['rrule']))
-			return new WP_Error('rrule_param_missing', __('Rrule is empty. Provide occurence rule'));
+			return new WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
@@ -83,3 +99,19 @@ class Schedule{
 
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
