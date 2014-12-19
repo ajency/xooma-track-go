@@ -18,10 +18,10 @@
     "underscore": "~1.7.0",
     "backbone": "~1.1.2",
     "jquery": "~2.1.1",
-    "backbone.marionette": "~2.2.2",
+    "backbone.marionette": "~2.3.0",
     "handlebars": "~2.0.0",
     "jquery.validation": "~1.13.1",
-    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.2.2",
+    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.2.5",
     "marionette.state": "https://github.com/ajency/marionette.state.git#~0.1.4",
     "animate.css": "~3.2.0",
     "bootstrap": "~3.3.1",
@@ -36,13 +36,10 @@
     "rrule": "~2.1.0",
     "jQuery.mmenu": "~4.7.5",
     "rangeslider.js": "~0.3.7",
-    "moment": "~2.8.4"
+    "pickadate": "~3.5.4"
   },
   "resolutions": {
     "underscore": ">=1.5.0",
     "modernizr": "~2.8.3"
-  },
-  "devDependencies": {
-    "moment": "~2.8.4"
   }
 }

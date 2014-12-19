@@ -18,7 +18,7 @@ _.mixin
 
 		scheduledTime = dateValue.getTime();
 		timeDifference = moment(current_time,"HH:mm").diff(moment(time_selected,"HH:mm"))
-
+		
 		if timeDifference <= 0
 			
 			badgeValue = window.plugin.notification.local.getDefaults().badge;

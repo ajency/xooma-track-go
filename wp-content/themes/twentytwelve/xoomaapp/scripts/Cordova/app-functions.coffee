@@ -26,8 +26,8 @@ _.mixin
 
 		if currentRoute is 'login' or currentRoute is 'profile/personal-info'
 			navigator.app.exitApp()
-		# else    
-		# 	App.navigate('app-login', trigger: true)
+		else    
+			Backbone.history.history.back()
 
 		_.removeCordovaBackbuttonEventListener()
 
@@ -40,7 +40,3 @@ _.mixin
 
 	onlineStatus :->
 		if navigator.connection.type is Connection.NONE	then false else true
-
-
-
-

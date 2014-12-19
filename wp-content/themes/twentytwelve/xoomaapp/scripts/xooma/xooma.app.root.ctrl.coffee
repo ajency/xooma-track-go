@@ -15,6 +15,9 @@ class ProfileCtrlView extends Marionette.LayoutView
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
 
+	
+
+
 class App.ProfileCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new ProfileCtrlView
@@ -48,7 +51,6 @@ class HomeView extends Marionette.ItemView
 class App.HomeCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new HomeView
-
 
 class NotificationView extends Marionette.ItemView
 	className : 'animated fadeIn'

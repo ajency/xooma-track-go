@@ -93,12 +93,17 @@ class User
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 
-        if($user_details && $xooma_member_id){
+        if($user_details){
             
 
             global $aj_workflow;
             $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
-        	return array('status' => 200 ,'response' => $user_details);
+
+            if ( ! ( $user_details instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $user_details );
+            }
+            $response->set_status( 201 );
+        	return $response;
         }
 		else
 		{
@@ -189,7 +194,7 @@ class User
         
 
         $data = array();
-        if(count($sql_query) != 0 || $sql_query!= null){
+        if(count($sql_query) != 0 && $sql_query!= null){
 
             
 
