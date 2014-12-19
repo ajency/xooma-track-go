@@ -189,7 +189,7 @@ class User
         
 
         $data = array();
-        if(count($sql_query) != 0 || $sql_query!= null){
+        if(count($sql_query) != 0 && $sql_query!= null){
 
             
 

@@ -42,7 +42,7 @@ App.ProfileMeasurementCtrl = (function(_super) {
   ProfileMeasurementCtrl.prototype.errorHandler = function(error) {};
 
   ProfileMeasurementCtrl.prototype.successHandler = function(response, status) {
-    return App.currentUser.set('measurements', response);
+    return App.currentUser.set('measurements', response.response);
   };
 
   return ProfileMeasurementCtrl;
