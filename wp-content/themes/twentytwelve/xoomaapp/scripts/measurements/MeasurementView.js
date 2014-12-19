@@ -33,6 +33,9 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
+    $('#measurement').parent().addClass('active');
+    $('#product').bind('click', this.disabler);
+    $('#product').css('cursor', 'default');
     this.ui.popoverElements.popover({
       html: true
     });
@@ -47,6 +50,11 @@ ProfileMeasurementsView = (function(_super) {
     return this.ui.form.validate({
       submitHandler: this.formSubmitHandler
     });
+  };
+
+  ProfileMeasurementsView.prototype.disabler = function(e) {
+    e.preventDefault();
+    return false;
   };
 
   ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
