@@ -24,4 +24,4 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 		#@show new Ajency.HTTPRequestFailView
 
 	successHandler : (response, status)=>
-		App.currentUser.set 'measurements', response
+		App.currentUser.set 'measurements', response.response
