@@ -398,7 +398,7 @@ class ajencyWorkflow{
 	public function workflow_needed($user_id){
 
 		//fetch all the forms based on the workflow name specified
-
+		$workflow_name = '';
 		global $wpdb;
 
 		global $aj_workflow;
@@ -445,9 +445,9 @@ class ajencyWorkflow{
 				}
 
 			}
-			
 
-			
+
+
 
 
 

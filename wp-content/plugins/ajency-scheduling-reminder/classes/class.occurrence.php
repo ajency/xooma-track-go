@@ -74,6 +74,7 @@ class Occurrence{
 
 		$arr = array();
 
+		//#_TODO: Move these functions out of this function
 		function merge_occurrences_into_expected($exp_occ, $occ, $s_id){
 			$data = array();
 			for($i =0, $len = count($exp_occ); $i < $len; $i++) {

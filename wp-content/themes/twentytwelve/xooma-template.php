@@ -339,6 +339,7 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
@@ -352,12 +353,9 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <!-- endbuild -->
 
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/facebook.js"></script>
-
 <!-- build:js({*.js}) scripts/ajency.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <!-- endbuild -->
 
 <script type="text/javascript">
@@ -366,7 +364,7 @@ Add Home template here
     _SITEURL              = '<?php echo site_url() ?>';
     FBAPPID               = '<?php echo FBAPPID ?>';
     if(typeof FBAPPID !== 'undefined')
-        facebookConnectPlugin.browserInit(FBAPPID);
+        facebookConnectPlugin.browserInit(App, FBAPPID);
 
 </script>
 <!-- build:js(*.js) application.js -->
