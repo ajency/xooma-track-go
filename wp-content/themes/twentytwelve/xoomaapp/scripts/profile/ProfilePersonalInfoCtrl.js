@@ -48,8 +48,17 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
     });
   };
 
-  ProfilePersonalInfoCtrl.prototype.successHandler = function(response, status) {
-    return App.currentUser.set('profiles', response.response);
+  ProfilePersonalInfoCtrl.prototype.successHandler = function(response, status, responseCode) {
+    if (responseCode.status === 404) {
+      this.region = new Marionette.Region({
+        el: '#nofound-template'
+      });
+      return new Ajency.HTTPRequestCtrl({
+        region: this.region
+      });
+    } else {
+      return App.currentUser.set('profiles', response.response);
+    }
   };
 
   return ProfilePersonalInfoCtrl;

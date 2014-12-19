@@ -68,6 +68,22 @@ class User_API
 
     	$response = $user->get_user_details($id);
 
+        
+
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+        }
+        
+
         return $response;
 
     }
@@ -87,6 +103,20 @@ class User_API
         $data['timezone']                   = $_REQUEST['timezone'];
 
         $response = $user->update_user_details($data);
+
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+            
+        }
+       
 
         return $response;
 
@@ -113,6 +143,19 @@ class User_API
 
         $response = $user->update_user_measurement_details($data);
 
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+            
+        }
+
         return $response;
 
     }
@@ -123,6 +166,19 @@ class User_API
         global $user;
 
         $response = $user->get_user_measurement_details($id,$date="");
+
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+            
+        }
 
         return $response;
 

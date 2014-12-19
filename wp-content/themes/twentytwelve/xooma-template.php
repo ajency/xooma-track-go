@@ -228,7 +228,7 @@
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
                               <input class="fieldset__input js__datepicker form-control" type="text" id="birth_date" 
-                              name="birth_date" required >
+                              name="birth_date" data-value="{{profiles.birth_date}}" required value="{{profiles.birth_date}}">
                             </div>
                       </div>
                        <div class="form-group">
@@ -372,7 +372,7 @@ Add Home template here
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
+    FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
         facebookConnectPlugin.browserInit(App, FBAPPID);
 </script>

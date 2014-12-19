@@ -30,11 +30,11 @@ class User
                 'user_products'             => $user_products
 				);
 			
-			return array('status' => 200 ,'response' => $data);
+			return array('response' => $data);
 		}
 		else
 		{
-			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
 		}
 
 
@@ -44,19 +44,7 @@ class User
 	public function update_user_details($args)
 	{
 		
-		//image upload//
-        // if($args['image']!=""){
-        //     $attachment_id = uploadImage($args['image']);
-        // }
-
-        // if(!(is_array($attachment_id)))
-        // {
-        //   return array('status' => 404 ,'response' => 'Image could not be uploaded');
-        // }
-        // $args['attachment_id'] = $attachment_id['attachid'];
-
-        //image upload//
-        //server side valiadation//
+		//server side valiadation//
         $v = new Valitron\Validator($args);
 
         //custom validation rules//
@@ -85,7 +73,7 @@ class User
         //all the rules defined//
 
         if(!($v->validate())) {
-           return array('status' => 404 ,'response' => 'Data sent to the serer is not in the required format');
+           return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
         }
 
 		    //update user meta for the user
@@ -93,21 +81,23 @@ class User
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 
-        if($user_details){
-            
+        $metadata = get_user_meta($args['id'], 'user_details', true);
+        if($metadata!=""){
 
             global $aj_workflow;
             $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
 
-            if ( ! ( $user_details instanceof WP_JSON_ResponseInterface ) ) {
-            $response = new WP_JSON_Response( $user_details );
-            }
-            $response->set_status( 201 );
-        	return $response;
+        }
+
+        if($user_details){
+            
+
+            return array('reponse'=>$user_details);
+            
         }
 		else
 		{
-			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
 
 		}
 
@@ -139,6 +129,9 @@ class User
                 ) 
               );
 
+            global $aj_workflow;
+            $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
+
               
         }
         else
@@ -162,14 +155,11 @@ class User
         
         if($insert_id){
 
-                global $aj_workflow;
-                $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
-
-                return array('status' => 200 ,'response' => $insert_id);
+                return array('response' => $insert_id);
               }
         else
               {
-                new WP_Error( 'json_user_measurement_details_not_updated', __( 'User Measurement details not updated.' ), array( 'status' => 500 ) );
+                new WP_Error( 'json_user_measurement_details_not_updated', __( 'User Measurement details not updated.' ));
               }
 
 
@@ -213,11 +203,11 @@ class User
             $data['midcalf']  = $user_details['midcalf'];
             
             
-            return array('status' => 200 ,'response' => $data);
+            return array('response' => $data);
         }
         else
         {
-            return new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ), array( 'status' => 500 ) );
+            return new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ));
         }
 
 

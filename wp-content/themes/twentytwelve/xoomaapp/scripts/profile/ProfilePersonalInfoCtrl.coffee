@@ -26,8 +26,12 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 		@region =  new Marionette.Region el : '#nofound-template'
 		new Ajency.HTTPRequestCtrl region : @region
 				
-	successHandler:(response, status)=>
-		App.currentUser.set 'profiles' , response.response
+	successHandler:(response, status,responseCode)=>
+		if responseCode.status is 404
+			@region =  new Marionette.Region el : '#nofound-template'
+			new Ajency.HTTPRequestCtrl region : @region
+		else
+			App.currentUser.set 'profiles' , response.response
 
 
 

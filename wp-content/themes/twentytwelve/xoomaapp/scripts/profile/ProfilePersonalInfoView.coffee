@@ -9,6 +9,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	ui : 
 		form : '#add_user_details'
 		responseMessage : '.response_msg'
+		dateElement : '.js__datepicker'
 		
 
 	events:
@@ -19,9 +20,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			e.preventDefault()
 
 		'click #birth_date':(e)->
-			$input = $('.js__datepicker').pickadate(
+			$input = @ui.dateElement.pickadate(
 			 	formatSubmit: 'yyyy-mm-dd'
-			 	clear: 'Clear date'
+			 	
 			)
 			picker = $input.pickadate('picker')
 			picker.set('select',@model.get('profiles').birth_date , { format: 'yyyy-mm-dd' })
@@ -67,8 +68,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		return false
 				
 							
-	successHandler:(response, status)=>
-		if status is 404
+	successHandler:(response, status,responseCode)=>
+		if responseCode.status is 404
 			@ui.responseMessage.text response.response
 		else
 			@ui.responseMessage.text "User details saved successfully"

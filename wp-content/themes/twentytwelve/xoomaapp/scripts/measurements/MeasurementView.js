@@ -64,8 +64,8 @@ ProfileMeasurementsView = (function(_super) {
     return false;
   };
 
-  ProfileMeasurementsView.prototype.successHandler = function(response, status) {
-    if (status === 404) {
+  ProfileMeasurementsView.prototype.successHandler = function(response, status, responseCode) {
+    if (responseCode.status === 404) {
       return this.ui.responseMessage.text("Something went wrong");
     } else {
       return this.ui.responseMessage.text("User details saved successfully");

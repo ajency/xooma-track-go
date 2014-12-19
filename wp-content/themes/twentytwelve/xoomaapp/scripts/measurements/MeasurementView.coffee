@@ -33,8 +33,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
 		return false
  
-	successHandler : (response, status)=>
-		if status is 404
+	successHandler : (response, status,responseCode)=>
+		if responseCode.status is 404
 			@ui.responseMessage.text "Something went wrong"
 		else
 			@ui.responseMessage.text "User details saved successfully"

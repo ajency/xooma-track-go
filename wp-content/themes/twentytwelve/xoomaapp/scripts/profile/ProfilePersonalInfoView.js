@@ -20,7 +20,8 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.ui = {
     form: '#add_user_details',
-    responseMessage: '.response_msg'
+    responseMessage: '.response_msg',
+    dateElement: '.js__datepicker'
   };
 
   ProfilePersonalInfoView.prototype.events = {
@@ -32,9 +33,8 @@ ProfilePersonalInfoView = (function(_super) {
     },
     'click #birth_date': function(e) {
       var $input, picker;
-      $input = $('.js__datepicker').pickadate({
-        formatSubmit: 'yyyy-mm-dd',
-        clear: 'Clear date'
+      $input = this.ui.dateElement.pickadate({
+        formatSubmit: 'yyyy-mm-dd'
       });
       picker = $input.pickadate('picker');
       return picker.set('select', this.model.get('profiles').birth_date, {
@@ -84,8 +84,8 @@ ProfilePersonalInfoView = (function(_super) {
     return false;
   };
 
-  ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    if (status === 404) {
+  ProfilePersonalInfoView.prototype.successHandler = function(response, status, responseCode) {
+    if (responseCode.status === 404) {
       return this.ui.responseMessage.text(response.response);
     } else {
       return this.ui.responseMessage.text("User details saved successfully");
