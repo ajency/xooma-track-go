@@ -21,6 +21,20 @@ _.extend(Ajency.CurrentUser.prototype, {
       success: _successHandler
     });
   },
+  saveProfiles: function(profiles) {
+    var _successHandler;
+    _successHandler = (function(_this) {
+      return function(resp) {
+        return _this.set('profiles', profiles);
+      };
+    })(this);
+    return $.ajax({
+      method: 'POST',
+      url: "" + _SITEURL + "/wp-json/profiles/" + (App.currentUser.get('ID')),
+      data: profiles,
+      success: _successHandler
+    });
+  },
   getFacebookPicture: function() {
     var options;
     options = {

@@ -167,6 +167,7 @@
 <script id="profile-personal-info-template" type="h-template">
 
     <div id="personalinfo" class="section">
+    <div class="response_msg"></div>
         <div class="container">
 
 
@@ -180,30 +181,30 @@
             <br>
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
-                <div class="response_msg"></div>
+                
 
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required value="{{xooma_member_id}}">
+                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required value="{{profiles.xooma_member_id}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" readonly class="form-control" id="name" name="name" value="{{display_name}}">
+                          <input type="text" readonly class="form-control" id="name" name="name" value="{{profiles.display_name}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text3" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                          <input type="email" readonly class="form-control" id="email_id" name="email_id" value="{{email_id}}">
+                          <input type="email" readonly class="form-control" id="email_id" name="email_id" value="{{profiles.email}}">
                         </div>
                       </div>
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{phone_no}}">
+                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{profiles.phone_no}}">
                         </div>
                       </div>
                      <div class="form-group">
@@ -275,6 +276,7 @@
 </script>
 <script id="profile-measurements-template" type="h-template">
     <div id="measuremnt" class="section">
+    <div class="response_msg"></div>
         <div class="container">
         <form id="add_measurements" class="form-horizontal" role="form" method="POST">
             <div class="row">
@@ -366,7 +368,7 @@ Add Home template here
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
+    FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
         facebookConnectPlugin.browserInit(FBAPPID);
 

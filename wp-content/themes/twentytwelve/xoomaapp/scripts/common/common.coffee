@@ -13,6 +13,18 @@ _.extend Ajency.CurrentUser::,
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
 			success: _successHandler  
+
+	saveProfiles : (profiles)->
+
+		_successHandler = (resp)=>
+			@set 'profiles', profiles
+
+		$.ajax
+			method : 'POST'
+			url : "#{_SITEURL}/wp-json/profiles/#{App.currentUser.get('ID')}"
+			data : profiles
+			success:_successHandler
+
 			   
 
 	getFacebookPicture : ->
