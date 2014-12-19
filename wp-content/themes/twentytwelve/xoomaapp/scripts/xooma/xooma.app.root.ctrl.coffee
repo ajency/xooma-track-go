@@ -15,24 +15,7 @@ class ProfileCtrlView extends Marionette.LayoutView
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
 
-	onShow:->
-		if window.location.hash is '#/profile/personal-info'
-			$('#profile').parent().addClass 'active'
-			$('#measurement').bind('click',@disabler)
-			$('#measurement').css('cursor', 'default')
-			$('#product').bind('click',@disabler)
-			$('#product').css('cursor', 'default')
-		else if window.location.hash is '#/profile/measurements'
-			$('#measurement').parent().addClass 'active'
-			$('#product').bind('click',@disabler)
-			$('#product').css('cursor', 'default')
-		else if window.location.hash is '#/profile/product'
-			$('#product').parent().addClass 'active'
-		
-
-	disabler:(e)->
-		e.preventDefault()
-		return false
+	
 
 
 class App.ProfileCtrl extends Marionette.RegionController

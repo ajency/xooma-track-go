@@ -32,7 +32,8 @@ ProfilePersonalInfoView = (function(_super) {
     'click #birth_date': function(e) {
       var $input, picker;
       $input = $('.js__datepicker').pickadate({
-        formatSubmit: 'yyyy-mm-dd'
+        formatSubmit: 'yyyy-mm-dd',
+        clear: 'Clear date'
       });
       picker = $input.pickadate('picker');
       return picker.set('select', this.model.get('profiles').birth_date, {
@@ -42,6 +43,11 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
+    $('#profile').parent().addClass('active');
+    $('#measurement').bind('click', this.disabler);
+    $('#measurement').css('cursor', 'default');
+    $('#product').bind('click', this.disabler);
+    $('#product').css('cursor', 'default');
     this.$el.find("#timezone option[value='" + this.model.get('profiles').timezone + "']").attr("selected", "selected");
     this.$el.find("input[name=radio_grp][value=" + this.model.get('profiles').gender + "]").prop('checked', true);
     this.$el.find('#gender').val(this.model.get('profiles').gender);
@@ -63,6 +69,11 @@ ProfilePersonalInfoView = (function(_super) {
     return jQuery.validator.addMethod("equalLength", function(value, element) {
       return this.optional(element) || (parseInt(value.length) === 6);
     }, "* Enter valid 6 digit Xooma ID");
+  };
+
+  ProfilePersonalInfoView.prototype.disabler = function(e) {
+    e.preventDefault();
+    return false;
   };
 
   ProfilePersonalInfoView.prototype.formSubmitHandler = function(form) {
