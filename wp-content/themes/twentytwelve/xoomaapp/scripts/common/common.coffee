@@ -12,27 +12,15 @@ _.extend Ajency.CurrentUser::,
 			method : 'POST',
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
-			success: _successHandler  
-			   
+			success: _successHandler
 
-	getFacebookPicture : ->
-		options =
-			"redirect": false
-			"height": "200"
-			"type": "normal"
-			"width": "200"
+	hasProfilePicture : ->
+		profilePicture = @get 'profile_picture'
+		(parseInt(profilePicture.id) isnt 0) or not _.isUndefined profilePicture.type
 
-		FB.api "/me/picture",options,(resp)->
-			if resp and not resp.error
-				App.currentUser.set 'profile_picture',
-					id : 0
-					sizes :
-						thumbnail :
-							url : resp.data.url
 
 class Ajency.HTTPRequestFailView extends Marionette.ItemView
+	template : 'Request page not  Found'
 
-	template : 'Request page not  Found' 
-			
 
-	
+

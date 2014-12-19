@@ -21,26 +21,10 @@ _.extend(Ajency.CurrentUser.prototype, {
       success: _successHandler
     });
   },
-  getFacebookPicture: function() {
-    var options;
-    options = {
-      "redirect": false,
-      "height": "200",
-      "type": "normal",
-      "width": "200"
-    };
-    return FB.api("/me/picture", options, function(resp) {
-      if (resp && !resp.error) {
-        return App.currentUser.set('profile_picture', {
-          id: 0,
-          sizes: {
-            thumbnail: {
-              url: resp.data.url
-            }
-          }
-        });
-      }
-    });
+  hasProfilePicture: function() {
+    var profilePicture;
+    profilePicture = this.get('profile_picture');
+    return (parseInt(profilePicture.id) !== 0) || !_.isUndefined(profilePicture.type);
   }
 });
 

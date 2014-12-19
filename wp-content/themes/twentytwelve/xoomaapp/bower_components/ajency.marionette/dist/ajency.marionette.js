@@ -286,6 +286,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       if (resp && !resp.error) {
         _picture = {
           'id': 0,
+          'type' : 'facebook',
           'sizes': {
             "thumbnail": {
               "height": 150,
