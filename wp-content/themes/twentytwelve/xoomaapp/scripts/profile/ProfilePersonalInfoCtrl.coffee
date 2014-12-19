@@ -1,4 +1,3 @@
-
 class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 
 	initialize: (options)->
