@@ -35,7 +35,7 @@ ProfileCtrlView = (function(_super) {
       $('#measurement').parent().addClass('active');
       $('#product').bind('click', this.disabler);
       return $('#product').css('cursor', 'default');
-    } else {
+    } else if (window.location.hash === '#/profile/product') {
       return $('#product').parent().addClass('active');
     }
   };

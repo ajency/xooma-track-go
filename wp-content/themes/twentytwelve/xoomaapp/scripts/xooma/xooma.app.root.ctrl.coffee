@@ -26,8 +26,9 @@ class ProfileCtrlView extends Marionette.LayoutView
 			$('#measurement').parent().addClass 'active'
 			$('#product').bind('click',@disabler)
 			$('#product').css('cursor', 'default')
-		else
+		else if window.location.hash is '#/profile/product'
 			$('#product').parent().addClass 'active'
+		
 
 	disabler:(e)->
 		e.preventDefault()

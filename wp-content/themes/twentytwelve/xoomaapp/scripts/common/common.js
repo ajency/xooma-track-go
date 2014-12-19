@@ -65,8 +65,23 @@ Ajency.HTTPRequestFailView = (function(_super) {
     return HTTPRequestFailView.__super__.constructor.apply(this, arguments);
   }
 
-  HTTPRequestFailView.prototype.template = 'Request page not  Found';
+  HTTPRequestFailView.prototype.template = 'No data found.Reloaad the page';
 
   return HTTPRequestFailView;
 
 })(Marionette.ItemView);
+
+Ajency.HTTPRequestCtrl = (function(_super) {
+  __extends(HTTPRequestCtrl, _super);
+
+  function HTTPRequestCtrl() {
+    return HTTPRequestCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  HTTPRequestCtrl.prototype.initialize = function(options) {
+    return this.show(new Ajency.HTTPRequestFailView);
+  };
+
+  return HTTPRequestCtrl;
+
+})(Marionette.RegionController);

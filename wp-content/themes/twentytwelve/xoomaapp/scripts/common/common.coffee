@@ -44,7 +44,9 @@ _.extend Ajency.CurrentUser::,
 
 class Ajency.HTTPRequestFailView extends Marionette.ItemView
 
-	template : 'Request page not  Found' 
+	template : 'No data found.Reloaad the page'
 			
 
-	
+class Ajency.HTTPRequestCtrl extends Marionette.RegionController
+	initialize: (options)->
+		@show new Ajency.HTTPRequestFailView

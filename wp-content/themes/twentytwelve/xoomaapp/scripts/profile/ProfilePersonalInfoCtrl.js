@@ -15,7 +15,7 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
   ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
     var xhr;
     xhr = this._get_user_details();
-    return xhr.done(this._showView).fail(this._showView);
+    return xhr.done(this._showView).fail(this.errorHandler);
   };
 
   ProfilePersonalInfoCtrl.prototype._showView = function() {
@@ -37,6 +37,15 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
       deferred.resolve(true);
       return deferred.promise();
     }
+  };
+
+  ProfilePersonalInfoCtrl.prototype.errorHandler = function(error) {
+    this.region = new Marionette.Region({
+      el: '#nofound-template'
+    });
+    return new Ajency.HTTPRequestCtrl({
+      region: this.region
+    });
   };
 
   ProfilePersonalInfoCtrl.prototype.successHandler = function(response, status) {

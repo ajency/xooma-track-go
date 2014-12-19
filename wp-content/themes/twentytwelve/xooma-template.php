@@ -334,6 +334,11 @@
 Add Home template here
 </div>
 </script>
+<div id="nofound-template" >
+
+
+</div>
+
 <!-- build:js({.js}) scripts/vendors.js -->
 <!--
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script>

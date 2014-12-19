@@ -3,7 +3,7 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 
 	initialize: (options)->
 		xhr = @_get_measurement_details()
-		xhr.done(@_showView).fail @errorHandler
+		xhr.done(@_showView).fail @_showView
 
 	_showView :=>
 		@show new ProfileMeasurementsView
@@ -21,7 +21,8 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 			deferred.promise()
 
 	errorHandler : (error)->
-		@show new Ajency.HTTPRequestFailView
+		@region =  new Marionette.Region el : '#nofound-template'
+		new Ajency.HTTPRequestCtrl region : @region
 
 	successHandler : (response, status)=>
 		App.currentUser.set 'measurements', response.response

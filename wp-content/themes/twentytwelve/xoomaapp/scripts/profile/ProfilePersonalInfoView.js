@@ -28,19 +28,20 @@ ProfilePersonalInfoView = (function(_super) {
     },
     'click #measurement': function(e) {
       return e.preventDefault();
+    },
+    'click #birth_date': function(e) {
+      var $input, picker;
+      $input = $('.js__datepicker').pickadate({
+        formatSubmit: 'yyyy-mm-dd'
+      });
+      picker = $input.pickadate('picker');
+      return picker.set('select', this.model.get('profiles').birth_date, {
+        format: 'yyyy-mm-dd'
+      });
     }
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    var $input, picker;
-    $input = $('.js__datepicker').pickadate({
-      formatSubmit: 'yyyy-mm-dd'
-    });
-    picker = $input.pickadate('picker');
-    picker.open();
-    picker.set('select', this.model.get('profiles').birth_date, {
-      format: 'yyyy-mm-dd'
-    });
     this.$el.find("#timezone option[value='" + this.model.get('profiles').timezone + "']").attr("selected", "selected");
     this.$el.find("input[name=radio_grp][value=" + this.model.get('profiles').gender + "]").prop('checked', true);
     this.$el.find('#gender').val(this.model.get('profiles').gender);
