@@ -225,7 +225,7 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="birth_date"  name="birth_date" required value="{{birth_date}}">
+                              <input class="fieldset__input js__datepicker form-control" type="text" placeholder="Try me&hellip;">
                             </div>
                       </div>
                        <div class="form-group">
@@ -359,12 +359,15 @@ Add Home template here
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <!-- endbuild -->
-
+<script src="<?php echo get_template_directory_uri(); ?>/js/datepicker/picker.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/datepicker/picker.date.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/datepicker/picker.time.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/js/datepicker/demo.js"></script>
 <script type="text/javascript">
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
+    FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
         facebookConnectPlugin.browserInit(FBAPPID);
 
@@ -377,6 +380,8 @@ Add Home template here
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/profileMeasurementCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/MeasurementView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
+
+
     <!-- endbuild -->
 </body>
 </html>
