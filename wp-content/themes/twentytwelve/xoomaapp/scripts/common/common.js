@@ -55,6 +55,11 @@ _.extend(Ajency.CurrentUser.prototype, {
         });
       }
     });
+  },
+  hasProfilePicture: function() {
+    var profilePicture;
+    profilePicture = this.get('profile_picture');
+    return (parseInt(profilePicture.id) !== 0) || !_.isUndefined(profilePicture.type);
   }
 });
 
@@ -65,7 +70,7 @@ Ajency.HTTPRequestFailView = (function(_super) {
     return HTTPRequestFailView.__super__.constructor.apply(this, arguments);
   }
 
-  HTTPRequestFailView.prototype.template = 'No data found.Reloaad the page';
+  HTTPRequestFailView.prototype.template = 'Request page not  Found';
 
   return HTTPRequestFailView;
 

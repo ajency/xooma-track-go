@@ -42,11 +42,20 @@ _.extend Ajency.CurrentUser::,
 						thumbnail :
 							url : resp.data.url
 
-class Ajency.HTTPRequestFailView extends Marionette.ItemView
 
-	template : 'No data found.Reloaad the page'
+	hasProfilePicture : ->
+		profilePicture = @get 'profile_picture'
+		(parseInt(profilePicture.id) isnt 0) or not _.isUndefined profilePicture.type
+
+
+
+class Ajency.HTTPRequestFailView extends Marionette.ItemView
+	template : 'Request page not  Found'
+
+
 			
 
 class Ajency.HTTPRequestCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new Ajency.HTTPRequestFailView
+
