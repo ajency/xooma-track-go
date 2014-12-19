@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
+    
     <style scoped>
         #buttongroup-home .head {
           display: block;
@@ -136,11 +137,11 @@
         <div class="row">
             <div class="col-sm-12">
                     <ul class="list-inline" >
-                        <li class="selected"><a href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
+                        <li class="selected"><a id="profile" href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">PERSONAL INFO</span></a></li>
-                        <li><a href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
+                        <li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
                             <span class="hidden-xs">MEASUREMENT</span></a></li>
-                        <li><a href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+                        <li><a id="product" href="#/12/products"><i class="fa fa-check-circle-o"></i> 
                             <span class="hidden-xs">MYPRODUCTS</span></a></li>
                     </ul>
             </div>
@@ -167,6 +168,7 @@
 <script id="profile-personal-info-template" type="h-template">
 
     <div id="personalinfo" class="section">
+    <div class="response_msg"></div>
         <div class="container">
 
 
@@ -180,30 +182,30 @@
             <br>
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
-                <div class="response_msg"></div>
+                
 
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required value="{{xooma_member_id}}">
+                          <input type="text" class="form-control" id="xooma_member_id" name="xooma_member_id" required value="{{profiles.xooma_member_id}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" readonly class="form-control" id="name" name="name" value="{{display_name}}">
+                          <input type="text" readonly class="form-control" id="name" name="name" value="{{profiles.display_name}}">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text3" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                          <input type="email" readonly class="form-control" id="email_id" name="email_id" value="{{email_id}}">
+                          <input type="email" readonly class="form-control" id="email_id" name="email_id" value="{{profiles.email}}">
                         </div>
                       </div>
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{phone_no}}">
+                          <input type="text" class="form-control" id="phone_no" name="phone_no" value="{{profiles.phone_no}}">
                         </div>
                       </div>
                      <div class="form-group">
@@ -225,7 +227,8 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="birth_date"  name="birth_date" required value="{{birth_date}}">
+                              <input class="fieldset__input js__datepicker form-control" type="text" id="birth_date" 
+                              name="birth_date" required >
                             </div>
                       </div>
                        <div class="form-group">
@@ -263,7 +266,7 @@
 
                         <div class="row">
                            <div class="col-sm-12">
-                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Next</button>
+                              <button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right">Save</button>
                             </div>
                         </div>
 
@@ -275,6 +278,7 @@
 </script>
 <script id="profile-measurements-template" type="h-template">
     <div id="measuremnt" class="section">
+    <div class="response_msg"></div>
         <div class="container">
         <form id="add_measurements" class="form-horizontal" role="form" method="POST">
             <div class="row">
@@ -288,7 +292,7 @@
                         <div class="col-md-7">
                             <h4 class="text-left"> <output></output><small>Feet</small></h4>
                         </div>
-                        <input type="range" min="4" max="9" step="0.1" value="{{height}}" id="height" name="height" required data-rangeslider>
+                        <input type="range" min="4" max="9" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
                     </div>
                     </br>
                     </br>
@@ -299,20 +303,20 @@
                         <div class="col-md-7 ">
                             <h4 class="text-left"> <output></output><small>pounds</small></h4>
                         </div>
-                        <input type="range" min="25" max="500" step="1" value="{{weight}}" id="weight" name="weight" required data-rangeslider>
+                        <input type="range" min="25" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
                     </div>
                     </br>
                     </br>
                 </div>
                 <div class="col-sm-6 imageMap">
-                    <a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
+                    <a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
                     <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
                 </div>
                 <div class="row">
@@ -330,6 +334,11 @@
 Add Home template here
 </div>
 </script>
+<div id="nofound-template" >
+
+
+</div>
+
 <!-- build:js({.js}) scripts/vendors.js -->
 <!--
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/modernizr/modernizr.js"></script>
@@ -339,9 +348,12 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.date.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/moxie.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
@@ -352,22 +364,17 @@ Add Home template here
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <!-- endbuild -->
 
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/facebook.js"></script>
-
 <!-- build:js({*.js}) scripts/ajency.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
 <!-- endbuild -->
-
 <script type="text/javascript">
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
     FBAPPID               = '<?php echo FBAPPID ?>';
     if(typeof FBAPPID !== 'undefined')
-        facebookConnectPlugin.browserInit(FBAPPID);
-
+        facebookConnectPlugin.browserInit(App, FBAPPID);
 </script>
 <!-- build:js(*.js) application.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
@@ -377,7 +384,10 @@ Add Home template here
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/profileMeasurementCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/MeasurementView.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
+
+
     <!-- endbuild -->
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/themes/classic.date.css">
 </body>
 </html>
 

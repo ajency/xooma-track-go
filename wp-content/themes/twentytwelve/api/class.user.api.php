@@ -82,7 +82,7 @@ class User_API
         $data['image']                      = $_REQUEST['image'];
         $data['xooma_member_id']            = $_REQUEST['xooma_member_id'];
         $data['phone_no']                   = $_REQUEST['phone_no'];
-        $data['birth_date']                 = $_REQUEST['birth_date'];
+        $data['birth_date']                 = $_REQUEST['birth_date_submit'];
         $data['gender']                     = $_REQUEST['gender'];
         $data['timezone']                   = $_REQUEST['timezone'];
 

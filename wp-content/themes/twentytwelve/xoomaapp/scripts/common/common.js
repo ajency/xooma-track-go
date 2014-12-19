@@ -21,6 +21,20 @@
         success: _successHandler
       });
     },
+    saveProfiles: function(profiles) {
+      var _successHandler;
+      _successHandler = (function(_this) {
+        return function(resp) {
+          return _this.set('profiles', profiles);
+        };
+      })(this);
+      return $.ajax({
+        method: 'POST',
+        url: "" + _SITEURL + "/wp-json/profiles/" + (App.currentUser.get('ID')),
+        data: profiles,
+        success: _successHandler
+      });
+    },
     getFacebookPicture: function() {
       var options;
       options = {
@@ -41,6 +55,11 @@
           });
         }
       });
+    },
+    hasProfilePicture: function() {
+      var profilePicture;
+      profilePicture = this.get('profile_picture');
+      return (parseInt(profilePicture.id) !== 0) || !_.isUndefined(profilePicture.type);
     }
   });
 
@@ -56,5 +75,20 @@
     return HTTPRequestFailView;
 
   })(Marionette.ItemView);
+
+  Ajency.HTTPRequestCtrl = (function(_super) {
+    __extends(HTTPRequestCtrl, _super);
+
+    function HTTPRequestCtrl() {
+      return HTTPRequestCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    HTTPRequestCtrl.prototype.initialize = function(options) {
+      return this.show(new Ajency.HTTPRequestFailView);
+    };
+
+    return HTTPRequestCtrl;
+
+  })(Marionette.RegionController);
 
 }).call(this);

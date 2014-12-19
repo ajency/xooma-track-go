@@ -7,14 +7,13 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 
 	_showView :=>
 		@show new App.ProfileMeasurementsView
-			model : App.currentUser
+								model : App.currentUser
 
 	_get_measurement_details:->
 		if not App.currentUser.has 'measurements'
 			$.ajax
 				method : 'GET'
-				# url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
-				url : "#{_SITEURL}/wp-json/users/139/measurements"
+				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
 				success: @successHandler
 		else
 			deferred = Marionette.Deferred()
@@ -22,7 +21,8 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 			deferred.promise()
 
 	errorHandler : (error)->
-		#@show new Ajency.HTTPRequestFailView
+		@region =  new Marionette.Region el : '#nofound-template'
+		new Ajency.HTTPRequestCtrl region : @region
 
 	successHandler : (response, status)=>
-		App.currentUser.set 'measurements', response
+		App.currentUser.set 'measurements', response.response

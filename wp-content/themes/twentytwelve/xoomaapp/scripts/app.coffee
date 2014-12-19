@@ -33,15 +33,19 @@
 					url : '/notification-info'
 
 
-	# App.addInitializer ->
-	# 	Backbone.history.start()
-	# 	App.currentUser.on 'user:auth:success', ->
-	# 		App.navigate App.currentUser.get('state'), true
+	# 	App.addInitializer ->
+	# 		Backbone.history.start()
+	# 		_.cordovaHideSplashscreen()
+	# 		App.currentUser.on 'user:auth:success', ->
+	# 			App.navigate App.currentUser.get('state'), true
+
+	# 	App.on 'fb:status:connected', ->
+	# 		if not App.currentUser.hasProfilePicture()
+	# 			App.currentUser.getFacebookPicture()
 
 	# App.start()
 		App.addInitializer ->
 			Backbone.history.start()
-			# App.navigate '/login', true
 			_.cordovaHideSplashscreen()
 			
 			App.navigate '/login', true

@@ -13,6 +13,18 @@ _.extend Ajency.CurrentUser::,
 			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
 			data : measurements,
 			success: _successHandler  
+
+	saveProfiles : (profiles)->
+
+		_successHandler = (resp)=>
+			@set 'profiles', profiles
+
+		$.ajax
+			method : 'POST'
+			url : "#{_SITEURL}/wp-json/profiles/#{App.currentUser.get('ID')}"
+			data : profiles
+			success:_successHandler
+
 			   
 
 	getFacebookPicture : ->
@@ -30,9 +42,18 @@ _.extend Ajency.CurrentUser::,
 						thumbnail :
 							url : resp.data.url
 
+
+	hasProfilePicture : ->
+		profilePicture = @get 'profile_picture'
+		(parseInt(profilePicture.id) isnt 0) or not _.isUndefined profilePicture.type
+
+
+
 class Ajency.HTTPRequestFailView extends Marionette.ItemView
+	template : 'Request page not  Found'
 
-	template : 'Request page not  Found' 
-			
 
-	
+class Ajency.HTTPRequestCtrl extends Marionette.RegionController
+	initialize: (options)->
+		@show new Ajency.HTTPRequestFailView
+
