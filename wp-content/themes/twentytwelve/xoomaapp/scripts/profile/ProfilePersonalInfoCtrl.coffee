@@ -7,11 +7,11 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 
 	_showView :=>
 		@show new ProfilePersonalInfoView
-					model : App.currentUser
+						model : App.currentUser
 
 
 	_get_user_details:->
-		if not App.currentUser.has 'profiles'
+		if not App.currentUser.has 'profile'
 			$.ajax
 				method : 'GET'
 				url : "#{_SITEURL}/wp-json/profiles/#{App.currentUser.get('ID')}"
@@ -21,17 +21,16 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 			deferred.resolve(true)
 			deferred.promise()
 
-
 	errorHandler : (error)->
 		@region =  new Marionette.Region el : '#nofound-template'
 		new Ajency.HTTPRequestCtrl region : @region
-				
+
 	successHandler:(response, status,responseCode)=>
 		if responseCode.status is 404
 			@region =  new Marionette.Region el : '#nofound-template'
 			new Ajency.HTTPRequestCtrl region : @region
 		else
-			App.currentUser.set 'profiles' , response.response
+			App.currentUser.set 'profile' , response
 
 
 

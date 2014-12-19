@@ -26,7 +26,7 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
 
   ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
     var deferred;
-    if (!App.currentUser.has('profiles')) {
+    if (!App.currentUser.has('profile')) {
       return $.ajax({
         method: 'GET',
         url: "" + _SITEURL + "/wp-json/profiles/" + (App.currentUser.get('ID')),
@@ -57,7 +57,7 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
         region: this.region
       });
     } else {
-      return App.currentUser.set('profiles', response.response);
+      return App.currentUser.set('profile', response);
     }
   };
 

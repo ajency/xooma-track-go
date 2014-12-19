@@ -25,60 +25,26 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.ui = {
-    form: '#add_user_details',
+    form: '.update_user_details',
     responseMessage: '.response_msg',
-    dateElement: '.js__datepicker'
+    dateElement: 'input[name="profile[birth_date]"]'
   };
 
-  ProfilePersonalInfoView.prototype.events = {
-    'click .radio': function(e) {
-      return $('#gender').val($('#' + e.target.id).val());
-    },
-    'click #measurement': function(e) {
-      return e.preventDefault();
-    },
-    'click #birth_date': function(e) {
-      var $input, picker;
-      $input = this.ui.dateElement.pickadate({
-        formatSubmit: 'yyyy-mm-dd'
-      });
-      picker = $input.pickadate('picker');
-      return picker.set('select', this.model.get('profiles').birth_date, {
-        format: 'yyyy-mm-dd'
-      });
-    }
-  };
-
-  ProfilePersonalInfoView.prototype.onsShow = function() {
-    $('#profile').parent().addClass('active');
-    $('#measurement').bind('click', this.disabler);
-    $('#measurement').css('cursor', 'default');
-    $('#product').bind('click', this.disabler);
-    $('#product').css('cursor', 'default');
-    this.$el.find("#timezone option[value='" + this.model.get('profiles').timezone + "']").attr("selected", "selected");
-    this.$el.find("input[name=radio_grp][value=" + this.model.get('profiles').gender + "]").prop('checked', true);
-    return this.$el.find('#gender').val(this.model.get('profiles').gender);
-  };
-
-  ProfilePersonalInfoView.prototype.disabler = function(e) {
-    e.preventDefault();
-    return false;
+  ProfilePersonalInfoView.prototype.onShow = function() {
+    Backbone.Syphon.deserialize(this, this.model.toJSON());
+    return this.ui.dateElement.pickadate();
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
-    this.model.saveProfiles(_formData).done(this.successHandler).fail(this.errorHandler);
-    return false;
+    console.log(_formData);
+    return this.model.saveProfiles(_formData.profile).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    $('#product').unbind('click', this.disabler);
-    $('#measurement').css('cursor', 'pointer');
     return this.showSuccessMessage();
   };
 
-  ProfilePersonalInfoView.prototype.errorHandler = function(error) {
-    return this.ui.responseMessage.text("Details could not be saved");
-  };
+  ProfilePersonalInfoView.prototype.errorHandler = function(error) {};
 
   return ProfilePersonalInfoView;
 

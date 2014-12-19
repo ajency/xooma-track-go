@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 
-class User 
+class User
 {
 	public function get_user_details($id){
 
@@ -13,24 +13,26 @@ class User
         $user_products = get_user_meta($id,'user_products',true);
         if($user){
 			$user_details =   unserialize($user_details);
-            $images = wp_get_attachment_image_src($user_details['attachment_id'] );
-            $image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
-              '/img/placeholder.jpg';
-			$data = array(
-				'id'				        => $user->ID,
-				'name'      		        => $user->user_login,
-				'email'				        => $user->user_email,
+            $data = array(
 				'xooma_member_id'	        => $xooma_member_id,
 				'phone_no'			        => $user_details['phone_no'],
 				'gender'			        => $user_details['gender'],
 				'birth_date'		        => $user_details['birth_date'],
 				'timezone'			        => $user_details['timezone'],
-				'image'                     => $image,
-                'display_name'              => $user->display_name,
+				'display_name'              => $user->display_name,
                 'user_products'             => $user_products
-				);
-			
-			return array('response' => $data);
+			);
+
+			$data = array(
+				'xooma_member_id'	        => '231231',
+				'phone_no'			        => '221312312321',
+				'gender'			        => 'male',
+				'birth_date'		        => '29 December, 1989',
+				'timezone'			        => 'Asia/Dubai',
+				'user_products'             => array()
+			);
+
+			return $data;
 		}
 		else
 		{
@@ -38,12 +40,12 @@ class User
 		}
 
 
-		
+
 	}
 
 	public function update_user_details($args)
 	{
-		
+
 		//server side valiadation//
         $v = new Valitron\Validator($args);
 
@@ -54,15 +56,15 @@ class User
 
         $v->addRule('equalTo', function($field, $value, array $params) {
             $gender = array('male','female');
-            if(in_array($value, $gender)) 
+            if(in_array($value, $gender))
             {
               return $value;
             }
-            
+
         },'is not matching');
 
         //custom validation rules//
-        
+
         //all the rules defined//
         $v->rule('required', ['gender', 'xooma_member_id','birth_date']);
         $v->rule('integer', ['phone_no','xooma_member_id']);
@@ -90,10 +92,10 @@ class User
         }
 
         if($user_details){
-            
+
 
             return array('reponse'=>$user_details);
-            
+
         }
 		else
 		{
@@ -108,51 +110,51 @@ class User
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
 
-        //insert measurements entery into post table with 
+        //insert measurements entery into post table with
         $user_meta_value = maybe_serialize($args);
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
-        
+
         if(count($sql_query) == 0 && $sql_query == null)
         {
-            
-              $insert_id = $wpdb->insert( 
-                $measurements_table, 
-                array( 
-                  'user_id' => $args['id'], 
+
+              $insert_id = $wpdb->insert(
+                $measurements_table,
+                array(
+                  'user_id' => $args['id'],
                   'date' => date('Y-m-d'),
-                  'value' => $user_meta_value 
-                ), 
-                array( 
-                  '%d', 
-                  '%s', 
-                  '%s' 
-                ) 
+                  'value' => $user_meta_value
+                ),
+                array(
+                  '%d',
+                  '%s',
+                  '%s'
+                )
               );
 
             global $aj_workflow;
             $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
 
-              
+
         }
         else
         {
-              $insert_id = $wpdb->update( 
-                    $measurements_table, 
-                    array( 
-                      'user_id' => $args['id'], 
+              $insert_id = $wpdb->update(
+                    $measurements_table,
+                    array(
+                      'user_id' => $args['id'],
                       'date' => date('Y-m-d'),
-                      'value' => $user_meta_value 
-                    ), 
-                    array( 'ID' => $sql_query->id ), 
-                    array( 
-                      '%d', 
-                      '%s', 
-                      '%s' 
+                      'value' => $user_meta_value
                     ),
-                    array( '%d' ) 
+                    array( 'ID' => $sql_query->id ),
+                    array(
+                      '%d',
+                      '%s',
+                      '%s'
+                    ),
+                    array( '%d' )
                   );
         }
-        
+
         if($insert_id){
 
                 return array('response' => $insert_id);
@@ -174,19 +176,19 @@ class User
 
         if($date != ""){
             $date = $date;
-        } 
+        }
         else
         {
             $date = date('Y-m-d');
         }
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id."" );
-        
-        
+
+
 
         $data = array();
         if(count($sql_query) != 0 && $sql_query!= null){
 
-            
+
 
             $user_details =   maybe_unserialize($sql_query->value);
 
@@ -201,8 +203,8 @@ class User
             $data['hips']  = $user_details['hips'];
             $data['thigh']  = $user_details['thigh'];
             $data['midcalf']  = $user_details['midcalf'];
-            
-            
+
+
             return array('response' => $data);
         }
         else
@@ -211,7 +213,7 @@ class User
         }
 
 
-        
+
     }
 
     public function save_user_product_details($id,$pid){
@@ -221,9 +223,9 @@ class User
 
         $products_data = $ProductList->get_products($pid);
 
-        
 
-        
+
+
         //function to save Anytime users details
         $response = save_anytime_product_details($id,$products_data['response']);
 
@@ -254,18 +256,18 @@ class User
         global $wpdb;
         $product_main_table = $wpdb->prefix . "product_main";
 
-        $updated_id = $wpdb->update( 
-            $product_main_table, 
-            array( 
+        $updated_id = $wpdb->update(
+            $product_main_table,
+            array(
                 'deleted_flag' => 1
-            ), 
+            ),
             array( 'user_id'        => $id,
-                   'product_id'     => $pid    
-            ), 
-            array( '%d'), 
+                   'product_id'     => $pid
+            ),
+            array( '%d'),
             array( '%d',
                    '%d'
-            ) 
+            )
         );
 
         if($updated_id){

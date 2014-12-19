@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/themes/default.css">
 
     <style scoped>
         #buttongroup-home .head {
@@ -172,7 +173,7 @@
         <div class="container">
 
 
-            <form id="add_user_details" class="form-horizontal" role="form">
+            <form class="form-horizontal update_user_details" role="form">
 
 
             <img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture" width="150px" height="150px">
@@ -187,25 +188,25 @@
                       <div class="form-group">
                         <label for="text1" class=" col-sm-3 control-label">xooma id</label>
                         <div class="col-sm-9">
-                          <input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" id="xooma_member_id" name="xooma_member_id"  value="{{profiles.xooma_member_id}}">
+                          <input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text2" class=" col-sm-3 control-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="text" readonly class="form-control" id="name" name="name" value="{{profiles.display_name}}">
+                          <input type="text" readonly class="form-control" name="display_name" >
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="text3" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                          <input type="email" readonly class="form-control" id="email_id" name="email_id" value="{{profiles.email}}">
+                          <input type="email" readonly class="form-control" name="email">
                         </div>
                       </div>
                      <div class="form-group">
                         <label for="text4" class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9">
-                          <input type="text" aj-inputmask="(999) 999 9999" class="form-control" id="phone_no" name="phone_no" value="{{profiles.phone_no}}">
+                          <input type="text" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]" >
                         </div>
                       </div>
                      <div class="form-group">
@@ -213,30 +214,26 @@
                         <div class="col-sm-9">
                         <div class="rd-gender">
                                   <label class="wrap">
-                                    <input type="radio" aj-field-required="true" name="radio_grp" id="male" class="radio" value="male" />
+                                    <input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="male" />
                                     <span class="rd-visual male" title="Male"></span>
                                   </label>
                                   <label class="wrap">
-                                    <input type="radio" aj-field-required="true"  name="radio_grp" id="female" class="radio" value="female"/>
+                                    <input type="radio" aj-field-required="true"  name="profile[gender]" class="radio" value="female"/>
                                     <span class="rd-visual female" title="Female"></span>
                                   </label>
                             </div>
-                            <input type="hidden" name="gender" id="gender" value = "" />
                         </div>
                       </div>
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-
-                              <input class="fieldset__input js__datepicker form-control" type="text" id="birth_date" 
-                              name="birth_date" data-value="{{profiles.birth_date}}" required value="{{profiles.birth_date}}">
-
+                              <input class="form-control" type="text" name="profile[birth_date]"  required />
                             </div>
                       </div>
                        <div class="form-group">
                             <label for="text8" class=" col-sm-3 control-label">Time Zone</label>
                             <div class="col-sm-9">
-                                <select id="timezone" name="timezone">
+                                <select  name="profile[timezone]">
                                     <option value="Asia/Tehran">(GMT+03:30) Tehran</option>
                                     <option value="Asia/Dubai">(GMT+04:00) Abu Dhabi, Muscat</option>
                                     <option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
@@ -348,9 +345,10 @@ Add Home template here
 
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script><script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/src/backbone.syphon.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/lib/backbone.syphon.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/parsleyjs/dist/parsley.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
