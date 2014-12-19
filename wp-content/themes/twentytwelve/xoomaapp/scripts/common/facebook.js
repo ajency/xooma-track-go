@@ -49,7 +49,7 @@ if (!window.cordova) {
             if (!options.picture) {
                 options.picture = "";
             }
-            
+
             // Try will catch errors when SDK has not been init
             try {
                 FB.ui(options,
@@ -75,7 +75,7 @@ if (!window.cordova) {
             if (permissions && permissions.length > 0) {
                 permissionObj.scope = permissions.toString();
             }
-            
+
             FB.login(function (response) {
                 if (response.authResponse) {
                     s(response);
@@ -125,7 +125,7 @@ if (!window.cordova) {
 
         api: function (graphPath, permissions, s, f) {
             // JS API does not take additional permissions
-            
+
             // Try will catch errors when SDK has not been init
             try {
                 FB.api(graphPath, function (response) {
@@ -156,10 +156,16 @@ if (!window.cordova) {
                     xfbml      : true,
                     version    : version
                 });
+
+                FB.getLoginStatus(function(response){
+                	if (response.status === 'connected') {
+		                App.currentUser.getFacebookPicture()
+		            }
+				});
             }
         }
     };
-    
+
     // Bake in the JS SDK
     (function () {
         if (!window.FB) {

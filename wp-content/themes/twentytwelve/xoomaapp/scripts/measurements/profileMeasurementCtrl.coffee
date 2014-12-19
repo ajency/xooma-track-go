@@ -5,23 +5,24 @@ class App.ProfileMeasurementCtrl extends Marionette.RegionController
 		xhr = @_get_measurement_details()
 		xhr.done(@_showView).fail @_showView
 
-	_showView : ->
+	_showView :=>
 		@show new App.ProfileMeasurementsView
-								model : App.currentUser
+			model : App.currentUser
 
 	_get_measurement_details:->
 		if not App.currentUser.has 'measurements'
 			$.ajax
 				method : 'GET'
 				# url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
-				url : "#{_SITEURL}/wp-json/measurements/128"
+				url : "#{_SITEURL}/wp-json/users/139/measurements"
 				success: @successHandler
 		else
-			deferred = Marionette.Deferred
-			deferred.resolve()
+			deferred = Marionette.Deferred()
+			deferred.resolve(true)
+			deferred.promise()
 
 	errorHandler : (error)->
-		@show new Ajency.HTTPRequestFailView
+		#@show new Ajency.HTTPRequestFailView
 
 	successHandler : (response, status)=>
 		App.currentUser.set 'measurements', response

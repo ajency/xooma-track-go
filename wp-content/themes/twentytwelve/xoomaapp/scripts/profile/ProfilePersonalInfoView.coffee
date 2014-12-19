@@ -1,9 +1,13 @@
 
+
 class App.ProfilePersonalInfoView extends Marionette.ItemView
 
 	className : 'animated fadeIn'
 
 	template : '#profile-personal-info-template'
+
+	modelEvents :
+		'change:profile_picture' : 'render'
 
 	events:
 		'click .radio':(e)->
@@ -12,36 +16,39 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 		# 'input birth_date':(e)->
 		# 	getBirthdateValue = $("#birth_date").val();
 
-			
 
 	onShow:->
-			@$el.find("#timezone option[value='"+@model.get('timezone')+"']").attr("selected","selected")
-			$("input[name=radio_grp][value=" + @model.get('gender') + "]").prop('checked', true);
-			$('#gender').val @model.get('gender');
-			
-			jQuery.validator.addMethod("equalLength",  (value, element)-> 
-					return this.optional(element) || (parseInt(value.length) == 6);
-				"* Enter valid 6 digit Xooma ID");
+		@$el.find("#timezone option[value='"+@model.get('timezone')+"']").attr("selected","selected")
+		$("input[name=radio_grp][value=" + @model.get('gender') + "]").prop('checked', true);
+		$('#gender').val @model.get('gender');
 
-			#to initialize validate plugin
-			$("#add_user_details").validate({
+		jQuery.validator.addMethod("equalLength",  (value, element)->
+		    return this.optional(element) || (parseInt(value.length) == 6);
+		  "* Enter valid 6 digit Xooma ID");
 
-				rules:
-					xooma_member_id:
-						number: true
-						equalLength :true
-					
-					phone_no:
-							number: true
+		#to initialize validate plugin
+		$("#add_user_details").validate({
 
-					radio_grp:
-						required:true
-				
-				submitHandler: (form)->
-					
-					$.ajax
+			rules:
+			    xooma_member_id:
+			    	number: true
+			    	equalLength :true
+
+			    phone_no:
+			      	number: true
+
+			    radio_grp:
+			    	required:true
+
+
+
+
+
+
+			submitHandler: (form)->
+				$.ajax
 						method : 'POST',
-						url : _SITEURL+'/wp-json/profiles/2'#+App.currentUser.get('ID'), Id changed for mobile
+						url : _SITEURL+'/wp-json/profiles/139'#+App.currentUser.get('ID'),
 						data : $('#add_user_details').serialize(),
 						success:(response)->
 							if response.status == 404
@@ -49,31 +56,10 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 							else
 								$('.response_msg').text "User details saved successfully"
 
-						
+
 						error:(error)->
 							$('.response_msg').text "Details could not be saved"
 
 
-					return false;
-	
-			})
-
-
-	
-
-
-
-
-
-						
-					 
-					
-			
-
-
-							
-
-	
-								
-
-		
+				return false;
+		})

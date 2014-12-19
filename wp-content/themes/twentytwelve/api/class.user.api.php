@@ -29,7 +29,7 @@ class User_API
             
         );
         //measurements
-        $routes['/measurements/(?P<id>\d+)'] = array(
+        $routes['/users/(?P<id>\d+)/measurements'] = array(
             array( array( $this, 'xooma_get_user_measurement_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_measurement_details'), WP_JSON_Server::CREATABLE ),
             

@@ -11,7 +11,7 @@ class User
 		$user_details = get_user_meta($id,'user_details',true);
 		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
         $user_products = get_user_meta($id,'user_products',true);
-        if($user_details){
+        if($user){
 			$user_details =   unserialize($user_details);
             $images = wp_get_attachment_image_src($user_details['attachment_id'] );
             $image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
@@ -26,7 +26,7 @@ class User
 				'birth_date'		        => $user_details['birth_date'],
 				'timezone'			        => $user_details['timezone'],
 				'image'                     => $image,
-                'attachment_id'             => $user_details['attachment_id'],
+                'display_name'              => $user->display_name,
                 'user_products'             => $user_products
 				);
 			
@@ -34,7 +34,7 @@ class User
 		}
 		else
 		{
-			new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
 		}
 
 
@@ -92,16 +92,17 @@ class User
         $user_meta_value = serialize($args);
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
-        
+
         if($user_details && $xooma_member_id){
+            
 
             global $aj_workflow;
-            $aj_workflow->workflow_update_user($args['id'],'profile');
+            $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
         	return array('status' => 200 ,'response' => $user_details);
         }
 		else
 		{
-			new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
+			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ), array( 'status' => 500 ) );
 
 		}
 
@@ -113,7 +114,7 @@ class User
         $measurements_table = $wpdb->prefix . "measurements";
 
         //insert measurements entery into post table with 
-        $user_meta_value = serialize($args);
+        $user_meta_value = maybe_serialize($args);
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
         
         if(count($sql_query) == 0 && $sql_query == null)
@@ -156,6 +157,9 @@ class User
         
         if($insert_id){
 
+                global $aj_workflow;
+                $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
+
                 return array('status' => 200 ,'response' => $insert_id);
               }
         else
@@ -168,7 +172,7 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date){
+  public function get_user_measurement_details($id,$date=""){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
@@ -180,27 +184,29 @@ class User
         {
             $date = date('Y-m-d');
         }
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
-       
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id."" );
+        
         
 
         $data = array();
         if(count($sql_query) != 0 || $sql_query!= null){
-            $user_details =   unserialize($sql_query->value);
-           
-            $data = array(
-                'id'                        => $id,
-                'height'                    => $user_details['height'],
-                'weight'                    => $user_details['weight'],
-                'neck'                      => $user_details['neck'],
-                'check'                     => $user_details['check'],
-                'waist'                     => $user_details['waist'],
-                'abdomen'                   => $user_details['abdomen'],
-                'hips'                      => $user_details['hips'],
-                'thigh'                     => $user_details['thigh'],
-                'midcalf'                   => $user_details['midcalf'],
-                'calf'                      => $user_details['calf']
-                );
+
+            
+
+            $user_details =   maybe_unserialize($sql_query->value);
+
+
+
+            $data['height']  = $user_details['height'];
+            $data['weight']  = $user_details['weight'];
+            $data['neck']  = $user_details['neck'];
+            $data['chest']  = $user_details['chest'];
+            $data['abdomen']  = $user_details['abdomen'];
+            $data['waist']  = $user_details['waist'];
+            $data['hips']  = $user_details['hips'];
+            $data['thigh']  = $user_details['thigh'];
+            $data['midcalf']  = $user_details['midcalf'];
+            
             
             return array('status' => 200 ,'response' => $data);
         }

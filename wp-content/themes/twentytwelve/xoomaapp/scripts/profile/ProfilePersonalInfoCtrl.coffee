@@ -6,10 +6,9 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 			# return false
 		else
 			@user = @_get_user_details()
+		# @user = @_get_user_details()
 
-		App.execute "when:fetched", [@user], =>
-			console.log @user
-			@show new App.ProfilePersonalInfoView 
+		@show new App.ProfilePersonalInfoView 
 					model: @user
 					
 
@@ -18,14 +17,14 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 	_get_user_details:->
 		$.ajax
 			method : 'GET',
-			url : _SITEURL+'/wp-json/profiles/2'#+App.currentUser.get('ID'), Id changed for mobile
+			url : _SITEURL+'/wp-json/profiles/139'#+App.currentUser.get('ID'),
 			data : '',
 			success:(response)->
 				response_data = response
 				App.currentUser.set 'xooma_member_id' , response_data.response.xooma_member_id
 				App.currentUser.set 'name' , response_data.response.name
 				App.currentUser.set 'email_id' , response_data.response.email
-				App.currentUser.set 'image' , response_data.response.image
+				App.currentUser.set 'display_name' , response_data.response.display_name
 				App.currentUser.set 'gender' , response_data.response.gender
 				App.currentUser.set 'phone_no' , response_data.response.phone_no
 				App.currentUser.set 'timezone' , response_data.response.timezone
