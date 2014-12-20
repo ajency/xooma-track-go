@@ -495,7 +495,10 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     FormBehavior.prototype._showSuccessMessage = function() {
+      if(this.ui.responseMessage.length === 0)
+      	return;
       this.ui.responseMessage.addClass('alert-success').html(this.options.successMessage);
+      $('body,html').animate({scrollTop : this.ui.responseMessage.offset().top}, 'slow');
       return this._removeFormSubmitClass();
     };
 

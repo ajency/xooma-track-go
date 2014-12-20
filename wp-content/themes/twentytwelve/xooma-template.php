@@ -169,10 +169,10 @@
 <script id="profile-personal-info-template" type="h-template">
 
     <div id="personalinfo" class="section">
-    <div class="aj-response-message"></div>
+
         <div class="container">
 
-
+        	<div class="aj-response-message"></div>
             <form class="form-horizontal update_user_details" role="form">
 
 
@@ -200,7 +200,7 @@
                       <div class="form-group">
                         <label for="text3" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9">
-                          <input type="email" readonly class="form-control" name="email">
+                          <input type="email" readonly class="form-control" name="user_email">
                         </div>
                       </div>
                      <div class="form-group">
