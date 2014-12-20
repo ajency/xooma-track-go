@@ -1,6 +1,15 @@
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 
+
+_.extend Marionette.Application::,
+
+	isLoggedInState : (stateName)->
+		notLoggedInStates = [
+			'login'
+		]
+		notLoggedInStates.indexOf(stateName) is -1
+
 _.extend Ajency.CurrentUser::,
 
 	_getUrl : (property)->

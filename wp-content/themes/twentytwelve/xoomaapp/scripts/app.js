@@ -28,5 +28,15 @@ jQuery(document).ready(function($) {
       return App.currentUser.getFacebookPicture();
     }
   });
+  App.on('state:transition:start', function(evt, stateName, params) {
+    if (!App.currentUser.isLoggedIn() && App.isLoggedInState(stateName)) {
+      evt.preventDefault();
+      App.navigate('/login', true);
+    }
+    if (App.currentUser.isLoggedIn() && stateName === 'login') {
+      evt.preventDefault();
+      return App.navigate('/profile/personal-info', true);
+    }
+  });
   return App.start();
 });

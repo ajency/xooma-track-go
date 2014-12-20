@@ -1,6 +1,6 @@
 {
   "name": "ajency.marionette",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "homepage": "https://github.com/surajajency/ajency.marionette",
   "authors": [
     "Suraj Air <suraj@ajency.in>"
@@ -24,19 +24,22 @@
     "backbone.marionette": "~2.3.0",
     "handlebars": "~2.0.0",
     "marionette.state": "git@github.com:ajency/marionette.state.git#~0.1.0",
-    "jQuery-Storage-API": "~1.7.3"
+    "jQuery-Storage-API": "~1.7.3",
+    "jquery.inputmask": "~3.1.48",
+    "parsleyjs": "~2.0.6",
+    "backbone.syphon": "~0.4.1"
   },
   "devDependencies": {
     "jasmine-jquery": "~2.0.5",
     "jasmine-ajax": "~2.99.0"
   },
-  "_release": "0.2.6",
+  "_release": "0.3.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.6",
-    "commit": "272c56a47cad649d81ea9944b716fb699fcf04dc"
+    "tag": "v0.3.0",
+    "commit": "1e3fd198df63017e02dfecb4b04867055c9fe419"
   },
   "_source": "https://github.com/ajency/ajency.marionette.git",
-  "_target": "~0.2.5",
+  "_target": "~0.3.0",
   "_originalSource": "https://github.com/ajency/ajency.marionette.git"
 }

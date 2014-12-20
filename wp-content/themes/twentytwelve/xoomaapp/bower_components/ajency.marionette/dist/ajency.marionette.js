@@ -459,7 +459,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     FormBehavior.prototype._initMasking = function() {
       var inputFields;
       inputFields = this.view.$('[aj-inputmask]');
-      console.log(inputFields);
       return inputFields.each(function(index, field) {
         return $(field).inputmask($(field).attr('aj-inputmask'));
       });
@@ -495,10 +494,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     FormBehavior.prototype._showSuccessMessage = function() {
-      if(this.ui.responseMessage.length === 0)
-      	return;
       this.ui.responseMessage.addClass('alert-success').html(this.options.successMessage);
-      $('body,html').animate({scrollTop : this.ui.responseMessage.offset().top}, 'slow');
       return this._removeFormSubmitClass();
     };
 

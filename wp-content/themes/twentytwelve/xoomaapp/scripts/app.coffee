@@ -35,4 +35,13 @@ jQuery(document).ready ($)->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
+	App.on 'state:transition:start', (evt, stateName, params)->
+		if not App.currentUser.isLoggedIn() and App.isLoggedInState stateName
+			evt.preventDefault()
+			App.navigate '/login', true
+
+		if App.currentUser.isLoggedIn() and stateName is 'login'
+			evt.preventDefault()
+			App.navigate '/profile/personal-info', true
+
 	App.start()

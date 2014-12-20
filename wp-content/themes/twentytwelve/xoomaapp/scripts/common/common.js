@@ -6,6 +6,14 @@ App.LoginCtrl = Ajency.LoginCtrl;
 
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl;
 
+_.extend(Marionette.Application.prototype, {
+  isLoggedInState: function(stateName) {
+    var notLoggedInStates;
+    notLoggedInStates = ['login'];
+    return notLoggedInStates.indexOf(stateName) === -1;
+  }
+});
+
 _.extend(Ajency.CurrentUser.prototype, {
   _getUrl: function(property) {
     return "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/" + property;
