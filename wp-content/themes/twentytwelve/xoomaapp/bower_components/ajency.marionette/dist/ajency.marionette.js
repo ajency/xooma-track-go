@@ -4,7 +4,7 @@
  * Ajency.Marionette
  * https://github.com/ajency/ajency.marionette/wiki
  * --------------------------------------------------
- * Version: v0.2.3
+ * Version: v0.3.0
  *
  * Copyright(c) 2014 Team Ajency, Ajency.in
  * Distributed under MIT license
@@ -36,10 +36,161 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   }
 })(this, function(root, $, Backbone, _, Marionette, Handlebars) {
   "use strict";
-  var Ajency, NothingFoundView, authNS, currentUser, currentUserNS;
+  var Ajency, NothingFoundView, authNS, currentUser, currentUserNS, currentUserTemplate, uploadTemplate;
   Ajency = {};
   authNS = $.initNamespaceStorage('auth');
   currentUserNS = $.initNamespaceStorage('currentUser');
+  if (!window.cordova) {
+    window.facebookConnectPlugin = {
+      getLoginStatus: function(s, f) {
+        var error;
+        try {
+          FB.getLoginStatus(function(response) {
+            s(response);
+          });
+        } catch (_error) {
+          error = _error;
+          if (!f) {
+            console.error(error.message);
+          } else {
+            f(error.message);
+          }
+        }
+      },
+      showDialog: function(options, s, f) {
+        var error;
+        if (!options.name) {
+          options.name = "";
+        }
+        if (!options.message) {
+          options.message = "";
+        }
+        if (!options.caption) {
+          options.caption = "";
+        }
+        if (!options.description) {
+          options.description = "";
+        }
+        if (!options.href) {
+          options.href = "";
+        }
+        if (!options.picture) {
+          options.picture = "";
+        }
+        try {
+          FB.ui(options, function(response) {
+            if (response && (response.request || !response.error_code)) {
+              s(response);
+            } else {
+              f(response);
+            }
+          });
+        } catch (_error) {
+          error = _error;
+          if (!f) {
+            console.error(error.message);
+          } else {
+            f(error.message);
+          }
+        }
+      },
+      login: function(permissions, s, f) {
+        var permissionObj;
+        permissionObj = {};
+        if (permissions && permissions.length > 0) {
+          permissionObj.scope = permissions.toString();
+        }
+        FB.login((function(response) {
+          if (response.authResponse) {
+            s(response);
+          } else {
+            f(response.status);
+          }
+        }), permissionObj);
+      },
+      getAccessToken: function(s, f) {
+        var response;
+        response = FB.getAccessToken();
+        if (!response) {
+          if (!f) {
+            console.error("NO_TOKEN");
+          } else {
+            f("NO_TOKEN");
+          }
+        } else {
+          s(response);
+        }
+      },
+      logEvent: function(eventName, params, valueToSum, s, f) {
+        s();
+      },
+      logPurchase: function(value, currency, s, f) {
+        s();
+      },
+      logout: function(s, f) {
+        var error;
+        try {
+          FB.logout(function(response) {
+            s(response);
+          });
+        } catch (_error) {
+          error = _error;
+          if (!f) {
+            console.error(error.message);
+          } else {
+            f(error.message);
+          }
+        }
+      },
+      api: function(graphPath, permissions, s, f) {
+        var error;
+        try {
+          FB.api(graphPath, function(response) {
+            if (response.error) {
+              f(response);
+            } else {
+              s(response);
+            }
+          });
+        } catch (_error) {
+          error = _error;
+          if (!f) {
+            console.error(error.message);
+          } else {
+            f(error.message);
+          }
+        }
+      },
+      browserInit: function(app, appId, version) {
+        if (version == null) {
+          version = 'v2.2';
+        }
+        return window.fbAsyncInit = function() {
+          FB.init({
+            appId: appId,
+            cookie: true,
+            xfbml: true,
+            version: version
+          });
+          return FB.getLoginStatus(function(response) {
+            if (response.status === "connected") {
+              return app.trigger('fb:status:connected');
+            }
+          });
+        };
+      }
+    };
+    (function() {
+      var e;
+      if (!window.FB && $("#fb-root").length > 0) {
+        console.log("launching FB SDK");
+        e = document.createElement("script");
+        e.src = document.location.protocol + "//connect.facebook.net/en_US/sdk.js";
+        e.async = true;
+        document.getElementById("fb-root").appendChild(e);
+      }
+    })();
+  }
   _.extend(Marionette.TemplateCache, {
     get: function(template) {
       var cachedTemplate, templateId;
@@ -62,11 +213,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     },
     compileTemplate: function(rawTemplate) {
       return Handlebars.compile(rawTemplate);
-    }
-  });
-  _.mixin({
-    isFbDefined: function() {
-      return typeof FB === 'object';
     }
   });
   Ajency.CurrentUser = (function(_super) {
@@ -126,16 +272,13 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     CurrentUser.prototype.getFacebookPicture = function() {
       var options;
-      if (!_.isFbDefined()) {
-        return;
-      }
       options = {
         "redirect": false,
         "height": "200",
         "type": "normal",
         "width": "200"
       };
-      return FB.api("/me/picture", options, this._setProfilePicture);
+      return facebookConnectPlugin.api("/me/picture", [], this._setProfilePicture);
     };
 
     CurrentUser.prototype._setProfilePicture = function(resp) {
@@ -220,7 +363,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
         url: '/*notFound'
       }
     },
-    navigate: Backbone.Router.prototype.navigate,
     getCurrentRoute: function() {
       return Backbone.history.getFragment();
     },
@@ -279,6 +421,94 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     return ActiveLinkBehavior;
+
+  })(Marionette.Behavior);
+  Ajency.FormBehavior = (function(_super) {
+    __extends(FormBehavior, _super);
+
+    function FormBehavior() {
+      this._showRequestFailerMessage = __bind(this._showRequestFailerMessage, this);
+      this._showSuccessMessage = __bind(this._showSuccessMessage, this);
+      return FormBehavior.__super__.constructor.apply(this, arguments);
+    }
+
+    FormBehavior.prototype.ui = {
+      submitButton: '.aj-submit-button',
+      responseMessage: '.aj-response-message'
+    };
+
+    FormBehavior.prototype.defaults = function() {
+      return {
+        successMessage: 'Enter your success message in behavior options',
+        errorMessage: 'Enter your error message in behavior options'
+      };
+    };
+
+    FormBehavior.prototype.events = {
+      'click @ui.submitButton': '_validateForm'
+    };
+
+    FormBehavior.prototype.initialize = function() {
+      this.listenTo(this.view, 'render', this._initMasking);
+      this.listenTo(this.view, 'render', this._initValidation);
+      this.listenTo(this.view, 'destroy', this._cleanUpView);
+      this.view.showSuccessMessage = this._showSuccessMessage;
+      return this.view.showRequestFailerMessage = this._showRequestFailerMessage;
+    };
+
+    FormBehavior.prototype._initMasking = function() {
+      var inputFields;
+      inputFields = this.view.$('[aj-inputmask]');
+      console.log(inputFields);
+      return inputFields.each(function(index, field) {
+        return $(field).inputmask($(field).attr('aj-inputmask'));
+      });
+    };
+
+    FormBehavior.prototype._initValidation = function() {
+      if (this.view.$el.prop('tagName') === 'FORM') {
+        this.form = this.view.$el;
+      } else {
+        if (this.view.$('form').length === 0) {
+          throw new Marionette.Error('Form tag missing. Please add a form');
+        }
+        this.form = this.view.$('form');
+      }
+      this.form.attr('data-parsley-namespace', 'aj-field-');
+      return this.validator = this.view.validator = $(this.form).parsley();
+    };
+
+    FormBehavior.prototype._cleanUpView = function() {
+      delete this.view.validator;
+      delete this.view.showSuccessMessage;
+      return delete this.view.showRequestFailerMessage;
+    };
+
+    FormBehavior.prototype._validateForm = function(evt) {
+      var formData;
+      evt.preventDefault();
+      if (this.validator.validate()) {
+        this.ui.submitButton.addClass('aj-form-submit-in-process');
+        formData = Backbone.Syphon.serialize(this.view);
+        return this.view.triggerMethod('form:submit', formData);
+      }
+    };
+
+    FormBehavior.prototype._showSuccessMessage = function() {
+      this.ui.responseMessage.addClass('alert-success').html(this.options.successMessage);
+      return this._removeFormSubmitClass();
+    };
+
+    FormBehavior.prototype._showRequestFailerMessage = function() {
+      this.ui.responseMessage.addClass('alert-danger').html(this.options.errorMessage);
+      return this._removeFormSubmitClass();
+    };
+
+    FormBehavior.prototype._removeFormSubmitClass = function() {
+      return this.ui.submitButton.removeClass('aj-form-submit-in-process');
+    };
+
+    return FormBehavior;
 
   })(Marionette.Behavior);
   Ajency.NoAccessView = (function(_super) {
@@ -357,6 +587,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     __extends(LoginView, _super);
 
     function LoginView() {
+      this._fbLoginSuccess = __bind(this._fbLoginSuccess, this);
       this._fbLoginHandler = __bind(this._fbLoginHandler, this);
       this.loginWithFacebook = __bind(this.loginWithFacebook, this);
       return LoginView.__super__.constructor.apply(this, arguments);
@@ -387,24 +618,35 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     LoginView.prototype.loginWithFacebook = function(evt) {
       var _scope;
-      if (!_.isFbDefined()) {
-        throw new Marionette.Error('Please add facebook SDK');
-      }
       _scope = this.ui.fbLoginButton.attr('fb-scope');
       _scope = !_.isString(_scope) ? '' : _scope;
-      return facebookConnectPlugin.login(_.flatten([_scope]), this._fbLoginHandler, function(){});
+      return facebookConnectPlugin.getLoginStatus((function(_this) {
+        return function(resp) {
+          if (resp.status !== 'connected') {
+            return facebookConnectPlugin.login(_scope, _this._fbLoginHandler);
+          } else {
+            return _this._fbLoginSuccess();
+          }
+        };
+      })(this));
     };
 
     LoginView.prototype._fbLoginHandler = function(response) {
       if (response.authResponse) {
-        return facebookConnectPlugin.api('/me',[], (function(_this) {
-          return function(user) {
-            return _this.triggerMethod('facebook:login:success', user, response.authResponse.accessToken);
-          };
-        })(this));
+        return this._fbLoginSuccess();
       } else {
         return this.triggerMethod('facebook:login:cancel');
       }
+    };
+
+    LoginView.prototype._fbLoginSuccess = function() {
+      return facebookConnectPlugin.api('/me', [], (function(_this) {
+        return function(user) {
+          return facebookConnectPlugin.getAccessToken(function(token) {
+            return _this.trigger('facebook:login:success', user, token);
+          });
+        };
+      })(this));
     };
 
     LoginView.prototype.loginDefault = function() {
@@ -473,5 +715,170 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     return NothingFoundCtrl;
 
   })(Marionette.RegionController);
+  uploadTemplate = '<img src="{{sizes.thumbnail.url}}" width="100" height="100" class="img-responsive img-rounded" /> <input type="hidden" name="media_id" value="{{id}}"/> <input type="hidden" name="media_sizes" value="{{sizesToString}}"/> <div id="filelist">Your browser doesnt have Flash, Silverlight or HTML5 support.</div> <br /> <div id="container"> <a id="pickfiles" href="javascript:;">[Select file]</a> <a id="uploadfiles" href="javascript:;">[Upload file]</a> </div> <br />';
+  Ajency.UploadView = (function(_super) {
+    __extends(UploadView, _super);
+
+    function UploadView() {
+      return UploadView.__super__.constructor.apply(this, arguments);
+    }
+
+    UploadView.prototype.template = Handlebars.compile(uploadTemplate);
+
+    UploadView.prototype.initialize = function(opt) {
+      return this.model = opt.model, opt;
+    };
+
+    UploadView.prototype.mixinTemplateHelpers = function(data) {
+      data = UploadView.__super__.mixinTemplateHelpers.call(this, data);
+      data.sizesToString = JSON.stringify(data.sizes);
+      return data;
+    };
+
+    UploadView.prototype._pluploadHeaders = function() {
+      var HTTP_X_API_KEY, HTTP_X_SHARED_SECRET, apiSignature, args, timeStamp;
+      if (!authNS.localStorage.isSet('HTTP_X_API_KEY')) {
+        return;
+      }
+      apiSignature = '';
+      timeStamp = _.now();
+      HTTP_X_API_KEY = authNS.localStorage.get('HTTP_X_API_KEY');
+      HTTP_X_SHARED_SECRET = authNS.localStorage.get('HTTP_X_SHARED_SECRET');
+      args = {
+        'api_key': HTTP_X_API_KEY,
+        'timestamp': timeStamp + '',
+        'request_method': 'POST',
+        'request_uri': ("" + APIURL + "/attachments").replace(window.location.origin, '')
+      };
+      apiSignature = CryptoJS.MD5(JSON.stringify(args) + HTTP_X_SHARED_SECRET);
+      return {
+        'HTTP_X_API_KEY': HTTP_X_API_KEY,
+        'HTTP_X_API_TIMESTAMP': timeStamp,
+        'HTTP_X_API_SIGNATURE': apiSignature
+      };
+    };
+
+    UploadView.prototype.onShow = function() {
+      this.uploaded = 0;
+      this.uploader = new plupload.Uploader({
+        runtimes: "gears,html5,flash,silverlight,browserplus",
+        file_data_name: "async-upload",
+        browse_button: "pickfiles",
+        multiple_queues: true,
+        multipart: true,
+        urlstream_upload: true,
+        max_file_size: "2mb",
+        url: "" + APIURL + "/attachments",
+        flash_swf_url: "" + _SITEURL + "/wp-includes/js/plupload/plupload.flash.swf",
+        silverlight_xap_url: "" + _SITEURL + "/wp-includes/js/plupload/plupload.silverlight.xap",
+        headers: this._pluploadHeaders(),
+        filters: [
+          {
+            title: "Image files",
+            extensions: "jpg,gif,png"
+          }
+        ],
+        multipart_params: {
+          action: "upload-attachment",
+          _wpnonce: _WP_MEDIA_NONCE
+        },
+        init: {
+          PostInit: function(up) {
+            document.getElementById("filelist").innerHTML = "";
+            return document.getElementById("uploadfiles").onclick = function() {
+              return up.start();
+            };
+          },
+          FilesAdded: function(up, files) {
+            return plupload.each(files, function(file) {
+              return document.getElementById("filelist").innerHTML += "<div id=\"" + file.id + "\">" + file.name + " (" + plupload.formatSize(file.size) + ") <b></b></div>";
+            });
+          },
+          UploadProgress: function(up, file) {
+            return document.getElementById(file.id).getElementsByTagName("b")[0].innerHTML = "<span>" + file.percent + "%</span>";
+          },
+          Error: function(up, err) {
+            return document.getElementById("console").innerHTML += "\nError #" + err.code + ": " + err.message;
+          },
+          FileUploaded: (function(_this) {
+            return function(up, file, response) {
+              response = JSON.parse(response.response);
+              _this.model.set(response);
+              _this.$el.find('img').attr('src', _this.model.get('sizes')['thumbnail']['url']);
+              _this.$el.find('input[name="media_id"]').val(_this.model.get('id'));
+              return _this.$el.find('input[name="media_sizes"]').val(JSON.stringify(_this.model.get('sizes')));
+            };
+          })(this)
+        }
+      });
+      return this.uploader.init();
+    };
+
+    UploadView.prototype.onClose = function() {
+      return this.uploader.destroy();
+    };
+
+    return UploadView;
+
+  })(Marionette.ItemView);
+  Ajency.FileUploadCtrl = (function(_super) {
+    __extends(FileUploadCtrl, _super);
+
+    function FileUploadCtrl() {
+      return FileUploadCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    FileUploadCtrl.prototype.initialize = function(opt) {
+      var model;
+      if (opt == null) {
+        opt = {};
+      }
+      model = opt.model;
+      return this.show(new Ajency.UploadView({
+        model: model
+      }));
+    };
+
+    return FileUploadCtrl;
+
+  })(Marionette.RegionController);
+  currentUserTemplate = '<div data-placement="bottom" data-toggle="popover" title="{{display_name}}" >&nbsp; {{display_name}} &nbsp;<img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div> <div class="hidden popover-content"> <div class="text-center"> <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;"> <button class="btn btn-small logout-button" >Logout</button> </div> </div>';
+  Ajency.CurrentUserView = (function(_super) {
+    __extends(CurrentUserView, _super);
+
+    function CurrentUserView() {
+      return CurrentUserView.__super__.constructor.apply(this, arguments);
+    }
+
+    CurrentUserView.prototype.template = Handlebars.compile(currentUserTemplate);
+
+    CurrentUserView.prototype.modelEvents = {
+      'change': 'render'
+    };
+
+    CurrentUserView.prototype.ui = {
+      'logoutButton': '.logout-button'
+    };
+
+    CurrentUserView.prototype.events = {
+      'click @ui.logoutButton': 'logoutApp'
+    };
+
+    CurrentUserView.prototype.logoutApp = function() {
+      return currentUser.logout();
+    };
+
+    CurrentUserView.prototype.onRender = function() {
+      var _content;
+      _content = this.$el.find('.popover-content').html();
+      return this.$el.find('[data-toggle="popover"]').popover({
+        html: true,
+        content: _content
+      });
+    };
+
+    return CurrentUserView;
+
+  })(Marionette.ItemView);
   return Ajency;
 });

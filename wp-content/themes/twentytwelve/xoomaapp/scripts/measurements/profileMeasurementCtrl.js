@@ -39,10 +39,17 @@ App.ProfileMeasurementCtrl = (function(_super) {
     }
   };
 
-  ProfileMeasurementCtrl.prototype.errorHandler = function(error) {};
+  ProfileMeasurementCtrl.prototype.errorHandler = function(error) {
+    this.region = new Marionette.Region({
+      el: '#nofound-template'
+    });
+    return new Ajency.HTTPRequestCtrl({
+      region: this.region
+    });
+  };
 
   ProfileMeasurementCtrl.prototype.successHandler = function(response, status) {
-    return App.currentUser.set('measurements', response);
+    return App.currentUser.set('measurements', response.response);
   };
 
   return ProfileMeasurementCtrl;

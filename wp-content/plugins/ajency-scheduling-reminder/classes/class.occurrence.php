@@ -43,7 +43,8 @@ class Occurrence{
 		$r = new \When\When();
 		$r->startDate(new \DateTime($start_dt))
 		  ->until(new \DateTime($end_dt))
-		  ->rrule($rrule)->generateOccurrences();
+		  ->rrule($rrule)
+		  ->generateOccurrences();
 
 		return $r->occurrences;
 	}
@@ -73,6 +74,7 @@ class Occurrence{
 
 		$arr = array();
 
+		//#_TODO: Move these functions out of this function
 		function merge_occurrences_into_expected($exp_occ, $occ, $s_id){
 			$data = array();
 			for($i =0, $len = count($exp_occ); $i < $len; $i++) {
@@ -191,11 +193,3 @@ class Occurrence{
 	}
 }
 
-
-add_action('init', function(){
-
-	$occurrences = Occurrence::get_occurrences(3, '2014-12-18 00:00:00', '2014-12-18 23:59:59');
-
-	wp_send_json($occurrences);die;
-
-});

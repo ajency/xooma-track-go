@@ -23,5 +23,10 @@ jQuery(document).ready(function($) {
       return App.navigate(App.currentUser.get('state'), true);
     });
   });
+  App.on('fb:status:connected', function() {
+    if (!App.currentUser.hasProfilePicture()) {
+      return App.currentUser.getFacebookPicture();
+    }
+  });
   return App.start();
 });

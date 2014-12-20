@@ -1,8 +1,8 @@
 <?php
 
 function im_json_api_default_filters_users( $server ) {
-    
-	
+
+
     global $user_api;
 
     global $user;
@@ -11,8 +11,8 @@ function im_json_api_default_filters_users( $server ) {
 
     $user_api = new User_API( $server);
 
-    
-	add_filter( 'json_endpoints', array( $user_api, 'register_routes' ) ); 
+
+	add_filter( 'json_endpoints', array( $user_api, 'register_routes' ) );
 
 }
 add_action( 'wp_json_server_before_serve', 'im_json_api_default_filters_users', 12, 1 );
@@ -26,35 +26,35 @@ class User_API
             array( array( $this, 'xooma_get_user_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_details'), WP_JSON_Server::CREATABLE ),
 
-            
+
         );
         //measurements
         $routes['/users/(?P<id>\d+)/measurements'] = array(
             array( array( $this, 'xooma_get_user_measurement_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_measurement_details'), WP_JSON_Server::CREATABLE ),
-            
+
         );
-        //users 
+        //users
         $routes['/users/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
             array( array( $this, 'xooma_save_user_product_details'), WP_JSON_Server::CREATABLE),
             array( array( $this, 'xooma_get_user_product_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_remove_user_product_details'), WP_JSON_Server::DELETABLE),
-            
+
         );
         //update user's product
         $routes['/trackers/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
             array( array( $this, 'xooma_update_user_product_details'), WP_JSON_Server::CREATABLE)
-            
+
         );
         //facebook login route
         $routes['/tokens'] = array(
             array( array( $this, 'store_user_login_details'), WP_JSON_Server::CREATABLE)
         );
-        
 
 
 
-        
+
+
 
 
 
@@ -67,6 +67,22 @@ class User_API
     	global $user;
 
     	$response = $user->get_user_details($id);
+
+
+
+        if(is_wp_error($response)){
+        	$response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+           	 $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+        }
+
 
         return $response;
 
@@ -82,11 +98,25 @@ class User_API
         $data['image']                      = $_REQUEST['image'];
         $data['xooma_member_id']            = $_REQUEST['xooma_member_id'];
         $data['phone_no']                   = $_REQUEST['phone_no'];
-        $data['birth_date']                 = $_REQUEST['birth_date'];
+        $data['birth_date']                 = $_REQUEST['birth_date_submit'];
         $data['gender']                     = $_REQUEST['gender'];
         $data['timezone']                   = $_REQUEST['timezone'];
 
         $response = $user->update_user_details($data);
+
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
 
         return $response;
 
@@ -113,6 +143,19 @@ class User_API
 
         $response = $user->update_user_measurement_details($data);
 
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
         return $response;
 
     }
@@ -123,6 +166,19 @@ class User_API
         global $user;
 
         $response = $user->get_user_measurement_details($id,$date="");
+
+        if(is_wp_error($response)){
+
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
 
         return $response;
 
@@ -187,7 +243,7 @@ class User_API
         $data['user_login']             = $_REQUEST['user_login'];
         $data['user_pass']              = $_REQUEST['user_pass'];
         $data['userData']               = $_REQUEST['userData'];
-        
+
         $response               = get_fblogin_status($data);
 
         return $response;

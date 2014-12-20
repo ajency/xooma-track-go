@@ -33,6 +33,9 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
+    $('#measurement').parent().addClass('active');
+    $('#product').bind('click', this.disabler);
+    $('#product').css('cursor', 'default');
     this.ui.popoverElements.popover({
       html: true
     });
@@ -49,6 +52,11 @@ ProfileMeasurementsView = (function(_super) {
     });
   };
 
+  ProfileMeasurementsView.prototype.disabler = function(e) {
+    e.preventDefault();
+    return false;
+  };
+
   ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
     var _formData;
     _formData = $('#add_measurements').serialize();
@@ -56,8 +64,8 @@ ProfileMeasurementsView = (function(_super) {
     return false;
   };
 
-  ProfileMeasurementsView.prototype.successHandler = function(response, status) {
-    if (status === 404) {
+  ProfileMeasurementsView.prototype.successHandler = function(response, status, responseCode) {
+    if (responseCode.status === 404) {
       return this.ui.responseMessage.text("Something went wrong");
     } else {
       return this.ui.responseMessage.text("User details saved successfully");

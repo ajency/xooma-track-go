@@ -15,6 +15,9 @@ class ProfileCtrlView extends Marionette.LayoutView
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
 
+	
+
+
 class App.ProfileCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new ProfileCtrlView
