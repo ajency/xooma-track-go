@@ -1088,7 +1088,7 @@ h5,
 }
 h6,
 .h6 {
-  font-size: 17px;
+  font-size: 14px;
 }
 p {
   margin: 0 0 11.5px;
@@ -6379,6 +6379,44 @@ body > .container {
 .section {
   padding: 150px 0px 10px 0px;
 }
+.list-style li {
+  border-bottom: 1px solid #cccccc;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+}
+.list-style li .list-title {
+  margin-bottom: 10px;
+}
+.list-style li .list-title h1,
+.list-style li .list-title h2,
+.list-style li .list-title h3,
+.list-style li .list-title h4,
+.list-style li .list-title h5,
+.list-style li .list-title h6 {
+  margin: 3px;
+}
+.list-style li .text-success {
+  margin-bottom: 10px;
+  display: block;
+}
+.list-style li:before {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  content: "\e080";
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  font-size: 21px;
+  color: #ccc;
+  width: 40px;
+  height: 40px;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
@@ -6422,7 +6460,7 @@ body > .container {
   color: inherit;
   margin-top: 11.5px;
   margin-bottom: 11.5px;
-  font-size: 17px;
+  font-size: 14px;
   margin: 0;
 }
 .topheader .navbar > li > a small,
@@ -6460,7 +6498,7 @@ body > .container {
   color: inherit;
   margin-top: 11.5px;
   margin-bottom: 11.5px;
-  font-size: 17px;
+  font-size: 14px;
   color: #999999;
   position: static;
   text-align: center;
