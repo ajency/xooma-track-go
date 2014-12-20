@@ -74,35 +74,24 @@ class User
         $v->rule('dateFormat','birth_date','Y-m-d');
         //all the rules defined//
 
-        if(!($v->validate())) {
-           return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
-        }
+        // if(!($v->validate())) {
+        //    return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
+        // }
 
 		    //update user meta for the user
-        $user_meta_value = serialize($args);
+        $user_meta_value = maybe_serialize($args);
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 
         $metadata = get_user_meta($args['id'], 'user_details', true);
-        if($metadata!=""){
+        // if($metadata!=""){
 
-            global $aj_workflow;
-            $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
+        //     global $aj_workflow;
+        //     $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
 
-        }
+        // }
 
-        if($user_details){
-
-
-            return array('reponse'=>$user_details);
-
-        }
-		else
-		{
-			return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
-
-		}
-
+        return true;
 	}
 
   public function update_user_measurement_details($args){

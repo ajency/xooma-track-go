@@ -169,7 +169,7 @@
 <script id="profile-personal-info-template" type="h-template">
 
     <div id="personalinfo" class="section">
-    <div class="response_msg"></div>
+    <div class="aj-response-message"></div>
         <div class="container">
 
 

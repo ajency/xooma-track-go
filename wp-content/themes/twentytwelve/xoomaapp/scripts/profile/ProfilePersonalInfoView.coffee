@@ -8,7 +8,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			behaviorClass : Ajency.FormBehavior
 	ui :
 		form : '.update_user_details'
-		responseMessage : '.response_msg'
+		responseMessage : '.aj-response-message'
 		dateElement : 'input[name="profile[birth_date]"]'
 
 	onShow:->
@@ -17,8 +17,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>
-		console.log _formData
-		@model.saveProfiles(_formData.profile).done(@successHandler).fail(@errorHandler)
+		@model.saveProfile _formData['profile']
+			.done @successHandler
+			.fail @errorHandler
 
 	successHandler:(response, status)=>
 		@showSuccessMessage()

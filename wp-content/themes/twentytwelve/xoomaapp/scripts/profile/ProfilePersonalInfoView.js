@@ -26,7 +26,7 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.ui = {
     form: '.update_user_details',
-    responseMessage: '.response_msg',
+    responseMessage: '.aj-response-message',
     dateElement: 'input[name="profile[birth_date]"]'
   };
 
@@ -36,8 +36,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
-    console.log(_formData);
-    return this.model.saveProfiles(_formData.profile).done(this.successHandler).fail(this.errorHandler);
+    return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {

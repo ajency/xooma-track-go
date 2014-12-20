@@ -21,7 +21,7 @@ _.extend Ajency.CurrentUser::,
 		deferred = Marionette.Deferred()
 
 		_successHandler = (response, status,responseCode)=>
-			@profile.set 'profile', response
+			@set 'profile', response
 			deferred.resolve @
 
 		if not @has 'profile'
@@ -42,7 +42,7 @@ _.extend Ajency.CurrentUser::,
 		$.ajax
 			method : 'PUT'
 			url : @_getUrl 'profile'
-			data : profiles
+			data : JSON.stringify profile
 			success:_successHandler
 
 

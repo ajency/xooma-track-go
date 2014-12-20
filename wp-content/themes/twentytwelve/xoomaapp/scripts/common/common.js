@@ -29,7 +29,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     deferred = Marionette.Deferred();
     _successHandler = (function(_this) {
       return function(response, status, responseCode) {
-        _this.profile.set('profile', response);
+        _this.set('profile', response);
         return deferred.resolve(_this);
       };
     })(this);
@@ -54,7 +54,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     return $.ajax({
       method: 'PUT',
       url: this._getUrl('profile'),
-      data: profiles,
+      data: JSON.stringify(profile),
       success: _successHandler
     });
   },

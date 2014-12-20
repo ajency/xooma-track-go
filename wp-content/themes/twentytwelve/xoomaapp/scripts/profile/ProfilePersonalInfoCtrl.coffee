@@ -6,7 +6,7 @@ class App.ProfilePersonalInfoCtrl extends Marionette.RegionController
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView
-						model : userModel
+							model : userModel
 
 	errorHandler : (error)->
 		@region =  new Marionette.Region el : '#nofound-template'

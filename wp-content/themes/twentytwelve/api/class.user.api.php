@@ -22,16 +22,15 @@ class User_API
 {
 
 	public function register_routes( $routes ) {
-        $routes['/profiles/(?P<id>\d+)'] = array(
-            array( array( $this, 'xooma_get_user_details'), WP_JSON_Server::READABLE),
-            array( array( $this, 'xooma_update_user_details'), WP_JSON_Server::CREATABLE ),
-
-
-        );
         //measurements
         $routes['/users/(?P<id>\d+)/measurements'] = array(
             array( array( $this, 'xooma_get_user_measurement_details'), WP_JSON_Server::READABLE),
             array( array( $this, 'xooma_update_user_measurement_details'), WP_JSON_Server::CREATABLE ),
+
+        );
+        $routes['/users/(?P<id>\d+)/profile'] = array(
+            array( array( $this, 'xooma_get_user_profile_details'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_update_user_profile_details'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
 
         );
         //users
@@ -61,7 +60,7 @@ class User_API
         return $routes;
     }
 
-    public function xooma_get_user_details($id){
+    public function xooma_get_user_profile_details($id){
 
     	//get details of the user id passed
     	global $user;
@@ -88,35 +87,15 @@ class User_API
 
     }
 
-    public function xooma_update_user_details($id)
-    {
+    public function xooma_update_user_profile_details($id, $data){
         //update details of the user id passed
         global $user;
-
-        $data = array();
-        $data['id']                         = $id;
-        $data['image']                      = $_REQUEST['image'];
-        $data['xooma_member_id']            = $_REQUEST['xooma_member_id'];
-        $data['phone_no']                   = $_REQUEST['phone_no'];
-        $data['birth_date']                 = $_REQUEST['birth_date_submit'];
-        $data['gender']                     = $_REQUEST['gender'];
-        $data['timezone']                   = $_REQUEST['timezone'];
+        $data['id'] = $id;
 
         $response = $user->update_user_details($data);
-
         if(is_wp_error($response)){
-
-            $response->set_status(404);
+        	return $response;
         }
-        else
-        {
-            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
-            $response = new WP_JSON_Response( $response );
-            }
-            $response->set_status( 201 );
-
-        }
-
 
         return $response;
 
