@@ -7,36 +7,18 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
   __extends(ProfilePersonalInfoCtrl, _super);
 
   function ProfilePersonalInfoCtrl() {
-    this.successHandler = __bind(this.successHandler, this);
     this._showView = __bind(this._showView, this);
     return ProfilePersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }
 
   ProfilePersonalInfoCtrl.prototype.initialize = function(options) {
-    var xhr;
-    xhr = this._get_user_details();
-    return xhr.done(this._showView).fail(this.errorHandler);
+    return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
   };
 
-  ProfilePersonalInfoCtrl.prototype._showView = function() {
+  ProfilePersonalInfoCtrl.prototype._showView = function(userModel) {
     return this.show(new ProfilePersonalInfoView({
-      model: App.currentUser
+      model: userModel
     }));
-  };
-
-  ProfilePersonalInfoCtrl.prototype._get_user_details = function() {
-    var deferred;
-    if (!App.currentUser.has('profile')) {
-      return $.ajax({
-        method: 'GET',
-        url: "" + _SITEURL + "/wp-json/profiles/" + (App.currentUser.get('ID')),
-        success: this.successHandler
-      });
-    } else {
-      deferred = Marionette.Deferred();
-      deferred.resolve(true);
-      return deferred.promise();
-    }
   };
 
   ProfilePersonalInfoCtrl.prototype.errorHandler = function(error) {
@@ -46,19 +28,6 @@ App.ProfilePersonalInfoCtrl = (function(_super) {
     return new Ajency.HTTPRequestCtrl({
       region: this.region
     });
-  };
-
-  ProfilePersonalInfoCtrl.prototype.successHandler = function(response, status, responseCode) {
-    if (responseCode.status === 404) {
-      this.region = new Marionette.Region({
-        el: '#nofound-template'
-      });
-      return new Ajency.HTTPRequestCtrl({
-        region: this.region
-      });
-    } else {
-      return App.currentUser.set('profile', response);
-    }
   };
 
   return ProfilePersonalInfoCtrl;

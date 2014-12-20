@@ -3,47 +3,51 @@ App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 
 _.extend Ajency.CurrentUser::,
 
+	_getUrl : (property)->
+		"#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/#{property}"
+
 	saveMeasurements : (measurements)->
 
 		_successHandler = (resp)=>
 			@set 'measurements', measurements
 
 		$.ajax
-			method : 'POST',
-			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements",
-			data : measurements,
-			success: _successHandler  
+			method : 'PUT'
+			url : @_getUrl 'measurements'
+			data : measurements
+			success: _successHandler
 
-	saveProfiles : (profiles)->
+	getProfile : ()->
+		deferred = Marionette.Deferred()
+
+		_successHandler = (response, status,responseCode)=>
+			@profile.set 'profile', response
+			deferred.resolve @
+
+		if not @has 'profile'
+			$.ajax
+				method : 'GET'
+				url : @_getUrl 'profile'
+				success: _successHandler
+		else
+			deferred.resolve @
+
+		deferred.promise()
+
+	saveProfile : (profile)->
 
 		_successHandler = (resp)=>
-			@set 'profiles', profiles
+			@set 'profile', profile
 
 		$.ajax
-			method : 'POST'
-			url : "#{_SITEURL}/wp-json/profiles/#{App.currentUser.get('ID')}"
+			method : 'PUT'
+			url : @_getUrl 'profile'
 			data : profiles
 			success:_successHandler
 
-			   
-
-	getFacebookPicture : ->
-		options =
-			"redirect": false
-			"height": "200"
-			"type": "normal"
-			"width": "200"
-
-		FB.api "/me/picture",options,(resp)->
-			if resp and not resp.error
-				App.currentUser.set 'profile_picture',
-					id : 0
-					sizes :
-						thumbnail :
-							url : resp.data.url
-
 
 	hasProfilePicture : ->
+		return false unless @has 'profile_picture'
 		profilePicture = @get 'profile_picture'
 		(parseInt(profilePicture.id) isnt 0) or not _.isUndefined profilePicture.type
 
