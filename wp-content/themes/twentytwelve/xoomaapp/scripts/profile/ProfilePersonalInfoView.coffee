@@ -10,8 +10,10 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		form : '.update_user_details'
 		responseMessage : '.aj-response-message'
 		dateElement : 'input[name="profile[birth_date]"]'
+	modelEvents :
+		'change:profile_picture' : 'render'
 
-	onShow:->
+	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()
 

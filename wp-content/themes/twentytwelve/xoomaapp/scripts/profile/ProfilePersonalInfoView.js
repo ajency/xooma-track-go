@@ -30,7 +30,11 @@ ProfilePersonalInfoView = (function(_super) {
     dateElement: 'input[name="profile[birth_date]"]'
   };
 
-  ProfilePersonalInfoView.prototype.onShow = function() {
+  ProfilePersonalInfoView.prototype.modelEvents = {
+    'change:profile_picture': 'render'
+  };
+
+  ProfilePersonalInfoView.prototype.onRender = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     return this.ui.dateElement.pickadate();
   };
