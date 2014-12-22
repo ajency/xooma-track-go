@@ -21,7 +21,7 @@
     "backbone.marionette": "~2.3.0",
     "handlebars": "~2.0.0",
     "jquery.validation": "~1.13.1",
-    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.3.0",
+    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.3.2",
     "marionette.state": "https://github.com/ajency/marionette.state.git#~0.2.0",
     "animate.css": "~3.2.0",
     "bootstrap": "~3.3.1",

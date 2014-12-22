@@ -24,6 +24,12 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
+  XoomaAppRootView.prototype.onShow = function() {
+    return this.currentUserRegion.show(new Ajency.CurrentUserView({
+      model: App.currentUser
+    }));
+  };
+
   return XoomaAppRootView;
 
 })(Marionette.LayoutView);

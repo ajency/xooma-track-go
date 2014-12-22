@@ -4,7 +4,7 @@
  * Ajency.Marionette
  * https://github.com/ajency/ajency.marionette/wiki
  * --------------------------------------------------
- * Version: v0.3.0
+ * Version: v0.3.2
  *
  * Copyright(c) 2014 Team Ajency, Ajency.in
  * Distributed under MIT license
@@ -222,25 +222,20 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       this._setProfilePicture = __bind(this._setProfilePicture, this);
       return CurrentUser.__super__.constructor.apply(this, arguments);
     }
+    CurrentUser.prototype.idAttribute = 'ID';
 
     CurrentUser.prototype.defaults = function() {
-      return {};
-    };
-
-    CurrentUser.prototype.initialize = function(opt) {
-
-      // if (currentUserNS.localStorage.isSet('userModel')) {
-      //   return this.set(currentUserNS.localStorage.get('userModel'));
-      // }
+      return {
+        caps: {}
+      };
     };
 
     CurrentUser.prototype.isLoggedIn = function() {
-      return authNS.localStorage.isSet('HTTP_X_API_KEY');
+      return authNS.localStorage.isSet('HTTP_X_API_KEY') ;
     };
 
     CurrentUser.prototype.logout = function() {
       authNS.localStorage.removeAll();
-      currentUserNS.localStorage.removeAll();
       return this.trigger('user:logged:out');
     };
 
@@ -392,7 +387,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       this.triggerMethod('before:start', options);
       this._registerStates();
       this._initCallbacks.run(options, this);
-      this.triggerMethod('start', options);
+      return this.triggerMethod('start', options);
     }
   });
 
@@ -475,7 +470,32 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
         this.form = this.view.$('form');
       }
       this.form.attr('data-parsley-namespace', 'aj-field-');
-      return this.validator = this.view.validator = $(this.form).parsley();
+      this.validator = this.view.validator = $(this.form).parsley();
+      $(this.form).parsley().subscribe('parsley:form:validate', (function(_this) {
+        return function(formInstance) {
+          return _this.view.triggerMethod('form:validate', formInstance);
+        };
+      })(this));
+      $(this.form).parsley().subscribe('parsley:form:validated', (function(_this) {
+        return function(formInstance) {
+          return _this.view.triggerMethod('form:validated', formInstance);
+        };
+      })(this));
+      $(this.form).parsley().subscribe('parsley:field:validate', (function(_this) {
+        return function(formInstance) {
+          return _this.view.triggerMethod('field:validate', formInstance);
+        };
+      })(this));
+      $(this.form).parsley().subscribe('parsley:field:success', (function(_this) {
+        return function(formInstance) {
+          return _this.view.triggerMethod('field:success', formInstance);
+        };
+      })(this));
+      return $(this.form).parsley().subscribe('parsley:field:error', (function(_this) {
+        return function(formInstance) {
+          return _this.view.triggerMethod('field:error', formInstance);
+        };
+      })(this));
     };
 
     FormBehavior.prototype._cleanUpView = function() {
@@ -618,6 +638,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     LoginView.prototype.loginWithFacebook = function(evt) {
       var _scope;
+      $(evt.target).text('Logging in... Please Wait...');
       _scope = this.ui.fbLoginButton.attr('fb-scope');
       _scope = !_.isString(_scope) ? '' : _scope;
       return facebookConnectPlugin.getLoginStatus((function(_this) {
