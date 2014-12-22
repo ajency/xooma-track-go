@@ -7,10 +7,10 @@ jQuery(document).ready ($)->
 				url : '/'
 
 	App.onBeforeStart = ->
+		App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.set 'caps', notLoggedInCaps
-		else
-			App.currentUser.set userData
+
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate App.currentUser.get('state'), true
 

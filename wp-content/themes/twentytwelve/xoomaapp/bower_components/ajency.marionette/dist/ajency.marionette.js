@@ -222,6 +222,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       this._setProfilePicture = __bind(this._setProfilePicture, this);
       return CurrentUser.__super__.constructor.apply(this, arguments);
     }
+    CurrentUser.prototype.idAttribute = 'ID';
 
     CurrentUser.prototype.defaults = function() {
       return {
@@ -230,7 +231,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     CurrentUser.prototype.isLoggedIn = function() {
-      return authNS.localStorage.isSet('HTTP_X_API_KEY') && !this.isNew();
+      return authNS.localStorage.isSet('HTTP_X_API_KEY') ;
     };
 
     CurrentUser.prototype.logout = function() {
