@@ -65,7 +65,7 @@
     _SITEURL              = '<?php echo site_url() ?>';
     FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
-        facebookConnectPlugin.browserInit(App, FBAPPID);
+        facebookConnectPlugin.browserInit(App, FBAPPID, 'v2.2');
 </script>
 
 <!-- build:js(*.js) application.js -->

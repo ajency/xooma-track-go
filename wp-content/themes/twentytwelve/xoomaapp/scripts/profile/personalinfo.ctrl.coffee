@@ -12,6 +12,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	modelEvents :
 		'change:profile_picture' : 'render'
 
+	initialize : ->
+		@listenTo App, 'fb:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()
+
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()

@@ -4,7 +4,7 @@
  * Ajency.Marionette
  * https://github.com/ajency/ajency.marionette/wiki
  * --------------------------------------------------
- * Version: v0.3.2
+ * Version: v0.3.5
  *
  * Copyright(c) 2014 Team Ajency, Ajency.in
  * Distributed under MIT license
@@ -222,6 +222,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       this._setProfilePicture = __bind(this._setProfilePicture, this);
       return CurrentUser.__super__.constructor.apply(this, arguments);
     }
+
     CurrentUser.prototype.idAttribute = 'ID';
 
     CurrentUser.prototype.defaults = function() {
@@ -231,7 +232,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     CurrentUser.prototype.isLoggedIn = function() {
-      return authNS.localStorage.isSet('HTTP_X_API_KEY') ;
+      return authNS.localStorage.isSet('HTTP_X_API_KEY') && !this.isNew();
     };
 
     CurrentUser.prototype.logout = function() {
@@ -267,14 +268,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     CurrentUser.prototype.getFacebookPicture = function() {
-      var options;
-      options = {
-        "redirect": false,
-        "height": "200",
-        "type": "normal",
-        "width": "200"
-      };
-      return facebookConnectPlugin.api("/me/picture", [], this._setProfilePicture);
+      return facebookConnectPlugin.api("/me/picture?width=200", [], this._setProfilePicture);
     };
 
     CurrentUser.prototype._setProfilePicture = function(resp) {
@@ -306,7 +300,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
         } else {
           authNS.localStorage.set("HTTP_X_API_KEY", xhr.getResponseHeader("HTTP_X_API_KEY"));
           authNS.localStorage.set("HTTP_X_SHARED_SECRET", xhr.getResponseHeader("HTTP_X_SHARED_SECRET"));
-          currentUserNS.localStorage.set("userModel", response);
           _currentUser.set(response);
           return _currentUser.trigger("user:auth:success", _currentUser);
         }
@@ -354,6 +347,12 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     }
   });
   _.extend(Marionette.Application.prototype, {
+    initialize: function(options) {
+      if (options == null) {
+        options = {};
+      }
+      return this.currentUser = currentUser;
+    },
     appStates: {
       'NothingFound': {
         url: '/*notFound'
@@ -382,7 +381,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       if (options == null) {
         options = {};
       }
-      this.currentUser = currentUser;
       this._detectRegions();
       this.triggerMethod('before:start', options);
       this._registerStates();
@@ -799,10 +797,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
             extensions: "jpg,gif,png"
           }
         ],
-        multipart_params: {
-          action: "upload-attachment",
-          _wpnonce: _WP_MEDIA_NONCE
-        },
         init: {
           PostInit: function(up) {
             document.getElementById("filelist").innerHTML = "";

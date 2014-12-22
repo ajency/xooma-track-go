@@ -6,11 +6,18 @@ jQuery(document).ready(function($) {
   App.onBeforeStart = function() {
     App.currentUser.set(userData);
     if (!App.currentUser.isLoggedIn()) {
-      App.currentUser.set('caps', notLoggedInCaps);
+      return App.currentUser.set('caps', notLoggedInCaps);
     }
-    App.currentUser.on('user:auth:success', function() {
-      return App.navigate(App.currentUser.get('state'), true);
+  };
+  App.currentUser.on('user:auth:success', function() {
+    return App.navigate(App.currentUser.get('state'), true);
+  });
+  App.currentUser.on('user:logged:out', function() {
+    App.currentUser.clear({
+      slient: true
     });
+    App.currentUser.set('caps', notLoggedInCaps);
+    App.navigate('/login', true);
     return App.state('settings', {
       url: '/settings',
       parent: 'xooma'
@@ -23,7 +30,7 @@ jQuery(document).ready(function($) {
       url: '/products',
       parent: 'xooma'
     });
-  };
+  });
   App.addInitializer(function() {
     return Backbone.history.start();
   });
