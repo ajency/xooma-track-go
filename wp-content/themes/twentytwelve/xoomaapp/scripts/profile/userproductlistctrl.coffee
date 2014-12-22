@@ -19,3 +19,10 @@ class App.UserProductListCtrl extends Marionette.RegionController
 			
 			error:(error)->
 				$('.response_msg').text "Something went wrong" 
+
+
+class UserProductListView extends Marionette.ItemView
+
+	template  : '#produts-template'
+
+	className : 'animated fadeIn'

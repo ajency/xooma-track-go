@@ -8,15 +8,25 @@ App.ProductListCtrl = (function(_super) {
 
   function ProductListCtrl() {
     this.successHandler = __bind(this.successHandler, this);
+    this._showView = __bind(this._showView, this);
     return ProductListCtrl.__super__.constructor.apply(this, arguments);
   }
 
-  ProductListCtrl.prototype.initialize = function() {
-    this.productList = this._get_products();
-    return this.show(new ProductListView);
+  ProductListCtrl.prototype.initialize = function(options) {
+    var xhr;
+    xhr = this._getProducts();
+    return xhr.done(this._showView).fail(this._showView);
   };
 
-  ProductListCtrl.prototype._get_products = function() {
+  ProductListCtrl.prototype._showView = function(response) {
+    var newProducts;
+    newProducts = this._getNewProducts(response);
+    return this.show(new ProductListView({
+      collection: newProducts
+    }));
+  };
+
+  ProductListCtrl.prototype._getProducts = function() {
     return $.ajax({
       method: 'GET',
       url: "" + _SITEURL + "/wp-json/products",
@@ -26,19 +36,21 @@ App.ProductListCtrl = (function(_super) {
   };
 
   ProductListCtrl.prototype.successHandler = function(response, status, responsecode) {
-    var newProducts;
     if (responsecode.status === 200) {
-      return newProducts = this._get_new_products(response);
+      return App.productList = new Backbone.Collection(response);
     }
   };
 
-  ProductListCtrl.prototype._get_new_products = function(response) {
-    var productIds;
+  ProductListCtrl.prototype._getNewProducts = function(response) {
+    var newProducts, productIds, userProducts;
     productIds = [];
     $.each(response, function(index, value) {
       return productIds.push(parseInt(value.id));
     });
-    return console.log(productIds);
+    App.currentUser.set('userProducts', [142, 132]);
+    userProducts = App.currentUser.get('userProducts');
+    newProducts = _.difference(productIds, userProducts);
+    return new Backbone.Collection(newProducts);
   };
 
   return ProductListCtrl;

@@ -4,11 +4,15 @@ jQuery(document).ready(function($) {
     url: '/'
   }).state('profile', {
     url: '/profile',
-    parent: 'xooma'
-  }).state('ProfilePersonalInfo', {
+    parent: 'xooma',
+    data: {
+      arule: 'SOME:ACCESS;RULES:HERE',
+      trule: 'SOME:TRANSITION;RUlES:HERE'
+    }
+  }).state('userPersonalInfo', {
     url: '/personal-info',
     parent: 'profile'
-  }).state('profileMeasurement', {
+  }).state('userMeasurement', {
     url: '/measurements',
     parent: 'profile'
   }).state('settings', {
@@ -34,14 +38,14 @@ jQuery(document).ready(function($) {
       return App.currentUser.getFacebookPicture();
     }
   });
-  App.on('state:transition:start', function(evt, stateName, params) {
+  App.on('state:transition:start', function(evt, state, params) {
     if (!App.currentUser.isLoggedIn() && App.isLoggedInState(stateName)) {
       evt.preventDefault();
-      App.navigate('/login', true);
+      App.navigate('#/login', true);
     }
-    if (App.currentUser.isLoggedIn() && stateName === 'login') {
+    if (App.currentUser.isLoggedIn() && state.get('name') === 'login') {
       evt.preventDefault();
-      return App.navigate('/profile/personal-info', true);
+      return App.navigate('#/profile/personal-info', true);
     }
   });
   return App.start();

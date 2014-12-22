@@ -12,6 +12,10 @@ ProductItemView = (function(_super) {
 
   ProductItemView.prototype.template = '<span>product1</span><button class="btn btn-primary btn-lg addProduct">Add Prodcut</button>';
 
+  ProductItemView.prototype.initialize = function() {
+    return console.log(this.model.get('id'));
+  };
+
   ProductItemView.prototype.ui = {
     addProduct: '.addProduct'
   };

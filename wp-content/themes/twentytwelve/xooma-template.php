@@ -61,7 +61,7 @@
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
+    FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
         facebookConnectPlugin.browserInit(App, FBAPPID);
 </script>
@@ -69,14 +69,13 @@
 <!-- build:js(*.js) application.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoCtrl.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/ProfilePersonalInfoView.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/profileMeasurementCtrl.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/measurements/MeasurementView.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/UserProductList/UserProductListCtrl.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/UserProductList/UserProductListView.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.ctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/personalinfo.ctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/measurements.ctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/UserProductListCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/ProductList/ProductListCtrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/ProductList/ProductListView.js"></script>
+
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <!-- endbuild -->
 
