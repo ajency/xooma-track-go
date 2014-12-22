@@ -6,12 +6,19 @@ jQuery(document).ready(function($) {
   App.onBeforeStart = function() {
     App.currentUser.set(userData);
     if (!App.currentUser.isLoggedIn()) {
-      App.currentUser.set('caps', notLoggedInCaps);
+      return App.currentUser.set('caps', notLoggedInCaps);
     }
-    return App.currentUser.on('user:auth:success', function() {
-      return App.navigate(App.currentUser.get('state'), true);
-    });
   };
+  App.currentUser.on('user:auth:success', function() {
+    return App.navigate(App.currentUser.get('state'), true);
+  });
+  App.currentUser.on('user:logged:out', function() {
+    App.currentUser.clear({
+      slient: true
+    });
+    App.currentUser.set('caps', notLoggedInCaps);
+    return App.navigate('/login', true);
+  });
   App.addInitializer(function() {
     return Backbone.history.start();
   });

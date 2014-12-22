@@ -4,7 +4,7 @@
  * Ajency.Marionette
  * https://github.com/ajency/ajency.marionette/wiki
  * --------------------------------------------------
- * Version: v0.3.3
+ * Version: v0.3.5
  *
  * Copyright(c) 2014 Team Ajency, Ajency.in
  * Distributed under MIT license
@@ -797,10 +797,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
             extensions: "jpg,gif,png"
           }
         ],
-        multipart_params: {
-          action: "upload-attachment",
-          _wpnonce: _WP_MEDIA_NONCE
-        },
         init: {
           PostInit: function(up) {
             document.getElementById("filelist").innerHTML = "";

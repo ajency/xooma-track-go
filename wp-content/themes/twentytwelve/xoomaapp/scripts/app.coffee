@@ -11,8 +11,13 @@ jQuery(document).ready ($)->
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.set 'caps', notLoggedInCaps
 
-		App.currentUser.on 'user:auth:success', ->
-			App.navigate App.currentUser.get('state'), true
+	App.currentUser.on 'user:auth:success', ->
+		App.navigate App.currentUser.get('state'), true
+
+	App.currentUser.on 'user:logged:out', ->
+		App.currentUser.clear slient : true
+		App.currentUser.set 'caps', notLoggedInCaps
+		App.navigate '/login', true
 
 	App.addInitializer ->
 		Backbone.history.start()
