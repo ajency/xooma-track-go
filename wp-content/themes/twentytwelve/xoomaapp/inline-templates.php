@@ -269,3 +269,78 @@
 				Add Home template here
 		</div>
 </script>
+
+
+
+<script id="produts-template" type="h-template">
+	<div id="xoomaproduct" class="section">
+                <h4 class="text-center"> List Of xooma products</h4>
+    
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+               
+                      <br>
+                            <ul class="list-unstyled list-style">
+                                   <li> 
+                                         <div class="list-title">
+                                                <h5 class="bold text-primary">X2O</h5>
+                                                <h6>Anytime</h6>
+                                         </div> 
+                                          <img src="../img/bottle.png" height="80px"/>
+                                          <img src="../img/bottle.png "height="80px"/>
+                                          <img src="../img/bottle.png" height="80px"/>
+                                         <img src="../img/bottle.png "height="80px"/>
+                                          <img src="../img/bottle.png" height="80px"/>
+                                   </li>
+                                   <li> 
+                                         <b class="text-success"> Any time Suppliments</b>
+                                              <div class="list-title">
+                                                        <h5 class="bold text-primary">FOCUS UP</h5>
+                                                        <h6>Twice a day <b>3 capsules </b></h6>
+                                               </div> 
+                                               
+                                                 <div class="list-title">
+                                                        <h5 class="bold text-primary">Xooma Blast</h5>
+                                                        <h6>Once a day <b>1 Stick pack </b></h6>
+                                               </div> 
+                                    </li>
+                                    <li> 
+                                        <b class="text-success"> Suppliments Define Time</b>
+                                            <div class="list-title">
+                                                        <h5 class="bold text-primary">Berry Balance</h5>
+                                                        <h6> <i class="fa fa-sun-o text-info"></i> <b>3 capsules                                                        </b> &nbsp;&nbsp;
+                                            <i class="fa fa-moon-o text-info"></i> <b>2 capsules </b> </h6>
+                                            </div> 
+                                    
+                                    </li>
+                             </ul>
+                               
+
+
+                  </div>
+                  <div class="col-md-3"></div>
+              </div>
+
+        </div>  
+                </div>
+
+</script>
+
+
+
+<script id="add-product-template" type="h-template">
+
+	<div>
+		<ul class="productList">
+			
+
+		</ul>
+
+	</div>
+
+
+
+</script>

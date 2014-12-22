@@ -25,6 +25,15 @@ jQuery(document).ready ($)->
 		.state 'home',
 				url : '/home'
 
+		.state 'UserProductList',
+				url : '/my-products'
+				parent : 'profile'
+
+		.state 'ProductList',
+				url : '/products'
+				parent : 'xooma'
+				
+
 
 	App.addInitializer ->
 		Backbone.history.start()

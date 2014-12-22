@@ -16,6 +16,12 @@ jQuery(document).ready(function($) {
     parent: 'xooma'
   }).state('home', {
     url: '/home'
+  }).state('UserProductList', {
+    url: '/my-products',
+    parent: 'profile'
+  }).state('ProductList', {
+    url: '/products',
+    parent: 'xooma'
   });
   App.addInitializer(function() {
     Backbone.history.start();
