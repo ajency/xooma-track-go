@@ -82,4 +82,4 @@ App.UserPersonalInfoCtrl = (function(_super) {
 
   return UserPersonalInfoCtrl;
 
-})(Marionette.RegionController);
+})(Ajency.RegionController);

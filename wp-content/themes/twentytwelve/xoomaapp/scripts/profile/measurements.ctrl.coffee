@@ -47,7 +47,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		$(element).parent().find("output").html $(element).val()
 
 
-class App.UserMeasurementCtrl extends Marionette.RegionController
+class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		xhr = @_get_measurement_details()

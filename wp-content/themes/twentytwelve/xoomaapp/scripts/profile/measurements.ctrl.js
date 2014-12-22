@@ -135,4 +135,4 @@ App.UserMeasurementCtrl = (function(_super) {
 
   return UserMeasurementCtrl;
 
-})(Marionette.RegionController);
+})(Ajency.RegionController);
