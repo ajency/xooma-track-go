@@ -12,7 +12,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	modelEvents :
 		'change:profile_picture' : 'render'
 
-	onShow:->
+	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()
 
