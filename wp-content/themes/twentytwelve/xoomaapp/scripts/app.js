@@ -2,19 +2,6 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
-  }).state('profile', {
-    url: '/profile',
-    parent: 'xooma',
-    data: {
-      arule: 'SOME:ACCESS;RULES:HERE',
-      trule: 'SOME:TRANSITION;RUlES:HERE'
-    }
-  }).state('userPersonalInfo', {
-    url: '/personal-info',
-    parent: 'profile'
-  }).state('userMeasurement', {
-    url: '/measurements',
-    parent: 'profile'
   });
   App.addInitializer(function() {
     Backbone.history.start();

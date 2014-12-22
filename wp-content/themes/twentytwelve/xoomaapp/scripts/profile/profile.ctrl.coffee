@@ -1,3 +1,19 @@
+App.state 'profile',
+			url : '/profile'
+			parent : 'xooma'
+			data:
+				arule : 'SOME:ACCESS;RULES:HERE'
+				trule : 'SOME:TRANSITION;RUlES:HERE'
+
+	.state 'userPersonalInfo',
+			url : '/personal-info'
+			parent : 'profile'
+
+	.state 'userMeasurement',
+			url : '/measurements'
+			parent : 'profile'
+
+
 class ProfileCtrlView extends Marionette.LayoutView
 	className : 'animated fadeIn'
 	template : '#profile-template'
