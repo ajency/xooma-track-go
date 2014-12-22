@@ -3,6 +3,21 @@ var ProfileCtrlView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+App.state('profile', {
+  url: '/profile',
+  parent: 'xooma',
+  data: {
+    arule: 'SOME:ACCESS;RULES:HERE',
+    trule: 'SOME:TRANSITION;RUlES:HERE'
+  }
+}).state('userPersonalInfo', {
+  url: '/personal-info',
+  parent: 'profile'
+}).state('userMeasurement', {
+  url: '/measurements',
+  parent: 'profile'
+});
+
 ProfileCtrlView = (function(_super) {
   __extends(ProfileCtrlView, _super);
 

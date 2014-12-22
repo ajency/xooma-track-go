@@ -41,4 +41,4 @@ App.XoomaCtrl = (function(_super) {
 
   return XoomaCtrl;
 
-})(Ajency.RegionController);
+})(Marionette.RegionController);

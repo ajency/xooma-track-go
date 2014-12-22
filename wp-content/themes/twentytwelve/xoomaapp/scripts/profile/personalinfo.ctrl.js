@@ -34,7 +34,7 @@ ProfilePersonalInfoView = (function(_super) {
     'change:profile_picture': 'render'
   };
 
-  ProfilePersonalInfoView.prototype.onRender = function() {
+  ProfilePersonalInfoView.prototype.onShow = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     return this.ui.dateElement.pickadate();
   };
@@ -44,7 +44,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    return this.showSuccessMessage();
+    return App.navigate('/profile/measurements', true);
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {};

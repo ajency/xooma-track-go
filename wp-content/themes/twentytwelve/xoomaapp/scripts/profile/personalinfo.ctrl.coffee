@@ -12,7 +12,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	modelEvents :
 		'change:profile_picture' : 'render'
 
-	onRender:->
+	onShow:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()
 
@@ -23,7 +23,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			.fail @errorHandler
 
 	successHandler:(response, status)=>
-		@showSuccessMessage()
+		App.navigate '/profile/measurements' , true
 
 	errorHandler:(error)=>
 
