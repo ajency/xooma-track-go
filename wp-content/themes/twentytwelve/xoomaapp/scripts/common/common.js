@@ -6,7 +6,18 @@
 
   App.NothingFoundCtrl = Ajency.NothingFoundCtrl;
 
+  _.extend(Marionette.Application.prototype, {
+    isLoggedInState: function(stateName) {
+      var notLoggedInStates;
+      notLoggedInStates = ['login'];
+      return notLoggedInStates.indexOf(stateName) === -1;
+    }
+  });
+
   _.extend(Ajency.CurrentUser.prototype, {
+    _getUrl: function(property) {
+      return "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/" + property;
+    },
     saveMeasurements: function(measurements) {
       var _successHandler;
       _successHandler = (function(_this) {
@@ -15,49 +26,51 @@
         };
       })(this);
       return $.ajax({
-        method: 'POST',
-        url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+        method: 'PUT',
+        url: this._getUrl('measurements'),
         data: measurements,
         success: _successHandler
       });
     },
-    saveProfiles: function(profiles) {
+    getProfile: function() {
+      var deferred, _successHandler;
+      deferred = Marionette.Deferred();
+      _successHandler = (function(_this) {
+        return function(response, status, responseCode) {
+          _this.set('profile', response);
+          return deferred.resolve(_this);
+        };
+      })(this);
+      if (!this.has('profile')) {
+        $.ajax({
+          method: 'GET',
+          url: this._getUrl('profile'),
+          success: _successHandler
+        });
+      } else {
+        deferred.resolve(this);
+      }
+      return deferred.promise();
+    },
+    saveProfile: function(profile) {
       var _successHandler;
       _successHandler = (function(_this) {
         return function(resp) {
-          return _this.set('profiles', profiles);
+          return _this.set('profile', profile);
         };
       })(this);
       return $.ajax({
-        method: 'POST',
-        url: "" + _SITEURL + "/wp-json/profiles/" + (App.currentUser.get('ID')),
-        data: profiles,
+        method: 'PUT',
+        url: this._getUrl('profile'),
+        data: JSON.stringify(profile),
         success: _successHandler
-      });
-    },
-    getFacebookPicture: function() {
-      var options;
-      options = {
-        "redirect": false,
-        "height": "200",
-        "type": "normal",
-        "width": "200"
-      };
-      return FB.api("/me/picture", options, function(resp) {
-        if (resp && !resp.error) {
-          return App.currentUser.set('profile_picture', {
-            id: 0,
-            sizes: {
-              thumbnail: {
-                url: resp.data.url
-              }
-            }
-          });
-        }
       });
     },
     hasProfilePicture: function() {
       var profilePicture;
+      if (!this.has('profile_picture')) {
+        return false;
+      }
       profilePicture = this.get('profile_picture');
       return (parseInt(profilePicture.id) !== 0) || !_.isUndefined(profilePicture.type);
     }

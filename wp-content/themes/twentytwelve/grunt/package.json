@@ -1,0 +1,17 @@
+{
+  "name": "Xooma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-rename": "0.0.3",
+    "load-grunt-tasks": "^1.0.0"
+  }
+}
