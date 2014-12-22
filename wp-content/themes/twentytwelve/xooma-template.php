@@ -59,6 +59,7 @@
 
 <script type="text/javascript">
 	userData = <?php echo json_encode(aj_get_user_model(get_current_user_id()));?>;
+	notLoggedInCaps = <?php echo json_encode(aj_get_not_logged_in_caps()[0]);?>;
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';

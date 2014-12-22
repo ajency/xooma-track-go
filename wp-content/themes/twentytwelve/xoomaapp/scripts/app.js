@@ -3,26 +3,22 @@ jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
   });
-  App.addInitializer(function() {
-    Backbone.history.start();
-    App.currentUser.set(userData);
+  App.onBeforeStart = function() {
+    if (!App.currentUser.isLoggedIn()) {
+      App.currentUser.set('caps', notLoggedInCaps);
+    } else {
+      App.currentUser.set(userData);
+    }
     return App.currentUser.on('user:auth:success', function() {
       return App.navigate(App.currentUser.get('state'), true);
     });
+  };
+  App.addInitializer(function() {
+    return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {
       return App.currentUser.getFacebookPicture();
-    }
-  });
-  App.on('state:transition:start', function(evt, state, params) {
-    if (!App.currentUser.isLoggedIn() && App.isLoggedInState(state.get('name'))) {
-      evt.preventDefault();
-      App.navigate('#/login', true);
-    }
-    if (App.currentUser.isLoggedIn() && state.get('name') === 'login') {
-      evt.preventDefault();
-      return App.navigate('#/profile/personal-info', true);
     }
   });
   return App.start();

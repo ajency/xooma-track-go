@@ -495,6 +495,7 @@ var __hasProp = {}.hasOwnProperty,
 		};
 
 		AppStates.prototype._processStateOnRoute = function(name, args) {
+			console.log(name);
 			var currentStateProcessor, event, processState, stateModel, statesToProcess, _app;
 			if (args == null) {
 				args = [];
