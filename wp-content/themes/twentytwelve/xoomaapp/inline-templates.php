@@ -136,7 +136,7 @@
 												<div class="form-group">
 														<label for="text3" class="col-sm-3 control-label">Email</label>
 														<div class="col-sm-9">
-																<input type="email" readonly class="form-control" name="user_email">
+																<input type="text" readonly class="form-control" name="user_email">
 														</div>
 												</div>
 												<div class="form-group">
