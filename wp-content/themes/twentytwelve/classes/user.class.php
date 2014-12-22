@@ -23,14 +23,7 @@ class User
                 'user_products'             => $user_products
 			);
 
-			$data = array(
-				'xooma_member_id'	        => '231231',
-				'phone_no'			        => '221312312321',
-				'gender'			        => 'male',
-				'birth_date'		        => '29 December, 1989',
-				'timezone'			        => 'Asia/Dubai',
-				'user_products'             => array()
-			);
+			
 
 			return $data;
 		}
