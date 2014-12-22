@@ -1,4 +1,4 @@
-<script id="login-template" type="h-template">
+<script id="login-template" type="text/template">
 	<div class="container">
 			<div class="row">
 					<div class="col-sm-12">
@@ -43,10 +43,10 @@
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
 	</div>
 </script>
-<script id="404-template" type="h-template">
+<script id="404-template" type="text/template">
 		<h3>Add 404 View Here</h3>
 </script>
-<script id="xooma-app-template" type="h-template">
+<script id="xooma-app-template" type="text/template">
 		<div class="topheader">
 				<nav class="navbar " role="navigation">
 						<div class="container">
@@ -59,7 +59,9 @@
 												</div>
 										</div>
 										<div class="col-sm-9 col-xs-7">
-												<h5><i class="fa fa-cog pull-right "></i></h5>
+											<div ui-region="currentUser" class="pull-right">
+
+											</div>
 										</div>
 								</div>
 						</div>
@@ -68,7 +70,7 @@
 		<div class="clearfix"></div>
 		<div ui-region style="margin-top:60px"></div>
 </script>
-<script id="profile-template" type="h-template">
+<script id="profile-template" type="text/template">
 		<div class="sub-header">
 				<div class="container">
 						<div class="row">
@@ -94,13 +96,13 @@
 <script id="settings-template" type="text/template">
 		<h2>THis is the settings template </h2>
 </script>
-<script id="no-access-template" type="h-template">
+<script id="no-access-template" type="text/template">
 		{{#if no_access}}
 		<h1>Add no access View Here</h1> {{/if}} {{#if no_access_login}}
 		<h1>Add no access with login options View Here</h1> {{/if}} {{#if not_defined}}
 		<h1>This view is not configured. Please contact administrator</h1> {{/if}}
 </script>
-<script id="profile-personal-info-template" type="h-template">
+<script id="profile-personal-info-template" type="text/template">
 
 		<div id="personalinfo" class="section">
 
@@ -209,7 +211,7 @@
 				</div>
 		</div>
 </script>
-<script id="profile-measurements-template" type="h-template">
+<script id="profile-measurements-template" type="text/template">
 		<div id="measuremnt" class="section">
 				<div class="response_msg"></div>
 				<div class="container">
@@ -262,7 +264,7 @@
 		</div>
 </script>
 
-<script id="home-template" type="h-template">
+<script id="home-template" type="text/template">
 		<div>
 				Add Home template here
 		</div>

@@ -1,6 +1,6 @@
 {
   "name": "ajency.marionette",
-  "version": "0.3.0",
+  "version": "0.3.3",
   "homepage": "https://github.com/surajajency/ajency.marionette",
   "authors": [
     "Suraj Air <suraj@ajency.in>"
@@ -33,13 +33,13 @@
     "jasmine-jquery": "~2.0.5",
     "jasmine-ajax": "~2.99.0"
   },
-  "_release": "0.3.0",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.0",
-    "commit": "1e3fd198df63017e02dfecb4b04867055c9fe419"
+    "tag": "v0.3.3",
+    "commit": "b3dd44a21b905d908d77dff532755cea063f7c1c"
   },
   "_source": "https://github.com/ajency/ajency.marionette.git",
-  "_target": "~0.3.0",
+  "_target": "~0.3.2",
   "_originalSource": "https://github.com/ajency/ajency.marionette.git"
 }
