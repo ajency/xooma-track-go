@@ -68,7 +68,7 @@ ProfileMeasurementsView = (function(_super) {
     if (responseCode.status === 404) {
       return this.ui.responseMessage.text("Something went wrong");
     } else {
-      return this.ui.responseMessage.text("User details saved successfully");
+      return App.navigate('/profile/my-products', true);
     }
   };
 

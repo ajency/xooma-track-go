@@ -38,7 +38,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		if responseCode.status is 404
 			@ui.responseMessage.text "Something went wrong"
 		else
-			@ui.responseMessage.text "User details saved successfully"
+			App.navigate '/profile/my-products' , true
 
 	errorHandler : (error)=>
 		@ui.responseMessage.text "Something went wrong"

@@ -21,6 +21,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.events = {
     'click @ui.addProduct': function(e) {
+      console.log(this);
       return console.log($('#' + e.target.id).attr('data-del'));
     }
   };

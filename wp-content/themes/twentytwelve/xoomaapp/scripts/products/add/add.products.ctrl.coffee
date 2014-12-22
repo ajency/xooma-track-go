@@ -12,6 +12,7 @@ class ProductChildView extends Marionette.ItemView
 
     events:
     	'click @ui.addProduct':(e)->
+    		console.log @
     		console.log $('#'+e.target.id).attr('data-del')
 
 class NoProductsChildView extends Marionette.ItemView
