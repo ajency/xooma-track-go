@@ -14,7 +14,7 @@ jQuery(document).ready ($)->
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate App.currentUser.get('state'), true
 
-			.state 'settings',
+		App.state 'settings',
 					url : '/settings'
 					parent : 'xooma'
 
@@ -25,7 +25,7 @@ jQuery(document).ready ($)->
 					url : '/my-products'
 					parent : 'profile'
 
-			.state 'ProductList',
+			.state 'AddProducts',
 					url : '/products'
 					parent : 'xooma'
 				

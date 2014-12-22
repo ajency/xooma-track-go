@@ -4,24 +4,24 @@ jQuery(document).ready(function($) {
     url: '/'
   });
   App.onBeforeStart = function() {
+    App.currentUser.set(userData);
     if (!App.currentUser.isLoggedIn()) {
       App.currentUser.set('caps', notLoggedInCaps);
-    } else {
-      App.currentUser.set(userData);
     }
-    return App.currentUser.on('user:auth:success', function() {
-      return App.navigate(App.currentUser.get('state'), true).state('settings', {
-        url: '/settings',
-        parent: 'xooma'
-      }).state('home', {
-        url: '/home'
-      }).state('UserProductList', {
-        url: '/my-products',
-        parent: 'profile'
-      }).state('ProductList', {
-        url: '/products',
-        parent: 'xooma'
-      });
+    App.currentUser.on('user:auth:success', function() {
+      return App.navigate(App.currentUser.get('state'), true);
+    });
+    return App.state('settings', {
+      url: '/settings',
+      parent: 'xooma'
+    }).state('home', {
+      url: '/home'
+    }).state('UserProductList', {
+      url: '/my-products',
+      parent: 'profile'
+    }).state('AddProducts', {
+      url: '/products',
+      parent: 'xooma'
     });
   };
   App.addInitializer(function() {
