@@ -17,9 +17,4 @@ jQuery(document).ready ($)->
 	App.addInitializer ->
 		Backbone.history.start()
 
-	App.on 'fb:status:connected', ->
-		if not App.currentUser.hasProfilePicture()
-			App.currentUser.getFacebookPicture()
-
-
 	App.start()

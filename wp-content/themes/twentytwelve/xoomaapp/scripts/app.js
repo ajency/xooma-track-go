@@ -4,10 +4,9 @@ jQuery(document).ready(function($) {
     url: '/'
   });
   App.onBeforeStart = function() {
+    App.currentUser.set(userData);
     if (!App.currentUser.isLoggedIn()) {
       App.currentUser.set('caps', notLoggedInCaps);
-    } else {
-      App.currentUser.set(userData);
     }
     return App.currentUser.on('user:auth:success', function() {
       return App.navigate(App.currentUser.get('state'), true);
@@ -15,11 +14,6 @@ jQuery(document).ready(function($) {
   };
   App.addInitializer(function() {
     return Backbone.history.start();
-  });
-  App.on('fb:status:connected', function() {
-    if (!App.currentUser.hasProfilePicture()) {
-      return App.currentUser.getFacebookPicture();
-    }
   });
   return App.start();
 });

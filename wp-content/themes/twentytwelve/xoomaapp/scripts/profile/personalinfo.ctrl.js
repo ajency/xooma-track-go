@@ -34,6 +34,14 @@ ProfilePersonalInfoView = (function(_super) {
     'change:profile_picture': 'render'
   };
 
+  ProfilePersonalInfoView.prototype.initialize = function() {
+    return this.listenTo(App, 'fb:status:connected', function() {
+      if (!App.currentUser.hasProfilePicture()) {
+        return App.currentUser.getFacebookPicture();
+      }
+    });
+  };
+
   ProfilePersonalInfoView.prototype.onRender = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     return this.ui.dateElement.pickadate();
