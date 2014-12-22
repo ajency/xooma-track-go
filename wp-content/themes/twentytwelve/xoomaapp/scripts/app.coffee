@@ -9,6 +9,7 @@ jQuery(document).ready ($)->
 
 	App.addInitializer ->
 		Backbone.history.start()
+		App.currentUser.set userData
 		App.currentUser.on 'user:auth:success', ->
 			App.navigate App.currentUser.get('state'), true
 
@@ -17,7 +18,7 @@ jQuery(document).ready ($)->
 			App.currentUser.getFacebookPicture()
 
 	App.on 'state:transition:start', (evt, state, params)->
-		if not App.currentUser.isLoggedIn() and App.isLoggedInState stateName
+		if not App.currentUser.isLoggedIn() and App.isLoggedInState state.get('name')
 			evt.preventDefault()
 			App.navigate '#/login', true
 

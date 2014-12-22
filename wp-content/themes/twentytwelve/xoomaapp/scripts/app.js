@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
   });
   App.addInitializer(function() {
     Backbone.history.start();
+    App.currentUser.set(userData);
     return App.currentUser.on('user:auth:success', function() {
       return App.navigate(App.currentUser.get('state'), true);
     });
@@ -15,7 +16,7 @@ jQuery(document).ready(function($) {
     }
   });
   App.on('state:transition:start', function(evt, state, params) {
-    if (!App.currentUser.isLoggedIn() && App.isLoggedInState(stateName)) {
+    if (!App.currentUser.isLoggedIn() && App.isLoggedInState(state.get('name'))) {
       evt.preventDefault();
       App.navigate('#/login', true);
     }

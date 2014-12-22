@@ -73,6 +73,24 @@ _.extend(Ajency.CurrentUser.prototype, {
     }
     profilePicture = this.get('profile_picture');
     return (parseInt(profilePicture.id) !== 0) || !_.isUndefined(profilePicture.type);
+  },
+  addProduct: function(id) {
+    var _successHandler;
+    _successHandler = (function(_this) {
+      return function(resp, status) {
+        var products;
+        if (status === 210) {
+          products = _this.get('products');
+          products = _.flatten(products, [id]);
+          return _this.set('products', products);
+        }
+      };
+    })(this);
+    return $.ajax({
+      method: 'POST',
+      url: this._getUrl('products'),
+      success: _successHandler
+    });
   }
 });
 
