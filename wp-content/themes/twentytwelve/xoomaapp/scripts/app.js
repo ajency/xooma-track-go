@@ -9,17 +9,12 @@ jQuery(document).ready(function($) {
       arule: 'SOME:ACCESS;RULES:HERE',
       trule: 'SOME:TRANSITION;RUlES:HERE'
     }
-  }).state('ProfilePersonalInfo', {
+  }).state('userPersonalInfo', {
     url: '/personal-info',
     parent: 'profile'
-  }).state('profileMeasurement', {
+  }).state('userMeasurement', {
     url: '/measurements',
     parent: 'profile'
-  }).state('settings', {
-    url: '/settings',
-    parent: 'xooma'
-  }).state('home', {
-    url: '/home'
   });
   App.addInitializer(function() {
     Backbone.history.start();

@@ -52,3 +52,34 @@ ProfilePersonalInfoView = (function(_super) {
   return ProfilePersonalInfoView;
 
 })(Marionette.ItemView);
+
+App.UserPersonalInfoCtrl = (function(_super) {
+  __extends(UserPersonalInfoCtrl, _super);
+
+  function UserPersonalInfoCtrl() {
+    this._showView = __bind(this._showView, this);
+    return UserPersonalInfoCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  UserPersonalInfoCtrl.prototype.initialize = function(options) {
+    return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
+  };
+
+  UserPersonalInfoCtrl.prototype._showView = function(userModel) {
+    return this.show(new ProfilePersonalInfoView({
+      model: userModel
+    }));
+  };
+
+  UserPersonalInfoCtrl.prototype.errorHandler = function(error) {
+    this.region = new Marionette.Region({
+      el: '#nofound-template'
+    });
+    return new Ajency.HTTPRequestCtrl({
+      region: this.region
+    });
+  };
+
+  return UserPersonalInfoCtrl;
+
+})(Marionette.RegionController);

@@ -83,3 +83,56 @@ ProfileMeasurementsView = (function(_super) {
   return ProfileMeasurementsView;
 
 })(Marionette.ItemView);
+
+App.UserMeasurementCtrl = (function(_super) {
+  __extends(UserMeasurementCtrl, _super);
+
+  function UserMeasurementCtrl() {
+    this.successHandler = __bind(this.successHandler, this);
+    this._showView = __bind(this._showView, this);
+    return UserMeasurementCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  UserMeasurementCtrl.prototype.initialize = function(options) {
+    var xhr;
+    xhr = this._get_measurement_details();
+    return xhr.done(this._showView).fail(this._showView);
+  };
+
+  UserMeasurementCtrl.prototype._showView = function() {
+    return this.show(new ProfileMeasurementsView({
+      model: App.currentUser
+    }));
+  };
+
+  UserMeasurementCtrl.prototype._get_measurement_details = function() {
+    var deferred;
+    if (!App.currentUser.has('measurements')) {
+      return $.ajax({
+        method: 'GET',
+        url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+        success: this.successHandler
+      });
+    } else {
+      deferred = Marionette.Deferred();
+      deferred.resolve(true);
+      return deferred.promise();
+    }
+  };
+
+  UserMeasurementCtrl.prototype.errorHandler = function(error) {
+    this.region = new Marionette.Region({
+      el: '#nofound-template'
+    });
+    return new Ajency.HTTPRequestCtrl({
+      region: this.region
+    });
+  };
+
+  UserMeasurementCtrl.prototype.successHandler = function(response, status) {
+    return App.currentUser.set('measurements', response.response);
+  };
+
+  return UserMeasurementCtrl;
+
+})(Marionette.RegionController);
