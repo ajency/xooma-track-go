@@ -49,6 +49,9 @@
 			_.cordovaHideSplashscreen()
 			
 			App.navigate '/login', true
+			# App.currentUser.on 'user:auth:success', ->
+				# App.navigate '/login', true
+				# App.navigate App.currentUser.get('state'), true
 
 			window.plugin.notification.local.onclick = (id, state, json)->
 				setbadgeValue = 0
