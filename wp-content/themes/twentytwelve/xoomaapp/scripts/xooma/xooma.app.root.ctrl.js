@@ -18,10 +18,28 @@ ProfileCtrlView = (function(_super) {
     ul: '.list-inline'
   };
 
-  ProfileCtrlView.prototype.behaviors = {
-    ActiveLink: {
-      behaviorClass: Ajency.ActiveLinkBehavior
+  ProfileCtrlView.prototype.events = {
+    'click @ui.ul li a': 'preventClick'
+  };
+
+  ProfileCtrlView.prototype.initialize = function(options) {
+    if (options == null) {
+      options = {};
     }
+    ProfileCtrlView.__super__.initialize.call(this, options);
+    return this.listenTo(App, 'state:transition:complete', this.handleMenu);
+  };
+
+  ProfileCtrlView.prototype.preventClick = function(evt) {
+    return evt.preventDefault();
+  };
+
+  ProfileCtrlView.prototype.handleMenu = function(evt, state, args) {
+    var url;
+    url = "#/" + (state.get('computed_url'));
+    this.ui.ul.find('a').removeAttr('disabled');
+    this.$('a[href="' + url + '"]').parent().siblings().removeClass('active');
+    return this.$('a[href="' + url + '"]').parent().addClass('active');
   };
 
   return ProfileCtrlView;
