@@ -26,14 +26,7 @@ App.ProductListCtrl = (function(_super) {
     }));
   };
 
-  ProductListCtrl.prototype._getProducts = function() {
-    return $.ajax({
-      method: 'GET',
-      url: "" + _SITEURL + "/wp-json/products",
-      success: this.successHandler,
-      error: this.errorHandler
-    });
-  };
+  ProductListCtrl.prototype._getProducts = function() {};
 
   ProductListCtrl.prototype.successHandler = function(response, status, responsecode) {
     if (responsecode.status === 200) {

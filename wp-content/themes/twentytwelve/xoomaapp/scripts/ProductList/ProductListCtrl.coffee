@@ -12,11 +12,7 @@ class App.ProductListCtrl extends Marionette.RegionController
 
 
 	_getProducts:->
-		$.ajax
-				method : 'GET'
-				url : "#{_SITEURL}/wp-json/products"
-				success: @successHandler
-				error: @errorHandler
+		
 
 	successHandler : (response, status,responsecode)=>
 		if responsecode.status == 200 

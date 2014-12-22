@@ -101,7 +101,7 @@ Ajency.HTTPRequestFailView = (function(_super) {
     return HTTPRequestFailView.__super__.constructor.apply(this, arguments);
   }
 
-  HTTPRequestFailView.prototype.template = 'Request page not  Found';
+  HTTPRequestFailView.prototype.template = 'Requested page not  Found';
 
   return HTTPRequestFailView;
 
