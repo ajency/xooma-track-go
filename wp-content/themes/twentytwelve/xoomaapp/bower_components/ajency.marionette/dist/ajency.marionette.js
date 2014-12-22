@@ -228,9 +228,10 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     CurrentUser.prototype.initialize = function(opt) {
-      if (currentUserNS.localStorage.isSet('userModel')) {
-        return this.set(currentUserNS.localStorage.get('userModel'));
-      }
+
+      // if (currentUserNS.localStorage.isSet('userModel')) {
+      //   return this.set(currentUserNS.localStorage.get('userModel'));
+      // }
     };
 
     CurrentUser.prototype.isLoggedIn = function() {
@@ -388,10 +389,10 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       }
       this.currentUser = currentUser;
       this._detectRegions();
-      this._registerStates();
       this.triggerMethod('before:start', options);
+      this._registerStates();
       this._initCallbacks.run(options, this);
-      return this.triggerMethod('start', options);
+      this.triggerMethod('start', options);
     }
   });
 
@@ -687,7 +688,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     return LoginCtrl;
 
-  })(Marionette.RegionController);
+  })(Ajency.RegionController);
   NothingFoundView = (function(_super) {
     __extends(NothingFoundView, _super);
 

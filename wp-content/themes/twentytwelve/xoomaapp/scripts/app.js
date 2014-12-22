@@ -2,23 +2,30 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
-  }).state('settings', {
-    url: '/settings',
-    parent: 'xooma'
-  }).state('home', {
-    url: '/home'
-  }).state('UserProductList', {
-    url: '/my-products',
-    parent: 'profile'
-  }).state('ProductList', {
-    url: '/products',
-    parent: 'xooma'
   });
-  App.addInitializer(function() {
-    Backbone.history.start();
+  App.onBeforeStart = function() {
+    if (!App.currentUser.isLoggedIn()) {
+      App.currentUser.set('caps', notLoggedInCaps);
+    } else {
+      App.currentUser.set(userData);
+    }
     return App.currentUser.on('user:auth:success', function() {
-      return App.navigate(App.currentUser.get('state'), true);
+      return App.navigate(App.currentUser.get('state'), true).state('settings', {
+        url: '/settings',
+        parent: 'xooma'
+      }).state('home', {
+        url: '/home'
+      }).state('UserProductList', {
+        url: '/my-products',
+        parent: 'profile'
+      }).state('ProductList', {
+        url: '/products',
+        parent: 'xooma'
+      });
     });
+  };
+  App.addInitializer(function() {
+    return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {

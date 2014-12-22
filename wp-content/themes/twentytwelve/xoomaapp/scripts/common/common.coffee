@@ -60,6 +60,18 @@ _.extend Ajency.CurrentUser::,
 		profilePicture = @get 'profile_picture'
 		(parseInt(profilePicture.id) isnt 0) or not _.isUndefined profilePicture.type
 
+	addProduct : (id)->
+		_successHandler = (resp, status)=>
+			if status is 210
+				products = @get 'products'
+				products = _.flatten products, [id]
+				@set 'products', products
+
+		$.ajax
+			method : 'POST'
+			url : @_getUrl 'products'
+			success: _successHandler
+
 
 
 class Ajency.HTTPRequestFailView extends Marionette.ItemView

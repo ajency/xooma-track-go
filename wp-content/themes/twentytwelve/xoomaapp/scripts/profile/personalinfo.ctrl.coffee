@@ -27,7 +27,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	errorHandler:(error)=>
 
-class App.UserPersonalInfoCtrl extends Marionette.RegionController
+class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		App.currentUser.getProfile().done(@_showView).fail @errorHandler
