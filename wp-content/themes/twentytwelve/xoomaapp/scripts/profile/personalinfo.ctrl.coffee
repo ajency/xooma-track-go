@@ -12,8 +12,14 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 	modelEvents :
 		'change:profile_picture' : 'render'
 
+	initialize : ->
+		@listenTo App, 'fb:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()
+	
 	onShow:->
 		_.enableCordovaBackbuttonNavigation()
+	
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()
@@ -22,21 +28,21 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 	onFormSubmit: (_formData)=>
 		@model.saveProfile _formData['profile']
 			.done @successHandler
-			.fail @errorHandler
+			#.fail @errorHandler #DEVICE
 
 	successHandler:(response, status)=>
 		@showSuccessMessage()
 
 	errorHandler:(error)=>
 
-class App.UserPersonalInfoCtrl extends Marionette.RegionController
+class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		if _.onlineStatus() is false
 			window.plugins.toast.showLongBottom("Please check your internet connection.");
 			# return false
 		else 
-			App.currentUser.getProfile().done(@_showView).fail @errorHandler
+			App.currentUser.getProfile().done(@_showView)#.fail @errorHandler #DEVICE
 
 	_showView : (userModel)=>
 		@show new App.ProfilePersonalInfoView

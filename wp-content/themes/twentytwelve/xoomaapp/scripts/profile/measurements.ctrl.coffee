@@ -24,6 +24,7 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@ui.form.validate submitHandler: @formSubmitHandler
+		#method used for DEVICE
 		@cordovaEventsForModuleDescriptionView()
 
 	disabler:(e)->
@@ -32,7 +33,7 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	formSubmitHandler : (form)=>
 		_formData = $('#add_measurements').serialize()
-		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
+		@model.saveMeasurements(_formData).done(@successHandler).#fail(@errorHandler) #DEVICE
 		return false
 
 	successHandler : (response, status,responseCode)=>
@@ -46,6 +47,7 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
+
 
 	onPauseSessionClick : =>
 			console.log 'Invoked onPauseSessionClick'
@@ -61,12 +63,15 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 		# Cordova pause event
 		document.addEventListener("pause", @onPauseSessionClick, false)
 
-
-class App.UserMeasurementCtrl extends Marionette.RegionController
+class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
-		xhr = @_get_measurement_details()
-		xhr.done(@_showView).fail @_showView
+		if _.onlineStatus() is false
+			window.plugins.toast.showLongBottom("Please check your internet connection.");
+			# return false
+		else 
+			xhr = @_get_measurement_details()
+			xhr.done(@_showView)#.fail @_showView #DEVICE
 
 	_showView :=>
 		@show new App.ProfileMeasurementsView

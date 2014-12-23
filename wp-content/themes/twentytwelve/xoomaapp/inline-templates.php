@@ -1,4 +1,4 @@
-<script id="login-template" type="h-template">
+<script id="login-template" type="text/template">
 	<div class="container">
 			<div class="row">
 					<div class="col-sm-12">
@@ -41,43 +41,12 @@
 					</div>
 			</div>
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
-			<a class="btn btn-primary" href="#/notification-display">View Notification</a>
 	</div>
 </script>
-<script id="notification-display-template" type="h-template">
-		<span>"Schedule the time for notification"</span>
-		<input id="timeupdate" type="time" step="1" oninput="_.setNotificationTime()"/>
-		</br>
-		<span>"This button click is used to trigger notification after evry 60SECS "</span>
-		</br>
-		<div>
-				<span>"Product 1"</span>
-				<button class="btn btn-primary" onclick = "_.notificationCall('1');">Click</button>
-		</div>
-		<div>
-				<span>"Product 2"</span>
-				<button class="btn btn-primary" onclick = "_.notificationCall('2');">Click</button>
-		</div>
-		
-		<a class="btn btn-primary" href="#/profile/personal-info">View Profile</a>
-		
-</script>
-
-<script id="notification-info-template" type="h-template">
-		<div id="notificatioInfo">
-				<h1>Notification </h1>
-				<span>Notification Values</span>
-				</br>
-				<span>Time of the notification: </span>
-				<span id="time_for_notification"> </span>
-				</br>
-				<span>Message: </span><span id="Message_for_notification"> </span>
-		</div>
-</script>
-<script id="404-template" type="h-template">
+<script id="404-template" type="text/template">
 		<h3>Add 404 View Here</h3>
 </script>
-<script id="xooma-app-template" type="h-template">
+<script id="xooma-app-template" type="text/template">
 		<div class="topheader">
 				<nav class="navbar " role="navigation">
 						<div class="container">
@@ -90,7 +59,9 @@
 												</div>
 										</div>
 										<div class="col-sm-9 col-xs-7">
-												<h5><i class="fa fa-cog pull-right "></i></h5>
+											<div ui-region="currentUser" class="pull-right">
+
+											</div>
 										</div>
 								</div>
 						</div>
@@ -99,7 +70,7 @@
 		<div class="clearfix"></div>
 		<div ui-region style="margin-top:60px"></div>
 </script>
-<script id="profile-template" type="h-template">
+<script id="profile-template" type="text/template">
 		<div class="sub-header">
 				<div class="container">
 						<div class="row">
@@ -125,13 +96,13 @@
 <script id="settings-template" type="text/template">
 		<h2>THis is the settings template </h2>
 </script>
-<script id="no-access-template" type="h-template">
+<script id="no-access-template" type="text/template">
 		{{#if no_access}}
 		<h1>Add no access View Here</h1> {{/if}} {{#if no_access_login}}
 		<h1>Add no access with login options View Here</h1> {{/if}} {{#if not_defined}}
 		<h1>This view is not configured. Please contact administrator</h1> {{/if}}
 </script>
-<script id="profile-personal-info-template" type="h-template">
+<script id="profile-personal-info-template" type="text/template">
 
 		<div id="personalinfo" class="section">
 
@@ -153,7 +124,7 @@
 												<div class="form-group">
 														<label for="text1" class=" col-sm-3 control-label">xooma id</label>
 														<div class="col-sm-9">
-																<input type="number" tabindex="1" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
+																<input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -171,7 +142,7 @@
 												<div class="form-group">
 														<label for="text4" class="col-sm-3 control-label">Phone</label>
 														<div class="col-sm-9">
-																<input type="number" tabindex="2" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]">
+																<input type="text" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -240,7 +211,7 @@
 				</div>
 		</div>
 </script>
-<script id="profile-measurements-template" type="h-template">
+<script id="profile-measurements-template" type="text/template">
 		<div id="measuremnt" class="section">
 				<div class="response_msg"></div>
 				<div class="container">
@@ -273,14 +244,14 @@
 												</br>
 										</div>
 										<div class="col-sm-6 imageMap">
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='number' tabindex='1' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='number' tabindex='2' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='number' tabindex='3' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='number' tabindex='4' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='number' tabindex='5' name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='number' tabindex='6' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='number' tabindex='7' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa f-dot-circle-o"></i></a>
-												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='number' tabindex='8' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
 										<div class="row">
@@ -293,7 +264,7 @@
 		</div>
 </script>
 
-<script id="home-template" type="h-template">
+<script id="home-template" type="text/template">
 		<div>
 				Add Home template here
 		</div>

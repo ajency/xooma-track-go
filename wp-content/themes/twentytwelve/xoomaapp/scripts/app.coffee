@@ -3,22 +3,31 @@
 		notificationIdAndBadgeValue = []
 		cordova.plugins.notification.badge
 		_.enableCordovaBackbuttonNavigation()
+		
 
 		App.state 'login'
 
 			.state 'xooma',
 					url : '/'
 
+		App.onBeforeStart = ->
+			App.currentUser.set userData
+			if not App.currentUser.isLoggedIn()
+				App.currentUser.set 'caps', notLoggedInCaps
+
+		App.currentUser.on 'user:auth:success', ->
+			App.navigate App.currentUser.get('state'), true
+
+		App.currentUser.on 'user:logged:out', ->
+			App.currentUser.clear slient : true
+			App.currentUser.set 'caps', notLoggedInCaps
+			App.navigate '/login', true
 
 		App.addInitializer ->
-			Backbone.history.start()
 			_.cordovaHideSplashscreen()
-			App.currentUser.on 'user:auth:success', ->
-				App.navigate App.currentUser.get('state'), true
+			Backbone.history.start()
 
-		App.on 'fb:status:connected', ->
-			if not App.currentUser.hasProfilePicture()
-				App.currentUser.getFacebookPicture()
+		App.start()
 
 		# App.on 'state:transition:start', (evt, state, params)->
 		# 	if not App.currentUser.isLoggedIn() and App.isLoggedInState stateName
@@ -28,8 +37,6 @@
 		# 	if App.currentUser.isLoggedIn() and state.get('name') is 'login'
 		# 		evt.preventDefault()
 		# 		App.navigate '#/profile/personal-info', true
-
-		App.start()
 
 
 		# App.addInitializer ->

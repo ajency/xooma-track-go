@@ -6,8 +6,11 @@ class XoomaAppRootView extends Marionette.LayoutView
 	behaviors :
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
+	onShow : ->
+		@currentUserRegion.show new Ajency.CurrentUserView
+											model : App.currentUser
 
-class App.XoomaCtrl extends Marionette.RegionController
+class App.XoomaCtrl extends Ajency.RegionController
 	initialize: (options)->
 		@show new XoomaAppRootView
 
