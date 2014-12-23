@@ -53,9 +53,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    App.navigate('/profile/measurements', true);
-    $('#product').css('cursor:default');
-    return $('#product').bind('click', this.disableEvent);
+    return App.navigate('/profile/measurements', true);
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {

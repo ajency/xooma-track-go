@@ -30,8 +30,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	successHandler:(response, status)=>
 		App.navigate '/profile/measurements' , true
-		$('#product').css('cursor:default')
-		$('#product').bind('click',@disableEvent)
+		
 
 	errorHandler:(error)=>
 		@ui.responseMessage.text "Data couldn't be saved due to some error."
