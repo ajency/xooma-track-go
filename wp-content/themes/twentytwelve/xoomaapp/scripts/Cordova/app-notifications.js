@@ -86,7 +86,7 @@
       if (badgeValue === 0) {
         notificationMessage = 'Gear up xooma time!';
       } else {
-        notificationMessage = 'Gear up xooma time! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + badgeValue + ' ';
+        notificationMessage = 'Gear up xooma time! ' + "                                     " + ' ' + badgeValue + ' ';
       }
       newDate = new Date();
       date = "" + (newDate.getFullYear()) + "-" + (newDate.getMonth() + 1) + "-" + (newDate.getDate());
