@@ -21,7 +21,7 @@ _.extend Ajency.CurrentUser::,
 			@set 'measurements', measurements
 
 		$.ajax
-			method : 'PUT'
+			method : 'POST'
 			url : @_getUrl 'measurements'
 			data : measurements
 			success: _successHandler

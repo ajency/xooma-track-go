@@ -77,12 +77,13 @@ class User
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 
         $metadata = get_user_meta($args['id'], 'user_details', true);
-        // if($metadata!=""){
+        if($metadata!=""){
 
-        //     global $aj_workflow;
-        //     $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
+            global $aj_workflow;
+            $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
+            
 
-        // }
+        }
 
         return true;
 	}

@@ -46,6 +46,8 @@
 <script id="404-template" type="text/template">
 		<h3>Add 404 View Here</h3>
 </script>
+
+
 <script id="xooma-app-template" type="text/template">
 		<div class="topheader">
 				<nav class="navbar " role="navigation">

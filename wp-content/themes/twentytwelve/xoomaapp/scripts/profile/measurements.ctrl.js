@@ -114,8 +114,7 @@ App.UserMeasurementCtrl = (function(_super) {
       return $.ajax({
         method: 'GET',
         url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
-        success: this.successHandler,
-        error: this.errorHandler
+        success: this.successHandler
       });
     } else {
       deferred = Marionette.Deferred();

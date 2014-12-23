@@ -27,7 +27,7 @@ class ProfileCtrlView extends Marionette.LayoutView
 		@listenTo App, 'state:transition:complete', @handleMenu
 
 	preventClick : (evt)->
-		evt.preventDefault()
+		# evt.preventDefault()
 
 	handleMenu : (evt, state, args)->
 		# url = "#/#{state.get 'computed_url'}"
@@ -36,7 +36,6 @@ class ProfileCtrlView extends Marionette.LayoutView
 		# 	.siblings().removeClass 'active'
 		# @$('a[href="'+url+'"]').parent().addClass 'active'
 		url = App.currentUser.get 'state'
-		console.log url
 		if url == '/profile/personal-info'
 			$('#profile').parent().addClass 'active'
 			$('#measurement').css(cursor:'default')
@@ -44,9 +43,16 @@ class ProfileCtrlView extends Marionette.LayoutView
 			$('#product').css(cursor:'default')
 			$('#product').bind('click',@disableEvent)
 		else if url == '/profile/measurements'
+			$('#profile').parent().removeClass 'active'
 			$('#measurement').parent().addClass 'active'
+			$('#measurement').css(cursor:'pointer')
 			$('#product').css('cursor:default')
 			$('#product').bind('click',@disableEvent)
+			$('#profile').unbind()
+
+	disableEvent:(evt)->
+		evt.preventDefault()
+		return false;
 		
 
 	

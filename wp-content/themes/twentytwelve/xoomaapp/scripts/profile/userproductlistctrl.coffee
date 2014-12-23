@@ -1,4 +1,10 @@
+class UserProductListView extends Marionette.ItemView
 
+	template  : '#produts-template'
+
+	className : 'animated fadeIn'
+
+		
 class App.UserProductListCtrl extends Marionette.RegionController
 
 	initialize:->
@@ -21,8 +27,3 @@ class App.UserProductListCtrl extends Marionette.RegionController
 				$('.response_msg').text "Something went wrong" 
 
 
-class UserProductListView extends Marionette.ItemView
-
-	template  : '#produts-template'
-
-	className : 'animated fadeIn'

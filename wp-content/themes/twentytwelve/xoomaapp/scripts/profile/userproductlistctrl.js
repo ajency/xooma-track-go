@@ -3,6 +3,21 @@ var UserProductListView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+UserProductListView = (function(_super) {
+  __extends(UserProductListView, _super);
+
+  function UserProductListView() {
+    return UserProductListView.__super__.constructor.apply(this, arguments);
+  }
+
+  UserProductListView.prototype.template = '#produts-template';
+
+  UserProductListView.prototype.className = 'animated fadeIn';
+
+  return UserProductListView;
+
+})(Marionette.ItemView);
+
 App.UserProductListCtrl = (function(_super) {
   __extends(UserProductListCtrl, _super);
 
@@ -31,18 +46,3 @@ App.UserProductListCtrl = (function(_super) {
   return UserProductListCtrl;
 
 })(Marionette.RegionController);
-
-UserProductListView = (function(_super) {
-  __extends(UserProductListView, _super);
-
-  function UserProductListView() {
-    return UserProductListView.__super__.constructor.apply(this, arguments);
-  }
-
-  UserProductListView.prototype.template = '#produts-template';
-
-  UserProductListView.prototype.className = 'animated fadeIn';
-
-  return UserProductListView;
-
-})(Marionette.ItemView);

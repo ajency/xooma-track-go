@@ -26,7 +26,7 @@ _.extend(Ajency.CurrentUser.prototype, {
       };
     })(this);
     return $.ajax({
-      method: 'PUT',
+      method: 'POST',
       url: this._getUrl('measurements'),
       data: measurements,
       success: _successHandler

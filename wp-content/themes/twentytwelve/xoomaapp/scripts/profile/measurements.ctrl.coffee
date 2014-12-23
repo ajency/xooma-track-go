@@ -66,7 +66,6 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 				method : 'GET'
 				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
 				success: @successHandler
-				error: @errorHandler
 		else
 			deferred = Marionette.Deferred()
 			deferred.resolve(true)
