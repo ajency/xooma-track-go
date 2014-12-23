@@ -150,8 +150,8 @@ _.mixin
 		if badgeValue is 0
 			notificationMessage = 'Gear up xooma time!'
 		else
-			# notificationMessage = 'Gear up xooma time! '+ "                                     "+' ' + badgeValue + ' '
-			notificationMessage = 'Gear up xooma time! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + badgeValue + ' '
+			notificationMessage = 'Gear up xooma time! '+ "                                     "+' ' + badgeValue + ' '
+			# notificationMessage = 'Gear up xooma time! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + badgeValue + ' '
 
 		newDate = new Date()
 
@@ -176,12 +176,16 @@ _.mixin
 			message: notificationMessage,
 			badge: badgeValue,
 			json : JSON.stringify({ test: "Xooma Track & Go!!", date: convertTo12hourFormat}),
-			date : time
+			date : time,
+			icon: 'file://xoomaapp/images/1.jpg'
+			actions: [{title: 'Action 1', icon: 'icon1' }, {title: 'Action 2', icon: 'icon2' }]
 
 
 
 
-		window.plugin.notification.local.ontrigger = (id, state, json)->
+
+		# window.plugin.notification.local.ontrigger = (id, state, json)->
+		window.plugin.notification.local.onadd = (id,state,json)->
 			ids = []
 			badgeValues = []
 			value = _.getNotificationBadgeNumber()
@@ -214,6 +218,12 @@ _.mixin
 
 				# else if id is '3'
 			# 	window.plugin.notification.local.setDefaults(badge)
+
+		# window.plugin.notification.local.onclick = (id, state, action, json)->
+		# 	alert "inside"
+		# 	window.plugin.notification.local.cancel(id);
+		# 	window.plugin.notification.local.add
+		# 		message: "Great job! You have consumed your supplement"
 			
 		
 
