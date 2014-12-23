@@ -8,26 +8,47 @@
       _.enableCordovaBackbuttonNavigation();
       App.state('login').state('xooma', {
         url: '/'
-      });
-      App.onBeforeStart = function() {
-        App.currentUser.set(userData);
-        if (!App.currentUser.isLoggedIn()) {
-          return App.currentUser.set('caps', notLoggedInCaps);
-        }
-      };
-      App.currentUser.on('user:auth:success', function() {
-        return App.navigate(App.currentUser.get('state'), true);
-      });
-      App.currentUser.on('user:logged:out', function() {
-        App.currentUser.clear({
-          slient: true
-        });
-        App.currentUser.set('caps', notLoggedInCaps);
-        return App.navigate('/login', true);
+      }).state('notificationDisplay', {
+        url: '/notification-display'
+      }).state('notification', {
+        url: '/notification-info'
       });
       App.addInitializer(function() {
+        Backbone.history.start();
         _.cordovaHideSplashscreen();
-        return Backbone.history.start();
+        App.navigate('/notification-display', true);
+        return window.plugin.notification.local.onclick = function(id, state, action, json) {
+          var badge, badgeValue, badgeValues, i, ids, option, setbadgeValue, value, _i, _ref;
+          alert("clicked on button: " + action);
+          setbadgeValue = 0;
+          ids = [];
+          badgeValues = [];
+          value = _.getNotificationBadgeNumber();
+          option = JSON.parse(value);
+          for (i = _i = 0, _ref = option.length - 1; _i <= _ref; i = _i += 1) {
+            if (id === option[i].ids) {
+              badgeValue = 0;
+              badge = {
+                badge: badgeValue
+              };
+              notificationIdAndBadgeValue.push({
+                ids: id,
+                badgeValues: badgeValue
+              });
+              _.setNotificationBadgeNumber(notificationIdAndBadgeValue);
+            }
+            if (id === '4') {
+              badgeValue = 0;
+              badge = {
+                badge: setbadgeValue
+              };
+              window.plugin.notification.local.setDefaults(badge);
+            }
+          }
+          App.navigate("/notification-info", true);
+          $('#time_for_notification').text(JSON.parse(json).date);
+          return $('#Message_for_notification').text(JSON.parse(json).test);
+        };
       });
       return App.start();
     }), false);

@@ -176,12 +176,21 @@ _.mixin
 			message: notificationMessage,
 			badge: badgeValue,
 			json : JSON.stringify({ test: "Xooma Track & Go!!", date: convertTo12hourFormat}),
-			date : time
+			date : time,
+			icon: 'file://xoomaapp/images/1.jpg'
+			actions: [{title: 'Action 1', icon: 'icon1' }, {title: 'Action 2', icon: 'icon2' }]
+
+		# window.plugin.notification.local.add
+		# 	date : time,
+		# 	icon: 'file:///android_assets/www/xoomaapp/images/1.jpg'
+
+		# window.plugin.notification.local.onadd = (id,state,json)->
+		# 	console.log "onAdd"+id
 
 
 
-
-		window.plugin.notification.local.ontrigger = (id, state, json)->
+		# window.plugin.notification.local.ontrigger = (id, state, json)->
+		window.plugin.notification.local.onadd = (id,state,json)->
 			ids = []
 			badgeValues = []
 			value = _.getNotificationBadgeNumber()

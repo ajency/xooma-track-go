@@ -10,24 +10,30 @@
 			.state 'xooma',
 					url : '/'
 
-		App.onBeforeStart = ->
-			App.currentUser.set userData
-			if not App.currentUser.isLoggedIn()
-				App.currentUser.set 'caps', notLoggedInCaps
+			.state 'notificationDisplay',
+					url : '/notification-display'
 
-		App.currentUser.on 'user:auth:success', ->
-			App.navigate App.currentUser.get('state'), true
+			.state 'notification',
+					url : '/notification-info'
 
-		App.currentUser.on 'user:logged:out', ->
-			App.currentUser.clear slient : true
-			App.currentUser.set 'caps', notLoggedInCaps
-			App.navigate '/login', true
+		# App.onBeforeStart = ->
+		# 	App.currentUser.set userData
+		# 	if not App.currentUser.isLoggedIn()
+		# 		App.currentUser.set 'caps', notLoggedInCaps
 
-		App.addInitializer ->
-			_.cordovaHideSplashscreen()
-			Backbone.history.start()
+		# App.currentUser.on 'user:auth:success', ->
+		# 	App.navigate App.currentUser.get('state'), true
 
-		App.start()
+		# App.currentUser.on 'user:logged:out', ->
+		# 	App.currentUser.clear slient : true
+		# 	App.currentUser.set 'caps', notLoggedInCaps
+		# 	App.navigate '/login', true
+
+		# App.addInitializer ->
+		# 	_.cordovaHideSplashscreen()
+		# 	Backbone.history.start()
+
+		# App.start()
 
 		# App.on 'state:transition:start', (evt, state, params)->
 		# 	if not App.currentUser.isLoggedIn() and App.isLoggedInState stateName
@@ -39,71 +45,72 @@
 		# 		App.navigate '#/profile/personal-info', true
 
 
-		# App.addInitializer ->
-		# 	Backbone.history.start()
-		# 	_.cordovaHideSplashscreen()
+		App.addInitializer ->
+			Backbone.history.start()
+			_.cordovaHideSplashscreen()
 			
-		# 	App.navigate '/login', true
-		# 	# App.currentUser.on 'user:auth:success', ->
-		# 		# App.navigate '/login', true
-		# 		# App.navigate App.currentUser.get('state'), true
+			App.navigate '/notification-display', true
+			# App.currentUser.on 'user:auth:success', ->
+				# App.navigate '/login', true
+				# App.navigate App.currentUser.get('state'), true
 
-		# 	window.plugin.notification.local.onclick = (id, state, json)->
-		# 		setbadgeValue = 0
-		# 		ids = []
-		# 		badgeValues = []
-		# 		value = _.getNotificationBadgeNumber()
-		# 		# badgeValue = window.plugin.notification.local.getDefaults().badge;
+			window.plugin.notification.local.onclick = (id, state, action, json)->
+				alert("clicked on button: " + action);
+				setbadgeValue = 0
+				ids = []
+				badgeValues = []
+				value = _.getNotificationBadgeNumber()
+				# badgeValue = window.plugin.notification.local.getDefaults().badge;
 
-		# 		option = JSON.parse(value)
-		# 		for i in [0..option.length-1] by 1
+				option = JSON.parse(value)
+				for i in [0..option.length-1] by 1
 				
-		# 			if id is option[i].ids
-		# 				badgeValue = 0
-		# 				badge = {badge : badgeValue}
-		# 				# ids = ids[i]
-		# 				# badgeValues = badgeValues[i]
-		# 				# window.plugin.notification.local.setDefaults(badge)
+					if id is option[i].ids
+						badgeValue = 0
+						badge = {badge : badgeValue}
+						# ids = ids[i]
+						# badgeValues = badgeValues[i]
+						# window.plugin.notification.local.setDefaults(badge)
 						
-		# 				notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
-		# 				# delete option[i];
-		# 				# notificationIdAndBadgeValue.splice(i, 1);
+						notificationIdAndBadgeValue.push { ids : id, badgeValues : badgeValue}
+						# delete option[i];
+						# notificationIdAndBadgeValue.splice(i, 1);
 
-		# 				_.setNotificationBadgeNumber(notificationIdAndBadgeValue)
+						_.setNotificationBadgeNumber(notificationIdAndBadgeValue)
 					
-		# 			if id is '4'
-		# 				badgeValue = 0
-		# 				badge = {badge : setbadgeValue}
-		# 				window.plugin.notification.local.setDefaults(badge)
+					if id is '4'
+						badgeValue = 0
+						badge = {badge : setbadgeValue}
+						window.plugin.notification.local.setDefaults(badge)
 				
-		# 		# if badgeValue isnt 0
+				# if badgeValue isnt 0
 					
-		# 		# 	if id is '1'
-		# 		# 		badgeValue = 0
-		# 		# 		badge = {badge : setbadgeValue}
-		# 		# 		window.plugin.notification.local.setDefaults(badge)
+				# 	if id is '1'
+				# 		badgeValue = 0
+				# 		badge = {badge : setbadgeValue}
+				# 		window.plugin.notification.local.setDefaults(badge)
 					
-		# 		# 	else if id is '2'
-		# 		# 		badgeValue = 0
-		# 		# 		badge = {badge : setbadgeValue}
-		# 		# 		window.plugin.notification.local.setDefaults(badge)
+				# 	else if id is '2'
+				# 		badgeValue = 0
+				# 		badge = {badge : setbadgeValue}
+				# 		window.plugin.notification.local.setDefaults(badge)
 
-		# 		# 	else if id is '3'
-		# 		# 		badgeValue = 0
-		# 		# 		badge = {badge : setbadgeValue}
-		# 		# 		window.plugin.notification.local.setDefaults(badge)
+				# 	else if id is '3'
+				# 		badgeValue = 0
+				# 		badge = {badge : setbadgeValue}
+				# 		window.plugin.notification.local.setDefaults(badge)
 
-		# 		# 	else if id is '4'
-		# 		# 		badgeValue = 0
-		# 		# 		badge = {badge : setbadgeValue}
-		# 		# 		window.plugin.notification.local.setDefaults(badge)
+				# 	else if id is '4'
+				# 		badgeValue = 0
+				# 		badge = {badge : setbadgeValue}
+				# 		window.plugin.notification.local.setDefaults(badge)
 
 
-		# 			# window.plugin.notification.local.cancel(id);
-		# 		App.navigate "/notification-info", true
-		# 		$('#time_for_notification').text(JSON.parse(json).date)
-		# 		$('#Message_for_notification').text(JSON.parse(json).test)
+					# window.plugin.notification.local.cancel(id);
+				App.navigate "/notification-info", true
+				$('#time_for_notification').text(JSON.parse(json).date)
+				$('#Message_for_notification').text(JSON.parse(json).test)
 
-		# App.start()
+		App.start()
 	), false
 ).call()
