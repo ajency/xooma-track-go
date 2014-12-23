@@ -51,10 +51,23 @@ ProfileCtrlView = (function(_super) {
 
   ProfileCtrlView.prototype.handleMenu = function(evt, state, args) {
     var url;
-    url = "#/" + (state.get('computed_url'));
-    this.ui.ul.find('a').removeAttr('disabled');
-    this.$('a[href="' + url + '"]').parent().siblings().removeClass('active');
-    return this.$('a[href="' + url + '"]').parent().addClass('active');
+    url = App.currentUser.get('state');
+    console.log(url);
+    if (url === '/profile/personal-info') {
+      $('#profile').parent().addClass('active');
+      $('#measurement').css({
+        cursor: 'default'
+      });
+      $('#measurement').bind('click', this.disableEvent);
+      $('#product').css({
+        cursor: 'default'
+      });
+      return $('#product').bind('click', this.disableEvent);
+    } else if (url === '/profile/measurements') {
+      $('#measurement').parent().addClass('active');
+      $('#product').css('cursor:default');
+      return $('#product').bind('click', this.disableEvent);
+    }
   };
 
   return ProfileCtrlView;

@@ -124,7 +124,7 @@
 												<div class="form-group">
 														<label for="text1" class=" col-sm-3 control-label">xooma id</label>
 														<div class="col-sm-9">
-																<input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
+																<input type="number" aj-inputmask="999999" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6"   class="form-control " name="profile[xooma_member_id]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -213,8 +213,9 @@
 </script>
 <script id="profile-measurements-template" type="text/template">
 		<div id="measuremnt" class="section">
-				<div class="response_msg"></div>
+				
 				<div class="container">
+				<div class="aj-response-message"></div>
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">

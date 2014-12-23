@@ -30,12 +30,28 @@ class ProfileCtrlView extends Marionette.LayoutView
 		evt.preventDefault()
 
 	handleMenu : (evt, state, args)->
-		url = "#/#{state.get 'computed_url'}"
-		@ui.ul.find('a').removeAttr 'disabled'
-		@$('a[href="'+url+'"]').parent()
-			.siblings().removeClass 'active'
-		@$('a[href="'+url+'"]').parent().addClass 'active'
+		# url = "#/#{state.get 'computed_url'}"
+		# @ui.ul.find('a').removeAttr 'disabled'
+		# @$('a[href="'+url+'"]').parent()
+		# 	.siblings().removeClass 'active'
+		# @$('a[href="'+url+'"]').parent().addClass 'active'
+		url = App.currentUser.get 'state'
+		console.log url
+		if url == '/profile/personal-info'
+			$('#profile').parent().addClass 'active'
+			$('#measurement').css(cursor:'default')
+			$('#measurement').bind('click',@disableEvent)
+			$('#product').css(cursor:'default')
+			$('#product').bind('click',@disableEvent)
+		else if url == '/profile/measurements'
+			$('#measurement').parent().addClass 'active'
+			$('#product').css('cursor:default')
+			$('#product').bind('click',@disableEvent)
+		
 
+	
+
+	
 
 class App.ProfileCtrl extends Marionette.RegionController
 	initialize: (options)->

@@ -11,7 +11,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		popoverElements : '.popover-element'
 		form : '#add_measurements'
 		rangeSliders : '[data-rangeslider]'
-		responseMessage : '.response_msg'
+		responseMessage : '.aj-response-message'
 
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
@@ -42,6 +42,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	errorHandler : (error)=>
 		@ui.responseMessage.text "Something went wrong"
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
@@ -63,6 +66,7 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 				method : 'GET'
 				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
 				success: @successHandler
+				error: @errorHandler
 		else
 			deferred = Marionette.Deferred()
 			deferred.resolve(true)
