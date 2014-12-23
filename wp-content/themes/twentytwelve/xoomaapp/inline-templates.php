@@ -1,48 +1,3 @@
-
-<!DOCTYPE html>
-<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<!-- <link rel="profile" href="http://gmpg.org/xfn/11" /> -->
-		<link rel="stylesheet" href="css/theme.css">
-		<link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
-		<link rel="stylesheet" href="bower_components/pickadate/lib/compressed/themes/default.css">
-		<style scoped>
-				#buttongroup-home .head {
-					display: block;
-						margin: 1em;
-					height: 110px;
-					background: url(/content/mobile/shared/sales.jpg) no-repeat center center;
-						-webkit-background-size: 100% auto;
-						background-size: 100% auto;
-				}
-				.km-ios .head,
-				.km-blackberry .head {
-						-webkit-border-radius: 10px;
-						border-radius: 10px;
-				}
-				#select-period {
-						margin: auto;
-				}
-				#buttongroup-home .km-list span {
-					float: right;
-				}
-				#buttongroup-home .sales-up {
-					color: green;
-				}
-				#buttongroup-home .sales-down {
-					color: red;
-				}
-				#buttongroup-home .sales-hold {
-					color: blue;
-				}
-		</style>
-</head>
-<body>
-<div ui-region></div>
-<div id="fb-root"></div>
-<!-- Templates -->
 <script id="login-template" type="text/template">
 	<div class="container">
 			<div class="row">
@@ -58,21 +13,21 @@
 									</ol>
 									<div class="carousel-inner" role="listbox">
 										<div class="item active">
-											<img src="./images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
 													<p>Has been desiged to help you track your personal x2o water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
-											<img src="./images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
 													<p>Has been desiged to help you track your personal x2o water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
-											<img src="./images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
 													<p>Has been desiged to help you track your personal x2o water consumption</p>
@@ -86,41 +41,7 @@
 					</div>
 			</div>
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
-			</br>
-			<a class="btn btn-primary" href="#/notification-display">View Notification</a>
-			</br>
 	</div>
-</script>
-
-<script id="notification-display-template" type="h-template">
-		<span>"Schedule the time for notification"</span>
-		<input id="timeupdate" type="time" step="1" oninput="_.setNotificationTime()"/>
-		</br>
-		<span>"This button click is used to trigger notification after evry 60SECS "</span>
-		</br>
-		<div>
-				<span>"Product 1"</span>
-				<button class="btn btn-primary" onclick = "_.notificationCall('1');">Click</button>
-		</div>
-		<div>
-				<span>"Product 2"</span>
-				<button class="btn btn-primary" onclick = "_.notificationCall('2');">Click</button>
-		</div>
-		
-		<a class="btn btn-primary" href="#/profile/personal-info">View Profile</a>
-		
-</script>
-
-<script id="notification-info-template" type="h-template">
-		<div id="notificatioInfo">
-				<h1>Notification </h1>
-				<span>Notification Values</span>
-				</br>
-				<span>Time of the notification: </span>
-				<span id="time_for_notification"> </span>
-				</br>
-				<span>Message: </span><span id="Message_for_notification"> </span>
-		</div>
 </script>
 <script id="404-template" type="text/template">
 		<h3>Add 404 View Here</h3>
@@ -133,7 +54,7 @@
 										<div class="col-sm-3 col-xs-5">
 												<div class="navbar-header">
 														<a href="#">
-																<img alt="Brand" src="./images/logo.png" class="img-reponsive" width="200px">
+																<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
 															</a>
 												</div>
 										</div>
@@ -203,7 +124,7 @@
 												<div class="form-group">
 														<label for="text1" class=" col-sm-3 control-label">xooma id</label>
 														<div class="col-sm-9">
-																<input type="number" tabindex="1" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
+																<input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -221,7 +142,7 @@
 												<div class="form-group">
 														<label for="text4" class="col-sm-3 control-label">Phone</label>
 														<div class="col-sm-9">
-																<input type="number" tabindex="2" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]">
+																<input type="text" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -242,7 +163,7 @@
 												<div class="form-group">
 														<label for="text7" class=" col-sm-3 control-label">Birth date</label>
 														<div class="col-sm-9">
-																<input class="form-control" type="date" name="profile[birth_date]" required />
+																<input class="form-control" type="text" name="profile[birth_date]" required />
 														</div>
 												</div>
 												<div class="form-group">
@@ -323,14 +244,14 @@
 												</br>
 										</div>
 										<div class="col-sm-6 imageMap">
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='number' tabindex='1' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='number' tabindex='2' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='number' tabindex='3' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='number' tabindex='4' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='number' tabindex='5' name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='number' tabindex='6' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='number' tabindex='7' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='number' tabindex='8' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
 										<div class="row">
@@ -348,78 +269,3 @@
 				Add Home template here
 		</div>
 </script>
-<div id="nofound-template" >
-Add template here
-<a class="btn btn-primary" href="#/profile/personal-info">View login</a>
-</div>
-<!-- build:js({.js}) scripts/vendors.js -->
-<!-- 
-<script "text/javascript" src="bower_components/modernizr/modernizr.js"></script> 
-<script "text/javascript" src="bower_components/detectizr/dist/detectizr.js"></script>  -->
-<script type="text/javascript" src="../cordova.js"></script>
-<script type="text/javascript" src="bower_components/underscore/underscore.js"></script> 
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
-<script type="text/javascript" src="bower_components/backbone.marionette/lib/backbone.marionette.js"></script>
-<script type="text/javascript" src="bower_components/backbone.syphon/lib/backbone.syphon.js"></script>
-<script type="text/javascript" src="bower_components/jquery.validation/dist/jquery.validate.js"></script>
-<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="bower_components/parsleyjs/dist/parsley.js"></script>
-<script type="text/javascript" src="bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script type="text/javascript" src="bower_components/handlebars/handlebars.js"></script>
-<script type="text/javascript" src="bower_components/pickadate/lib/compressed/picker.js"></script>
-<script type="text/javascript" src="bower_components/pickadate/lib/compressed/picker.date.js"></script>
-<script type="text/javascript" src="bower_components/plupload/js/moxie.min.js"></script>
-<script type="text/javascript" src="bower_components/plupload/js/plupload.full.min.js"></script>
-<script type="text/javascript" src="bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
-<script type="text/javascript" src="bower_components/cryptojslib/rollups/md5.js"></script>
-<script type="text/javascript" src="bower_components/moment/moment.js"></script> 
-<script type="text/javascript" src="bower_components/mustache/mustache.js"></script> 
-<script type="text/javascript" src="bower_components/rrule/lib/rrule.js"></script>
-<script type="text/javascript" src="bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
-<script type="text/javascript" src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
-<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
-
-<!-- endbuild -->
-<script "text/javascript" src="scripts/common/facebook.js"></script>
-<!-- build:js({*.js}) scripts/ajency.js -->
-<script type="text/javascript" src="bower_components/marionette.state/dist/marionette.state.js"></script>
-<script type="text/javascript" src="bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
-<script type="text/javascript" src="bower_components/mustache/mustache.js"></script>
-<!-- endbuild -->
-
-<script type="text/javascript">
-		userData = {};
-		notLoggedInCaps = {"access_login":true,"level_0":true};
-		App                   = new Marionette.Application()  
-		App.LoginCtrl         = Ajency.LoginCtrl  
-		App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-		APIURL                = 'http://www.xooma.ajency.in/wp-json';
-		_SITEURL              = 'http://www.xooma.ajency.in';
-		// FBAPPID               = '355178387994693';
-		// if(typeof FBAPPID !== 'undefined')  
-		//   facebookConnectPlugin.browserInit(FBAPPID);
-
-		// document.addEventListener("deviceready", function(){
-		// 	console.log("Invoked deviceready");
-			
-		// 	facebookConnectPlugin.login(["public_profile", "email"] , function(success){ } , function(error){
-		// 	});
-		// }, false);
-</script>
-
-<!-- build:js(*.js) application.js -->
-<script type="text/javascript" src="scripts/common/common.js"></script>
-<script type="text/javascript" src="scripts/xooma/xooma.app.root.ctrl.js"></script>
-<script type="text/javascript" src="scripts/profile/profile.ctrl.js"></script>
-<script type="text/javascript" src="scripts/profile/personalinfo.ctrl.js"></script>
-<script type="text/javascript" src="scripts/profile/measurements.ctrl.js"></script>
-<script type="text/javascript" src="scripts/app.js"></script>
-<script type="text/javascript" src="scripts/cordova/app-localstorage.js"></script>
-<script type="text/javascript" src="scripts/cordova/app-notifications.js"></script>
-<script type="text/javascript" src="scripts/cordova/app-functions.js"></script>
-<!-- endbuild -->
-
-
-</body>	
-</html>

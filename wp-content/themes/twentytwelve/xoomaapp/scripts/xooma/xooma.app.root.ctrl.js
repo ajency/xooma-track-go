@@ -1,47 +1,7 @@
 (function() {
-  var HomeView, NotificationView, ProfileCtrlView, SettingsView, XoomaAppRootView,
+  var NotificationDisplayView, NotificationView, XoomaAppRootView,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  ProfileCtrlView = (function(_super) {
-    __extends(ProfileCtrlView, _super);
-
-    function ProfileCtrlView() {
-      return ProfileCtrlView.__super__.constructor.apply(this, arguments);
-    }
-
-    ProfileCtrlView.prototype.className = 'animated fadeIn';
-
-    ProfileCtrlView.prototype.template = '#profile-template';
-
-    ProfileCtrlView.prototype.ui = {
-      ul: '.list-inline'
-    };
-
-    ProfileCtrlView.prototype.behaviors = {
-      ActiveLink: {
-        behaviorClass: Ajency.ActiveLinkBehavior
-      }
-    };
-
-    return ProfileCtrlView;
-
-  })(Marionette.LayoutView);
-
-  App.ProfileCtrl = (function(_super) {
-    __extends(ProfileCtrl, _super);
-
-    function ProfileCtrl() {
-      return ProfileCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    ProfileCtrl.prototype.initialize = function(options) {
-      return this.show(new ProfileCtrlView);
-    };
-
-    return ProfileCtrl;
-
-  })(Marionette.RegionController);
 
   XoomaAppRootView = (function(_super) {
     __extends(XoomaAppRootView, _super);
@@ -64,6 +24,12 @@
       }
     };
 
+    XoomaAppRootView.prototype.onShow = function() {
+      return this.currentUserRegion.show(new Ajency.CurrentUserView({
+        model: App.currentUser
+      }));
+    };
+
     return XoomaAppRootView;
 
   })(Marionette.LayoutView);
@@ -81,65 +47,35 @@
 
     return XoomaCtrl;
 
-  })(Marionette.RegionController);
+  })(Ajency.RegionController);
 
-  SettingsView = (function(_super) {
-    __extends(SettingsView, _super);
+  NotificationDisplayView = (function(_super) {
+    __extends(NotificationDisplayView, _super);
 
-    function SettingsView() {
-      return SettingsView.__super__.constructor.apply(this, arguments);
+    function NotificationDisplayView() {
+      return NotificationDisplayView.__super__.constructor.apply(this, arguments);
     }
 
-    SettingsView.prototype.className = 'animated fadeIn clearfix';
+    NotificationDisplayView.prototype.className = 'animated fadeIn';
 
-    SettingsView.prototype.template = '#settings-template';
+    NotificationDisplayView.prototype.template = '#notification-display-template';
 
-    return SettingsView;
+    return NotificationDisplayView;
 
   })(Marionette.ItemView);
 
-  App.SettingsCtrl = (function(_super) {
-    __extends(SettingsCtrl, _super);
+  App.NotificationDisplayCtrl = (function(_super) {
+    __extends(NotificationDisplayCtrl, _super);
 
-    function SettingsCtrl() {
-      return SettingsCtrl.__super__.constructor.apply(this, arguments);
+    function NotificationDisplayCtrl() {
+      return NotificationDisplayCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    SettingsCtrl.prototype.initialize = function(options) {
-      return this.show(new SettingsView);
+    NotificationDisplayCtrl.prototype.initialize = function(options) {
+      return this.show(new NotificationDisplayView);
     };
 
-    return SettingsCtrl;
-
-  })(Marionette.RegionController);
-
-  HomeView = (function(_super) {
-    __extends(HomeView, _super);
-
-    function HomeView() {
-      return HomeView.__super__.constructor.apply(this, arguments);
-    }
-
-    HomeView.prototype.className = 'animated fadeIn clearfix';
-
-    HomeView.prototype.template = '#home-template';
-
-    return HomeView;
-
-  })(Marionette.ItemView);
-
-  App.HomeCtrl = (function(_super) {
-    __extends(HomeCtrl, _super);
-
-    function HomeCtrl() {
-      return HomeCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    HomeCtrl.prototype.initialize = function(options) {
-      return this.show(new HomeView);
-    };
-
-    return HomeCtrl;
+    return NotificationDisplayCtrl;
 
   })(Marionette.RegionController);
 

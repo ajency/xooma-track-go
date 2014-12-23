@@ -1,29 +1,30 @@
 
 
+
 class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	template  : '#profile-measurements-template'
 
 	className : 'animated fadeIn'
 
-	ui : 
+	ui :
 		popoverElements : '.popover-element'
 		form : '#add_measurements'
 		rangeSliders : '[data-rangeslider]'
 		responseMessage : '.response_msg'
 
-	events : 
+	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
 	onShow:->
 		$('#measurement').parent().addClass 'active'
 		$('#product').bind('click',@disabler)
 		$('#product').css('cursor', 'default')
-		@ui.popoverElements.popover html: true    
+		@ui.popoverElements.popover html: true
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@ui.form.validate submitHandler: @formSubmitHandler
-		# _.enableCordovaBackbuttonNavigation()
+		#method used for DEVICE
 		@cordovaEventsForModuleDescriptionView()
 
 	disabler:(e)->
@@ -32,11 +33,11 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	formSubmitHandler : (form)=>
 		_formData = $('#add_measurements').serialize()
-		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
+		@model.saveMeasurements(_formData).done(@successHandler).#fail(@errorHandler) #DEVICE
 		return false
- 
-	successHandler : (response, status)=>
-		if status is 404
+
+	successHandler : (response, status,responseCode)=>
+		if responseCode.status is 404
 			@ui.responseMessage.text "Something went wrong"
 		else
 			@ui.responseMessage.text "User details saved successfully"
@@ -46,6 +47,7 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
+
 
 	onPauseSessionClick : =>
 			console.log 'Invoked onPauseSessionClick'
@@ -61,21 +63,34 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 		# Cordova pause event
 		document.addEventListener("pause", @onPauseSessionClick, false)
 
-	
+class App.UserMeasurementCtrl extends Ajency.RegionController
 
+	initialize: (options)->
+		if _.onlineStatus() is false
+			window.plugins.toast.showLongBottom("Please check your internet connection.");
+			# return false
+		else 
+			xhr = @_get_measurement_details()
+			xhr.done(@_showView)#.fail @_showView #DEVICE
 
+	_showView :=>
+		@show new App.ProfileMeasurementsView
+								model : App.currentUser
 
+	_get_measurement_details:->
+		if not App.currentUser.has 'measurements'
+			$.ajax
+				method : 'GET'
+				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+				success: @successHandler
+		else
+			deferred = Marionette.Deferred()
+			deferred.resolve(true)
+			deferred.promise()
 
+	errorHandler : (error)->
+		@region =  new Marionette.Region el : '#nofound-template'
+		new Ajency.HTTPRequestCtrl region : @region
 
-						
-			 
-					
-			
-
-
-				
-
-	
-				
-
-		
+	successHandler : (response, status)=>
+		App.currentUser.set 'measurements', response.response

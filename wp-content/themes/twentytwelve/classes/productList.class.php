@@ -18,19 +18,23 @@ class ProductList
 {
 	public function get_products($term_id){
 
+		//TODO: remove dummy response
+
+
+
 		global $wpdb;
-   
+
     	$product_type_table = $wpdb->prefix . "defaults";
     	$product_type_option = "";
-		    
-		#get all the terms/products 
-		
+
+		#get all the terms/products
+
 
     	// get the product category id
 		$product_id = get_category_by_slug('product');
 		$term = get_categories('parent='.$product_id->term_id.'&hide_empty=0');
-		
-		
+
+
 		#check if term_id is blank
 		if(isset($term_id) && $term_id !="")
 		{
@@ -43,7 +47,7 @@ class ProductList
 		    $product_type_table = $wpdb->prefix . "defaults";
 		    #get the values from product_type table
 		    $product_types = $wpdb->get_results( "SELECT * FROM $product_type_table where type='product_type'");
-		    foreach ( $product_types as $product_type ) 
+		    foreach ( $product_types as $product_type )
 		    {
 		    	$selected = get_term_meta($terms_array->term_id, 'product_type', true) == $product_type->id ? 'selected': "";
 
@@ -52,11 +56,11 @@ class ProductList
 
 
 
-			
+
 		}
 
 		$terms_array = array();
-		
+
 		#term data in an array
 		foreach ($term as $term_data) {
 			$single = true;
@@ -70,8 +74,8 @@ class ProductList
         	$frequency = (get_term_meta($term_data->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
         	$active = (get_term_meta($term_data->term_id, 'active', true) == 1) ? 'Yes' : 'No';
         	#total is calculated and set
-        	$size = explode('|', get_term_meta($term_data->term_id, 'serving_size', true));   
-			$total  = (intval($size[0]) + intval($size[1])) * 
+        	$size = explode('|', get_term_meta($term_data->term_id, 'serving_size', true));
+			$total  = (intval($size[0]) + intval($size[1])) *
 					intval(get_term_meta($term_data->term_id, 'serving_per_container', true));
 			$terms_array[] =array(
 				'id'        			=> $term_data->term_id,
@@ -103,10 +107,10 @@ class ProductList
 		else
 		{
 			new WP_Error( 'json_taxonomy_terms_not_found', __( 'Xooma Products not found.' ), array( 'status' => 500 ) );
-		
+
 		}
-		
-		
+
+
 
 	}
 }
