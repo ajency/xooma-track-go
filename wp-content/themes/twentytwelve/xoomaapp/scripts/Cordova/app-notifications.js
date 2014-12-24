@@ -104,7 +104,7 @@ _.mixin({
         date: convertTo12hourFormat
       }),
       date: time,
-      icon: 'file://xoomaapp/images/1.jpg',
+      icon: 'file://xoomaapp/images/icon.png',
       actions: [
         {
           title: 'Action 1',

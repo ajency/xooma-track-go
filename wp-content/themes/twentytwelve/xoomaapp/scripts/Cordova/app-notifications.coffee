@@ -177,7 +177,7 @@ _.mixin
 			badge: badgeValue,
 			json : JSON.stringify({ test: "Xooma Track & Go!!", date: convertTo12hourFormat}),
 			date : time,
-			icon: 'file://xoomaapp/images/1.jpg'
+			icon: 'file://xoomaapp/images/icon.png'
 			actions: [{title: 'Action 1', icon: 'icon1' }, {title: 'Ignore', icon: 'icon2' }]
 
 
