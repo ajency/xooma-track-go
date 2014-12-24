@@ -81,7 +81,7 @@ class User
 
             global $aj_workflow;
             $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
-            
+
 
         }
 
@@ -201,23 +201,26 @@ class User
 
     public function save_user_product_details($id,$pid){
 
-        global $ProductList;
+        global $productList;
 
 
-        $products_data = $ProductList->get_products($pid);
+        $products_data = $productList->get_products($pid);
 
-
-
+       
 
         //function to save Anytime users details
-        $response = save_anytime_product_details($id,$products_data['response']);
+        
 
-        if($products_data['response']['frequency_value']==2){
+        if($products_data[0]['frequency_value']==2){
             //function to update schedule users details
-            $response = save_schedule_product_details($id,$products_data['response']);
+            $response = save_schedule_product_details($id,$products_data[0]);
+        }
+        else
+        {
+            $response = save_anytime_product_details($id,$products_data[0]);
         }
 
-
+        return $response;
 
 
     }
@@ -261,5 +264,85 @@ class User
         {
             return new WP_Error( 'json_user_not_deleted', __( 'User not deleted.' ), array( 'status' => 500 ) );
         }
+    }
+
+
+    public function get_user_products($id){
+
+        global $wpdb;
+
+        $product_type_table = $wpdb->prefix . "defaults";
+
+        $product_main_table = $wpdb->prefix . "product_main";
+        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
+
+        $products_arr = array();
+        foreach ($sql_query as $key => $value) {
+            array_push($products_arr, $value->product_id);
+        }
+        $pr_main = array();
+        $products = implode(',', $products_arr);
+
+        if($products != ""){
+            $product_id = get_category_by_slug('product');
+            $term = get_categories('parent='.$product_id->term_id.'&include='.$products.'&hide_empty=0');
+
+
+            $product_type = array('Anytime','Scheduled');
+
+            
+            foreach ($product_type as $key => $val) {
+
+                foreach ($term as $key => $value) {
+
+                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
+                    $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                    if($frequency == $val){
+
+                        $serving_size = get_term_meta($value->term_id, 'serving_size', true);
+                        $time_set = get_term_meta($value->term_id, 'time_set', true);
+                        if($time_set == 'Once')
+                            $no_of_servings = 1;
+                        else if($time_set == 'Twice')
+                            $no_of_servings = 2;
+                        else
+                            $no_of_servings = $time_set;
+                        
+                        $servings_qty = explode('|', $serving_size);
+                        
+                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
+                        $meta_arr = array();
+
+                        $sub = array(
+                            'id'            => $value->term_id,
+                            'name'          => $value->name,
+                            'servings'      => $no_of_servings,
+                            'qty'           => $qty,
+                            'product_type'  => $product_type->value
+
+
+                            );
+                        
+
+                    }
+                    
+
+                }
+
+                
+
+                        $pr_main[] = array(
+
+                            'type'      => $val,
+                            'products'  => $sub
+
+                            );
+            }
+
+        }
+    return $pr_main;
+        
+
+
     }
 }

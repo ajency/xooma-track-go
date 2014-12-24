@@ -2,6 +2,12 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
+  }).state('AddProducts', {
+    url: '/products',
+    parent: 'xooma'
+  }).state('UserProductList', {
+    url: '/my-products',
+    parent: 'profile'
   });
   App.onBeforeStart = function() {
     App.currentUser.set(userData);

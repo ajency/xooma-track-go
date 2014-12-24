@@ -61,14 +61,27 @@ _.extend Ajency.CurrentUser::,
 		(parseInt(profilePicture.id) isnt 0) or not _.isUndefined profilePicture.type
 
 	addProduct : (id)->
-		_successHandler = (resp, status)=>
-			if status is 210
+		_successHandler = (response, status, xhr)=>
+			if xhr.status is 201
 				products = @get 'products'
-				products = _.flatten products, [id]
+				if typeof products == 'undefined'
+					products = []
+				products = _.union products, [response]
 				@set 'products', products
 
 		$.ajax
 			method : 'POST'
+			url : @_getUrl 'products'
+			data : 'productId='+id
+			success: _successHandler
+
+	getUserProducts : ->
+		_successHandler = (response, status, xhr)=>
+			if xhr.status is 200
+				console.log response
+
+		$.ajax
+			method : 'GET'
 			url : @_getUrl 'products'
 			success: _successHandler
 

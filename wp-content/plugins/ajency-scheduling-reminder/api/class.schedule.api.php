@@ -37,7 +37,7 @@ class AjencyScheduleAPI{
 	 * @apiSuccess {array}
 	 */
 	public function add_schedule($schedule_data){
-
+		
 		$id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
 		if(is_wp_error($id )){

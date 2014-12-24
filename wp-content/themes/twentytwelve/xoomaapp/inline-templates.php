@@ -84,7 +84,7 @@
 												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
 														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
-												<li><a id="product" href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+												<li><a id="product" href="#/profile/my-products"><i class="fa fa-check-circle-o"></i> 
 														<span class="hidden-xs">MYPRODUCTS</span></a>
 												</li>
 										</ul>
@@ -286,49 +286,24 @@
                   <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
                
                       <br>
-                            <ul class="list-unstyled list-style">
-                                   <li> 
-                                         <div class="list-title">
-                                                <h5 class="bold text-primary">X2O</h5>
-                                                <h6>Anytime</h6>
-                                         </div> 
-                                          <img src="../img/bottle.png" height="80px"/>
-                                          <img src="../img/bottle.png "height="80px"/>
-                                          <img src="../img/bottle.png" height="80px"/>
-                                         <img src="../img/bottle.png "height="80px"/>
-                                          <img src="../img/bottle.png" height="80px"/>
-                                   </li>
-                                   <li> 
-                                         <b class="text-success"> Any time Suppliments</b>
-                                              <div class="list-title">
-                                                        <h5 class="bold text-primary">FOCUS UP</h5>
-                                                        <h6>Twice a day <b>3 capsules </b></h6>
-                                               </div> 
-                                               
-                                                 <div class="list-title">
-                                                        <h5 class="bold text-primary">Xooma Blast</h5>
-                                                        <h6>Once a day <b>1 Stick pack </b></h6>
-                                               </div> 
-                                    </li>
-                                    <li> 
-                                        <b class="text-success"> Suppliments Define Time</b>
-                                            <div class="list-title">
-                                                        <h5 class="bold text-primary">Berry Balance</h5>
-                                                        <h6> <i class="fa fa-sun-o text-info"></i> <b>3 capsules                                                        </b> &nbsp;&nbsp;
-                                            <i class="fa fa-moon-o text-info"></i> <b>2 capsules </b> </h6>
-                                            </div> 
-                                    
-                                    </li>
+                            <ul class="list-unstyled list-style userProductList">
+                                   
                              </ul>
                                
 
 
                   </div>
-                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                  	</div>
               </div>
 
-        </div>  
-                </div>
+        </div> 
+        <div class="row">
+			<div class="col-sm-12">
+					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
+			</div>
+	</div> 
+</div>
 
 </script>
 

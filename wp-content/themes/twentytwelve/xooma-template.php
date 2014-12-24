@@ -63,7 +63,7 @@
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
+    FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
         facebookConnectPlugin.browserInit(App, FBAPPID, 'v2.2');
 </script>

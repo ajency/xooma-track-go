@@ -5,6 +5,14 @@ jQuery(document).ready ($)->
 
 		.state 'xooma',
 				url : '/'
+		.state 'AddProducts',
+					url : '/products'
+					parent : 'xooma'
+		.state 'UserProductList',
+					url : '/my-products'
+					parent : 'profile'
+
+			
 
 	App.onBeforeStart = ->
 		App.currentUser.set userData

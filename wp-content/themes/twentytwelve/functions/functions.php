@@ -52,14 +52,14 @@
 function save_anytime_product_details($id,$data){
 
     //store default values for the users's product  
-
+    
     global $wpdb;
-   
+    
     $product_main_table = $wpdb->prefix . "product_main";
 
     $product_meta_table = $wpdb->prefix . "product_meta";
 
-    $main_id = $wpdb->insert( 
+    $main = $wpdb->insert( 
                 $product_main_table, 
                 array( 
                   'user_id'             => $id,
@@ -72,7 +72,9 @@ function save_anytime_product_details($id,$data){
                   '%d' 
                 ) 
               );
-        //saving quantity per servings
+    $main_id = $wpdb->insert_id;
+
+    //saving quantity per servings
     for($i=0;$i<$data['time_set'];$i++){
 
         $meta_id = $wpdb->insert( 
@@ -97,7 +99,7 @@ function save_anytime_product_details($id,$data){
                 array( 
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_containers' => $data['serving_size']))
+                  'value'                       => serialize(array('no_of_containers' => 1))
                 ), 
                 array( 
                   '%d', 
@@ -108,21 +110,30 @@ function save_anytime_product_details($id,$data){
 
         
 
-    if($main_id && $meta_id ){
+    if($main){
+        // date_default_timezone_set("UTC");
+        // $interval = 24/intval($data['time_set']);
+        // $date = strtotime(date('YmdHi'));
+        
+        // $start = date("YmdHis", $date);
 
-        return array('status' => 200 ,'response' => $main_id);
+        
+        // $schedule_data = array(
+        //    'object_type' => 'user_product',
+        //    'object_id' =>$main_id,
+        //    'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
+        //);
+        // $user = new WP_User( $id );
+        // $user->add_cap( 'edit_schedule' );
+        // $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+        
+        return $data['id'];
 
     }
     else{
 
-        $user = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id);
-        if($user !=null){
-            $wpdb->delete( $product_main_table, array( 'user_id' => $id ), array( '%d' ) );
-            $wpdb->delete( $product_meta_table, array( 'main_id' => $user->id ), array( '%d' ) );
-            
-        }
         
-        new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ), array( 'status' => 500 ) );
+        new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
 
     }
 
@@ -137,8 +148,8 @@ function save_schedule_product_details($id,$data){
     $product_main_table = $wpdb->prefix . "product_main";
 
     $product_meta_table = $wpdb->prefix . "product_meta";
-
-    $main_id = $wpdb->insert( 
+   
+    $main = $wpdb->insert( 
                 $product_main_table, 
                 array( 
                   'user_id'             => $id,
@@ -152,14 +163,17 @@ function save_schedule_product_details($id,$data){
                 ) 
               );
     //saving quantity per servings
+    $main_id = $wpdb->insert_id;
+    $serving_size  = explode('|', $data['serving_size']);
+    $when  = explode('|', $data['when']);
     $meta_id = $wpdb->insert( 
                 $product_meta_table, 
                 array( 
                   'main_id'                     => $main_id,
                   'key'                         => 'qty_per_servings',
                   'value'                       => serialize(array(
-                                                    'qty'  => $data['serving_size'],
-                                                    'when' => $data['when']
+                                                    'qty'  => $serving_size[0],
+                                                    'when' => $when[0]
 
                                                 ))
                 ), 
@@ -169,15 +183,15 @@ function save_schedule_product_details($id,$data){
                   '%s' 
                 ) 
             );
-    if($data['serving_size_clone'] != "" && $data['when_clone'] != ""){
+    if($serving_size[1] != "" && $when[1]!= ""){
         $meta_id = $wpdb->insert( 
                     $product_meta_table, 
                     array( 
                       'main_id'                     => $main_id,
                       'key'                         => 'qty_per_servings',
                       'value'                       => serialize(array(
-                                                        'qty'  => $data['serving_size_clone'],
-                                                        'when' => $data['when_clone']
+                                                        'qty'  => $serving_size[1],
+                                                        'when' => $when[1]
 
                                                     ))
                     ), 
@@ -189,24 +203,32 @@ function save_schedule_product_details($id,$data){
                 );
     }
     
+    //saving no of containers
+        $meta_id = $wpdb->insert( 
+                $product_meta_table, 
+                array( 
+                  'main_id'                     => $main_id,
+                  'key'                         => 'no_of_containers',
+                  'value'                       => serialize(array('no_of_containers' => 1))
+                ), 
+                array( 
+                  '%d', 
+                  '%s',
+                  '%s'
+                ) 
+              );
     
     
-    if($main_id && $meta_id){
+    if($main){
 
-        return array('status' => 200 ,'response' => $main_id);
+       return $data['id'];
 
     }
     else{
 
-        $user = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id);
-        if($user !=null){
-            $wpdb->delete( $product_main_table, array( 'user_id' => $id ), array( '%d' ) );
-            $wpdb->delete( $product_meta_table, array( 'main_id' => $user->id ), array( '%d' ) );
-            
-
-        }
         
-        new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ), array( 'status' => 500 ) );
+        
+        new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
 
     }
 
@@ -639,12 +661,33 @@ function check_workflow($user_model){
     //call workflow function
     //workflow plugin code
 
+    $products = get_user_products($user_model->ID);
     
     $user_model->state = $state;
+
+    $user_model->products = $products;
    
     
 
     
 
     return $user_model;
+}
+
+function get_user_products($id){
+
+    global $wpdb;
+   
+    $product_main_table = $wpdb->prefix . "product_main";
+
+    $results = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
+
+    $product_arr = array();
+    foreach ($results as $key => $value) {
+
+
+      array_push($product_arr, intval($value->product_id));
+    }
+
+    return $product_arr;
 }
