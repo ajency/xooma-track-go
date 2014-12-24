@@ -160,7 +160,7 @@ _.mixin
 		convertToMilliSecs = newDate.getTime();
 
 		#change secs to 60 once testing is done
-		one_min = new Date(convertToMilliSecs + 3*1000);
+		one_min = new Date(convertToMilliSecs + 60*1000);
 
 		time = one_min.getHours()+':'+one_min.getMinutes()+':'+one_min.getSeconds()
 
@@ -178,7 +178,7 @@ _.mixin
 			json : JSON.stringify({ test: "Xooma Track & Go!!", date: convertTo12hourFormat}),
 			date : time,
 			icon: 'file://xoomaapp/images/1.jpg'
-			actions: [{title: 'Action 1', icon: 'icon1' }, {title: 'Action 2', icon: 'icon2' }]
+			actions: [{title: 'Action 1', icon: 'icon1' }, {title: 'Ignore', icon: 'icon2' }]
 
 
 

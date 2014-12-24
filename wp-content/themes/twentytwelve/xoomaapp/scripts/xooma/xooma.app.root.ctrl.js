@@ -1,112 +1,109 @@
-(function() {
-  var NotificationDisplayView, NotificationView, XoomaAppRootView,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var NotificationDisplayView, NotificationView, XoomaAppRootView,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  XoomaAppRootView = (function(_super) {
-    __extends(XoomaAppRootView, _super);
+XoomaAppRootView = (function(_super) {
+  __extends(XoomaAppRootView, _super);
 
-    function XoomaAppRootView() {
-      return XoomaAppRootView.__super__.constructor.apply(this, arguments);
+  function XoomaAppRootView() {
+    return XoomaAppRootView.__super__.constructor.apply(this, arguments);
+  }
+
+  XoomaAppRootView.prototype.className = 'animated fadeIn';
+
+  XoomaAppRootView.prototype.template = '#xooma-app-template';
+
+  XoomaAppRootView.prototype.ui = {
+    ul: '.list-inline'
+  };
+
+  XoomaAppRootView.prototype.behaviors = {
+    ActiveLink: {
+      behaviorClass: Ajency.ActiveLinkBehavior
     }
+  };
 
-    XoomaAppRootView.prototype.className = 'animated fadeIn';
+  XoomaAppRootView.prototype.onShow = function() {
+    return this.currentUserRegion.show(new Ajency.CurrentUserView({
+      model: App.currentUser
+    }));
+  };
 
-    XoomaAppRootView.prototype.template = '#xooma-app-template';
+  return XoomaAppRootView;
 
-    XoomaAppRootView.prototype.ui = {
-      ul: '.list-inline'
-    };
+})(Marionette.LayoutView);
 
-    XoomaAppRootView.prototype.behaviors = {
-      ActiveLink: {
-        behaviorClass: Ajency.ActiveLinkBehavior
-      }
-    };
+App.XoomaCtrl = (function(_super) {
+  __extends(XoomaCtrl, _super);
 
-    XoomaAppRootView.prototype.onShow = function() {
-      return this.currentUserRegion.show(new Ajency.CurrentUserView({
-        model: App.currentUser
-      }));
-    };
+  function XoomaCtrl() {
+    return XoomaCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-    return XoomaAppRootView;
+  XoomaCtrl.prototype.initialize = function(options) {
+    return this.show(new XoomaAppRootView);
+  };
 
-  })(Marionette.LayoutView);
+  return XoomaCtrl;
 
-  App.XoomaCtrl = (function(_super) {
-    __extends(XoomaCtrl, _super);
+})(Ajency.RegionController);
 
-    function XoomaCtrl() {
-      return XoomaCtrl.__super__.constructor.apply(this, arguments);
-    }
+NotificationDisplayView = (function(_super) {
+  __extends(NotificationDisplayView, _super);
 
-    XoomaCtrl.prototype.initialize = function(options) {
-      return this.show(new XoomaAppRootView);
-    };
+  function NotificationDisplayView() {
+    return NotificationDisplayView.__super__.constructor.apply(this, arguments);
+  }
 
-    return XoomaCtrl;
+  NotificationDisplayView.prototype.className = 'animated fadeIn';
 
-  })(Ajency.RegionController);
+  NotificationDisplayView.prototype.template = '#notification-display-template';
 
-  NotificationDisplayView = (function(_super) {
-    __extends(NotificationDisplayView, _super);
+  return NotificationDisplayView;
 
-    function NotificationDisplayView() {
-      return NotificationDisplayView.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.ItemView);
 
-    NotificationDisplayView.prototype.className = 'animated fadeIn';
+App.NotificationDisplayCtrl = (function(_super) {
+  __extends(NotificationDisplayCtrl, _super);
 
-    NotificationDisplayView.prototype.template = '#notification-display-template';
+  function NotificationDisplayCtrl() {
+    return NotificationDisplayCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-    return NotificationDisplayView;
+  NotificationDisplayCtrl.prototype.initialize = function(options) {
+    return this.show(new NotificationDisplayView);
+  };
 
-  })(Marionette.ItemView);
+  return NotificationDisplayCtrl;
 
-  App.NotificationDisplayCtrl = (function(_super) {
-    __extends(NotificationDisplayCtrl, _super);
+})(Marionette.RegionController);
 
-    function NotificationDisplayCtrl() {
-      return NotificationDisplayCtrl.__super__.constructor.apply(this, arguments);
-    }
+NotificationView = (function(_super) {
+  __extends(NotificationView, _super);
 
-    NotificationDisplayCtrl.prototype.initialize = function(options) {
-      return this.show(new NotificationDisplayView);
-    };
+  function NotificationView() {
+    return NotificationView.__super__.constructor.apply(this, arguments);
+  }
 
-    return NotificationDisplayCtrl;
+  NotificationView.prototype.className = 'animated fadeIn';
 
-  })(Marionette.RegionController);
+  NotificationView.prototype.template = '#notification-info-template';
 
-  NotificationView = (function(_super) {
-    __extends(NotificationView, _super);
+  return NotificationView;
 
-    function NotificationView() {
-      return NotificationView.__super__.constructor.apply(this, arguments);
-    }
+})(Marionette.ItemView);
 
-    NotificationView.prototype.className = 'animated fadeIn';
+App.NotificationCtrl = (function(_super) {
+  __extends(NotificationCtrl, _super);
 
-    NotificationView.prototype.template = '#notification-info-template';
+  function NotificationCtrl() {
+    return NotificationCtrl.__super__.constructor.apply(this, arguments);
+  }
 
-    return NotificationView;
+  NotificationCtrl.prototype.initialize = function(options) {
+    return this.show(new NotificationView);
+  };
 
-  })(Marionette.ItemView);
+  return NotificationCtrl;
 
-  App.NotificationCtrl = (function(_super) {
-    __extends(NotificationCtrl, _super);
-
-    function NotificationCtrl() {
-      return NotificationCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    NotificationCtrl.prototype.initialize = function(options) {
-      return this.show(new NotificationView);
-    };
-
-    return NotificationCtrl;
-
-  })(Marionette.RegionController);
-
-}).call(this);
+})(Marionette.RegionController);

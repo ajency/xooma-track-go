@@ -1,8 +1,9 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+var ProfilePersonalInfoView,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-App.ProfilePersonalInfoView = (function(_super) {
+ProfilePersonalInfoView = (function(_super) {
   __extends(ProfilePersonalInfoView, _super);
 
   function ProfilePersonalInfoView() {
@@ -25,7 +26,8 @@ App.ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.ui = {
     form: '.update_user_details',
     responseMessage: '.aj-response-message',
-    dateElement: 'input[name="profile[birth_date]"]'
+    dateElement: 'input[name="profile[birth_date]"]',
+    xooma_member_id: '.xooma_member_id'
   };
 
   ProfilePersonalInfoView.prototype.modelEvents = {
@@ -50,14 +52,20 @@ App.ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
-    return this.model.saveProfile(_formData['profile']).done(this.successHandler);
+    return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    return this.showSuccessMessage();
+    App.currentUser.set('state', '/profile/measurements');
+    return App.navigate('/profile/measurements', true);
   };
 
-  ProfilePersonalInfoView.prototype.errorHandler = function(error) {};
+  ProfilePersonalInfoView.prototype.errorHandler = function(error) {
+    this.ui.responseMessage.text("Data couldn't be saved due to some error.");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
+  };
 
   return ProfilePersonalInfoView;
 
@@ -75,12 +83,12 @@ App.UserPersonalInfoCtrl = (function(_super) {
     if (_.onlineStatus() === false) {
       return window.plugins.toast.showLongBottom("Please check your internet connection.");
     } else {
-      return App.currentUser.getProfile().done(this._showView);
+      return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
     }
   };
 
   UserPersonalInfoCtrl.prototype._showView = function(userModel) {
-    return this.show(new App.ProfilePersonalInfoView({
+    return this.show(new ProfilePersonalInfoView({
       model: userModel
     }));
   };

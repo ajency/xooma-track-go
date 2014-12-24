@@ -6,15 +6,48 @@
     _.enableCordovaBackbuttonNavigation();
     App.state('login').state('xooma', {
       url: '/'
+    }).state('AddProducts', {
+      url: '/products',
+      parent: 'xooma'
+    }).state('UserProductList', {
+      url: '/my-products',
+      parent: 'profile'
     }).state('notificationDisplay', {
       url: '/notification-display'
     }).state('notification', {
       url: '/notification-info'
     });
+    App.onBeforeStart = function() {
+      App.currentUser.set(userData);
+      if (!App.currentUser.isLoggedIn()) {
+        return App.currentUser.set('caps', notLoggedInCaps);
+      }
+    };
+    App.currentUser.on('user:auth:success', function() {
+      return App.navigate(App.currentUser.get('state'), true);
+    });
+    App.currentUser.on('user:logged:out', function() {
+      App.currentUser.clear({
+        slient: true
+      });
+      App.currentUser.set('caps', notLoggedInCaps);
+      App.navigate('/login', true);
+      return App.state('settings', {
+        url: '/settings',
+        parent: 'xooma'
+      }).state('home', {
+        url: '/home'
+      }).state('UserProductList', {
+        url: '/my-products',
+        parent: 'profile'
+      }).state('AddProducts', {
+        url: '/products',
+        parent: 'xooma'
+      });
+    });
     App.addInitializer(function() {
       Backbone.history.start();
       _.cordovaHideSplashscreen();
-      App.navigate('/notification-display', true);
       return window.plugin.notification.local.onclick = function(id, state, action, json) {
         var badge, badgeValue, badgeValues, i, ids, option, setbadgeValue, value, _i, _ref;
         window.plugin.notification.local.clear(id);
@@ -82,6 +115,11 @@
           }
         }
       };
+    });
+    App.on('fb:status:connected', function() {
+      if (!App.currentUser.hasProfilePicture()) {
+        return App.currentUser.getFacebookPicture();
+      }
     });
     return App.start();
   }), false);

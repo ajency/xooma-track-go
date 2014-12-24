@@ -1,8 +1,9 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+var ProfileMeasurementsView,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-App.ProfileMeasurementsView = (function(_super) {
+ProfileMeasurementsView = (function(_super) {
   __extends(ProfileMeasurementsView, _super);
 
   function ProfileMeasurementsView() {
@@ -22,7 +23,7 @@ App.ProfileMeasurementsView = (function(_super) {
     popoverElements: '.popover-element',
     form: '#add_measurements',
     rangeSliders: '[data-rangeslider]',
-    responseMessage: '.response_msg'
+    responseMessage: '.aj-response-message'
   };
 
   ProfileMeasurementsView.prototype.events = {
@@ -60,19 +61,23 @@ App.ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
     var _formData;
     _formData = $('#add_measurements').serialize();
-    return this.model.saveMeasurements(_formData).done(this.successHandler)["return"](false);
+    this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
+    return false;
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, responseCode) {
     if (responseCode.status === 404) {
       return this.ui.responseMessage.text("Something went wrong");
     } else {
-      return this.ui.responseMessage.text("User details saved successfully");
+      return App.navigate('/profile/my-products', true);
     }
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
-    return this.ui.responseMessage.text("Something went wrong");
+    this.ui.responseMessage.text("Something went wrong");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   ProfileMeasurementsView.prototype.valueOutput = function(element) {
@@ -110,12 +115,12 @@ App.UserMeasurementCtrl = (function(_super) {
       return window.plugins.toast.showLongBottom("Please check your internet connection.");
     } else {
       xhr = this._get_measurement_details();
-      return xhr.done(this._showView);
+      return xhr.done(this._showView).fail(this._showView);
     }
   };
 
   UserMeasurementCtrl.prototype._showView = function() {
-    return this.show(new App.ProfileMeasurementsView({
+    return this.show(new ProfileMeasurementsView({
       model: App.currentUser
     }));
   };

@@ -10,50 +10,56 @@
 			.state 'xooma',
 					url : '/'
 
+			.state 'AddProducts',
+						url : '/products'
+						parent : 'xooma'
+
+			.state 'UserProductList',
+						url : '/my-products'
+						parent : 'profile'
+
 			.state 'notificationDisplay',
 					url : '/notification-display'
 
 			.state 'notification',
 					url : '/notification-info'
 
-		# App.onBeforeStart = ->
-		# 	App.currentUser.set userData
-		# 	if not App.currentUser.isLoggedIn()
-		# 		App.currentUser.set 'caps', notLoggedInCaps
+		App.onBeforeStart = ->
+			App.currentUser.set userData
+			if not App.currentUser.isLoggedIn()
+				App.currentUser.set 'caps', notLoggedInCaps
 
-		# App.currentUser.on 'user:auth:success', ->
-		# 	App.navigate App.currentUser.get('state'), true
+		App.currentUser.on 'user:auth:success', ->
+			App.navigate App.currentUser.get('state'), true
 
-		# App.currentUser.on 'user:logged:out', ->
-		# 	App.currentUser.clear slient : true
-		# 	App.currentUser.set 'caps', notLoggedInCaps
-		# 	App.navigate '/login', true
+		App.currentUser.on 'user:logged:out', ->
+			App.currentUser.clear slient : true
+			App.currentUser.set 'caps', notLoggedInCaps
+			App.navigate '/login', true
 
-		# App.addInitializer ->
-		# 	_.cordovaHideSplashscreen()
-		# 	Backbone.history.start()
+			App.state 'settings',
+						url : '/settings'
+						parent : 'xooma'
 
-		# App.start()
+				.state 'home',
+						url : '/home'
 
-		# App.on 'state:transition:start', (evt, state, params)->
-		# 	if not App.currentUser.isLoggedIn() and App.isLoggedInState stateName
-		# 		evt.preventDefault()
-		# 		App.navigate '#/login', true
+				.state 'UserProductList',
+						url : '/my-products'
+						parent : 'profile'
 
-		# 	if App.currentUser.isLoggedIn() and state.get('name') is 'login'
-		# 		evt.preventDefault()
-		# 		App.navigate '#/profile/personal-info', true
+				.state 'AddProducts',
+						url : '/products'
+						parent : 'xooma'
 
 		
 
 		App.addInitializer ->
 			Backbone.history.start()
 			_.cordovaHideSplashscreen()
-			App.navigate '/notification-display', true
-			
-			# App.currentUser.on 'user:auth:success', ->
-				# App.navigate '/login', true
-				# App.navigate App.currentUser.get('state'), true
+			# App.navigate '/notification-display', true
+
+
 
 			window.plugin.notification.local.onclick = (id, state, action, json)->
 				# alert("clicked on button: " + action);
@@ -123,6 +129,10 @@
 						# App.navigate "/notification-info", true
 						# $('#time_for_notification').text(JSON.parse(json).date)
 						# $('#Message_for_notification').text(JSON.parse(json).test)
+
+		App.on 'fb:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()
 
 		App.start()
 	), false

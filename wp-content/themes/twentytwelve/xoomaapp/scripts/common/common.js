@@ -25,7 +25,7 @@ _.extend(Ajency.CurrentUser.prototype, {
       };
     })(this);
     return $.ajax({
-      method: 'PUT',
+      method: 'POST',
       url: this._getUrl('measurements'),
       data: measurements,
       success: _successHandler
@@ -76,17 +76,36 @@ _.extend(Ajency.CurrentUser.prototype, {
   addProduct: function(id) {
     var _successHandler;
     _successHandler = (function(_this) {
-      return function(resp, status) {
+      return function(response, status, xhr) {
         var products;
-        if (status === 210) {
+        if (xhr.status === 201) {
           products = _this.get('products');
-          products = _.flatten(products, [id]);
+          if (typeof products === 'undefined') {
+            products = [];
+          }
+          products = _.union(products, [response]);
           return _this.set('products', products);
         }
       };
     })(this);
     return $.ajax({
       method: 'POST',
+      url: this._getUrl('products'),
+      data: 'productId=' + id,
+      success: _successHandler
+    });
+  },
+  getUserProducts: function() {
+    var _successHandler;
+    _successHandler = (function(_this) {
+      return function(response, status, xhr) {
+        if (xhr.status === 200) {
+          return console.log(response);
+        }
+      };
+    })(this);
+    return $.ajax({
+      method: 'GET',
       url: this._getUrl('products'),
       success: _successHandler
     });
@@ -100,7 +119,7 @@ Ajency.HTTPRequestFailView = (function(_super) {
     return HTTPRequestFailView.__super__.constructor.apply(this, arguments);
   }
 
-  HTTPRequestFailView.prototype.template = 'Request page not  Found';
+  HTTPRequestFailView.prototype.template = 'Requested page not  Found';
 
   return HTTPRequestFailView;
 

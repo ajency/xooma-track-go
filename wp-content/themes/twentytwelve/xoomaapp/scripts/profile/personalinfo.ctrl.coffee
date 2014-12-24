@@ -1,5 +1,5 @@
 
-class App.ProfilePersonalInfoView extends Marionette.ItemView
+class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated fadeIn'
 	template : '#profile-personal-info-template'
 	behaviors :
@@ -9,6 +9,7 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 		form : '.update_user_details'
 		responseMessage : '.aj-response-message'
 		dateElement : 'input[name="profile[birth_date]"]'
+		xooma_member_id : '.xooma_member_id'
 	modelEvents :
 		'change:profile_picture' : 'render'
 
@@ -16,10 +17,11 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
-	
+
 	onShow:->
 		_.enableCordovaBackbuttonNavigation()
-	
+
+
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()
@@ -28,24 +30,30 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 	onFormSubmit: (_formData)=>
 		@model.saveProfile _formData['profile']
 			.done @successHandler
-			#.fail @errorHandler #DEVICE
+			.fail @errorHandler
 
 	successHandler:(response, status)=>
-		@showSuccessMessage()
+		App.currentUser.set 'state' , '/profile/measurements'
+		App.navigate '/profile/measurements' , true
+		
 
 	errorHandler:(error)=>
+		@ui.responseMessage.text "Data couldn't be saved due to some error."
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		if _.onlineStatus() is false
 			window.plugins.toast.showLongBottom("Please check your internet connection.");
-			# return false
+
 		else 
-			App.currentUser.getProfile().done(@_showView)#.fail @errorHandler #DEVICE
+			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
-		@show new App.ProfilePersonalInfoView
+		@show new ProfilePersonalInfoView
 							model : userModel
 
 	errorHandler : (error)->

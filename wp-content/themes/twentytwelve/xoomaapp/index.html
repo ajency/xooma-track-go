@@ -87,7 +87,7 @@
 			</div>
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
 			</br>
-			<a class="btn btn-primary" href="#/notification-display">View Notification</a>
+				<a class="btn btn-primary" href="#/notification-display">View Notification</a>
 			</br>
 	</div>
 </script>
@@ -106,8 +106,6 @@
 				<span>"Product 2"</span>
 				<button class="btn btn-primary" onclick = "_.notificationCall('2');">Click</button>
 		</div>
-		
-		<a class="btn btn-primary" href="#/profile/personal-info">View Profile</a>
 		
 </script>
 
@@ -161,7 +159,7 @@
 												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
 														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
-												<li><a id="product" href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+												<li><a id="product" href="#/profile/my-products"><i class="fa fa-check-circle-o"></i> 
 														<span class="hidden-xs">MYPRODUCTS</span></a>
 												</li>
 										</ul>
@@ -301,7 +299,7 @@
 												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
 												<div class="row">
 														<div class="col-md-5 col-xs-6">
-																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
+																<img src="./images/height.png" class="pull-right m-t-40">
 														</div>
 														<div class="col-md-7">
 																<h4 class="text-left"> <output></output><small>Feet</small></h4>
@@ -312,7 +310,7 @@
 												</br>
 												<div class="row">
 														<div class="col-md-5 col-xs-6">
-																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-40">
+																<img src="./images/weight.jpg" class="pull-right m-t-40">
 														</div>
 														<div class="col-md-7 ">
 																<h4 class="text-left"> <output></output><small>pounds</small></h4>
@@ -331,7 +329,7 @@
 												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='number' tabindex='6' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='number' tabindex='7' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='number' tabindex='8' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
+												<img src="./images/humanbody.png" class="center-block">
 										</div>
 										<div class="row">
 												<div class="col-sm-12">
@@ -346,13 +344,44 @@
 <script id="home-template" type="text/template">
 		<div>
 				Add Home template here
-				<a class="btn btn-primary" href="#/notification-display">View notification</a>
+				<a class="btn btn-primary" href="#/login">View Home</a>
 		</div>
 </script>
 <div id="nofound-template" >
-Add template here
-<a class="btn btn-primary" href="#/notification-display">View notification</a>
+	<a class="btn btn-primary" href="#/login">View Home</a>
 </div>
+
+<script id="produts-template" type="h-template">
+	<div id="xoomaproduct" class="section">
+                <h4 class="text-center"> List Of xooma products</h4>
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+               
+                      <br>
+                            <ul class="list-unstyled list-style userProductList">
+                              
+                             </ul>
+                  </div>
+                  <div class="col-md-3">
+                  	</div>
+              </div>
+        </div> 
+        <div class="row">
+			<div class="col-sm-12">
+					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
+			</div>
+	</div> 
+</div>
+</script>
+<script id="add-product-template" type="h-template">
+	<div>
+		<ul class="productList">
+		</ul>
+	</div>
+</script>
 <!-- build:js({.js}) scripts/vendors.js -->
 <!-- 
 <script "text/javascript" src="bower_components/modernizr/modernizr.js"></script> 
@@ -415,6 +444,9 @@ Add template here
 <script type="text/javascript" src="scripts/profile/profile.ctrl.js"></script>
 <script type="text/javascript" src="scripts/profile/personalinfo.ctrl.js"></script>
 <script type="text/javascript" src="scripts/profile/measurements.ctrl.js"></script>
+<script type="text/javascript" src="scripts/products/product.entity.js"></script>
+<script type="text/javascript" src="scripts/products/add/add.products.ctrl.js"></script>
+<script type="text/javascript" src="scripts/products/products.js"></script>
 <script type="text/javascript" src="scripts/app.js"></script>
 <script type="text/javascript" src="scripts/cordova/app-localstorage.js"></script>
 <script type="text/javascript" src="scripts/cordova/app-notifications.js"></script>

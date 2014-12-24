@@ -399,7 +399,7 @@ jQuery(document).ready(function($) {
 			//url : AJAXURL+'?action=get_products',
 			data : "",
 			success:function(response){
-				show_all_products(response.response);
+				show_all_products(response);
 			},
 			error:function(error){
 				console.log(error);
@@ -436,7 +436,7 @@ jQuery(document).ready(function($) {
 			data :'',
 			success:function(response){
 				console.log(response);
-				show_edit_product(response.response);
+				show_edit_product(response);
 				
 			},
 			error:function(error){

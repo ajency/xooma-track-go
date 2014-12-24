@@ -1,7 +1,7 @@
 
 
 
-class App.ProfileMeasurementsView extends Marionette.ItemView
+class ProfileMeasurementsView extends Marionette.ItemView
 
 	template  : '#profile-measurements-template'
 
@@ -11,7 +11,7 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 		popoverElements : '.popover-element'
 		form : '#add_measurements'
 		rangeSliders : '[data-rangeslider]'
-		responseMessage : '.response_msg'
+		responseMessage : '.aj-response-message'
 
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
@@ -33,27 +33,30 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 
 	formSubmitHandler : (form)=>
 		_formData = $('#add_measurements').serialize()
-		@model.saveMeasurements(_formData).done(@successHandler).#fail(@errorHandler) #DEVICE
+		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
 		return false
 
 	successHandler : (response, status,responseCode)=>
 		if responseCode.status is 404
 			@ui.responseMessage.text "Something went wrong"
 		else
-			@ui.responseMessage.text "User details saved successfully"
+			App.navigate '/profile/my-products' , true
 
 	errorHandler : (error)=>
 		@ui.responseMessage.text "Something went wrong"
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
 
 
 	onPauseSessionClick : =>
-			console.log 'Invoked onPauseSessionClick'
-			Backbone.history.history.back()
+		console.log 'Invoked onPauseSessionClick'
+		Backbone.history.history.back()
 
-			document.removeEventListener("backbutton", @onPauseSessionClick, false)
+		document.removeEventListener("backbutton", @onPauseSessionClick, false)
 		
 	cordovaEventsForModuleDescriptionView : ->
 		# Cordova backbutton event
@@ -63,18 +66,19 @@ class App.ProfileMeasurementsView extends Marionette.ItemView
 		# Cordova pause event
 		document.addEventListener("pause", @onPauseSessionClick, false)
 
+
 class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		if _.onlineStatus() is false
 			window.plugins.toast.showLongBottom("Please check your internet connection.");
-			# return false
+
 		else 
 			xhr = @_get_measurement_details()
-			xhr.done(@_showView)#.fail @_showView #DEVICE
+			xhr.done(@_showView).fail @_showView
 
 	_showView :=>
-		@show new App.ProfileMeasurementsView
+		@show new ProfileMeasurementsView
 								model : App.currentUser
 
 	_get_measurement_details:->

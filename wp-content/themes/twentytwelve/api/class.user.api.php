@@ -7,7 +7,11 @@ function im_json_api_default_filters_users( $server ) {
 
     global $user;
 
+    global $productList;
+
     $user = new User();
+
+    $productList = new ProductList();
 
     $user_api = new User_API( $server);
 
@@ -34,15 +38,16 @@ class User_API
 
         );
         //users
-        $routes['/users/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
+        $routes['/users/(?P<id>\d+)/products'] = array(
             array( array( $this, 'xooma_save_user_product_details'), WP_JSON_Server::CREATABLE),
-            array( array( $this, 'xooma_get_user_product_details'), WP_JSON_Server::READABLE),
-            array( array( $this, 'xooma_remove_user_product_details'), WP_JSON_Server::DELETABLE),
+            array( array( $this, 'xooma_get_user_products'), WP_JSON_Server::READABLE),
 
         );
         //update user's product
         $routes['/trackers/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
-            array( array( $this, 'xooma_update_user_product_details'), WP_JSON_Server::CREATABLE)
+            array( array( $this, 'xooma_update_user_product_details'), WP_JSON_Server::CREATABLE),
+            array( array( $this, 'xooma_get_user_product_details'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_remove_user_product_details'), WP_JSON_Server::DELETABLE),
 
         );
         //facebook login route
@@ -123,7 +128,7 @@ class User_API
         $response = $user->update_user_measurement_details($data);
 
         if(is_wp_error($response)){
-
+            $response = new WP_JSON_Response( $response );
             $response->set_status(404);
         }
         else
@@ -147,7 +152,7 @@ class User_API
         $response = $user->get_user_measurement_details($id,$date="");
 
         if(is_wp_error($response)){
-
+            $response = new WP_JSON_Response( $response );
             $response->set_status(404);
         }
         else
@@ -163,12 +168,27 @@ class User_API
 
     }
 
-    public function xooma_save_user_product_details($id,$pid){
+    public function xooma_save_user_product_details($id){
 
         // save user product details
         global $user;
 
+        $pid = $_REQUEST['productId'];
+
         $response = $user->save_user_product_details($id,$pid);
+
+        if(empty($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
 
         return $response;
 
@@ -215,16 +235,26 @@ class User_API
         return $response;
     }
 
-    public function store_user_login_details()
-    {
-        //pass access
-        $data = array();
-        $data['user_login']             = $_REQUEST['user_login'];
-        $data['user_pass']              = $_REQUEST['user_pass'];
-        $data['userData']               = $_REQUEST['userData'];
+    public function xooma_get_user_products($id){
 
-        $response               = get_fblogin_status($data);
+        global $user;
+
+        $response = $user->get_user_products($id);
+
+        if(count($response) == 0){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
 
         return $response;
+
     }
 }
