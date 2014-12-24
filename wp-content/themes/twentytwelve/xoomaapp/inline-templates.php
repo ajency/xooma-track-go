@@ -46,6 +46,8 @@
 <script id="404-template" type="text/template">
 		<h3>Add 404 View Here</h3>
 </script>
+
+
 <script id="xooma-app-template" type="text/template">
 		<div class="topheader">
 				<nav class="navbar " role="navigation">
@@ -82,7 +84,7 @@
 												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
 														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
-												<li><a id="product" href="#/12/products"><i class="fa fa-check-circle-o"></i> 
+												<li><a id="product" href="#/profile/my-products"><i class="fa fa-check-circle-o"></i> 
 														<span class="hidden-xs">MYPRODUCTS</span></a>
 												</li>
 										</ul>
@@ -124,7 +126,7 @@
 												<div class="form-group">
 														<label for="text1" class=" col-sm-3 control-label">xooma id</label>
 														<div class="col-sm-9">
-																<input type="number" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6" aj-inputmask="999999" class="form-control" name="profile[xooma_member_id]">
+																<input type="number" aj-inputmask="999999" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6"   class="form-control " name="profile[xooma_member_id]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -136,7 +138,7 @@
 												<div class="form-group">
 														<label for="text3" class="col-sm-3 control-label">Email</label>
 														<div class="col-sm-9">
-																<input type="email" readonly class="form-control" name="user_email">
+																<input type="text" readonly class="form-control" name="user_email">
 														</div>
 												</div>
 												<div class="form-group">
@@ -213,8 +215,9 @@
 </script>
 <script id="profile-measurements-template" type="text/template">
 		<div id="measuremnt" class="section">
-				<div class="response_msg"></div>
+				
 				<div class="container">
+				<div class="aj-response-message"></div>
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">
@@ -268,4 +271,54 @@
 		<div>
 				Add Home template here
 		</div>
+</script>
+
+
+
+<script id="produts-template" type="h-template">
+	<div id="xoomaproduct" class="section">
+                <h4 class="text-center"> List Of xooma products</h4>
+    
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+               
+                      <br>
+                            <ul class="list-unstyled list-style userProductList">
+                                   
+                             </ul>
+                               
+
+
+                  </div>
+                  <div class="col-md-3">
+                  	</div>
+              </div>
+
+        </div> 
+        <div class="row">
+			<div class="col-sm-12">
+					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
+			</div>
+	</div> 
+</div>
+
+</script>
+
+
+
+<script id="add-product-template" type="h-template">
+
+	<div>
+		<ul class="productList">
+			
+
+		</ul>
+
+	</div>
+
+
+
 </script>

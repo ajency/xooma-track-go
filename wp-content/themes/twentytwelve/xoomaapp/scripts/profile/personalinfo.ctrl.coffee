@@ -9,6 +9,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		form : '.update_user_details'
 		responseMessage : '.aj-response-message'
 		dateElement : 'input[name="profile[birth_date]"]'
+		xooma_member_id : '.xooma_member_id'
 	modelEvents :
 		'change:profile_picture' : 'render'
 
@@ -20,7 +21,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	onShow:->
 		_.enableCordovaBackbuttonNavigation()
 
-	
+
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate()
@@ -32,9 +33,15 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			.fail @errorHandler
 
 	successHandler:(response, status)=>
+		App.currentUser.set 'state' , '/profile/measurements'
 		App.navigate '/profile/measurements' , true
+		
 
 	errorHandler:(error)=>
+		@ui.responseMessage.text "Data couldn't be saved due to some error."
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 

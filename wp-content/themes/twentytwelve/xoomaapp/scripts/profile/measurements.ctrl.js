@@ -23,7 +23,7 @@ ProfileMeasurementsView = (function(_super) {
     popoverElements: '.popover-element',
     form: '#add_measurements',
     rangeSliders: '[data-rangeslider]',
-    responseMessage: '.response_msg'
+    responseMessage: '.aj-response-message'
   };
 
   ProfileMeasurementsView.prototype.events = {
@@ -74,7 +74,10 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
-    return this.ui.responseMessage.text("Something went wrong");
+    this.ui.responseMessage.text("Something went wrong");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   ProfileMeasurementsView.prototype.valueOutput = function(element) {

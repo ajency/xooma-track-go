@@ -7,8 +7,22 @@
 
 		App.state 'login'
 
-		.state 'xooma',
-				url : '/'
+			.state 'xooma',
+					url : '/'
+
+			.state 'AddProducts',
+						url : '/products'
+						parent : 'xooma'
+
+			.state 'UserProductList',
+						url : '/my-products'
+						parent : 'profile'
+
+			.state 'notificationDisplay',
+					url : '/notification-display'
+
+			.state 'notification',
+					url : '/notification-info'
 
 		App.onBeforeStart = ->
 			App.currentUser.set userData
@@ -38,12 +52,6 @@
 						url : '/products'
 						parent : 'xooma'
 
-				.state 'notificationDisplay',
-						url : '/notification-display'
-
-				.state 'notification',
-						url : '/notification-info'
-
 		
 
 		App.addInitializer ->
@@ -51,9 +59,7 @@
 			_.cordovaHideSplashscreen()
 			# App.navigate '/notification-display', true
 
-		App.on 'fb:status:connected', ->
-			if not App.currentUser.hasProfilePicture()
-				App.currentUser.getFacebookPicture()
+
 
 			window.plugin.notification.local.onclick = (id, state, action, json)->
 				# alert("clicked on button: " + action);
@@ -123,6 +129,10 @@
 						# App.navigate "/notification-info", true
 						# $('#time_for_notification').text(JSON.parse(json).date)
 						# $('#Message_for_notification').text(JSON.parse(json).test)
+
+		App.on 'fb:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()
 
 		App.start()
 	), false

@@ -44,16 +44,36 @@ ProfileCtrlView = (function(_super) {
     return this.listenTo(App, 'state:transition:complete', this.handleMenu);
   };
 
-  ProfileCtrlView.prototype.preventClick = function(evt) {
-    return evt.preventDefault();
-  };
+  ProfileCtrlView.prototype.preventClick = function(evt) {};
 
   ProfileCtrlView.prototype.handleMenu = function(evt, state, args) {
     var url;
-    url = "#/" + (state.get('computed_url'));
-    this.ui.ul.find('a').removeAttr('disabled');
-    this.$('a[href="' + url + '"]').parent().siblings().removeClass('active');
-    return this.$('a[href="' + url + '"]').parent().addClass('active');
+    url = App.currentUser.get('state');
+    if (url === '/profile/personal-info') {
+      $('#profile').parent().addClass('active');
+      $('#measurement').css({
+        cursor: 'default'
+      });
+      $('#measurement').bind('click', this.disableEvent);
+      $('#product').css({
+        cursor: 'default'
+      });
+      return $('#product').bind('click', this.disableEvent);
+    } else if (url === '/profile/measurements') {
+      $('#profile').parent().removeClass('active');
+      $('#measurement').parent().addClass('active');
+      $('#measurement').css({
+        cursor: 'pointer'
+      });
+      $('#product').css('cursor:default');
+      $('#product').bind('click', this.disableEvent);
+      return $('#profile').unbind();
+    }
+  };
+
+  ProfileCtrlView.prototype.disableEvent = function(evt) {
+    evt.preventDefault();
+    return false;
   };
 
   return ProfileCtrlView;

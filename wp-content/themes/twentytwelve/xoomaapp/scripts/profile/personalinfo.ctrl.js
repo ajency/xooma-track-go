@@ -26,7 +26,8 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.ui = {
     form: '.update_user_details',
     responseMessage: '.aj-response-message',
-    dateElement: 'input[name="profile[birth_date]"]'
+    dateElement: 'input[name="profile[birth_date]"]',
+    xooma_member_id: '.xooma_member_id'
   };
 
   ProfilePersonalInfoView.prototype.modelEvents = {
@@ -55,10 +56,16 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
+    App.currentUser.set('state', '/profile/measurements');
     return App.navigate('/profile/measurements', true);
   };
 
-  ProfilePersonalInfoView.prototype.errorHandler = function(error) {};
+  ProfilePersonalInfoView.prototype.errorHandler = function(error) {
+    this.ui.responseMessage.text("Data couldn't be saved due to some error.");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
+  };
 
   return ProfilePersonalInfoView;
 
