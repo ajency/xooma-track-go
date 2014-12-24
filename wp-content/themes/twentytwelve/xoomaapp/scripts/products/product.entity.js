@@ -1,38 +1,35 @@
-(function() {
-  var ProductCollection, ProductModel,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var ProductCollection, ProductModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  ProductModel = (function(_super) {
-    __extends(ProductModel, _super);
+ProductModel = (function(_super) {
+  __extends(ProductModel, _super);
 
-    function ProductModel() {
-      return ProductModel.__super__.constructor.apply(this, arguments);
-    }
+  function ProductModel() {
+    return ProductModel.__super__.constructor.apply(this, arguments);
+  }
 
-    ProductModel.prototype.defaults = function() {};
+  ProductModel.prototype.defaults = function() {};
 
-    return ProductModel;
+  return ProductModel;
 
-  })(Backbone.Model);
+})(Backbone.Model);
 
-  ProductCollection = (function(_super) {
-    __extends(ProductCollection, _super);
+ProductCollection = (function(_super) {
+  __extends(ProductCollection, _super);
 
-    function ProductCollection() {
-      return ProductCollection.__super__.constructor.apply(this, arguments);
-    }
+  function ProductCollection() {
+    return ProductCollection.__super__.constructor.apply(this, arguments);
+  }
 
-    ProductCollection.prototype.model = ProductModel;
+  ProductCollection.prototype.model = ProductModel;
 
-    ProductCollection.prototype.url = function() {
-      return "" + APIURL + "/products";
-    };
+  ProductCollection.prototype.url = function() {
+    return "" + APIURL + "/products";
+  };
 
-    return ProductCollection;
+  return ProductCollection;
 
-  })(Backbone.Collection);
+})(Backbone.Collection);
 
-  App.productCollection = new ProductCollection();
-
-}).call(this);
+App.productCollection = new ProductCollection();

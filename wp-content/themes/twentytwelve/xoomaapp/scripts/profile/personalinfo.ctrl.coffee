@@ -1,5 +1,5 @@
 
-class App.ProfilePersonalInfoView extends Marionette.ItemView
+class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated fadeIn'
 	template : '#profile-personal-info-template'
 	behaviors :
@@ -16,9 +16,10 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
-	
+
 	onShow:->
 		_.enableCordovaBackbuttonNavigation()
+
 	
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
@@ -28,10 +29,10 @@ class App.ProfilePersonalInfoView extends Marionette.ItemView
 	onFormSubmit: (_formData)=>
 		@model.saveProfile _formData['profile']
 			.done @successHandler
-			#.fail @errorHandler #DEVICE
+			.fail @errorHandler
 
 	successHandler:(response, status)=>
-		@showSuccessMessage()
+		App.navigate '/profile/measurements' , true
 
 	errorHandler:(error)=>
 
@@ -40,12 +41,12 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 	initialize: (options)->
 		if _.onlineStatus() is false
 			window.plugins.toast.showLongBottom("Please check your internet connection.");
-			# return false
+
 		else 
-			App.currentUser.getProfile().done(@_showView)#.fail @errorHandler #DEVICE
+			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
-		@show new App.ProfilePersonalInfoView
+		@show new ProfilePersonalInfoView
 							model : userModel
 
 	errorHandler : (error)->

@@ -7,53 +7,53 @@
 
 		App.state 'login'
 
-			.state 'xooma',
-					url : '/'
+		.state 'xooma',
+				url : '/'
 
-			.state 'notificationDisplay',
-					url : '/notification-display'
+		App.onBeforeStart = ->
+			App.currentUser.set userData
+			if not App.currentUser.isLoggedIn()
+				App.currentUser.set 'caps', notLoggedInCaps
 
-			.state 'notification',
-					url : '/notification-info'
+		App.currentUser.on 'user:auth:success', ->
+			App.navigate App.currentUser.get('state'), true
 
-		# App.onBeforeStart = ->
-		# 	App.currentUser.set userData
-		# 	if not App.currentUser.isLoggedIn()
-		# 		App.currentUser.set 'caps', notLoggedInCaps
+		App.currentUser.on 'user:logged:out', ->
+			App.currentUser.clear slient : true
+			App.currentUser.set 'caps', notLoggedInCaps
+			App.navigate '/login', true
 
-		# App.currentUser.on 'user:auth:success', ->
-		# 	App.navigate App.currentUser.get('state'), true
+			App.state 'settings',
+						url : '/settings'
+						parent : 'xooma'
 
-		# App.currentUser.on 'user:logged:out', ->
-		# 	App.currentUser.clear slient : true
-		# 	App.currentUser.set 'caps', notLoggedInCaps
-		# 	App.navigate '/login', true
+				.state 'home',
+						url : '/home'
 
-		# App.addInitializer ->
-		# 	_.cordovaHideSplashscreen()
-		# 	Backbone.history.start()
+				.state 'UserProductList',
+						url : '/my-products'
+						parent : 'profile'
 
-		# App.start()
+				.state 'AddProducts',
+						url : '/products'
+						parent : 'xooma'
 
-		# App.on 'state:transition:start', (evt, state, params)->
-		# 	if not App.currentUser.isLoggedIn() and App.isLoggedInState stateName
-		# 		evt.preventDefault()
-		# 		App.navigate '#/login', true
+				.state 'notificationDisplay',
+						url : '/notification-display'
 
-		# 	if App.currentUser.isLoggedIn() and state.get('name') is 'login'
-		# 		evt.preventDefault()
-		# 		App.navigate '#/profile/personal-info', true
+				.state 'notification',
+						url : '/notification-info'
 
 		
 
 		App.addInitializer ->
 			Backbone.history.start()
 			_.cordovaHideSplashscreen()
-			App.navigate '/notification-display', true
-			
-			# App.currentUser.on 'user:auth:success', ->
-				# App.navigate '/login', true
-				# App.navigate App.currentUser.get('state'), true
+			# App.navigate '/notification-display', true
+
+		App.on 'fb:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()
 
 			window.plugin.notification.local.onclick = (id, state, action, json)->
 				# alert("clicked on button: " + action);

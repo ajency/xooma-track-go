@@ -123,7 +123,7 @@ class User_API
         $response = $user->update_user_measurement_details($data);
 
         if(is_wp_error($response)){
-
+            $response = new WP_JSON_Response( $response );
             $response->set_status(404);
         }
         else
@@ -147,7 +147,7 @@ class User_API
         $response = $user->get_user_measurement_details($id,$date="");
 
         if(is_wp_error($response)){
-
+            $response = new WP_JSON_Response( $response );
             $response->set_status(404);
         }
         else

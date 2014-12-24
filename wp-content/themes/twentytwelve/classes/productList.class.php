@@ -102,12 +102,15 @@ class ProductList
 		}
 		if($terms_array){
 
-			return array('stauts' => 200 ,'response' => $terms_array);
+			return $terms_array;
 		}
 		else
 		{
-			new WP_Error( 'json_taxonomy_terms_not_found', __( 'Xooma Products not found.' ), array( 'status' => 500 ) );
 
+			new WP_Error( 'json_taxonomy_terms_not_found', __( 'Xooma Products not found.' ));
+		
+
+			
 		}
 
 

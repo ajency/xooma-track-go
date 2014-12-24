@@ -14,7 +14,7 @@ App.state 'profile',
 			parent : 'profile'
 
 
-class App.ProfileCtrlView extends Marionette.LayoutView
+class ProfileCtrlView extends Marionette.LayoutView
 	className : 'animated fadeIn'
 	template : '#profile-template'
 	ui :
@@ -39,4 +39,4 @@ class App.ProfileCtrlView extends Marionette.LayoutView
 
 class App.ProfileCtrl extends Marionette.RegionController
 	initialize: (options)->
-		@show new App.ProfileCtrlView
+		@show new ProfileCtrlView
