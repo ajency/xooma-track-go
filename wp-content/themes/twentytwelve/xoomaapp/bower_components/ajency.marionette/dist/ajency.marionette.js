@@ -4,7 +4,7 @@
  * Ajency.Marionette
  * https://github.com/ajency/ajency.marionette/wiki
  * --------------------------------------------------
- * Version: v0.3.8
+ * Version: v0.3.9
  *
  * Copyright(c) 2014 Team Ajency, Ajency.in
  * Distributed under MIT license
@@ -410,7 +410,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   });
 
   /*
-     * Ajency.ActiveLinkBehavior
+  	 * Ajency.ActiveLinkBehavior
    */
   Ajency.ActiveLinkBehavior = (function(_super) {
     __extends(ActiveLinkBehavior, _super);

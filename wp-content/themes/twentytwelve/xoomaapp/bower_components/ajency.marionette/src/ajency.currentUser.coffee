@@ -6,6 +6,21 @@
 #  - isLoggedIn()
 #  - hasCap()
 
+window.notLoggedInCaps = window.notLoggedInCaps or {}
+window.allSystemCaps = window.allSystemCaps or []
+
+Ajency.notLoggedInCapExists = (capName)->
+	if not _.isObject window.notLoggedInCaps
+		return false
+
+	if not window.notLoggedInCaps[capName]
+		return false
+
+	return true
+
+
+Ajency.allSystemCapExists = (capName)->
+	_.indexOf(window.allSystemCaps, capName) isnt -1
 
 class Ajency.CurrentUser extends Backbone.Model
 
@@ -18,8 +33,12 @@ class Ajency.CurrentUser extends Backbone.Model
 		authNS.localStorage.isSet('HTTP_X_API_KEY') and not @isNew()
 
 	logout : ->
+		@clear()
 		authNS.localStorage.removeAll()
 		@trigger 'user:logged:out'
+
+	setNotLoggedInCapabilities  : ->
+		@set 'caps', window.notLoggedInCaps
 
 	hasCap : (capName = '')->
 		if not @has('caps') then return false
@@ -31,7 +50,7 @@ class Ajency.CurrentUser extends Backbone.Model
 	capExists : (capName)->
 		if not @has('caps') then return false
 		caps = @get 'caps'
-		if not _.isUndefined(caps[capName])
+		if not _.isUndefined caps[capName]
 			return true
 		return false
 
@@ -51,31 +70,33 @@ class Ajency.CurrentUser extends Backbone.Model
 			@set 'profile_picture',_picture
 
 	authenticate : (args...)->
-	    _currentUser = this
-	    _this = this
-	    responseFn = (response, status, xhr) ->
-	        if _.isUndefined(response.ID)
-	            _currentUser.trigger "user:auth:failed", response
-	            _this.trigger "user:auth:failed", response
-	        else
-	            authNS.localStorage.set "HTTP_X_API_KEY", xhr.getResponseHeader("HTTP_X_API_KEY")
-	            authNS.localStorage.set "HTTP_X_SHARED_SECRET", xhr.getResponseHeader("HTTP_X_SHARED_SECRET")
-	            _currentUser.set response
-	            _currentUser.trigger "user:auth:success", _currentUser
+		_currentUser = this
+		_this = this
+		responseFn = (response, status, xhr) ->
+			if _.isUndefined(response.ID)
+				_currentUser.trigger "user:auth:failed", response
+				_this.trigger "user:auth:failed", response
+			else
+				authNS.localStorage.set "HTTP_X_API_KEY", xhr.getResponseHeader("HTTP_X_API_KEY")
+				authNS.localStorage.set "HTTP_X_SHARED_SECRET", xhr.getResponseHeader("HTTP_X_SHARED_SECRET")
+				_currentUser.set response
+				_currentUser.trigger "user:auth:success", _currentUser
 
-	    if _.isString(args[0])
-	        userData = args[1]
-	        accessToken = args[2]
-	        userLogin = "FB_" + userData.id
-	        data =
-	            user_login: userLogin
-	            user_pass: accessToken
-	            type: "facebook"
-	            userData: userData
+		if _.isString(args[0])
+			userData = args[1]
+			accessToken = args[2]
+			userLogin = "FB_" + userData.id
+			data =
+				user_login: userLogin
+				user_pass: accessToken
+				type: "facebook"
+				userData: userData
 
-	        $.post "" + APIURL + "/authenticate", data, responseFn, "json"
-	    else if _.isObject(args[0])
-	        $.post "" + APIURL + "/authenticate", args[0], responseFn, "json"
+			xhr = $.post "" + APIURL + "/authenticate", data, responseFn, "json"
+		else if _.isObject(args[0])
+			xhr = $.post "" + APIURL + "/authenticate", args[0], responseFn, "json"
+
+		xhr
 
 
 # define the logged in user singleton
