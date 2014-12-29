@@ -58,14 +58,9 @@
 <!-- endbuild -->
 
 <script type="text/javascript">
-	userData = <?php echo json_encode(aj_get_user_model(get_current_user_id()));?>;
-	notLoggedInCaps = <?php echo json_encode(aj_get_not_logged_in_caps()[0]);?>;
-    App                   = new Marionette.Application()
-    APIURL                = '<?php echo json_url() ?>';
-    _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';;
-    if(typeof FBAPPID !== 'undefined')
-        facebookConnectPlugin.browserInit(App, FBAPPID, 'v2.2');
+<?php echo  aj_get_global_js_vars(); ?>
+var App  = new Marionette.Application()
+<?php echo aj_get_facebook_js(); ?>
 </script>
 
 <!-- build:js(*.js) application.js -->
