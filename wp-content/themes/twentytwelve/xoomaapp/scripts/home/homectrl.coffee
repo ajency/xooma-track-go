@@ -11,7 +11,7 @@ class ProductChildView extends Marionette.ItemView
 
 	
 
-class UserProductChildView extends Marionette.CompositeView
+class homeViewChildView extends Marionette.CompositeView
 	tagName : 'li'
 	className : 'productlist'
 	template : '<b class="text-success">{{type}}</b>'
@@ -21,28 +21,17 @@ class UserProductChildView extends Marionette.CompositeView
 		products = @model.get 'products'
 		@collection = new Backbone.Collection products
 
-class UserProductListView extends Marionette.CompositeView
+class homeView extends Marionette.CompositeView
 
 	class : 'animated fadeIn'
 
 	template : '#produts-template'
 
-	childView : UserProductChildView
+	childView : homeViewChildView
 
 	childViewContainer : 'ul.userProductList'
 
-	ui :
-		saveProducts : '.save_products'
-
-	onShow:->
-		if App.currentUser.get 'state' == '/home'
-			@ui.saveProducts.hide()
-
-	
-	
-	
-		
-class App.UserProductListCtrl extends Ajency.RegionController
+class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
 		App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
@@ -50,10 +39,6 @@ class App.UserProductListCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = new Backbone.Collection collection
-		@show new UserProductListView
-							collection : productcollection
+		@show new homeView
+					collection : productcollection
 		
-
-
-	
-

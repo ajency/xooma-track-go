@@ -485,32 +485,6 @@ function get_fblogin_status($data){
 
 }
 
-function login_response($user_id){
-    return;
-    global $user_ID,  $wp_roles ;
-    $user = array();
-    $user_info = get_userdata($user_id);
-    $usermeta = get_user_meta($user_id);
-    $attchid = $usermeta['avatar_attachment'][0];
-    $facebook_avatar = $usermeta['facebook_avatar_full'][0];
-    $avatar_url = wp_get_attachment_image_src($attchid, 'thumbnail' )[0]; 
-    $user['status'] = 'true';
-    $user['id'] = $user_id;
-    $user['user_login'] = $user_info->data->user_login;
-    $user['user_email'] = $user_info->data->user_email; 
-    $user['user_registered'] = $user_info->data->user_registered; 
-    $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0]; 
-    //$user['role'] =  key($user_info->caps) ;
-    //$user['display_role'] = $wp_roles->role_names[key($user_info->caps)] ;
-    if($facebook_avatar){
-       $user['avatar_url'] = $facebook_avatar; 
-   }else{
-        $user['avatar_url'] = $avatar_url;
-   }
-    $user['state'] = $avatar_url;
-    
-    return  $user;
-}
 
 
 function send_notifications_to_admin($user_id){
@@ -528,7 +502,7 @@ function send_notifications_to_admin($user_id){
   $user = login_response($user_id);
 
   $meta = array(
-    'username'        => $user['user_login'],
+    'username'        => $user['display_name'],
     'email'           => $user['user_email'],
     'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
     'registered'      => $user['user_registered'],
@@ -690,4 +664,20 @@ function get_user_products($id){
     }
 
     return $product_arr;
+}
+
+function login_response($user_id){
+ 
+    global $user_ID,  $wp_roles ;
+    $user = array();
+    $user_info = get_userdata($user_id);
+    $usermeta = get_user_meta($user_id);
+    $user['status'] = 'true';
+    $user['id'] = $user_id;
+    $user['user_login'] = $user_info->data->user_login;
+    $user['user_email'] = $user_info->data->user_email; 
+    $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0]; 
+    $user['user_registered'] = $user_info->data->user_registered; 
+    
+    return  $user;
 }

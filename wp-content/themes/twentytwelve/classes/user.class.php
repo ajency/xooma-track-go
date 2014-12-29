@@ -281,6 +281,43 @@ class User
             array_push($products_arr, $value->product_id);
         }
         $pr_main = array();
+        global $productList;
+        $all_terms = $productList->get_products($term_id="");
+        foreach ($all_terms as $key => $value) {
+
+           $time_set = get_term_meta($value['id'], 'time_set', true);
+            if( $time_set == 'asperbmi'){
+                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
+                    $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                   
+
+                        $serving_size = get_term_meta($value['id'], 'serving_size', true);
+                        $time_set = get_term_meta($value['id'], 'time_set', true);
+                        $no_of_servings = $time_set;
+                        
+                        $servings_qty = explode('|', $serving_size);
+                        
+                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
+                        $sub[] = array(
+                            'id'            => $value['id'],
+                            'name'          => $value['name'],
+                            'servings'      => $no_of_servings,
+                            'qty'           => $qty,
+                            'product_type'  => $product_type->value
+
+
+                );
+                
+          
+        }
+
+    } 
+     $pr_main[] = array(
+
+                            'type'      => 'As per BMI',
+                            'products'  => $sub
+
+                            );   
         $products = implode(',', $products_arr);
 
         if($products != ""){
@@ -292,9 +329,9 @@ class User
 
             
             foreach ($product_type as $key => $val) {
-
+                $sub = array();
                 foreach ($term as $key => $value) {
-
+                    
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                     if($frequency == $val){
@@ -313,7 +350,7 @@ class User
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
                         $meta_arr = array();
 
-                        $sub = array(
+                        $sub[] = array(
                             'id'            => $value->term_id,
                             'name'          => $value->name,
                             'servings'      => $no_of_servings,

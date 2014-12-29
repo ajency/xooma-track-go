@@ -63,7 +63,7 @@
     App                   = new Marionette.Application()
     APIURL                = '<?php echo json_url() ?>';
     _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
+    FBAPPID               = 376973229145085;
     if(typeof FBAPPID !== 'undefined')
         facebookConnectPlugin.browserInit(App, FBAPPID, 'v2.2');
 </script>
@@ -78,6 +78,7 @@
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/products/add/add.products.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/products/products.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/userproductlistctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/home/homectrl.js"></script>
 
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>

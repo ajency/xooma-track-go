@@ -8,6 +8,9 @@ jQuery(document).ready(function($) {
   }).state('UserProductList', {
     url: '/my-products',
     parent: 'profile'
+  }).state('home', {
+    url: '/home',
+    parent: 'xooma'
   });
   App.onBeforeStart = function() {
     App.currentUser.set(userData);
@@ -28,7 +31,8 @@ jQuery(document).ready(function($) {
       url: '/settings',
       parent: 'xooma'
     }).state('home', {
-      url: '/home'
+      url: '/home',
+      parent: 'xooma'
     }).state('UserProductList', {
       url: '/my-products',
       parent: 'profile'

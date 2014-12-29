@@ -268,9 +268,29 @@
 </script>
 
 <script id="home-template" type="text/template">
-		<div>
-				Add Home template here
-		</div>
+		<div id="xoomaproduct" class="section">
+                <h4 class="text-center"> List Of xooma products</h4>
+    
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                  
+                      <br>
+                            <ul class="list-unstyled list-style userProductList">
+                                   
+                             </ul>
+                               
+
+
+                  </div>
+                  <div class="col-md-3">
+                  	</div>
+              </div>
+
+        </div> 
+        
+</div>
 </script>
 
 
@@ -300,7 +320,7 @@
         </div> 
         <div class="row">
 			<div class="col-sm-12">
-					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
+					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> Save</a>
 			</div>
 	</div> 
 </div>

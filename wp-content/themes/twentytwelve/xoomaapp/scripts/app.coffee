@@ -11,6 +11,9 @@ jQuery(document).ready ($)->
 		.state 'UserProductList',
 					url : '/my-products'
 					parent : 'profile'
+		.state 'home',
+					url : '/home'
+					parent : 'xooma'
 
 			
 
@@ -33,6 +36,7 @@ jQuery(document).ready ($)->
 
 			.state 'home',
 					url : '/home'
+					parent : 'xooma'
 
 			.state 'UserProductList',
 					url : '/my-products'
