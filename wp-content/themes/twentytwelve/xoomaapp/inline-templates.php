@@ -1,4 +1,25 @@
+
 <script id="login-template" type="text/template">
+    <div class="topheader">
+        <nav class="navbar " role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-5">
+                        <div class="navbar-header">
+                            <a href="#">
+                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="img-reponsive" width="200px">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-xs-7">
+                    <!--    <a href="#menu">
+                            <h5><i class="fa fa-cog pull-right "></i></h5>
+                        </a>-->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 	<div class="container">
 			<div class="row">
 					<div class="col-sm-12">
@@ -61,7 +82,7 @@
 												</div>
 										</div>
 										<div class="col-sm-9 col-xs-7">
-											<div ui-region="currentUser" class="pull-right">
+											<div ui-region="currentUser" class="pull-right user-data">
 
 											</div>
 										</div>
@@ -124,7 +145,7 @@
 
 
 												<div class="form-group">
-														<label for="text1" class=" col-sm-3 control-label">xooma id</label>
+														<label for="text1" class=" col-sm-3 control-label">xooma id  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<input type="number" aj-inputmask="999999" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6"   class="form-control " name="profile[xooma_member_id]">
 														</div>
@@ -148,14 +169,14 @@
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text5" class=" col-sm-3 control-label">Gender</label>
+														<label for="text5" class=" col-sm-3 control-label">Gender  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<div class="rd-gender">
-																		<label class="wrap">
+																		<label class="wrap pull-left">
 																				<input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="male" />
 																				<span class="rd-visual male" title="Male"></span>
 																		</label>
-																		<label class="wrap">
+																		<label class="wrap pull-left">
 																				<input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="female" />
 																				<span class="rd-visual female" title="Female"></span>
 																		</label>
@@ -163,7 +184,7 @@
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text7" class=" col-sm-3 control-label">Birth date</label>
+														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<input class="form-control" type="text" name="profile[birth_date]" required />
 														</div>
@@ -171,7 +192,7 @@
 												<div class="form-group">
 														<label for="text8" class=" col-sm-3 control-label">Time Zone</label>
 														<div class="col-sm-9">
-																<select name="profile[timezone]">
+																<select class="form-control" name="profile[timezone]">
 																		<option value="Asia/Tehran">(GMT+03:30) Tehran</option>
 																		<option value="Asia/Dubai">(GMT+04:00) Abu Dhabi, Muscat</option>
 																		<option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
