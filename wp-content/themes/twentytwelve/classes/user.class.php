@@ -67,9 +67,9 @@ class User
         $v->rule('dateFormat','birth_date','Y-m-d');
         //all the rules defined//
 
-        // if(!($v->validate())) {
-        //    return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
-        // }
+        if(!($v->validate())) {
+           return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
+        }
 
 		    //update user meta for the user
         $user_meta_value = maybe_serialize($args);
@@ -83,6 +83,11 @@ class User
             $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
 
 
+        }
+        else
+        {
+           return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
+ 
         }
 
         return true;
@@ -331,7 +336,7 @@ class User
             foreach ($product_type as $key => $val) {
                 $sub = array();
                 foreach ($term as $key => $value) {
-                    
+
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                     if($frequency == $val){

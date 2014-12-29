@@ -4,30 +4,27 @@ class ProductChildView extends Marionette.ItemView
 
 	className : 'list-title'
 
-	template  : '
-                <h5 class="bold text-primary">{{name}}</h5>
+	template  : Handlebars.compile '<h5 class="bold text-primary">{{name}}</h5>
                 <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6>'
-                                              
 
-	
 
-class homeViewChildView extends Marionette.CompositeView
+class HomeViewChildView extends Marionette.CompositeView
 	tagName : 'li'
 	className : 'productlist'
-	template : '<b class="text-success">{{type}}</b>'
+	template : Handlebars.compile  '<b class="text-success">{{type}}</b>'
 	childView : ProductChildView
-	
+
 	initialize:->
 		products = @model.get 'products'
 		@collection = new Backbone.Collection products
 
-class homeView extends Marionette.CompositeView
+class HomeView extends Marionette.CompositeView
 
 	class : 'animated fadeIn'
 
-	template : '#produts-template'
+	template : '#home-template'
 
-	childView : homeViewChildView
+	childView : HomeViewChildView
 
 	childViewContainer : 'ul.userProductList'
 
@@ -39,6 +36,6 @@ class App.HomeCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = new Backbone.Collection collection
-		@show new homeView
+		@show new HomeView
 					collection : productcollection
-		
+
