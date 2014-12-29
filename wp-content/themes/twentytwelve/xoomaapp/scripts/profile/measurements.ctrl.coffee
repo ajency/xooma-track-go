@@ -13,6 +13,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		rangeSliders : '[data-rangeslider]'
 		responseMessage : '.aj-response-message'
 
+	behaviors :
+		FormBehavior :
+			behaviorClass : Ajency.FormBehavior
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
@@ -23,16 +26,13 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.popoverElements.popover html: true
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-		@ui.form.validate submitHandler: @formSubmitHandler
 
 	disabler:(e)->
 		e.preventDefault()
 		return false
 
-	formSubmitHandler : (form)=>
-		_formData = $('#add_measurements').serialize()
+	onFormSubmit : (_formData)=>
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
-		return false
 
 	successHandler : (response, status,responseCode)=>
 		if responseCode.status is 404

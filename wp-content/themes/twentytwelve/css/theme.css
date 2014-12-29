@@ -6377,7 +6377,7 @@ body > .container {
   font-weight: 500;
 }
 .section {
-  padding: 100px 0px 10px 0px;
+  padding: 150px 0px 10px 0px;
 }
 .list-style li {
   border-bottom: 1px solid #cccccc;
@@ -6416,13 +6416,6 @@ body > .container {
   color: #ccc;
   width: 40px;
   height: 40px;
-}
-/*** Error Ui ***/
-.parsley-errors-list {
-  list-style-type: none;
-  color: #d9534f;
-  margin: 0px;
-  padding: 0px;
 }
 /* Top - Header */
 .topheader {
@@ -6592,17 +6585,6 @@ body > .container {
 }
 .social li {
   display: inline-block;
-}
-.user-data {
-  color: #ffffff;
-  line-height: 37px;
-}
-.user-data .popover {
-  color: #000000;
-}
-.user-data .popover img {
-  width: 40px !important;
-  height: 40px!important;
 }
 /* Sub - Header */
 .sub-header {
@@ -8408,9 +8390,6 @@ body > .container {
 .picker__select--year:focus {
   border-color: #0089ec;
 }
-.picker__button--today {
-  display: none !important;
-}
 /**
  * The month navigation buttons.
  */
@@ -8936,10 +8915,6 @@ textarea.form-control {
   float: left;
   display: block;
   width: 55%;
-}
-.rd-gender .parsley-errors-list {
-  position: absolute;
-  bottom: -17px;
 }
 .rd-visual.male::before {
   background: url(../images/male.png) no-repeat;

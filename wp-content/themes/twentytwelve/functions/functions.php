@@ -1,6 +1,6 @@
 <?php
 
-	function uploadImage($url){
+function uploadImage($url){
 
     $upload_dir = wp_upload_dir(); // Set upload folder
 
@@ -686,4 +686,56 @@ function login_response($user_id){
     $user['user_registered'] = $user_info->data->user_registered;
 
     return  $user;
+}
+
+
+function get_occurrence_date($product_id,$user_id=""){
+
+  if($user_id ==""){
+    $user_id = get_current_user_id();
+  }
+
+  //get object id
+  $object_id = get_object_id($product_id,$user_id);
+
+  if(!is_wp_error($object_id)){
+
+    //get schedule id
+    $schedule = \ajency\ScheduleReminder\Schedule::get($object_id);
+
+    echo $start_datetime = date('Y-m-d 12:00:00');
+    echo $end_datetime = date('Y-m-d 11:59:00');
+
+    $occurrences = \ajency\ScheduleReminder\Occurrence::
+    get_occurrences($schedule['id'], $start_datetime, $end_datetime); 
+
+    print_r($occurrences);
+
+    
+  }
+
+}
+
+
+function get_object_id($product_id,$user_id){
+
+  global $wpdb;
+
+  $product_main_table = $wpdb->prefix . "product_main";
+  $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
+    and product_id=".$product_id);
+
+  if(!(is_null($object)))
+  {
+
+    return $object->id;
+
+  }
+  else
+  {
+    return new WP_Error( 'object_id_not_found', __( 'Object ID not found.' ));
+  }
+
+  
+
 }

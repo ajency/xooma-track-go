@@ -110,6 +110,21 @@ _.extend(Ajency.CurrentUser.prototype, {
       url: this._getUrl('products'),
       success: _successHandler
     });
+  },
+  getHomeProducts: function() {
+    var _successHandler;
+    _successHandler = (function(_this) {
+      return function(response, status, xhr) {
+        if (xhr.status === 200) {
+          return console.log(response);
+        }
+      };
+    })(this);
+    return $.ajax({
+      method: 'GET',
+      url: "" + _SITEURL + "/wp-json/records/" + (App.currentUser.get('ID')),
+      success: _successHandler
+    });
   }
 });
 

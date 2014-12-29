@@ -38,3 +38,38 @@ body{
 .section{
     padding:150px 0px 10px 0px;
 }
+.list-style {
+    li{
+        border-bottom: 1px solid lighten(@gray-base, 80%);
+        padding-top: 15px;
+        padding-bottom: 15px;
+        position: relative;
+        .list-title{
+            margin-bottom: 10px;
+            h1,h2,h3,h4,h5,h6{
+                margin: 3px;
+            }
+        }
+        .text-success{
+            margin-bottom: 10px;
+            display: block;
+        }
+        &:before{
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: 'Glyphicons Halflings';
+            content: "\e080";
+            overflow: auto;
+              margin: auto;
+              position: absolute;
+              top: 0; bottom: 0; right: 0;
+            font-size: 21px;
+            color: #ccc;
+            width:40px;
+            height: 40px;
+        
+        }
+    }
+    
+}
