@@ -23,6 +23,7 @@ jQuery(document).ready ($)->
 			App.currentUser.set 'caps', notLoggedInCaps
 
 	App.currentUser.on 'user:auth:success', ->
+		App.trigger 'fb:status:connected'
 		App.navigate App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
@@ -30,24 +31,22 @@ jQuery(document).ready ($)->
 		App.currentUser.set 'caps', notLoggedInCaps
 		App.navigate '/login', true
 
-		App.state 'settings',
-					url : '/settings'
-					parent : 'xooma'
+	App.state 'settings',
+				url : '/settings'
+				parent : 'xooma'
 
-			.state 'home',
-					url : '/home'
-					parent : 'xooma'
+		.state 'home',
+				url : '/home'
+				parent : 'xooma'
 
-			.state 'UserProductList',
-					url : '/my-products'
-					parent : 'profile'
+		.state 'UserProductList',
+				url : '/my-products'
+				parent : 'profile'
 
-			.state 'AddProducts',
-					url : '/products'
-					parent : 'xooma'
+		.state 'AddProducts',
+				url : '/products'
+				parent : 'xooma'
 				
-
-
 
 	App.addInitializer ->
 		Backbone.history.start()
@@ -56,8 +55,5 @@ jQuery(document).ready ($)->
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
-
-
-
 
 	App.start()

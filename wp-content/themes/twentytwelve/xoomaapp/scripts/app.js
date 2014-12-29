@@ -19,6 +19,7 @@ jQuery(document).ready(function($) {
     }
   };
   App.currentUser.on('user:auth:success', function() {
+    App.trigger('fb:status:connected');
     return App.navigate(App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
@@ -26,20 +27,20 @@ jQuery(document).ready(function($) {
       slient: true
     });
     App.currentUser.set('caps', notLoggedInCaps);
-    App.navigate('/login', true);
-    return App.state('settings', {
-      url: '/settings',
-      parent: 'xooma'
-    }).state('home', {
-      url: '/home',
-      parent: 'xooma'
-    }).state('UserProductList', {
-      url: '/my-products',
-      parent: 'profile'
-    }).state('AddProducts', {
-      url: '/products',
-      parent: 'xooma'
-    });
+    return App.navigate('/login', true);
+  });
+  App.state('settings', {
+    url: '/settings',
+    parent: 'xooma'
+  }).state('home', {
+    url: '/home',
+    parent: 'xooma'
+  }).state('UserProductList', {
+    url: '/my-products',
+    parent: 'profile'
+  }).state('AddProducts', {
+    url: '/products',
+    parent: 'xooma'
   });
   App.addInitializer(function() {
     return Backbone.history.start();
