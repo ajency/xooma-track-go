@@ -386,7 +386,7 @@ class ajencyWorkflow{
 		}
 		else{
 
-			return array('status' => 200 , 'response' => $updated_id);
+			return array('status' => 200 , 'response' => $update_id);
 		}
 
 
@@ -399,7 +399,7 @@ class ajencyWorkflow{
 
 		//fetch all the forms based on the workflow name specified
 		$workflow_name = '';
-		
+
 		global $wpdb;
 
 		global $aj_workflow;
@@ -460,7 +460,7 @@ class ajencyWorkflow{
 
 	}
 
-	
+
 
 }
 
