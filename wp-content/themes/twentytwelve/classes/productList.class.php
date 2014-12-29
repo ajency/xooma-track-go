@@ -69,8 +69,9 @@ class ProductList
 			$images = wp_get_attachment_image_src( $attachment_id );
     		$image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
         	'/img/placeholder.jpg';
-
-        	$product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($term_data->term_id, 'product_type', true)." and type='product_type'");
+        	$product_type = "";
+        	if(get_term_meta($term_data->term_id, 'product_type', true) !="" && get_term_meta($term_data->term_id, 'product_type', true) != null)
+        		$product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($term_data->term_id, 'product_type', true)." and type='product_type'");
         	$frequency = (get_term_meta($term_data->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
         	$active = (get_term_meta($term_data->term_id, 'active', true) == 1) ? 'Yes' : 'No';
         	#total is calculated and set

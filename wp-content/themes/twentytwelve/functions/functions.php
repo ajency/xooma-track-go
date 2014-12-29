@@ -111,21 +111,20 @@ function save_anytime_product_details($id,$data){
         
 
     if($main){
-        // date_default_timezone_set("UTC");
-        // $interval = 24/intval($data['time_set']);
-        // $date = strtotime(date('YmdHi'));
+        date_default_timezone_set("UTC");
+        $interval = 24/intval($data['time_set']);
+        $date = strtotime(date('YmdHi'));
         
-        // $start = date("YmdHis", $date);
-
-        
-        // $schedule_data = array(
-        //    'object_type' => 'user_product',
-        //    'object_id' =>$main_id,
-        //    'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
-        //);
-        // $user = new WP_User( $id );
-        // $user->add_cap( 'edit_schedule' );
-        // $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+        $start = new DateTime();
+        print_r($start);
+        $schedule_data = array(
+           'object_type' => 'user_product',
+           'object_id' =>$main_id,
+           'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
+        );
+        $user = new WP_User( $id );
+        $user->add_cap( 'edit_schedule' );
+        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
         
         return $data['id'];
 

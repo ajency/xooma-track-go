@@ -156,7 +156,7 @@
 																				<span class="rd-visual male" title="Male"></span>
 																		</label>
 																		<label class="wrap">
-																				<input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="female" />
+																				<input type="radio"  name="profile[gender]" class="radio" value="female" />
 																				<span class="rd-visual female" title="Female"></span>
 																		</label>
 																</div>
