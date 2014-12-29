@@ -474,3 +474,6 @@
 
 
 </script>
+<script id="current-user-template" type="text/template">
+markupup
+</script>
