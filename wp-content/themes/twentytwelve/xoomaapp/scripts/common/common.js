@@ -16,7 +16,7 @@ _.extend(Marionette.Application.prototype, {
 
 _.extend(Ajency.CurrentUser.prototype, {
   _getUrl: function(property) {
-    return "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/" + property;
+    return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
   },
   saveMeasurements: function(measurements) {
     var _successHandler;

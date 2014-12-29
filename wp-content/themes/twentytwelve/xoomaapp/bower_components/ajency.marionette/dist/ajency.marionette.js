@@ -626,6 +626,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       this._fbLoginSuccess = __bind(this._fbLoginSuccess, this);
       this._fbLoginHandler = __bind(this._fbLoginHandler, this);
       this.loginWithFacebook = __bind(this.loginWithFacebook, this);
+      this.onFacebookLoginCancel = __bind(this.onFacebookLoginCancel, this);
       return LoginView.__super__.constructor.apply(this, arguments);
     }
 
@@ -654,18 +655,24 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     LoginView.prototype.loginWithFacebook = function(evt) {
       var _scope;
+      this.$('.authentication-cancelled').remove();
       $(evt.target).text('Logging in... Please Wait...');
       _scope = this.ui.fbLoginButton.attr('fb-scope');
       _scope = !_.isString(_scope) ? '' : _scope;
       return facebookConnectPlugin.getLoginStatus((function(_this) {
         return function(resp) {
           if (resp.status !== 'connected') {
-            return facebookConnectPlugin.login(_scope, _this._fbLoginHandler);
+            return facebookConnectPlugin.login(_scope, _this._fbLoginHandler, _this.onFacebookLoginCancel);
           } else {
             return _this._fbLoginSuccess();
           }
         };
       })(this));
+    };
+
+    LoginView.prototype.onFacebookLoginCancel = function(response) {
+      this.ui.fbLoginButton.text('Login with Facebook');
+      this.ui.fbLoginButton.after('<p class="text-center authentication-cancelled">Authentication cancelled by user</p>');
     };
 
     LoginView.prototype._fbLoginHandler = function(response) {

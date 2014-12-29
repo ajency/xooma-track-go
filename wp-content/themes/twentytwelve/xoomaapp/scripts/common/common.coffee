@@ -13,7 +13,7 @@ _.extend Marionette.Application::,
 _.extend Ajency.CurrentUser::,
 
 	_getUrl : (property)->
-		"#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/#{property}"
+		"#{APIURL}/users/#{App.currentUser.get('ID')}/#{property}"
 
 	saveMeasurements : (measurements)->
 
