@@ -259,7 +259,7 @@
 										</div>
 										<div class="row">
 												<div class="col-sm-12">
-														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right">Save</button>
+														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
 												</div>
 										</div>
 								</div>

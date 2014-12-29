@@ -1,6 +1,6 @@
 <?php
 
-	function uploadImage($url){
+function uploadImage($url){
 
     $upload_dir = wp_upload_dir(); // Set upload folder
 
