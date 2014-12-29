@@ -20,15 +20,13 @@ jQuery(document).ready ($)->
 	App.onBeforeStart = ->
 		App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
-			App.currentUser.set 'caps', notLoggedInCaps
+			App.currentUser.setNotLoggedInCapabilities()
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
 		App.navigate App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
-		App.currentUser.clear slient : true
-		App.currentUser.set 'caps', notLoggedInCaps
 		App.navigate '/login', true
 
 	App.state 'settings',
