@@ -294,7 +294,7 @@ class User
             if( $time_set == 'asperbmi'){
                 if($value['time_set'] == 'asperbmi')
                     $value['time_set'] = 1;
-                save_anytime_product_details($id,$value);
+                    save_anytime_product_details($id,$value);
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                    
@@ -344,10 +344,11 @@ class User
 
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                    if($frequency == $val){
+                    $time_set = get_term_meta($value->term_id, 'time_set', true);
+                    if($frequency == $val && $time_set != 'asperbmi'){
 
                         $serving_size = get_term_meta($value->term_id, 'serving_size', true);
-                        $time_set = get_term_meta($value->term_id, 'time_set', true);
+                        
                         if($time_set == 'Once')
                             $no_of_servings = 1;
                         else if($time_set == 'Twice')

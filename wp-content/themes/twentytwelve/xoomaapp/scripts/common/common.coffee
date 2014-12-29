@@ -1,6 +1,6 @@
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-
+#Ajency.CurrentUserView::template = '#current-user-template'
 
 _.extend Marionette.Application::,
 

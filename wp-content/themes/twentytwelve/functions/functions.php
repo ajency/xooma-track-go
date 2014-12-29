@@ -59,6 +59,9 @@ function save_anytime_product_details($id,$data){
 
     $product_meta_table = $wpdb->prefix . "product_meta";
 
+    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$data['id']);
+
+    if((is_null($sql_query))){
     $main = $wpdb->insert(
                 $product_main_table,
                 array(
@@ -129,7 +132,7 @@ function save_anytime_product_details($id,$data){
     else{
         new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
     }
-
+  }
 }
 
 
