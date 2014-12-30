@@ -33,7 +33,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	successHandler:(response, status)=>
 		App.currentUser.set 'state' , '/profile/measurements'
-		App.navigate '/profile/measurements' , true
+		App.navigate '#'+App.currentUser.get('state') , true
 		
 
 	errorHandler:(error)=>

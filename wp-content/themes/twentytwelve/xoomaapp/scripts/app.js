@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
   };
   App.currentUser.on('user:auth:success', function() {
     App.trigger('fb:status:connected');
-    return App.navigate(App.currentUser.get('state'), true);
+    return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
     return App.navigate('/login', true);

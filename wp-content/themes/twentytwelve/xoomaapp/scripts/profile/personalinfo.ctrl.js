@@ -57,7 +57,7 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
     App.currentUser.set('state', '/profile/measurements');
-    return App.navigate('/profile/measurements', true);
+    return App.navigate('#' + App.currentUser.get('state'), true);
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {

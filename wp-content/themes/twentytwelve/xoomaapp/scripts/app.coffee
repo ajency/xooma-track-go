@@ -24,7 +24,7 @@ jQuery(document).ready ($)->
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
-		App.navigate App.currentUser.get('state'), true
+		App.navigate '#'+App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
 		App.navigate '/login', true

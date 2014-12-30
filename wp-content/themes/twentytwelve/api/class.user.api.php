@@ -109,7 +109,7 @@ class User_API
 
         //update measurements details of the user id passed
         global $user;
-
+        
         $data = array();
         $data['id']                         = $id;
         $data['height']                     = $_REQUEST['height'];

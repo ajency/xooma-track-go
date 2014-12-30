@@ -62,8 +62,9 @@ ProfileMeasurementsView = (function(_super) {
     return this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
   };
 
-  ProfileMeasurementsView.prototype.successHandler = function(response, status, responseCode) {
-    if (responseCode.status === 404) {
+  ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
+    console.log(xhr.status);
+    if (xhr.status === 404) {
       return this.ui.responseMessage.text("Something went wrong");
     } else {
       return App.navigate('/profile/my-products', true);

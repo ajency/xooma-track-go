@@ -165,7 +165,7 @@
 												<div class="form-group">
 														<label for="text4" class="col-sm-3 control-label">Phone</label>
 														<div class="col-sm-9">
-																<input type="text" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]">
+																<input type="text" aj-field-type="number" class="form-control" name="profile[phone_no]">
 														</div>
 												</div>
 												<div class="form-group">

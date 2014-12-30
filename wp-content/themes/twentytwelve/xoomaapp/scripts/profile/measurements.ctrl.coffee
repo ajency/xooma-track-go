@@ -36,8 +36,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	onFormSubmit : (_formData)=>
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
 
-	successHandler : (response, status,responseCode)=>
-		if responseCode.status is 404
+	successHandler : (response, status,xhr)=>
+		console.log xhr.status
+		if xhr.status is 404
 			@ui.responseMessage.text "Something went wrong"
 		else
 			App.navigate '/profile/my-products' , true
