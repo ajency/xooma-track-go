@@ -1,19 +1,12 @@
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 #Ajency.CurrentUserView::template = '#current-user-template'
-
-_.extend Marionette.Application::,
-
-	isLoggedInState : (stateName)->
-		notLoggedInStates = [
-			'login'
-		]
-		notLoggedInStates.indexOf(stateName) is -1
+Ajency.LoginView::template = '#login-template'
 
 _.extend Ajency.CurrentUser::,
 
 	_getUrl : (property)->
-		"#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/#{property}"
+		"#{APIURL}/users/#{App.currentUser.get('ID')}/#{property}"
 
 	saveMeasurements : (measurements)->
 
