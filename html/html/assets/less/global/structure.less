@@ -23,14 +23,20 @@ body{
     padding: 20px 0;
     color: @white;
 }
-
-.row{
-   /* margin-top: 50px;
-    margin-bottom: 50px;
-    */
+.margin-none{
+    margin: 0px !important;
+}
+.m-t-10{
+    margin-top: 10px;
+}
+.m-t-20{
+    margin-top: 20px;
+}
+.m-t-30{
+    margin-top: 30px;
 }
 .m-t-40{
-    margin-top: 42px;
+    margin-top: 40px;
 }
 .bold{
     font-weight: @font-bold;
@@ -73,7 +79,26 @@ body{
     }
     
 }
-
+.row-line{
+    li{
+        border-left: 1px solid @gray-light;
+       
+        }
+     li:first-child { 
+            border:0px !important;
+        }
+}
+.dotted-line{
+    li{
+        border-right: 1px dotted @gray-light;
+        i{
+            font-size: 40px;
+        }
+        }
+     li:nth-child(3) { 
+            border:0px !important;
+        }
+}
 /*** Error Ui ***/
 .parsley-errors-list{
     list-style-type: none;
@@ -82,4 +107,151 @@ body{
     padding:0px;
 }
 
+
+text{
+display:none !important;
+}
+
+.mid-title{
+    position: relative;
+}
+.element-animation{
+  animation: animationFrames ease-in 2s;
+  animation-iteration-count:infinite;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: animationFrames ease-in 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -moz-animation: animationFrames ease-in 2s;
+  -moz-animation-iteration-count: infinite;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: animationFrames ease-in 2s;
+  -o-animation-iteration-count: infinite;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: animationFrames ease-in 2s;
+  -ms-animation-iteration-count: infinite;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
+    color:@blue;
+    font-size: 1.4em !important;
+}
+
+@keyframes animationFrames{
+  0% {
+    transform:  rotate(34deg) ;
+  }
+  50% {
+    transform:  rotate(-35deg) ;
+  }
+  100% {
+    transform:  rotate(35deg) ;
+  }
+
+}
+
+@-moz-keyframes animationFrames{
+  0% {
+    -moz-transform:  rotate(34deg) ;
+  }
+  50% {
+    -moz-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -moz-transform:  rotate(35deg) ;
+  }
+ 
+}
+
+@-webkit-keyframes animationFrames {
+  0% {
+    -webkit-transform:  rotate(34deg) ;
+  }
+  50% {
+    -webkit-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -webkit-transform:  rotate(35deg) ;
+  }
+ 
+}
+
+@-o-keyframes animationFrames {
+  0% {
+    -o-transform:  rotate(34deg) ;
+  }
+  50% {
+    -o-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -o-transform:  rotate(35deg) ;
+  }
+
+}
+
+@-ms-keyframes animationFrames {
+  0% {
+    -ms-transform:  rotate(34deg) ;
+  }
+  50% {
+    -ms-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -ms-transform:  rotate(35deg) ;
+  }
+ 
+}
+
+/** Bottle **/
+  
+      	#canvas-holder{
+				width:30%;
+            margin: auto;
+			}
+      .fill-bottle{
+          width: 150px;
+        display: block;
+        margin: auto;
+        position: relative;
+        top: 85px;
+      }
+    .glass { 
+			height: 150px;
+            width: 150px;
+            position: absolute;
+			background-image: url('../images/fill-bottle.png'); /* Beer Glass */
+			background-repeat: no-repeat;
+            background-size: 100%;
+		}
+		.liquid {
+			z-index:-1;
+			position:absolute;
+			bottom:0;
+			width: 150px;
+			background:#9ad41e; /* Beer Liquid Pattern */
+			/* Remove the bottom two lines to stop animation */
+			-webkit-animation: move 50s linear infinite;
+			-moz-animation: move 50s linear infinite;
+		}
+		
+		@-webkit-keyframes move {
+		    0% {
+		       background-position: 0 0;
+		    }
+		    100% {
+		       background-position: 2212px 0px;
+		    }
+		}
+		
+		@-moz-keyframes move {
+		    0% {
+		       background-position: 0 0;
+		    }
+		    100% {
+		       background-position: 2212px 0px;
+		    }
+		}
 
