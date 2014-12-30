@@ -18,9 +18,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
+	#Changes For DEVICE
 	onShow:->
 		_.enableCordovaBackbuttonNavigation()
-
 
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()

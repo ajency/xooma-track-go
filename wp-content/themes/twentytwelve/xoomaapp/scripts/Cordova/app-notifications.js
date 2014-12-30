@@ -103,7 +103,7 @@ _.mixin({
         test: "Xooma Track & Go!!",
         date: convertTo12hourFormat
       }),
-      date: time,
+      date: one_min,
       icon: 'file://xoomaapp/images/icon.jpg',
       actions: [
         {

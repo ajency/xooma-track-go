@@ -5,9 +5,9 @@ class ProductChildView extends Marionette.ItemView
 	className : 'list-title'
 
 	template  : '
-								<h5 class="bold text-primary">{{name}}</h5>
-								<h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6>'
-																							
+                <h5 class="bold text-primary">{{name}}</h5>
+                <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6>'
+                                              
 
 	
 
@@ -31,11 +31,18 @@ class UserProductListView extends Marionette.CompositeView
 
 	childViewContainer : 'ul.userProductList'
 
+	ui :
+		saveProducts : '.save_products'
+
+	onShow:->
+		if App.currentUser.get 'state' == '/home'
+			@ui.saveProducts.hide()
+
 	
 	
 	
 		
-class App.UserProductListCtrl extends Marionette.RegionController
+class App.UserProductListCtrl extends Ajency.RegionController
 
 	initialize:->
 		App.currentUser.getUserProducts().done(@_showView).fail @errorHandler

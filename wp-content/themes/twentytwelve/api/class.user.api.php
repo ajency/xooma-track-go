@@ -50,11 +50,10 @@ class User_API
             array( array( $this, 'xooma_remove_user_product_details'), WP_JSON_Server::DELETABLE),
 
         );
-        //facebook login route
-        $routes['/tokens'] = array(
-            array( array( $this, 'store_user_login_details'), WP_JSON_Server::CREATABLE)
+        //get home products
+        $routes['/records/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_get_user_home_products'), WP_JSON_Server::READABLE)
         );
-
 
 
 
@@ -240,6 +239,29 @@ class User_API
         global $user;
 
         $response = $user->get_user_products($id);
+
+        if(count($response) == 0){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+
+    }
+
+    public function xooma_get_user_home_products($id){
+
+        global $user;
+
+        $response = $user->get_user_home_products($id);
 
         if(count($response) == 0){
             $response = new WP_JSON_Response( $response );

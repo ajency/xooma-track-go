@@ -482,80 +482,80 @@ add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
 
 function xm_get_testimonials()
 {
-	
+
 	$args = array();
-	
+
 	if(isset($_POST['current_ids']) && is_array($_POST['current_ids']))
 	{
 		$args['post__not_in'] = $_POST['current_ids'];
 	}
-	
+
 	if(isset($_POST['cat_ids']) && is_array($_POST['cat_ids']))
 	{
 		//get teh category ids to filter
-		$_cat_ids = $_POST['cat_ids'];  
-		
+		$_cat_ids = $_POST['cat_ids'];
+
 		if(!empty($_cat_ids))
 		{
 			$args['category__and'] = $_cat_ids;
-		}	
-	}	
+		}
+	}
 	if(isset($_POST['search_text']))
 	{
 		if(!empty($_POST['search_text']))
 		{
 			//$search_filter = '&s=' . $_POST['search_text'] ;
 			$args['s'] = $_POST['search_text'];
-			
-			$_args = array( 
+
+			$_args = array(
 				'role' => '',
 				'search' => 'Enter',
 				'fields' => 'ID'
 			);
-			
+
 			if ( '' !== $_args['search'] )
 				$_args['search'] = '*' . $_args['search'] . '*';
-				
+
 			// Query the user IDs of the Auhtors
 			$wp_user_search = new WP_User_Query( $_args );
 			$args['author'] = $wp_user_search->get_results();
 		}
 	}
-	
+
 	$args['post_status'] 	= 'publish';
 	$args['orderby'] 		= 'rand';
 	$args['posts_per_page'] = 46;
 	$args['post_type'] 		= 'post';
-	
+
 	if(isset($_POST['is_business']) && $_POST['is_business'] == 1)
 		$args['tag_id'] = 80;
 	else
 		$args['tag__not_in'] = 80;
-	
+
 	//$testimonials = query_posts('post_status=publish&orderby=rand&posts_per_page=21&post_type=post' .  $cat_filter );
 	$testimonials = query_posts($args);
-	
+
 	$data = array();
-	
+
 	$ids = array();
-	
+
 	if(count($testimonials) > 0)
 	{
 		foreach($testimonials as $testimonial):
-			
+
 			//add current ids
 			$ids[] = $testimonial->ID;
-			
+
 			$cats = get_the_category($testimonial->ID);
-						
+
 			$user = get_userdata((int)$testimonial->post_author);
-			
+
 			$ailment = $product = $country = '';
-			
+
 			foreach($cats as $cat)
 			{
 				$link = site_url('app?cat=' . $cat->term_id . '&cat_name='. $cat->cat_name);
-			
+
 				if($cat->parent == 25)
 				{
 					$ailment .= "<a href='$link'>{$cat->name}</a>, ";
@@ -567,36 +567,36 @@ function xm_get_testimonials()
 				if($cat->parent == 48)
 				{
 					$country = "<a href='$link'>{$cat->name}</a>";
-				}	
+				}
 			}
-			
+
 			$img = array();
 			if(has_post_thumbnail($testimonial->ID))
 			{
 				$img = wp_get_attachment_image_src(get_post_thumbnail_id($testimonial->ID));
-			}	
+			}
 			else
 			{
 				$user_db_id = get_user_meta($user->ID,'fb_id',true);
 				$img[0] = "https://graph.facebook.com/$user_db_id/picture?width=150&height=150";
 			}
-			
+
 			$content = $testimonial->post_content;
-			
-			$product_ailment = ''; 
+
+			$product_ailment = '';
 			if(!empty($product) && !empty($ailment))
 				$product_ailment = 'Product</br> <span> '. rtrim($product,', ') .' </span>Testimony</br> <span> '. rtrim($ailment,', ') . '</span>';
-							
+
 			$data[] = array('ImageUrl' => $img[0],
 							'LinkUrl'  => $img[0],
 							'HTML' 	   => '<div class=\'facebook_button\' style=\'   margin-left: -174PX; position: absolute; z-index: 99999; margin-top: 168px;  \'></div><span><a href=\'' . get_permalink($testimonial->ID) .'\'><h4 class=\'testimonialTitle\'>'. $testimonial->post_title .'</h4></a></span>Country</br> <span> '. $country . '</span>'.$product_ailment.'<div class=\'slickscroll\'>'. $content .'<br /><a href=\'' . get_permalink($testimonial->ID) .'\'>Complete View</a></div>',
 							'Href' => get_permalink($testimonial->ID)
-					);	
+					);
 		endforeach;
-	}	
-		
+	}
+
 	echo json_encode(array('data' => $data,'ids' => $ids));
-	
+
 	die;
 }
 
@@ -611,11 +611,11 @@ function xm_register_user()
 		echo '<pre>';
 		print_r($_REQUEST);
 		echo '</pre>';
-	} 
+	}
 	else {
 		echo '$_REQUEST is empty';
 	}
-	
+
 	die;
 }
 
@@ -632,7 +632,7 @@ function xm_submit_testimonial()
 	echo json_encode(array($data['email']));
 
 	die;
-	
+
 	if(!email_exists($data['email']))
 	{
 		$user_id  = wp_insert_user(array(
@@ -641,7 +641,7 @@ function xm_submit_testimonial()
 					'user_pass' 	=> md5('xoomauser'),
 					'first_name' 	=> $data['name']
 			));
-	}	
+	}
 
 	echo json_encode(array($data,$user_id));
 
@@ -656,7 +656,7 @@ define('FACEBOOK_APP_ID', '	456682467712905');
 define('FACEBOOK_SECRET', '72c7697cb0b414c5018abbbe85b64eb7');
 
 function parse_signed_request($signed_request, $secret) {
-  list($encoded_sig, $payload) = explode('.', $signed_request, 2); 
+  list($encoded_sig, $payload) = explode('.', $signed_request, 2);
 
   // decode the data
   $sig = base64_url_decode($encoded_sig);
@@ -953,7 +953,7 @@ function upload_gallery_attachment($file_handler,$post_id,$setthumb='false') {
 }
 
 
-function parse_yturl($url) 
+function parse_yturl($url)
 {
     $pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=|/watch\?.+&v=))([\w-]{11})(?:.+)?$#x';
     preg_match($pattern, $url, $matches);
@@ -976,14 +976,14 @@ return implode($new_lines);
 
 
 function xm_notify_author($post)
-{	
+{
 	$author = get_userdata($post->post_author);
-	
+
 	$name = $author->user_firstname;
 
 	$message = "Dear $name,<br /><p>Thank you again for sharing your Xooma testimonial. Your testimonial has been approved and is now on display to share with others. You can see your testimonial by clicking the link below<br /><a href='". get_permalink($post->ID) ."'>". get_permalink($post->ID) ."</a></p><p>To your success,<br />Xooma Worldwide.<p>";
-				
-	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));	
+
+	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 	wp_mail($author->user_email,'Testimonial approved on Xooma', $message);
 }
 
@@ -997,7 +997,7 @@ function string_sanitize($s) {
 
 /**
  * funtion to return all email addresses for administrators for site
- *  
+ *
  *  */
 function get_all_admin_email_ids()
 {
@@ -1005,12 +1005,12 @@ function get_all_admin_email_ids()
 	$admins = get_users(array('role' => 'administrator'));
 	foreach($admins as $admin)
 	{
-		$emails[] = $admin->user_email; 
+		$emails[] = $admin->user_email;
 	}
-		
+
 	if(count($emails) > 0)
 		return $emails;
-	
+
 	return array(get_option('admin_email'));
 }
 
@@ -1021,11 +1021,13 @@ function get_all_admin_email_ids()
 function add_facebook_open_graph_tags() {
 
 global $post;
-
+if(!isset($post->ID)){
+	return;
+}
 if(has_post_thumbnail($post->ID))
 {
 	$img = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID));
-}	
+}
 else
 {
 	$user_db_id = get_user_meta($post->post_author,'fb_id',true);
@@ -1070,8 +1072,8 @@ function load_scripts(){
                         array(),
                         get_current_version(),
                         TRUE );
-       
-        
+
+
 
 }
 add_action('admin_enqueue_scripts' , 'load_scripts');
@@ -1088,7 +1090,7 @@ function get_current_version() {
     return $wp_version;
 }
 if ( is_development_environment() ) {
- 
+
     function xooma_dev_enqueue_scripts() {
 
              // localized variables
@@ -1099,22 +1101,22 @@ if ( is_development_environment() ) {
         wp_localize_script(  "product_script", "ajaxurl", admin_url( "admin-ajax.php" ) );
         wp_localize_script(  "product_script", "UPLOADURL", admin_url( "async-upload.php" ) );
         wp_localize_script(  "product_script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
-            
 
-        
-       
+
+
+
     }
- 
+
         add_action( 'wp_enqueue_scripts', 'xooma_dev_enqueue_scripts' );
         #action hook into the admin section scripts
         add_action( 'admin_enqueue_scripts', 'xooma_dev_enqueue_scripts' );
 
 
 
-   
 
-    
-   
+
+
+
 }
 
 if (! is_development_environment() ) {
@@ -1127,15 +1129,15 @@ if (! is_development_environment() ) {
             wp_localize_script(  "product_script", "ajaxurl", admin_url( "admin-ajax.php" ) );
             wp_localize_script(  "product_script", "UPLOADURL", admin_url( "async-upload.php" ) );
             wp_localize_script(  "product_script", "_WPNONCE", wp_create_nonce( 'media-form' ) );
-                  
+
     }
 
        add_action( 'wp_enqueue_scripts', 'xooma_production_enqueue_script' );
        #action hook into the admin section scripts
        add_action( 'admin_enqueue_scripts', 'xooma_production_enqueue_script' );
-  
-    
-    
+
+
+
 }
 
 function is_development_environment() {
@@ -1147,11 +1149,11 @@ function is_development_environment() {
 }
 
 function register_menu() {
-  add_menu_page( __( 'Add Product' ), __( 'Add Product' ), 
+  add_menu_page( __( 'Add Product' ), __( 'Add Product' ),
     'manage_options', 'product_settings', 'set_product_settings');
-  add_submenu_page( 'product_settings', 'Settings page title', 'Products', 
+  add_submenu_page( 'product_settings', 'Settings page title', 'Products',
     'manage_options', 'theme-op-settings', 'show_list_products');
-  add_submenu_page( 'product_settings', 'Settings', 'Settings', 
+  add_submenu_page( 'product_settings', 'Settings', 'Settings',
     'manage_options', 'theme-op-faq', 'settings');
 
 }
@@ -1166,12 +1168,12 @@ function set_product_settings(){
     #get the values from product_type table
 
     $product_types = $wpdb->get_results( "SELECT * FROM $product_type_table where type='product_type'" );
-    foreach ( $product_types as $product_type ) 
+    foreach ( $product_types as $product_type )
     {
         $product_type_option .= "<option value='".$product_type->id."'>".$product_type->value."</option>";
     }
 
-?> 
+?>
 
 <html>
 <h2>Add Product</h2>
@@ -1201,7 +1203,7 @@ function set_product_settings(){
             <td><textarea id="short_desc" required name="short_desc" cols="80" rows="10"></textarea></td>
         </tr>
 
-       
+
         <tr >
             <td class="row-title"><label for="tablecell">Product Type</label></td>
             <td><select required  id="product_type" name="product_type">
@@ -1241,13 +1243,13 @@ function set_product_settings(){
                 </select></td>
         </tr>
         <tr id="add_table_weight">
-            
+
         </tr>
         <tr ><input type="hidden" id="clone_id" name="clone_id" value="" />
 
         	<td class="row-title"><label for="serving_size">Quantity per servings</label><input type="hidden" name="count" id="count" value="0"></td>
             <td><input type="text" required id="serving_size"  name="serving_size" value="" class="small-text" />
-     
+
             &nbsp;&nbsp;&nbsp;<label id="row_when" style="display:none" for="when">When</label>
             <select required id="when" name="when" style="display:none">
                 <option value="">Please select</option>
@@ -1255,7 +1257,7 @@ function set_product_settings(){
                 <option value="2" >Morning with Meal</option>
                 <option value="3" >Evening before Meal</option>
                 <option value="4" >Evening with Meal</option>
-                
+
             </select></td>
         </tr>
         <tr id="clone"></tr>
@@ -1266,14 +1268,14 @@ function set_product_settings(){
         <tr>
             <td class="row-title"><label for="total">Total</label></td>
             <td><label id="total"></label></td>
-        </tr>    
+        </tr>
     </tbody>
-    
+
 </table>
 
 <br/>
-<input class="button-primary" type="submit" name="save" id="save" value="Save" /> 
-<!-- <input class="button-primary" type="button" name="cancel" id="cancel" value="Cancel" /> 
+<input class="button-primary" type="submit" name="save" id="save" value="Save" />
+<!-- <input class="button-primary" type="button" name="cancel" id="cancel" value="Cancel" />
  --></form>
 </html>
 
@@ -1302,9 +1304,9 @@ function show_list_products(){
         </tr>
     </thead>
     <tbody>
-        
+
     </tbody>
-    
+
 </table>
 
 
@@ -1340,13 +1342,13 @@ function settings(){
 		$evening_to = $object->evening_to;
 		$id = $response['response']->id;
 	}
-	
+
 
 ?>
 <html>
 <h2>Settings</h2></br/>
 <form id="settings_form" enctype="multipart/form-data" action="" method="post">
-<div id="response_msg"></div>	
+<div id="response_msg"></div>
 <table>
 	<tr>
 		<td>
@@ -1365,7 +1367,7 @@ function settings(){
 		<td>
 			<input type="text" required  id="morning_from" name="morning_from" value="<?php echo $morning_from ;?>" class="small-text" />
 			&nbsp;to&nbsp;<input type="text" required  id="morning_to" name="morning_to" value="<?php echo $morning_to ;?>" class="small-text" />
-			
+
 		</td>
 
 	</tr>
@@ -1376,14 +1378,14 @@ function settings(){
 		<td>
 			<input type="text" required  id="evening_from" name="evening_from" value="<?php echo $evening_from ;?>" class="small-text" />
 			&nbsp;to&nbsp;<input type="text" required  id="evening_to" name="evening_to" value="<?php echo $evening_to ;?>" class="small-text" />
-			
+
 		</td>
 
 	</tr>
 
 </table>
 <br/>
-<input class="button-primary" id="save" type="submit" name="save" value="<?php _e( 'Save' ); ?>" />    
+<input class="button-primary" id="save" type="submit" name="save" value="<?php _e( 'Save' ); ?>" />
 
 </form>
 </html>
@@ -1415,5 +1417,5 @@ function dba_add_communication_components($defined_comm_components){
 
 	return $defined_comm_components;
 }
-add_filter('add_commponents_filter','dba_add_communication_components',10,1); 
+add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 

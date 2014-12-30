@@ -60,6 +60,16 @@ UserProductListView = (function(_super) {
 
   UserProductListView.prototype.childViewContainer = 'ul.userProductList';
 
+  UserProductListView.prototype.ui = {
+    saveProducts: '.save_products'
+  };
+
+  UserProductListView.prototype.onShow = function() {
+    if (App.currentUser.get('state' === '/home')) {
+      return this.ui.saveProducts.hide();
+    }
+  };
+
   return UserProductListView;
 
 })(Marionette.CompositeView);
@@ -86,4 +96,4 @@ App.UserProductListCtrl = (function(_super) {
 
   return UserProductListCtrl;
 
-})(Marionette.RegionController);
+})(Ajency.RegionController);
