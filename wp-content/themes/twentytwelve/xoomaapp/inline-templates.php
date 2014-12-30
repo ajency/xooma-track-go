@@ -1,4 +1,25 @@
+
 <script id="login-template" type="text/template">
+    <div class="topheader">
+        <nav class="navbar " role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-5">
+                        <div class="navbar-header">
+                            <a href="#">
+                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="img-reponsive" width="200px">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-xs-7">
+                    <!--    <a href="#menu">
+                            <h5><i class="fa fa-cog pull-right "></i></h5>
+                        </a>-->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 	<div class="container">
 			<div class="row">
 					<div class="col-sm-12">
@@ -61,7 +82,7 @@
 												</div>
 										</div>
 										<div class="col-sm-9 col-xs-7">
-											<div ui-region="currentUser" class="pull-right">
+											<div ui-region="currentUser" class="pull-right user-data">
 
 											</div>
 										</div>
@@ -124,7 +145,7 @@
 
 
 												<div class="form-group">
-														<label for="text1" class=" col-sm-3 control-label">xooma id</label>
+														<label for="text1" class=" col-sm-3 control-label">xooma id  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<input type="number" aj-inputmask="999999" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6"   class="form-control " name="profile[xooma_member_id]">
 														</div>
@@ -148,22 +169,24 @@
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text5" class=" col-sm-3 control-label">Gender</label>
+														<label for="text5" class=" col-sm-3 control-label">Gender  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<div class="rd-gender">
-																		<label class="wrap">
+																		<label class="wrap pull-left">
 																				<input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="male" />
 																				<span class="rd-visual male" title="Male"></span>
 																		</label>
-																		<label class="wrap">
+
+																		<label class="wrap pull-left">
 																				<input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="female" />
+
 																				<span class="rd-visual female" title="Female"></span>
 																		</label>
 																</div>
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text7" class=" col-sm-3 control-label">Birth date</label>
+														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<input class="form-control" type="text" name="profile[birth_date]" required />
 														</div>
@@ -171,7 +194,7 @@
 												<div class="form-group">
 														<label for="text8" class=" col-sm-3 control-label">Time Zone</label>
 														<div class="col-sm-9">
-																<select name="profile[timezone]">
+																<select class="form-control" name="profile[timezone]">
 																		<option value="Asia/Tehran">(GMT+03:30) Tehran</option>
 																		<option value="Asia/Dubai">(GMT+04:00) Abu Dhabi, Muscat</option>
 																		<option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
@@ -215,7 +238,7 @@
 </script>
 <script id="profile-measurements-template" type="text/template">
 		<div id="measuremnt" class="section">
-				
+
 				<div class="container">
 				<div class="aj-response-message"></div>
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
@@ -224,7 +247,7 @@
 												<h5 class="text-center bold">Set your mesurements</h5>
 												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
 												<div class="row">
-														<div class="col-md-5 col-xs-6">
+														<div class="col-md-5 col-xs-5">
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
 														</div>
 														<div class="col-md-7">
@@ -235,7 +258,7 @@
 												</br>
 												</br>
 												<div class="row">
-														<div class="col-md-5 col-xs-6">
+														<div class="col-md-5 col-xs-5">
 																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-40">
 														</div>
 														<div class="col-md-7 ">
@@ -257,39 +280,31 @@
 												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
-										<div class="row">
+										
+								</div>
+                                <div class="row">
 												<div class="col-sm-12">
-														<button type="submit" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right">Save</button>
+														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
 												</div>
 										</div>
-								</div>
 				</div>
 		</div>
 </script>
 
 <script id="home-template" type="text/template">
-		<div>
-				Add Home template here
-		</div>
-</script>
-
-
-
-<script id="produts-template" type="h-template">
-	<div id="xoomaproduct" class="section">
+		<div id="xoomaproduct" class="section">
                 <h4 class="text-center"> List Of xooma products</h4>
-    
+
         <div class="container">
               <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">
-                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
-               
+
                       <br>
                             <ul class="list-unstyled list-style userProductList">
-                                   
+
                              </ul>
-                               
+
 
 
                   </div>
@@ -297,12 +312,41 @@
                   	</div>
               </div>
 
-        </div> 
+        </div>
+
+</div>
+</script>
+
+
+
+<script id="produts-template" type="h-template">
+	<div id="xoomaproduct" class="section">
+                <h4 class="text-center"> List Of xooma products</h4>
+
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+
+                      <br>
+                            <ul class="list-unstyled list-style userProductList">
+
+                             </ul>
+
+
+
+                  </div>
+                  <div class="col-md-3">
+                  	</div>
+              </div>
+
+        </div>
         <div class="row">
 			<div class="col-sm-12">
-					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
+					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> Save</a>
 			</div>
-	</div> 
+	</div>
 </div>
 
 </script>
@@ -311,14 +355,39 @@
 
 <script id="add-product-template" type="h-template">
 
-	<div>
-		<ul class="productList">
-			
 
-		</ul>
+	<div id="listproduct" class="section">
+          <br>  <br>       
+    
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                  	<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+                         <h4 class="text-center pull-left"> Add Products</h4>
+					<div class="cbp-vm-options">
+						<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
+						<a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+					</div>
+					<ul class="products-list">
+						
+					</ul>
+				</div>
+			</div>
+                  
+                  
+                  </div><br/>
+                  <div class="row">
+					<div class="col-sm-12">
+							<a class="cbp-vm-icon cbp-vm-add" href="#/home">Next</a>	</div>
+			</div>
+              
+              </div>
 
-	</div>
+   
+                </div>
 
 
-
+</script>
+<script id="current-user-template" type="text/template">
+markupup
 </script>

@@ -11,7 +11,7 @@ ProfileMeasurementsView = (function(_super) {
     this.valueOutput = __bind(this.valueOutput, this);
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
-    this.formSubmitHandler = __bind(this.formSubmitHandler, this);
+    this.onFormSubmit = __bind(this.onFormSubmit, this);
     return ProfileMeasurementsView.__super__.constructor.apply(this, arguments);
   }
 
@@ -24,6 +24,12 @@ ProfileMeasurementsView = (function(_super) {
     form: '#add_measurements',
     rangeSliders: '[data-rangeslider]',
     responseMessage: '.aj-response-message'
+  };
+
+  ProfileMeasurementsView.prototype.behaviors = {
+    FormBehavior: {
+      behaviorClass: Ajency.FormBehavior
+    }
   };
 
   ProfileMeasurementsView.prototype.events = {
@@ -47,9 +53,6 @@ ProfileMeasurementsView = (function(_super) {
     this.ui.rangeSliders.rangeslider({
       polyfill: false
     });
-    this.ui.form.validate({
-      submitHandler: this.formSubmitHandler
-    });
     return this.cordovaEventsForModuleDescriptionView();
   };
 
@@ -58,11 +61,8 @@ ProfileMeasurementsView = (function(_super) {
     return false;
   };
 
-  ProfileMeasurementsView.prototype.formSubmitHandler = function(form) {
-    var _formData;
-    _formData = $('#add_measurements').serialize();
-    this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
-    return false;
+  ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
+    return this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, responseCode) {

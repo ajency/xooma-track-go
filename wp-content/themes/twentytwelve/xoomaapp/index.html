@@ -44,6 +44,26 @@
 <div id="fb-root"></div>
 <!-- Templates -->
 <script id="login-template" type="text/template">
+		<div class="topheader">
+				<nav class="navbar " role="navigation">
+						<div class="container">
+								<div class="row">
+										<div class="col-sm-3 col-xs-5">
+												<div class="navbar-header">
+														<a href="#">
+																<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="img-reponsive" width="200px">
+														</a>
+												</div>
+										</div>
+										<div class="col-sm-9 col-xs-7">
+										<!--    <a href="#menu">
+														<h5><i class="fa fa-cog pull-right "></i></h5>
+												</a>-->
+										</div>
+								</div>
+						</div>
+				</nav>
+		</div>
 	<div class="container">
 			<div class="row">
 					<div class="col-sm-12">
@@ -58,21 +78,21 @@
 									</ol>
 									<div class="carousel-inner" role="listbox">
 										<div class="item active">
-											<img src="./images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
 													<p>Has been desiged to help you track your personal x2o water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
-											<img src="./images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
 													<p>Has been desiged to help you track your personal x2o water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
-											<img src="./images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
 													<p>Has been desiged to help you track your personal x2o water consumption</p>
@@ -85,7 +105,7 @@
 							<!-- Login Button  -->
 					</div>
 			</div>
-			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+			<button type="button" fb-scope="public_profile, email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
 			</br>
 				<a class="btn btn-primary" href="#/notification-display">View Notification</a>
 			</br>
@@ -340,36 +360,48 @@
 				</div>
 		</div>
 </script>
-
 <script id="home-template" type="text/template">
-		<div>
-				Add Home template here
-				<a class="btn btn-primary" href="#/login">View Home</a>
+	<div id="xoomaproduct" class="section">
+		<h4 class="text-center"> List Of xooma products</h4>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<br>
+						<ul class="list-unstyled list-style userProductList"></ul>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
 		</div>
+	</div>
 </script>
+
 <div id="nofound-template" >
 	<a class="btn btn-primary" href="#/login">View Home</a>
+	<a class="btn btn-primary" href="#/profile">View Profile</a>
+	<a class="btn btn-primary" href="#/notification-display">View Notification</a>
+
 </div>
 
 <script id="produts-template" type="h-template">
 	<div id="xoomaproduct" class="section">
-                <h4 class="text-center"> List Of xooma products</h4>
-        <div class="container">
-              <div class="row">
-                  <div class="col-md-3"></div>
-                  <div class="col-md-6">
-                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
-               
-                      <br>
-                            <ul class="list-unstyled list-style userProductList">
-                              
-                             </ul>
-                  </div>
-                  <div class="col-md-3">
-                  	</div>
-              </div>
-        </div> 
-        <div class="row">
+								<h4 class="text-center"> List Of xooma products</h4>
+				<div class="container">
+							<div class="row">
+									<div class="col-md-3"></div>
+									<div class="col-md-6">
+									<a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+							 
+											<br>
+														<ul class="list-unstyled list-style userProductList">
+															
+														 </ul>
+									</div>
+									<div class="col-md-3">
+										</div>
+							</div>
+				</div> 
+				<div class="row">
 			<div class="col-sm-12">
 					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
 			</div>
@@ -409,6 +441,7 @@
 <script type="text/javascript" src="bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript" src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="bower_components/classie/classie.js"></script>
 
 <!-- endbuild -->
 <script "text/javascript" src="scripts/common/facebook.js"></script>
@@ -431,10 +464,10 @@
 		//   facebookConnectPlugin.browserInit(FBAPPID);
 
 		// document.addEventListener("deviceready", function(){
-		// 	console.log("Invoked deviceready");
+		//  console.log("Invoked deviceready");
 			
-		// 	facebookConnectPlugin.login(["public_profile", "email"] , function(success){ } , function(error){
-		// 	});
+		//  facebookConnectPlugin.login(["public_profile", "email"] , function(success){ } , function(error){
+		//  });
 		// }, false);
 </script>
 
@@ -447,6 +480,8 @@
 <script type="text/javascript" src="scripts/products/product.entity.js"></script>
 <script type="text/javascript" src="scripts/products/add/add.products.ctrl.js"></script>
 <script type="text/javascript" src="scripts/products/products.js"></script>
+<script type="text/javascript" src="scripts/profile/userproductlistctrl.js"></script>
+<script type="text/javascript" src="scripts/home/homectrl.js"></script>
 <script type="text/javascript" src="scripts/app.js"></script>
 <script type="text/javascript" src="scripts/cordova/app-localstorage.js"></script>
 <script type="text/javascript" src="scripts/cordova/app-notifications.js"></script>
@@ -454,5 +489,5 @@
 <!-- endbuild -->
 
 
-</body>	
+</body> 
 </html>

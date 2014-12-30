@@ -33,7 +33,7 @@
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery.validation/dist/jquery.validate.js"></script><script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone/backbone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/backbone.syphon/lib/backbone.syphon.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -50,6 +50,7 @@
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rrule/lib/nlp.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/classie/classie.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -58,14 +59,10 @@
 <!-- endbuild -->
 
 <script type="text/javascript">
-	userData = <?php echo json_encode(aj_get_user_model(get_current_user_id()));?>;
-	notLoggedInCaps = <?php echo json_encode(aj_get_not_logged_in_caps()[0]);?>;
-    App                   = new Marionette.Application()
-    APIURL                = '<?php echo json_url() ?>';
-    _SITEURL              = '<?php echo site_url() ?>';
-    FBAPPID               = '<?php echo FBAPPID ?>';
-    if(typeof FBAPPID !== 'undefined')
-        facebookConnectPlugin.browserInit(App, FBAPPID, 'v2.2');
+<?php echo  aj_get_global_js_vars(); ?>
+var App  = new Marionette.Application()
+<?php echo aj_get_facebook_js(); ?>
+
 </script>
 
 <!-- build:js(*.js) application.js -->
@@ -78,6 +75,7 @@
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/products/add/add.products.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/products/products.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/userproductlistctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/home/homectrl.js"></script>
 
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>

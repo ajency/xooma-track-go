@@ -40,6 +40,7 @@ class ProductList
 		{
 			$terms_array = array();
 			$terms_array = get_term_by( 'id', $term_id, 'category');
+
 			$term = array();
 			$term[0] = $terms_array;
 			// form a dropdown for product type
@@ -49,6 +50,7 @@ class ProductList
 		    $product_types = $wpdb->get_results( "SELECT * FROM $product_type_table where type='product_type'");
 		    foreach ( $product_types as $product_type )
 		    {
+
 		    	$selected = get_term_meta($terms_array->term_id, 'product_type', true) == $product_type->id ? 'selected': "";
 
 		        $product_type_option .= "<option value='".$product_type->id."' ".$selected.">".$product_type->value."</option>";
@@ -69,19 +71,30 @@ class ProductList
 			$images = wp_get_attachment_image_src( $attachment_id );
     		$image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
         	'/img/placeholder.jpg';
-
-        	$product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($term_data->term_id, 'product_type', true)." and type='product_type'");
+        	$product_type_name= "";
+        	if(get_term_meta($term_data->term_id, 'product_type', true) !="" && get_term_meta($term_data->term_id, 'product_type', true) != null)
+        		{
+        			$product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($term_data->term_id, 'product_type', true)." and type='product_type'");
+        			$product_type_name  = $product_type->value;
+        		}
         	$frequency = (get_term_meta($term_data->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
         	$active = (get_term_meta($term_data->term_id, 'active', true) == 1) ? 'Yes' : 'No';
         	#total is calculated and set
-        	$size = explode('|', get_term_meta($term_data->term_id, 'serving_size', true));
-			$total  = (intval($size[0]) + intval($size[1])) *
+        	$size_original = 0;
+	        $size_new = 0;
+        	if(get_term_meta($term_data->term_id, 'serving_size', true) !="" && get_term_meta($term_data->term_id, 'serving_size', true) != null)
+        		{
+        			$size = explode('|', get_term_meta($term_data->term_id, 'serving_size', true));
+	        		$size_original = $size[0];
+	        		$size_new = $size[1];
+	        	}
+			$total  = (intval($size_original) + intval($size_new)) *
 					intval(get_term_meta($term_data->term_id, 'serving_per_container', true));
 			$terms_array[] =array(
 				'id'        			=> $term_data->term_id,
 				'name'					=> $term_data->name,
 				'description'			=> $term_data->description,
-				'product_type_name'		=> $product_type->value,
+				'product_type_name'		=> $product_type_name,
 				'frequency'				=> $frequency,
 				'frequency_value'		=> get_term_meta($term_data->term_id, 'frequency', true),
 				'serving_size'			=> get_term_meta($term_data->term_id, 'serving_size', true),

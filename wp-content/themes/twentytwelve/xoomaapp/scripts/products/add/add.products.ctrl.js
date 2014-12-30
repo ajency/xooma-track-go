@@ -13,7 +13,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.tagName = 'li';
 
-  ProductChildView.prototype.template = '<span>{{name}}</span><button id="{{id}}"  class="btn btn-primary btn-lg add-product">Add Product</button>';
+  ProductChildView.prototype.template = '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a> <h3 class="cbp-vm-title">{{name}}</h3> <div class="cbp-vm-details"> {{description}} </div> <a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#">Add Product</a>';
 
   ProductChildView.prototype.ui = {
     addProduct: '.add-product'
@@ -26,6 +26,7 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.events = {
     'click @ui.addProduct': function(e) {
       var id;
+      e.preventDefault();
       id = e.target.id;
       return App.currentUser.addProduct(id).done(this.successHandler).fail(this.errorHandler);
     }
@@ -64,7 +65,7 @@ AddProductsView = (function(_super) {
 
   AddProductsView.prototype["class"] = 'animated fadeIn';
 
-  AddProductsView.prototype.template = '<ul class="products-list"> </ul><a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" > <i class="fa fa-plus-circle"></i>Next</a>';
+  AddProductsView.prototype.template = '#add-product-template';
 
   AddProductsView.prototype.childView = ProductChildView;
 

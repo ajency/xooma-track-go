@@ -13,6 +13,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		rangeSliders : '[data-rangeslider]'
 		responseMessage : '.aj-response-message'
 
+	behaviors :
+		FormBehavior :
+			behaviorClass : Ajency.FormBehavior
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
@@ -23,7 +26,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.popoverElements.popover html: true
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-		@ui.form.validate submitHandler: @formSubmitHandler
 		#method used for DEVICE
 		@cordovaEventsForModuleDescriptionView()
 
@@ -31,10 +33,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		e.preventDefault()
 		return false
 
-	formSubmitHandler : (form)=>
-		_formData = $('#add_measurements').serialize()
+	onFormSubmit : (_formData)=>
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
-		return false
 
 	successHandler : (response, status,responseCode)=>
 		if responseCode.status is 404
@@ -51,7 +51,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
 
-
 	onPauseSessionClick : =>
 		console.log 'Invoked onPauseSessionClick'
 		Backbone.history.history.back()
@@ -65,7 +64,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 		# Cordova pause event
 		document.addEventListener("pause", @onPauseSessionClick, false)
-
 
 class App.UserMeasurementCtrl extends Ajency.RegionController
 
