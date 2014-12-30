@@ -22,7 +22,7 @@ class HomeView extends Marionette.CompositeView
 
 	class : 'animated fadeIn'
 
-	template : '#produts-template'
+	template : '#home-template'
 
 	childView : HomeViewChildView
 
@@ -31,7 +31,7 @@ class HomeView extends Marionette.CompositeView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
 
 
 	_showView:(collection)=>

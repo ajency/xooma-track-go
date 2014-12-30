@@ -83,6 +83,16 @@ _.extend Ajency.CurrentUser::,
 			url : @_getUrl 'products'
 			success: _successHandler
 
+	getHomeProducts : ->
+		_successHandler = (response, status, xhr)=>
+			if xhr.status is 200
+				console.log response
+
+		$.ajax
+			method : 'GET'
+			url : "#{_SITEURL}/wp-json/records/#{App.currentUser.get('ID')}"
+			success: _successHandler
+
 
 
 class Ajency.HTTPRequestFailView extends Marionette.ItemView

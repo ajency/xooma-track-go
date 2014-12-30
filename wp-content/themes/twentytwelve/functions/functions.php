@@ -59,6 +59,9 @@ function save_anytime_product_details($id,$data){
 
     $product_meta_table = $wpdb->prefix . "product_meta";
 
+    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$data['id']);
+
+    if((is_null($sql_query))){
     $main = $wpdb->insert(
                 $product_main_table,
                 array(
@@ -120,15 +123,16 @@ function save_anytime_product_details($id,$data){
             'object_id' => $main_id,
             'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
         );
-
+        
         $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
 
         return $data['id'];
     }
     else{
         new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
     }
-
+  }
 }
 
 
@@ -213,8 +217,25 @@ function save_schedule_product_details($id,$data){
 
 
     if($main){
+      if($data['time_set'] =='Once'){
+        $data['time_set'] = 1;
+      }
+      elseif ($data['time_set'] =='Twice') {
+        $data['time_set'] = 2;
+      }
+       date_default_timezone_set("UTC");
+        $interval = 24/intval($data['time_set']);
+        $today = strtotime('00:00:00');
+        $start = date("Ymd\THis\Z", $today);
+        $schedule_data = array(
+            'object_type' => 'user_product',
+            'object_id' => $main_id,
+            'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
+        );
+        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
-       return $data['id'];
+
+        return $data['id'];
 
     }
     else{
@@ -673,4 +694,57 @@ function login_response($user_id){
     $user['user_registered'] = $user_info->data->user_registered;
 
     return  $user;
+}
+
+
+function get_occurrence_date($product_id,$user_id=""){
+
+  if($user_id ==""){
+    $user_id = get_current_user_id();
+  }
+  
+  //get object id
+  $object_id = get_object_id($product_id,$user_id);
+
+  if(!is_wp_error($object_id)){
+
+    //get schedule id
+    $schedule = \ajency\ScheduleReminder\Schedule::get($object_id);
+
+    $start_datetime = date('Y-m-d 00:00:00');
+    $end_datetime = date('Y-m-d 23:59:59');
+
+    $occurrences = \ajency\ScheduleReminder\Occurrence::
+    get_occurrences($schedule['id'], $start_datetime, $end_datetime); 
+
+
+    return $occurrences;
+
+    
+  }
+
+}
+
+
+function get_object_id($product_id,$user_id){
+
+  global $wpdb;
+
+  $product_main_table = $wpdb->prefix . "product_main";
+  $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
+    and product_id=".$product_id);
+
+  if(!(is_null($object)))
+  {
+
+    return $object->id;
+
+  }
+  else
+  {
+    return new WP_Error( 'object_id_not_found', __( 'Object ID not found.' ));
+  }
+
+  
+
 }

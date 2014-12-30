@@ -4,7 +4,12 @@ class ProductChildView extends Marionette.ItemView
 
 	tagName : 'li'
 
-	template : '<span>{{name}}</span><button id="{{id}}"  class="btn btn-primary btn-lg add-product">Add Product</button>'
+	template : '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a>
+							<h3 class="cbp-vm-title">{{name}}</h3>
+							<div class="cbp-vm-details">
+								{{description}}
+							</div>
+						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#">Add Product</a>'
 
 
 	ui :
@@ -15,6 +20,7 @@ class ProductChildView extends Marionette.ItemView
 
     events:
     	'click @ui.addProduct':(e)->
+    		e.preventDefault()
     		id = e.target.id
     		App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
 
@@ -32,9 +38,7 @@ class NoProductsChildView extends Marionette.ItemView
 
 class AddProductsView extends Marionette.CompositeView
 	class : 'animated fadeIn'
-	template : '<ul class="products-list">
-			</ul><a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >
-				<i class="fa fa-plus-circle"></i>Next</a>'
+	template : '#add-product-template'
 	childView : ProductChildView
 	childViewContainer : 'ul.products-list'
 	emptyView : NoProductsChildView
