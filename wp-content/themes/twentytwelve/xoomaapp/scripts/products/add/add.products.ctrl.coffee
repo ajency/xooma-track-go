@@ -4,10 +4,10 @@ class ProductChildView extends Marionette.ItemView
 
 	tagName : 'li'
 
-	template : '<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Silver beet</h3>
+	template : '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a>
+							<h3 class="cbp-vm-title">{{name}}</h3>
 							<div class="cbp-vm-details">
-								{{name}}
+								{{description}}
 							</div>
 						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#">Add Product</a>'
 
@@ -20,6 +20,7 @@ class ProductChildView extends Marionette.ItemView
 
     events:
     	'click @ui.addProduct':(e)->
+    		e.preventDefault()
     		id = e.target.id
     		App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
 

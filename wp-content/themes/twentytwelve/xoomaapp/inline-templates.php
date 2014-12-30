@@ -369,108 +369,17 @@
 						<a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
 					</div>
 					<ul class="products-list">
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Silver beet</h3>
-							<div class="cbp-vm-details">
-								Silver beet shallot wakame tomatillo salsify mung bean beetroot groundnut.
-							</div>
-						<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Wattle seed</h3>
-							<div class="cbp-vm-details">
-								Wattle seed bunya nuts spring onion okra garlic bitterleaf zucchini.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Kohlrabi bok</h3>
-							<div class="cbp-vm-details">
-								Kohlrabi bok choy broccoli rabe welsh onion spring onion tatsoi ricebean kombu chard.
-							</div>
-						<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Melon sierra</h3>
-							<div class="cbp-vm-details">
-								Melon sierra leone bologi carrot peanut salsify celery onion jícama summer purslane.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Celery carrot</h3>
-							<div class="cbp-vm-details">
-								Celery carrot napa cabbage wakame zucchini celery chard beetroot jícama sierra leone.
-							</div>
-						<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Catsear</h3>
-							<div class="cbp-vm-details">
-								Catsear cabbage tomato parsnip cucumber pea brussels sprout spring onion shallot swiss .
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Mung bean</h3>
-						  <div class="cbp-vm-details">
-								Mung bean taro chicory spinach komatsuna fennel.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Epazote</h3>
-							<div class="cbp-vm-details">
-								Epazote soko chickpea radicchio rutabaga desert raisin wattle seed coriander water.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Tatsoi caulie</h3>
-							<div class="cbp-vm-details">
-								Tatsoi caulie broccoli rabe bush tomato fava bean beetroot epazote salad grape.
-							</div>
-						<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Endive okra</h3>
-							<div class="cbp-vm-details">
-								Endive okra chard desert raisin prairie turnip cucumber maize avocado.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Bush tomato</h3>
-							<div class="cbp-vm-details">
-								Bush tomato peanut shallot turnip prairie turnip gram desert raisin.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
-						<li>
-							<a class="cbp-vm-image" href="#"><img src="assets/images/jpaul.png"></a>
-							<h3 class="cbp-vm-title">Yarrow leek</h3>
-							<div class="cbp-vm-details">
-								Yarrow leek cabbage amaranth onion salsify caulie kale desert raisin prairie turnip garlic.
-							</div>
-							<a class="cbp-vm-icon cbp-vm-add" href="#">Add Product</a>
-						</li>
+						
 					</ul>
 				</div>
 			</div>
                   
                   
-                  </div>
+                  </div><br/>
+                  <div class="row">
+					<div class="col-sm-12">
+							<a class="cbp-vm-icon cbp-vm-add" href="#/home">Next</a>	</div>
+			</div>
               
               </div>
 
