@@ -8,6 +8,23 @@ App.NothingFoundCtrl = Ajency.NothingFoundCtrl;
 
 Ajency.LoginView.prototype.template = '#login-template';
 
+Ajency.FormView = (function(_super) {
+  __extends(FormView, _super);
+
+  function FormView() {
+    return FormView.__super__.constructor.apply(this, arguments);
+  }
+
+  FormView.prototype.behaviors = {
+    FormBehavior: {
+      behaviorClass: Ajency.FormBehavior
+    }
+  };
+
+  return FormView;
+
+})(Marionette.LayoutView);
+
 _.extend(Ajency.CurrentUser.prototype, {
   _getUrl: function(property) {
     return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
