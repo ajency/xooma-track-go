@@ -80,12 +80,16 @@ _.extend Ajency.CurrentUser::,
 
 	getHomeProducts : ->
 		_successHandler = (response, status, xhr)=>
+			App.useProductColl = new Backbone.Collection
 			if xhr.status is 200
-				console.log response
+				$.each response, (index,value)->
+					$.each value.products , (ind,val)->
+						App.useProductColl.add val
+						
 
 		$.ajax
 			method : 'GET'
-			url : "#{_SITEURL}/wp-json/records/#{App.currentUser.get('ID')}"
+			url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 			success: _successHandler
 
 

@@ -20,7 +20,10 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
-		@ui.dateElement.pickadate()
+		@ui.dateElement.pickadate(
+			formatSubmit: 'yyyy-mm-dd'
+			hiddenName: true
+			)
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>

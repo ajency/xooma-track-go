@@ -20,35 +20,27 @@ class ProfileCtrlView extends Marionette.LayoutView
 	ui :
 		ul : '.list-inline'
 	events :
-		'click @ui.ul li a' : 'preventClick'
+		'click @ui.ul li' : 'preventClick'
 
 	initialize : (options = {})->
 		super options
 		@listenTo App, 'state:transition:complete', @handleMenu
 
 	preventClick : (evt)->
+		@$('#'+evt.target.id).parent().addClass 'selected'
+		@$('#'+evt.target.id).parent().siblings().removeClass 'selected'
 		# evt.preventDefault()
 
 	handleMenu : (evt, state, args)->
-		# url = "#/#{state.get 'computed_url'}"
-		# @ui.ul.find('a').removeAttr 'disabled'
-		# @$('a[href="'+url+'"]').parent()
-		# 	.siblings().removeClass 'active'
-		# @$('a[href="'+url+'"]').parent().addClass 'active'
-		url = App.currentUser.get 'state'
-		if url == '/profile/personal-info'
-			$('#profile').parent().addClass 'active'
-			$('#measurement').css(cursor:'default')
-			$('#measurement').bind('click',@disableEvent)
-			$('#product').css(cursor:'default')
-			$('#product').bind('click',@disableEvent)
-		else if url == '/profile/measurements'
-			$('#profile').parent().removeClass 'active'
-			$('#measurement').parent().addClass 'active'
-			$('#measurement').css(cursor:'pointer')
-			$('#product').css('cursor:default')
-			$('#product').bind('click',@disableEvent)
-			$('#profile').unbind()
+		url = '#'+App.currentUser.get 'state'
+		computed_url = '#/'+window.location.hash.split('#')[1]
+		if url == computed_url
+			@$('a[href="'+url+'"]').parent().addClass 'selected'
+			@$('a[href="'+url+'"]').parent().nextAll().bind('click',@disableEvent)
+			@$('a[href="'+url+'"]').parent().nextAll().find('a').css(cursor:'default')
+			@$('a[href="'+url+'"]').parent().prevAll().unbind()
+			@$('a[href="'+url+'"]').parent().prevAll().find('a').css(cursor:'pointer')
+		
 
 	disableEvent:(evt)->
 		evt.preventDefault()
