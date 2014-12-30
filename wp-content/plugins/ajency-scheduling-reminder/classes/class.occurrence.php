@@ -27,7 +27,7 @@ class Occurrence{
 	 * @param  [type] $start_dt    [description]
 	 * @return [type]              [description]
 	 */
-	public static function get_expected_occurrences($schedule_id, $start_dt, $end_dt = false){
+	public static function get_expected_occurrences($schedule_id, $start_dt, $end_dt){
 
 		global $wpdb;
 
@@ -46,7 +46,18 @@ class Occurrence{
 		  ->rrule($rrule)
 		  ->generateOccurrences();
 
-		return $r->occurrences;
+		$grouped_expected_occurences = array();
+		foreach ($r->occurrences as $occurrence) {
+			$date = date('Y-m-d', $occurrence->getTimestamp());
+			$dateTime = date('Y-m-d H:i:s', $occurrence->getTimestamp());
+			$grouped_expected_occurences[$date][] = array(
+										'expected' => $dateTime,
+										'schedule_id' => $schedule_id,
+										'meta_value' => array()
+									);
+		}
+
+		return $grouped_expected_occurences;
 	}
 
 	/**
@@ -58,72 +69,52 @@ class Occurrence{
 	public static function get_occurrences($schedule_id, $start_dt, $end_dt){
 
 		$expected_occurrences = Occurrence::get_expected_occurrences($schedule_id, $start_dt, $end_dt);
-
+		
 		global $wpdb;
 
 		$table_name = "{$wpdb->prefix}aj_occurrence_meta";
 
-		$query = $wpdb->prepare("SELECT * FROM $table_name
-								WHERE schedule_id=%d
-								AND occurrence BETWEEN %s AND %s
-								ORDER BY occurrence ASC", $schedule_id, $start_dt, $end_dt);
+		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE schedule_id=%d AND (occurrence BETWEEN %s AND %s) ORDER BY occurrence ASC", $schedule_id, $start_dt, $end_dt);
 
 		$results = $wpdb->get_results($query);
 
 		$occurrences = $results;
 
+		$grouped_occurences = array();
+		foreach ($occurrences as $occurrence) {
+			$occurrence->meta_value = maybe_unserialize($occurrence->meta_value);
+			$grouped_occurences[date('Y-m-d', strtotime($occurrence->occurrence))][] = $occurrence;
+		}
+		
 		$arr = array();
+		foreach ($expected_occurrences as $date => $occurrences) {
+			$i = 0;
+			$arr1 = array();
+			$arr2 = array();
 
-		//#_TODO: Move these functions out of this function
-		function merge_occurrences_into_expected($exp_occ, $occ, $s_id){
-			$data = array();
-			for($i =0, $len = count($exp_occ); $i < $len; $i++) {
-				$occurrence = null;
-				if(isset($occ[$i])){
-					$occurrence = $occ[$i];
-					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
-					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
-				}
-				else{
-					$occurrence = new \stdClass;
-					$occurrence->meta_value = array();
-					$occurrence->schedule_id = $s_id;
-					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
-				}
-				$data[] = $occurrence;
+			if(!isset($grouped_occurences[$date]))
+				$grouped_occurences[$date] = array();
+
+			if(count($grouped_occurences[$date]) >= count($occurrences)){
+			 	$arr1 = $grouped_occurences[$date];
+			 	$arr2 = $expected_occurrences[$date];
 			}
-			return $data;
-		}
-
-		function merge_expected_into_occurrences($exp_occ, $occ, $s_id){
-			$data = array();
-			for($i =0, $len = count($occ); $i < $len; $i++) {
-				$occurrence = null;
-				if(isset($exp_occ[$i])){
-					$occurrence = $occ[$i];
-					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
-					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
-				}
-				else{
-					$occurrence = new \stdClass;
-					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
-					$occurrence->occurrence = $occ[$i]->occurrence;
-					$occurrence->schedule_id = $s_id;
-				}
-				$data[] = $occurrence;
+			else{
+				$arr1 = $expected_occurrences[$date];
+				$arr2 = $grouped_occurences[$date];
 			}
-			return $data;
+
+			foreach ($arr1 as $occ) {
+				if(isset($arr2[$i]))	
+					$arr[] = array_merge((array)$occ, (array)$arr2[$i]);
+				else
+					$arr[] = array_merge((array)$occ, array());
+				$i++;
+			}
+			
 		}
 
-		if(count($expected_occurrences) >= count($occurrences)){
-			$arr = merge_occurrences_into_expected($expected_occurrences, $occurrences, $schedule_id);
-		}else{
-			$arr = merge_expected_into_occurrences($expected_occurrences, $occurrences, $schedule_id);
-		}
-
-		wp_send_json($arr );
-
-		return $occurrences;
+		return $arr;
 	}
 
 	/**
@@ -192,4 +183,3 @@ class Occurrence{
 		return apply_filters('aj_occurrence_model', $occurrence);
 	}
 }
-

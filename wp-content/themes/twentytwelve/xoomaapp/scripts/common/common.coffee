@@ -1,19 +1,17 @@
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 #Ajency.CurrentUserView::template = '#current-user-template'
+Ajency.LoginView::template = '#login-template'
 
-_.extend Marionette.Application::,
-
-	isLoggedInState : (stateName)->
-		notLoggedInStates = [
-			'login'
-		]
-		notLoggedInStates.indexOf(stateName) is -1
+class Ajency.FormView extends Marionette.LayoutView
+	behaviors : 
+		FormBehavior : 
+			behaviorClass : Ajency.FormBehavior
 
 _.extend Ajency.CurrentUser::,
 
 	_getUrl : (property)->
-		"#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/#{property}"
+		"#{APIURL}/users/#{App.currentUser.get('ID')}/#{property}"
 
 	saveMeasurements : (measurements)->
 
@@ -83,6 +81,20 @@ _.extend Ajency.CurrentUser::,
 		$.ajax
 			method : 'GET'
 			url : @_getUrl 'products'
+			success: _successHandler
+
+	getHomeProducts : ->
+		_successHandler = (response, status, xhr)=>
+			App.useProductColl = new Backbone.Collection
+			if xhr.status is 200
+				$.each response, (index,value)->
+					$.each value.products , (ind,val)->
+						App.useProductColl.add val
+						
+
+		$.ajax
+			method : 'GET'
+			url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 			success: _successHandler
 
 

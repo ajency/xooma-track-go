@@ -77,11 +77,11 @@ class Schedule{
 
 		$schedule_args = wp_parse_args($schedule_data, $defaults);
 
-		if(empty($schedule_args['action']))
-			return new WP_Error('action_param_missing', __('Action is empty'));
+		if(empty($schedule_args['object_type']))
+			return new \WP_Error('action_param_missing', __('Action is empty'));
 
 		if(empty($schedule_args['rrule']))
-			return new WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
+			return new \WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
 

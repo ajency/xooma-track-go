@@ -21,7 +21,7 @@
     "backbone.marionette": "~2.3.0",
     "handlebars": "~2.0.0",
     "jquery.validation": "~1.13.1",
-    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.3.2",
+    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.4.0",
     "marionette.state": "https://github.com/ajency/marionette.state.git#~0.2.0",
     "animate.css": "~3.2.0",
     "bootstrap": "~3.3.1",
@@ -38,7 +38,8 @@
     "rangeslider.js": "~0.3.7",
     "pickadate": "~3.5.4",
     "parsleyjs": "~2.0.6",
-    "jquery.inputmask": "~3.1.49"
+    "jquery.inputmask": "~3.1.49",
+    "classie": "~1.0.1"
   },
   "resolutions": {
     "underscore": ">=1.5.0",

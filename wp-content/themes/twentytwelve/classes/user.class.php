@@ -67,9 +67,9 @@ class User
         $v->rule('dateFormat','birth_date','Y-m-d');
         //all the rules defined//
 
-        // if(!($v->validate())) {
-        //    return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
-        // }
+        if(!($v->validate())) {
+           return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
+        }
 
 		    //update user meta for the user
         $user_meta_value = maybe_serialize($args);
@@ -83,6 +83,11 @@ class User
             $aj_workflow->workflow_update_user($args['id'],'ProfilePersonalInfo');
 
 
+        }
+        else
+        {
+           return new WP_Error( 'json_user_details_not_updated', __( 'User details not updated.' ));
+ 
         }
 
         return true;
@@ -284,18 +289,23 @@ class User
         global $productList;
         $all_terms = $productList->get_products($term_id="");
         foreach ($all_terms as $key => $value) {
-
+            
            $time_set = get_term_meta($value['id'], 'time_set', true);
             if( $time_set == 'asperbmi'){
+                if($value['time_set'] == 'asperbmi')
+                    $value['time_set'] = 1;
+                    save_anytime_product_details($id,$value);
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                    
 
                         $serving_size = get_term_meta($value['id'], 'serving_size', true);
-                        $time_set = get_term_meta($value['id'], 'time_set', true);
+                        // $time_set = get_term_meta($value['id'], 'time_set', true);
+                        // $no_of_servings = $time_set;
+                        $time_set = 1 ;
                         $no_of_servings = $time_set;
-                        
                         $servings_qty = explode('|', $serving_size);
+                        //add chedule by default
                         
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
                         $sub[] = array(
@@ -331,13 +341,14 @@ class User
             foreach ($product_type as $key => $val) {
                 $sub = array();
                 foreach ($term as $key => $value) {
-                    
+
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                    if($frequency == $val){
+                    $time_set = get_term_meta($value->term_id, 'time_set', true);
+                    if($frequency == $val && $time_set != 'asperbmi'){
 
                         $serving_size = get_term_meta($value->term_id, 'serving_size', true);
-                        $time_set = get_term_meta($value->term_id, 'time_set', true);
+                        
                         if($time_set == 'Once')
                             $no_of_servings = 1;
                         else if($time_set == 'Twice')
@@ -349,7 +360,6 @@ class User
                         
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
                         $meta_arr = array();
-
                         $sub[] = array(
                             'id'            => $value->term_id,
                             'name'          => $value->name,
@@ -382,4 +392,126 @@ class User
 
 
     }
+
+    public function get_user_home_products($id){
+
+        global $wpdb;
+
+        $product_type_table = $wpdb->prefix . "defaults";
+
+        $product_main_table = $wpdb->prefix . "product_main";
+        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
+
+        
+        $pr_main = array();
+        $sub = array();
+        global $productList;
+        
+        foreach ($sql_query as $key => $term) {
+
+            $value = $productList->get_products($term->product_id);
+            
+            $time_set = $value[0]['time_set'];
+            if( $time_set == 'asperbmi'){
+                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
+                    $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                   
+
+                        $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
+                        $time_set = 1;
+                        $no_of_servings = $time_set;
+                        
+                        $servings_qty = explode('|', $serving_size);
+                        
+                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
+                        $user_id = $id;
+
+                        $occurrence = get_occurrence_date($value[0]['id'],$user_id);
+
+                        $sub[] = array(
+                            'id'            => $value[0]['id'],
+                            'name'          => $value[0]['name'],
+                            'servings'      => $no_of_servings,
+                            'qty'           => $qty,
+                            'product_type'  => $product_type->value,
+                            'occurrence'    => maybe_serialize($occurrence)
+
+
+                );
+                
+          
+        }
+
+    } 
+     $pr_main[] = array(
+
+                            'type'      => 'As per BMI',
+                            'products'  => $sub
+
+                            );   
+        
+
+       
+            
+
+            $product_type = array('Anytime','Scheduled');
+
+            
+            foreach ($product_type as $key => $val) {
+                $sub = array();
+                foreach ($sql_query as $key => $term) {
+                    $value = $productList->get_products($term->product_id);
+                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
+                    $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                    $time_set = get_term_meta($value[0]['id'], 'time_set', true);
+                    if($frequency == $val && $time_set != 'asperbmi'){
+
+                        $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
+                        
+                        if($time_set == 'Once')
+                            $no_of_servings = 1;
+                        else if($time_set == 'Twice')
+                            $no_of_servings = 2;
+                        else
+                            $no_of_servings = $time_set;
+                        
+                        $servings_qty = explode('|', $serving_size);
+                        
+                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
+                        $meta_arr = array();
+                        $user_id = $id;
+                        $occurrence = get_occurrence_date($value[0]['id'],$user_id);
+                        $sub[] = array(
+                            'id'            => $value[0],
+                            'name'          => $value[0]['name'],
+                            'servings'      => $no_of_servings,
+                            'qty'           => $qty,
+                            'product_type'  => $product_type->value,
+                            'occurrence'    => maybe_serialize($occurrence)
+
+
+                            );
+                        
+
+                    }
+                    
+
+                }
+
+                
+
+                        $pr_main[] = array(
+
+                            'type'      => $val,
+                            'products'  => $sub
+
+                            );
+            }
+
+      
+    return $pr_main;
+        
+
+    }
+   
 }

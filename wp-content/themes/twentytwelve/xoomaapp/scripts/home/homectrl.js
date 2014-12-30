@@ -55,7 +55,7 @@ HomeView = (function(_super) {
 
   HomeView.prototype["class"] = 'animated fadeIn';
 
-  HomeView.prototype.template = '#produts-template';
+  HomeView.prototype.template = '#home-template';
 
   HomeView.prototype.childView = HomeViewChildView;
 
@@ -74,7 +74,7 @@ App.HomeCtrl = (function(_super) {
   }
 
   HomeCtrl.prototype.initialize = function() {
-    return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+    return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
   };
 
   HomeCtrl.prototype._showView = function(collection) {

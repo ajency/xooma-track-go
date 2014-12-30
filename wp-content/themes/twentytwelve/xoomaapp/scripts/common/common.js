@@ -6,17 +6,28 @@ App.LoginCtrl = Ajency.LoginCtrl;
 
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl;
 
-_.extend(Marionette.Application.prototype, {
-  isLoggedInState: function(stateName) {
-    var notLoggedInStates;
-    notLoggedInStates = ['login'];
-    return notLoggedInStates.indexOf(stateName) === -1;
+Ajency.LoginView.prototype.template = '#login-template';
+
+Ajency.FormView = (function(_super) {
+  __extends(FormView, _super);
+
+  function FormView() {
+    return FormView.__super__.constructor.apply(this, arguments);
   }
-});
+
+  FormView.prototype.behaviors = {
+    FormBehavior: {
+      behaviorClass: Ajency.FormBehavior
+    }
+  };
+
+  return FormView;
+
+})(Marionette.LayoutView);
 
 _.extend(Ajency.CurrentUser.prototype, {
   _getUrl: function(property) {
-    return "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/" + property;
+    return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
   },
   saveMeasurements: function(measurements) {
     var _successHandler;
@@ -108,6 +119,26 @@ _.extend(Ajency.CurrentUser.prototype, {
     return $.ajax({
       method: 'GET',
       url: this._getUrl('products'),
+      success: _successHandler
+    });
+  },
+  getHomeProducts: function() {
+    var _successHandler;
+    _successHandler = (function(_this) {
+      return function(response, status, xhr) {
+        App.useProductColl = new Backbone.Collection;
+        if (xhr.status === 200) {
+          return $.each(response, function(index, value) {
+            return $.each(value.products, function(ind, val) {
+              return App.useProductColl.add(val);
+            });
+          });
+        }
+      };
+    })(this);
+    return $.ajax({
+      method: 'GET',
+      url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
       success: _successHandler
     });
   }
