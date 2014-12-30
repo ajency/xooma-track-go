@@ -75,45 +75,7 @@ class Occurrence{
 		$arr = array();
 
 		//#_TODO: Move these functions out of this function
-		function merge_occurrences_into_expected($exp_occ, $occ, $s_id){
-			$data = array();
-			for($i =0, $len = count($exp_occ); $i < $len; $i++) {
-				$occurrence = null;
-				if(isset($occ[$i])){
-					$occurrence = $occ[$i];
-					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
-					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
-				}
-				else{
-					$occurrence = new \stdClass;
-					$occurrence->meta_value = array();
-					$occurrence->schedule_id = $s_id;
-					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
-				}
-				$data[] = $occurrence;
-			}
-			return $data;
-		}
-
-		function merge_expected_into_occurrences($exp_occ, $occ, $s_id){
-			$data = array();
-			for($i =0, $len = count($occ); $i < $len; $i++) {
-				$occurrence = null;
-				if(isset($exp_occ[$i])){
-					$occurrence = $occ[$i];
-					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
-					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
-				}
-				else{
-					$occurrence = new \stdClass;
-					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
-					$occurrence->occurrence = $occ[$i]->occurrence;
-					$occurrence->schedule_id = $s_id;
-				}
-				$data[] = $occurrence;
-			}
-			return $data;
-		}
+		
 
 		if(count($expected_occurrences) >= count($occurrences)){
 			$arr = merge_occurrences_into_expected($expected_occurrences, $occurrences, $schedule_id);
@@ -121,9 +83,9 @@ class Occurrence{
 			$arr = merge_expected_into_occurrences($expected_occurrences, $occurrences, $schedule_id);
 		}
 
-		wp_send_json($arr );
+		// wp_send_json($arr );
 
-		return $occurrences;
+		return $arr;
 	}
 
 	/**
@@ -192,4 +154,44 @@ class Occurrence{
 		return apply_filters('aj_occurrence_model', $occurrence);
 	}
 }
+
+function merge_occurrences_into_expected($exp_occ, $occ, $s_id){
+			$data = array();
+			for($i =0, $len = count($exp_occ); $i < $len; $i++) {
+				$occurrence = null;
+				if(isset($occ[$i])){
+					$occurrence = $occ[$i];
+					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
+					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
+				}
+				else{
+					$occurrence = new \stdClass;
+					$occurrence->meta_value = array();
+					$occurrence->schedule_id = $s_id;
+					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
+				}
+				$data[] = $occurrence;
+			}
+			return $data;
+		}
+
+		function merge_expected_into_occurrences($exp_occ, $occ, $s_id){
+			$data = array();
+			for($i =0, $len = count($occ); $i < $len; $i++) {
+				$occurrence = null;
+				if(isset($exp_occ[$i])){
+					$occurrence = $occ[$i];
+					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
+					$occurrence->expected = date('Y-m-d H:i:s', $exp_occ[$i]->getTimestamp());
+				}
+				else{
+					$occurrence = new \stdClass;
+					$occurrence->meta_value = maybe_unserialize( $occ[$i]->meta_value );
+					$occurrence->occurrence = $occ[$i]->occurrence;
+					$occurrence->schedule_id = $s_id;
+				}
+				$data[] = $occurrence;
+			}
+			return $data;
+		}
 

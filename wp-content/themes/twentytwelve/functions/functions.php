@@ -217,7 +217,12 @@ function save_schedule_product_details($id,$data){
 
 
     if($main){
-
+      if($data['time_set'] =='Once'){
+        $data['time_set'] = 1;
+      }
+      elseif ($data['time_set'] =='Twice') {
+        $data['time_set'] = 2;
+      }
        date_default_timezone_set("UTC");
         $interval = 24/intval($data['time_set']);
         $today = strtotime('00:00:00');
@@ -697,7 +702,7 @@ function get_occurrence_date($product_id,$user_id=""){
   if($user_id ==""){
     $user_id = get_current_user_id();
   }
-
+  
   //get object id
   $object_id = get_object_id($product_id,$user_id);
 
@@ -706,13 +711,14 @@ function get_occurrence_date($product_id,$user_id=""){
     //get schedule id
     $schedule = \ajency\ScheduleReminder\Schedule::get($object_id);
 
-    echo $start_datetime = date('Y-m-d 12:00:00');
-    echo $end_datetime = date('Y-m-d 11:59:00');
+    $start_datetime = date('Y-m-d 00:00:00');
+    $end_datetime = date('Y-m-d 23:59:59');
 
     $occurrences = \ajency\ScheduleReminder\Occurrence::
     get_occurrences($schedule['id'], $start_datetime, $end_datetime); 
 
-    print_r($occurrences);
+
+    return $occurrences;
 
     
   }

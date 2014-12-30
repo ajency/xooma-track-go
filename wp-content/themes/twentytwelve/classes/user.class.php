@@ -402,36 +402,39 @@ class User
         $product_main_table = $wpdb->prefix . "product_main";
         $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
 
-        $products_arr = array();
-        foreach ($sql_query as $key => $value) {
-            array_push($products_arr, $value->product_id);
-        }
+        
         $pr_main = array();
+        $sub = array();
         global $productList;
-        $all_terms = $productList->get_products($term_id="");
-        foreach ($all_terms as $key => $value) {
+        
+        foreach ($sql_query as $key => $term) {
 
-           $time_set = get_term_meta($value['id'], 'time_set', true);
+            $value = $productList->get_products($term->product_id);
+            
+            $time_set = $value[0]['time_set'];
             if( $time_set == 'asperbmi'){
-                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
-                    $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
+                    $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                    
 
-                        $serving_size = get_term_meta($value['id'], 'serving_size', true);
-                        $time_set = get_term_meta($value['id'], 'time_set', true);
+                        $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
+                        $time_set = 1;
                         $no_of_servings = $time_set;
                         
                         $servings_qty = explode('|', $serving_size);
                         
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
                         $user_id = $id;
-                        $occurrence = get_occurrence_date($value['id'],$user_id);
+
+                        $occurrence = get_occurrence_date($value[0]['id'],$user_id);
+
                         $sub[] = array(
-                            'id'            => $value['id'],
-                            'name'          => $value['name'],
+                            'id'            => $value[0]['id'],
+                            'name'          => $value[0]['name'],
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
-                            'product_type'  => $product_type->value
+                            'product_type'  => $product_type->value,
+                            'occurrence'    => maybe_serialize($occurrence)
 
 
                 );
@@ -446,26 +449,25 @@ class User
                             'products'  => $sub
 
                             );   
-        $products = implode(',', $products_arr);
+        
 
-        if($products != ""){
-            $product_id = get_category_by_slug('product');
-            $term = get_categories('parent='.$product_id->term_id.'&include='.$products.'&hide_empty=0');
-
+       
+            
 
             $product_type = array('Anytime','Scheduled');
 
             
             foreach ($product_type as $key => $val) {
                 $sub = array();
-                foreach ($term as $key => $value) {
+                foreach ($sql_query as $key => $term) {
+                    $value = $productList->get_products($term->product_id);
+                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
+                    $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                    $time_set = get_term_meta($value[0]['id'], 'time_set', true);
+                    if($frequency == $val && $time_set != 'asperbmi'){
 
-                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
-                    $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                    if($frequency == $val){
-
-                        $serving_size = get_term_meta($value->term_id, 'serving_size', true);
-                        $time_set = get_term_meta($value->term_id, 'time_set', true);
+                        $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
+                        
                         if($time_set == 'Once')
                             $no_of_servings = 1;
                         else if($time_set == 'Twice')
@@ -478,13 +480,14 @@ class User
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
                         $meta_arr = array();
                         $user_id = $id;
-                        $occurrence = get_occurrence_date($value->term_id,$user_id);
+                        $occurrence = get_occurrence_date($value[0]['id'],$user_id);
                         $sub[] = array(
-                            'id'            => $value->term_id,
-                            'name'          => $value->name,
+                            'id'            => $value[0],
+                            'name'          => $value[0]['name'],
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
-                            'product_type'  => $product_type->value
+                            'product_type'  => $product_type->value,
+                            'occurrence'    => maybe_serialize($occurrence)
 
 
                             );
@@ -505,10 +508,10 @@ class User
                             );
             }
 
-        }
+      
     return $pr_main;
         
 
-
     }
+   
 }

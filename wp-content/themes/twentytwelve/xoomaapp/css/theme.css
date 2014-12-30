@@ -8981,6 +8981,12 @@ output {
   font-weight: 600;
   display: inline-block !important;
 }
+@media (max-width: 768px) {
+  output {
+    font-size: 3rem !important;
+    line-height: 2.7em !important;
+  }
+}
 .rangeslider__handle {
   background: white;
   border: 1px solid #ccc;

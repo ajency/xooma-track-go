@@ -40,6 +40,7 @@ class ProductList
 		{
 			$terms_array = array();
 			$terms_array = get_term_by( 'id', $term_id, 'category');
+
 			$term = array();
 			$term[0] = $terms_array;
 			// form a dropdown for product type
@@ -49,6 +50,7 @@ class ProductList
 		    $product_types = $wpdb->get_results( "SELECT * FROM $product_type_table where type='product_type'");
 		    foreach ( $product_types as $product_type )
 		    {
+
 		    	$selected = get_term_meta($terms_array->term_id, 'product_type', true) == $product_type->id ? 'selected': "";
 
 		        $product_type_option .= "<option value='".$product_type->id."' ".$selected.">".$product_type->value."</option>";
