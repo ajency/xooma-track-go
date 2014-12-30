@@ -67,7 +67,8 @@ ProfileMeasurementsView = (function(_super) {
     if (xhr.status === 404) {
       return this.ui.responseMessage.text("Something went wrong");
     } else {
-      return App.navigate('/profile/my-products', true);
+      App.currentUser.set('state', '/profile/my-products');
+      return App.navigate('#' + App.currentUser.get('state'), true);
     }
   };
 

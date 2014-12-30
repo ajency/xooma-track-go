@@ -294,6 +294,7 @@ class User
             if( $time_set == 'asperbmi'){
                 if($value['time_set'] == 'asperbmi')
                     $value['time_set'] = 1;
+                
                     save_anytime_product_details($id,$value);
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';

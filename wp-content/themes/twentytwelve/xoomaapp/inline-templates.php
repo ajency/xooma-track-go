@@ -323,9 +323,10 @@
 
 <script id="produts-template" type="h-template">
 	<div id="xoomaproduct" class="section">
-                <h4 class="text-center"> List Of xooma products</h4>
+                <h4 class="text-center"> My xooma products</h4>
 
         <div class="container">
+        <div class="aj-response-message"></div>
               <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">

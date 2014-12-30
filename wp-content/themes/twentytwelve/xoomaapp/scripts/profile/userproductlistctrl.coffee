@@ -33,10 +33,28 @@ class UserProductListView extends Marionette.CompositeView
 
 	ui :
 		saveProducts : '.save_products'
+		responseMessage : '.aj-response-message'
+
+	events : 
+		'click @ui.saveProducts':(e)->
+			$.ajax
+				method : 'POST'
+				url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
+				success: @_successHandler
 
 	onShow:->
-		if App.currentUser.get 'state' == '/home'
+		if App.currentUser.get('state') == '/home'
 			@ui.saveProducts.hide()
+
+	_successHandler:(response, status, xhr)=>
+		if xhr.status == 201
+			console.log response
+			App.navigate '#/home' , true
+		else
+			@ui.responseMessage.text "Something went wrong"
+
+
+
 
 	
 	

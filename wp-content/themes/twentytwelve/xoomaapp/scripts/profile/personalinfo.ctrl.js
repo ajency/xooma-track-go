@@ -43,11 +43,21 @@ ProfilePersonalInfoView = (function(_super) {
     });
   };
 
+  ProfilePersonalInfoView.prototype.onShow = function() {
+    var birth_date, picker;
+    birth_date = this.model.get('profile').birth_date;
+    picker = this.ui.dateElement.pickadate('picker');
+    return picker.set('select', birth_date, {
+      format: 'yyyy-mm-dd'
+    });
+  };
+
   ProfilePersonalInfoView.prototype.onRender = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     return this.ui.dateElement.pickadate({
       formatSubmit: 'yyyy-mm-dd',
-      hiddenName: true
+      hiddenName: true,
+      max: new Date()
     });
   };
 

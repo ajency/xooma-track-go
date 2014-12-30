@@ -748,3 +748,19 @@ function get_object_id($product_id,$user_id){
   
 
 }
+
+function update_status($id){
+
+      global $aj_workflow;
+      $response = $aj_workflow->workflow_update_user($id,'UserProductList');
+
+      if (is_wp_error($response)){
+
+        return new WP_Error( 'status_not_updated', __( 'Status not updated.' ));
+
+      }
+      else
+      {
+        return true;
+      }
+}

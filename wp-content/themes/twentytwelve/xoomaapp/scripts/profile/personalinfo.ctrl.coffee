@@ -18,12 +18,20 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
+	onShow:->
+		birth_date = @model.get('profile').birth_date
+		picker = @ui.dateElement.pickadate('picker')
+		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
+
+
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate(
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
+			max: new Date()
 			)
+		
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>

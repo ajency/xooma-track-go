@@ -69,6 +69,8 @@ ProfileCtrlView = (function(_super) {
         cursor: 'pointer'
       });
       return this.$('a[href="' + url + '"]').parent().prevAll().removeClass('selected');
+    } else {
+      return this.$('a[href="' + computed_url + '"]').parent().addClass('selected');
     }
   };
 

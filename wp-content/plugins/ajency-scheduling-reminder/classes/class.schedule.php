@@ -14,8 +14,8 @@ class Schedule{
 	 */
 	static function add($schedule_data){
 
-		if(!current_user_can('edit_schedule'))
-			return new \WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
+		// if(!current_user_can('edit_schedule'))
+		// 	return new \WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
 		return self::_insert_schedule($schedule_data);
 	}

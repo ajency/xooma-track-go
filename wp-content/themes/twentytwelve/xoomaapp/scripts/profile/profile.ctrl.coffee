@@ -43,6 +43,8 @@ class ProfileCtrlView extends Marionette.LayoutView
 			@$('a[href="'+url+'"]').parent().prevAll().unbind()
 			@$('a[href="'+url+'"]').parent().prevAll().find('a').css(cursor:'pointer')
 			@$('a[href="'+url+'"]').parent().prevAll().removeClass 'selected'
+		else
+			@$('a[href="'+computed_url+'"]').parent().addClass 'selected'
 		
 
 	disableEvent:(evt)->

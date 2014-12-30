@@ -52,7 +52,8 @@ class User_API
         );
         //get home products
         $routes['/records/(?P<id>\d+)'] = array(
-            array( array( $this, 'xooma_get_user_home_products'), WP_JSON_Server::READABLE)
+            array( array( $this, 'xooma_get_user_home_products'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_update_status'), WP_JSON_Server::CREATABLE),
         );
 
 
@@ -278,5 +279,25 @@ class User_API
 
         return $response;
 
+    }
+
+    public function xooma_update_status($id){
+
+        $response = update_status($id);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+         return $response;
     }
 }
