@@ -307,14 +307,16 @@ class User
                         $no_of_servings = $time_set;
                         $servings_qty = explode('|', $serving_size);
                         //add chedule by default
-                        
+                        $user_id = $id;
+                        $occurrence = get_occurrence_date($value['id'],$user_id);
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
                         $sub[] = array(
                             'id'            => $value['id'],
                             'name'          => $value['name'],
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
-                            'product_type'  => $product_type->value
+                            'product_type'  => $product_type->value,
+                            'occurrence'    => maybe_serialize($occurrence)
 
 
                 );
@@ -405,7 +407,7 @@ class User
 
         
         $pr_main = array();
-        $sub = array();
+       
         global $productList;
         
         foreach ($sql_query as $key => $term) {
@@ -483,7 +485,9 @@ class User
                         $user_id = $id;
                         $occurrence = get_occurrence_date($value[0]['id'],$user_id);
                         $sub[] = array(
-                            'id'            => $value[0],
+
+                            
+                            'id'            => $value[0]['id'],
                             'name'          => $value[0]['name'],
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
@@ -508,6 +512,7 @@ class User
 
                             );
             }
+
 
       
     return $pr_main;

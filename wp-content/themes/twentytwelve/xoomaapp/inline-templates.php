@@ -317,92 +317,13 @@
             <div class="col-md-3"> 
             </div>
          <div class="col-md-6"> 
-              <ul class="list-inline text-center row row-line">
-                <li class="col-md-4 col-xs-4"> 
-                    <h5 class="text-center">Bonus</h5>
-                    <h4 class="text-center bold  text-primary" >2 <small class="text-muted">(X20)</small></h4>
-                </li>
-                <li class="col-md-4 col-xs-4">
-                    <h5 class="text-center">Target</h5>
-                    <h4 class="text-center bold text-primary" >7 <small class="text-muted">(X20)</small></h4>
-                </li>
-                <li class="col-md-4 col-xs-4">
-                    <h5 class="text-center">Last Consume</h5>
-                    <h4 class="text-center bold text-primary" >9.00 <small class="text-muted">pm</small></h4>       
-                </li>
-            </ul>
+         <div ui-region="x2o">
+              
+            </div>
            <br>   
+       <div ui-region="other-products">
        
-       <div class="panel panel-default">
-          <div class="panel-body">
-            <h5 class="bold margin-none  mid-title">Focus Up <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
-                <ul class="dropdown-menu pull-right" role="menu">
-    <li><a href="#">View</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li class="divider"></li>
-    <li><a href="#">Delete</a></li>
-  </ul></h5>
-                      <ul class="list-inline text-center row dotted-line m-t-20">
-                        <li class="col-md-4 col-xs-4"> 
-                            <a ><img src="assets/images/btn_03.png" width="100px"></a>
-                            <h6 class="text-center margin-none">Tap to take capsule</h6>
-                        </li>
-                        <li class="col-md-4 col-xs-4">
-                            <h5 class="text-center">Daily Target</h5>
-                         <h3 class="text-center bold text-primary" >5 <sup class="text-muted">/ 7</sup></h3>
-                        </li>
-                        <li class="col-md-4 col-xs-4">
-                            <h5 class="text-center">Status</h5>
-                                <i class="fa fa-smile-o"></i>  
-                            <h6 class="text-center margin-none">Complete the last one</h6>
-                        </li>
-                    </ul>
-          </div>
-          <div class="panel-footer"><i id="bell" class="fa fa-bell-o element-animation"></i> Hey John ! You forgot to take pills at 9:00 pm</div>
-</div>
-
-                   <br>   
-       
-       <div class="panel panel-default">
-          <div class="panel-body">
-            <h5 class="bold margin-none mid-title ">Focus Up <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
-                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#">View</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Delete</a></li>
-                      </ul>
-              </h5>
-                      <ul class="list-inline text-center row dotted-line m-t-20">
-                        <li class="col-md-4  col-xs-4"> 
-                            <a ><img src="assets/images/btn_03.png" width="100px"></a>
-                            <h6 class="text-center margin-none">Tap to take capsule</h6>
-                        </li>
-                        <li class="col-md-4  col-xs-4">
-                            <h5 class="text-center">Daily Target</h5>
-                                <div class="row">
-                                    <div class="col-md-6  col-xs-6">
-                                         <h4 class="text-center bold text-primary margin-none" >5 <sup class="text-muted">/ 7</sup></h4>
-                                        <h6 >Morning</h6>
-                                    </div>
-                                       <div class="col-md-6  col-xs-6">
-                                         <h4 class="text-center bold text-primary margin-none" >5 <sup class="text-muted">/ 7</sup></h4><h6>Evening</h6>
-                                    </div>
-                                </div>
-                        </li>
-                        <li class="col-md-4  col-xs-4">
-                            <h5 class="text-center">Status</h5>
-                                <i class="fa fa-smile-o"></i>  
-                            <h6 class="text-center margin-none">Complete the last one</h6>
-                        </li>
-                    </ul>
-          </div>
-          <div class="panel-footer"><i id="bell" class="fa fa-bell-o element-animation"></i> Hey John ! You forgot to take pills at 9:00 pm</div>
-           </div>
-             <br>
-                  
+         </div>         
        <div class="panel panel-default">
           <div class="panel-body">
             <h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>

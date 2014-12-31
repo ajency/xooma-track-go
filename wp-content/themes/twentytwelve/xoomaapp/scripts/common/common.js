@@ -116,9 +116,9 @@ _.extend(Ajency.CurrentUser.prototype, {
           console.log(response[0].products);
           x2oArray = [];
           $.each(response[0].products, function(index, value) {
-            return x2oArray.push(value.id);
+            return x2oArray.push(value);
           });
-          return App.currentUser.set('x2o', x2oArray.join(','));
+          return App.currentUser.set('x2o', x2oArray);
         }
       };
     })(this);

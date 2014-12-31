@@ -5,18 +5,14 @@ jQuery(document).ready ($)->
 
 		.state 'xooma',
 				url : '/'
-		.state 'AddProducts',
-					url : '/products'
-					parent : 'xooma'
-		.state 'UserProductList',
-					url : '/my-products'
-					parent : 'profile'
 		.state 'home',
 				url : '/home'
 				parent : 'xooma'
 				sections : 
-					'x2o' : ctrl : 'HomeX2OCtrl'
-					'other-products' : ctrl : 'HomeOtherProductsCtrl'
+					'x2o' : 
+						ctrl : 'HomeX2OCtrl'
+					'other-products' : 
+						ctrl : 'HomeOtherProductsCtrl'
 			
 
 	App.onBeforeStart = ->
@@ -38,14 +34,13 @@ jQuery(document).ready ($)->
 		.state 'home',
 				url : '/home'
 				parent : 'xooma'
+				sections : 
+					'x2o' : 
+						ctrl : 'HomeX2OCtrl'
+					'other-products' : 
+						ctrl : 'HomeOtherProductsCtrl'
 
-		.state 'UserProductList',
-				url : '/my-products'
-				parent : 'profile'
-
-		.state 'AddProducts',
-				url : '/products'
-				parent : 'xooma'
+		
 				
 
 	App.addInitializer ->

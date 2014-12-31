@@ -2,12 +2,6 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
-  }).state('AddProducts', {
-    url: '/products',
-    parent: 'xooma'
-  }).state('UserProductList', {
-    url: '/my-products',
-    parent: 'profile'
   }).state('home', {
     url: '/home',
     parent: 'xooma',
@@ -38,13 +32,15 @@ jQuery(document).ready(function($) {
     parent: 'xooma'
   }).state('home', {
     url: '/home',
-    parent: 'xooma'
-  }).state('UserProductList', {
-    url: '/my-products',
-    parent: 'profile'
-  }).state('AddProducts', {
-    url: '/products',
-    parent: 'xooma'
+    parent: 'xooma',
+    sections: {
+      'x2o': {
+        ctrl: 'HomeX2OCtrl'
+      },
+      'other-products': {
+        ctrl: 'HomeOtherProductsCtrl'
+      }
+    }
   });
   App.addInitializer(function() {
     return Backbone.history.start();

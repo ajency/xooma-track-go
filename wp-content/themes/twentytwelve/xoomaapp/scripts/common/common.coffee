@@ -79,8 +79,8 @@ _.extend Ajency.CurrentUser::,
 				console.log response[0].products
 				x2oArray = []
 				$.each response[0].products , (index,value)->
-					x2oArray.push value.id
-				App.currentUser.set 'x2o' , x2oArray.join(',')
+					x2oArray.push value
+				App.currentUser.set 'x2o' , x2oArray
 
 		$.ajax
 			method : 'GET'

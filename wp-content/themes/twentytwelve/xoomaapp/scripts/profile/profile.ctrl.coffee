@@ -12,6 +12,13 @@ App.state 'profile',
 	.state 'userMeasurement',
 			url : '/measurements'
 			parent : 'profile'
+	.state 'AddProducts',
+					url : '/products'
+					parent : 'xooma'
+	.state 'UserProductList',
+					url : '/my-products'
+					parent : 'profile'
+		
 
 
 class ProfileCtrlView extends Marionette.LayoutView
