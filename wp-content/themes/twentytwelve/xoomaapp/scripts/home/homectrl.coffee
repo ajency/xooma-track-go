@@ -18,6 +18,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 					<h4 class="text-center bold text-primary" >9.00 <small class="text-muted">pm</small></h4>       
 				</li>'
 
+	
 
 class HomeX2OView extends Marionette.CompositeView
 
@@ -65,7 +66,7 @@ class ProductChildView extends Marionette.ItemView
 			  <ul class="list-inline text-center row dotted-line m-t-20 userProductList">
 			  	<li class="col-md-4  col-xs-4"> 
 							<a ><img src="assets/images/btn_03.png" width="100px"></a>
-							<h6 class="text-center margin-none">Tap to take capsule</h6>
+							<h6 class="text-center margin-none">Tap to consume</h6>
 						</li>
 						<li class="col-md-4  col-xs-4">
 							<h5 class="text-center">Daily Target</h5>
@@ -85,8 +86,7 @@ class ProductChildView extends Marionette.ItemView
 						</li>
 				</ul>
 			  </div>
-		  <div class="panel-footer"><i id="bell" class="fa fa-bell-o element-animation"></i> Hey John ! You forgot to take pills at 9:00 pm</div>
-			</div>
+		 
 
 				   </br> '
 
