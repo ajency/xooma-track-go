@@ -314,7 +314,8 @@ class User
                             'id'            => $value['id'],
                             'name'          => $value['name'],
                             'servings'      => $no_of_servings,
-                            'qty'           => $qty,
+                            'qty1'          => intval($servings_qty[0]),
+                            'qty2'          => intval($servings_qty[1]),
                             'product_type'  => $product_type->value,
                             'occurrence'    => $occurrence
 
@@ -367,7 +368,8 @@ class User
                             'id'            => $value->term_id,
                             'name'          => $value->name,
                             'servings'      => $no_of_servings,
-                            'qty'           => $qty,
+                            'qty1'          => intval($servings_qty[0]),
+                            'qty2'          => intval($servings_qty[1]),
                             'product_type'  => $product_type->value
 
 
@@ -423,6 +425,8 @@ class User
                         $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
                         $time_set = 1;
                         $no_of_servings = $time_set;
+
+
                         
                         $servings_qty = explode('|', $serving_size);
                         
@@ -435,7 +439,8 @@ class User
                             'id'            => $value[0]['id'],
                             'name'          => $value[0]['name'],
                             'servings'      => $no_of_servings,
-                            'qty'           => $qty,
+                            'qty1'          => intval($servings_qty[0]),
+                            'qty2'          => intval($servings_qty[1]),
                             'product_type'  => $product_type->value,
                             'occurrence'    => $occurrence
 
@@ -470,6 +475,7 @@ class User
                     if($frequency == $val && $time_set != 'asperbmi'){
 
                         $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
+                        $when = get_term_meta($value[0]['id'], 'when', true);
                         
                         if($time_set == 'Once')
                             $no_of_servings = 1;
@@ -477,10 +483,38 @@ class User
                             $no_of_servings = 2;
                         else
                             $no_of_servings = $time_set;
+
+                        $i = 0 ;
+                        $arr = array();
+                        $j = 0;
                         
                         $servings_qty = explode('|', $serving_size);
+                        $when_qty = explode('|', $when);
                         
-                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
+                        
+                        while($i<$no_of_servings)
+                        {
+                            if($frequency == 1)
+                            {
+                                $qty = $servings_qty[$i];
+                                $when = "";
+                                
+                            }
+                            else
+                            {
+                                $qty = $servings_qty[$j] ;
+                                $when = $when_qty[$j];
+                                
+                            }
+                            
+                            $arr [] = array(
+                                'qty'           => $qty,
+                                'when'          => $when
+
+                                );
+                            $i++;
+                            $j++;
+                        }
                         $meta_arr = array();
                         $user_id = $id;
                         $occurrence = get_occurrence_date($value[0]['id'],$user_id);
@@ -490,7 +524,7 @@ class User
                             'id'            => $value[0]['id'],
                             'name'          => $value[0]['name'],
                             'servings'      => $no_of_servings,
-                            'qty'           => $qty,
+                            'qty'           => $arr,
                             'product_type'  => $product_type->value,
                             'occurrence'    => $occurrence
 

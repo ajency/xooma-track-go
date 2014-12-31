@@ -11,7 +11,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				</li>
 				 <li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Target</h5>
-					<h4 class="text-center bold text-primary" >7 <small class="text-muted">({{name}})</small></h4>
+					<h4 class="text-center bold text-primary" >{{qty}}<small class="text-muted">({{name}})</small></h4>
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Last Consume</h5>
@@ -70,13 +70,12 @@ class ProductChildView extends Marionette.ItemView
 						<li class="col-md-4  col-xs-4">
 							<h5 class="text-center">Daily Target</h5>
 								<div class="row">
+									{{#qty}}
 									<div class="col-md-6  col-xs-6">
-										 <h4 class="text-center bold text-primary margin-none" >5 <sup class="text-muted">/ 7</sup></h4>
-										<h6 >Morning</h6>
+										 <h4 class="text-center bold text-primary margin-none" >5 <sup class="text-muted">/ {{qty}}</sup></h4>
+										<h6 >{{when}}</h6>
 									</div>
-									   <div class="col-md-6  col-xs-6">
-										 <h4 class="text-center bold text-primary margin-none" >5 <sup class="text-muted">/ 7</sup></h4><h6>Evening</h6>
-									</div>
+									  {{/qty}}
 								</div>
 						</li>
 						<li class="col-md-4  col-xs-4">
