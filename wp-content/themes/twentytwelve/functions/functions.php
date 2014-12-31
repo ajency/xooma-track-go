@@ -709,13 +709,14 @@ function get_occurrence_date($product_id,$user_id=""){
   if(!is_wp_error($object_id)){
 
     //get schedule id
-    $schedule = \ajency\ScheduleReminder\Schedule::get($object_id);
+    $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
     $start_datetime = date('Y-m-d 00:00:00');
     $end_datetime = date('Y-m-d 23:59:59');
 
+
     $occurrences = \ajency\ScheduleReminder\Occurrence::
-    get_occurrences($schedule['id'], $start_datetime, $end_datetime); 
+    get_occurrences($schedule, $start_datetime, $end_datetime); 
 
 
     return $occurrences;

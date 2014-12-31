@@ -10,7 +10,15 @@ jQuery(document).ready(function($) {
     parent: 'profile'
   }).state('home', {
     url: '/home',
-    parent: 'xooma'
+    parent: 'xooma',
+    sections: {
+      'x2o': {
+        ctrl: 'HomeX2OCtrl'
+      },
+      'other-products': {
+        ctrl: 'HomeOtherProductsCtrl'
+      }
+    }
   });
   App.onBeforeStart = function() {
     App.currentUser.set(userData);

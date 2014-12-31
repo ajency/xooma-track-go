@@ -12,9 +12,11 @@ jQuery(document).ready ($)->
 					url : '/my-products'
 					parent : 'profile'
 		.state 'home',
-					url : '/home'
-					parent : 'xooma'
-
+				url : '/home'
+				parent : 'xooma'
+				sections : 
+					'x2o' : ctrl : 'HomeX2OCtrl'
+					'other-products' : ctrl : 'HomeOtherProductsCtrl'
 			
 
 	App.onBeforeStart = ->
