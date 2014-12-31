@@ -28,7 +28,7 @@ HomeX2OViewChild = (function(_super) {
     return HomeX2OViewChild.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OViewChild.prototype.template = '<li class="col-md-4 col-xs-4"> <h5 class="text-center">Bonus</h5> <h4 class="text-center bold  text-primary" >2 <small class="text-muted">({{name}})</small></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Target</h5> <h4 class="text-center bold text-primary" >{{qty}}<small class="text-muted">({{name}})</small></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last Consume</h5> <h4 class="text-center bold text-primary" >9.00 <small class="text-muted">pm</small></h4> </li>';
+  HomeX2OViewChild.prototype.template = '<li class="col-md-4 col-xs-4"> <h5 class="text-center">Bonus</h5> <h4 class="text-center bold  text-primary" >2 <small class="text-muted">({{name}})</small></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Target</h5> <h4 class="text-center bold text-primary" >{{qty1}}<small class="text-muted">({{name}})</small></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last Consume</h5> <h4 class="text-center bold text-primary" >9.00 <small class="text-muted">pm</small></h4> </li>';
 
   return HomeX2OViewChild;
 
