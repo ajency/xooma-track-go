@@ -28,6 +28,7 @@
 			App.currentUser.set userData
 			if not App.currentUser.isLoggedIn()
 				App.currentUser.setNotLoggedInCapabilities()
+				
 				# App.currentUser.set 'caps', notLoggedInCaps
 
 
