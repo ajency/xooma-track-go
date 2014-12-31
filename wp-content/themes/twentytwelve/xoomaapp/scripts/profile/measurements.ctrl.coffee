@@ -12,6 +12,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		form : '#add_measurements'
 		rangeSliders : '[data-rangeslider]'
 		responseMessage : '.aj-response-message'
+		inputEle : '.input-ele'
 
 	behaviors :
 		FormBehavior :
@@ -19,10 +20,11 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
+
+
+
+
 	onShow:->
-		$('#measurement').parent().addClass 'active'
-		$('#product').bind('click',@disabler)
-		$('#product').css('cursor', 'default')
 		@ui.popoverElements.popover html: true
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false

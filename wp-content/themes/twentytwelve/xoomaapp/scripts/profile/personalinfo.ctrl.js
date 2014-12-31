@@ -48,7 +48,10 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.onRender = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
-    return this.ui.dateElement.pickadate();
+    return this.ui.dateElement.pickadate({
+      formatSubmit: 'yyyy-mm-dd',
+      hiddenName: true
+    });
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {

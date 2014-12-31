@@ -105,7 +105,7 @@
 							<!-- Login Button  -->
 					</div>
 			</div>
-			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+			<button type="button" fb-scope="public_profile, email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
 			</br>
 				<a class="btn btn-primary" href="#/notification-display">View Notification</a>
 			</br>
@@ -385,35 +385,65 @@
 
 <script id="produts-template" type="h-template">
 	<div id="xoomaproduct" class="section">
-								<h4 class="text-center"> List Of xooma products</h4>
-				<div class="container">
-							<div class="row">
-									<div class="col-md-3"></div>
-									<div class="col-md-6">
-									<a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
-							 
-											<br>
-														<ul class="list-unstyled list-style userProductList">
-															
-														 </ul>
-									</div>
-									<div class="col-md-3">
-										</div>
-							</div>
-				</div> 
-				<div class="row">
+	<h4 class="text-center"> List Of xooma products</h4>
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+                      <br>
+                            <ul class="list-unstyled list-style userProductList">
+                             </ul>
+                  </div>
+                  <div class="col-md-3">
+                  	</div>
+              </div>
+
+        </div>
+        <div class="row">
 			<div class="col-sm-12">
-					<button type="button" name="save_products" class="btn btn-primary btn-lg center-block">Save</button>
+					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> Save</a>
 			</div>
-	</div> 
-</div>
-</script>
-<script id="add-product-template" type="h-template">
-	<div>
-		<ul class="productList">
-		</ul>
 	</div>
+</div>
+
 </script>
+
+<script id="add-product-template" type="h-template">
+
+
+	<div id="listproduct" class="section">
+          <br>  <br>       
+    
+        <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                  	<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
+                         <h4 class="text-center pull-left"> Add Products</h4>
+					<div class="cbp-vm-options">
+						<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
+						<a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+					</div>
+					<ul class="products-list">
+						
+					</ul>
+				</div>
+			</div>
+                  
+                  
+                  </div><br/>
+                  <div class="row">
+					<div class="col-sm-12">
+							<a class="cbp-vm-icon cbp-vm-add" href="#/home">Next</a>	</div>
+			</div>
+              
+              </div>
+                </div>
+</script>
+<script id="current-user-template" type="text/template">
+markupup
+</script>
+
 <!-- build:js({.js}) scripts/vendors.js -->
 <!-- 
 <script "text/javascript" src="bower_components/modernizr/modernizr.js"></script> 

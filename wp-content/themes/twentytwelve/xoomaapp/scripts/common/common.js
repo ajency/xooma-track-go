@@ -125,14 +125,19 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
+        App.useProductColl = new Backbone.Collection;
         if (xhr.status === 200) {
-          return console.log(response);
+          return $.each(response, function(index, value) {
+            return $.each(value.products, function(ind, val) {
+              return App.useProductColl.add(val);
+            });
+          });
         }
       };
     })(this);
     return $.ajax({
       method: 'GET',
-      url: "" + _SITEURL + "/wp-json/records/" + (App.currentUser.get('ID')),
+      url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
       success: _successHandler
     });
   }

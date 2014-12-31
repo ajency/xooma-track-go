@@ -33,7 +33,7 @@ ProfileCtrlView = (function(_super) {
   };
 
   ProfileCtrlView.prototype.events = {
-    'click @ui.ul li a': 'preventClick'
+    'click @ui.ul li': 'preventClick'
   };
 
   ProfileCtrlView.prototype.initialize = function(options) {
@@ -44,30 +44,25 @@ ProfileCtrlView = (function(_super) {
     return this.listenTo(App, 'state:transition:complete', this.handleMenu);
   };
 
-  ProfileCtrlView.prototype.preventClick = function(evt) {};
+  ProfileCtrlView.prototype.preventClick = function(evt) {
+    this.$('#' + evt.target.id).parent().addClass('selected');
+    return this.$('#' + evt.target.id).parent().siblings().removeClass('selected');
+  };
 
   ProfileCtrlView.prototype.handleMenu = function(evt, state, args) {
-    var url;
-    url = App.currentUser.get('state');
-    if (url === '/profile/personal-info') {
-      $('#profile').parent().addClass('active');
-      $('#measurement').css({
+    var computed_url, url;
+    url = '#' + App.currentUser.get('state');
+    computed_url = '#/' + window.location.hash.split('#')[1];
+    if (url === computed_url) {
+      this.$('a[href="' + url + '"]').parent().addClass('selected');
+      this.$('a[href="' + url + '"]').parent().nextAll().bind('click', this.disableEvent);
+      this.$('a[href="' + url + '"]').parent().nextAll().find('a').css({
         cursor: 'default'
       });
-      $('#measurement').bind('click', this.disableEvent);
-      $('#product').css({
-        cursor: 'default'
-      });
-      return $('#product').bind('click', this.disableEvent);
-    } else if (url === '/profile/measurements') {
-      $('#profile').parent().removeClass('active');
-      $('#measurement').parent().addClass('active');
-      $('#measurement').css({
+      this.$('a[href="' + url + '"]').parent().prevAll().unbind();
+      return this.$('a[href="' + url + '"]').parent().prevAll().find('a').css({
         cursor: 'pointer'
       });
-      $('#product').css('cursor:default');
-      $('#product').bind('click', this.disableEvent);
-      return $('#profile').unbind();
     }
   };
 

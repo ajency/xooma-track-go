@@ -99,14 +99,14 @@
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li class="selected"><a id="profile" href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
-														<span class="hidden-xs">PERSONAL INFO</span></a>
+												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
+														PERSONAL INFO</a>
 												</li>
 												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
-														<span class="hidden-xs">MEASUREMENT</span></a>
+														MEASUREMENT</a>
 												</li>
 												<li><a id="product" href="#/profile/my-products"><i class="fa fa-check-circle-o"></i> 
-														<span class="hidden-xs">MYPRODUCTS</span></a>
+														MYPRODUCTS</a>
 												</li>
 										</ul>
 								</div>
@@ -147,13 +147,13 @@
 												<div class="form-group">
 														<label for="text1" class=" col-sm-3 control-label">xooma id  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
-																<input type="number" aj-inputmask="999999" aj-field-required="true" aj-field-minlength="6" aj-field-maxlength="6"   class="form-control " name="profile[xooma_member_id]">
+																<input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
 														</div>
 												</div>
 												<div class="form-group">
 														<label for="text2" class=" col-sm-3 control-label">Name</label>
 														<div class="col-sm-9">
-																<input type="text" readonly class="form-control" name="display_name">
+																<input type="text"  readonly class="form-control" name="display_name">
 														</div>
 												</div>
 												<div class="form-group">
@@ -269,15 +269,17 @@
 												</br>
 												</br>
 										</div>
+
 										<div class="col-sm-6 imageMap">
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck" data-content="<input type='text' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
+
+												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' aj-field-type='number' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' aj-field-type='number' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' aj-field-type='number' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' aj-field-type='number'  name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' aj-field-type='number' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' aj-field-type='number'  name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' aj-field-type='number' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
 										
