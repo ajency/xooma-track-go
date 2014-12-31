@@ -33,7 +33,7 @@
 
 
 		App.currentUser.on 'user:auth:success', ->
-			App.trigger 'fb:status:connected'
+			# App.trigger 'fb:status:connected'
 			App.navigate App.currentUser.get('state'), true
 
 		App.currentUser.on 'user:logged:out', ->
@@ -134,7 +134,7 @@
 						# $('#time_for_notification').text(JSON.parse(json).date)
 						# $('#Message_for_notification').text(JSON.parse(json).test)
 
-		App.on 'fb:status:connected', ->
+		App.on '2fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
