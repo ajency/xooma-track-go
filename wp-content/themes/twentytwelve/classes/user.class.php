@@ -316,7 +316,7 @@ class User
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
                             'product_type'  => $product_type->value,
-                            'occurrence'    => maybe_serialize($occurrence)
+                            'occurrence'    => $occurrence
 
 
                 );
@@ -437,7 +437,7 @@ class User
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
                             'product_type'  => $product_type->value,
-                            'occurrence'    => maybe_serialize($occurrence)
+                            'occurrence'    => $occurrence
 
 
                 );
@@ -486,13 +486,13 @@ class User
                         $occurrence = get_occurrence_date($value[0]['id'],$user_id);
                         $sub[] = array(
 
-                            
+
                             'id'            => $value[0]['id'],
                             'name'          => $value[0]['name'],
                             'servings'      => $no_of_servings,
                             'qty'           => $qty,
                             'product_type'  => $product_type->value,
-                            'occurrence'    => maybe_serialize($occurrence)
+                            'occurrence'    => $occurrence
 
 
                             );

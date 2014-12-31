@@ -324,66 +324,7 @@
        <div ui-region="other-products">
        
          </div>         
-       <div class="panel panel-default">
-          <div class="panel-body">
-            <h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
-                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#">View</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Delete</a></li>
-                      </ul>
-              </h5>
-<form>
 
-  <div class="m-t-30">
-    <label for="exampleInputFile">Select</label>
-    <select class="form-control">
-      <option>Weight</option>
-      <option>Neck</option>
-      <option>Chest</option>
-      <option>Upperarm</option>
-      <option>Abdomen</option>
-        <option>Waist</option>
-      <option>Hips</option>
-      <option>Upper Thigh</option>
-      <option>Mid Thigh</option>
-    </select>
-  </div>
-
-                      <ul class="list-inline  dotted-line m-t-20">
-                        <li class="col-md-4  col-xs-4"> 
-                              <label for="exampleInputFile">Start Day</label>
-                                  <input type="text" class="form-control" id="text4" placeholder="0010100100">
-                        </li>
-                        <li class="col-md-4  col-xs-4">
-                             <label for="exampleInputFile">End Day</label>
-                                <select class="form-control">
-                                  <option>After 30 Days</option>
-                                  <option>After 60 Days</option>
-                                  <option>After 90 Days</option>
-                                </select>
-                        </li>
-                        <li class="col-md-4  col-xs-4">
-                           <label for="exampleInputFile">Weekly</label>
-                                <select class="form-control">
-                                  <option>Weekly</option>
-                                  <option>Monthly</option>
-                                </select>
-                        </li>
-                    </ul>
-    <div class="clearfix"></div><br>
-    <div style="width:100%">
-			<div>
-				<canvas id="canvas" height="450" width="600"></canvas>
-			</div>
-		</div>
-          </div>
-
-           </div>
-         <div class="col-md-3"> 
-            </div>
         </div>
     </div>
 </script>
