@@ -30,6 +30,26 @@
 <!-- Templates -->
 <?php include_once 'xoomaapp/inline-templates.php'; ?>
 
+<script type="text/javascript">
+window.ParsleyConfig = {
+  validators: {
+    equalTo: {
+      fn: function (value, requirement) {
+      	return value.length == requirement;
+      }
+    }
+  },
+  i18n: {
+    en: {
+      equalTo: 'Enter valid 6 digits Xooma ID'
+    }
+  }
+};
+
+
+
+</script>
+
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
@@ -80,7 +100,14 @@ var App  = new Marionette.Application()
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <!-- endbuild -->
-
+<script type="text/javascript">
+window.ParsleyValidator
+  .addValidator('equalTo', function (value, requirement) {
+  	return value.length == requirement;
+  })
+  .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
+  
+</script>
 </body>
 </html>
 

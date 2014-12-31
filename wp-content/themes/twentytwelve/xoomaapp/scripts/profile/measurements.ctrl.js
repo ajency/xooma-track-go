@@ -23,7 +23,8 @@ ProfileMeasurementsView = (function(_super) {
     popoverElements: '.popover-element',
     form: '#add_measurements',
     rangeSliders: '[data-rangeslider]',
-    responseMessage: '.aj-response-message'
+    responseMessage: '.aj-response-message',
+    inputEle: '.input-ele'
   };
 
   ProfileMeasurementsView.prototype.behaviors = {
@@ -39,9 +40,6 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    $('#measurement').parent().addClass('active');
-    $('#product').bind('click', this.disabler);
-    $('#product').css('cursor', 'default');
     this.ui.popoverElements.popover({
       html: true
     });

@@ -24,7 +24,6 @@
       }
     };
     App.currentUser.on('user:auth:success', function() {
-      App.trigger('fb:status:connected');
       return App.navigate(App.currentUser.get('state'), true);
     });
     App.currentUser.on('user:logged:out', function() {
@@ -56,7 +55,7 @@
         }
       };
     });
-    App.on('fb:status:connected', function() {
+    App.on('2fb:status:connected', function() {
       if (!App.currentUser.hasProfilePicture()) {
         return App.currentUser.getFacebookPicture();
       }
