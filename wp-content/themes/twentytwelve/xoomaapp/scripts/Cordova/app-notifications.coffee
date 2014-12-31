@@ -160,7 +160,7 @@ _.mixin
 		convertToMilliSecs = newDate.getTime();
 
 		#change secs to 60 once testing is done
-		one_min = new Date(convertToMilliSecs + 3*1000);
+		one_min = new Date(convertToMilliSecs + 60*1000);
 
 		time = one_min.getHours()+':'+one_min.getMinutes()+':'+one_min.getSeconds()
 

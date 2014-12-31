@@ -89,7 +89,7 @@ _.mixin({
     newDate = new Date();
     date = "" + (newDate.getFullYear()) + "-" + (newDate.getMonth() + 1) + "-" + (newDate.getDate());
     convertToMilliSecs = newDate.getTime();
-    one_min = new Date(convertToMilliSecs + 3 * 1000);
+    one_min = new Date(convertToMilliSecs + 60 * 1000);
     time = one_min.getHours() + ':' + one_min.getMinutes() + ':' + one_min.getSeconds();
     concatDateAndTime = moment(date + " " + time);
     convertTo12hourFormat = concatDateAndTime.format('hh:mm:ss A');
