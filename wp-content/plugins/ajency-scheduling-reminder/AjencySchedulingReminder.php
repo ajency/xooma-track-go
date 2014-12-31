@@ -138,7 +138,10 @@ class AjencySchedulingReminder{
 				  id mediumint(9) NOT NULL AUTO_INCREMENT,
 				  object_type varchar(55) DEFAULT '' NOT NULL,
 				  object_id mediumint(9) NOT NULL,
+				  start_dt datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				  rrule text NOT NULL,
+				  next_occurrence datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				  remind_before text NOT NULL,
 				  UNIQUE KEY id (id)
 				) $charset_collate;";
 

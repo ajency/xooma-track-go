@@ -94,7 +94,10 @@ class Schedule{
 		$defaults = array(
 					'object_type' => '',
 					'object_id' => 0,
+					'start_dt' => '',
 					'rrule' => '',
+					'next_occurrence' => '',
+					'remind_before' => 0
 				);
 
 		$schedule_args = wp_parse_args($schedule_data, $defaults);
@@ -104,6 +107,10 @@ class Schedule{
 
 		if(empty($schedule_args['rrule']))
 			return new \WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
+
+		if(empty($schedule_args['start_dt']))
+			return new \WP_Error('start_dt_param_missing', __('Start datetime is needed'));
+
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
@@ -120,9 +127,57 @@ class Schedule{
 		return $schedule_id;
 
 	}
+
+	static function update_next_occurrence($schedule_id){
+		$schedule = \ajency\ScheduleReminder\Schedule::get($schedule_id);
+		$st = '';
+		$r = new \When\When();
+		$r->startDate(new \DateTime($schedule['start_dt']))
+			->rrule($schedule['rrule'])
+		 	->count(10)
+		  	->generateOccurrences();
+		wp_send_json($r->occurrences);
+	}	
 }
 
 
+
+function find_closest($array, $date)
+{
+    //$count = 0;
+    foreach($array as $day)
+    {
+        //$interval[$count] = abs(strtotime($date) - strtotime($day));
+            $interval[] = abs(strtotime($date) - strtotime($day));
+        //$count++;
+    }
+
+    asort($interval);
+    $closest = key($interval);
+
+    return $array[$closest];
+
+}
+
+add_action('init', function(){
+	$dates = array(
+    '0'=> "2013-02-18 05:14:54",
+    '1'=> "2013-02-12 01:44:03",
+    '2'=> "2013-02-05 16:25:07",
+    '3'=> "2013-01-29 02:00:15",
+    '4'=> "2013-01-27 18:33:45" 
+);
+	\ajency\ScheduleReminder\Schedule::update_next_occurrence(1);
+	// \ajency\ScheduleReminder\Schedule::add(array(
+	// 	'object_type' => 'user_product',
+	// 	'object_id' => 23,
+	// 	'start_dt' => date('Y-12-31 00:00:00'),
+	// 	'rrule' => 'FREQ=HOURLY;INTERVAL=8;WKST=MO'
+	// ));
+	// die;
+	//wp_send_json(find_closest($dates, "2013-02-18 05:14:55"));
+
+});
 
 
 
