@@ -11,12 +11,12 @@
 					url : '/'
 
 			.state 'AddProducts',
-						url : '/products'
-						parent : 'xooma'
+					url : '/products'
+					parent : 'xooma'
 
 			.state 'UserProductList',
-						url : '/my-products'
-						parent : 'profile'
+					url : '/my-products'
+					parent : 'profile'
 
 			.state 'notificationDisplay',
 					url : '/notification-display'
@@ -42,8 +42,8 @@
 			App.navigate '/login', true
 
 			App.state 'settings',
-						url : '/settings'
-						parent : 'xooma'
+					url : '/settings'
+					parent : 'xooma'
 
 				.state 'home',
 						url : '/home'
