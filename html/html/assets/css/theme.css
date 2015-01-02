@@ -6584,6 +6584,11 @@ text {
     background-position: 2212px 0px;
   }
 }
+.popover-content .close {
+  position: absolute;
+  right: 7px;
+  top: 8px;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;

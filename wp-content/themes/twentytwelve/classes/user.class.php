@@ -161,15 +161,15 @@ class User
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
-
-        if($date != ""){
-            $date = $date;
+       
+        if($date == ""){
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
         }
         else
         {
             $date = date('Y-m-d');
         }
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date=".$date );
 
 
 
