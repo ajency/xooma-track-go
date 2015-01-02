@@ -98,13 +98,13 @@
 		<div class="clearfix"></div>
 		 <nav id="menu">
         <ul>
-            <li><a  href="#/home">Home</a>
+            <li><a  class="link" href="#/home">Home</a>
             </li>
-            <li><a  href="#/profile/personal-info">Profile</a>
+            <li><a  class="link" href="#/profile/personal-info">Profile</a>
             </li>
-            <li><a  href="#/profile/measurements">Measurements</a>
+            <li><a  class="link" href="#/profile/measurements">Measurements</a>
             </li>
-            <li><a  href="#/profile/my-products">My Products</a>
+            <li><a  class="link" href="#/profile/my-products">My Products</a>
             </li>
         </ul>
     </nav>

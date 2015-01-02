@@ -98,8 +98,17 @@ class User_API
         $data['id'] = $id;
 
         $response = $user->update_user_details($data);
-        if(is_wp_error($response)){
-        	return $response;
+         if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
         }
 
         return $response;

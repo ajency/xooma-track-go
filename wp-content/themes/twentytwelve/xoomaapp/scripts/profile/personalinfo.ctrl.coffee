@@ -40,8 +40,18 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			.fail @errorHandler
 
 	successHandler:(response, status)=>
-		App.currentUser.set 'state' , '/profile/measurements'
-		App.navigate '#'+App.currentUser.get('state') , true
+		state = App.currentUser.get 'state'
+		if xhr.status is 404
+			@ui.responseMessage.text "Something went wrong"
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+		else
+			if state == '/home'
+				@ui.responseMessage.text "profile successfully updated"
+			else
+				App.currentUser.set 'state' , '/profile/measurements'
+				App.navigate '#'+App.currentUser.get('state') , true
 		
 
 	errorHandler:(error)=>

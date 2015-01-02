@@ -63,12 +63,20 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
-    console.log(xhr.status);
+    var state;
     if (xhr.status === 404) {
-      return this.ui.responseMessage.text("Something went wrong");
+      this.ui.responseMessage.text("Something went wrong");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     } else {
-      App.currentUser.set('state', '/profile/my-products');
-      return App.navigate('#' + App.currentUser.get('state'), true);
+      state = App.currentUser.get('state');
+      if (state === '/home') {
+        return this.ui.responseMessage.text("profile successfully updated");
+      } else {
+        App.currentUser.set('state', '/profile/my-products');
+        return App.navigate('#' + App.currentUser.get('state'), true);
+      }
     }
   };
 

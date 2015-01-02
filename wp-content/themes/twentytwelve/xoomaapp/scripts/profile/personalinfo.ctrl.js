@@ -66,8 +66,21 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    App.currentUser.set('state', '/profile/measurements');
-    return App.navigate('#' + App.currentUser.get('state'), true);
+    var state;
+    state = App.currentUser.get('state');
+    if (xhr.status === 404) {
+      this.ui.responseMessage.text("Something went wrong");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    } else {
+      if (state === '/home') {
+        return this.ui.responseMessage.text("profile successfully updated");
+      } else {
+        App.currentUser.set('state', '/profile/measurements');
+        return App.navigate('#' + App.currentUser.get('state'), true);
+      }
+    }
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
