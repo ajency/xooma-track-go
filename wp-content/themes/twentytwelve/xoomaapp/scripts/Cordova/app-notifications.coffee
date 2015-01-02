@@ -2,6 +2,7 @@ notificationIdAndBadgeValue = []
 _.mixin
 
 
+	#This Function triggers notification for a specific time
 	setNotificationTime : ()->
 		current_time = moment().format("HH:mm")
 
@@ -58,6 +59,7 @@ _.mixin
 		return
 
 
+#this function triggers a notification after 60 secs
 
 	notificationCall : (id)->
 		

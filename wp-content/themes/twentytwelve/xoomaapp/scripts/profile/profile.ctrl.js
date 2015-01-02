@@ -15,6 +15,12 @@ App.state('profile', {
 }).state('userMeasurement', {
   url: '/measurements',
   parent: 'profile'
+}).state('AddProducts', {
+  url: '/products',
+  parent: 'xooma'
+}).state('UserProductList', {
+  url: '/my-products',
+  parent: 'profile'
 });
 
 ProfileCtrlView = (function(_super) {
@@ -52,17 +58,24 @@ ProfileCtrlView = (function(_super) {
   ProfileCtrlView.prototype.handleMenu = function(evt, state, args) {
     var computed_url, url;
     url = '#' + App.currentUser.get('state');
-    computed_url = '#/' + window.location.hash.split('#')[1];
+    console.log(computed_url = '#' + window.location.hash.split('#')[1]);
     if (url === computed_url) {
       this.$('a[href="' + url + '"]').parent().addClass('selected');
+      this.$('a[href="' + url + '"]').parent().unbind();
+      this.$('a[href="' + url + '"]').parent().find('a').css({
+        cursor: 'pointer'
+      });
       this.$('a[href="' + url + '"]').parent().nextAll().bind('click', this.disableEvent);
       this.$('a[href="' + url + '"]').parent().nextAll().find('a').css({
         cursor: 'default'
       });
       this.$('a[href="' + url + '"]').parent().prevAll().unbind();
-      return this.$('a[href="' + url + '"]').parent().prevAll().find('a').css({
+      this.$('a[href="' + url + '"]').parent().prevAll().find('a').css({
         cursor: 'pointer'
       });
+      return this.$('a[href="' + url + '"]').parent().prevAll().removeClass('selected');
+    } else {
+      return this.$('a[href="' + computed_url + '"]').parent().addClass('selected');
     }
   };
 

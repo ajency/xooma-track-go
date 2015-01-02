@@ -18,16 +18,22 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
-	#Changes For DEVICE
 	onShow:->
+		birth_date = @model.get('profile').birth_date
+		picker = @ui.dateElement.pickadate('picker')
+		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
+		#Changes For DEVICE
 		_.enableCordovaBackbuttonNavigation()
+
 
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate(
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
+			max: new Date()
 			)
+		
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>
@@ -37,7 +43,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	successHandler:(response, status)=>
 		App.currentUser.set 'state' , '/profile/measurements'
-		App.navigate '/profile/measurements' , true
+		App.navigate '#'+App.currentUser.get('state') , true
 		
 
 	errorHandler:(error)=>
