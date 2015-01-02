@@ -106,7 +106,7 @@ class Schedule{
 			return new \WP_Error('action_param_missing', __('Action is empty'));
 
 		if(empty($schedule_args['rrule']))
-			return new \WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
+			return new \WP_Error('rrule_param_missing', __('RRule is empty. Provide occurrence rule'));
 
 		if(empty($schedule_args['start_dt']))
 			return new \WP_Error('start_dt_param_missing', __('Start datetime is needed'));
@@ -128,56 +128,63 @@ class Schedule{
 
 	}
 
-	static function update_next_occurrence($schedule_id){
-		$schedule = \ajency\ScheduleReminder\Schedule::get($schedule_id);
-		$st = '';
+	static function update_next_occurrence($schedule){
+		
+		global $wpdb;
+
 		$r = new \When\When();
-		$r->startDate(new \DateTime($schedule['start_dt']))
-			->rrule($schedule['rrule'])
-		 	->count(10)
+		
+		$start_time = explode(" ", $schedule->start_dt);
+		
+		$start_dt = date('Y-m-d '. $start_time[1]);
+		
+		$r->startDate(new \DateTime($start_dt))
+			->rrule($schedule->rrule)
+		 	->count(5)
 		  	->generateOccurrences();
-		wp_send_json($r->occurrences);
+
+		$occurrences = array();
+		
+		foreach ( $r->occurrences as $occurrence) {
+			$occurrences[] = $occurrence->getTimestamp();
+		}
+		
+		$previous_occurrence = strtotime($schedule->next_occurrence);
+
+		$next_occurrence_timestamp = self::get_next_occurrence($occurrences, $previous_occurrence);
+		
+		$next_occurrence = date('Y-m-d H:i:s', $next_occurrence_timestamp);
+		
+		$table_name = "{$wpdb->prefix}aj_schedules";
+
+		$wpdb->update($table_name, 
+					  array( 'next_occurrence' => $next_occurrence ),
+					  array( 'id' => $schedule->id ));
+		
+		return $next_occurrence;
 	}	
+
+	/**
+	 * 
+	 */
+	static function get_next_occurrence($occurrences, $current_occurrence){
+	    
+	    //add the current_occurrence to the array
+	    $occurrences[] = $current_occurrence;
+
+	    //sort and refind the current_occurrence
+	    sort($occurrences);
+	    $i = array_search($current_occurrence, $occurrences);
+
+	    //check if there is a current_occurrence above it
+	    if($i && isset($occurrences[$i+2])) 
+	    	return $occurrences[$i+2];
+
+	    //alternatively you could return the current_occurrence itself here, or below it depending on your requirements
+	    return false;
+	}
+
 }
-
-
-
-function find_closest($array, $date)
-{
-    //$count = 0;
-    foreach($array as $day)
-    {
-        //$interval[$count] = abs(strtotime($date) - strtotime($day));
-            $interval[] = abs(strtotime($date) - strtotime($day));
-        //$count++;
-    }
-
-    asort($interval);
-    $closest = key($interval);
-
-    return $array[$closest];
-
-}
-
-add_action('init', function(){
-	$dates = array(
-    '0'=> "2013-02-18 05:14:54",
-    '1'=> "2013-02-12 01:44:03",
-    '2'=> "2013-02-05 16:25:07",
-    '3'=> "2013-01-29 02:00:15",
-    '4'=> "2013-01-27 18:33:45" 
-);
-	\ajency\ScheduleReminder\Schedule::update_next_occurrence(1);
-	// \ajency\ScheduleReminder\Schedule::add(array(
-	// 	'object_type' => 'user_product',
-	// 	'object_id' => 23,
-	// 	'start_dt' => date('Y-12-31 00:00:00'),
-	// 	'rrule' => 'FREQ=HOURLY;INTERVAL=8;WKST=MO'
-	// ));
-	// die;
-	//wp_send_json(find_closest($dates, "2013-02-18 05:14:55"));
-
-});
 
 
 
