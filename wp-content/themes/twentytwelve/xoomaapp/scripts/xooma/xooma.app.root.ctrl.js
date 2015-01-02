@@ -15,12 +15,19 @@ XoomaAppRootView = (function(_super) {
   XoomaAppRootView.prototype.template = '#xooma-app-template';
 
   XoomaAppRootView.prototype.ui = {
-    ul: '.list-inline'
+    ul: '.list-inline',
+    hrefClass: '.active'
   };
 
   XoomaAppRootView.prototype.behaviors = {
     ActiveLink: {
       behaviorClass: Ajency.ActiveLinkBehavior
+    }
+  };
+
+  XoomaAppRootView.prototype.events = {
+    'click @ui.hrefClass': function(e) {
+      return console.log(e.target.href);
     }
   };
 

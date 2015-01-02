@@ -20,9 +20,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
+		
 
-
-
+	
 
 	onShow:->
 		@ui.popoverElements.popover html: true

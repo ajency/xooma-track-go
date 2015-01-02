@@ -86,11 +86,28 @@
 
 											</div>
 										</div>
+										<div class="col-sm-9 col-xs-7">
+                        <a href="#menu">
+                            <h5><i class="fa fa-cog pull-right "></i></h5>
+                        </a>
+                    </div>
 								</div>
 						</div>
 				</nav>
 		</div>
 		<div class="clearfix"></div>
+		 <nav id="menu">
+        <ul>
+            <li><a  href="#/home">Home</a>
+            </li>
+            <li><a  href="#/profile/personal-info">Profile</a>
+            </li>
+            <li><a  href="#/profile/measurements">Measurements</a>
+            </li>
+            <li><a  href="#/profile/my-products">My Products</a>
+            </li>
+        </ul>
+    </nav>
 		<div ui-region style="margin-top:60px"></div>
 </script>
 <script id="profile-template" type="text/template">
@@ -272,7 +289,7 @@
 
 										<div class="col-sm-6 imageMap">
 
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element1" tabindex="0" class="popover-element hotspot-neck " container="body" data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' aj-field-type='number' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' aj-field-type='number' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' aj-field-type='number' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>

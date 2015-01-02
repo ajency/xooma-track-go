@@ -7,7 +7,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 
 	template : '<li class="col-md-4 col-xs-4"> 
 					<h5 class="text-center">Bonus</h5>
-					<h4 class="text-center bold  text-primary" >2 <small class="text-muted">({{name}})</small></h4>
+					<h4 class="text-center bold  text-primary" >{{bonus}}<small class="text-muted">({{name}})</small></h4>
 				</li>
 				 <li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Target</h5>
@@ -15,10 +15,35 @@ class HomeX2OViewChild extends Marionette.ItemView
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Last Consume</h5>
-					<h4 class="text-center bold text-primary" >9.00 <small class="text-muted">pm</small></h4>       
+					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
 				</li>'
 
-	
+	serializeData:->
+		data = super()
+		$.each @model.get('occurrence'), (ind,val)->
+			occurrence = _.has(val, "occurrence");
+			expected = _.has(val, "expected");
+			recent = '--'
+			data.time = recent
+			data.bonus = 0
+			occurrenceArr = []
+			bonusArr = 0
+			if occurrence == true
+				date = val.expected
+				occurrenceArr.push date
+				
+				
+			if occurrence == true && expected == false
+				bonusArr++
+			
+			if occurrenceArr.length != 0 
+				recent = _.last occurrenceArr
+				data.time = moment(recent).format("ddd, hA")
+			data.bonus = bonusArr
+			
+		data
+
+
 
 class HomeX2OView extends Marionette.CompositeView
 
@@ -89,6 +114,34 @@ class ProductChildView extends Marionette.ItemView
 		 
 
 				   </br> '
+
+
+	serializeData:->
+		data = super()
+		$.each @model.get('occurrence'), (ind,val)->
+			occurrence = _.has(val, "occurrence");
+			expected = _.has(val, "expected");
+			recent = '--'
+			data.occur = 0
+			data.time = recent
+			data.bonus = 0
+			occurrenceArr = []
+			bonusArr = 0
+			if occurrence == true
+				date = val.expected
+				occurrenceArr.push date
+				
+				
+			if occurrence == true && expected == false
+				bonusArr++
+			
+			if occurrenceArr.length != 0 
+				recent = _.last occurrenceArr
+				data.time = moment(recent).format("ddd, hA")
+				data.occur =  occurrenceArr.length
+			data.bonus = bonusArr
+			
+		data
 
 
 class HomeViewChildView extends Marionette.CompositeView
