@@ -94,7 +94,10 @@ class Schedule{
 		$defaults = array(
 					'object_type' => '',
 					'object_id' => 0,
+					'start_dt' => '',
 					'rrule' => '',
+					'next_occurrence' => '',
+					'remind_before' => 0
 				);
 
 		$schedule_args = wp_parse_args($schedule_data, $defaults);
@@ -103,7 +106,11 @@ class Schedule{
 			return new \WP_Error('action_param_missing', __('Action is empty'));
 
 		if(empty($schedule_args['rrule']))
-			return new \WP_Error('rrule_param_missing', __('RRule is empty. Provide occurence rule'));
+			return new \WP_Error('rrule_param_missing', __('RRule is empty. Provide occurrence rule'));
+
+		if(empty($schedule_args['start_dt']))
+			return new \WP_Error('start_dt_param_missing', __('Start datetime is needed'));
+
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
@@ -120,9 +127,64 @@ class Schedule{
 		return $schedule_id;
 
 	}
+
+	static function update_next_occurrence($schedule){
+		
+		global $wpdb;
+
+		$r = new \When\When();
+		
+		$start_time = explode(" ", $schedule->start_dt);
+		
+		$start_dt = date('Y-m-d '. $start_time[1]);
+		
+		$r->startDate(new \DateTime($start_dt))
+			->rrule($schedule->rrule)
+		 	->count(5)
+		  	->generateOccurrences();
+
+		$occurrences = array();
+		
+		foreach ( $r->occurrences as $occurrence) {
+			$occurrences[] = $occurrence->getTimestamp();
+		}
+		
+		$previous_occurrence = strtotime($schedule->next_occurrence);
+
+		$next_occurrence_timestamp = self::get_next_occurrence($occurrences, $previous_occurrence);
+		
+		$next_occurrence = date('Y-m-d H:i:s', $next_occurrence_timestamp);
+		
+		$table_name = "{$wpdb->prefix}aj_schedules";
+
+		$wpdb->update($table_name, 
+					  array( 'next_occurrence' => $next_occurrence ),
+					  array( 'id' => $schedule->id ));
+		
+		return $next_occurrence;
+	}	
+
+	/**
+	 * 
+	 */
+	static function get_next_occurrence($occurrences, $current_occurrence){
+	    
+	    //add the current_occurrence to the array
+	    $occurrences[] = $current_occurrence;
+
+	    //sort and refind the current_occurrence
+	    sort($occurrences);
+	    $i = array_search($current_occurrence, $occurrences);
+
+	    //check if there is a current_occurrence above it
+	    if($i && isset($occurrences[$i+2])) 
+	    	return $occurrences[$i+2];
+
+	    //alternatively you could return the current_occurrence itself here, or below it depending on your requirements
+	    return false;
+	}
+
 }
-
-
 
 
 

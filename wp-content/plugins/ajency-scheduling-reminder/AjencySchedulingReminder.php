@@ -22,7 +22,7 @@ class AjencySchedulingReminder{
 	 * @var string
 	 */
 	public static $aj_schedule_table = 'aj_schedules';
-	public static $aj_occurence_meta_table = 'aj_occurence_meta';
+	public static $aj_occurrence_meta_table = 'aj_occurrence_meta';
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -122,7 +122,7 @@ class AjencySchedulingReminder{
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		AjencySchedulingReminder::create_schedules_table();
-		AjencySchedulingReminder::create_occurence_meta_table();
+		AjencySchedulingReminder::create_occurrence_meta_table();
 	}
 
 	/**
@@ -138,7 +138,9 @@ class AjencySchedulingReminder{
 				  id mediumint(9) NOT NULL AUTO_INCREMENT,
 				  object_type varchar(55) DEFAULT '' NOT NULL,
 				  object_id mediumint(9) NOT NULL,
+				  start_dt datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				  rrule text NOT NULL,
+				  next_occurrence datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				  UNIQUE KEY id (id)
 				) $charset_collate;";
 
@@ -146,10 +148,10 @@ class AjencySchedulingReminder{
 	}
 
 	/**
-	 * [create_occurence_meta_table description]
+	 * [create_occurrence_meta_table description]
 	 * @return [type] [description]
 	 */
-	public static function create_occurence_meta_table(){
+	public static function create_occurrence_meta_table(){
 		global $wpdb;
 
 		$charset_collate = $wpdb->get_charset_collate();
@@ -164,7 +166,7 @@ class AjencySchedulingReminder{
 
 		dbDelta( $sql );
 	}
-
+	
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
