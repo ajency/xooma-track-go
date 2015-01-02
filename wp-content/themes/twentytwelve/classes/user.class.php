@@ -131,23 +131,12 @@ class User
         }
         else
         {
-              $insert_id = $wpdb->update(
-                    $measurements_table,
-                    array(
-                      'user_id' => $args['id'],
-                      'date' => $date,
-                      'value' => $user_meta_value
-                    ),
-                    array( 'ID' => $sql_query->id ),
-                    array(
-                      '%d',
-                      '%s',
-                      '%s'
-                    ),
-                    array( '%d' )
-                  );
-        }
+            $insert_id = $wpdb->query("UPDATE $measurements_table SET value='".$user_meta_value."' where user_id=".$args['id']." and `date`='".$date."'");
+            
 
+              
+        }
+        
         if($insert_id){
 
                 return array('response' => $insert_id);

@@ -44,7 +44,10 @@ class AddProductsView extends Marionette.CompositeView
 	emptyView : NoProductsChildView
 
 	onShow:->
-		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js")
+		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
+			console.log "loaded"
+			)
+		
 
 
 class App.AddProductsCtrl extends Ajency.RegionController

@@ -72,6 +72,8 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/classie/classie.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/knockout/dist/knockout.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/knockout-bootstrap/build/knockout-bootstrap.min.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -86,6 +88,7 @@ var App  = new Marionette.Application()
 
 </script>
 
+ 
 <!-- build:js(*.js) application.js -->
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
@@ -119,8 +122,10 @@ window.ParsleyValidator
   	return value.length == requirement;
   })
   .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
-  
+
+ 
 </script>
+
 </body>
 </html>
 

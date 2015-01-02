@@ -53,12 +53,8 @@ ProfileMeasurementsView = (function(_super) {
     });
   };
 
-  ProfileMeasurementsView.prototype.disabler = function(e) {
-    e.preventDefault();
-    return false;
-  };
-
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
+    console.log($('#neck').val());
     return this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
   };
 

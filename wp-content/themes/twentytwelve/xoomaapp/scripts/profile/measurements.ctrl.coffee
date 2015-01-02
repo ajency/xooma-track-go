@@ -28,13 +28,16 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.popoverElements.popover html: true
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-
-	disabler:(e)->
-		e.preventDefault()
-		return false
+		# $.getScript(_SITEURL+"/html/html/assets/js/data.js",  (item)->
+		# 	console.log "loaded"
+		# 	)
+		
 
 	onFormSubmit : (_formData)=>
+		console.log $('#neck').val()
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
+
+	    
 
 	successHandler : (response, status,xhr)=>
 		if xhr.status is 404

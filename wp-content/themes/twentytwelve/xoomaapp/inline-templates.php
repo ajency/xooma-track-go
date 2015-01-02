@@ -290,15 +290,33 @@
 
 										<div class="col-sm-6 imageMap">
 
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " container="body" data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' aj-field-type='number' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' aj-field-type='number' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' aj-field-type='number' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' aj-field-type='number'  name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' aj-field-type='number' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' aj-field-type='number'  name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' aj-field-type='number' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
+												<a  class="hotspot-neck " data-bind="popover: {template: 'popoverBindingTemplate1', title: 'Neck'}">
+                        <i class="fa fa-dot-circle-o"></i>
+           </a>
+          <a class="hotspot-chest " data-bind="popover: {template: 'popoverBindingTemplate2', title: 'Chest'}">
+              <i class="fa fa-dot-circle-o"></i>
+          </a>
+
+           <a class="hotspot-arm " data-bind="popover: {template: 'popoverBindingTemplate3', title: 'Arm'}">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-abdomen " data-bind="popover: {template: 'popoverBindingTemplate4', title: 'Abdomen'}">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-waist " data-bind="popover: {template: 'popoverBindingTemplate5', title: 'Waist'}">                  <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-hips " data-bind="popover: {template: 'popoverBindingTemplate6', title: 'Hips'}">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-thigh " data-bind="popover: {template: 'popoverBindingTemplate7', title: 'Thigh'}" >
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-midcalf "  data-bind="popover: {template: 'popoverBindingTemplate8', title: 'Midcalf'}" >
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
+
+
+           <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
 										
 								</div>
