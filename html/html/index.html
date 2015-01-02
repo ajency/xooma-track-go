@@ -146,7 +146,7 @@
 
 -->
     <!--Section 2-->
-<!--
+
     <div id="measuremnt" class="section">
         <div class="container">
 
@@ -178,21 +178,37 @@
                     </br>
                 </div>
                 <div class="col-sm-6 imageMap">
-                    <a id="element" tabindex="0" class="hotspot-neck " data-toggle="popover" title="Neck" data-content="<input                               type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element1" tabindex="0" class="hotspot-chest " data-toggle="popover" title="Chest" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element2" tabindex="0" class="hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element3" tabindex="0" class="hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element4" tabindex="0" class="hotspot-waist " data-toggle="popover" title="Waist" data-content="                                    <input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element5" tabindex="0" class="hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element6" tabindex="0" class="hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
-                    <a id="element7" tabindex="0" class="hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text'>"><i class="fa fa-dot-circle-o"></i></a>
+                    
+           <a  class="hotspot-neck " data-bind="popover: {template: 'popoverBindingTemplate', title: 'Neck'}">
+                        <i class="fa fa-dot-circle-o"></i>
+           </a>
+          <a class="hotspot-chest " data-bind="popover: {template: 'popoverBindingTemplate2', title: 'Chest'}">
+              <i class="fa fa-dot-circle-o"></i>
+          </a>
+           <a class="hotspot-arm " data-bind="popover: {template: 'popoverBindingTemplate3', title: 'Arm'}">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-abdomen " data-bind="popover: {template: 'popoverBindingTemplate4', title: 'Abdomen'}">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-waist " data-bind="popover: {template: 'popoverBindingTemplate5', title: 'Waist'}">                  <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-hips " data-bind="popover: {template: 'popoverBindingTemplate6', title: 'Hips'}">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-thigh " data-bind="popover: {template: 'popoverBindingTemplate7', title: 'Thigh'}" >
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <a class="hotspot-midcalf "  data-bind="popover: {template: 'popoverBindingTemplate8', title: 'Midcalf'}" >
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
                     <img src="assets/images/humanbody.png" class="center-block">
                 </div>
 
             </div>
         </div>
     </div>
--->
+
 
     <!--Section 3-->
  <!--
@@ -252,7 +268,7 @@
        </div>
     </div>
   -->
-  
+  <!--
 <div id="listproduct" class="section">
           <br>  <br>       
     
@@ -376,6 +392,7 @@
          
        </div>
     </div>
+-->
     <!-- Site footer -->
     <footer class="footer">
         <div class="container">
@@ -413,9 +430,13 @@
 
 
     <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://billpull.com/knockout-bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://billpull.com/knockout-bootstrap/js/knockout.js"></script>
+   <script type="text/javascript" src="assets/js/knockout-bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.mmenu.min.all.js"></script>
     <script type="text/javascript" src="assets/js/rangeslider.min.js"></script>
+    
+
     <!-- Date Picker -->
     <script src="assets/js/datepicker/picker.js"></script>
     <script src="assets/js/datepicker/picker.date.js"></script>
@@ -423,6 +444,7 @@
     <script src="assets/js/datepicker/demo.js"></script>
         <script src="assets/js/classie.js"></script>
 		<script src="assets/js/cbpViewModeSwitch.js"></script>
+ 
 <!--    <script src="assets/js/bootstrap-material-design/ripples.min.js"></script>
     <script src="assets/js/bootstrap-material-design/material.min.js"></script>
     
@@ -438,35 +460,88 @@
     $(function() {
         $('nav#menu').mmenu();
     });
-    $(function() {
-
-        $("#element").popover({
-            html: true
-        });
-        $("#element1").popover({
-            html: true
-        });
-        $("#element2").popover({
-            html: true
-        });
-        $("#element3").popover({
-            html: true
-        });
-        $("#element4").popover({
-            html: true
-        });
-        $("#element5").popover({
-            html: true
-        });
-        $("#element6").popover({
-            html: true
-        });
-        $("#element7").popover({
-            html: true
-        });
-    });
     </script>
+<script>
+            var ExampleViewModel = function () {
+                var self = this;
 
+                self.popoverBindingHeader = ko.observable('');
+                self.popoverBindingHeader2 = ko.observable('');
+                self.popoverBindingHeader3 = ko.observable('');
+                self.popoverBindingHeader4 = ko.observable('');
+                self.popoverBindingHeader5 = ko.observable('');
+                self.popoverBindingHeader6 = ko.observable('');
+                self.popoverBindingHeader7 = ko.observable('');
+                self.popoverBindingHeader8 = ko.observable('');
+
+                self.frameworkToAdd = ko.observable("");
+                self.addFramework = function() {
+                    self.jsFrameworks.push(self.frameworkToAdd());
+                };
+
+                self.removeFramework = function(framework) {
+                    self.jsFrameworks.remove(framework);
+                };
+            };
+
+            $(function(){
+                // make code pretty
+                window.prettyPrint && prettyPrint();
+
+                var viewModel = new ExampleViewModel();
+
+                ko.applyBindings(viewModel);
+            });
+        </script>
+
+   <script type="text/html" id="popoverBindingTemplate">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader,      valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+   <script type="text/html" id="popoverBindingTemplate2">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader2, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+    <script type="text/html" id="popoverBindingTemplate3">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader3, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+   <script type="text/html" id="popoverBindingTemplate4">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader4, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+ <script type="text/html" id="popoverBindingTemplate5">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader5, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+    <script type="text/html" id="popoverBindingTemplate6">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader6, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+   <script type="text/html" id="popoverBindingTemplate7">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader7, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+<script type="text/html" id="popoverBindingTemplate8">
+            <button class="close pull-right" type="button" data-dismiss="popoverBindingHeader8">×</button>
+             <form>
+                    <input type="text" data-bind="value: popoverBindingHeader8, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
     <script>
     $(function() {
         var $document = $(document),
