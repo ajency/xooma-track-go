@@ -13,6 +13,7 @@ jQuery(document).ready ($)->
 						ctrl : 'HomeX2OCtrl'
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
+						
 			
 
 	App.onBeforeStart = ->

@@ -14,7 +14,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.tagName = 'li';
 
-  ProductChildView.prototype.template = '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a> <h3 class="cbp-vm-title">{{name}}</h3> <div class="cbp-vm-details"> {{description}} </div> <a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#">Add Product</a>';
+  ProductChildView.prototype.template = '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a> <h3 class="cbp-vm-title">{{name}}</h3> <div class="cbp-vm-details"> {{description}} </div> <a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/products/{{id}}/edit">Add Product</a>';
 
   ProductChildView.prototype.ui = {
     addProduct: '.add-product'
@@ -22,15 +22,6 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.initialize = function() {
     return this.$el.prop("id", 'product' + this.model.get("id"));
-  };
-
-  ProductChildView.prototype.events = {
-    'click @ui.addProduct': function(e) {
-      var id;
-      e.preventDefault();
-      id = e.target.id;
-      return App.currentUser.addProduct(id).done(this.successHandler).fail(this.errorHandler);
-    }
   };
 
   ProductChildView.prototype.successHandler = function(response, status, xhr) {

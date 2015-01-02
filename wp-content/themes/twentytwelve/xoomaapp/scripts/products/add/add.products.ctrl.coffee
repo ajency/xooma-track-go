@@ -9,7 +9,7 @@ class ProductChildView extends Marionette.ItemView
 							<div class="cbp-vm-details">
 								{{description}}
 							</div>
-						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#">Add Product</a>'
+						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/products/{{id}}/edit">Add Product</a>'
 
 
 	ui :
@@ -18,11 +18,11 @@ class ProductChildView extends Marionette.ItemView
     initialize:->
     	@$el.prop("id", 'product'+@model.get("id"))
 
-    events:
-    	'click @ui.addProduct':(e)->
-    		e.preventDefault()
-    		id = e.target.id
-    		App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
+    # events:
+    # 	'click @ui.addProduct':(e)->
+    # 		e.preventDefault()
+    # 		id = e.target.id
+    		# App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
 
     successHandler:(response, status, xhr)=>
     	console.log status

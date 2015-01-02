@@ -22,6 +22,9 @@ App.state('profile', {
 }).state('UserProductList', {
   url: '/my-products',
   parent: 'profile'
+}).state('EditProducts', {
+  url: '/products/:id/edit',
+  parent: 'xooma'
 });
 
 ProfileCtrlView = (function(_super) {
