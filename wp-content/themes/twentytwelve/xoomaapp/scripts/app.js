@@ -35,10 +35,16 @@
       }
     };
     App.currentUser.on('user:auth:success', function() {
+      var current_user_data;
+      current_user_data = App.currentUser.toJSON();
+      _.setUserData(current_user_data);
       return App.navigate('#' + App.currentUser.get('state'), true);
     });
     App.currentUser.on('user:logged:out', function() {
+      var userData;
       App.navigate('/login', true);
+      window.localStorage.removeItem("user_data");
+      userData = {};
       return App.state('settings', {
         url: '/settings',
         parent: 'xooma'

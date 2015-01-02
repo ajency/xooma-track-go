@@ -1,11 +1,14 @@
 _.mixin({
-  localStorage: function() {
-    return window.localStorage;
+  setUserData: function(userData) {
+    return window.localStorage.setItem("user_data", JSON.stringify(userData));
+  },
+  getUserData: function() {
+    return JSON.parse(window.localStorage.getItem("user_data"));
   },
   setNotificationBadgeNumber: function(Value) {
-    return this.localStorage().setItem("notification_value", JSON.stringify(Value));
+    return window.localStorage.setItem("notification_value", JSON.stringify(Value));
   },
   getNotificationBadgeNumber: function() {
-    return this.localStorage().getItem("notification_value");
+    return window.localStorage.getItem("notification_value");
   }
 });

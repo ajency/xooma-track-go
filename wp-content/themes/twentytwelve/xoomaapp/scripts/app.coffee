@@ -43,10 +43,15 @@
 
 		App.currentUser.on 'user:auth:success', ->
 			# App.trigger 'fb:status:connected'
+			# store the user model data in local storage here
+			current_user_data = App.currentUser.toJSON()
+			_.setUserData(current_user_data)
 			App.navigate '#'+App.currentUser.get('state'), true
 
 		App.currentUser.on 'user:logged:out', ->
 			App.navigate '/login', true
+			window.localStorage.removeItem("user_data");
+			userData = {}
 
 			App.state 'settings',
 					url : '/settings'
