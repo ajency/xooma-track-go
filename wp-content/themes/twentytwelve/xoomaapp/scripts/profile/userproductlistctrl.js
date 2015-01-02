@@ -50,6 +50,7 @@ UserProductListView = (function(_super) {
   __extends(UserProductListView, _super);
 
   function UserProductListView() {
+    this._successHandler = __bind(this._successHandler, this);
     return UserProductListView.__super__.constructor.apply(this, arguments);
   }
 
@@ -62,12 +63,32 @@ UserProductListView = (function(_super) {
   UserProductListView.prototype.childViewContainer = 'ul.userProductList';
 
   UserProductListView.prototype.ui = {
-    saveProducts: '.save_products'
+    saveProducts: '.save_products',
+    responseMessage: '.aj-response-message'
+  };
+
+  UserProductListView.prototype.events = {
+    'click @ui.saveProducts': function(e) {
+      return $.ajax({
+        method: 'POST',
+        url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
+        success: this._successHandler
+      });
+    }
   };
 
   UserProductListView.prototype.onShow = function() {
-    if (App.currentUser.get('state' === '/home')) {
+    if (App.currentUser.get('state') === '/home') {
       return this.ui.saveProducts.hide();
+    }
+  };
+
+  UserProductListView.prototype._successHandler = function(response, status, xhr) {
+    if (xhr.status === 201) {
+      console.log(response);
+      return App.navigate('#/home', true);
+    } else {
+      return this.ui.responseMessage.text("Something went wrong");
     }
   };
 

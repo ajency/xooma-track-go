@@ -62,11 +62,21 @@ ProfileMeasurementsView = (function(_super) {
     return this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
   };
 
-  ProfileMeasurementsView.prototype.successHandler = function(response, status, responseCode) {
-    if (responseCode.status === 404) {
-      return this.ui.responseMessage.text("Something went wrong");
+  ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
+    var state;
+    if (xhr.status === 404) {
+      this.ui.responseMessage.text("Something went wrong");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     } else {
-      return App.navigate('/profile/my-products', true);
+      state = App.currentUser.get('state');
+      if (state === '/home') {
+        return this.ui.responseMessage.text("profile successfully updated");
+      } else {
+        App.currentUser.set('state', '/profile/my-products');
+        return App.navigate('#' + App.currentUser.get('state'), true);
+      }
     }
   };
 

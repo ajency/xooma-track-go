@@ -20,9 +20,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
+		
 
-
-
+	
 
 	onShow:->
 		@ui.popoverElements.popover html: true
@@ -36,11 +36,20 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	onFormSubmit : (_formData)=>
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
 
-	successHandler : (response, status,responseCode)=>
-		if responseCode.status is 404
+	successHandler : (response, status,xhr)=>
+		if xhr.status is 404
 			@ui.responseMessage.text "Something went wrong"
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 		else
-			App.navigate '/profile/my-products' , true
+			state = App.currentUser.get 'state'
+			if state == '/home'
+				@ui.responseMessage.text "profile successfully updated"
+			else
+				App.currentUser.set 'state' , '/profile/my-products'
+				App.navigate '#'+App.currentUser.get('state') , true
+			
 
 	errorHandler : (error)=>
 		@ui.responseMessage.text "Something went wrong"

@@ -86,11 +86,28 @@
 
 											</div>
 										</div>
+										<div class="col-sm-9 col-xs-7">
+                        <a href="#menu">
+                            <h5><i class="fa fa-cog pull-right "></i></h5>
+                        </a>
+                    </div>
 								</div>
 						</div>
 				</nav>
 		</div>
 		<div class="clearfix"></div>
+		 <nav id="menu">
+        <ul>
+            <li><a  class="link" href="#/home">Home</a>
+            </li>
+            <li><a  class="link" href="#/profile/personal-info">Profile</a>
+            </li>
+            <li><a  class="link" href="#/profile/measurements">Measurements</a>
+            </li>
+            <li><a  class="link" href="#/profile/my-products">My Products</a>
+            </li>
+        </ul>
+    </nav>
 		<div ui-region style="margin-top:60px"></div>
 </script>
 <script id="profile-template" type="text/template">
@@ -165,7 +182,7 @@
 												<div class="form-group">
 														<label for="text4" class="col-sm-3 control-label">Phone</label>
 														<div class="col-sm-9">
-																<input type="text" aj-inputmask="(999) 999 9999" class="form-control" name="profile[phone_no]">
+																<input type="text" aj-field-type="number" class="form-control" name="profile[phone_no]">
 														</div>
 												</div>
 												<div class="form-group">
@@ -272,7 +289,7 @@
 
 										<div class="col-sm-6 imageMap">
 
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
+												<a id="element1" tabindex="0" class="popover-element hotspot-neck " container="body" data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' aj-field-type='number' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' aj-field-type='number' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
 												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' aj-field-type='number' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
@@ -294,38 +311,49 @@
 </script>
 
 <script id="home-template" type="text/template">
-		<div id="xoomaproduct" class="section">
-                <h4 class="text-center"> List Of xooma products</h4>
-
-        <div class="container">
-              <div class="row">
-                  <div class="col-md-3"></div>
-                  <div class="col-md-6">
-
-                      <br>
-                            <ul class="list-unstyled list-style userProductList">
-
-                             </ul>
-
-
-
+		<div class="container"> </br></br></br>
+        <div class="row">
+            <div class="col-md-4 col-xs-4"></div>
+            <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
+            <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                  <div class="fill-bottle">        
+                    <div class="glass">
+                            <span class="liquid" style="height: 100%"></span>
+                     </div>
                   </div>
-                  <div class="col-md-3">
-                  	</div>
-              </div>
+                	<div id="canvas-holder">
+                        <canvas id="chart-area" width="500" height="500"/>
+                    </div>
+            
+            </div>
+        </div>
+     <div class="row">
+            <div class="col-md-3"> 
+            </div>
+         <div class="col-md-6"> 
+         <div ui-region="x2o">
+              
+            </div>
+           <br>   
+       <div ui-region="other-products">
+       
+         </div>         
 
         </div>
-
-</div>
+    </div>
 </script>
 
 
 
 <script id="produts-template" type="h-template">
 	<div id="xoomaproduct" class="section">
-                <h4 class="text-center"> List Of xooma products</h4>
+                <h4 class="text-center"> My xooma products</h4>
 
         <div class="container">
+        <div class="aj-response-message"></div>
               <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">

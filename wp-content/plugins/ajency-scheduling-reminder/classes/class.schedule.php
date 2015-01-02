@@ -14,8 +14,8 @@ class Schedule{
 	 */
 	static function add($schedule_data){
 
-		if(!current_user_can('edit_schedule'))
-			return new \WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
+		// if(!current_user_can('edit_schedule'))
+		// 	return new \WP_Error('no_permission', __('Sorry, You don\'t have enough permission'));
 
 		return self::_insert_schedule($schedule_data);
 	}
@@ -41,16 +41,38 @@ class Schedule{
 	}
 
 	/**
-	 * [get description]
+	 * [get_schedule description]
 	 * @param  [type] $schedule_id [description]
 	 * @return [type]              [description]
 	 */
-	static function get_schedules($user_id){
+	static function get_schedule_id($object_type, $object_id){
 		global $wpdb;
 
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
-		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE user_id=%d", $user_id);
+		$query = $wpdb->prepare("SELECT id FROM $table_name WHERE object_type=%s AND object_id=%d", $object_type, $object_id);
+
+		$schedule_id = $wpdb->get_var($query);
+
+		
+		if($schedule_id === NULL)
+			return new \WP_Error('invalid_object_id', __('Invalid object_id and object type'));
+
+		return intval($schedule_id);
+	}
+
+
+	/**
+	 * [get description]
+	 * @param  [type] $schedule_id [description]
+	 * @return [type]              [description]
+	 */
+	static function get_schedules_for_object($object_id){
+		global $wpdb;
+
+		$table_name = "{$wpdb->prefix}aj_schedules";
+
+		$query = $wpdb->prepare("SELECT * FROM $table_name WHERE object_id=%d", $object_id);
 
 		$schedules = $wpdb->get_results($query);
 
@@ -99,9 +121,6 @@ class Schedule{
 
 	}
 }
-
-
-
 
 
 

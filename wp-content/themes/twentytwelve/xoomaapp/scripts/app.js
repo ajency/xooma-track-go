@@ -2,15 +2,17 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
-  }).state('AddProducts', {
-    url: '/products',
-    parent: 'xooma'
-  }).state('UserProductList', {
-    url: '/my-products',
-    parent: 'profile'
   }).state('home', {
     url: '/home',
-    parent: 'xooma'
+    parent: 'xooma',
+    sections: {
+      'x2o': {
+        ctrl: 'HomeX2OCtrl'
+      },
+      'other-products': {
+        ctrl: 'HomeOtherProductsCtrl'
+      }
+    }
   });
   App.onBeforeStart = function() {
     App.currentUser.set(userData);
@@ -20,7 +22,7 @@ jQuery(document).ready(function($) {
   };
   App.currentUser.on('user:auth:success', function() {
     App.trigger('fb:status:connected');
-    return App.navigate(App.currentUser.get('state'), true);
+    return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
     return App.navigate('/login', true);
@@ -30,13 +32,15 @@ jQuery(document).ready(function($) {
     parent: 'xooma'
   }).state('home', {
     url: '/home',
-    parent: 'xooma'
-  }).state('UserProductList', {
-    url: '/my-products',
-    parent: 'profile'
-  }).state('AddProducts', {
-    url: '/products',
-    parent: 'xooma'
+    parent: 'xooma',
+    sections: {
+      'x2o': {
+        ctrl: 'HomeX2OCtrl'
+      },
+      'other-products': {
+        ctrl: 'HomeOtherProductsCtrl'
+      }
+    }
   });
   App.addInitializer(function() {
     return Backbone.history.start();

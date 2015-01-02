@@ -3,10 +3,17 @@ class XoomaAppRootView extends Marionette.LayoutView
 	template : '#xooma-app-template'
 	ui :
 		ul : '.list-inline'
+		link : '.link'
 	behaviors :
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
+
+	
+		
 	onShow : ->
+		state = App.currentUser.get 'state'
+		if state != '/home'
+			@ui.link.hide()
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
 

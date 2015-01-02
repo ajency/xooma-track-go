@@ -43,11 +43,21 @@ ProfilePersonalInfoView = (function(_super) {
     });
   };
 
+  ProfilePersonalInfoView.prototype.onShow = function() {
+    var birth_date, picker;
+    birth_date = this.model.get('profile').birth_date;
+    picker = this.ui.dateElement.pickadate('picker');
+    return picker.set('select', birth_date, {
+      format: 'yyyy-mm-dd'
+    });
+  };
+
   ProfilePersonalInfoView.prototype.onRender = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     return this.ui.dateElement.pickadate({
       formatSubmit: 'yyyy-mm-dd',
-      hiddenName: true
+      hiddenName: true,
+      max: new Date()
     });
   };
 
@@ -56,8 +66,21 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    App.currentUser.set('state', '/profile/measurements');
-    return App.navigate('/profile/measurements', true);
+    var state;
+    state = App.currentUser.get('state');
+    if (xhr.status === 404) {
+      this.ui.responseMessage.text("Something went wrong");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    } else {
+      if (state === '/home') {
+        return this.ui.responseMessage.text("profile successfully updated");
+      } else {
+        App.currentUser.set('state', '/profile/measurements');
+        return App.navigate('#' + App.currentUser.get('state'), true);
+      }
+    }
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {

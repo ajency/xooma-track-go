@@ -111,8 +111,14 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
+        var x2oArray;
         if (xhr.status === 200) {
-          return console.log(response);
+          console.log(response[0].products);
+          x2oArray = [];
+          $.each(response[0].products, function(index, value) {
+            return x2oArray.push(value);
+          });
+          return App.currentUser.set('x2o', x2oArray);
         }
       };
     })(this);

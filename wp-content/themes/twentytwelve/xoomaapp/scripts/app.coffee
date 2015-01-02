@@ -5,16 +5,14 @@ jQuery(document).ready ($)->
 
 		.state 'xooma',
 				url : '/'
-		.state 'AddProducts',
-					url : '/products'
-					parent : 'xooma'
-		.state 'UserProductList',
-					url : '/my-products'
-					parent : 'profile'
 		.state 'home',
-					url : '/home'
-					parent : 'xooma'
-
+				url : '/home'
+				parent : 'xooma'
+				sections : 
+					'x2o' : 
+						ctrl : 'HomeX2OCtrl'
+					'other-products' : 
+						ctrl : 'HomeOtherProductsCtrl'
 			
 
 	App.onBeforeStart = ->
@@ -24,7 +22,7 @@ jQuery(document).ready ($)->
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
-		App.navigate App.currentUser.get('state'), true
+		App.navigate '#'+App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
 		App.navigate '/login', true
@@ -36,14 +34,13 @@ jQuery(document).ready ($)->
 		.state 'home',
 				url : '/home'
 				parent : 'xooma'
+				sections : 
+					'x2o' : 
+						ctrl : 'HomeX2OCtrl'
+					'other-products' : 
+						ctrl : 'HomeOtherProductsCtrl'
 
-		.state 'UserProductList',
-				url : '/my-products'
-				parent : 'profile'
-
-		.state 'AddProducts',
-				url : '/products'
-				parent : 'xooma'
+		
 				
 
 	App.addInitializer ->

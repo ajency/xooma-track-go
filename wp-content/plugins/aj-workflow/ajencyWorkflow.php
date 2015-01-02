@@ -386,7 +386,7 @@ class ajencyWorkflow{
 		}
 		else{
 
-			return array('status' => 200 , 'response' => $update_id);
+			return true;
 		}
 
 

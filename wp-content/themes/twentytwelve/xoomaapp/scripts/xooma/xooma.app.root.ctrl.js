@@ -15,7 +15,8 @@ XoomaAppRootView = (function(_super) {
   XoomaAppRootView.prototype.template = '#xooma-app-template';
 
   XoomaAppRootView.prototype.ui = {
-    ul: '.list-inline'
+    ul: '.list-inline',
+    link: '.link'
   };
 
   XoomaAppRootView.prototype.behaviors = {
@@ -25,6 +26,11 @@ XoomaAppRootView = (function(_super) {
   };
 
   XoomaAppRootView.prototype.onShow = function() {
+    var state;
+    state = App.currentUser.get('state');
+    if (state !== '/home') {
+      this.ui.link.hide();
+    }
     return this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser
     }));

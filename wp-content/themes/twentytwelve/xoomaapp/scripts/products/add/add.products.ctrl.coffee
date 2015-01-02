@@ -43,6 +43,9 @@ class AddProductsView extends Marionette.CompositeView
 	childViewContainer : 'ul.products-list'
 	emptyView : NoProductsChildView
 
+	onShow:->
+		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js")
+
 
 class App.AddProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
