@@ -76,7 +76,11 @@ _.extend Ajency.CurrentUser::,
 	getUserProducts : ->
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
-				console.log response
+				console.log response[0].products
+				x2oArray = []
+				$.each response[0].products , (index,value)->
+					x2oArray.push value
+				App.currentUser.set 'x2o' , x2oArray
 
 		$.ajax
 			method : 'GET'
