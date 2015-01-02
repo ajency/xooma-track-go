@@ -132,10 +132,10 @@ class User_API
         $data['thigh']                      = $_REQUEST['thigh'];
         $data['midcalf']                    = $_REQUEST['midcalf'];
         $data['calf']                       = $_REQUEST['calf'];
-        $data['date']                       = $_REQUEST['date_field'];
+        $date                               = $_REQUEST['date_field'];
 
 
-        $response = $user->update_user_measurement_details($data);
+        $response = $user->update_user_measurement_details($data,$date="");
 
         if(is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
