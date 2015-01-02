@@ -264,6 +264,7 @@
 												<h5 class="text-center bold">Set your mesurements</h5>
 												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
 												<div class="row">
+												<input type="hidden" name="date_field" value="{{measurements.date}}" />
 														<div class="col-md-5 col-xs-5">
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
 														</div>

@@ -99,8 +99,13 @@ class User
         $measurements_table = $wpdb->prefix . "measurements";
 
         //insert measurements entery into post table with
+
+        if($args['date'] == ""){
+
+            $args['date'] = date('Y-m-d');
+        }
         $user_meta_value = maybe_serialize($args);
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".date('Y-m-d')."' and user_id=".$args['id']."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$args['date']."' and user_id=".$args['id']."" );
 
         if(count($sql_query) == 0 && $sql_query == null)
         {
@@ -164,15 +169,16 @@ class User
        
         if($date == ""){
             $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
-        }
+       }
         else
         {
-            $date = date('Y-m-d');
+            
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date=".$date );
+
         }
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date=".$date );
+        
 
-
-
+       
         $data = array();
         if(count($sql_query) != 0 && $sql_query!= null){
 
@@ -180,7 +186,7 @@ class User
 
             $user_details =   maybe_unserialize($sql_query->value);
 
-
+            
 
             $data['height']  = $user_details['height'];
             $data['weight']  = $user_details['weight'];
@@ -191,6 +197,7 @@ class User
             $data['hips']  = $user_details['hips'];
             $data['thigh']  = $user_details['thigh'];
             $data['midcalf']  = $user_details['midcalf'];
+            $data['date']  = $sql_query->date;
 
 
             return array('response' => $data);

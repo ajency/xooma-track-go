@@ -132,6 +132,7 @@ class User_API
         $data['thigh']                      = $_REQUEST['thigh'];
         $data['midcalf']                    = $_REQUEST['midcalf'];
         $data['calf']                       = $_REQUEST['calf'];
+        $data['date']                       = $_REQUEST['date_field'];
 
 
         $response = $user->update_user_measurement_details($data);
