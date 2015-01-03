@@ -13,4 +13,17 @@ h1, h2, h3, h4, h5, h6{
     h4{
         font-size:26px;
     }
+    .truncate {
+         overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 16px;     /* fallback */
+   max-height: 32px;      /* fallback */
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+    }
+}
+
+.lg-icon{
+   font-size:  @font-size-h3;
 }

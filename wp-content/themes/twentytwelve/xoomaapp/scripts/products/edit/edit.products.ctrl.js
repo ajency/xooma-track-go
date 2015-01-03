@@ -10,7 +10,7 @@ EditProductsView = (function(_super) {
     return EditProductsView.__super__.constructor.apply(this, arguments);
   }
 
-  EditProductsView.prototype.template = '<div>name</div>';
+  EditProductsView.prototype.template = '#edit-product-template';
 
   return EditProductsView;
 

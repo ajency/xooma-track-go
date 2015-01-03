@@ -1,7 +1,9 @@
 
 class EditProductsView extends Marionette.ItemView
 
-	template : '<div>name</div>'
+	template : '#edit-product-template'
+
+	
 
 
 class App.EditProductsCtrl extends Ajency.RegionController

@@ -442,3 +442,87 @@
 <script id="current-user-template" type="text/template">
 markupup
 </script>
+
+
+<script id="edit-product-template" type="text/template">
+    <div class="container"> </br></br>
+        <h3 class="bold">X20</h3>
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-8 col-xs-8">
+                        <p class="truncate" name="description">{{description}}</p>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <img name="image" src="{{image}}" class="img-responsive"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <b>Chosse the consumtion of X20</b>
+                <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">Any Time</button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-primary
+">Set Time</button>
+                  </div>
+                </div>
+                 <b class="m-t-20 center-block">Recommended Number of Bottle</b>
+                    <h4 class="text-center margin-none"> <output></output> <small>Bottle</small></h4>
+                    <input class="pull-left" type="range" min="1" max="9" step="1" value="1" data-rangeslider>
+           
+              <form class="form-horizontal m-t-30">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
+    container</label>
+    <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Available with me</label>
+    <div class="col-sm-6 col-xs-5">
+      <p class="form-control-static">30 sachets</p>
+    </div>
+  </div>
+<div class="form-group">
+    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set Reminder</label>
+    <div class="col-sm-6 col-xs-5 ">
+     <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-success">  Yes</button>
+      <button type="button" class="btn btn-default"> No</button>
+    </div>
+    </div>
+  </div>
+<div class="form-group">
+    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
+    <div class="col-sm-6 col-xs-5 ">
+     <input id="" class="fieldset__input js__timepicker form-control" type=text placeholder="Try me&hellip;">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Save</button>
+         <button type="submit" class="btn btn-default">Cancel</button>
+         <button type="submit" class="btn btn-danger">Remove Product</button>
+    </div>
+  </div>
+</form>
+              
+              
+              
+              
+              </div>
+           
+        </div>
+      
+    </div>    
+</script>
