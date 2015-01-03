@@ -116,16 +116,20 @@ function save_anytime_product_details($id,$data){
     if($main){
         date_default_timezone_set("UTC");
         $interval = 24/intval($data['time_set']);
+        $date = new DateTime();
+        //$start =  $date->format('YmdHis');
+        // print_r($date);
         $today = strtotime('00:00:00');
-        $start = date("Ymd\THis\Z", $today);
+        $start = date("YmdHis", $today);
         $schedule_data = array(
             'object_type' => 'user_product',
             'object_id' => $main_id,
-            'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
+            'start_dt'  => $start,
+            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
         );
         
         $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
-
+        
 
         return $data['id'];
     }
@@ -230,7 +234,8 @@ function save_schedule_product_details($id,$data){
         $schedule_data = array(
             'object_type' => 'user_product',
             'object_id' => $main_id,
-            'rrule' => "FREQ=HOURLY;DTSTART=".$start.";INTERVAL=".$interval.";WKST=MO"
+            'start_dt'  => $start,
+            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
         );
         $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 

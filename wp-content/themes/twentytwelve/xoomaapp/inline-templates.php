@@ -314,7 +314,9 @@
            <a class="hotspot-midcalf "  data-bind="popover: {template: 'popoverBindingTemplate8', title: 'Midcalf'}" >
                <i class="fa fa-dot-circle-o"></i>
            </a>
-
+          
+  
+   
 
            <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>

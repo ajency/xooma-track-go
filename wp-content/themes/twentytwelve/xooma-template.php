@@ -125,7 +125,54 @@ window.ParsleyValidator
 
  
 </script>
-
+<script type="text/html" id="popoverBindingTemplate">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="neck" id="neck" data-bind="value: popoverBindingHeader,      valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+   <script type="text/html" id="popoverBindingTemplate2">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="chest" data-bind="value: popoverBindingHeader2, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+    <script type="text/html" id="popoverBindingTemplate3">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="arm" data-bind="value: popoverBindingHeader3, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+   <script type="text/html" id="popoverBindingTemplate4">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="abdomen" data-bind="value: popoverBindingHeader4, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+ <script type="text/html" id="popoverBindingTemplate5">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="waist" data-bind="value: popoverBindingHeader5, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+    <script type="text/html" id="popoverBindingTemplate6">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="hips" data-bind="value: popoverBindingHeader6, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+   <script type="text/html" id="popoverBindingTemplate7">
+            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
+             <form>
+                    <input type="text" name="thigh" data-bind="value: popoverBindingHeader7, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
+<script type="text/html" id="popoverBindingTemplate8">
+            <button class="close pull-right" type="button" data-dismiss="popoverBindingHeader8">×</button>
+             <form>
+                    <input type="text" name="midcalf" data-bind="value: popoverBindingHeader8, valueUpdate:'afterkeydown'" />
+             </form>
+   </script>
 </body>
 </html>
 

@@ -46,18 +46,18 @@ class Occurrence{
 		  ->rrule($rrule)
 		  ->generateOccurrences();
 
-		$grouped_expected_occurences = array();
+		$grouped_expected_occurrences = array();
 		foreach ($r->occurrences as $occurrence) {
 			$date = date('Y-m-d', $occurrence->getTimestamp());
 			$dateTime = date('Y-m-d H:i:s', $occurrence->getTimestamp());
-			$grouped_expected_occurences[$date][] = array(
+			$grouped_expected_occurrences[$date][] = array(
 										'expected' => $dateTime,
 										'schedule_id' => $schedule_id,
 										'meta_value' => array()
 									);
 		}
 
-		return $grouped_expected_occurences;
+		return $grouped_expected_occurrences;
 	}
 
 	/**
@@ -80,10 +80,10 @@ class Occurrence{
 
 		$occurrences = $results;
 
-		$grouped_occurences = array();
+		$grouped_occurrences = array();
 		foreach ($occurrences as $occurrence) {
 			$occurrence->meta_value = maybe_unserialize($occurrence->meta_value);
-			$grouped_occurences[date('Y-m-d', strtotime($occurrence->occurrence))][] = $occurrence;
+			$grouped_occurrences[date('Y-m-d', strtotime($occurrence->occurrence))][] = $occurrence;
 		}
 		
 		$arr = array();
@@ -92,16 +92,16 @@ class Occurrence{
 			$arr1 = array();
 			$arr2 = array();
 
-			if(!isset($grouped_occurences[$date]))
-				$grouped_occurences[$date] = array();
+			if(!isset($grouped_occurrences[$date]))
+				$grouped_occurrences[$date] = array();
 
-			if(count($grouped_occurences[$date]) >= count($occurrences)){
-			 	$arr1 = $grouped_occurences[$date];
+			if(count($grouped_occurrences[$date]) >= count($occurrences)){
+			 	$arr1 = $grouped_occurrences[$date];
 			 	$arr2 = $expected_occurrences[$date];
 			}
 			else{
 				$arr1 = $expected_occurrences[$date];
-				$arr2 = $grouped_occurences[$date];
+				$arr2 = $grouped_occurrences[$date];
 			}
 
 			foreach ($arr1 as $occ) {
@@ -182,4 +182,43 @@ class Occurrence{
 
 		return apply_filters('aj_occurrence_model', $occurrence);
 	}
+
+	/**
+	 * Returns the latest upcoming events and updates the next expected occurence
+	 */ 
+	public static function get_upcoming_occurrences($object_type, $end_dt,  $start_dt = '', $object_id = 0){
+
+		global $wpdb;
+
+		$table_name = "{$wpdb->prefix}aj_schedules";
+
+		$object_id_query = '';
+
+		if($object_id !== 0)
+			$object_id_query = $wpdb->prepare(' AND object_id=%d', $object_id);
+
+		if($start_dt === ''){
+			$start_dt = current_time('mysql');
+		}
+
+		if(strtotime($start_dt) > strtotime($end_dt) )
+			return new \WP_Error('invalid_start_end_date_time', __('Invalid start and end date time'));
+
+		$query = $wpdb->prepare("SELECT * FROM $table_name 
+								 WHERE object_type=%s $object_id_query 
+								 AND next_occurrence BETWEEN %s AND %s", $object_type, $start_dt, $end_dt);
+
+		$schedules = (array)$wpdb->get_results($query);
+
+		foreach ($schedules as $schedule) {
+			$next_occurrence = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+			$schedule->next_occurrence = $next_occurrence;
+		}
+
+		do_action('aj_upcoming_occurrences', $schedules);
+
+		return $schedules;
+		
+	}
 }
+

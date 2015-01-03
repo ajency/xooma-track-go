@@ -274,6 +274,7 @@ class User
         $product_type_table = $wpdb->prefix . "defaults";
 
         $product_main_table = $wpdb->prefix . "product_main";
+        
         $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
 
         $products_arr = array();
