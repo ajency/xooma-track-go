@@ -2341,6 +2341,9 @@ output {
   line-height: 1.7;
   color: #999999;
 }
+.form-control-sm {
+  width: 50% !important;
+}
 .form-control {
   display: block;
   width: 100%;
@@ -9626,11 +9629,12 @@ h6.brand {
     display: -webkit-box;
     line-height: 16px;
     /* fallback */
-    max-height: 32px;
+    max-height: 130px;
     /* fallback */
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     /* number of lines to show */
     -webkit-box-orient: vertical;
+    margin-bottom: 30px;
   }
 }
 .lg-icon {
