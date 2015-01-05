@@ -62,7 +62,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/handlebars/handlebars.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.date.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/moxie.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/compressed/picker.time.js"></script><script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/moxie.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/plupload/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jQuery-Storage-API/jquery.storageapi.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/cryptojslib/rollups/md5.js"></script>
@@ -72,8 +72,6 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/classie/classie.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment/min/moment.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/knockout/dist/knockout.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/knockout-bootstrap/build/knockout-bootstrap.min.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -125,54 +123,7 @@ window.ParsleyValidator
 
  
 </script>
-<script type="text/html" id="popoverBindingTemplate">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="neck" id="neck" data-bind="value: popoverBindingHeader,      valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
-   <script type="text/html" id="popoverBindingTemplate2">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="chest" data-bind="value: popoverBindingHeader2, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
-    <script type="text/html" id="popoverBindingTemplate3">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="arm" data-bind="value: popoverBindingHeader3, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
-   <script type="text/html" id="popoverBindingTemplate4">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="abdomen" data-bind="value: popoverBindingHeader4, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
- <script type="text/html" id="popoverBindingTemplate5">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="waist" data-bind="value: popoverBindingHeader5, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
-    <script type="text/html" id="popoverBindingTemplate6">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="hips" data-bind="value: popoverBindingHeader6, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
-   <script type="text/html" id="popoverBindingTemplate7">
-            <button class="close pull-right" type="button" data-dismiss="popover">×</button>
-             <form>
-                    <input type="text" name="thigh" data-bind="value: popoverBindingHeader7, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
-<script type="text/html" id="popoverBindingTemplate8">
-            <button class="close pull-right" type="button" data-dismiss="popoverBindingHeader8">×</button>
-             <form>
-                    <input type="text" name="midcalf" data-bind="value: popoverBindingHeader8, valueUpdate:'afterkeydown'" />
-             </form>
-   </script>
+
 </body>
 </html>
 

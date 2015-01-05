@@ -115,7 +115,7 @@ class Schedule{
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
 		$record = $schedule_args;
-
+		print_r($record);
 		$wpdb->insert($table_name, $record);
 
 		$schedule_id = $wpdb->insert_id;

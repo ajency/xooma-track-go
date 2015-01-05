@@ -185,6 +185,7 @@ class User
             $data['hips']  = $user_details['hips'];
             $data['thigh']  = $user_details['thigh'];
             $data['midcalf']  = $user_details['midcalf'];
+            $data['arm']  = $user_details['arm'];
             $data['date']  = $sql_query->date;
 
 
@@ -227,13 +228,19 @@ class User
 
     public function update_user_product_details($id,$pid,$data){
 
-        //function to update Anytime users details
-        $response = update_anytime_product_details($id,$pid,$products_data['response']);
+        
 
         if($data['frequency_type']==2){
             //function to update schedule users details
-            $response = update_schedule_product_details($id,$pid,$products_data['response']);
+            $response = update_schedule_product_details($id,$pid,$data);
         }
+        else
+        {
+            //function to update Anytime users details
+            $response = update_anytime_product_details($id,$pid,$data);
+        }
+
+        return $response;
 
     }
 
@@ -242,27 +249,17 @@ class User
         global $wpdb;
         $product_main_table = $wpdb->prefix . "product_main";
 
-        $updated_id = $wpdb->update(
-            $product_main_table,
-            array(
-                'deleted_flag' => 1
-            ),
-            array( 'user_id'        => $id,
-                   'product_id'     => $pid
-            ),
-            array( '%d'),
-            array( '%d',
-                   '%d'
-            )
-        );
+        $updated_id = $wpdb->query("UPDATE $product_main_table SET deleted_flag=1 where user_id=".$id." and product_id='".$pid."'");
+            
+        
 
         if($updated_id){
 
-            return array('status'=>200,'response'=>$updated_id);
+            return $updated_id;
         }
         else
         {
-            return new WP_Error( 'json_user_not_deleted', __( 'User not deleted.' ), array( 'status' => 500 ) );
+            return new WP_Error( 'json_user_not_deleted', __( 'User not deleted.' ) );
         }
     }
 
@@ -274,7 +271,7 @@ class User
         $product_type_table = $wpdb->prefix . "defaults";
 
         $product_main_table = $wpdb->prefix . "product_main";
-        
+
         $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
 
         $products_arr = array();
@@ -548,6 +545,58 @@ class User
     return $pr_main;
         
 
+    }
+
+    public function get_user_product_details($id,$pid){
+
+        global $wpdb;
+
+        global $user;
+
+        $user = new User();
+
+        $product_main_table = $wpdb->prefix . "product_main";
+
+        $product_meta_table = $wpdb->prefix . "product_meta";
+
+        $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid);
+
+        $sub_query = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='qty_per_servings' and main_id = ".$sql_query->id);
+
+        $servings = array();
+        foreach ($sub_query as $key => $value) {
+           
+            $data  = maybe_unserialize($value->value);
+            
+            $servings[] = array(
+                'qty'       => $data['qty'],
+                'when'      => $data['when']
+
+                );
+
+
+
+        }
+       
+
+        $sub_query1 = $wpdb->get_row("SELECT * FROM $product_meta_table WHERE `key`='no_of_containers' and main_id = ".$sql_query->id);
+
+        $data1 = maybe_unserialize($sub_query1->value);
+
+        
+
+        $response = array(
+            'id'                    => $pid,
+            'no_of_container'       => $data1['no_of_container'],
+            'total'                 => $data1['available'],
+            'reminder_flag'          => $data1['reminder'],
+            'qty'                   => $servings
+
+
+
+            );
+
+        return $response;
     }
    
 }

@@ -131,7 +131,7 @@ class User_API
         $data['hips']                       = $_REQUEST['hips'];
         $data['thigh']                      = $_REQUEST['thigh'];
         $data['midcalf']                    = $_REQUEST['midcalf'];
-        $data['calf']                       = $_REQUEST['calf'];
+        $data['arm']                       = $_REQUEST['arm'];
         $date                               = $_REQUEST['date_field'];
 
 
@@ -210,21 +210,45 @@ class User_API
         global $user;
 
         $data = array();
-        $data['frequency_type'] = $_REQUEST['frequency_type'];
-        $data['servings_count'] = $_REQUEST['servings_count'];
         $data['servings_per_day'] = $_REQUEST['servings_per_day'];
-
-        for($i=0;$i<$data['servings_count'];$i++)
+        $data['frequency_type'] = $_REQUEST['frequency_type'];
+        $servings = $_REQUEST['servings_per_day'];
+        if($_REQUEST['time_set'] !="")
         {
-            $data['quantity_per_servings']  = $_REQUEST['quantity_per_servings'.$i];
-            $data['when']                   = $_REQUEST['when'.$i];
-            $data['hour']                   = $_REQUEST['hour'.$i];
-            $data['min']                    = $_REQUEST['min'.$i];
-            $data['period']                 = $_REQUEST['period'.$i];
-        }
+            echo $servings = $_REQUEST['time_set'] == 'Once' ? 1 : 2 ;
+        } 
 
-        $data['no_of_containers']   = $_REQUEST['no_of_containers'];
-        $data['set_reminder']       = $_REQUEST['set_reminder'];
+        if($_REQUEST['servings_diff'] == 0)
+        {
+            for($i=0;$i<$servings;$i++)
+            {
+                $data['qty_per_servings'.$i]  = $_REQUEST['qty_per_servings'];
+                $data['when'.$i]              = 1;
+                
+            }
+        }
+        else
+        {
+            for($i=0;$i<$servings;$i++)
+            {
+                $data['qty_per_servings'.$i]  = $_REQUEST['qty_per_servings'.$i];
+                $data['when'.$i]              = $_REQUEST['when'.$i];
+                
+            }
+        }
+        
+
+        $data['no_of_container']   = $_REQUEST['no_of_container'];
+        $data['available']       = $_REQUEST['available'];
+        $data['reminder']       = $_REQUEST['reminder'];
+
+        if($_REQUEST['reminder'] == 1)
+        {
+            for($i=0;$i<$servings;$i++)
+            {
+                $data['reminder_time']  = $_REQUEST['reminder_time'.$i];
+            }
+        }
 
 
 
@@ -232,15 +256,43 @@ class User_API
 
         $response = $user->update_user_product_details($id,$pid,$data);
 
+        if(empty($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
         return $response;
     }
 
-    public function xooma_remove_user_product_details($is,$pid){
+    public function xooma_remove_user_product_details($id,$pid){
 
         // removeuser product details
         global $user;
 
+        
+
         $response = $user->delete_user_product_details($id,$pid);
+
+        if(empty($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
 
         return $response;
     }
@@ -309,5 +361,31 @@ class User_API
         }
 
          return $response;
+    }
+
+    public function xooma_get_user_product_details($id,$pid)
+    {
+
+         global $user;
+
+        
+
+        $response = $user->get_user_product_details($id,$pid);
+
+        if(empty($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+
     }
 }

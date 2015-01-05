@@ -290,30 +290,80 @@
 
 										<div class="col-sm-6 imageMap">
 
-												<a  class="hotspot-neck " data-bind="popover: {template: 'popoverBindingTemplate1', title: 'Neck'}">
-                        <i class="fa fa-dot-circle-o"></i>
+									           <a  class="hotspot-neck link" href="#demo2_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo2_tip', {sticky:true})">
+            <i class="fa fa-dot-circle-o"></i>
            </a>
-          <a class="hotspot-chest " data-bind="popover: {template: 'popoverBindingTemplate2', title: 'Chest'}">
+        <div style="display:none;">
+            <div id="demo2_tip">
+                <b>Neck</b><br />
+           <input type="text" name="neck" value="{{measurements.neck}}" />
+            </div>
+        </div>
+          <a class="hotspot-chest link" href="#demo3_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo3_tip', {sticky:true})" >
               <i class="fa fa-dot-circle-o"></i>
           </a>
+        <div style="display:none;">
+            <div id="demo3_tip">
+                <b>Chest</b><br />
+           <input type="text" name="chest" value="{{measurements.chest}}" />
+            </div>
+        </div>
+           <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <div style="display:none;">
+            <div id="demo4_tip">
+                <b>Arm</b><br />
+           <input type="text" name="arm" value="{{measurements.arm}}" />
+            </div>
+        </div>
+           <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+        <div style="display:none;">
+            <div id="demo5_tip">
+                <b>Abdomen</b><br />
+           <input type="text" name="abdomen" value="{{measurements.abdomen}}" />
+            </div>
+        </div>
+           <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
+    
+           </a>
+         <div style="display:none;">
+            <div id="demo6_tip">
+                <b>Waist</b><br />
+           <input type="text" name="waist" value="{{measurements.waist}}" />
+            </div>
+        </div>
+           <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
+                <i class="fa fa-dot-circle-o"></i>
+         
+           </a>
+                          <div style="display:none;">
+            <div id="demo7_tip">
+                <b>Hips</b><br />
+           <input type="text" name="hips" value="{{measurements.hips}}" />
+            </div>
+        </div>  
+           <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
+                          <div style="display:none;">
+            <div id="demo8_tip">
+                <b>Thigh</b><br />
+           <input type="text" name="thigh" value="{{measurements.thigh}}" />
+            </div>
+        </div>  
+           <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
 
-           <a class="hotspot-arm " data-bind="popover: {template: 'popoverBindingTemplate3', title: 'Arm'}">
-                <i class="fa fa-dot-circle-o"></i>
-           </a>
-           <a class="hotspot-abdomen " data-bind="popover: {template: 'popoverBindingTemplate4', title: 'Abdomen'}">
-                <i class="fa fa-dot-circle-o"></i>
-           </a>
-           <a class="hotspot-waist " data-bind="popover: {template: 'popoverBindingTemplate5', title: 'Waist'}">                  <i class="fa fa-dot-circle-o"></i>
-           </a>
-           <a class="hotspot-hips " data-bind="popover: {template: 'popoverBindingTemplate6', title: 'Hips'}">
-                <i class="fa fa-dot-circle-o"></i>
-           </a>
-           <a class="hotspot-thigh " data-bind="popover: {template: 'popoverBindingTemplate7', title: 'Thigh'}" >
-               <i class="fa fa-dot-circle-o"></i>
-           </a>
-           <a class="hotspot-midcalf "  data-bind="popover: {template: 'popoverBindingTemplate8', title: 'Midcalf'}" >
-               <i class="fa fa-dot-circle-o"></i>
-           </a>
+                         <div style="display:none;">
+            <div id="demo9_tip">
+                <b>Midcalf</b><br />
+           <input type="text" name="midcalf" value="{{measurements.midcalf}}"/>
+            </div>
+        </div> 
           
   
    
@@ -446,7 +496,7 @@ markupup
 
 <script id="edit-product-template" type="text/template">
     <div class="container"> </br></br>
-        <h3 class="bold">X20</h3>
+        <h3 class="bold">{{name}}</h3>
           <div class="row">
             <div class="col-md-6 col-xs-12">
                   <div class="row">
@@ -458,65 +508,169 @@ markupup
                     </div>
                 </div>
             </div>
+            <form id="edit_product" class="form-horizontal" role="form" method="POST">
             <div class="col-md-6 col-xs-12">
-                <b>Chosse the consumtion of X20</b>
+                <b>Chosse the consumtion of {{name}}</b>
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">Any Time</button>
+                    <button type="button" {{anytime}}  class="btn btn-default {{anytimeclass}}">Any Time</button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default btn-primary
-">Set Time</button>
-                  </div>
+                    <button type="button"  {{schedule}} class="btn btn-default {{scheduleclass}}">Schedule</button>
+                  <input type="hidden" name="frequency_type" value="{{frequency_value}}" /> </div>
                 </div>
+                <div class="asperbmi">
                  <b class="m-t-20 center-block">Recommended Number of Bottle</b>
                     <h4 class="text-center margin-none"> <output></output> <small>Bottle</small></h4>
-                    <input class="pull-left" type="range" min="1" max="9" step="1" value="1" data-rangeslider>
-           
-              <form class="form-horizontal m-t-30">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
-    container</label>
+                    <input class="pull-left" type="range" name="x20" min="1" max="9" step="1" value="1" data-rangeslider>
+           </div>
+              <input type="hidden" name="time_set" id="time_set" value="{{time_set}}" / >
+              <div class="anytime">
+              <div class="form-group">
+    <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Serving per day</label>
     <div class="col-sm-6 col-xs-5 ">
-      <select class="form-control">
+      <select class="form-control servings_per_day " name="servings_per_day">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="checkbox">
+    <label class=" control-label">
+     &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set diffrent quantity per serving
+    </label>
+  </div> 
+ 
+  </div> 
+  <div class="qty_per_servings_div">
+  <div class="qtyper">
+  <div class="form-group ">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">QTY. Per Serving</label>
+    <div class="col-sm-6 col-xs-5">
+      <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings">
           <option>1</option>
           <option>2</option>
           <option>3</option>
           <option>4</option>
           <option>5</option>
+        </select> <label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>
+    </div>
+  </div>
+    </div>
+
+  </div>
+  </div> 
+  <div class="schedule">
+  <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
+    <div class="col-sm-6 col-xs-6 ">
+     <div class="btn-group" role="group" aria-label="...">
+      <button type="button" data-time="Once" class="btn btn-default schedule {{once}}">  Once</button>
+      <button type="button" data-time="Twice" class="btn btn-default schedule {{twice}}"> Twice</button>
+      
+    </div>
+    </div>
+  
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>QTY. Per Serving</b></label>
+   <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
+ </div>
+ <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving1</label>
+    <div class="col-sm-4 col-xs-4 ">
+      <select class="form-control qty1" name="qty1">
+          <option value="1">1 capsule</option>
+          <option value="2">2 capsule</option>
+          <option value="3">3 capsule</option>
+          <option value="4">4 capsule</option>
+          <option value="5">5 capsule</option>
+        </select>
+    </div>
+        <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control when1" name="when1">
+          <option value="1">Morning Before meal</option>
+          <option value="2">Morning After meal</option>
+          <option value="3">Night Before Meal</option>
+          <option value="4">Night After Meal</option>
+        </select>
+    </div>
+  </div>
+  <div class="second">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving2</label>
+    <div class="col-sm-4 col-xs-4 ">
+      <select class="form-control qty2" name="qty2">
+          <option value="1">1 capsule</option>
+          <option value="2">2 capsule</option>
+          <option value="3">3 capsule</option>
+          <option value="4">4 capsule</option>
+          <option value="5">5 capsule</option>
+        </select>
+    </div>
+        <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control when2" name="when2">
+          <option value="1">Morning Before meal</option>
+          <option value="2">Morning After meal</option>
+          <option value="3">Night Before Meal</option>
+          <option value="4">Night After Meal</option>
+        </select>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
+    container</label>
+    <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control no_of_container" name="no_of_container">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Available with me</label>
     <div class="col-sm-6 col-xs-5">
-      <p class="form-control-static">30 sachets</p>
+      <p class="form-control-static">{{total}}&nbsp;{{product_type_name}}</p>
+      <input type="hidden" name="available" id="available" value="{{total}}" /> 
     </div>
   </div>
 <div class="form-group">
     <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set Reminder</label>
     <div class="col-sm-6 col-xs-5 ">
      <div class="btn-group" role="group" aria-label="...">
-      <button type="button" class="btn btn-success">  Yes</button>
-      <button type="button" class="btn btn-default"> No</button>
+      <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
+      <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
+      <input type="hidden" name="reminder" id="reminder" value="{{reminder}}" /> 
     </div>
     </div>
   </div>
-<div class="form-group">
+  <div class="reminder_div">
+  <div class="reminder">
+<div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
     <div class="col-sm-6 col-xs-5 ">
-     <input id="" class="fieldset__input js__timepicker form-control" type=text placeholder="Try me&hellip;">
+     <input name="reminder_time0" class="fieldset__input js__timepicker form-control" type="text" placeholder="Try me&hellip;">
     </div>
+  </div>
+  </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Save</button>
-         <button type="submit" class="btn btn-default">Cancel</button>
-         <button type="submit" class="btn btn-danger">Remove Product</button>
+      <button type="submit" class="btn btn-primary aj-submit-button save">Save</button>
+         <button type="button" class="btn btn-default">Cancel</button>
+         <button type="button" class="btn btn-danger remove">Remove Product</button>
     </div>
   </div>
-</form>
-              
+
+           
               
               
               

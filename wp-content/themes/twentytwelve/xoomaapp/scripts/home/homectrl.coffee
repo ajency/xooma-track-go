@@ -43,6 +43,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 			
 		data
 
+	
 
 
 class HomeX2OView extends Marionette.CompositeView
@@ -98,7 +99,7 @@ class ProductChildView extends Marionette.ItemView
 								<div class="row">
 									{{#qty}}
 									<div class="col-md-6  col-xs-6">
-										 <h4 class="text-center bold text-primary margin-none" >5 <sup class="text-muted">/ {{qty}}</sup></h4>
+										 <h4 class="text-center bold text-primary margin-none" >{{data.occurr}}<sup class="text-muted">/ {{qty}}</sup></h4>
 										<h6 >{{when}}</h6>
 									</div>
 									  {{/qty}}
@@ -127,7 +128,7 @@ class ProductChildView extends Marionette.ItemView
 			data.bonus = 0
 			occurrenceArr = []
 			bonusArr = 0
-			if occurrence == true
+			if occurrence == true && expected == true
 				date = val.expected
 				occurrenceArr.push date
 				
@@ -139,7 +140,14 @@ class ProductChildView extends Marionette.ItemView
 				recent = _.last occurrenceArr
 				data.time = moment(recent).format("ddd, hA")
 				data.occur =  occurrenceArr.length
+
 			data.bonus = bonusArr
+			data.occurrArr = occurrenceArr
+
+		console.log qty = @model.get 'qty'
+		$.each qty, (ind,val)->
+			console.log data.occurrArr[ind]
+			qty.push 'data.occurr' : data.occurrArr[ind]
 			
 		data
 

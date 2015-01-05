@@ -8,33 +8,39 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	className : 'animated fadeIn'
 
 	ui :
-		popoverElements : '.popover-element'
 		form : '#add_measurements'
 		rangeSliders : '[data-rangeslider]'
 		responseMessage : '.aj-response-message'
-		inputEle : '.input-ele'
+		link : '.link'
+		fa   : '.fa'
+		
 
 	behaviors :
 		FormBehavior :
 			behaviorClass : Ajency.FormBehavior
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
-
 		
-
+		
+			
+	$(document).on 'keypress' , (e)->
+		if  e.charCode == 46
+			console.log inputVal = $(e.target).val().split('.').length
+			if parseInt(inputVal) >= 2
+				return  false
+		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 ||	e.charCode == 44 
 	
 
 	onShow:->
-		@ui.popoverElements.popover html: true
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-		# $.getScript(_SITEURL+"/html/html/assets/js/data.js",  (item)->
-		# 	console.log "loaded"
-		# 	)
+		$.getScript(_SITEURL+"/wp-content/themes/twentytwelve/js/tooltip.js", (item)->
+			
+		)
+		
 		
 
 	onFormSubmit : (_formData)=>
-		console.log $('#neck').val()
 		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
 
 	    
