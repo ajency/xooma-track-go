@@ -1,0 +1,23 @@
+#create project
+cordova create XoomaApp com.xooma.alpha XoomaApp
+
+#Add Android platform
+cordova platform add android
+
+#Add Plugins
+cordova plugin add https://github.com/katzer/cordova-plugin-badge.git
+
+cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
+
+cordova plugin add org.apache.cordova.splashscreen
+
+cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
+
+cordova plugin add org.apache.cordova.network-information
+
+cordova plugin add https://github.com/Wizcorp/phonegap-plugin-localNotificationsbuild android
+
+cordova plugin add C:\Users\admin\Desktop\XoomaDetails\plugin\org.android.device
+
+#Plugin For Facebook
+cordova -d plugin add  https://github.com/Wizcorp/phonegap-facebook-plugin/ --variable APP_ID="355178387994693" --variable APP_NAME=“xooma”
