@@ -27,6 +27,9 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.events = {
+    'click .cancel': function(e) {
+      return App.navigate('#/profile/my-products', true);
+    },
     'click @ui.reminder_button': function(e) {
       var html1;
       $(this.ui.reminder_button).removeClass('btn-success');
@@ -248,7 +251,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, qty, reminder_flag, whendata, _ref, _ref1;
+    var container, product, products, qty, reminder_flag, whendata, _ref, _ref1;
     $('.js__timepicker').pickatime();
     if (parseInt(this.model.get('frequency_value')) === 1 && this.model.get('time_set') !== 'asperbmi') {
       $('.schedule').hide();
@@ -290,7 +293,12 @@ EditProductsView = (function(_super) {
     };
     $('#reminder').val(reminder_flag);
     $('.no_of_container option[value="' + container + '"]').attr("selected", "selected");
-    return $('#time_set').val(this.model.get('time_set'));
+    $('#time_set').val(this.model.get('time_set'));
+    console.log(product = this.model.get('id'));
+    products = App.currentUser.get('products');
+    if ($.inArray(product, products) === -1) {
+      return $('.remove').hide();
+    }
   };
 
   EditProductsView.prototype.showAnytimeData = function(model) {

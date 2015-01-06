@@ -666,7 +666,7 @@ markupup
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-primary aj-submit-button save">Save</button>
-         <button type="button" class="btn btn-default">Cancel</button>
+         <button type="button" class="btn btn-default cancel">Cancel</button>
          <button type="button" class="btn btn-danger remove">Remove Product</button>
     </div>
   </div>

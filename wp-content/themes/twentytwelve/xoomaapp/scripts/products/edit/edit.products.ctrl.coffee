@@ -12,6 +12,9 @@ class EditProductsView extends Marionette.ItemView
 		responseMessage : '.aj-response-message'
 
 	events:
+		'click .cancel':(e)->
+			App.navigate '#/profile/my-products', true
+
 		'click @ui.reminder_button':(e)->
 			$(@ui.reminder_button).removeClass 'btn-success'
 			$(e.target).addClass 'btn-success'
@@ -253,6 +256,11 @@ class EditProductsView extends Marionette.ItemView
 		$('.no_of_container option[value="'+container+'"]').attr("selected","selected");
 		# $( @ui.servings_per_day ).trigger( "change" );
 		$('#time_set').val @model.get 'time_set'
+
+		console.log product = @model.get('id')
+		products = App.currentUser.get 'products'
+		if $.inArray( product, products ) == -1
+			$('.remove').hide()
 		
 
 	showAnytimeData:(model)->
