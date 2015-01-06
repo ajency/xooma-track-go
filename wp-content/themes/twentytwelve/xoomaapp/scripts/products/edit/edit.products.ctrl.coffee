@@ -11,8 +11,13 @@ class EditProductsView extends Marionette.ItemView
 		reminder_button : '.reminder_button'
 		responseMessage : '.aj-response-message'
 		cancel			:	'.cancel'
+		rangeSliders : '[data-rangeslider]'
+		x2o				: 'x2o'
+		
 
 	events:
+		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+
 		'click @ui.cancel':(e)->
 			App.navigate '#/profile/my-products', true
 
@@ -185,6 +190,10 @@ class EditProductsView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
+
+		if @model.get('time_set') == 'asperbmi'
+			qty = @model.get 'qty'
+			data.x2o = qty[0].qty
 		frequecy = @model.get 'frequency_value'
 		if parseInt(frequecy) == 1 
 			data.anytime = ''
@@ -202,43 +211,45 @@ class EditProductsView extends Marionette.ItemView
 			else
 				data.once = ''
 				data.twice = 'btn-primary'
-		reminder_flag = @model.get('reminder_flag')
+		console.log reminder_flag = @model.get('reminder_flag')
 		if reminder_flag == undefined || reminder_flag == 0 || reminder_flag == 'true'
 			data.default = 'btn-success'
 			data.success = ''
-			$('#reminder').val 0
+			
 		else
 			data.default = ''
 			data.success = 'btn-success'
-			$('#reminder').val 1
+			
+		
 		data
 
 	
 
 	onShow:->
 		$('.js__timepicker').pickatime()
+		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
+		@ui.rangeSliders.rangeslider polyfill: false
+		
 		if parseInt(@model.get('frequency_value')) == 1 && @model.get('time_set') != 'asperbmi'
 			$('.schedule_data').hide()
 			$('.asperbmi').hide()
 			$('.servings_per_day option[value="'+@model.get('time_set')+'"]').prop("selected",true);
 			if parseInt(@model.get('time_set')) == 1
-				console.log @ui.servings_diff
 				$(@ui.servings_diff).prop 'disabled' , true
 			@showAnytimeData(@model)
 		else if parseInt(@model.get('frequency_value')) == 2
 			$('.anytime').hide()
 			$('.asperbmi').hide()
-			$('#timeset').val @model.get 'time_set'
+			
 			@showScheduleData(@model)
 		else
 			$('.schedule_data').hide()
 			$('.anytime').hide()
+			
 
-
+		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
-		container = container == undefined ? 1 : @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
-		reminder_flag = reminder_flag == undefined ? 0 : @model.get('reminder_flag')
 		$('#reminder').val reminder_flag
 		$('.no_of_container option[value="'+container+'"]').prop("selected",true);
 		# $( @ui.servings_per_day ).trigger( "change" );
@@ -248,6 +259,9 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		if $.inArray( product, products ) == -1
 			$('.remove').hide()
+
+	valueOutput : (element) =>
+		$(element).parent().find("output").html $(element).val()
 		
 
 	showScheduleData:(model)->
@@ -341,6 +355,7 @@ class App.EditProductsCtrl extends Ajency.RegionController
 
 
 	_showView:(productModel)->
+		console.log productModel
 		@show new EditProductsView
 					model : productModel
 

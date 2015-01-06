@@ -8,6 +8,7 @@ EditProductsView = (function(_super) {
   __extends(EditProductsView, _super);
 
   function EditProductsView() {
+    this.valueOutput = __bind(this.valueOutput, this);
     this.erroraHandler = __bind(this.erroraHandler, this);
     this.successSave = __bind(this.successSave, this);
     this.erroraHandler = __bind(this.erroraHandler, this);
@@ -24,10 +25,15 @@ EditProductsView = (function(_super) {
     form: '#edit_product',
     reminder_button: '.reminder_button',
     responseMessage: '.aj-response-message',
-    cancel: '.cancel'
+    cancel: '.cancel',
+    rangeSliders: '[data-rangeslider]',
+    x2o: 'x2o'
   };
 
   EditProductsView.prototype.events = {
+    'change @ui.rangeSliders': function(e) {
+      return this.valueOutput(e.currentTarget);
+    },
     'click @ui.cancel': function(e) {
       return App.navigate('#/profile/my-products', true);
     },
@@ -215,8 +221,12 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.serializeData = function() {
-    var data, frequecy, reminder_flag;
+    var data, frequecy, qty, reminder_flag;
     data = EditProductsView.__super__.serializeData.call(this);
+    if (this.model.get('time_set') === 'asperbmi') {
+      qty = this.model.get('qty');
+      data.x2o = qty[0].qty;
+    }
     frequecy = this.model.get('frequency_value');
     if (parseInt(frequecy) === 1) {
       data.anytime = '';
@@ -236,48 +246,47 @@ EditProductsView = (function(_super) {
         data.twice = 'btn-primary';
       }
     }
-    reminder_flag = this.model.get('reminder_flag');
+    console.log(reminder_flag = this.model.get('reminder_flag'));
     if (reminder_flag === void 0 || reminder_flag === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
-      $('#reminder').val(0);
     } else {
       data["default"] = '';
       data.success = 'btn-success';
-      $('#reminder').val(1);
     }
     return data;
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, product, products, reminder_flag, _ref, _ref1;
+    var container, product, products, reminder_flag;
     $('.js__timepicker').pickatime();
+    this.ui.rangeSliders.each((function(_this) {
+      return function(index, ele) {
+        return _this.valueOutput(ele);
+      };
+    })(this));
+    this.ui.rangeSliders.rangeslider({
+      polyfill: false
+    });
     if (parseInt(this.model.get('frequency_value')) === 1 && this.model.get('time_set') !== 'asperbmi') {
       $('.schedule_data').hide();
       $('.asperbmi').hide();
       $('.servings_per_day option[value="' + this.model.get('time_set') + '"]').prop("selected", true);
       if (parseInt(this.model.get('time_set')) === 1) {
-        console.log(this.ui.servings_diff);
         $(this.ui.servings_diff).prop('disabled', true);
       }
       this.showAnytimeData(this.model);
     } else if (parseInt(this.model.get('frequency_value')) === 2) {
       $('.anytime').hide();
       $('.asperbmi').hide();
-      $('#timeset').val(this.model.get('time_set'));
       this.showScheduleData(this.model);
     } else {
       $('.schedule_data').hide();
       $('.anytime').hide();
     }
+    $('#timeset').val(this.model.get('time_set'));
     container = this.model.get('no_of_container');
-    container = (_ref = container === void 0) != null ? _ref : {
-      1: this.model.get('no_of_container')
-    };
     reminder_flag = this.model.get('reminder_flag');
-    reminder_flag = (_ref1 = reminder_flag === void 0) != null ? _ref1 : {
-      0: this.model.get('reminder_flag')
-    };
     $('#reminder').val(reminder_flag);
     $('.no_of_container option[value="' + container + '"]').prop("selected", true);
     product = parseInt(this.model.get('id'));
@@ -285,6 +294,10 @@ EditProductsView = (function(_super) {
     if ($.inArray(product, products) === -1) {
       return $('.remove').hide();
     }
+  };
+
+  EditProductsView.prototype.valueOutput = function(element) {
+    return $(element).parent().find("output").html($(element).val());
   };
 
   EditProductsView.prototype.showScheduleData = function(model) {
@@ -394,6 +407,7 @@ App.EditProductsCtrl = (function(_super) {
   };
 
   EditProductsCtrl.prototype._showView = function(productModel) {
+    console.log(productModel);
     return this.show(new EditProductsView({
       model: productModel
     }));

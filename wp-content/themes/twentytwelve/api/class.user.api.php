@@ -226,6 +226,16 @@ class User_API
             }
         } 
 
+        else if ($_REQUEST['timeset'] =="asperbmi")
+        {
+            $data['servings_per_day'] = 1;
+            for($i=0;$i<$servings;$i++)
+            {
+                $data['qty_per_servings'.$i]  = $_REQUEST['x2o'];
+                $data['when'.$i]              = 1;
+                
+            }
+        }
         else
         {
             $data['servings_per_day'] = $_REQUEST['servings_per_day'];
@@ -239,10 +249,11 @@ class User_API
         
         
 
-        $data['no_of_container']   = $_REQUEST['no_of_container'];
-        $data['available']       = $_REQUEST['available'];
-        $data['reminder']       = $_REQUEST['reminder'];
-        $data['check']       = $_REQUEST['check'];
+        $data['no_of_container']    = $_REQUEST['no_of_container'];
+        $data['available']          = $_REQUEST['available'];
+        $reminder = $_REQUEST['reminder'] == "" ? 0 : $_REQUEST['reminder'];
+        $data['reminder']           = $reminder;
+        $data['check']              = $_REQUEST['check'];
 
         if($_REQUEST['reminder'] == 1)
         {

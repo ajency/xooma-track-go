@@ -523,7 +523,7 @@ markupup
                 <div class="asperbmi">
                  <b class="m-t-20 center-block">Recommended Number of Bottle</b>
                     <h4 class="text-center margin-none"> <output></output> <small>Bottle</small></h4>
-                    <input class="pull-left" type="range" name="x20" min="1" max="9" step="1" value="1" data-rangeslider>
+                    <input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{x2o}}" data-rangeslider>
            </div>
               
               <div class="anytime">
@@ -650,7 +650,7 @@ markupup
      <div class="btn-group" role="group" aria-label="...">
       <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
       <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
-      <input type="hidden" name="reminder" id="reminder" value="" /> 
+      <input type="hidden" name="reminder" id="reminder" value="0" /> 
     </div>
     </div>
   </div>
