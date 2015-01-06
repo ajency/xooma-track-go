@@ -11,7 +11,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 	
 		
 	onShow : ->
-		console.log state = App.currentUser.get 'state'
+		state = App.currentUser.get 'state'
 		if state != '/home'
 			@ui.link.hide()
 		else

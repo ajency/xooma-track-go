@@ -397,6 +397,8 @@ class User
 
         global $user;
 
+        global $productList;
+
         $user = new User();
 
         $product_type_table = $wpdb->prefix . "defaults";
@@ -407,7 +409,7 @@ class User
         
         $pr_main = array();
        
-        global $productList;
+        
         
         foreach ($sql_query as $key => $term) {
 

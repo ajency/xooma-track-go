@@ -341,7 +341,7 @@ function update_anytime_product_details($id,$pid,$data){
         date_default_timezone_set("UTC");
         $interval = 24/intval($data['servings_per_day']);
         $today = strtotime('00:00:00');
-       $start = date("Y-m-d 00:00:00");
+        $start = date("Y-m-d 00:00:00");
         $schedule_data = array(
             'object_type' => 'user_product',
             'object_id' => $main_id,
@@ -366,7 +366,7 @@ function update_anytime_product_details($id,$pid,$data){
   }
   else
   {
-    echo "DELETE from $product_meta_table where main_id=".$sql_query->id;
+    
     $query = $wpdb->query("DELETE from $product_meta_table where main_id=".$sql_query->id);
 
 
@@ -527,7 +527,6 @@ function update_schedule_product_details($id,$pid,$data){
   }
   else
   {
-    echo "DELETE from $product_meta_table where main_id=".$sql_query->id;
     $query = $wpdb->query("DELETE from $product_meta_table where main_id=".$sql_query->id);
 
 
@@ -586,72 +585,6 @@ function update_schedule_product_details($id,$pid,$data){
 
     }
 
-
-}
-
-function get_fblogin_status($data){
-
-        $user_newid = 'FB_'.$data['userData']['id'];
-
-        $user_name = username_exists( $user_newid );
-
-        //register the user if not exist
-        if ( !$user_name && email_exists($data->email) == false ) {
-            $random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
-            $user_name = wp_create_user( $user_newid, $random_password, $data['userData']['email'] );
-        }
-
-        $user = get_user_by('email', $data['userData']['email'] );
-
-
-
-        //set user data
-        $userprofiledata = array(
-                        'ID' => $user->ID,
-                        'first_name' => $data['userData']['first_name'],
-                        'last_name' => $data['userData']['last_name'],
-                        'display_name' => $data['userData']['first_name'],
-                        'user_nicename' => sanitize_title($user->user_login),
-                        'user_url' => $data['userData']['link']
-            );
-
-        wp_update_user( $userprofiledata );
-
-
-
-        $avatar_url = $data['userData']['link'];
-
-        //Update user meta
-        update_user_meta( $user->ID, 'facebook_uid', $data['userData']['id'] );
-        update_user_meta( $user->ID, 'facebook_avatar_full', $avatar_url );
-        update_user_meta( $user->ID, 'facebook_avatar_thumb', $avatar_url );
-        update_user_meta( $user->ID, 'first_name', $data['userData']['first_name'] );
-        update_user_meta( $user->ID, 'last_name', $data['userData']['last_name']);
-        update_user_meta( $user->ID, 'display_name', $data['userData']['first_name'] );
-
-
-
-        if ( !is_wp_error( $user ) )
-                {
-                    wp_clear_auth_cookie();
-                    wp_set_current_user ( $user->ID );
-
-
-                  //get the user id
-                  $user_id = $user->ID;
-
-
-                  $response = login_response($user_id);
-
-                }
-
-
-           else{
-                $response = array('status'=>false);
-            }
-
-
-    return $response;
 
 }
 
@@ -865,7 +798,7 @@ function get_occurrence_date($product_id,$user_id=""){
   if(!is_wp_error($object_id)){
 
     //get schedule id
-  $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+    $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
     $start_datetime = date('Y-m-d 00:00:00');
     $end_datetime = date('Y-m-d 23:59:59');

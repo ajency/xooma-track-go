@@ -210,16 +210,25 @@ class User_API
         global $user;
 
         $data = array();
-        $data['servings_per_day'] = $_REQUEST['servings_per_day'];
+        
         $data['frequency_type'] = $_REQUEST['frequency_type'];
         $servings = $_REQUEST['servings_per_day'];
-        if($_REQUEST['time_set'] =="Once" || $_REQUEST['time_set'] =="Twice")
+        if($_REQUEST['timeset'] =="Once" || $_REQUEST['timeset'] =="Twice")
         {
-           $servings = $_REQUEST['time_set'] == 'Once' ? 1 : 2 ;
+           $servings = $_REQUEST['timeset'] == 'Once' ? 1 : 2 ;
+           $data['servings_per_day'] = $servings;
+           for($i=0;$i<$servings;$i++)
+            {
+                
+                $data['qty_per_servings'.$i]  = $_REQUEST['qty_per_servings'.$i];
+                $data['when'.$i]              = $_REQUEST['when'.$i];
+                
+            }
         } 
 
-        if($_REQUEST['servings_diff'] == 0)
+        else
         {
+            $data['servings_per_day'] = $_REQUEST['servings_per_day'];
             for($i=0;$i<$servings;$i++)
             {
                 $data['qty_per_servings'.$i]  = $_REQUEST['qty_per_servings'];
@@ -227,15 +236,7 @@ class User_API
                 
             }
         }
-        else
-        {
-            for($i=0;$i<$servings;$i++)
-            {
-                $data['qty_per_servings'.$i]  = $_REQUEST['qty_per_servings'.$i];
-                $data['when'.$i]              = $_REQUEST['when'.$i];
-                
-            }
-        }
+        
         
 
         $data['no_of_container']   = $_REQUEST['no_of_container'];
@@ -252,7 +253,7 @@ class User_API
         }
 
 
-
+        
 
 
         $response = $user->update_user_product_details($id,$pid,$data);

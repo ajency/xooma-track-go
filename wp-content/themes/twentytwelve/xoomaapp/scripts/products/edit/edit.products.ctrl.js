@@ -23,11 +23,12 @@ EditProductsView = (function(_super) {
     servings_per_day: '.servings_per_day',
     form: '#edit_product',
     reminder_button: '.reminder_button',
-    responseMessage: '.aj-response-message'
+    responseMessage: '.aj-response-message',
+    cancel: '.cancel'
   };
 
   EditProductsView.prototype.events = {
-    'click .cancel': function(e) {
+    'click @ui.cancel': function(e) {
       return App.navigate('#/profile/my-products', true);
     },
     'click @ui.reminder_button': function(e) {
@@ -47,7 +48,7 @@ EditProductsView = (function(_super) {
       var data, product;
       e.preventDefault();
       data = this.ui.form.serialize();
-      console.log(product = this.model.get('id'));
+      product = this.model.get('id');
       return $.ajax({
         method: 'POST',
         url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
@@ -58,7 +59,7 @@ EditProductsView = (function(_super) {
     },
     'click .remove': function(e) {
       var product, products;
-      console.log(product = this.model.get('id'));
+      product = this.model.get('id');
       products = App.currentUser.get('products');
       if ($.inArray(product, products) > -1) {
         return $.ajax({
@@ -72,7 +73,7 @@ EditProductsView = (function(_super) {
     'click @ui.schedule': function(e) {
       $(this.ui.schedule).removeClass('btn-primary');
       $(e.target).addClass('btn-primary');
-      $('#time_set').val($(e.target).attr('data-time'));
+      $('#timeset').val($(e.target).attr('data-time'));
       if ($(e.target).attr('data-time') === 'Once') {
         return $('.second').hide();
       } else {
@@ -81,7 +82,6 @@ EditProductsView = (function(_super) {
     },
     'click @ui.servings_diff ': function(e) {
       var html, i, servings;
-      console.log($(this.ui.servings_diff).prop('checked'));
       if ($(this.ui.servings_diff).prop('checked') === true) {
         $(e.target).val('1');
         $('#check').val('1');
@@ -95,7 +95,7 @@ EditProductsView = (function(_super) {
         $('.qty_per_servings_div').text("");
         $('.qty_per_servings_div').append(html);
         $('.qty_per_servings').each(function(ind, val) {
-          console.log(val.name = 'qty_per_servings' + ind);
+          val.name = 'qty_per_servings' + ind;
           return val.id = 'qty_per_servings' + ind;
         });
       } else {
@@ -105,7 +105,7 @@ EditProductsView = (function(_super) {
         $('.qty_per_servings_div').text("");
         $('.qty_per_servings_div').append(html);
         $('.qty_per_servings').each(function(ind, val) {
-          console.log(val.name = 'qty_per_servings' + ind);
+          val.name = 'qty_per_servings' + ind;
           return val.id = 'qty_per_servings' + ind;
         });
       }
@@ -125,19 +125,18 @@ EditProductsView = (function(_super) {
         $('.qty_per_servings_div').append(html);
         $('.reminder_div').append(html1);
         $('.qty_per_servings').each(function(ind, val) {
-          console.log(val.name = 'qty_per_servings' + ind);
+          val.name = 'qty_per_servings' + ind;
           return val.id = 'qty_per_servings' + ind;
         });
         $('.js__timepicker').each(function(ind, val) {
-          return console.log(val.name = 'reminder_time' + ind);
+          return val.name = 'reminder_time' + ind;
         });
       } else if ($(this.ui.servings_diff).prop('checked') === true) {
         $(this.ui.servings_diff).prop('disabled', false);
-        console.log(servings = $('.servings_per_day').val());
+        servings = $('.servings_per_day').val();
         html = "";
         i = 1;
         while (i <= servings) {
-          console.log($('.qtyper').first().html());
           html += '<div class="qtyper">' + $('.qtyper').first().html() + '</div>';
           i++;
         }
@@ -153,7 +152,6 @@ EditProductsView = (function(_super) {
     },
     'change .no_of_container': function(e) {
       var cnt;
-      console.log(this.model.get('total'));
       cnt = parseInt($(e.target).val()) * parseInt(this.model.get('total'));
       $('#available').val(cnt);
       return $('.available').text(cnt);
@@ -164,7 +162,7 @@ EditProductsView = (function(_super) {
     var html1, i, servings;
     if (parseInt($('#reminder').val()) === 1) {
       $(this.ui.servings_diff).prop('disabled', false);
-      console.log(servings = $('.servings_per_day').val());
+      servings = $('.servings_per_day').val();
       html1 = "";
       i = 1;
       while (i <= servings) {
@@ -174,7 +172,7 @@ EditProductsView = (function(_super) {
       $('.reminder_div').text("");
       $('.reminder_div').append(html1);
       return $('.js__timepicker').each(function(ind, val) {
-        return console.log(val.name = 'reminder_time' + ind);
+        return val.name = 'reminder_time' + ind;
       });
     }
   };
@@ -218,7 +216,7 @@ EditProductsView = (function(_super) {
   EditProductsView.prototype.serializeData = function() {
     var data, frequecy, reminder_flag;
     data = EditProductsView.__super__.serializeData.call(this);
-    console.log(frequecy = this.model.get('frequency_value'));
+    frequecy = this.model.get('frequency_value');
     if (parseInt(frequecy) === 1) {
       data.anytime = '';
       data.schedule = 'disabled';
@@ -237,7 +235,7 @@ EditProductsView = (function(_super) {
         data.twice = 'btn-primary';
       }
     }
-    console.log(reminder_flag = this.model.get('reminder_flag'));
+    reminder_flag = this.model.get('reminder_flag');
     if (reminder_flag === void 0 || reminder_flag === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
@@ -251,10 +249,10 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, product, products, qty, reminder_flag, whendata, _ref, _ref1;
+    var container, product, products, reminder_flag, _ref, _ref1;
     $('.js__timepicker').pickatime();
     if (parseInt(this.model.get('frequency_value')) === 1 && this.model.get('time_set') !== 'asperbmi') {
-      $('.schedule').hide();
+      $('.schedule_data').hide();
       $('.asperbmi').hide();
       $('.servings_per_day option[value="' + this.model.get('time_set') + '"]').prop("selected", true);
       if (parseInt(this.model.get('time_set')) === 1) {
@@ -265,22 +263,10 @@ EditProductsView = (function(_super) {
     } else if (parseInt(this.model.get('frequency_value')) === 2) {
       $('.anytime').hide();
       $('.asperbmi').hide();
-      if (this.model.get('time_set') === 'Once') {
-        $('.second').hide();
-        qty = this.model.get('serving_size').split('|');
-        whendata = this.model.get('when').split('|');
-        $('.qty1 option[value="' + qty[0] + '"]').attr("selected", "selected");
-        $('.when1 option[value="' + whendata[0] + '"]').attr("selected", "selected");
-      } else {
-        qty = this.model.get('serving_size').split('|');
-        whendata = this.model.get('when').split('|');
-        $('.qty1 option[value="' + qty[0] + '"]').attr("selected", "selected");
-        $('.when1 option[value="' + whendata[0] + '"]').attr("selected", "selected");
-        $('.qty2 option[value="' + qty[1] + '"]').attr("selected", "selected");
-        $('.when2 option[value="' + whendata[1] + '"]').attr("selected", "selected");
-      }
+      $('#timeset').val(this.model.get('time_set'));
+      this.showScheduleData(this.model);
     } else {
-      $('.schedule').hide();
+      $('.schedule_data').hide();
       $('.anytime').hide();
     }
     container = this.model.get('no_of_container');
@@ -293,24 +279,69 @@ EditProductsView = (function(_super) {
     };
     $('#reminder').val(reminder_flag);
     $('.no_of_container option[value="' + container + '"]').attr("selected", "selected");
-    $('#time_set').val(this.model.get('time_set'));
-    console.log(product = this.model.get('id'));
+    product = this.model.get('id');
     products = App.currentUser.get('products');
-    if ($.inArray(product, products) === -1) {
+    if ($.inArray(product, products) > -1) {
       return $('.remove').hide();
+    } else {
+      return $('.remove').show();
+    }
+  };
+
+  EditProductsView.prototype.showScheduleData = function(model) {
+    var product, products;
+    console.log(product = model.get('id'));
+    console.log(products = App.currentUser.get('products'));
+    console.log($.inArray(product, products));
+    if ($.inArray(product, products) > -1) {
+      return this.showEditScheduleData(model);
+    } else {
+      return this.showAddScheduleData(model);
+    }
+  };
+
+  EditProductsView.prototype.showAddScheduleData = function(model) {
+    var qty, whendata;
+    if (this.model.get('time_set') === 'Once') {
+      $('.second').hide();
+      qty = this.model.get('serving_size').split('|');
+      whendata = this.model.get('when').split('|');
+      $('.qty1 option[value="' + qty[0] + '"]').prop("selected", true);
+      return $('.when1 option[value="' + whendata[0] + '"]').prop("selected", true);
+    } else {
+      qty = this.model.get('serving_size').split('|');
+      whendata = this.model.get('when').split('|');
+      $('.qty1 option[value="' + qty[0] + '"]').prop("selected", true);
+      $('.when1 option[value="' + whendata[0] + '"]').prop("selected", true);
+      $('.qty2 option[value="' + qty[1] + '"]').prop("selected", true);
+      return $('.when2 option[value="' + whendata[1] + '"]').prop("selected", true);
+    }
+  };
+
+  EditProductsView.prototype.showEditScheduleData = function(model) {
+    var qty;
+    qty = model.get('qty');
+    $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
+    $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
+    if (this.model.get('time_set') === 'Once') {
+      return $('.second').hide();
+    } else {
+      $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
+      $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
+      $('.qty1 option[value="' + qty[1].qty + '"]').prop("selected", true);
+      return $('.when1 option[value="' + qty[1].when + '"]').prop("selected", true);
     }
   };
 
   EditProductsView.prototype.showAnytimeData = function(model) {
     var product, products, qty;
-    console.log(product = model.get('id'));
-    console.log(products = App.currentUser.get('products'));
-    console.log($.inArray(product, products));
-    if ($.inArray(product, products) === -1) {
-      qty = model.get('serving_size').split('|');
-      return $('.qty_per_servings option[value="' + qty[0] + '"]').attr("selected", "selected");
-    } else {
+    product = model.get('id');
+    products = App.currentUser.get('products');
+    if ($.inArray(product, products) > -1) {
       return this.showServings(model);
+    } else {
+      qty = model.get('serving_size').split('|');
+      return $('.qty_per_servings option[value="' + qty[0] + '"]').prop("selected", true);
     }
   };
 
@@ -347,9 +378,8 @@ App.EditProductsCtrl = (function(_super) {
       options = {};
     }
     productId = this.getParams();
-    console.log(product = parseInt(productId[0]));
+    product = parseInt(productId[0]);
     products = App.currentUser.get('products');
-    console.log($.inArray(product, products));
     if ($.inArray(product, products) > -1) {
       return $.ajax({
         method: 'GET',
@@ -358,9 +388,9 @@ App.EditProductsCtrl = (function(_super) {
         error: this.erroraHandler
       });
     } else {
-      console.log(productModel = App.productCollection.where({
+      productModel = App.productCollection.where({
         id: productId[0]
-      }));
+      });
       return this._showView(productModel[0]);
     }
   };
@@ -373,10 +403,10 @@ App.EditProductsCtrl = (function(_super) {
 
   EditProductsCtrl.prototype.successHandler = function(response, status, xhr) {
     var model, pid;
-    console.log(pid = App.productCollection.where({
+    pid = App.productCollection.where({
       id: response.id
-    }));
-    console.log(model = new Backbone.Model(response));
+    });
+    model = new Backbone.Model(response);
     return this._showView(model);
   };
 
