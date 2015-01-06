@@ -59,7 +59,7 @@ EditProductsView = (function(_super) {
     },
     'click .remove': function(e) {
       var product, products;
-      product = this.model.get('id');
+      product = parseInt(this.model.get('id'));
       products = App.currentUser.get('products');
       if ($.inArray(product, products) > -1) {
         return $.ajax({
@@ -279,20 +279,17 @@ EditProductsView = (function(_super) {
     };
     $('#reminder').val(reminder_flag);
     $('.no_of_container option[value="' + container + '"]').attr("selected", "selected");
-    product = this.model.get('id');
+    product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
-    if ($.inArray(product, products) > -1) {
+    if ($.inArray(product, products) === -1) {
       return $('.remove').hide();
-    } else {
-      return $('.remove').show();
     }
   };
 
   EditProductsView.prototype.showScheduleData = function(model) {
     var product, products;
-    console.log(product = model.get('id'));
-    console.log(products = App.currentUser.get('products'));
-    console.log($.inArray(product, products));
+    product = parseInt(model.get('id'));
+    products = App.currentUser.get('products');
     if ($.inArray(product, products) > -1) {
       return this.showEditScheduleData(model);
     } else {
@@ -306,25 +303,25 @@ EditProductsView = (function(_super) {
       $('.second').hide();
       qty = this.model.get('serving_size').split('|');
       whendata = this.model.get('when').split('|');
-      $('.qty1 option[value="' + qty[0] + '"]').prop("selected", true);
-      return $('.when1 option[value="' + whendata[0] + '"]').prop("selected", true);
+      $('.qty0 option[value="' + qty[0] + '"]').prop("selected", true);
+      return $('.when0 option[value="' + whendata[0] + '"]').prop("selected", true);
     } else {
       qty = this.model.get('serving_size').split('|');
       whendata = this.model.get('when').split('|');
-      $('.qty1 option[value="' + qty[0] + '"]').prop("selected", true);
-      $('.when1 option[value="' + whendata[0] + '"]').prop("selected", true);
-      $('.qty2 option[value="' + qty[1] + '"]').prop("selected", true);
-      return $('.when2 option[value="' + whendata[1] + '"]').prop("selected", true);
+      $('.qty0 option[value="' + qty[0] + '"]').prop("selected", true);
+      $('.when0 option[value="' + whendata[0] + '"]').prop("selected", true);
+      $('.qty1 option[value="' + qty[1] + '"]').prop("selected", true);
+      return $('.when1 option[value="' + whendata[1] + '"]').prop("selected", true);
     }
   };
 
   EditProductsView.prototype.showEditScheduleData = function(model) {
     var qty;
-    qty = model.get('qty');
-    $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
-    $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
+    console.log(qty = model.get('qty'));
     if (this.model.get('time_set') === 'Once') {
-      return $('.second').hide();
+      $('.second').hide();
+      $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
+      return $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
     } else {
       $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
       $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
@@ -335,7 +332,7 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.showAnytimeData = function(model) {
     var product, products, qty;
-    product = model.get('id');
+    product = parseInt(model.get('id'));
     products = App.currentUser.get('products');
     if ($.inArray(product, products) > -1) {
       return this.showServings(model);

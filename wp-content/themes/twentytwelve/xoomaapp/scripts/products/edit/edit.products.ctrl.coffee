@@ -42,7 +42,7 @@ class EditProductsView extends Marionette.ItemView
 
 
 		'click .remove':(e)->
-			product = @model.get('id')
+			product = parseInt @model.get('id')
 			products = App.currentUser.get 'products'
 			if $.inArray( product, products ) > -1
 				$.ajax
@@ -244,17 +244,15 @@ class EditProductsView extends Marionette.ItemView
 		# $( @ui.servings_per_day ).trigger( "change" );
 		
 
-		product = @model.get('id')
+		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		if $.inArray( product, products ) > -1
+		if $.inArray( product, products ) == -1
 			$('.remove').hide()
-		else
-			$('.remove').show()
+		
 
 	showScheduleData:(model)->
-		console.log product = model.get('id')
-		console.log products = App.currentUser.get 'products'
-		console.log $.inArray(product, products ) 
+		product = parseInt model.get('id')
+		products = App.currentUser.get 'products'
 		if $.inArray( product, products ) > -1
 			@showEditScheduleData(model)
 		else
@@ -268,23 +266,24 @@ class EditProductsView extends Marionette.ItemView
 				$('.second').hide()
 				qty = @model.get('serving_size').split('|')
 				whendata = @model.get('when').split('|')
-				$('.qty1 option[value="'+qty[0]+'"]').prop("selected",true)
-				$('.when1 option[value="'+whendata[0]+'"]').prop("selected",true)
+				$('.qty0 option[value="'+qty[0]+'"]').prop("selected",true)
+				$('.when0 option[value="'+whendata[0]+'"]').prop("selected",true)
 				
 		else
 			qty = @model.get('serving_size').split('|')
 			whendata = @model.get('when').split('|')
-			$('.qty1 option[value="'+qty[0]+'"]').prop("selected",true)
-			$('.when1 option[value="'+whendata[0]+'"]').prop("selected",true)
-			$('.qty2 option[value="'+qty[1]+'"]').prop("selected",true)
-			$('.when2 option[value="'+whendata[1]+'"]').prop("selected",true)
+			$('.qty0 option[value="'+qty[0]+'"]').prop("selected",true)
+			$('.when0 option[value="'+whendata[0]+'"]').prop("selected",true)
+			$('.qty1 option[value="'+qty[1]+'"]').prop("selected",true)
+			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 
 	showEditScheduleData:(model)->
-		qty = model.get 'qty'
-		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
+		console.log qty = model.get 'qty'
 		if @model.get('time_set') == 'Once'
 			$('.second').hide()
+			$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
+			$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
+		
 			
 		else
 			$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
@@ -295,7 +294,7 @@ class EditProductsView extends Marionette.ItemView
 		
 
 	showAnytimeData:(model)->
-		product = model.get('id')
+		product = parseInt model.get('id')
 		products = App.currentUser.get 'products'
 		if $.inArray( product, products ) > -1
 			@showServings(model)

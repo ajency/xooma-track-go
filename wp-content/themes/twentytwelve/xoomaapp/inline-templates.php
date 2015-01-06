@@ -584,7 +584,7 @@ markupup
  <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving1</label>
     <div class="col-sm-4 col-xs-4 ">
-      <select class="form-control qty1" name="qty_per_servings0">
+      <select class="form-control qty0" name="qty_per_servings0">
           <option value="1">1 capsule</option>
           <option value="2">2 capsule</option>
           <option value="3">3 capsule</option>
@@ -593,7 +593,7 @@ markupup
         </select>
     </div>
         <div class="col-sm-6 col-xs-5 ">
-      <select class="form-control when1" name="when0">
+      <select class="form-control when0" name="when0">
           <option value="1">Morning Before meal</option>
           <option value="2">Morning After meal</option>
           <option value="3">Night Before Meal</option>
@@ -605,7 +605,7 @@ markupup
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving2</label>
     <div class="col-sm-4 col-xs-4 ">
-      <select class="form-control qty2" name="qty_per_servings1">
+      <select class="form-control qty1" name="qty_per_servings1">
           <option value="1">1 capsule</option>
           <option value="2">2 capsule</option>
           <option value="3">3 capsule</option>
@@ -614,7 +614,7 @@ markupup
         </select>
     </div>
         <div class="col-sm-6 col-xs-5 ">
-      <select class="form-control when2" name="when1">
+      <select class="form-control when1" name="when1">
           <option value="1">Morning Before meal</option>
           <option value="2">Morning After meal</option>
           <option value="3">Night Before Meal</option>
