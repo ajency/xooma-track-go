@@ -213,9 +213,9 @@ class User_API
         $data['servings_per_day'] = $_REQUEST['servings_per_day'];
         $data['frequency_type'] = $_REQUEST['frequency_type'];
         $servings = $_REQUEST['servings_per_day'];
-        if($_REQUEST['time_set'] !="")
+        if($_REQUEST['time_set'] =="Once" || $_REQUEST['time_set'] =="Twice")
         {
-            echo $servings = $_REQUEST['time_set'] == 'Once' ? 1 : 2 ;
+           $servings = $_REQUEST['time_set'] == 'Once' ? 1 : 2 ;
         } 
 
         if($_REQUEST['servings_diff'] == 0)
@@ -241,6 +241,7 @@ class User_API
         $data['no_of_container']   = $_REQUEST['no_of_container'];
         $data['available']       = $_REQUEST['available'];
         $data['reminder']       = $_REQUEST['reminder'];
+        $data['check']       = $_REQUEST['check'];
 
         if($_REQUEST['reminder'] == 1)
         {

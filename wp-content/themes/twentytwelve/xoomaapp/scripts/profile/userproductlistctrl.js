@@ -15,7 +15,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'list-title';
 
-  ProductChildView.prototype.template = '<h5 class="bold text-primary">{{name}}</h5> <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6>';
+  ProductChildView.prototype.template = '<a href="#/products/{{id}}/edit"> <h5 class="bold text-primary">{{name}}</h5> <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6></a>';
 
   return ProductChildView;
 

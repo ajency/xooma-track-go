@@ -4,9 +4,9 @@ class ProductChildView extends Marionette.ItemView
 
 	className : 'list-title'
 
-	template  : '
+	template  : '<a href="#/products/{{id}}/edit">
                 <h5 class="bold text-primary">{{name}}</h5>
-                <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6>'
+                <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6></a>'
                                               
 
 	

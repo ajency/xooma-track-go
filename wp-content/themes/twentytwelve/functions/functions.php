@@ -117,7 +117,7 @@ function save_anytime_product_details($id,$data){
         date_default_timezone_set("UTC");
         $interval = 24/intval($data['time_set']);
         $today = strtotime('00:00:00');
-        echo $start = date("Y-m-d 00:00:00");
+       $start = date("Y-m-d 00:00:00");
         $schedule_data = array(
             'object_type' => 'user_product',
             'object_id' => $main_id,
@@ -126,6 +126,15 @@ function save_anytime_product_details($id,$data){
         );
         
         $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
+        $occurrence_data = array(
+            'schedule_id' =>  $id,
+            'occurrence' => $start,
+            'meta_value' => array()
+
+          );
+        $occurrences = \ajency\ScheduleReminder\Occurrence::
+        _insert_occurrence($occurrence_data); 
         
 
         return $data['id'];
@@ -227,14 +236,24 @@ function save_schedule_product_details($id,$data){
        date_default_timezone_set("UTC");
         $interval = 24/intval($data['time_set']);
         $today = strtotime('00:00:00');
-        $start = date("Y-m-d", $today);
+       $start = date("Y-m-d 00:00:00");
         $schedule_data = array(
             'object_type' => 'user_product',
             'object_id' => $main_id,
             'start_dt'  => $start,
             'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
         );
+        
         $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
+        $occurrence_data = array(
+            'schedule_id' =>  $id,
+            'occurrence' => $start,
+            'meta_value' => array()
+
+          );
+        $occurrences = \ajency\ScheduleReminder\Occurrence::
+        _insert_occurrence($occurrence_data); 
 
 
         return $data['id'];
@@ -309,7 +328,8 @@ function update_anytime_product_details($id,$pid,$data){
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
                                                             'available' =>$data['available'],
-                                                            'reminder_flag'=>$data['reminder']))
+                                                            'reminder_flag'=>$data['reminder'],
+                                                            'check' => $data['check']))
                 ),
                 array(
                   '%d',
@@ -318,18 +338,28 @@ function update_anytime_product_details($id,$pid,$data){
                 )
               );
 
-        // date_default_timezone_set("UTC");
-        // $interval = 24/intval($data['servings_per_day']);
-        // $today = strtotime('00:00:00');
-        // $start = date("Y-m-d", $today);
-        // $schedule_data = array(
-        //     'object_type' => 'user_product',
-        //     'object_id' => $main_id,
-        //     'start_dt'  => $start,
-        //     'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-        // );
-        // $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
-        // print_r($id);
+        date_default_timezone_set("UTC");
+        $interval = 24/intval($data['servings_per_day']);
+        $today = strtotime('00:00:00');
+       $start = date("Y-m-d 00:00:00");
+        $schedule_data = array(
+            'object_type' => 'user_product',
+            'object_id' => $main_id,
+            'start_dt'  => $start,
+            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+        );
+        
+        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
+        $occurrence_data = array(
+            'schedule_id' =>  $id,
+            'occurrence' => $start,
+            'meta_value' => array()
+
+          );
+        $occurrences = \ajency\ScheduleReminder\Occurrence::
+        _insert_occurrence($occurrence_data); 
+
 
 
 
@@ -370,7 +400,8 @@ function update_anytime_product_details($id,$pid,$data){
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
                                                             'available' =>$data['available'],
-                                                            'reminder_flag'=>$data['reminder']))
+                                                            'reminder_flag'=>$data['reminder'],
+                                                            'check' => $data['check']))
                 ),
                 array(
                   '%d',
@@ -458,7 +489,8 @@ function update_schedule_product_details($id,$pid,$data){
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
                                                             'available' =>$data['available'],
-                                                            'reminder_flag'=>$data['reminder']))
+                                                            'reminder_flag'=>$data['reminder'],
+                                                            'check' => $data['check']))
                 ),
                 array(
                   '%d',
@@ -467,18 +499,28 @@ function update_schedule_product_details($id,$pid,$data){
                 )
               );
 
-        // date_default_timezone_set("UTC");
-        // $interval = 24/intval($data['servings_per_day']);
-        // $today = strtotime('00:00:00');
-        // $start = date("Y-m-d", $today);
-        // $schedule_data = array(
-        //     'object_type' => 'user_product',
-        //     'object_id' => $main_id,
-        //     'start_dt'  => $start,
-        //     'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-        // );
-        // $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
-        // print_r($id);
+       date_default_timezone_set("UTC");
+        $interval = 24/intval($data['servings_per_day']);
+        $today = strtotime('00:00:00');
+       $start = date("Y-m-d 00:00:00");
+        $schedule_data = array(
+            'object_type' => 'user_product',
+            'object_id' => $main_id,
+            'start_dt'  => $start,
+            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+        );
+        
+        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
+        $occurrence_data = array(
+            'schedule_id' =>  $id,
+            'occurrence' => $start,
+            'meta_value' => array()
+
+          );
+        $occurrences = \ajency\ScheduleReminder\Occurrence::
+        _insert_occurrence($occurrence_data); 
+
 
 
 
@@ -519,7 +561,8 @@ function update_schedule_product_details($id,$pid,$data){
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
                                                             'available' =>$data['available'],
-                                                            'reminder_flag'=>$data['reminder']))
+                                                            'reminder_flag'=>$data['reminder'],
+                                                            'check' => $data['check']))
                 ),
                 array(
                   '%d',
@@ -822,7 +865,7 @@ function get_occurrence_date($product_id,$user_id=""){
   if(!is_wp_error($object_id)){
 
     //get schedule id
-    $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+  $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
     $start_datetime = date('Y-m-d 00:00:00');
     $end_datetime = date('Y-m-d 23:59:59');
@@ -830,6 +873,8 @@ function get_occurrence_date($product_id,$user_id=""){
 
     $occurrences = \ajency\ScheduleReminder\Occurrence::
     get_occurrences($schedule, $start_datetime, $end_datetime); 
+
+
 
 
     return $occurrences;

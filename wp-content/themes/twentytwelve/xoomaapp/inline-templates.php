@@ -496,6 +496,7 @@ markupup
 
 <script id="edit-product-template" type="text/template">
     <div class="container"> </br></br>
+    <div class="aj-response-message"></div>
         <h3 class="bold">{{name}}</h3>
           <div class="row">
             <div class="col-md-6 col-xs-12">
@@ -543,7 +544,7 @@ markupup
     <div class="checkbox">
     <label class=" control-label">
      &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set diffrent quantity per serving
-    </label>
+    <input type="hidden" name="check" id="check" value="0" /></label>
   </div> 
  
   </div> 
@@ -552,12 +553,12 @@ markupup
   <div class="form-group ">
     <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">QTY. Per Serving</label>
     <div class="col-sm-6 col-xs-5">
-      <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+      <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select> <label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>
     </div>
   </div>
@@ -638,7 +639,7 @@ markupup
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Available with me</label>
     <div class="col-sm-6 col-xs-5">
-      <p class="form-control-static">{{total}}&nbsp;{{product_type_name}}</p>
+      <p class="form-control-static"><span class="available">{{total}} </span>&nbsp;{{product_type_name}}</p>
       <input type="hidden" name="available" id="available" value="{{total}}" /> 
     </div>
   </div>
@@ -648,7 +649,7 @@ markupup
      <div class="btn-group" role="group" aria-label="...">
       <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
       <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
-      <input type="hidden" name="reminder" id="reminder" value="{{reminder}}" /> 
+      <input type="hidden" name="reminder" id="reminder" value="" /> 
     </div>
     </div>
   </div>

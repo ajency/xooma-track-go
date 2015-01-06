@@ -39,7 +39,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			.done @successHandler
 			.fail @errorHandler
 
-	successHandler:(response, status)=>
+	successHandler:(response, status,xhr)=>
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
 			@ui.responseMessage.text "Something went wrong"

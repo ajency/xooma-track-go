@@ -65,7 +65,7 @@ ProfilePersonalInfoView = (function(_super) {
     return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
   };
 
-  ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
+  ProfilePersonalInfoView.prototype.successHandler = function(response, status, xhr) {
     var state;
     state = App.currentUser.get('state');
     if (xhr.status === 404) {

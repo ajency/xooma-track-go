@@ -96,8 +96,7 @@ class Schedule{
 					'object_id' => 0,
 					'start_dt' => '',
 					'rrule' => '',
-					'next_occurrence' => '',
-					'remind_before' => 0
+					'next_occurrence' => ''
 				);
 
 		$schedule_args = wp_parse_args($schedule_data, $defaults);
@@ -115,7 +114,7 @@ class Schedule{
 		$table_name = "{$wpdb->prefix}aj_schedules";
 
 		$record = $schedule_args;
-		print_r($record);
+		
 		$wpdb->insert($table_name, $record);
 
 		$schedule_id = $wpdb->insert_id;

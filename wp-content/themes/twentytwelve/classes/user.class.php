@@ -395,6 +395,10 @@ class User
 
         global $wpdb;
 
+        global $user;
+
+        $user = new User();
+
         $product_type_table = $wpdb->prefix . "defaults";
 
         $product_main_table = $wpdb->prefix . "product_main";
@@ -427,6 +431,8 @@ class User
                         $user_id = $id;
 
                         $occurrence = get_occurrence_date($value[0]['id'],$user_id);
+
+                        
 
                         $sub[] = array(
                             'id'            => $value[0]['id'],
@@ -462,62 +468,25 @@ class User
                 $sub = array();
                 foreach ($sql_query as $key => $term) {
                     $value = $productList->get_products($term->product_id);
+                    
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                     $time_set = get_term_meta($value[0]['id'], 'time_set', true);
                     if($frequency == $val && $time_set != 'asperbmi'){
-
-                        $serving_size = get_term_meta($value[0]['id'], 'serving_size', true);
-                        $when = get_term_meta($value[0]['id'], 'when', true);
                         
-                        if($time_set == 'Once')
-                            $no_of_servings = 1;
-                        else if($time_set == 'Twice')
-                            $no_of_servings = 2;
-                        else
-                            $no_of_servings = $time_set;
-
-                        $i = 0 ;
-                        $arr = array();
-                        $j = 0;
-                        
-                        $servings_qty = explode('|', $serving_size);
-                        $when_qty = explode('|', $when);
-                        
-                        
-                        while($i<$no_of_servings)
-                        {
-                            if($frequency == 1)
-                            {
-                                $qty = $servings_qty[$i];
-                                $when = "";
-                                
-                            }
-                            else
-                            {
-                                $qty = $servings_qty[$j] ;
-                                $when = $when_qty[$j];
-                                
-                            }
-                            
-                            $arr [] = array(
-                                'qty'           => $qty,
-                                'when'          => $when
-
-                                );
-                            $i++;
-                            $j++;
-                        }
+                        $response = $user->get_user_product_details($id,$term->product_id);
+                       
                         $meta_arr = array();
                         $user_id = $id;
-                        $occurrence = get_occurrence_date($value[0]['id'],$user_id);
+                        
+                        $occurrence = get_occurrence_date($term->product_id,$user_id);
+                        
                         $sub[] = array(
 
 
-                            'id'            => $value[0]['id'],
+                            'id'            => $term->product_id,
                             'name'          => $value[0]['name'],
-                            'servings'      => $no_of_servings,
-                            'qty'           => $arr,
+                            'qty'           => $response['qty'],
                             'product_type'  => $product_type->value,
                             'occurrence'    => $occurrence
 
@@ -530,7 +499,7 @@ class User
 
                 }
 
-                
+               
 
                         $pr_main[] = array(
 
@@ -554,6 +523,7 @@ class User
         global $user;
 
         $user = new User();
+
 
         $product_main_table = $wpdb->prefix . "product_main";
 
@@ -583,18 +553,36 @@ class User
 
         $data1 = maybe_unserialize($sub_query1->value);
 
-        
+        global $productList;
+        $all_terms = $productList->get_products($pid);
 
+        $count = count($servings);
+        if($all_terms[0]['frequency_value'] == 2)
+        {
+            $count = count($servings) == 1 ? 'Once' : 'Twice';
+        }
+       
         $response = array(
             'id'                    => $pid,
             'no_of_container'       => $data1['no_of_container'],
             'total'                 => $data1['available'],
-            'reminder_flag'          => $data1['reminder'],
-            'qty'                   => $servings
-
+            'reminder_flag'         => $data1['reminder_flag'],
+            'check'                 => $data1['check'],
+            'qty'                   => $servings,
+            'name'                  => $all_terms[0]['name'],
+            'description'           => $all_terms[0]['description'],
+            'product_type_name'     => $all_terms[0]['product_type_name'],
+            'frequency'             => $all_terms[0]['frequency'],
+            'frequency_value'       => $all_terms[0]['frequency_value'],
+            'image'                 => $all_terms[0]['image'],
+            'time_set'              => $count
+                
+            
 
 
             );
+
+
 
         return $response;
     }

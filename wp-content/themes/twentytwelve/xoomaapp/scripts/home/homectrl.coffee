@@ -144,11 +144,6 @@ class ProductChildView extends Marionette.ItemView
 			data.bonus = bonusArr
 			data.occurrArr = occurrenceArr
 
-		console.log qty = @model.get 'qty'
-		$.each qty, (ind,val)->
-			console.log data.occurrArr[ind]
-			qty.push 'data.occurr' : data.occurrArr[ind]
-			
 		data
 
 
