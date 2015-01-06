@@ -2,7 +2,6 @@
   return document.addEventListener("deviceready", (function() {
     var notificationIdAndBadgeValue;
     notificationIdAndBadgeValue = [];
-    cordova.plugins.notification.badge;
     _.enableCordovaBackbuttonNavigation();
     App.state('login').state('xooma', {
       url: '/'
