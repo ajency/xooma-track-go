@@ -31,7 +31,7 @@ XoomaAppRootView = (function(_super) {
     if (state !== '/home') {
       this.ui.link.hide();
     } else {
-      ui.link.show();
+      this.ui.link.show();
     }
     return this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser

@@ -15,7 +15,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 		if state != '/home'
 			@ui.link.hide()
 		else
-			ui.link.show()
+			@ui.link.show()
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
 
