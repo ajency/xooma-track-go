@@ -95,8 +95,12 @@ App.AddProductsCtrl = (function(_super) {
   };
 
   AddProductsCtrl.prototype._showProducts = function() {
-    var c, filteredCollection, userProducts;
+    var c, collectionArr, filteredCollection, userProducts;
     userProducts = App.currentUser.get('products');
+    collectionArr = App.productCollection.where({
+      active_value: '1'
+    });
+    App.productCollection.reset(collectionArr);
     filteredCollection = App.productCollection.clone();
     c = filteredCollection.remove(userProducts);
     return this.show(new AddProductsView({

@@ -102,7 +102,10 @@ function save_anytime_product_details($id,$data){
                 array(
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_containers' => 1))
+                  'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
+                                                            'available' =>$data['total'],
+                                                            'reminder_flag'=>0,
+                                                            'check' => 0))
                 ),
                 array(
                   '%d',
@@ -216,7 +219,10 @@ function save_schedule_product_details($id,$data){
                 array(
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_containers' => 1))
+                  'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
+                                                            'available' =>$data['total'],
+                                                            'reminder_flag'=>0,
+                                                            'check' => 0))
                 ),
                 array(
                   '%d',

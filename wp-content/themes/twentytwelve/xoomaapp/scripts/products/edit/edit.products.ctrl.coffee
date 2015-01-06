@@ -31,7 +31,6 @@ class EditProductsView extends Marionette.ItemView
 		'click .save':(e)->
 			e.preventDefault()
 			data = @ui.form.serialize()
-			
 			product = @model.get('id')
 			$.ajax
 				method : 'POST'
@@ -169,6 +168,7 @@ class EditProductsView extends Marionette.ItemView
 
 	successSave: (response,status,xhr)=>
 		if xhr.status is 201
+				response = parseInt response
 				products = App.currentUser.get 'products'
 				if typeof products == 'undefined'
 					products = []
@@ -240,7 +240,7 @@ class EditProductsView extends Marionette.ItemView
 		reminder_flag = @model.get('reminder_flag')
 		reminder_flag = reminder_flag == undefined ? 0 : @model.get('reminder_flag')
 		$('#reminder').val reminder_flag
-		$('.no_of_container option[value="'+container+'"]').attr("selected","selected");
+		$('.no_of_container option[value="'+container+'"]').prop("selected",true);
 		# $( @ui.servings_per_day ).trigger( "change" );
 		
 
@@ -325,8 +325,8 @@ class EditProductsView extends Marionette.ItemView
 class App.EditProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		productId  = @getParams()
-		product = parseInt productId[0]
-		products = App.currentUser.get 'products'
+		console.log product = parseInt productId[0]
+		console.log products = App.currentUser.get 'products'
 		
 		if $.inArray( product, products ) > -1
 			$.ajax

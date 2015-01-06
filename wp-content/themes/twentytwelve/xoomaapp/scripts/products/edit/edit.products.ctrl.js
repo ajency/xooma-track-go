@@ -196,6 +196,7 @@ EditProductsView = (function(_super) {
   EditProductsView.prototype.successSave = function(response, status, xhr) {
     var products;
     if (xhr.status === 201) {
+      response = parseInt(response);
       products = App.currentUser.get('products');
       if (typeof products === 'undefined') {
         products = [];
@@ -278,7 +279,7 @@ EditProductsView = (function(_super) {
       0: this.model.get('reminder_flag')
     };
     $('#reminder').val(reminder_flag);
-    $('.no_of_container option[value="' + container + '"]').attr("selected", "selected");
+    $('.no_of_container option[value="' + container + '"]').prop("selected", true);
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
     if ($.inArray(product, products) === -1) {
@@ -375,8 +376,8 @@ App.EditProductsCtrl = (function(_super) {
       options = {};
     }
     productId = this.getParams();
-    product = parseInt(productId[0]);
-    products = App.currentUser.get('products');
+    console.log(product = parseInt(productId[0]));
+    console.log(products = App.currentUser.get('products'));
     if ($.inArray(product, products) > -1) {
       return $.ajax({
         method: 'GET',

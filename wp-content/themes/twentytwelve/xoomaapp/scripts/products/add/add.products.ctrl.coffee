@@ -59,6 +59,8 @@ class App.AddProductsCtrl extends Ajency.RegionController
 
 	_showProducts : =>
 		userProducts = App.currentUser.get 'products'
+		collectionArr = App.productCollection.where({active_value:'1'})
+		App.productCollection.reset collectionArr
 		filteredCollection = App.productCollection.clone()
 		
 			

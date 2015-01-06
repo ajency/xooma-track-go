@@ -557,8 +557,15 @@ class User
 
         global $productList;
         $all_terms = $productList->get_products($pid);
+        
 
         $count = count($servings);
+        if($all_terms[0]['time_set'] == 'asperbmi')
+        {
+             $count = 'asperbmi';
+        }
+        
+
         if($all_terms[0]['frequency_value'] == 2)
         {
             $count = count($servings) == 1 ? 'Once' : 'Twice';
