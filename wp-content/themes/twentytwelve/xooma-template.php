@@ -103,6 +103,7 @@ var App  = new Marionette.Application()
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <!-- endbuild -->
+
 <script type="text/javascript">
 
 $(function() {

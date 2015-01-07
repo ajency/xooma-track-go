@@ -26,7 +26,7 @@ XoomaAppRootView = (function(_super) {
   };
 
   XoomaAppRootView.prototype.events = {
-    'click a': function(e) {
+    'click a.link': function(e) {
       return e.preventDefault();
     }
   };

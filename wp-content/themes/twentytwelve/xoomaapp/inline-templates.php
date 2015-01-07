@@ -87,7 +87,7 @@
 											</div>
 										</div>
 										<div class="col-sm-9 col-xs-7">
-                        <a href="#menu">
+                        <a class="link" href="#menu">
                             <h5><i class="fa fa-cog pull-right "></i></h5>
                         </a>
                     </div>

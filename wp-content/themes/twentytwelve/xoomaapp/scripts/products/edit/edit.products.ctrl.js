@@ -184,10 +184,12 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.successHandler = function(response, status, xhr) {
-    var products;
+    var products, updatedProducts;
     if (xhr.status === 200) {
       products = App.currentUser.get('products');
-      products.remove(response);
+      response = parseInt(response);
+      updatedProducts = _.without(products, response);
+      App.currentUser.set('products', updatedProducts);
     }
     return App.navigate('#/profile/my-products', true);
   };

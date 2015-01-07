@@ -162,7 +162,10 @@ class EditProductsView extends Marionette.ItemView
 	successHandler:(response,status,xhr)=>
 		if xhr.status == 200
 			products = App.currentUser.get 'products'
-			products.remove response
+			response = parseInt response
+			updatedProducts = _.without products , response
+			App.currentUser.set 'products' , updatedProducts
+			
 		App.navigate '#/profile/my-products', true
 
 	erroraHandler :(response,status,xhr)=>

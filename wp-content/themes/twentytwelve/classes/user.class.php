@@ -255,7 +255,7 @@ class User
 
         if($updated_id){
 
-            return $updated_id;
+            return $pid;
         }
         else
         {
@@ -271,8 +271,8 @@ class User
         $product_type_table = $wpdb->prefix . "defaults";
 
         $product_main_table = $wpdb->prefix . "product_main";
+        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
 
-        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
 
         $products_arr = array();
         foreach ($sql_query as $key => $value) {
@@ -284,7 +284,7 @@ class User
         foreach ($all_terms as $key => $value) {
             
            $time_set = get_term_meta($value['id'], 'time_set', true);
-            if( $time_set == 'asperbmi'){
+            if( $time_set == 'asperbmi' && in_array($value['id'], $products_arr)){
                 if($value['time_set'] == 'asperbmi')
                     $value['time_set'] = 1;
                 
@@ -404,7 +404,7 @@ class User
         $product_type_table = $wpdb->prefix . "defaults";
 
         $product_main_table = $wpdb->prefix . "product_main";
-        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
+        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id."and deleted_flag=0");
 
         
         $pr_main = array();
