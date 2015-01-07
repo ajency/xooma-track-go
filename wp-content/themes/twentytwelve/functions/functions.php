@@ -59,7 +59,7 @@ function save_anytime_product_details($id,$data){
 
     $product_meta_table = $wpdb->prefix . "product_meta";
 
-    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$data['id']);
+    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$data['id']." and deleted_flag=0");
 
     if((is_null($sql_query))){
     $main = $wpdb->insert(
@@ -283,7 +283,7 @@ function update_anytime_product_details($id,$pid,$data){
     $product_main_table = $wpdb->prefix . "product_main";
 
     $product_meta_table = $wpdb->prefix . "product_meta";
-    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid);
+    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
 
     if((is_null($sql_query))){
 
@@ -444,8 +444,8 @@ function update_schedule_product_details($id,$pid,$data){
 
     $product_meta_table = $wpdb->prefix . "product_meta";
 
-    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid);
-
+    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
+ 
     if((is_null($sql_query))){
 
     $main = $wpdb->insert(

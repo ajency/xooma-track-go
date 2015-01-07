@@ -111,14 +111,21 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
-        var x2oArray;
+        var products, x2oArray;
         if (xhr.status === 200) {
           console.log(response[0].products);
           x2oArray = [];
           $.each(response[0].products, function(index, value) {
             return x2oArray.push(value);
           });
-          return App.currentUser.set('x2o', x2oArray);
+          App.currentUser.set('x2o', x2oArray);
+          products = [];
+          $.each(response, function(ind, val) {
+            return $.each(val.products, function(index, value) {
+              return products.push(parseInt(value.id));
+            });
+          });
+          return _this.set('products', products);
         }
       };
     })(this);
