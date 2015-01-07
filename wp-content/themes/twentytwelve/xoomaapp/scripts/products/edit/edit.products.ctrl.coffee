@@ -234,7 +234,7 @@ class EditProductsView extends Marionette.ItemView
 		@ui.rangeSliders.rangeslider polyfill: false
 		
 		if parseInt(@model.get('frequency_value')) == 1 && @model.get('time_set') != 'asperbmi'
-			$('.schedule_data').hide()
+			$('.schedule_data').remove()
 			$('.asperbmi').hide()
 			$('.servings_per_day option[value="'+@model.get('time_set')+'"]').prop("selected",true);
 			if parseInt(@model.get('time_set')) == 1
@@ -243,7 +243,7 @@ class EditProductsView extends Marionette.ItemView
 		else if parseInt(@model.get('frequency_value')) == 2
 			$('.anytime').hide()
 			$('.asperbmi').hide()
-			
+			$('#check').val '1'
 			@showScheduleData(@model)
 		else
 			$('.schedule_data').hide()

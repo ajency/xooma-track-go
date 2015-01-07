@@ -271,7 +271,7 @@ EditProductsView = (function(_super) {
       polyfill: false
     });
     if (parseInt(this.model.get('frequency_value')) === 1 && this.model.get('time_set') !== 'asperbmi') {
-      $('.schedule_data').hide();
+      $('.schedule_data').remove();
       $('.asperbmi').hide();
       $('.servings_per_day option[value="' + this.model.get('time_set') + '"]').prop("selected", true);
       if (parseInt(this.model.get('time_set')) === 1) {
@@ -281,6 +281,7 @@ EditProductsView = (function(_super) {
     } else if (parseInt(this.model.get('frequency_value')) === 2) {
       $('.anytime').hide();
       $('.asperbmi').hide();
+      $('#check').val('1');
       this.showScheduleData(this.model);
     } else {
       $('.schedule_data').hide();

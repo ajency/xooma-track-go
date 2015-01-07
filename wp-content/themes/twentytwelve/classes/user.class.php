@@ -279,42 +279,43 @@ class User
             array_push($products_arr, $value->product_id);
         }
         $pr_main = array();
+        $sub = array();
         global $productList;
         $all_terms = $productList->get_products($term_id="");
         foreach ($all_terms as $key => $value) {
             
            $time_set = get_term_meta($value['id'], 'time_set', true);
-            if( $time_set == 'asperbmi' && in_array($value['id'], $products_arr)){
-                if($value['time_set'] == 'asperbmi')
-                    $value['time_set'] = 1;
+            if( $time_set == 'asperbmi' ){
                 
+                    $value['time_set'] = 1;
                     save_anytime_product_details($id,$value);
-                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
-                    $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                   
+                    if(in_array($value['id'], $products_arr)){
+                        $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
+                        $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                       
 
-                        $serving_size = get_term_meta($value['id'], 'serving_size', true);
-                        // $time_set = get_term_meta($value['id'], 'time_set', true);
-                        // $no_of_servings = $time_set;
-                        $time_set = 1 ;
-                        $no_of_servings = $time_set;
-                        $servings_qty = explode('|', $serving_size);
-                        //add chedule by default
-                        $user_id = $id;
-                        $occurrence = get_occurrence_date($value['id'],$user_id);
-                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
-                        $sub[] = array(
-                            'id'            => $value['id'],
-                            'name'          => $value['name'],
-                            'servings'      => $no_of_servings,
-                            'qty1'          => intval($servings_qty[0]),
-                            'qty2'          => intval($servings_qty[1]),
-                            'product_type'  => $product_type->value,
-                            'occurrence'    => $occurrence
+                            $serving_size = get_term_meta($value['id'], 'serving_size', true);
+                            // $time_set = get_term_meta($value['id'], 'time_set', true);
+                            // $no_of_servings = $time_set;
+                            $time_set = 1 ;
+                            $no_of_servings = $time_set;
+                            $servings_qty = explode('|', $serving_size);
+                            //add chedule by default
+                            $user_id = $id;
+                            $occurrence = get_occurrence_date($value['id'],$user_id);
+                            $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
+                            $sub[] = array(
+                                'id'            => $value['id'],
+                                'name'          => $value['name'],
+                                'servings'      => $no_of_servings,
+                                'qty1'          => intval($servings_qty[0]),
+                                'qty2'          => intval($servings_qty[1]),
+                                'product_type'  => $product_type->value,
+                                'occurrence'    => $occurrence
 
 
                 );
-                
+            }      
           
         }
 
@@ -327,7 +328,7 @@ class User
                             );   
         $products = implode(',', $products_arr);
 
-        if($products != ""){
+        
             $product_id = get_category_by_slug('product');
             $term = get_categories('parent='.$product_id->term_id.'&include='.$products.'&hide_empty=0');
 
@@ -384,7 +385,7 @@ class User
                             );
             }
 
-        }
+       
     return $pr_main;
         
 

@@ -445,7 +445,7 @@
         </div>
         <div class="row">
 			<div class="col-sm-12">
-					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> Save</a>
+					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> View Home</a>
 			</div>
 	</div>
 </div>

@@ -29,6 +29,8 @@ class UserProductListView extends Marionette.CompositeView
 
 	childView : UserProductChildView
 
+	emptyView : UserProductChildView
+
 	childViewContainer : 'ul.userProductList'
 
 	ui :

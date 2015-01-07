@@ -60,6 +60,8 @@ UserProductListView = (function(_super) {
 
   UserProductListView.prototype.childView = UserProductChildView;
 
+  UserProductListView.prototype.emptyView = UserProductChildView;
+
   UserProductListView.prototype.childViewContainer = 'ul.userProductList';
 
   UserProductListView.prototype.ui = {
