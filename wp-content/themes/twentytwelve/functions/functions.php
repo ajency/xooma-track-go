@@ -322,10 +322,37 @@ function update_anytime_product_details($id,$pid,$data){
                 )
               );
 
+        
+
             
 
 
         }
+
+        for($i=0;$i<$data['reminders_length'];$i++){
+
+            //savings reminders
+           $meta_id = $wpdb->insert(
+                  $product_meta_table,
+                  array(
+                    'main_id'                     => $main_id,
+                    'key'                         => 'reminders',
+                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+                  ),
+                  array(
+                    '%d',
+                    '%s',
+                    '%s'
+                  )
+                );
+        }
+
+            
+
+
+       
+
+        
 
         $meta_id = $wpdb->insert(
                 $product_meta_table,
@@ -394,9 +421,29 @@ function update_anytime_product_details($id,$pid,$data){
                 )
               );
 
+        
+
             
 
 
+        }
+
+        for($i=0;$i<$data['reminders_length'];$i++){
+
+            //savings reminders
+           $meta_id = $wpdb->insert(
+                  $product_meta_table,
+                  array(
+                    'main_id'                     => $main_id,
+                    'key'                         => 'reminders',
+                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+                  ),
+                  array(
+                    '%d',
+                    '%s',
+                    '%s'
+                  )
+                );
         }
 
         $meta_id = $wpdb->insert(
@@ -483,9 +530,28 @@ function update_schedule_product_details($id,$pid,$data){
                 )
               );
 
+         
             
 
 
+        }
+
+        for($i=0;$i<$data['reminders_length'];$i++){
+
+            //savings reminders
+           $meta_id = $wpdb->insert(
+                  $product_meta_table,
+                  array(
+                    'main_id'                     => $main_id,
+                    'key'                         => 'reminders',
+                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+                  ),
+                  array(
+                    '%d',
+                    '%s',
+                    '%s'
+                  )
+                );
         }
 
         $meta_id = $wpdb->insert(
@@ -554,9 +620,28 @@ function update_schedule_product_details($id,$pid,$data){
                 )
               );
 
+        
             
 
 
+        }
+
+        for($i=0;$i<$data['reminders_length'];$i++){
+
+            //savings reminders
+           $meta_id = $wpdb->insert(
+                  $product_meta_table,
+                  array(
+                    'main_id'                     => $main_id,
+                    'key'                         => 'reminders',
+                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+                  ),
+                  array(
+                    '%d',
+                    '%s',
+                    '%s'
+                  )
+                );
         }
 
         $meta_id = $wpdb->insert(

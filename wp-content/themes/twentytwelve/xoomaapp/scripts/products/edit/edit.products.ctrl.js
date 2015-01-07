@@ -46,14 +46,15 @@ EditProductsView = (function(_super) {
       $('.reminder_div').text("");
       $('.reminder_div').append(html1);
       $('.js__timepicker').each(function(ind, val) {
-        return console.log(val.name = 'reminder_time' + ind);
+        val.name = 'reminder_time' + ind;
+        return val.id = 'reminder_time' + ind;
       });
       $(this.ui.servings_per_day).trigger("change");
       console.log(this.model.get('frequency_value'));
       if (parseInt(this.model.get('frequency_value')) === 2) {
         this.selectSchdule(this.model);
-        return this.showReminders();
       }
+      return this.showReminders();
     },
     'click .save': function(e) {
       var data, product;
@@ -108,7 +109,7 @@ EditProductsView = (function(_super) {
         }
         $('.qty_per_servings_div').text("");
         $('.qty_per_servings_div').append(html);
-        $('.qty_per_servings').each(function(ind, val) {
+        return $('.qty_per_servings').each(function(ind, val) {
           val.name = 'qty_per_servings' + ind;
           return val.id = 'qty_per_servings' + ind;
         });
@@ -118,15 +119,14 @@ EditProductsView = (function(_super) {
         html = '<div class="qtyper">' + $('.qtyper').first().html() + '</div>';
         $('.qty_per_servings_div').text("");
         $('.qty_per_servings_div').append(html);
-        $('.qty_per_servings').each(function(ind, val) {
+        return $('.qty_per_servings').each(function(ind, val) {
           val.name = 'qty_per_servings' + ind;
           return val.id = 'qty_per_servings' + ind;
         });
       }
-      return $('.js__timepicker').pickatime();
     },
     'change @ui.servings_per_day ': function(e) {
-      var html, html1, i, servings;
+      var html, html1, servings;
       if (parseInt($(e.target).val()) === 1) {
         $(this.ui.servings_diff).prop('disabled', true);
         $(this.ui.servings_diff).prop('checked', false);
@@ -143,25 +143,14 @@ EditProductsView = (function(_super) {
           return val.id = 'qty_per_servings' + ind;
         });
         $('.js__timepicker').each(function(ind, val) {
-          return val.name = 'reminder_time' + ind;
+          val.name = 'reminder_time' + ind;
+          return val.id = 'reminder_time' + ind;
         });
-      } else if ($(this.ui.servings_diff).prop('checked') === true) {
+      } else {
         $(this.ui.servings_diff).prop('disabled', false);
-        servings = $('.servings_per_day').val();
-        html = "";
-        i = 1;
-        while (i <= servings) {
-          html += '<div class="qtyper">' + $('.qtyper').first().html() + '</div>';
-          i++;
-        }
-        $('.qty_per_servings_div').text("");
-        $('.qty_per_servings_div').append(html);
-        $('.qty_per_servings').each(function(ind, val) {
-          console.log(val.name = 'qty_per_servings' + ind);
-          return val.id = 'qty_per_servings' + ind;
-        });
         this.showReminders();
       }
+      this.loadCheckedData();
       return $('.js__timepicker').pickatime();
     },
     'change .no_of_container': function(e) {
@@ -169,6 +158,27 @@ EditProductsView = (function(_super) {
       cnt = parseInt($(e.target).val()) * parseInt(this.model.get('total'));
       $('#available').val(cnt);
       return $('.available').text(cnt);
+    }
+  };
+
+  EditProductsView.prototype.loadCheckedData = function() {
+    var html, i, servings;
+    if ($(this.ui.servings_diff).prop('checked') === true) {
+      $(this.ui.servings_diff).prop('disabled', false);
+      servings = $('.servings_per_day').val();
+      html = "";
+      i = 1;
+      while (i <= servings) {
+        html += '<div class="qtyper">' + $('.qtyper').first().html() + '</div>';
+        i++;
+      }
+      $('.qty_per_servings_div').text("");
+      $('.qty_per_servings_div').append(html);
+      $('.qty_per_servings').each(function(ind, val) {
+        console.log(val.name = 'qty_per_servings' + ind);
+        return val.id = 'qty_per_servings' + ind;
+      });
+      return this.showReminders();
     }
   };
 
@@ -196,10 +206,19 @@ EditProductsView = (function(_super) {
       $('.reminder_div').text("");
       $('.reminder_div').append(html1);
       $('.js__timepicker').each(function(ind, val) {
-        return val.name = 'reminder_time' + ind;
+        val.name = 'reminder_time' + ind;
+        return val.id = 'reminder_time' + ind;
       });
-      return $('.js__timepicker').pickatime();
+    } else {
+      html1 = '<div class="reminder">' + $('.reminder').first().html() + '</div>';
+      $('.reminder_div').text("");
+      $('.reminder_div').append(html1);
+      $('.js__timepicker').each(function(ind, val) {
+        val.name = 'reminder_time' + ind;
+        return val.id = 'reminder_time' + ind;
+      });
     }
+    return $('.js__timepicker').pickatime();
   };
 
   EditProductsView.prototype.successHandler = function(response, status, xhr) {
@@ -242,13 +261,15 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.serializeData = function() {
-    var data, frequecy, product, products, qty, reminder_flag;
+    var data, frequecy, product, products, qty, reminder_flag, reminders;
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
     if (this.model.get('time_set') === 'asperbmi' && $.inArray(product, products) > -1) {
       qty = this.model.get('qty');
+      reminders = this.model.get('reminders');
       data.x2o = qty[0].qty;
+      data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
     if (parseInt(frequecy) === 1) {
@@ -270,7 +291,7 @@ EditProductsView = (function(_super) {
       }
     }
     reminder_flag = this.model.get('reminder_flag');
-    if (reminder_flag === void 0 || reminder_flag === 0 || reminder_flag === 'true') {
+    if (reminder_flag === void 0 || parseInt(reminder_flag) === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
     } else {
@@ -291,6 +312,11 @@ EditProductsView = (function(_super) {
     this.ui.rangeSliders.rangeslider({
       polyfill: false
     });
+    $('#timeset').val(this.model.get('time_set'));
+    container = this.model.get('no_of_container');
+    reminder_flag = this.model.get('reminder_flag');
+    $('#reminder').val(reminder_flag);
+    $('.no_of_container option[value="' + container + '"]').prop("selected", true);
     if (parseInt(this.model.get('frequency_value')) === 1 && this.model.get('time_set') !== 'asperbmi') {
       $('.schedule_data').remove();
       $('.asperbmi').hide();
@@ -298,21 +324,19 @@ EditProductsView = (function(_super) {
       if (parseInt(this.model.get('time_set')) === 1) {
         $(this.ui.servings_diff).prop('disabled', true);
       }
+      $(this.ui.servings_per_day).trigger("change");
       this.showAnytimeData(this.model);
     } else if (parseInt(this.model.get('frequency_value')) === 2) {
       $('.anytime').hide();
       $('.asperbmi').hide();
       $('#check').val('1');
+      this.selectSchdule(this.model);
+      this.showReminders();
       this.showScheduleData(this.model);
     } else {
       $('.schedule_data').hide();
       $('.anytime').hide();
     }
-    $('#timeset').val(this.model.get('time_set'));
-    container = this.model.get('no_of_container');
-    reminder_flag = this.model.get('reminder_flag');
-    $('#reminder').val(reminder_flag);
-    $('.no_of_container option[value="' + container + '"]').prop("selected", true);
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
     if ($.inArray(product, products) === -1) {
@@ -337,34 +361,33 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.showAddScheduleData = function(model) {
     var qty, whendata;
+    qty = this.model.get('serving_size').split('|');
+    whendata = this.model.get('when').split('|');
+    $('.qty0 option[value="' + qty[0] + '"]').prop("selected", true);
+    $('.when0 option[value="' + whendata[0] + '"]').prop("selected", true);
     if (this.model.get('time_set') === 'Once') {
-      $('.second').hide();
-      qty = this.model.get('serving_size').split('|');
-      whendata = this.model.get('when').split('|');
-      $('.qty0 option[value="' + qty[0] + '"]').prop("selected", true);
-      return $('.when0 option[value="' + whendata[0] + '"]').prop("selected", true);
+      return $('.second').hide();
     } else {
-      qty = this.model.get('serving_size').split('|');
-      whendata = this.model.get('when').split('|');
-      $('.qty0 option[value="' + qty[0] + '"]').prop("selected", true);
-      $('.when0 option[value="' + whendata[0] + '"]').prop("selected", true);
       $('.qty1 option[value="' + qty[1] + '"]').prop("selected", true);
       return $('.when1 option[value="' + whendata[1] + '"]').prop("selected", true);
     }
   };
 
   EditProductsView.prototype.showEditScheduleData = function(model) {
-    var qty;
+    var qty, reminder, reminders;
     qty = model.get('qty');
+    reminders = model.get('reminders');
+    $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
+    $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
+    reminder = reminders[0].time;
+    $('#reminder_time0').val(reminder);
     if (this.model.get('time_set') === 'Once') {
-      $('.second').hide();
-      $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
-      return $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
+      return $('.second').hide();
     } else {
-      $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
-      $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
       $('.qty1 option[value="' + qty[1].qty + '"]').prop("selected", true);
-      return $('.when1 option[value="' + qty[1].when + '"]').prop("selected", true);
+      $('.when1 option[value="' + qty[1].when + '"]').prop("selected", true);
+      reminder = reminders[1].time;
+      return $('#reminder_time1').val(reminder);
     }
   };
 
@@ -381,18 +404,23 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showServings = function(model) {
-    var qty;
+    var qty, reminders;
     qty = model.get('qty');
+    reminders = model.get('reminders');
     if (parseInt(model.get('check')) === 1) {
       $(this.ui.servings_diff).prop('checked', true);
       $(this.ui.servings_per_day).trigger("change");
       $('#check').val(1);
-      return $.each(qty, function(ind, val) {
+      $.each(qty, function(ind, val) {
         return $('#qty_per_servings' + ind + ' option[value="' + val.qty + '"]').prop("selected", true);
       });
     } else {
-      return $('#qty_per_servings0 option[value="' + qty[0].qty + '"]').prop("selected", true);
+      $('#qty_per_servings0 option[value="' + qty[0].qty + '"]').prop("selected", true);
     }
+    return $.each(reminders, function(ind, val) {
+      console.log(val.time);
+      return $('#reminder_time' + ind).val(val.time);
+    });
   };
 
   return EditProductsView;

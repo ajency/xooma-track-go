@@ -29,12 +29,13 @@ class EditProductsView extends Marionette.ItemView
 			$('.reminder_div').text ""
 			$('.reminder_div').append html1
 			$('.js__timepicker').each (ind,val)->
-				console.log val.name = 'reminder_time'+ind
+				val.name = 'reminder_time'+ind
+				val.id = 'reminder_time'+ind
 			$( @ui.servings_per_day ).trigger( "change" )
 			console.log @model.get('frequency_value')
 			if parseInt(@model.get('frequency_value')) == 2
 				@selectSchdule(@model)
-				@showReminders()
+			@showReminders()
 
 		'click .save':(e)->
 			e.preventDefault()
@@ -92,6 +93,7 @@ class EditProductsView extends Marionette.ItemView
 				$('.qty_per_servings').each (ind,val)->
 					val.name = 'qty_per_servings'+ind
 					val.id = 'qty_per_servings'+ind
+
 			else
 				$(@ui.servings_diff).prop 'val' , 0
 				$('#check').val '0'
@@ -101,7 +103,8 @@ class EditProductsView extends Marionette.ItemView
 				$('.qty_per_servings').each (ind,val)->
 					val.name = 'qty_per_servings'+ind
 					val.id = 'qty_per_servings'+ind
-			$('.js__timepicker').pickatime()
+			# $( @ui.servings_per_day ).trigger( "change" )
+			
 
 		'change @ui.servings_per_day ':(e)->
 			if parseInt($(e.target).val()) == 1
@@ -121,8 +124,36 @@ class EditProductsView extends Marionette.ItemView
 					val.id = 'qty_per_servings'+ind
 				$('.js__timepicker').each (ind,val)->
 					val.name = 'reminder_time'+ind
+					val.id = 'reminder_time'+ind
 
-			else if $(@ui.servings_diff).prop('checked') == true 
+			else
+				$(@ui.servings_diff).prop 'disabled' , false
+				@showReminders()
+				# servings = $('.servings_per_day').val()
+				# html1 = ""
+				# i = 1
+				# while(i <= servings)
+				# 		html1 += '<div class="reminder">'+$('.reminder').first().html()+'</div>'
+				# 		i++
+					
+				
+				# $('.reminder_div').text ""
+				# $('.reminder_div').append html1
+				# $('.js__timepicker').each (ind,val)->
+				# 	val.name = 'reminder_time'+ind
+				# 	val.id = 'reminder_time'+ind
+				# $('.js__timepicker').pickatime()
+			@loadCheckedData()
+			$('.js__timepicker').pickatime()
+
+
+		'change .no_of_container':(e)->
+			cnt = parseInt($(e.target).val()) * parseInt(@model.get('total'))
+			$('#available').val cnt
+			$('.available').text cnt
+
+	loadCheckedData:()->
+		if $(@ui.servings_diff).prop('checked') == true 
 				$(@ui.servings_diff).prop 'disabled' , false
 				servings = $('.servings_per_day').val()
 				html = ""
@@ -138,14 +169,6 @@ class EditProductsView extends Marionette.ItemView
 					console.log val.name = 'qty_per_servings'+ind
 					val.id = 'qty_per_servings'+ind
 				@showReminders()
-			
-			$('.js__timepicker').pickatime()
-
-
-		'change .no_of_container':(e)->
-			cnt = parseInt($(e.target).val()) * parseInt(@model.get('total'))
-			$('#available').val cnt
-			$('.available').text cnt
 
 	selectSchdule:(model)->
 		console.log $('#timeset').val()
@@ -172,7 +195,18 @@ class EditProductsView extends Marionette.ItemView
 				$('.reminder_div').append html1
 				$('.js__timepicker').each (ind,val)->
 					val.name = 'reminder_time'+ind
-				$('.js__timepicker').pickatime()
+					val.id = 'reminder_time'+ind
+				
+		else
+			html1 = '<div class="reminder">'+$('.reminder').first().html()+'</div>'
+						
+			$('.reminder_div').text ""
+			$('.reminder_div').append html1
+			$('.js__timepicker').each (ind,val)->
+				val.name = 'reminder_time'+ind
+				val.id = 'reminder_time'+ind
+
+		$('.js__timepicker').pickatime()
 
 
 
@@ -217,7 +251,9 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		if @model.get('time_set') == 'asperbmi' && $.inArray( product, products ) > -1
 			qty = @model.get 'qty'
+			reminders = @model.get 'reminders'
 			data.x2o = qty[0].qty
+			data.reminder = reminders[0].time
 		frequecy = @model.get 'frequency_value'
 		if parseInt(frequecy) == 1 
 			data.anytime = ''
@@ -236,7 +272,7 @@ class EditProductsView extends Marionette.ItemView
 				data.once = ''
 				data.twice = 'btn-primary'
 		reminder_flag = @model.get('reminder_flag')
-		if reminder_flag == undefined || reminder_flag == 0 || reminder_flag == 'true'
+		if reminder_flag == undefined || parseInt(reminder_flag) == 0 || reminder_flag == 'true'
 			data.default = 'btn-success'
 			data.success = ''
 			
@@ -253,30 +289,34 @@ class EditProductsView extends Marionette.ItemView
 		$('.js__timepicker').pickatime()
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-		
+		$('#timeset').val @model.get 'time_set'
+		container = @model.get('no_of_container')
+		reminder_flag = @model.get('reminder_flag')
+		$('#reminder').val reminder_flag
+		$('.no_of_container option[value="'+container+'"]').prop("selected",true)
 		if parseInt(@model.get('frequency_value')) == 1 && @model.get('time_set') != 'asperbmi'
 			$('.schedule_data').remove()
 			$('.asperbmi').hide()
 			$('.servings_per_day option[value="'+@model.get('time_set')+'"]').prop("selected",true);
 			if parseInt(@model.get('time_set')) == 1
 				$(@ui.servings_diff).prop 'disabled' , true
+			
+			$( @ui.servings_per_day ).trigger( "change" )
 			@showAnytimeData(@model)
 		else if parseInt(@model.get('frequency_value')) == 2
 			$('.anytime').hide()
 			$('.asperbmi').hide()
 			$('#check').val '1'
+			@selectSchdule(@model)	
+			@showReminders()
 			@showScheduleData(@model)
 		else
 			$('.schedule_data').hide()
 			$('.anytime').hide()
 			
 
-		$('#timeset').val @model.get 'time_set'
-		container = @model.get('no_of_container')
-		reminder_flag = @model.get('reminder_flag')
-		$('#reminder').val reminder_flag
-		$('.no_of_container option[value="'+container+'"]').prop("selected",true);
-		# $( @ui.servings_per_day ).trigger( "change" );
+		
+		
 		
 
 		product = parseInt @model.get('id')
@@ -300,36 +340,34 @@ class EditProductsView extends Marionette.ItemView
 
 
 	showAddScheduleData:(model)->
+		qty = @model.get('serving_size').split('|')
+		whendata = @model.get('when').split('|')
+		$('.qty0 option[value="'+qty[0]+'"]').prop("selected",true)
+		$('.when0 option[value="'+whendata[0]+'"]').prop("selected",true)
+			
 		if @model.get('time_set') == 'Once'
 			$('.second').hide()
-			qty = @model.get('serving_size').split('|')
-			whendata = @model.get('when').split('|')
-			$('.qty0 option[value="'+qty[0]+'"]').prop("selected",true)
-			$('.when0 option[value="'+whendata[0]+'"]').prop("selected",true)
 			
 				
 		else
-			qty = @model.get('serving_size').split('|')
-			whendata = @model.get('when').split('|')
-			$('.qty0 option[value="'+qty[0]+'"]').prop("selected",true)
-			$('.when0 option[value="'+whendata[0]+'"]').prop("selected",true)
 			$('.qty1 option[value="'+qty[1]+'"]').prop("selected",true)
 			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 			
 	showEditScheduleData:(model)->
 		qty = model.get 'qty'
+		reminders = model.get 'reminders'
+		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
+		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
+		reminder = reminders[0].time
+		$('#reminder_time0').val reminder
 		if @model.get('time_set') == 'Once'
 			$('.second').hide()
-			$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-			$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
-			
-		
 			
 		else
-			$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-			$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
 			$('.qty1 option[value="'+qty[1].qty+'"]').prop("selected",true)
 			$('.when1 option[value="'+qty[1].when+'"]').prop("selected",true)
+			reminder = reminders[1].time
+			$('#reminder_time1').val reminder
 			
 
 		
@@ -347,15 +385,24 @@ class EditProductsView extends Marionette.ItemView
 
 	showServings:(model)->
 		qty = model.get 'qty'
+		reminders = model.get 'reminders'
 		if parseInt(model.get('check')) == 1
 			$(@ui.servings_diff).prop('checked' ,true)
 			$( @ui.servings_per_day ).trigger( "change" )
 			$('#check').val(1)
 			$.each qty , (ind,val)->
 				$('#qty_per_servings'+ind+' option[value="'+val.qty+'"]').prop("selected",true)
+
+
+
+
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-					
+		$.each reminders , (ind,val)->
+				console.log val.time
+				$('#reminder_time'+ind).val val.time
+		
+			
 
 			
 

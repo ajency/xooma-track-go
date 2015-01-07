@@ -556,6 +556,24 @@ class User
 
         $data1 = maybe_unserialize($sub_query1->value);
 
+        $sub_query2 = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='reminders' and main_id = ".$sql_query->id);
+
+        $reminders = array();
+        foreach ($sub_query2 as $key => $value) {
+           
+            $data2  = maybe_unserialize($value->value);
+
+            
+            
+            $reminders[] = array(
+                'time'       => $data2['time']
+
+                );
+
+
+
+        }
+
         global $productList;
         $all_terms = $productList->get_products($pid);
         
@@ -585,7 +603,8 @@ class User
             'frequency'             => $all_terms[0]['frequency'],
             'frequency_value'       => $all_terms[0]['frequency_value'],
             'image'                 => $all_terms[0]['image'],
-            'time_set'              => $count
+            'time_set'              => $count,
+            'reminders'             => $reminders
                 
             
 

@@ -659,7 +659,7 @@ markupup
 <div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
     <div class="col-sm-6 col-xs-5 ">
-     <input name="reminder_time0" class="fieldset__input js__timepicker form-control" type="text" placeholder="Try me&hellip;">
+     <input name="reminder_time0" id="reminder_time0" class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}" placeholder="Try me&hellip;">
     </div>
   </div>
   </div>

@@ -260,12 +260,15 @@ class User_API
         $data['reminder']           = $reminder;
         $data['check']              = $_REQUEST['check'];
 
+        $data['reminders_length'] = 0;
         if($_REQUEST['reminder'] == 1)
         {
-            for($i=0;$i<$servings;$i++)
+            for($j=0;$j<$servings;$j++)
             {
-                $data['reminder_time']  = $_REQUEST['reminder_time'.$i];
+                    
+                $data['reminder_time'.$j]  = $_REQUEST['reminder_time'.$j];
             }
+             $data['reminders_length'] = $servings ;
         }
 
 
