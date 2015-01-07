@@ -25,6 +25,12 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
+  XoomaAppRootView.prototype.events = {
+    'click a': function(e) {
+      return e.preventDefault();
+    }
+  };
+
   XoomaAppRootView.prototype.onShow = function() {
     var state;
     state = App.currentUser.get('state');

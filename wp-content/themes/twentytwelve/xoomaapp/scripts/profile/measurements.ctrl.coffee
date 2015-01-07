@@ -34,9 +34,11 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	onShow:->
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-		$.getScript(_SITEURL+"/wp-content/themes/twentytwelve/js/tooltip.js", (item)->
-			
+		$("img#body").one("load",  () ->
+  			console.log "aaaaaaaaa"
+  			$.getScript(_SITEURL+"/wp-content/themes/twentytwelve/js/tooltip.js")
 		)
+		
 		
 		
 

@@ -246,7 +246,7 @@ EditProductsView = (function(_super) {
         data.twice = 'btn-primary';
       }
     }
-    console.log(reminder_flag = this.model.get('reminder_flag'));
+    reminder_flag = this.model.get('reminder_flag');
     if (reminder_flag === void 0 || reminder_flag === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
@@ -331,7 +331,7 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.showEditScheduleData = function(model) {
     var qty;
-    console.log(qty = model.get('qty'));
+    qty = model.get('qty');
     if (this.model.get('time_set') === 'Once') {
       $('.second').hide();
       $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);

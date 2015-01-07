@@ -8,6 +8,10 @@ class XoomaAppRootView extends Marionette.LayoutView
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
 
+	events:
+		'click a':(e)->
+			e.preventDefault()
+
 	
 		
 	onShow : ->

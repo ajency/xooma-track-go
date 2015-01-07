@@ -211,7 +211,7 @@ class EditProductsView extends Marionette.ItemView
 			else
 				data.once = ''
 				data.twice = 'btn-primary'
-		console.log reminder_flag = @model.get('reminder_flag')
+		reminder_flag = @model.get('reminder_flag')
 		if reminder_flag == undefined || reminder_flag == 0 || reminder_flag == 'true'
 			data.default = 'btn-success'
 			data.success = ''
@@ -292,7 +292,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 
 	showEditScheduleData:(model)->
-		console.log qty = model.get 'qty'
+		qty = model.get 'qty'
 		if @model.get('time_set') == 'Once'
 			$('.second').hide()
 			$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)

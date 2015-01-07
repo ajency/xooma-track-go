@@ -59,7 +59,10 @@ ProfileMeasurementsView = (function(_super) {
     this.ui.rangeSliders.rangeslider({
       polyfill: false
     });
-    return $.getScript(_SITEURL + "/wp-content/themes/twentytwelve/js/tooltip.js", function(item) {});
+    return $("img#body").one("load", function() {
+      console.log("aaaaaaaaa");
+      return $.getScript(_SITEURL + "/wp-content/themes/twentytwelve/js/tooltip.js");
+    });
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {

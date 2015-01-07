@@ -368,7 +368,7 @@
   
    
 
-           <img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
+           <img id="body" src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
 										
 								</div>
