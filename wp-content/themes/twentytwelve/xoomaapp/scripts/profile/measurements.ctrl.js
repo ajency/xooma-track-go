@@ -56,11 +56,8 @@ ProfileMeasurementsView = (function(_super) {
         return _this.valueOutput(ele);
       };
     })(this));
-    this.ui.rangeSliders.rangeslider({
+    return this.ui.rangeSliders.rangeslider({
       polyfill: false
-    });
-    return $("img#body").on("load", function() {
-      return $.getScript(_SITEURL + "/wp-content/themes/twentytwelve/js/tooltip.js");
     });
   };
 
