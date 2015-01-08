@@ -13,9 +13,17 @@ class EditProductsView extends Marionette.ItemView
 		cancel			:	'.cancel'
 		rangeSliders : '[data-rangeslider]'
 		x2o				: 'x2o'
+		subtract		: 'input[name="subtract"]'
 		
 
 	events:
+		'click .save_another':(e)->
+			e.preventDefault()
+			$('.save').trigger( "click" )
+
+		'keypress @ui.subtract':(e)->
+			e.charCode >= 48 && e.charCode <= 57 ||	e.charCode == 44 
+
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
 		'click @ui.cancel':(e)->
@@ -39,14 +47,24 @@ class EditProductsView extends Marionette.ItemView
 
 		'click .save':(e)->
 			e.preventDefault()
-			data = @ui.form.serialize()
-			product = @model.get('id')
-			$.ajax
-				method : 'POST'
-				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
-				data : data
-				success : @successSave
-				error : @errorSave
+			sub = @ui.subtract.val()
+			if sub == ""
+				sub = 0
+				@ui.subtract.val(0)
+			if parseInt($('#available').val()) >  parseInt(sub)
+				data = @ui.form.serialize()
+				product = @model.get('id')
+				$.ajax
+					method : 'POST'
+					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					data : data
+					success : @successSave
+					error : @errorSave
+			else
+				@ui.responseMessage.text "Value entered shoule be less than available count"
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 
 		'click .remove':(e)->
@@ -220,7 +238,10 @@ class EditProductsView extends Marionette.ItemView
 					products = []
 				products = _.union products, [response]
 				App.currentUser.set 'products', _.uniq products
-		App.navigate '#/profile/my-products', true
+		if document.activeElement.name == "save"
+			App.navigate '#/profile/my-products', true
+		else
+			App.navigate '#/products', true
 
 	erroraHandler :(response,status,xhr)=>
 		@ui.responseMessage.text "Could not delete the prodcut"
@@ -233,7 +254,7 @@ class EditProductsView extends Marionette.ItemView
 		data = super()
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		if @model.get('time_set') == 'asperbmi' && $.inArray( product, products ) > -1
+		if @model.get('time_set') == 'asperbmi' &&  @model.get 'qty' != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
 			data.x2o = qty[0].qty
@@ -270,6 +291,7 @@ class EditProductsView extends Marionette.ItemView
 	
 
 	onShow:->
+		@checkMode()
 		$('.js__timepicker').pickatime()
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
@@ -307,6 +329,17 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		if $.inArray( product, products ) == -1
 			$('.remove').hide()
+
+	checkMode:()->
+		product = parseInt @model.get('id')
+		products = App.currentUser.get 'products'
+		if $.inArray( product, products ) == -1
+			$('.save').text "Add"
+			$('.save_another').removeClass 'hidden'
+			$('.save_another').text 'Add & Choose another'
+		else
+			$('.noofcontainer').hide()
+
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()

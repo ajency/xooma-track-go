@@ -1,5 +1,5 @@
 <?php
-
+ date_default_timezone_set("UTC");
 function uploadImage($url){
 
     $upload_dir = wp_upload_dir(); // Set upload folder
@@ -117,27 +117,36 @@ function save_anytime_product_details($id,$data){
 
 
     if($main){
-        date_default_timezone_set("UTC");
-        $interval = 24/intval($data['time_set']);
-        $today = strtotime('00:00:00');
-       $start = date("Y-m-d 00:00:00");
-        $schedule_data = array(
-            'object_type' => 'user_product',
-            'object_id' => $main_id,
-            'start_dt'  => $start,
-            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-        );
-        
-        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
-        $occurrence_data = array(
-            'schedule_id' =>  $id,
-            'occurrence' => $start,
-            'meta_value' => array()
+      //stroring trasaction to keeptrack of quantity
+        $args = array(
+
+            'user_id'     => $id,
+            'product_id'  => $data['id'],
+            'type'        => 'stock',
+            'amount'      =>  $data['total'],
+            'consumption_type'  => ''
+
 
           );
-        $occurrences = \ajency\ScheduleReminder\Occurrence::
-        _insert_occurrence($occurrence_data); 
+
+
+        store_stock_data($args);
+
+       //stroring trasaction to keeptrack of quantity
+
+        //store schedule
+
+        $schedule = array(
+          'main_id'   => $main_id,
+          'time_set'  => $data['time_set']
+
+          );
+        store_add_schedule($schedule);
+
+      //store schedule
+
+        
         
 
         return $data['id'];
@@ -149,131 +158,148 @@ function save_anytime_product_details($id,$data){
 }
 
 
-function save_schedule_product_details($id,$data){
+// function save_schedule_product_details($id,$data){
 
-    //store default values for the users's product
+//     //store default values for the users's product
 
-    global $wpdb;
+//     global $wpdb;
 
-    $product_main_table = $wpdb->prefix . "product_main";
+//     $product_main_table = $wpdb->prefix . "product_main";
 
-    $product_meta_table = $wpdb->prefix . "product_meta";
+//     $product_meta_table = $wpdb->prefix . "product_meta";
 
-    $main = $wpdb->insert(
-                $product_main_table,
-                array(
-                  'user_id'             => $id,
-                  'product_id'          => $data['id'],
-                  'deleted_flag'        => 0
-                ),
-                array(
-                  '%d',
-                  '%d',
-                  '%d'
-                )
-              );
-    //saving quantity per servings
-    $main_id = $wpdb->insert_id;
-    $serving_size  = explode('|', $data['serving_size']);
-    $when  = explode('|', $data['when']);
-    $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array(
-                                                    'qty'  => $serving_size[0],
-                                                    'when' => $when[0]
+//     $main = $wpdb->insert(
+//                 $product_main_table,
+//                 array(
+//                   'user_id'             => $id,
+//                   'product_id'          => $data['id'],
+//                   'deleted_flag'        => 0
+//                 ),
+//                 array(
+//                   '%d',
+//                   '%d',
+//                   '%d'
+//                 )
+//               );
+//     //saving quantity per servings
+//     $main_id = $wpdb->insert_id;
+//     $serving_size  = explode('|', $data['serving_size']);
+//     $when  = explode('|', $data['when']);
+//     $meta_id = $wpdb->insert(
+//                 $product_meta_table,
+//                 array(
+//                   'main_id'                     => $main_id,
+//                   'key'                         => 'qty_per_servings',
+//                   'value'                       => serialize(array(
+//                                                     'qty'  => $serving_size[0],
+//                                                     'when' => $when[0]
 
-                                                ))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-            );
-    if($serving_size[1] != "" && $when[1]!= ""){
-        $meta_id = $wpdb->insert(
-                    $product_meta_table,
-                    array(
-                      'main_id'                     => $main_id,
-                      'key'                         => 'qty_per_servings',
-                      'value'                       => serialize(array(
-                                                        'qty'  => $serving_size[1],
-                                                        'when' => $when[1]
+//                                                 ))
+//                 ),
+//                 array(
+//                   '%d',
+//                   '%s',
+//                   '%s'
+//                 )
+//             );
+//     if($serving_size[1] != "" && $when[1]!= ""){
+//         $meta_id = $wpdb->insert(
+//                     $product_meta_table,
+//                     array(
+//                       'main_id'                     => $main_id,
+//                       'key'                         => 'qty_per_servings',
+//                       'value'                       => serialize(array(
+//                                                         'qty'  => $serving_size[1],
+//                                                         'when' => $when[1]
 
-                                                    ))
-                    ),
-                    array(
-                      '%d',
-                      '%s',
-                      '%s'
-                    )
-                );
-    }
+//                                                     ))
+//                     ),
+//                     array(
+//                       '%d',
+//                       '%s',
+//                       '%s'
+//                     )
+//                 );
+//     }
 
-    //saving no of containers
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
-                                                            'available' =>$data['total'],
-                                                            'reminder_flag'=>0,
-                                                            'check' => 0))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+//     //saving no of containers
+//         $meta_id = $wpdb->insert(
+//                 $product_meta_table,
+//                 array(
+//                   'main_id'                     => $main_id,
+//                   'key'                         => 'no_of_containers',
+//                   'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
+//                                                             'available' =>$data['total'],
+//                                                             'reminder_flag'=>0,
+//                                                             'check' => 0))
+//                 ),
+//                 array(
+//                   '%d',
+//                   '%s',
+//                   '%s'
+//                 )
+//               );
 
 
-    if($main){
-      if($data['time_set'] =='Once'){
-        $data['time_set'] = 1;
-      }
-      elseif ($data['time_set'] =='Twice') {
-        $data['time_set'] = 2;
-      }
-       date_default_timezone_set("UTC");
-        $interval = 24/intval($data['time_set']);
-        $today = strtotime('00:00:00');
-       $start = date("Y-m-d 00:00:00");
-        $schedule_data = array(
-            'object_type' => 'user_product',
-            'object_id' => $main_id,
-            'start_dt'  => $start,
-            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-        );
+//     if($main){
+//       if($data['time_set'] =='Once'){
+//         $data['time_set'] = 1;
+//       }
+//       elseif ($data['time_set'] =='Twice') {
+//         $data['time_set'] = 2;
+//       }
+
+//       //stroring trasaction to keeptrack of quantity
+//         $args = array(
+
+//             'user_id'     => $id,
+//             'product_id'  => $data['id'],
+//             'type'        => 'stock',
+//             'amount'      =>  $data['total'],
+//             'consumption_type'  => ''
+
+
+//           );
+
+
+//         store_stock_data($args);
+
+//        //stroring trasaction to keeptrack of quantity
+//        date_default_timezone_set("UTC");
+//         $interval = 24/intval($data['time_set']);
+//         $today = strtotime('00:00:00');
+//        $start = date("Y-m-d 00:00:00");
+//         $schedule_data = array(
+//             'object_type' => 'user_product',
+//             'object_id' => $main_id,
+//             'start_dt'  => $start,
+//             'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+//         );
         
-        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+//         $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
-        $occurrence_data = array(
-            'schedule_id' =>  $id,
-            'occurrence' => $start,
-            'meta_value' => array()
+//         $occurrence_data = array(
+//             'schedule_id' =>  $id,
+//             'occurrence' => $start,
+//             'meta_value' => array()
 
-          );
-        $occurrences = \ajency\ScheduleReminder\Occurrence::
-        _insert_occurrence($occurrence_data); 
-
-
-        return $data['id'];
-
-    }
-    else{
+//           );
+//         $occurrences = \ajency\ScheduleReminder\Occurrence::
+//         _insert_occurrence($occurrence_data); 
 
 
+//         return $data['id'];
 
-        new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
+//     }
+//     else{
 
-    }
 
-}
+
+//         new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
+
+//     }
+
+// }
 
 
 function update_anytime_product_details($id,$pid,$data){
@@ -375,27 +401,47 @@ function update_anytime_product_details($id,$pid,$data){
                 )
               );
 
-        date_default_timezone_set("UTC");
-        $interval = 24/intval($data['servings_per_day']);
-        $today = strtotime('00:00:00');
-        $start = date("Y-m-d 00:00:00");
-        $schedule_data = array(
-            'object_type' => 'user_product',
-            'object_id' => $main_id,
-            'start_dt'  => $start,
-            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-        );
-        
-        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+        //stroring trasaction to keeptrack of quantity
+        $args = array(
 
-        $occurrence_data = array(
-            'schedule_id' =>  $id,
-            'occurrence' => $start,
-            'meta_value' => array()
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'stock',
+            'amount'      =>  $data['available'],
+            'consumption_type'  => ''
+
 
           );
-        $occurrences = \ajency\ScheduleReminder\Occurrence::
-        _insert_occurrence($occurrence_data); 
+
+
+        store_stock_data($args);
+
+        $args_del = array(
+
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'remove',
+            'amount'      =>  $data['subtract'],
+            'consumption_type'  => 'sales'
+
+
+          );
+      if($data['subtract'] !=0) 
+      store_stock_data($args_del);
+       //stroring trasaction to keeptrack of quantity
+
+        //store schedule
+
+        $schedule = array(
+          'main_id'   => $main_id,
+          'time_set'  => $data['servings_per_day']
+
+          );
+        store_add_schedule($schedule);
+
+      //store schedule
+       
+       
 
 
 
@@ -564,6 +610,7 @@ function update_schedule_product_details($id,$pid,$data){
            store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
         }
 
+
         $meta_id = $wpdb->insert(
                 $product_meta_table,
                 array(
@@ -581,27 +628,45 @@ function update_schedule_product_details($id,$pid,$data){
                 )
               );
 
-       date_default_timezone_set("UTC");
-        $interval = 24/intval($data['servings_per_day']);
-        $today = strtotime('00:00:00');
-       $start = date("Y-m-d 00:00:00");
-        $schedule_data = array(
-            'object_type' => 'user_product',
-            'object_id' => $main_id,
-            'start_dt'  => $start,
-            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-        );
-        
-        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+        //stroring trasaction to keeptrack of quantity
+        $args = array(
 
-        $occurrence_data = array(
-            'schedule_id' =>  $id,
-            'occurrence' => $start,
-            'meta_value' => array()
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'stock',
+            'amount'      =>  $data['available'],
+            'consumption_type'  => ''
+
 
           );
-        $occurrences = \ajency\ScheduleReminder\Occurrence::
-        _insert_occurrence($occurrence_data); 
+
+
+        store_stock_data($args);
+
+        $args_del = array(
+
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'remove',
+            'amount'      =>  $data['subtract'],
+            'consumption_type'  => 'sales'
+
+
+          );
+      if($data['subtract'] !=0) 
+      store_stock_data($args_del);
+       //stroring trasaction to keeptrack of quantity
+
+    //store schedule
+
+        $schedule = array(
+          'main_id'   => $main_id,
+          'time_set'  => $data['servings_per_day']
+
+          );
+        store_add_schedule($schedule);
+
+      //store schedule
 
 
 
@@ -815,6 +880,7 @@ function send_emails($user_id){
 
   send_notifications_to_admin($user_id);
   send_notifications_to_user($user_id);
+  add_asperbmi_products($user_id);
 }
 function check_workflow($user_model){
 
@@ -984,5 +1050,86 @@ function store_reminders($main_id,$servings,$reminder){
               );
             $occurrences = \ajency\ScheduleReminder\Occurrence::
             _insert_occurrence($occurrence_data); 
+
+}
+
+function add_asperbmi_products($user_id){
+
+  //add asperbmi products
+
+        $productList = new ProductList();
+
+        
+
+        $all_terms = $productList->get_products($term_id="");
+        foreach ($all_terms as $key => $value) {
+            
+           $time_set = get_term_meta($value['id'], 'time_set', true);
+            if( $time_set == 'asperbmi' ){
+                
+                    $value['time_set'] = 1;
+                    save_anytime_product_details($user_id,$value);
+
+            }
+
+        }
+
+
+}
+
+function store_stock_data($args){
+
+  global $wpdb;
+
+ 
+
+  $transactions = $wpdb->prefix . "transactions";
+
+  $main = $wpdb->insert(
+                $transactions,
+                array(
+                  'user_id'                        => $args['user_id'],
+                  'product_id'                     => $args['product_id'],
+                  'type'                           => $args['type'],
+                  'amount'                         => $args['amount'],
+                  'consumption_type'               => $args['consumption_type'],
+                  'datetime'                            => date('y-m-d H:i:s')
+                ),
+                array(
+                  '%d',
+                  '%d',
+                  '%s',
+                  '%d',
+                  '%s',
+                  '%s'
+                )
+              );
+
+
+}
+
+function store_add_schedule($args){
+
+    date_default_timezone_set("UTC");
+        $interval = 24/intval($args['time_set']);
+        $today = strtotime('00:00:00');
+       $start = date("Y-m-d 00:00:00");
+        $schedule_data = array(
+            'object_type' => 'user_product',
+            'object_id' => $args['main_id'],
+            'start_dt'  => $start,
+            'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+        );
+        
+        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
+        $occurrence_data = array(
+            'schedule_id' =>  $id,
+            'occurrence' => $start,
+            'meta_value' => array()
+
+          );
+        $occurrences = \ajency\ScheduleReminder\Occurrence::
+        _insert_occurrence($occurrence_data); 
 
 }

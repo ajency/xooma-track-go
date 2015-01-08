@@ -288,7 +288,7 @@ class User
             if( $time_set == 'asperbmi' ){
                 
                     $value['time_set'] = 1;
-                    save_anytime_product_details($id,$value);
+                    // save_anytime_product_details($id,$value);
                     if(in_array($value['id'], $products_arr)){
                         $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
                         $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
@@ -405,9 +405,9 @@ class User
         $product_type_table = $wpdb->prefix . "defaults";
 
         $product_main_table = $wpdb->prefix . "product_main";
-        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id."and deleted_flag=0");
+        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
 
-        
+        $sub = array();
         $pr_main = array();
        
         

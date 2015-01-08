@@ -259,6 +259,7 @@ class User_API
         $reminder = $_REQUEST['reminder'] == "" ? 0 : $_REQUEST['reminder'];
         $data['reminder']           = $reminder;
         $data['check']              = $_REQUEST['check'];
+        $data['subtract']              = $_REQUEST['subtract'];
 
         $data['reminders_length'] = 0;
         if($_REQUEST['reminder'] == 1)

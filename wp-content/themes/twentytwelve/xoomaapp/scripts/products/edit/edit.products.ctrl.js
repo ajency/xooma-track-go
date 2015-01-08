@@ -27,10 +27,18 @@ EditProductsView = (function(_super) {
     responseMessage: '.aj-response-message',
     cancel: '.cancel',
     rangeSliders: '[data-rangeslider]',
-    x2o: 'x2o'
+    x2o: 'x2o',
+    subtract: 'input[name="subtract"]'
   };
 
   EditProductsView.prototype.events = {
+    'click .save_another': function(e) {
+      e.preventDefault();
+      return $('.save').trigger("click");
+    },
+    'keypress @ui.subtract': function(e) {
+      return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 44;
+    },
     'change @ui.rangeSliders': function(e) {
       return this.valueOutput(e.currentTarget);
     },
@@ -57,17 +65,29 @@ EditProductsView = (function(_super) {
       return this.showReminders();
     },
     'click .save': function(e) {
-      var data, product;
+      var data, product, sub;
       e.preventDefault();
-      data = this.ui.form.serialize();
-      product = this.model.get('id');
-      return $.ajax({
-        method: 'POST',
-        url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
-        data: data,
-        success: this.successSave,
-        error: this.errorSave
-      });
+      sub = this.ui.subtract.val();
+      if (sub === "") {
+        sub = 0;
+        this.ui.subtract.val(0);
+      }
+      if (parseInt($('#available').val()) > parseInt(sub)) {
+        data = this.ui.form.serialize();
+        product = this.model.get('id');
+        return $.ajax({
+          method: 'POST',
+          url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+          data: data,
+          success: this.successSave,
+          error: this.errorSave
+        });
+      } else {
+        this.ui.responseMessage.text("Value entered shoule be less than available count");
+        return $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+      }
     },
     'click .remove': function(e) {
       var product, products;
@@ -250,7 +270,11 @@ EditProductsView = (function(_super) {
       products = _.union(products, [response]);
       App.currentUser.set('products', _.uniq(products));
     }
-    return App.navigate('#/profile/my-products', true);
+    if (document.activeElement.name === "save") {
+      return App.navigate('#/profile/my-products', true);
+    } else {
+      return App.navigate('#/products', true);
+    }
   };
 
   EditProductsView.prototype.erroraHandler = function(response, status, xhr) {
@@ -265,7 +289,7 @@ EditProductsView = (function(_super) {
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
-    if (this.model.get('time_set') === 'asperbmi' && $.inArray(product, products) > -1) {
+    if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty' !== void 0)) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
       data.x2o = qty[0].qty;
@@ -303,6 +327,7 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.onShow = function() {
     var container, product, products, reminder_flag;
+    this.checkMode();
     $('.js__timepicker').pickatime();
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
@@ -341,6 +366,19 @@ EditProductsView = (function(_super) {
     products = App.currentUser.get('products');
     if ($.inArray(product, products) === -1) {
       return $('.remove').hide();
+    }
+  };
+
+  EditProductsView.prototype.checkMode = function() {
+    var product, products;
+    product = parseInt(this.model.get('id'));
+    products = App.currentUser.get('products');
+    if ($.inArray(product, products) === -1) {
+      $('.save').text("Add");
+      $('.save_another').removeClass('hidden');
+      return $('.save_another').text('Add & Choose another');
+    } else {
+      return $('.noofcontainer').hide();
     }
   };
 

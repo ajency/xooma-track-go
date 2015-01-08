@@ -20,6 +20,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			behaviorClass : Ajency.FormBehavior
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+
+		
 		
 		
 			
