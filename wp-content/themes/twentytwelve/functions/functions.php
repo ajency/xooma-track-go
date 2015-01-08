@@ -1130,6 +1130,13 @@ function store_stock_data($args){
                 )
               );
 
+    if($main){
+      return true;
+    }
+    else
+    {
+      return new WP_Error( 'stock_not_updated', __( 'Stock not updated.' ));
+    }
 
 }
 
@@ -1183,5 +1190,41 @@ function get_stock_count_user($id,$product_id){
     $stock_count  = intval($amt) - intval($remove);
 
     return $stock_count;
+
+}
+
+function get_history_user_product($id,$product_id){
+
+    global $wpdb;
+
+    $transactions = $wpdb->prefix . "transactions";
+
+    $results = $wpdb->get_results("SELECT sum(amount) as stock, DATE(datetime) as datefield from $transactions
+        where user_id=".$id." and product_id=".$product_id." group by DATE(datetime) DESC");
+
+      $transaction= array();
+      foreach ($results as $key => $value) {
+       
+             $sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
+              where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type='sales'");
+             
+             $consumption = $wpdb->get_row("SELECT sum(amount) as consumption from $transactions
+              where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type=''");
+             
+
+             $consumed = $consumption->consumption == null ? 0 : $consumption->consumption;
+             $sales_data = $sales->sales == null ? 0 : $sales->sales;
+
+             $transaction = array(
+              'date'        =>  $value->datefield, 
+              'stock'       =>  $value->stock,
+              'sales'       =>  $sales_data,
+              'consumption'   => $consumed
+
+
+              );
+      }
+
+   return $transaction;
 
 }

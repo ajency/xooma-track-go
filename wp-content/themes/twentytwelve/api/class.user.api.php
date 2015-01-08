@@ -56,6 +56,12 @@ class User_API
             array( array( $this, 'xooma_update_status'), WP_JSON_Server::CREATABLE),
         );
 
+         //inventory
+        $routes['/inventory/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
+            array( array( $this, 'xooma_store_inventory'), WP_JSON_Server::CREATABLE),
+            array( array( $this, 'xooma_get_history'), WP_JSON_Server::READABLE),
+        );
+
 
 
 
@@ -408,6 +414,91 @@ class User_API
         }
 
         return $response;
+
+    }
+
+    public function xooma_store_inventory($id,$pid){
+
+        $subtract = $_REQUEST['subtract'];
+        $containers = $_REQUEST['containers'];
+        $total = $_REQUEST['total'];
+        //stroring trasaction to keeptrack of quantity
+       
+
+
+       
+
+        if($containers !="") 
+        {
+
+            $stock = intval($total) * intval($containers);
+             $args = array(
+
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'stock',
+            'amount'      =>  $stock,
+            'consumption_type'  => ''
+
+
+          );
+
+          $response = store_stock_data($args);
+
+      }
+
+        //stroring trasaction to keeptrack of quantity\
+
+          $args_del = array(
+
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'remove',
+            'amount'      =>  $subtract,
+            'consumption_type'  => 'sales'
+
+
+          );
+          if($subtract !=0) 
+          $response = store_stock_data($args_del);
+
+
+       if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+        return $response;
+       
+    }
+
+    public function xooma_get_history($id,$pid){
+
+        $response = get_history_user_product($id,$pid);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+
 
     }
 }

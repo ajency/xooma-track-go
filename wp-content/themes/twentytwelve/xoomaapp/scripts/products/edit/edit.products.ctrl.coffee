@@ -339,7 +339,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.save_another').text 'Add & Choose another'
 		else
 			$('.noofcontainer').hide()
-
+			$('.view').removeClass 'hidden'
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()

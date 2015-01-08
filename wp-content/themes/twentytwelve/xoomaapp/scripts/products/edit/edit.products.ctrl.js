@@ -378,7 +378,8 @@ EditProductsView = (function(_super) {
       $('.save_another').removeClass('hidden');
       return $('.save_another').text('Add & Choose another');
     } else {
-      return $('.noofcontainer').hide();
+      $('.noofcontainer').hide();
+      return $('.view').removeClass('hidden');
     }
   };
 

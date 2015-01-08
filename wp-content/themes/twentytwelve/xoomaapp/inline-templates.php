@@ -677,6 +677,7 @@ markupup
       <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
          <button type="button" class="btn btn-default cancel">Cancel</button>
          <button type="button" class="btn btn-danger remove">Remove Product</button>
+         <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block view hidden" >View History</a>	
     </div>
   </div>
 
@@ -689,4 +690,60 @@ markupup
         </div>
       
     </div>    
+</script>
+
+<script id="update-inventory-template" type="text/template">
+
+<div class="container"> </br></br>
+    <div class="aj-response-message"></div>
+     <form id="inventory" class="form-horizontal" role="form" method="POST">
+    <span>Available with me :</span>{{available}}<br/>
+    <div><span>No. of container available : </span><div id="container_label"></div></div>
+    <div><span>No of container</span></div><div><select class="containers" name="containers" id="containers">
+    <option value=""></option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    </select>
+</div><br/>
+<div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
+     <div class="col-sm-6 col-xs-5">
+      <input type="text" name="subtract" aj-field-type="number" value="" />
+      <input type="hidden" name="total" value="{{total}}" / >
+      </div>
+  </div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+       <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block " >View History</a>	
+
+    </div>
+  </div>
+  </form>
+  </div>
+</script>
+
+<script id="view-inventory-template" type="text/template">
+<div class="container"> </br></br>
+
+<div>
+<ul class="viewInventory" >
+
+
+
+</ul>
+</div>
+
+<a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >Cancel</a>	
+
+</div>
+
 </script>

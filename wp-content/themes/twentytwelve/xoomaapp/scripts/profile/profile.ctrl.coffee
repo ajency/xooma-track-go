@@ -21,6 +21,12 @@ App.state 'profile',
 	.state 'EditProducts',
 					url : '/products/:id/edit'
 					parent : 'xooma'
+	.state 'EditInventory',
+					url : '/inventory/:id/edit'
+					parent : 'xooma'
+	.state 'ViewInventory',
+					url : '/inventory/:id/view'
+					parent : 'xooma'
 		
 
 

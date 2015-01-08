@@ -15,7 +15,24 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'list-title';
 
-  ProductChildView.prototype.template = '<h5 class="bold text-primary">{{name}}</h5> <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6><br/> <div><span>Available with me </span>{{available}}</div> <div><a href="#/products/{{id}}/edit" class="btn btn-primary btn-lg center-block" >Edit</a> <a href="#/products" class="btn btn-primary btn-lg center-block" >Update</a> </div>';
+  ProductChildView.prototype.ui = {
+    avail: '.avail',
+    add: '.add',
+    update: '.update'
+  };
+
+  ProductChildView.prototype.template = '<h5 class="bold text-primary">{{name}}</h5> <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6><br/> <div class="avail hidden"><span>Available with me </span>{{available}}</div> <div><a href="#/products/{{id}}/edit" class="btn btn-primary btn-lg center-block add hidden" >Edit</a> <a href="#/inventory/{{id}}/edit" class="btn btn-primary btn-lg center-block update hidden" >Update</a> </div>';
+
+  ProductChildView.prototype.onShow = function() {
+    var product, products;
+    product = parseInt(this.model.get('id'));
+    products = App.currentUser.get('products');
+    if ($.inArray(product, products) > -1) {
+      this.ui.avail.removeClass('hidden');
+      this.ui.add.removeClass('hidden');
+      return this.ui.update.removeClass('hidden');
+    }
+  };
 
   return ProductChildView;
 
@@ -112,6 +129,7 @@ App.UserProductListCtrl = (function(_super) {
 
   UserProductListCtrl.prototype._showView = function(collection) {
     var productcollection;
+    App.UserProductsColl = new Backbone.Collection(collection);
     productcollection = new Backbone.Collection(collection);
     return this.show(new UserProductListView({
       collection: productcollection

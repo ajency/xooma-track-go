@@ -315,7 +315,8 @@ class User
                                 'qty2'          => intval($servings_qty[1]),
                                 'product_type'  => $product_type->value,
                                 'occurrence'    => $occurrence,
-                                'available'     => $stock_count
+                                'available'     => $stock_count,
+                                'total'         => $value['total']
 
 
                 );
@@ -343,7 +344,7 @@ class User
             foreach ($product_type as $key => $val) {
                 $sub = array();
                 foreach ($term as $key => $value) {
-
+                    $terms = $productList->get_products($value->term_id);
                     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->term_id, 'product_type', true)." and type='product_type'");
                     $frequency = (get_term_meta($value->term_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
                     $time_set = get_term_meta($value->term_id, 'time_set', true);
@@ -365,6 +366,7 @@ class User
                         //get stock count of the user//
                         $stock_count = get_stock_count_user($id,$value->term_id);
                         $meta_arr = array();
+                        
                         $sub[] = array(
                             'id'            => $value->term_id,
                             'name'          => $value->name,
@@ -372,7 +374,8 @@ class User
                             'qty1'          => intval($servings_qty[0]),
                             'qty2'          => intval($servings_qty[1]),
                             'product_type'  => $product_type->value,
-                            'available'     => $stock_count
+                            'available'     => $stock_count,
+                            'total'         => $terms[0]['total']
 
 
                             );
