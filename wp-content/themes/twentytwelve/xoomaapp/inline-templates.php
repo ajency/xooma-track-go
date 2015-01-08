@@ -624,6 +624,7 @@ markupup
   </div>
   </div>
   </div>
+  <div class="noofcontainer">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
     container</label>
@@ -650,6 +651,7 @@ markupup
      <div class="col-sm-6 col-xs-5">
       <input type="text" name="subtract" aj-field-type="number" value="" />
       </div>
+  </div>
   </div>
 <div class="form-group">
     <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set Reminder</label>
