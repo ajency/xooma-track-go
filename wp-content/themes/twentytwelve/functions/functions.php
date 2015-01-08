@@ -345,7 +345,11 @@ function update_anytime_product_details($id,$pid,$data){
                     '%s'
                   )
                 );
-        }
+
+           //reminders
+           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
+           
+            }
 
             
 
@@ -444,6 +448,9 @@ function update_anytime_product_details($id,$pid,$data){
                     '%s'
                   )
                 );
+
+           //reminders
+           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
         }
 
         $meta_id = $wpdb->insert(
@@ -552,6 +559,9 @@ function update_schedule_product_details($id,$pid,$data){
                     '%s'
                   )
                 );
+
+           //reminders
+           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
         }
 
         $meta_id = $wpdb->insert(
@@ -642,6 +652,9 @@ function update_schedule_product_details($id,$pid,$data){
                     '%s'
                   )
                 );
+
+           //reminders
+           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
         }
 
         $meta_id = $wpdb->insert(
@@ -948,3 +961,28 @@ function update_status($id){
       }
 }
 
+function store_reminders($main_id,$servings,$reminder){
+
+            date_default_timezone_set("UTC");
+            $interval = 24/intval($servings);
+            $today = date("H:i:s", strtotime($reminder));
+            $start = date("Y-m-d $today ");
+            $schedule_data = array(
+                'object_type' => 'user_product_reminder',
+                'object_id' => $main_id,
+                'start_dt'  => $start,
+                'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+            );
+            
+            $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+
+            $occurrence_data = array(
+                'schedule_id' =>  $id,
+                'occurrence' => $start,
+                'meta_value' => array()
+
+              );
+            $occurrences = \ajency\ScheduleReminder\Occurrence::
+            _insert_occurrence($occurrence_data); 
+
+}

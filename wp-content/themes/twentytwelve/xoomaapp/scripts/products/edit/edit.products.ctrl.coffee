@@ -66,9 +66,6 @@ class EditProductsView extends Marionette.ItemView
 			console.log $('#timeset').val()
 			if $(e.target).attr('data-time') == 'Once'
 				$('.second').hide()
-
-				
-
 			else
 				$('.second').show()
 			
@@ -129,20 +126,7 @@ class EditProductsView extends Marionette.ItemView
 			else
 				$(@ui.servings_diff).prop 'disabled' , false
 				@showReminders()
-				# servings = $('.servings_per_day').val()
-				# html1 = ""
-				# i = 1
-				# while(i <= servings)
-				# 		html1 += '<div class="reminder">'+$('.reminder').first().html()+'</div>'
-				# 		i++
-					
 				
-				# $('.reminder_div').text ""
-				# $('.reminder_div').append html1
-				# $('.js__timepicker').each (ind,val)->
-				# 	val.name = 'reminder_time'+ind
-				# 	val.id = 'reminder_time'+ind
-				# $('.js__timepicker').pickatime()
 			@loadCheckedData()
 			$('.js__timepicker').pickatime()
 
