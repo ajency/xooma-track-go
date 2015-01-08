@@ -125,7 +125,8 @@ window.ParsleyValidator
  
 </script>
 
+
 </body>
 </html>
 
- 
+ <?php wp_footer(); ?>
