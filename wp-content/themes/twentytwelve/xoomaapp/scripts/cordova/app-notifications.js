@@ -54,6 +54,7 @@ _.mixin({
   },
   notificationCall: function(id) {
     var badgeValue, badgeValues, collection, concatDateAndTime, convertTo12hourFormat, convertToMilliSecs, date, getId, ids, newDate, notificationMessage, one_min, option, time, value;
+    App.request("get:sqlite:database:controller");
     value = _.getNotificationBadgeNumber();
     ids = [];
     badgeValues = [];

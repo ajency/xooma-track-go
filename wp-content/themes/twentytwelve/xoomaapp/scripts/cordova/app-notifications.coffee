@@ -62,6 +62,8 @@ _.mixin
 #this function triggers a notification after 60 secs
 
 	notificationCall : (id)->
+
+		App.request "get:sqlite:database:controller"
 		
 		value = _.getNotificationBadgeNumber()
 		ids = []
