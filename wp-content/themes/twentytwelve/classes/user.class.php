@@ -304,6 +304,9 @@ class User
                             $user_id = $id;
                             $occurrence = get_occurrence_date($value['id'],$user_id);
                             $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
+
+                            //get stock count of the user//
+                            $stock_count = get_stock_count_user($id,$value['id']);
                             $sub[] = array(
                                 'id'            => $value['id'],
                                 'name'          => $value['name'],
@@ -311,7 +314,8 @@ class User
                                 'qty1'          => intval($servings_qty[0]),
                                 'qty2'          => intval($servings_qty[1]),
                                 'product_type'  => $product_type->value,
-                                'occurrence'    => $occurrence
+                                'occurrence'    => $occurrence,
+                                'available'     => $stock_count
 
 
                 );
@@ -357,6 +361,9 @@ class User
                         $servings_qty = explode('|', $serving_size);
                         
                         $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
+
+                        //get stock count of the user//
+                        $stock_count = get_stock_count_user($id,$value->term_id);
                         $meta_arr = array();
                         $sub[] = array(
                             'id'            => $value->term_id,
@@ -364,7 +371,8 @@ class User
                             'servings'      => $no_of_servings,
                             'qty1'          => intval($servings_qty[0]),
                             'qty2'          => intval($servings_qty[1]),
-                            'product_type'  => $product_type->value
+                            'product_type'  => $product_type->value,
+                            'available'     => $stock_count
 
 
                             );
@@ -558,6 +566,7 @@ class User
 
         $sub_query2 = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='reminders' and main_id = ".$sql_query->id);
 
+
         $reminders = array();
         foreach ($sub_query2 as $key => $value) {
            
@@ -573,7 +582,8 @@ class User
 
 
         }
-
+        $reminder =  count($reminders) == 0 ? array(array('time' => ""),array('time' => "")) : $reminders;
+       
         global $productList;
         $all_terms = $productList->get_products($pid);
         
@@ -589,11 +599,11 @@ class User
         {
             $count = count($servings) == 1 ? 'Once' : 'Twice';
         }
-       
+        $stock_count = get_stock_count_user($id,$pid);
         $response = array(
             'id'                    => $pid,
             'no_of_container'       => $data1['no_of_container'],
-            'total'                 => $data1['available'],
+            'total'                 => $stock_count,
             'reminder_flag'         => $data1['reminder_flag'],
             'check'                 => $data1['check'],
             'qty'                   => $servings,
@@ -604,7 +614,7 @@ class User
             'frequency_value'       => $all_terms[0]['frequency_value'],
             'image'                 => $all_terms[0]['image'],
             'time_set'              => $count,
-            'reminders'             => $reminders
+            'reminders'             => $reminder
                 
             
 

@@ -103,7 +103,6 @@ function save_anytime_product_details($id,$data){
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
-                                                            'available' =>$data['total'],
                                                             'reminder_flag'=>0,
                                                             'check' => 0))
                 ),
@@ -390,7 +389,6 @@ function update_anytime_product_details($id,$pid,$data){
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'available' =>$data['available'],
                                                             'reminder_flag'=>$data['reminder'],
                                                             'check' => $data['check']))
                 ),
@@ -505,7 +503,6 @@ function update_anytime_product_details($id,$pid,$data){
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'available' =>$data['available'],
                                                             'reminder_flag'=>$data['reminder'],
                                                             'check' => $data['check']))
                 ),
@@ -515,6 +512,21 @@ function update_anytime_product_details($id,$pid,$data){
                   '%s'
                 )
               );
+
+
+        //stroring trasaction to keeptrack of quantity
+         $args_del = array(
+
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'remove',
+            'amount'      =>  $data['subtract'],
+            'consumption_type'  => 'sales'
+
+
+          );
+      if($data['subtract'] !=0) 
+      store_stock_data($args_del);
   }
 
 
@@ -617,7 +629,6 @@ function update_schedule_product_details($id,$pid,$data){
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'available' =>$data['available'],
                                                             'reminder_flag'=>$data['reminder'],
                                                             'check' => $data['check']))
                 ),
@@ -728,7 +739,6 @@ function update_schedule_product_details($id,$pid,$data){
                   'main_id'                     => $main_id,
                   'key'                         => 'no_of_containers',
                   'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'available' =>$data['available'],
                                                             'reminder_flag'=>$data['reminder'],
                                                             'check' => $data['check']))
                 ),
@@ -738,6 +748,21 @@ function update_schedule_product_details($id,$pid,$data){
                   '%s'
                 )
               );
+
+        //stroring trasaction to keeptrack of quantity
+         $args_del = array(
+
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'remove',
+            'amount'      =>  $data['subtract'],
+            'consumption_type'  => 'sales'
+
+
+          );
+      if($data['subtract'] !=0) 
+      store_stock_data($args_del);
+       
   }
 
 
@@ -1131,5 +1156,32 @@ function store_add_schedule($args){
           );
         $occurrences = \ajency\ScheduleReminder\Occurrence::
         _insert_occurrence($occurrence_data); 
+
+}
+
+function get_stock_count_user($id,$product_id){
+
+    global $wpdb;
+
+    $transactions = $wpdb->prefix . "transactions";
+
+    
+    $stock = $wpdb->get_row("SELECT sum(amount) as stock from  $transactions where user_id=".$id
+      ." and product_id=".$product_id." and type='stock'");
+
+
+
+   
+    $del = $wpdb->get_row("SELECT sum(amount) as del from  $transactions where user_id=".$id
+      ." and product_id=".$product_id." and type='remove'");
+
+
+
+    $amt = $stock->stock == null ? 0 : $stock->stock;
+    $remove = $del->del == null ? 0 : $del->del;
+
+    $stock_count  = intval($amt) - intval($remove);
+
+    return $stock_count;
 
 }
