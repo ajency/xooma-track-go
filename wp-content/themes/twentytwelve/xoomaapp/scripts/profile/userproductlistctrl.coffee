@@ -11,7 +11,7 @@ class ProductChildView extends Marionette.ItemView
 
 	template  : '
                 <h5 class="bold text-primary">{{name}}</h5>
-                <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6><br/>
+                <h6>{{servings}} times a day <b> {{product_type}} </b></h6><br/>
                 <div class="avail hidden"><span>Available with me </span>{{available}}</div>
                 <div><a href="#/products/{{id}}/edit" class="btn btn-primary btn-lg center-block add hidden" >Edit</a>
                 <a href="#/inventory/{{id}}/edit" class="btn btn-primary btn-lg center-block update hidden" >Update</a>	

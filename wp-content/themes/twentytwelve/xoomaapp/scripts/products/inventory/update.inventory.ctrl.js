@@ -123,9 +123,8 @@ App.EditInventoryCtrl = (function(_super) {
     });
     productsColl = new Backbone.Collection(products);
     productModel = productsColl.where({
-      id: productId[0]
+      id: parseInt(productId[0])
     });
-    console.log(productModel);
     return this.show(new EditInventoryView({
       model: productModel[0]
     }));

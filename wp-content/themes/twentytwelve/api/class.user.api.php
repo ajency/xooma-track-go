@@ -40,7 +40,7 @@ class User_API
         //users
         $routes['/users/(?P<id>\d+)/products'] = array(
             array( array( $this, 'xooma_save_user_product_details'), WP_JSON_Server::CREATABLE),
-            array( array( $this, 'xooma_get_user_products'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_get_user_home_products'), WP_JSON_Server::READABLE),
 
         );
         //update user's product

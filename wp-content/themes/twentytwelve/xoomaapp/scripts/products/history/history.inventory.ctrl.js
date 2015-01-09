@@ -60,7 +60,7 @@ App.ViewInventoryCtrl = (function(_super) {
     });
     productsColl = new Backbone.Collection(products);
     productModel = productsColl.where({
-      id: productId[0]
+      id: parseInt(productId[0])
     });
     return this._showView(productModel[0]);
   };

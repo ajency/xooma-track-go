@@ -87,8 +87,7 @@ class App.EditInventoryCtrl extends Ajency.RegionController
 						products.push value
 		
 		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:productId[0]})
-		console.log productModel	
+		productModel = productsColl.where({id:parseInt(productId[0])})
 		@show new EditInventoryView
 				model : productModel[0]	
 					

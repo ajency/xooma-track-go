@@ -218,7 +218,7 @@ class ProductChildView extends Marionette.ItemView
 			data.bonus = bonusArr
 			data.occurrArr = occurrenceArr
 		shecule = []
-		whenar = ['Morning Before meal' , 'Morning After meal', 'Night Before Meal' , 'Night After Meal']
+		whenar = ['','Morning Before meal' , 'Morning After meal', 'Night Before Meal' , 'Night After Meal']
 		$.each @model.get('qty'), (ind,val)->
 			shecule.push
 				qty : val.qty

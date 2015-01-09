@@ -285,146 +285,6 @@ class User
     }
 
 
-    public function get_user_products($id){
-
-        global $wpdb;
-
-        $product_type_table = $wpdb->prefix . "defaults";
-
-        $product_main_table = $wpdb->prefix . "product_main";
-        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
-
-
-        $products_arr = array();
-        foreach ($sql_query as $key => $value) {
-            array_push($products_arr, $value->product_id);
-        }
-
-        $pr_main = array();
-        $sub = array();
-        global $productList;
-        $all_terms = $productList->get_products($term_id="");
-        foreach ($all_terms as $key => $value) {
-            
-           $time_set = get_term_meta($value['id'], 'time_set', true);
-            if( $time_set == 'asperbmi' ){
-                
-                    $value['time_set'] = 1;
-                    // save_anytime_product_details($id,$value);
-                    if(in_array($value['id'], $products_arr)){
-
-                        $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value['id'], 'product_type', true)." and type='product_type'");
-                        $frequency = (get_term_meta($value['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                       
-
-                            $serving_size = get_term_meta($value['id'], 'serving_size', true);
-                            // $time_set = get_term_meta($value['id'], 'time_set', true);
-                            // $no_of_servings = $time_set;
-                            $time_set = 1 ;
-                            $no_of_servings = $time_set;
-                            $servings_qty = explode('|', $serving_size);
-                            //add chedule by default
-                            $user_id = $id;
-                            $occurrence = get_occurrence_date($value['id'],$user_id);
-                            $qty = intval($servings_qty[0]) + intval($servings_qty[1]);
-
-                            //get stock count of the user//
-                            $stock_count = get_stock_count_user($id,$value['id']);
-                            $sub[] = array(
-                                'id'            => $value['id'],
-                                'name'          => $value['name'],
-                                'servings'      => $no_of_servings,
-                                'qty1'          => intval($servings_qty[0]),
-                                'qty2'          => intval($servings_qty[1]),
-                                'product_type'  => $product_type->value,
-                                'occurrence'    => $occurrence,
-                                'available'     => $stock_count,
-                                'total'         => $value['total']
-
-
-                );
-            }      
-          
-        }
-
-    } 
-     $pr_main[] = array(
-
-                            'type'      => 'As per BMI',
-                            'products'  => $sub
-
-                            );   
-        $products = implode(',', $products_arr);
-
-        
-            $product_id = get_category_by_slug('product');
-            $term = get_categories('parent='.$product_id->term_id.'&include='.$products.'&hide_empty=0');
-
-
-            $product_type = array('Anytime','Scheduled');
-
-            
-            foreach ($product_type as $key => $val) {
-                $sub = array();
-                foreach ($sql_query as $key => $value) {
-                    $terms = $productList->get_products($value->product_id);
-                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value->product_id, 'product_type', true)." and type='product_type'");
-                    $frequency = (get_term_meta($value->product_id, 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                    $time_set = get_term_meta($value->product_id, 'time_set', true);
-                    if($frequency == $val && $time_set != 'asperbmi'){
-
-                        $serving_size = get_term_meta($value->product_id, 'serving_size', true);
-                        
-                        if($time_set == 'Once')
-                            $no_of_servings = 1;
-                        else if($time_set == 'Twice')
-                            $no_of_servings = 2;
-                        else
-                            $no_of_servings = $time_set;
-                        
-                        $servings_qty = explode('|', $serving_size);
-                        
-                        $qty = intval($servings_qty[0]) + intval($servings_qty[1]); 
-
-                        //get stock count of the user//
-                        $stock_count = get_stock_count_user($id,$value->product_id);
-                        $meta_arr = array();
-                        
-                        $sub[] = array(
-                            'id'            => $value->product_id,
-                            'name'          => $terms[0]['name'],
-                            'servings'      => $no_of_servings,
-                            'qty1'          => intval($servings_qty[0]),
-                            'qty2'          => intval($servings_qty[1]),
-                            'product_type'  => $product_type->value,
-                            'available'     => $stock_count,
-                            'total'         => $terms[0]['total']
-
-
-                            );
-                        
-
-                    }
-                    
-
-                }
-
-                
-
-                        $pr_main[] = array(
-
-                            'type'      => $val,
-                            'products'  => $sub
-
-                            );
-            }
-
-       
-    return $pr_main;
-        
-
-
-    }
 
     public function get_user_home_products($id){
 
@@ -469,14 +329,18 @@ class User
 
                         $response = $user->get_user_product_details($id,$term->product_id);
 
-                       
+                        //get stock count of the user//
+                        $stock_count = get_stock_count_user($id,$term->product_id);
+
                         $sub[] = array(
                             'id'            => $value[0]['id'],
                             'name'          => $value[0]['name'],
                             'servings'      => 1,
                             'qty1'          => $response['qty'][0]['qty'],
                             'product_type'  => $product_type->value,
-                            'occurrence'    => $occurrence
+                            'occurrence'    => $occurrence,
+                            'available'     => $stock_count,
+                            'total'         =>  $value[0]['total']
 
 
                 );
@@ -519,15 +383,20 @@ class User
                         
                         $occurrence = get_occurrence_date($term->product_id,$user_id);
                         $response = $user->get_user_product_details($id,$term->product_id);
+                        //get stock count of the user//
+                        $stock_count = get_stock_count_user($id,$term->product_id);
                         $sub[] = array(
 
 
                             'id'            => $term->product_id,
                             'name'          => $value[0]['name'],
                             'qty'           => $response['qty'],
+                            'servings'      => count($response['qty']),
                             'product_type'  => $product_type->value,
                             'occurrence'    => $occurrence,
                             'type'          => $val,
+                            'available'     => $stock_count,
+                            'total'         => $value[0]['total']
 
 
                             );

@@ -27,7 +27,7 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 						products.push value
 		
 		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:productId[0]})
+		productModel = productsColl.where({id:parseInt(productId[0])})
 		@_showView(productModel[0])
 
 	_showView:(model)->

@@ -233,7 +233,7 @@ ProductChildView = (function(_super) {
       return data.occurrArr = occurrenceArr;
     });
     shecule = [];
-    whenar = ['Morning Before meal', 'Morning After meal', 'Night Before Meal', 'Night After Meal'];
+    whenar = ['', 'Morning Before meal', 'Morning After meal', 'Night Before Meal', 'Night After Meal'];
     $.each(this.model.get('qty'), function(ind, val) {
       return shecule.push({
         qty: val.qty,
