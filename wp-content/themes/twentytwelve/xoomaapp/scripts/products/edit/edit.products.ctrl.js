@@ -72,7 +72,7 @@ EditProductsView = (function(_super) {
         sub = 0;
         this.ui.subtract.val(0);
       }
-      if (parseInt($('#available').val()) > parseInt(sub)) {
+      if (parseInt($('#available').val()) >= parseInt(sub)) {
         data = this.ui.form.serialize();
         product = this.model.get('id');
         return $.ajax({
@@ -289,7 +289,7 @@ EditProductsView = (function(_super) {
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
-    if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty' !== void 0)) {
+    if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
       data.x2o = qty[0].qty;

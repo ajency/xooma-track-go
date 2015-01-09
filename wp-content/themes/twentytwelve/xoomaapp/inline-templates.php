@@ -296,16 +296,17 @@
         <div style="display:none;">
             <div id="demo2_tip">
                 <b>Neck</b><br />
-           <input type="text" name="neck" class="inpt_el" value="{{measurements.neck}}" />
+           <input type="text" name="neckdata" class="inpt_el" value="{{measurements.neck}}" />
             </div>
         </div>
+
           <a class="hotspot-chest link" href="#demo3_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo3_tip', {sticky:true})" >
               <i class="fa fa-dot-circle-o"></i>
           </a>
         <div style="display:none;">
             <div id="demo3_tip">
                 <b>Chest</b><br />
-           <input type="text" name="chest" class="inpt_el" value="{{measurements.chest}}" />
+           <input type="text" name="chestdata" class="inpt_el" value="{{measurements.chest}}" />
             </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
@@ -314,7 +315,7 @@
            <div style="display:none;">
             <div id="demo4_tip">
                 <b>Arm</b><br />
-           <input type="text" name="arm" class="inpt_el" value="{{measurements.arm}}" />
+           <input type="text" name="armdata" class="inpt_el" value="{{measurements.arm}}" />
             </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
@@ -323,7 +324,7 @@
         <div style="display:none;">
             <div id="demo5_tip">
                 <b>Abdomen</b><br />
-           <input type="text" name="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
+           <input type="text" name="abdomendata" class="inpt_el" value="{{measurements.abdomen}}" />
             </div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
@@ -332,7 +333,7 @@
          <div style="display:none;">
             <div id="demo6_tip">
                 <b>Waist</b><br />
-           <input type="text" name="waist" class="inpt_el" value="{{measurements.waist}}" />
+           <input type="text" name="waistdata" class="inpt_el" value="{{measurements.waist}}" />
             </div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
@@ -342,7 +343,7 @@
                           <div style="display:none;">
             <div id="demo7_tip">
                 <b>Hips</b><br />
-           <input type="text" name="hips" class="inpt_el" value="{{measurements.hips}}" />
+           <input type="text" name="hipsdata" class="inpt_el" value="{{measurements.hips}}" />
             </div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
@@ -351,7 +352,7 @@
                           <div style="display:none;">
             <div id="demo8_tip">
                 <b>Thigh</b><br />
-           <input type="text" name="thigh" class="inpt_el" value="{{measurements.thigh}}" />
+           <input type="text" name="thighdata" class="inpt_el" value="{{measurements.thigh}}" />
             </div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
@@ -361,7 +362,7 @@
                          <div style="display:none;">
             <div id="demo9_tip">
                 <b>Midcalf</b><br />
-           <input type="text" name="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
+           <input type="text" name="midcalfdata" class="inpt_el" value="{{measurements.midcalf}}"/>
             </div>
         </div> 
           

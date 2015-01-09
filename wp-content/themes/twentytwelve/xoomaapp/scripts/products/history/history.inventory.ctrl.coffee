@@ -2,10 +2,10 @@ class InventoryChildView extends Marionette.CompositeView
 
 	tagName : 'li'
 
-	template : '<span>{{date}}</span><br/>
-				<div><span>Stock :</span>{{stock}}</div><br/>
-				<div><span>Sales :</span>{{sales}}</div><br/>
-				<div><span>Consumed :</span>{{consumption}}</div><br/>'
+	template : '<div><span>{{date}}</span></div><div><span>{{type}}</span></div><br/>
+				<div><span>Stock updated(+):</span>{{stock}}</div><br/>
+				<div><span>Samples to customer(-):</span>{{sales}}</div><br/>
+				<div><span>Consumed(-) :</span>{{consumption}}</div><br/>'
 
 
 class ViewInventoryView extends Marionette.CompositeView

@@ -51,7 +51,7 @@ class EditProductsView extends Marionette.ItemView
 			if sub == ""
 				sub = 0
 				@ui.subtract.val(0)
-			if parseInt($('#available').val()) >  parseInt(sub)
+			if parseInt($('#available').val()) >=  parseInt(sub)
 				data = @ui.form.serialize()
 				product = @model.get('id')
 				$.ajax
@@ -254,7 +254,7 @@ class EditProductsView extends Marionette.ItemView
 		data = super()
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		if @model.get('time_set') == 'asperbmi' &&  @model.get 'qty' != undefined
+		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
 			data.x2o = qty[0].qty

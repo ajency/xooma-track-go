@@ -130,14 +130,14 @@ class User_API
         $data['id']                         = $id;
         $data['height']                     = $_REQUEST['height'];
         $data['weight']                     = $_REQUEST['weight'];
-        $data['neck']                       = $_REQUEST['neck'];
-        $data['chest']                      = $_REQUEST['chest'];
-        $data['waist']                      = $_REQUEST['waist'];
-        $data['abdomen']                    = $_REQUEST['abdomen'];
-        $data['hips']                       = $_REQUEST['hips'];
-        $data['thigh']                      = $_REQUEST['thigh'];
-        $data['midcalf']                    = $_REQUEST['midcalf'];
-        $data['arm']                       = $_REQUEST['arm'];
+        $data['neck']                       = $_REQUEST['neckdata'];
+        $data['chest']                      = $_REQUEST['chestdata'];
+        $data['waist']                      = $_REQUEST['waistdata'];
+        $data['abdomen']                    = $_REQUEST['abdomendata'];
+        $data['hips']                       = $_REQUEST['hipsdata'];
+        $data['thigh']                      = $_REQUEST['thighdata'];
+        $data['midcalf']                    = $_REQUEST['midcalfdata'];
+        $data['arm']                       = $_REQUEST['armdata'];
         $date                               = $_REQUEST['date_field'];
 
 

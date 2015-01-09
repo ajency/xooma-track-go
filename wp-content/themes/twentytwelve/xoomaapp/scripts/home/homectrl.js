@@ -28,34 +28,105 @@ HomeX2OViewChild = (function(_super) {
     return HomeX2OViewChild.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OViewChild.prototype.template = '<li class="col-md-4 col-xs-4"> <h5 class="text-center">Bonus</h5> <h4 class="text-center bold  text-primary" >{{bonus}}<small class="text-muted">({{name}})</small></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Target</h5> <h4 class="text-center bold text-primary" >{{qty1}}<small class="text-muted">({{name}})</small></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last Consume</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li>';
+  HomeX2OViewChild.prototype.template = '<li class="col-md-4 col-xs-4"> <h5 class="text-center">Bonus</h5> <h4 class="text-center bold  text-primary" >{{bonus}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty1}}</sup></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last Consume</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li>';
 
   HomeX2OViewChild.prototype.serializeData = function() {
-    var data;
+    var bonusArr, data, occurrenceArr, recent;
     data = HomeX2OViewChild.__super__.serializeData.call(this);
+    occurrenceArr = [];
+    bonusArr = 0;
+    recent = '--';
+    data.time = recent;
+    data.bonus = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
-      var bonusArr, date, expected, occurrence, occurrenceArr, recent;
-      occurrence = _.has(val, "occurrence");
-      expected = _.has(val, "expected");
-      recent = '--';
-      data.time = recent;
-      data.bonus = 0;
-      occurrenceArr = [];
-      bonusArr = 0;
-      if (occurrence === true) {
-        date = val.expected;
+      var date, expected, occurrence;
+      occurrence = val.occurrence;
+      expected = val.expected;
+      if (occurrence !== "") {
+        date = val.occurrence;
         occurrenceArr.push(date);
       }
-      if (occurrence === true && expected === false) {
+      if (occurrence !== "" && expected === "") {
         bonusArr++;
       }
       if (occurrenceArr.length !== 0) {
         recent = _.last(occurrenceArr);
         data.time = moment(recent).format("ddd, hA");
       }
-      return data.bonus = bonusArr;
+      data.bonus = bonusArr;
+      return data.occurr = occurrenceArr.length;
     });
+    data.remianing = parseInt(this.model.get('qty1')) - parseInt(occurrenceArr.length);
     return data;
+  };
+
+  HomeX2OViewChild.prototype.onShow = function() {
+    var bonusArr, consumed, ctdx, ctx, doughnutData, occurrenceArr, target;
+    occurrenceArr = [];
+    bonusArr = 0;
+    $.each(this.model.get('occurrence'), function(ind, val) {
+      var date, expected;
+      expected = val.expected;
+      if (occurrence !== "") {
+        date = val.occurrence;
+        occurrenceArr.push(date);
+      }
+      if (occurrence !== "" && expected === "") {
+        return bonusArr++;
+      }
+    });
+    consumed = occurrenceArr.length;
+    target = this.model.get('qty1');
+    doughnutData = this.drawBottle(target, consumed, bonusArr);
+    ctx = document.getElementById("chart-area").getContext("2d");
+    window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
+      responsive: true,
+      percentageInnerCutout: 80
+    });
+    ctdx = document.getElementById("canvas").getContext("2d");
+    window.myLine = new Chart(ctdx).Line(lineChartData, {
+      responsive: true
+    });
+    return this.ui.liquid.each(function(e) {
+      return $(e.target).data("origHeight", $(e.target).height()).height(0).animate({
+        height: $(this).data("origHeight")
+      }, 3000);
+    });
+  };
+
+  HomeX2OViewChild.prototype.drawBottle = function(target, consumed, bonusArr) {
+    var doughnutData, grey, i;
+    grey = parseInt(target) - parseInt(consumed);
+    i = 1;
+    doughnutData = [];
+    while (i < parseInt(consumed)) {
+      doughnutData.push({
+        value: 50,
+        color: "#6bbfff ",
+        highlight: "#50abf1",
+        label: "Bottle" + i
+      });
+      i++;
+    }
+    while (i <= parseInt(grey)) {
+      doughnutData.push({
+        value: 50,
+        color: "#e3e3e3",
+        highlight: "#cdcdcd",
+        label: "Bottle" + i
+      });
+      i++;
+    }
+    while (i <= bonusArr) {
+      doughnutData.push({
+        value: 50,
+        color: "#e3e3e3",
+        highlight: "#cdcdcd",
+        label: "Bottle" + i
+      });
+      i++;
+    }
+    return doughnutData;
   };
 
   return HomeX2OViewChild;
@@ -72,6 +143,11 @@ HomeX2OView = (function(_super) {
   HomeX2OView.prototype.template = '<ul class="list-inline text-center row row-line x2oList"> </ul>';
 
   HomeX2OView.prototype.childView = HomeX2OViewChild;
+
+  HomeX2OView.prototype.ui = {
+    chartArea: '#chart-area',
+    liquid: '.liquid'
+  };
 
   HomeX2OView.prototype.childViewContainer = 'ul.x2oList';
 
@@ -122,26 +198,30 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#">View</a></li> <li><a href="#">Another action</a></li> <li><a href="#">Something else here</a></li> <li class="divider"></li> <li><a href="#">Delete</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a ><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#qty}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{data.occurr}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 >{{when}}</h6> </div> {{/qty}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#">View</a></li> <li><a href="#">History</a></li> <li><a href="#/products/{{id}}/edit">Edit</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a ><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#shecule}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 class="anytime">{{whendata}}</h6> </div> {{/shecule}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+
+  ProductChildView.prototype.ui = {
+    anytime: '.anytime'
+  };
 
   ProductChildView.prototype.serializeData = function() {
-    var data;
+    var bonusArr, data, occurrenceArr, recent, shecule, whenar;
     data = ProductChildView.__super__.serializeData.call(this);
+    recent = '--';
+    data.occur = 0;
+    data.time = recent;
+    data.bonus = 0;
+    occurrenceArr = [];
+    bonusArr = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
-      var bonusArr, date, expected, occurrence, occurrenceArr, recent;
-      occurrence = _.has(val, "occurrence");
-      expected = _.has(val, "expected");
-      recent = '--';
-      data.occur = 0;
-      data.time = recent;
-      data.bonus = 0;
-      occurrenceArr = [];
-      bonusArr = 0;
-      if (occurrence === true && expected === true) {
-        date = val.expected;
+      var date, expected, occurrence;
+      occurrence = val.occurrence;
+      expected = val.expected && expected !== "";
+      if (occurrence !== "") {
+        date = val.occurrence;
         occurrenceArr.push(date);
       }
-      if (occurrence === true && expected === false) {
+      if (occurrence !== "" && expected === "") {
         bonusArr++;
       }
       if (occurrenceArr.length !== 0) {
@@ -152,7 +232,23 @@ ProductChildView = (function(_super) {
       data.bonus = bonusArr;
       return data.occurrArr = occurrenceArr;
     });
+    shecule = [];
+    whenar = ['Morning Before meal', 'Morning After meal', 'Night Before Meal', 'Night After Meal'];
+    $.each(this.model.get('qty'), function(ind, val) {
+      return shecule.push({
+        qty: val.qty,
+        occ: occurrenceArr[ind],
+        whendata: whenar[val.when]
+      });
+    });
+    data.shecule = shecule;
     return data;
+  };
+
+  ProductChildView.prototype.onShow = function() {
+    if (this.model.get('type') === 'Anytime') {
+      return this.ui.anytime.hide();
+    }
   };
 
   return ProductChildView;
