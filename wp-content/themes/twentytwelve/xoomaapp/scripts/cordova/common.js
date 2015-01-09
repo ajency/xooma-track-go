@@ -1,4 +1,18 @@
 _.mixin({
+  isPlatformAndroid: function() {
+    if (device.platform.toLowerCase() === "android") {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  isPlatformIOS: function() {
+    if (device.platform.toLowerCase() === "ios") {
+      return true;
+    } else {
+      return false;
+    }
+  },
   cordovaHideSplashscreen: function() {
     return navigator.splashscreen.hide();
   },

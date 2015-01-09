@@ -3,6 +3,7 @@
     var notificationIdAndBadgeValue;
     notificationIdAndBadgeValue = [];
     _.enableCordovaBackbuttonNavigation();
+    Push.initialize();
     App.state('login').state('xooma', {
       url: '/'
     }).state('home', {

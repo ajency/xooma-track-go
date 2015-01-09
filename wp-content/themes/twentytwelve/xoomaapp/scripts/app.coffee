@@ -3,6 +3,7 @@
 		
 		notificationIdAndBadgeValue = []
 		_.enableCordovaBackbuttonNavigation()
+		Push.initialize()
 		
 
 		App.state 'login'
@@ -154,10 +155,12 @@
 							$('#time_for_notification').text(JSON.parse(json).date)
 							$('#Message_for_notification').text(JSON.parse(json).test)
 
+
 		App.on '2fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
 		App.start()
+
 	), false
 ).call()
