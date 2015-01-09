@@ -27,14 +27,14 @@ class HomeX2OViewChild extends Marionette.ItemView
 		data.bonus = 0
 				
 		$.each @model.get('occurrence'), (ind,val)->
-			occurrence = val.occurrence
-			expected = val.expected
-			if occurrence != ""
+			occurrence = _.has(val, "occurrence");
+			expected = _.has(val, "expected");
+			if occurrence == true
 				date = val.occurrence
 				occurrenceArr.push date
 				
 				
-			if occurrence != "" && expected == ""
+			if occurrence == true && expected == false
 				bonusArr++
 			
 			if occurrenceArr.length != 0 
@@ -49,11 +49,11 @@ class HomeX2OViewChild extends Marionette.ItemView
 		occurrenceArr = []
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->
-			expected = val.expected
-			if occurrence != ""
+			occurrence = _.has(val, "occurrence")
+			if occurrence == true
 				date = val.occurrence
 				occurrenceArr.push date
-			if occurrence != "" && expected == ""
+			if occurrence == true && expected == false
 				bonusArr++
 		consumed = occurrenceArr.length
 		target = @model.get 'qty1'
@@ -154,7 +154,7 @@ class ProductChildView extends Marionette.ItemView
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#">View</a></li>
 						<li><a href="#">History</a></li>
-						<li><a href="#/products/{{id}}/edit">Edit</a></li>
+						
 						
 					  </ul>
 			  </h5>
@@ -200,14 +200,14 @@ class ProductChildView extends Marionette.ItemView
 		bonusArr = 0
 			
 		$.each @model.get('occurrence'), (ind,val)->
-			occurrence = val.occurrence
-			expected = val.expected && expected != ""
-			if occurrence != "" 
+			occurrence = _.has(val, "occurrence");
+			expected = _.has(val, "expected");
+			if occurrence == true && expected == true
 				date = val.occurrence
 				occurrenceArr.push date
 				
 				
-			if occurrence != ""  && expected == ""
+			if occurrence == true && expected == false
 				bonusArr++
 			
 			if occurrenceArr.length != 0 

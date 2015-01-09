@@ -18,10 +18,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
-	onShow:->
-		birth_date = @model.get('profile').birth_date
-		picker = @ui.dateElement.pickadate('picker')
-		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
+	
+		
 
 
 	onRender:->
@@ -30,7 +28,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
 			max: new Date()
+			selectYears: 70
 			)
+		birth_date = @model.get('profile').birth_date
+		picker = @ui.dateElement.pickadate('picker')
+		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
 		
 
 	#to initialize validate plugin

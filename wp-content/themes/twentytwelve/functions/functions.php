@@ -873,7 +873,7 @@ function get_occurrence_date($product_id,$user_id=""){
   if(!is_wp_error($object_id)){
 
     //get schedule id
-    $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+  $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
     $start_datetime = date('Y-m-d 00:00:00');
     $end_datetime = date('Y-m-d 23:59:59');
@@ -881,7 +881,7 @@ function get_occurrence_date($product_id,$user_id=""){
 
     $occurrences = \ajency\ScheduleReminder\Occurrence::
     get_occurrences($schedule, $start_datetime, $end_datetime); 
-    print_r($occurrences);
+    
 
 
 
@@ -899,7 +899,7 @@ function get_object_id($product_id,$user_id){
 
   $product_main_table = $wpdb->prefix . "product_main";
   $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
-    and product_id=".$product_id);
+    and product_id=".$product_id." and deleted_flag=0");
 
   if(!(is_null($object)))
   {
@@ -947,14 +947,7 @@ function store_reminders($main_id,$servings,$reminder){
             
             $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
-            $occurrence_data = array(
-                'schedule_id' =>  $id,
-                'occurrence' => $start,
-                'meta_value' => array()
-
-              );
-            $occurrences = \ajency\ScheduleReminder\Occurrence::
-            _insert_occurrence($occurrence_data); 
+           
 
 }
 

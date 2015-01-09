@@ -191,9 +191,15 @@ class User
 
             return array('response' => $data);
         }
-        else
+        if(is_wp_error($sql_query))
         {
             return new WP_Error( 'json_user_meausrement_details_not_found', __( 'User Measurement details not found.' ));
+
+        }
+        else
+        {
+                    
+            return $data;
         }
 
 

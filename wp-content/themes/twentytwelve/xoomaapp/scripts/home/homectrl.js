@@ -40,13 +40,13 @@ HomeX2OViewChild = (function(_super) {
     data.bonus = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
       var date, expected, occurrence;
-      occurrence = val.occurrence;
-      expected = val.expected;
-      if (occurrence !== "") {
+      occurrence = _.has(val, "occurrence");
+      expected = _.has(val, "expected");
+      if (occurrence === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
       }
-      if (occurrence !== "" && expected === "") {
+      if (occurrence === true && expected === false) {
         bonusArr++;
       }
       if (occurrenceArr.length !== 0) {
@@ -65,13 +65,13 @@ HomeX2OViewChild = (function(_super) {
     occurrenceArr = [];
     bonusArr = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
-      var date, expected;
-      expected = val.expected;
-      if (occurrence !== "") {
+      var date, occurrence;
+      occurrence = _.has(val, "occurrence");
+      if (occurrence === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
       }
-      if (occurrence !== "" && expected === "") {
+      if (occurrence === true && expected === false) {
         return bonusArr++;
       }
     });
@@ -198,7 +198,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#">View</a></li> <li><a href="#">History</a></li> <li><a href="#/products/{{id}}/edit">Edit</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a ><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#shecule}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 class="anytime">{{whendata}}</h6> </div> {{/shecule}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#">View</a></li> <li><a href="#">History</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a ><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#shecule}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 class="anytime">{{whendata}}</h6> </div> {{/shecule}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -215,13 +215,13 @@ ProductChildView = (function(_super) {
     bonusArr = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
       var date, expected, occurrence;
-      occurrence = val.occurrence;
-      expected = val.expected && expected !== "";
-      if (occurrence !== "") {
+      occurrence = _.has(val, "occurrence");
+      expected = _.has(val, "expected");
+      if (occurrence === true && expected === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
       }
-      if (occurrence !== "" && expected === "") {
+      if (occurrence === true && expected === false) {
         bonusArr++;
       }
       if (occurrenceArr.length !== 0) {

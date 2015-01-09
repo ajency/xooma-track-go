@@ -75,7 +75,7 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		xhr = @_get_measurement_details()
-		xhr.done(@_showView).fail @_showView
+		xhr.done(@_showView).fail @errorHandler
 
 	_showView :=>
 		@show new ProfileMeasurementsView

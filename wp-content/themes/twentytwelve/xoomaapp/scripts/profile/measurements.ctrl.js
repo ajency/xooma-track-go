@@ -110,7 +110,7 @@ App.UserMeasurementCtrl = (function(_super) {
   UserMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
     xhr = this._get_measurement_details();
-    return xhr.done(this._showView).fail(this._showView);
+    return xhr.done(this._showView).fail(this.errorHandler);
   };
 
   UserMeasurementCtrl.prototype._showView = function() {

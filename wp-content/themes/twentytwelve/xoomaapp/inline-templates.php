@@ -261,8 +261,8 @@
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">
-												<h5 class="text-center bold">Set your mesurements</h5>
-												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
+												<h5 class="text-center bold">Set your measurements</h5>
+												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your body needs on a daily basis </p>
 												<div class="row">
 												<input type="hidden" name="date_field" value="{{measurements.date}}" />
 														<div class="col-md-5 col-xs-5">

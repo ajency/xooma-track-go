@@ -43,21 +43,19 @@ ProfilePersonalInfoView = (function(_super) {
     });
   };
 
-  ProfilePersonalInfoView.prototype.onShow = function() {
+  ProfilePersonalInfoView.prototype.onRender = function() {
     var birth_date, picker;
+    Backbone.Syphon.deserialize(this, this.model.toJSON());
+    this.ui.dateElement.pickadate({
+      formatSubmit: 'yyyy-mm-dd',
+      hiddenName: true,
+      max: new Date(),
+      selectYears: 70
+    });
     birth_date = this.model.get('profile').birth_date;
     picker = this.ui.dateElement.pickadate('picker');
     return picker.set('select', birth_date, {
       format: 'yyyy-mm-dd'
-    });
-  };
-
-  ProfilePersonalInfoView.prototype.onRender = function() {
-    Backbone.Syphon.deserialize(this, this.model.toJSON());
-    return this.ui.dateElement.pickadate({
-      formatSubmit: 'yyyy-mm-dd',
-      hiddenName: true,
-      max: new Date()
     });
   };
 
