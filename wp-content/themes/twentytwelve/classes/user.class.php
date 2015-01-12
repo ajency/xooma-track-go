@@ -329,7 +329,7 @@ class User
                         
                         $user_id = $id;
 
-                        $occurrence = get_occurrence_date($value[0]['id'],$user_id);
+                        $occurrence = get_occurrence_date($value[0]['id'],$user_id,$date="");
 
                         $response = $user->get_user_product_details($id,$term->product_id);
 
@@ -339,7 +339,7 @@ class User
                         $sub[] = array(
                             'id'            => intval($value[0]['id']),
                             'name'          => $value[0]['name'],
-                            'servings'      => 1,
+                            'servings'      => count($response['qty']),
                             'qty1'          => $response['qty'][0]['qty'],
                             'product_type'  => $product_type->value,
                             'occurrence'    => $occurrence,
@@ -385,7 +385,7 @@ class User
                         $meta_arr = array();
                         $user_id = $id;
                         
-                        $occurrence = get_occurrence_date($term->product_id,$user_id);
+                        $occurrence = get_occurrence_date($term->product_id,$user_id,$date="");
                         $response = $user->get_user_product_details($id,$term->product_id);
                         //get stock count of the user//
                         $stock_count = get_stock_count_user($id,$term->product_id);

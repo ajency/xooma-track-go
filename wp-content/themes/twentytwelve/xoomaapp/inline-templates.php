@@ -790,3 +790,15 @@ markupup
 </div>
 
 </script>
+
+<script id="schedule-template" type="text/template">
+<div class="container"> </br></br>
+
+<div><span class="day">{{day}}</span></div>
+<div><span class="today">{{today}}</span></div>
+{{#servings}}
+<span>{{no}}</span>
+{{/servings}}
+</div>
+
+</script>

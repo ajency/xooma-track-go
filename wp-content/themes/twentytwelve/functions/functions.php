@@ -813,7 +813,7 @@ function login_response($user_id){
 }
 
 
-function get_occurrence_date($product_id,$user_id=""){
+function get_occurrence_date($product_id,$user_id="",$date=""){
 
   if($user_id ==""){
     $user_id = get_current_user_id();
@@ -822,22 +822,30 @@ function get_occurrence_date($product_id,$user_id=""){
   //get object id
   $object_id = get_object_id($product_id,$user_id);
 
-  if(!is_wp_error($object_id)){
+    if(!is_wp_error($object_id)){
 
-    //get schedule id
-  $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+      //get schedule id
+      $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
-    $start_datetime = date('Y-m-d 00:00:00');
-    $end_datetime = date('Y-m-d 23:59:59');
+      if($date=="")
+      {
+        $start_datetime = date('Y-m-d 00:00:00');
+        $end_datetime = date('Y-m-d 23:59:59');
+      }
+      else
+      {
+        $new_date = date('Y-m-d',strtotime($date));
+        $start_datetime = date('$new_date 00:00:00');
+        $end_datetime = date('$new_date 23:59:59');
+      }
+
+      $occurrences = \ajency\ScheduleReminder\Occurrence::
+      get_occurrences($schedule, $start_datetime, $end_datetime); 
+      
 
 
-    $occurrences = \ajency\ScheduleReminder\Occurrence::
-    get_occurrences($schedule, $start_datetime, $end_datetime); 
-    
 
-
-
-    return $occurrences;
+      return $occurrences;
 
     
   }
@@ -1100,4 +1108,31 @@ function get_history_user_product($id,$product_id){
 
    return $transaction;
 
+}
+
+function get_consumption_details($id,$pid,$date)
+{
+
+        global $wpdb;
+
+        $user = new User();
+
+        $product_meta_table = $wpdb->prefix . "product_meta";
+
+        $product_main_table = $wpdb->prefix . "product_main";
+
+
+        $response = $user->get_user_product_details($id,$pid);
+
+
+
+        $occurrences = get_occurrence_date($pid,$id,$date);
+
+        $response['occurrences']  = $occurrences;
+
+        $response['date'] = $date ; 
+
+        return $response;
+
+        
 }

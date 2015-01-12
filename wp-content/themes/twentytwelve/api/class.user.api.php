@@ -62,6 +62,12 @@ class User_API
             array( array( $this, 'xooma_get_history'), WP_JSON_Server::READABLE),
         );
 
+          //consumption
+        $routes['/intakes/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
+            array( array( $this, 'xooma_get_consumption_details'), WP_JSON_Server::READABLE),
+        );
+
+
 
 
 
@@ -501,5 +507,28 @@ class User_API
         return $response;
 
 
+    }
+
+    public function xooma_get_consumption_details($id,$pid){
+
+
+        $date = $_REQUEST['date'];
+
+        $response = get_consumption_details($id,$pid,$date="");
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
     }
 }

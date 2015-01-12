@@ -161,7 +161,7 @@ class ProductChildView extends Marionette.ItemView
 
 			  <ul class="list-inline text-center row dotted-line m-t-20 userProductList">
 			  	<li class="col-md-4  col-xs-4"> 
-							<a href="/products/{{id}}/consume"><img src="assets/images/btn_03.png" width="100px"></a>
+							<a href="#/products/{{id}}/consume"><img src="assets/images/btn_03.png" width="100px"></a>
 							<h6 class="text-center margin-none">Tap to consume</h6>
 						</li>
 						<li class="col-md-4  col-xs-4">
@@ -265,6 +265,8 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 	_showView:(collection)=>
 		productcollection = new Backbone.Collection collection
 		productcollection.shift() 
+		App.homexProductsColl = new Backbone.Collection
+		App.homexProductsColl = productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		
