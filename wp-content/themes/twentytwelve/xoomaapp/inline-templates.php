@@ -37,21 +37,21 @@
 											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal x2o water consumption</p>
+													<p>Has been desiged to help you track your personal X2O water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal x2o water consumption</p>
+													<p>Has been desiged to help you track your personal X2O water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal x2o water consumption</p>
+													<p>Has been desiged to help you track your personal X2O water consumption</p>
 											</div>
 										</div>
 									</div>

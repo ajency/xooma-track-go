@@ -235,9 +235,15 @@ ProductChildView = (function(_super) {
     shecule = [];
     whenar = ['', 'Morning Before meal', 'Morning After meal', 'Night Before Meal', 'Night After Meal'];
     $.each(this.model.get('qty'), function(ind, val) {
+      var occu_data;
+      console.log(occurrenceArr[ind]);
+      occu_data = occurrenceArr[ind];
+      if (occurrenceArr[ind] === "" || occurrenceArr[ind] === void 0) {
+        occu_data = 0;
+      }
       return shecule.push({
         qty: val.qty,
-        occ: occurrenceArr[ind],
+        occ: occu_data,
         whendata: whenar[val.when]
       });
     });
