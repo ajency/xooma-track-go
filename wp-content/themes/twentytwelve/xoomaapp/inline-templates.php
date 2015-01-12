@@ -796,9 +796,15 @@ markupup
 
 <div><span class="day">{{day}}</span></div>
 <div><span class="today">{{today}}</span></div>
+{{#no_servings}}
+<div>
 {{#servings}}
-<span>{{no}}</span>
+<span>{{classname}}</span>
 {{/servings}}
 </div>
+{{/no_servings}}
+</div>
 
+
+<div class= "original">{{original}}</div>
 </script>

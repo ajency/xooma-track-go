@@ -19,24 +19,41 @@ ScheduleView = (function(_super) {
   ScheduleView.prototype.template = '#schedule-template';
 
   ScheduleView.prototype.serializeData = function() {
-    var data, qty;
+    var data, no_servings, occurr, product_type, qty;
     data = ScheduleView.__super__.serializeData.call(this);
     console.log(data.day = moment().format("dddd"));
     console.log(data.today = moment().format("MMMM Do YYYY"));
     qty = this.model.get('qty');
-    return $.each(qty, function(ind, val) {
-      var expected, occurrence;
-      console.log(occurrence = this.model.get('occurrences')[ind]);
+    occurr = this.model.get('occurrences');
+    product_type = this.model.get('product_type_name');
+    no_servings = [];
+    $.each(qty, function(ind, val) {
+      var expected, i, occurrence, servings;
+      console.log(occurrence = occurr[ind]);
       occurrence = _.has(occurrence, "occurrence");
       expected = _.has(occurrence, "expected");
       if (occurrence === true && expected === true) {
-        return data["class"] = this.model.get('product_type_name') + 'occurred_class';
+        data.classname = product_type + 'occurred_class';
       } else if (occurrence === false && expected === true) {
-        return data["class"] = this.model.get('product_type_name') + 'expected_class';
+        data.classname = product_type + 'expected_class';
       } else if (occurrence === true && expected === false) {
-        return data["class"] = this.model.get('product_type_name') + 'bonus_class';
+        data.classname = product_type + 'bonus_class';
       }
+      i = 0;
+      servings = [];
+      while (i < val.qty) {
+        servings.push({
+          classname: data.classname
+        });
+        i++;
+      }
+      no_servings.push({
+        servings: servings
+      });
+      return data.no_servings = no_servings;
     });
+    dsata.original = product_type + 'occurred_class';
+    return data;
   };
 
   return ScheduleView;

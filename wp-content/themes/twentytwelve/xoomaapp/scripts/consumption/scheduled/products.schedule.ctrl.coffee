@@ -12,17 +12,31 @@ class ScheduleView extends Marionette.ItemView
 		console.log data.day = moment().format("dddd")
 		console.log data.today = moment().format("MMMM Do YYYY")
 		qty = @model.get 'qty'
+		occurr = @model.get('occurrences')
+		product_type = @model.get('product_type_name')
+		no_servings  = []
 		$.each qty , (ind,val)->
-			console.log occurrence  = @model.get('occurrences')[ind]
+			console.log occurrence  = occurr[ind]
 			occurrence = _.has(occurrence, "occurrence")
 			expected = _.has(occurrence, "expected")
 			if occurrence == true && expected == true
-				data.class = @model.get('product_type_name')+'occurred_class'
+				data.classname = product_type+'occurred_class'
 			else if occurrence == false && expected == true
-				data.class = @model.get('product_type_name')+'expected_class'
+				data.classname = product_type+'expected_class'
 			else if occurrence == true && expected == false
-				data.class = @model.get('product_type_name')+'bonus_class'
+				data.classname = product_type+'bonus_class'
+
+			i = 0
+			servings = []
+			while(i < val.qty)
+				servings.push classname : data.classname
+				i++
+			no_servings.push servings : servings
+			data.no_servings =  no_servings
 		
+		dsata.original = product_type+'occurred_class'
+		data
+						
 
 
 		

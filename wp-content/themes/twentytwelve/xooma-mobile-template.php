@@ -33,9 +33,8 @@
 			
 			var FullURl = window.location.href;
 			var access_token=FullURl.substring(FullURl.indexOf("=")+1,FullURl.indexOf("&"));
-			alert(access_token);
 			console.log(access_token);
-			window.location.href = "phoenixapp://";
+			window.location.href = "phoenixapp://?access_token="+access_token;
 			
 			
 	   }
