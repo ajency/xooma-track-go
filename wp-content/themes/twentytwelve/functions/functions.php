@@ -917,22 +917,24 @@ function add_asperbmi_products($user_id,$weight){
         
         $state = $aj_workflow->workflow_needed($user_id);
 
-        
+      
 
         $all_terms = $productList->get_products($term_id="");
 
 
         foreach ($all_terms as $key => $value) {
 
+         
+
           $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
           and product_id=".$value['id']." and deleted_flag=0");
 
           if($state != '/home' && is_null($object)) 
           {
-           $time_set = get_term_meta($value['id'], 'time_set', true);
+          $time_set = $value['time_set'];
             if( $time_set == 'asperbmi' ){
-                
-                    $bmi = get_term_meta($value['id'], 'bmi', true);
+               
+                    $bmi = $value['bmi'];
                     
                     foreach ($bmi as $key => $val) {
                       
