@@ -1,6 +1,6 @@
 <?php
 /*
-    Template Name: Xooma-mobile Template
+	Template Name: Xooma-mobile Template
 */
 
 ?>
@@ -14,22 +14,37 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <!--<![endif]-->
 <head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title( '|', true, 'right' ); ?></title>
-    <link rel="profile" href="http://gmpg.org/xfn/11" />
-    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><?php wp_title( '|', true, 'right' ); ?></title>
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/themes/default.css">
-    <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
+	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/themes/default.css">
+	<script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
 
 
+	<script type="text/javascript">
+	   
+	function getUrlData()
+	   {
+			
+			var FullURl = window.location.href;
+			var access_token=FullURl.substring(FullURl.indexOf("=")+1,FullURl.indexOf("&"));
+			// alert(access_token);
+			console.log(access_token);
+			window.location.href = "phoenixapp://?accessToken="+access_token+"";
+			
+			
+	   }
 
+
+	 </script>
 
 </head>
-<body class="gradient">
+<body onload="getUrlData()" class="gradient">
 <div ui-region></div>
 <div id="fb-root"></div>
 <!-- Templates -->
@@ -68,8 +83,6 @@
 <!-- endbuild -->
 
 
-
- 
 
 
 
