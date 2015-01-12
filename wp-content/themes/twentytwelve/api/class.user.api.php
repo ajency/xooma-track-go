@@ -235,6 +235,7 @@ class User_API
         }
         else if ($_REQUEST['timeset'] =="asperbmi")
         {
+            $servings = $_REQUEST['x2o'];
             $data['servings_per_day'] = $_REQUEST['x2o'];
             for($i=0;$i<$servings;$i++)
             {
