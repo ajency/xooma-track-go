@@ -17,7 +17,9 @@ _.mixin({
     return navigator.splashscreen.hide();
   },
   enableCordovaBackbuttonNavigation: function() {
-    navigator.app.overrideBackbutton(true);
+    if (navigator.app) {
+      navigator.app.overrideBackbutton(true);
+    }
     return document.addEventListener("backbutton", _.onDeviceBackButtonClick, false);
   },
   disableCordovaBackbuttonNavigation: function() {

@@ -1,8 +1,13 @@
-var Push, onNotificationGCM;
+var Push, onNotificationAPN, onNotificationGCM;
 
 onNotificationGCM = function(e) {
-  console.log('Received notification');
+  console.log('Received notification for Android');
   return console.log(e);
+};
+
+onNotificationAPN = function(e) {
+  console.log('Received notification for iOS');
+  return alert(JSON.stringify(e));
 };
 
 Push = {
@@ -24,5 +29,16 @@ Push = {
       "ecb": "onNotificationGCM"
     });
   },
-  registerIOS: function() {}
+  registerIOS: function() {
+    return this.pushNotification.register(function(result) {
+      return console.log('registerIOS success');
+    }, function(error) {
+      return console.log('registerAndroid error');
+    }, {
+      "badge": "true",
+      "sound": "true",
+      "alert": "true",
+      "ecb": "onNotificationAPN"
+    });
+  }
 };

@@ -1,8 +1,9 @@
 (->
 	document.addEventListener "deviceready", (->
-		
+
 		notificationIdAndBadgeValue = []
 		_.enableCordovaBackbuttonNavigation()
+
 		Push.initialize()
 		
 
@@ -163,4 +164,5 @@
 		App.start()
 
 	), false
+
 ).call()

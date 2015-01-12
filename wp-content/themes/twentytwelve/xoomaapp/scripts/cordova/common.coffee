@@ -15,7 +15,7 @@ _.mixin
 
 
 	enableCordovaBackbuttonNavigation : ->
-		navigator.app.overrideBackbutton(true)
+		navigator.app.overrideBackbutton true if navigator.app
 		document.addEventListener("backbutton", _.onDeviceBackButtonClick, false)
 
 

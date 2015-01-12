@@ -2,8 +2,14 @@
 
 	onNotificationGCM = (e)->
 
-		console.log 'Received notification'
+		console.log 'Received notification for Android'
 		console.log e
+
+
+	onNotificationAPN = (e)->
+
+		console.log 'Received notification for iOS'
+		alert JSON.stringify(e)
 
 
 	Push = 
@@ -29,4 +35,11 @@
 
 
 		registerIOS : ->
+
+			@pushNotification.register (result)->
+				console.log 'registerIOS success'
+			, (error)->
+				console.log 'registerAndroid error'
+				
+			,{ "badge":"true", "sound":"true", "alert":"true", "ecb":"onNotificationAPN" }
 
