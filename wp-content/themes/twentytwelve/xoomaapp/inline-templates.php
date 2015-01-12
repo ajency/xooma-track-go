@@ -37,21 +37,21 @@
 											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal x2o water consumption</p>
+													<p>Has been desiged to help you track your personal X2O water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal x2o water consumption</p>
+													<p>Has been desiged to help you track your personal X2O water consumption</p>
 											</div>
 										</div>
 										<div class="item ">
 											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
 											<div class="carousel-caption text-center">
 													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal x2o water consumption</p>
+													<p>Has been desiged to help you track your personal X2O water consumption</p>
 											</div>
 										</div>
 									</div>
@@ -87,7 +87,7 @@
 											</div>
 										</div>
 										<div class="col-sm-9 col-xs-7">
-                        <a href="#menu">
+                        <a class="link" href="#menu">
                             <h5><i class="fa fa-cog pull-right "></i></h5>
                         </a>
                     </div>
@@ -98,13 +98,13 @@
 		<div class="clearfix"></div>
 		 <nav id="menu">
         <ul>
-            <li><a  href="#/home">Home</a>
+            <li><a  class="link" href="#/home">Home</a>
             </li>
-            <li><a  href="#/profile/personal-info">Profile</a>
+            <li><a  class="link" href="#/profile/personal-info">Profile</a>
             </li>
-            <li><a  href="#/profile/measurements">Measurements</a>
+            <li><a  class="link" href="#/profile/measurements">Measurements</a>
             </li>
-            <li><a  href="#/profile/my-products">My Products</a>
+            <li><a  class="link" href="#/profile/my-products">My Products</a>
             </li>
         </ul>
     </nav>
@@ -261,9 +261,10 @@
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">
-												<h5 class="text-center bold">Set your mesurements</h5>
-												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your bodyneeds on a daily basis </p>
+												<h5 class="text-center bold">Set your measurements</h5>
+												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your body needs on a daily basis </p>
 												<div class="row">
+												<input type="hidden" name="date_field" value="{{measurements.date}}" />
 														<div class="col-md-5 col-xs-5">
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
 														</div>
@@ -289,15 +290,86 @@
 
 										<div class="col-sm-6 imageMap">
 
-												<a id="element1" tabindex="0" class="popover-element hotspot-neck " container="body" data-toggle="popover" title="Neck"  data-content="<input type='text' class='input-ele' aj-field-type='number' name='neck' id='neck' value='{{measurements.neck}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element2" tabindex="0" class="popover-element hotspot-chest " data-toggle="popover" title="Chest" data-content="<input type='text' aj-field-type='number' name='chest' id='chest' value='{{measurements.chest}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element3" tabindex="0" class="popover-element hotspot-arm " data-toggle="popover" title="Upper Arm" data-content="<input type='text' aj-field-type='number' name='arm' id='arm' value='{{measurements.arm}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element4" tabindex="0" class="popover-element hotspot-abdomen " data-toggle="popover" title="Abdomen" data-content="<input type='text' aj-field-type='number' name='abdomen' id='abdomen' value='{{measurements.abdomen}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element5" tabindex="0" class="popover-element hotspot-waist " data-toggle="popover" title="Waist" data-content="<input type='text' aj-field-type='number'  name='waist' id='waist' value='{{measurements.waist}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element6" tabindex="0" class="popover-element hotspot-hips " data-toggle="popover" title="Hips" data-content="<input type='text' aj-field-type='number' name='hips' id='hips' value='{{measurements.hips}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element7" tabindex="0" class="popover-element hotspot-thigh " data-toggle="popover" title="Upper Thigh" data-content="<input type='text' aj-field-type='number'  name='thigh' id='thigh' value='{{measurements.thigh}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<a id="element8" tabindex="0" class="popover-element hotspot-midcalf " data-toggle="popover" title="Mid Calf" data-content="<input type='text' aj-field-type='number' name='midcalf' id='midcalf' value='{{measurements.midcalf}}'>"><i class="fa fa-dot-circle-o"></i></a>
-												<img src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
+									           <a  class="hotspot-neck link" href="#demo2_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo2_tip', {sticky:true})">
+            <i class="fa fa-dot-circle-o"></i>
+           </a>
+        <div style="display:none;">
+            <div id="demo2_tip">
+                <b>Neck</b><br />
+           <input type="text" name="neckdata" class="inpt_el" value="{{measurements.neck}}" />
+            </div>
+        </div>
+
+          <a class="hotspot-chest link" href="#demo3_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo3_tip', {sticky:true})" >
+              <i class="fa fa-dot-circle-o"></i>
+          </a>
+        <div style="display:none;">
+            <div id="demo3_tip">
+                <b>Chest</b><br />
+           <input type="text" name="chestdata" class="inpt_el" value="{{measurements.chest}}" />
+            </div>
+        </div>
+           <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+           <div style="display:none;">
+            <div id="demo4_tip">
+                <b>Arm</b><br />
+           <input type="text" name="armdata" class="inpt_el" value="{{measurements.arm}}" />
+            </div>
+        </div>
+           <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
+                <i class="fa fa-dot-circle-o"></i>
+           </a>
+        <div style="display:none;">
+            <div id="demo5_tip">
+                <b>Abdomen</b><br />
+           <input type="text" name="abdomendata" class="inpt_el" value="{{measurements.abdomen}}" />
+            </div>
+        </div>
+           <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
+    
+           </a>
+         <div style="display:none;">
+            <div id="demo6_tip">
+                <b>Waist</b><br />
+           <input type="text" name="waistdata" class="inpt_el" value="{{measurements.waist}}" />
+            </div>
+        </div>
+           <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
+                <i class="fa fa-dot-circle-o"></i>
+         
+           </a>
+                          <div style="display:none;">
+            <div id="demo7_tip">
+                <b>Hips</b><br />
+           <input type="text" name="hipsdata" class="inpt_el" value="{{measurements.hips}}" />
+            </div>
+        </div>  
+           <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
+                          <div style="display:none;">
+            <div id="demo8_tip">
+                <b>Thigh</b><br />
+           <input type="text" name="thighdata" class="inpt_el" value="{{measurements.thigh}}" />
+            </div>
+        </div>  
+           <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
+               <i class="fa fa-dot-circle-o"></i>
+           </a>
+
+                         <div style="display:none;">
+            <div id="demo9_tip">
+                <b>Midcalf</b><br />
+           <input type="text" name="midcalfdata" class="inpt_el" value="{{measurements.midcalf}}"/>
+            </div>
+        </div> 
+          
+  
+   
+
+           <img id="body" src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
 										</div>
 										
 								</div>
@@ -374,7 +446,7 @@
         </div>
         <div class="row">
 			<div class="col-sm-12">
-					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> Save</a>
+					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> View Home</a>
 			</div>
 	</div>
 </div>
@@ -408,7 +480,7 @@
                   </div><br/>
                   <div class="row">
 					<div class="col-sm-12">
-							<a class="cbp-vm-icon cbp-vm-add" href="#/home">Next</a>	</div>
+							<a class="cbp-vm-icon cbp-vm-add" href="#/profile/my-products">Next</a>	</div>
 			</div>
               
               </div>
@@ -420,4 +492,319 @@
 </script>
 <script id="current-user-template" type="text/template">
 markupup
+</script>
+
+
+<script id="edit-product-template" type="text/template">
+    <div class="container"> </br></br>
+    <div class="aj-response-message"></div>
+        <h3 class="bold">{{name}}</h3>
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+                  <div class="row">
+                    <div class="col-md-8 col-xs-8">
+                        <p class="truncate" name="description">{{description}}</p>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <img name="image" src="{{image}}" class="img-responsive"/>
+                    </div>
+                </div>
+            </div>
+            <form id="edit_product" class="form-horizontal" role="form" method="POST">
+            <div class="col-md-6 col-xs-12">
+                <b>Chosse the consumtion of {{name}}</b>
+                <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
+                  <div class="btn-group" role="group">
+                    <button type="button" {{anytime}}  class="btn btn-default {{anytimeclass}}">Any Time</button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button type="button"  {{schedule}} class="btn btn-default {{scheduleclass}}">Schedule</button>
+                  <input type="hidden" name="frequency_type" value="{{frequency_value}}" /> </div>
+                </div>
+                <div class="asperbmi">
+                 <b class="m-t-20 center-block">Recommended Number of Bottle</b>
+                    <h4 class="text-center margin-none"> <output></output> <small>Bottle</small></h4>
+                    <input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{x2o}}" data-rangeslider>
+           </div>
+              
+              <div class="anytime">
+              <div class="form-group">
+    <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Serving per day</label>
+    <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control servings_per_day " name="servings_per_day">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="checkbox">
+    <label class=" control-label">
+     &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set diffrent quantity per serving
+    <input type="hidden" name="check" id="check" value="0" /></label>
+    <input type="hidden" name="timeset" id="timeset" value=""  >
+  </div> 
+ 
+  </div> 
+  <div class="qty_per_servings_div">
+  <div class="qtyper">
+  <div class="form-group ">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">QTY. Per Serving</label>
+    <div class="col-sm-6 col-xs-5">
+      <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select> <label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>
+    </div>
+  </div>
+    </div>
+
+  </div>
+  </div> 
+  <div class="schedule_data">
+  <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
+    <div class="col-sm-6 col-xs-6 ">
+     <div class="btn-group" role="group" aria-label="...">
+      <button type="button" data-time="Once" class="btn btn-default schedule {{once}}">  Once</button>
+      <button type="button" data-time="Twice" class="btn btn-default schedule {{twice}}"> Twice</button>
+      
+    </div>
+    </div>
+  
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>QTY. Per Serving</b></label>
+   <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
+ </div>
+ <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving1</label>
+    <div class="col-sm-4 col-xs-4 ">
+      <select class="form-control qty0" name="qty_per_servings0">
+          <option value="1">1 capsule</option>
+          <option value="2">2 capsule</option>
+          <option value="3">3 capsule</option>
+          <option value="4">4 capsule</option>
+          <option value="5">5 capsule</option>
+        </select>
+    </div>
+        <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control when0" name="when0">
+          <option value="1">Morning Before meal</option>
+          <option value="2">Morning After meal</option>
+          <option value="3">Night Before Meal</option>
+          <option value="4">Night After Meal</option>
+        </select>
+    </div>
+  </div>
+  <div class="second">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving2</label>
+    <div class="col-sm-4 col-xs-4 ">
+      <select class="form-control qty1" name="qty_per_servings1">
+          <option value="1">1 capsule</option>
+          <option value="2">2 capsule</option>
+          <option value="3">3 capsule</option>
+          <option value="4">4 capsule</option>
+          <option value="5">5 capsule</option>
+        </select>
+    </div>
+        <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control when1" name="when1">
+          <option value="1">Morning Before meal</option>
+          <option value="2">Morning After meal</option>
+          <option value="3">Night Before Meal</option>
+          <option value="4">Night After Meal</option>
+        </select>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="noofcontainer">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
+    container</label>
+    <div class="col-sm-6 col-xs-5 ">
+      <select class="form-control no_of_container" name="no_of_container">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Available with me</label>
+    <div class="col-sm-6 col-xs-5">
+      <p class="form-control-static"><span class="available">{{total}} </span>&nbsp;{{product_type_name}}</p>
+      <input type="hidden" name="available" id="available" value="{{total}}" /> 
+    </div>
+  </div>
+
+   <div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
+     <div class="col-sm-6 col-xs-5">
+      <input type="text" name="subtract" aj-field-type="number" value="" />
+      </div>
+  </div>
+  </div>
+<div class="form-group">
+    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set Reminder</label>
+    <div class="col-sm-6 col-xs-5 ">
+     <div class="btn-group" role="group" aria-label="...">
+      <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
+      <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
+      <input type="hidden" name="reminder" id="reminder" value="0" /> 
+    </div>
+    </div>
+  </div>
+  <div class="reminder_div">
+  <div class="reminder">
+<div class="form-group reminder_data">
+    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
+    <div class="col-sm-6 col-xs-5 ">
+     <input name="reminder_time0" id="reminder_time0" class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}" placeholder="Try me&hellip;">
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+      <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
+         <button type="button" class="btn btn-default cancel">Cancel</button>
+         <button type="button" class="btn btn-danger remove">Remove Product</button>
+         <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block view hidden" >View History</a>	
+    </div>
+  </div>
+
+           
+              
+              
+              
+              </div>
+           
+        </div>
+      
+    </div>    
+</script>
+
+<script id="update-inventory-template" type="text/template">
+
+<div class="container"> </br></br>
+    <div class="aj-response-message"></div>
+     <form id="inventory" class="form-horizontal" role="form" method="POST">
+    <span>Available with me :</span>{{available}}<br/>
+    <div><span>No. of container available : </span><div id="container_label"></div></div>
+    <div><span>No of container</span></div><div><select class="containers" name="containers" id="containers">
+    <option value=""></option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    </select>
+</div><br/>
+<div class="form-group">
+    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
+     <div class="col-sm-6 col-xs-5">
+      <input type="text" name="subtract" aj-field-type="number" value="" />
+      <input type="hidden" name="total" value="{{total}}" / >
+      </div>
+  </div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+       <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block " >View History</a>	
+
+    </div>
+  </div>
+  </form>
+  </div>
+</script>
+
+<script id="view-inventory-template" type="text/template">
+<div class="container"> </br></br>
+
+<div>
+<ul class="viewInventory" >
+
+
+
+</ul>
+</div>
+
+<a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >Cancel</a>	
+
+</div>
+
+</script>
+
+
+<script id="asperbmi-template" type="text/template">
+<div class="container"> </br></br>
+
+<div class="row">
+            <div class="col-md-12 col-xs-12"><h5 class="text-center"><i class="fa fa-calendar"></i> Wednesday 29 Oct 2014</h5></div>
+           
+            
+        </div>
+ <h4 class="text-center">0/3 <small>Bottle</small></h4>
+        <div class="row">
+            <div class="col-md-4 col-xs-3"> 
+                <button type="button" class="btn btn-primary plus pull-right m-t-100"><i class="fa fa-plus"></i>                        </button>
+            </div>
+            <div class="col-md-4 col-xs-6">
+                <div class="water-bottle">
+                    <div class="cap">
+                        <div class="cap-top">
+                        </div>
+                        <div class="cap-seal">
+                        </div>
+                    </div>
+                   <div class="bottle">
+                        <div class="water water-empty"> </div>
+                    </div>
+            </div>
+            </div>
+            <div class="col-md-4 col-xs-3">
+                <button type="button" class="btn btn-danger minus pull-left m-t-100"><i class="fa fa-minus"></i></button> 
+            </div>
+        </div>
+       <div class="row m-t-20">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal">Confirm </button>
+            </div>
+        </div>
+</div>
+
+</script>
+
+<script id="schedule-template" type="text/template">
+<div class="container"> </br></br>
+
+<div><span class="day">{{day}}</span></div>
+<div><span class="today">{{today}}</span></div>
+{{#no_servings}}
+<div>
+{{#servings}}
+<span>{{classname}}</span>
+{{/servings}}
+</div>
+{{/no_servings}}
+</div>
+
+
+<div class= "original">{{original}}</div>
 </script>

@@ -14,7 +14,8 @@ XoomaAppRootView = (function(_super) {
   XoomaAppRootView.prototype.template = '#xooma-app-template';
 
   XoomaAppRootView.prototype.ui = {
-    ul: '.list-inline'
+    ul: '.list-inline',
+    link: '.link'
   };
 
   XoomaAppRootView.prototype.behaviors = {
@@ -23,10 +24,42 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
+  XoomaAppRootView.prototype.events = {
+    'click a.linkhref': function(e) {
+      return e.preventDefault();
+    }
+  };
+
+  XoomaAppRootView.prototype.initialize = function() {
+    this.showLoader();
+    return this.hideLoader();
+  };
+
   XoomaAppRootView.prototype.onShow = function() {
+    var state;
+    state = App.currentUser.get('state');
+    if (state !== '/home') {
+      this.ui.link.hide();
+    } else {
+      this.ui.link.show();
+    }
     return this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser
     }));
+  };
+
+  XoomaAppRootView.prototype.showLoader = function() {
+    return $(document).ajaxStart(function() {
+      console.log("suru");
+      return $('body').addClass("modal");
+    });
+  };
+
+  XoomaAppRootView.prototype.hideLoader = function() {
+    return $(document).ajaxComplete(function() {
+      console.log("surustop");
+      return $('body').removeClass("modal");
+    });
   };
 
   return XoomaAppRootView;

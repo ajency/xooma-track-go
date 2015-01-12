@@ -113,7 +113,9 @@ output {
 // input[type="search"]
 // input[type="tel"]
 // input[type="color"]
-
+.form-control-sm {
+      width: 50% !important;
+}
 .form-control {
   display: block;
   width: 100%;
@@ -518,7 +520,13 @@ input[type="checkbox"] {
       padding-top: (@padding-base-vertical + 1); // Default padding plus a border
     }
   }
-
+ @media (max-width: @screen-xs) {
+    .control-label {
+      text-align: right;
+      margin-bottom: 0;
+      padding-top: (@padding-base-vertical + 1); // Default padding plus a border
+    }
+  }
   // Validation states
   //
   // Reposition the icon because it's now within a grid column and columns have

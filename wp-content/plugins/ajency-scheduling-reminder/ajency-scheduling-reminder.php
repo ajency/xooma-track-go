@@ -28,6 +28,10 @@ if (!defined("WPINC")) {
 	die;
 }
 
+//libraries
+require_once(plugin_dir_path(__FILE__). "bower_components/When/src/When/Valid.php");
+require_once(plugin_dir_path(__FILE__). "bower_components/When/src/When/When.php");
+
 //classes
 require_once(plugin_dir_path(__FILE__) . "classes/class.schedule.php");
 require_once(plugin_dir_path(__FILE__) . "classes/class.occurrence.php");

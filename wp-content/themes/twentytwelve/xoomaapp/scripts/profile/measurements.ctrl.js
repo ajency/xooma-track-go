@@ -20,11 +20,11 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.className = 'animated fadeIn';
 
   ProfileMeasurementsView.prototype.ui = {
-    popoverElements: '.popover-element',
     form: '#add_measurements',
     rangeSliders: '[data-rangeslider]',
     responseMessage: '.aj-response-message',
-    inputEle: '.input-ele'
+    link: '.link',
+    fa: '.fa'
   };
 
   ProfileMeasurementsView.prototype.behaviors = {
@@ -39,10 +39,18 @@ ProfileMeasurementsView = (function(_super) {
     }
   };
 
+  $(document).on('keypress', function(e) {
+    var inputVal;
+    if (e.charCode === 46) {
+      console.log(inputVal = $(e.target).val().split('.').length);
+      if (parseInt(inputVal) >= 2) {
+        return false;
+      }
+    }
+    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 44;
+  });
+
   ProfileMeasurementsView.prototype.onShow = function() {
-    this.ui.popoverElements.popover({
-      html: true
-    });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
         return _this.valueOutput(ele);
@@ -54,22 +62,25 @@ ProfileMeasurementsView = (function(_super) {
     return this.cordovaEventsForModuleDescriptionView();
   };
 
-  ProfileMeasurementsView.prototype.disabler = function(e) {
-    e.preventDefault();
-    return false;
-  };
-
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
     return this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
-    console.log(xhr.status);
+    var state;
     if (xhr.status === 404) {
-      return this.ui.responseMessage.text("Something went wrong");
+      this.ui.responseMessage.text("Something went wrong");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     } else {
-      App.currentUser.set('state', '/profile/my-products');
-      return App.navigate('#' + App.currentUser.get('state'), true);
+      state = App.currentUser.get('state');
+      if (state === '/home') {
+        return this.ui.responseMessage.text("profile successfully updated");
+      } else {
+        App.currentUser.set('state', '/profile/my-products');
+        return App.navigate('#' + App.currentUser.get('state'), true);
+      }
     }
   };
 

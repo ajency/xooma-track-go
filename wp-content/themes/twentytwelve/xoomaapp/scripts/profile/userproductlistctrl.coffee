@@ -4,12 +4,28 @@ class ProductChildView extends Marionette.ItemView
 
 	className : 'list-title'
 
+	ui :
+		avail 	: '.avail'
+		add		: '.add'
+		update 	: '.update'
+
 	template  : '
                 <h5 class="bold text-primary">{{name}}</h5>
-                <h6>{{servings}} times a day <b> {{qty}} {{product_type}} </b></h6>'
-                                              
+                <h6>{{servings}} times a day <b> {{product_type}} </b></h6><br/>
+                <div class="avail hidden"><span>Available with me </span>{{available}}</div>
+                <div><a href="#/products/{{id}}/edit" class="btn btn-primary btn-lg center-block add hidden" >Edit</a>
+                <a href="#/inventory/{{id}}/edit" class="btn btn-primary btn-lg center-block update hidden" >Update</a>	
+                 </div>'                             
 
-	
+	onShow:->
+		product = parseInt @model.get('id')
+		products = App.currentUser.get 'products'
+		if $.inArray( product, products ) > -1
+			@ui.avail.removeClass 'hidden'
+			@ui.add.removeClass 'hidden'
+			@ui.update.removeClass 'hidden'
+		
+			
 
 class UserProductChildView extends Marionette.CompositeView
 	tagName : 'li'
@@ -28,6 +44,8 @@ class UserProductListView extends Marionette.CompositeView
 	template : '#produts-template'
 
 	childView : UserProductChildView
+
+	emptyView : UserProductChildView
 
 	childViewContainer : 'ul.userProductList'
 
@@ -67,6 +85,7 @@ class App.UserProductListCtrl extends Ajency.RegionController
 
 
 	_showView:(collection)=>
+		App.UserProductsColl = new Backbone.Collection collection
 		productcollection = new Backbone.Collection collection
 		@show new UserProductListView
 							collection : productcollection

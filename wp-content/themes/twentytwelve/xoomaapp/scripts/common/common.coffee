@@ -81,6 +81,12 @@ _.extend Ajency.CurrentUser::,
 				$.each response[0].products , (index,value)->
 					x2oArray.push value
 				App.currentUser.set 'x2o' , x2oArray
+				products = []
+				$.each response , (ind,val)->
+					$.each val.products , (index,value)->
+						products.push parseInt(value.id)
+				@set 'products', products
+
 
 		$.ajax
 			method : 'GET'

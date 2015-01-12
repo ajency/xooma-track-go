@@ -1,0 +1,45 @@
+{
+  "name": "ajency.marionette",
+  "version": "0.4.2",
+  "homepage": "https://github.com/surajajency/ajency.marionette",
+  "authors": [
+    "Suraj Air <suraj@ajency.in>"
+  ],
+  "license": "MIT",
+  "main": "dist/ajency.marionette.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "tmp",
+    "app",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "jquery": "~2.1.1",
+    "backbone": "~1.1.2",
+    "backbone.marionette": "~2.3.0",
+    "handlebars": "~2.0.0",
+    "marionette.state": "https://github.com/ajency/marionette.state.git#~0.2.0",
+    "jQuery-Storage-API": "~1.7.3",
+    "jquery.inputmask": "~3.1.48",
+    "parsleyjs": "~2.0.6",
+    "backbone.syphon": "~0.4.1"
+  },
+  "devDependencies": {
+    "jasmine-jquery": "~2.0.5",
+    "jasmine-ajax": "~2.99.0"
+  },
+  "_release": "0.4.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.2",
+    "commit": "1fb0c052dffc861ad7253c747bda01a47e7a8e79"
+  },
+  "_source": "https://github.com/ajency/ajency.marionette.git",
+  "_target": "~0.4.0",
+  "_originalSource": "https://github.com/ajency/ajency.marionette.git"
+}

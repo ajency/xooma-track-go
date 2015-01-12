@@ -2341,6 +2341,9 @@ output {
   line-height: 1.7;
   color: #999999;
 }
+.form-control-sm {
+  width: 50% !important;
+}
 .form-control {
   display: block;
   width: 100%;
@@ -2721,6 +2724,13 @@ select[multiple].form-group-lg .form-control {
   margin-right: -15px;
 }
 @media (min-width: 768px) {
+  .form-horizontal .control-label {
+    text-align: right;
+    margin-bottom: 0;
+    padding-top: 9px;
+  }
+}
+@media (max-width: 480px) {
   .form-horizontal .control-label {
     text-align: right;
     margin-bottom: 0;
@@ -5552,6 +5562,9 @@ button.close {
   top: 0;
   right: 0;
   left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100% !important;
   background-color: #000000;
 }
 .modal-backdrop.fade {
@@ -6380,8 +6393,11 @@ body > .container {
 .m-t-40 {
   margin-top: 40px;
 }
+.m-t-100 {
+  margin-top: 120px;
+}
 .bold {
-  font-weight: 500;
+  font-weight: 700;
 }
 .section {
   padding: 100px 0px 10px 0px;
@@ -6583,6 +6599,221 @@ text {
   100% {
     background-position: 2212px 0px;
   }
+}
+.popover-content .close {
+  position: absolute;
+  right: 7px;
+  top: 8px;
+}
+/** Bottle Ui ***/
+.bottle {
+  background: #ddd;
+  width: 160px;
+  border-radius: 30px 30px 6px 6px;
+  height: 300px;
+  padding: 6px;
+  box-shadow: 3px 3px 3px #efefef;
+  margin: auto;
+}
+.bottle:hover {
+  background: #eee;
+  box-shadow: 2px  2px 2px #efefef;
+}
+.water-bottle {
+  position: relative;
+}
+.cap {
+  background: #ddd;
+  margin: auto;
+  width: 60px;
+  border-radius: 8px 8px 10px  12px;
+  height: 35px;
+  border-top: 1px solid #ddd;
+  border-bottom: 2px dotted #efefef;
+}
+.cap-top {
+  background: #ededed;
+  height: 6px;
+  border-radius: 10px 10px 0 0;
+}
+.cap-seal {
+  margin-top: 20px;
+  background: #ccc;
+  height: 6px;
+  border-radius: 0 0 10px 10px;
+}
+.water {
+  -webkit-transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+  width: 150px;
+}
+.water-full {
+  background: #81BAE7 ;
+  height: 290px;
+  z-index: 1;
+  border-radius: 28px 28px 10px 10px;
+  position: absolute;
+  bottom: 5px;
+  -webkit-transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+}
+.water-medium {
+  background: #81BAE7 ;
+  height: 180px;
+  z-index: 1;
+  position: absolute;
+  bottom: 5px;
+  -webkit-transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+}
+.water-low {
+  background: #81BAE7 ;
+  height: 80px;
+  z-index: 1;
+  position: absolute;
+  bottom: 5px;
+  -webkit-transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+}
+.water-empty {
+  background: #81BAE7 ;
+  height: 15px;
+  z-index: 1;
+  position: absolute;
+  bottom: 5px;
+  -webkit-transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  transition: all 1s ease-out;
+}
+@media (max-width: 768px) {
+  .bottle {
+    width: 135px !important;
+  }
+  .bottle .water {
+    width: 125px;
+  }
+}
+/*Tooltip component by www.menucool.com */
+/*For tooltip target element that has set class="tooltip" */
+.tooltip {
+  text-decoration: none;
+  border-bottom: 1px dotted #36c;
+  color: #36c;
+  outline: none;
+}
+/*For tooltip box*/
+div#mcTooltip {
+  line-height: 16px;
+  border-width: 1px;
+  color: #333;
+  border-color: #BBBBBB;
+  padding: 20px;
+  font-size: 12px;
+  font-family: Verdana, Arial;
+  border-radius: 6px;
+  /*Rounded corners. N/A for IE 8 and below.*/
+  box-shadow: 0 1px 4px #AAAAAA;
+  /*Drop shadow. N/A for IE 8 and below.*/
+}
+div#mcTooltip,
+div.mcTooltipInner {
+  background-color: #EAECF0;
+}
+/* For hyperlink within tooltip */
+div#mcTooltip a {
+  color: #36c;
+}
+/*Close button. Available when sticky or overlay has been set to true, or is on iPhone, iPad, Android, BlackBerry, or IEMobile devices. */
+div#mcttCloseButton {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  background-image: url(../../images/closeBtn.gif);
+  cursor: pointer;
+  overflow: hidden;
+  top: 12px;
+  right: 12px;
+  left: auto;
+}
+/*Give the close button a bigger size in smaller devices*/
+@media only screen and (max-width: 1024px) {
+  div#mcttCloseButton {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+  }
+}
+/* Only applies when overlay has been set to true or 1 */
+div#mcOverlay {
+  background-color: white;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 4;
+}
+/*Only available when calling by tooltip.ajax(...). It will be a spinning image indicating a request is in progress.*/
+div#tooltipAjaxSpin {
+  margin: 20px 50px;
+  background: transparent url(loading.gif) no-repeat center center;
+  width: 50px;
+  height: 30px;
+  font-size: 0;
+}
+/*The settings below should remain unchanged*/
+div#mcTooltipWrapper {
+  position: absolute;
+  visibility: hidden;
+  overflow: visible;
+  z-index: 9999999999;
+  top: 0px;
+}
+div#mcTooltip {
+  float: left;
+  border-style: solid;
+  position: relative;
+  overflow: hidden;
+}
+div.mcTooltipInner {
+  float: left;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+div#mcttCo {
+  position: absolute;
+  text-align: left;
+}
+div#mcttCo em,
+div#mcttCo b {
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+/*workable with bootstrap*/
+div#mcTooltip,
+div#mcTooltip div {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+img {
+  vertical-align: middle;
+  border: 0;
 }
 /* Top - Header */
 .topheader {
@@ -8986,6 +9217,125 @@ text {
 /**
  * For `large` screens, transform into an inline picker.
  */
+.picker__list {
+  list-style: none;
+  padding: 0.75em 0 4.2em;
+  margin: 0;
+}
+/**
+ * The times on the clock.
+ */
+.picker__list-item {
+  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
+  margin-bottom: -1px;
+  position: relative;
+  background: #ffffff;
+  padding: .75em 1.25em;
+}
+@media (min-height: 46.75em) {
+  .picker__list-item {
+    padding: .5em 1em;
+  }
+}
+/* Hovered time */
+.picker__list-item:hover {
+  cursor: pointer;
+  color: #000000;
+  background: #b1dcfb;
+  border-color: #0089ec;
+  z-index: 10;
+}
+/* Highlighted and hovered/focused time */
+.picker__list-item--highlighted {
+  border-color: #0089ec;
+  z-index: 10;
+}
+.picker__list-item--highlighted:hover,
+.picker--focused .picker__list-item--highlighted {
+  cursor: pointer;
+  color: #000000;
+  background: #b1dcfb;
+}
+/* Selected and hovered/focused time */
+.picker__list-item--selected,
+.picker__list-item--selected:hover,
+.picker--focused .picker__list-item--selected {
+  background: #0089ec;
+  color: #ffffff;
+  z-index: 10;
+}
+/* Disabled time */
+.picker__list-item--disabled,
+.picker__list-item--disabled:hover,
+.picker--focused .picker__list-item--disabled {
+  background: #f5f5f5;
+  border-color: #f5f5f5;
+  color: #dddddd;
+  cursor: default;
+  border-color: #dddddd;
+  z-index: auto;
+}
+/**
+ * The clear button
+ */
+.picker--time .picker__button--clear {
+  display: block;
+  width: 80%;
+  margin: 1em auto 0;
+  padding: 1em 1.25em;
+  background: none;
+  border: 0;
+  font-weight: 500;
+  font-size: .67em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #666;
+}
+.picker--time .picker__button--clear:hover,
+.picker--time .picker__button--clear:focus {
+  color: #000000;
+  background: #b1dcfb;
+  background: #ee2200;
+  border-color: #ee2200;
+  cursor: pointer;
+  color: #ffffff;
+  outline: none;
+}
+.picker--time .picker__button--clear:before {
+  top: -0.25em;
+  color: #666;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.picker--time .picker__button--clear:hover:before,
+.picker--time .picker__button--clear:focus:before {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+/* ==========================================================================
+   $DEFAULT-TIME-PICKER
+   ========================================================================== */
+/**
+ * The frame the bounds the time picker.
+ */
+.picker--time .picker__frame {
+  min-width: 256px;
+  max-width: 320px;
+}
+/**
+ * The picker box.
+ */
+.picker--time .picker__box {
+  font-size: 1em;
+  background: #f2f2f2;
+  padding: 0;
+}
+@media (min-height: 40.125em) {
+  .picker--time .picker__box {
+    margin-bottom: 5em;
+  }
+}
 .main,
 .container > header {
   width: 90%;
@@ -9489,6 +9839,22 @@ h6.brand {
   h4 {
     font-size: 26px;
   }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 16px;
+    /* fallback */
+    max-height: 130px;
+    /* fallback */
+    -webkit-line-clamp: 4;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+    margin-bottom: 30px;
+  }
+}
+.lg-icon {
+  font-size: 34px;
 }
 .btn {
   border-radius: 2px;

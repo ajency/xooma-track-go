@@ -43,21 +43,22 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    var birth_date, picker;
-    birth_date = this.model.get('profile').birth_date;
-    picker = this.ui.dateElement.pickadate('picker');
-    picker.set('select', birth_date, {
-      format: 'yyyy-mm-dd'
-    });
     return _.enableCordovaBackbuttonNavigation();
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
+    var birth_date, picker;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
-    return this.ui.dateElement.pickadate({
+    this.ui.dateElement.pickadate({
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true,
-      max: new Date()
+      max: new Date(),
+      selectYears: 70
+    });
+    birth_date = this.model.get('profile').birth_date;
+    picker = this.ui.dateElement.pickadate('picker');
+    return picker.set('select', birth_date, {
+      format: 'yyyy-mm-dd'
     });
   };
 
@@ -65,9 +66,22 @@ ProfilePersonalInfoView = (function(_super) {
     return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
   };
 
-  ProfilePersonalInfoView.prototype.successHandler = function(response, status) {
-    App.currentUser.set('state', '/profile/measurements');
-    return App.navigate('#' + App.currentUser.get('state'), true);
+  ProfilePersonalInfoView.prototype.successHandler = function(response, status, xhr) {
+    var state;
+    state = App.currentUser.get('state');
+    if (xhr.status === 404) {
+      this.ui.responseMessage.text("Something went wrong");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    } else {
+      if (state === '/home') {
+        return this.ui.responseMessage.text("profile successfully updated");
+      } else {
+        App.currentUser.set('state', '/profile/measurements');
+        return App.navigate('#' + App.currentUser.get('state'), true);
+      }
+    }
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {

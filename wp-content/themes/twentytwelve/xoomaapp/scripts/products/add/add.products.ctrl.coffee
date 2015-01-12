@@ -1,4 +1,7 @@
-
+App.state 'AddProducts',
+					url : '/products'
+					parent : 'xooma'
+	
 
 class ProductChildView extends Marionette.ItemView
 
@@ -9,7 +12,7 @@ class ProductChildView extends Marionette.ItemView
 							<div class="cbp-vm-details">
 								{{description}}
 							</div>
-						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#">Add Product</a>'
+						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/products/{{id}}/edit">Add Product</a>'
 
 
 	ui :
@@ -18,11 +21,11 @@ class ProductChildView extends Marionette.ItemView
     initialize:->
     	@$el.prop("id", 'product'+@model.get("id"))
 
-    events:
-    	'click @ui.addProduct':(e)->
-    		e.preventDefault()
-    		id = e.target.id
-    		App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
+    # events:
+    # 	'click @ui.addProduct':(e)->
+    # 		e.preventDefault()
+    # 		id = e.target.id
+    		# App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
 
     successHandler:(response, status, xhr)=>
     	console.log status
@@ -44,7 +47,10 @@ class AddProductsView extends Marionette.CompositeView
 	emptyView : NoProductsChildView
 
 	onShow:->
-		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js")
+		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
+			console.log "loaded"
+			)
+		
 
 
 class App.AddProductsCtrl extends Ajency.RegionController
@@ -56,6 +62,8 @@ class App.AddProductsCtrl extends Ajency.RegionController
 
 	_showProducts : =>
 		userProducts = App.currentUser.get 'products'
+		collectionArr = App.productCollection.where({active_value:'1'})
+		App.productCollection.reset collectionArr
 		filteredCollection = App.productCollection.clone()
 		
 			

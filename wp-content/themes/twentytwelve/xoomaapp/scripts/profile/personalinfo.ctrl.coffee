@@ -18,11 +18,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
 
+	
 	onShow:->
-		birth_date = @model.get('profile').birth_date
-		picker = @ui.dateElement.pickadate('picker')
-		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
-		#Changes For DEVICE
+		#Device
 		_.enableCordovaBackbuttonNavigation()
 
 
@@ -32,7 +30,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
 			max: new Date()
+			selectYears: 70
 			)
+		birth_date = @model.get('profile').birth_date
+		picker = @ui.dateElement.pickadate('picker')
+		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
 		
 
 	#to initialize validate plugin
@@ -41,9 +43,19 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			.done @successHandler
 			.fail @errorHandler
 
-	successHandler:(response, status)=>
-		App.currentUser.set 'state' , '/profile/measurements'
-		App.navigate '#'+App.currentUser.get('state') , true
+	successHandler:(response, status,xhr)=>
+		state = App.currentUser.get 'state'
+		if xhr.status is 404
+			@ui.responseMessage.text "Something went wrong"
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+		else
+			if state == '/home'
+				@ui.responseMessage.text "profile successfully updated"
+			else
+				App.currentUser.set 'state' , '/profile/measurements'
+				App.navigate '#'+App.currentUser.get('state') , true
 		
 
 	errorHandler:(error)=>
@@ -55,9 +67,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
+		#Device
 		if _.onlineStatus() is false
-			window.plugins.toast.showLongBottom("Please check your internet connection.");
-
+			window.plugins.toast.showLongBottom("Please check your internet connection.")
 		else 
 			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 

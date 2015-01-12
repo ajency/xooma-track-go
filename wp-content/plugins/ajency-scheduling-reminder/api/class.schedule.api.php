@@ -37,15 +37,15 @@ class AjencyScheduleAPI{
 	 * @apiSuccess {array}
 	 */
 	public function add_schedule($schedule_data){
-
-		$id = \ajency\Schedule::add($schedule_data);
+		
+		$id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
 		if(is_wp_error($id )){
 			$id->add_data(array('status' => 400));
 			return $id;
 		}
 
-		$schedule = \ajency\Schedule::get($id);
+		$schedule = \ajency\ScheduleReminder\Schedule::get($id);
 
 		$response = new WP_JSON_Response( $schedule );
 
@@ -55,7 +55,6 @@ class AjencyScheduleAPI{
 		$response->set_status( 201 );
 
 		return $response;
-
 	}
 }
 
