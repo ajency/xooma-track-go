@@ -337,7 +337,7 @@ class User
                         $stock_count = get_stock_count_user($id,$term->product_id);
 
                         $sub[] = array(
-                            'id'            => $value[0]['id'],
+                            'id'            => intval($value[0]['id']),
                             'name'          => $value[0]['name'],
                             'servings'      => 1,
                             'qty1'          => $response['qty'][0]['qty'],
@@ -392,7 +392,7 @@ class User
                         $sub[] = array(
 
 
-                            'id'            => $term->product_id,
+                            'id'            => intval($term->product_id),
                             'name'          => $value[0]['name'],
                             'qty'           => $response['qty'],
                             'servings'      => count($response['qty']),
