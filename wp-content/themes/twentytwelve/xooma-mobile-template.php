@@ -33,27 +33,9 @@
 <div ui-region></div>
 <div id="fb-root"></div>
 <!-- Templates -->
-<?php include_once 'xoomaapp/inline-templates.php'; ?>
-
-<script type="text/javascript">
-window.ParsleyConfig = {
-  validators: {
-    equalTo: {
-      fn: function (value, requirement) {
-      	return value.length == requirement;
-      }
-    }
-  },
-  i18n: {
-    en: {
-      equalTo: 'Enter valid 6 digits Xooma ID'
-    }
-  }
-};
 
 
 
-</script>
 
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
@@ -85,41 +67,11 @@ window.ParsleyConfig = {
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
-<script type="text/javascript">
-<?php echo  aj_get_global_js_vars(); ?>
-var App  = new Marionette.Application()
-<?php echo aj_get_facebook_js(); ?>
 
-</script>
 
  
-<!-- build:js(*.js) application.js -->
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
-<!-- endbuild -->
 
-<script type="text/javascript">
-
-$(function() {
-        $('nav#menu').mmenu({
-         onClick: {
-       close: true,
-       preventDefault: false,
-       setSelected: true
-    }
-
-    });
-     });   
-window.ParsleyValidator
-  .addValidator('equalTo', function (value, requirement) {
-  	return value.length == requirement;
-  })
-  .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
-
- 
-</script>
 
 
 </body>
