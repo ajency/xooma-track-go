@@ -19,11 +19,24 @@ ScheduleView = (function(_super) {
   ScheduleView.prototype.template = '#schedule-template';
 
   ScheduleView.prototype.serializeData = function() {
-    var data;
+    var data, qty;
     data = ScheduleView.__super__.serializeData.call(this);
     console.log(data.day = moment().format("dddd"));
     console.log(data.today = moment().format("MMMM Do YYYY"));
-    return data;
+    qty = this.model.get('qty');
+    return $.each(qty, function(ind, val) {
+      var expected, occurrence;
+      console.log(occurrence = this.model.get('occurrences')[ind]);
+      occurrence = _.has(occurrence, "occurrence");
+      expected = _.has(occurrence, "expected");
+      if (occurrence === true && expected === true) {
+        return data["class"] = this.model.get('product_type_name') + 'occurred_class';
+      } else if (occurrence === false && expected === true) {
+        return data["class"] = this.model.get('product_type_name') + 'expected_class';
+      } else if (occurrence === true && expected === false) {
+        return data["class"] = this.model.get('product_type_name') + 'bonus_class';
+      }
+    });
   };
 
   return ScheduleView;
