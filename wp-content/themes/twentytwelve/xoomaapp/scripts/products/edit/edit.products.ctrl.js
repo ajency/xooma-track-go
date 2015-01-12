@@ -292,7 +292,7 @@ EditProductsView = (function(_super) {
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
-      data.x2o = qty[0].qty;
+      data.x2o = qty.length;
       data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
