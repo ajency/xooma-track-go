@@ -93,7 +93,7 @@ class User
         return true;
 	}
 
-  public function update_user_measurement_details($args,$date=""){
+  public function update_user_measurement_details($id,$args,$date=""){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
@@ -105,7 +105,7 @@ class User
             $date = date('Y-m-d');
         }
         $user_meta_value = maybe_serialize($args);
-        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$args['id']."" );
+        $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
 
         if(count($sql_query) == 0 && $sql_query == null)
         {
@@ -113,7 +113,7 @@ class User
               $insert_id = $wpdb->insert(
                 $measurements_table,
                 array(
-                  'user_id' => $args['id'],
+                  'user_id' => $id,
                   'date' => date('Y-m-d'),
                   'value' => $user_meta_value
                 ),
@@ -125,17 +125,17 @@ class User
               );
 
             global $aj_workflow;
-            $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
+            $aj_workflow->workflow_update_user($id,'profileMeasurement');
 
 
 
-            add_asperbmi_products($args['id'],$args['weight']);
+            add_asperbmi_products($id,$args['weight']);
 
 
         }
         else
         {
-            $insert_id = $wpdb->query("UPDATE $measurements_table SET value='".$user_meta_value."' where user_id=".$args['id']." and `date`='".$date."'");
+            $insert_id = $wpdb->query("UPDATE $measurements_table SET value='".$user_meta_value."' where user_id=".$id." and `date`='".$date."'");
             
 
               
@@ -179,21 +179,14 @@ class User
 
             $user_details =   maybe_unserialize($sql_query->value);
 
+          
+
             
-            $data['height']  = $user_details['height'];
-            $data['weight']  = $user_details['weight'];
-            $data['neck']  = $user_details['neck'];
-            $data['chest']  = $user_details['chest'];
-            $data['abdomen']  = $user_details['abdomen'];
-            $data['waist']  = $user_details['waist'];
-            $data['hips']  = $user_details['hips'];
-            $data['thigh']  = $user_details['thigh'];
-            $data['midcalf']  = $user_details['midcalf'];
-            $data['arm']  = $user_details['arm'];
-            $data['date']  = $sql_query->date;
+            
+            $user_details['date']  = $sql_query->date;
 
 
-            return array('response' => $data);
+            return array('response' => $user_details);
         }
         if(is_wp_error($sql_query))
         {

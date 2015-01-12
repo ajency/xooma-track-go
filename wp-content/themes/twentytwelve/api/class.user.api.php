@@ -131,23 +131,11 @@ class User_API
 
         //update measurements details of the user id passed
         global $user;
-        
-        $data = array();
-        $data['id']                         = $id;
-        $data['height']                     = $_REQUEST['height'];
-        $data['weight']                     = $_REQUEST['weight'];
-        $data['neck']                       = $_REQUEST['neckdata'];
-        $data['chest']                      = $_REQUEST['chestdata'];
-        $data['waist']                      = $_REQUEST['waistdata'];
-        $data['abdomen']                    = $_REQUEST['abdomendata'];
-        $data['hips']                       = $_REQUEST['hipsdata'];
-        $data['thigh']                      = $_REQUEST['thighdata'];
-        $data['midcalf']                    = $_REQUEST['midcalfdata'];
-        $data['arm']                       = $_REQUEST['armdata'];
+       
         $date                               = $_REQUEST['date_field'];
 
 
-        $response = $user->update_user_measurement_details($data,$date);
+        $response = $user->update_user_measurement_details($id,$_POST,$date);
 
         if(is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
