@@ -466,6 +466,11 @@ EditProductsView = (function(_super) {
 
 })(Marionette.ItemView);
 
+App.state('EditProducts', {
+  url: '/products/:id/edit',
+  parent: 'xooma'
+});
+
 App.EditProductsCtrl = (function(_super) {
   __extends(EditProductsCtrl, _super);
 

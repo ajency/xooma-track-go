@@ -28,7 +28,7 @@ HomeX2OViewChild = (function(_super) {
     return HomeX2OViewChild.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OViewChild.prototype.template = '<li class="col-md-4 col-xs-4"> <h5 class="text-center">Bonus</h5> <h4 class="text-center bold  text-primary" >{{bonus}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty1}}</sup></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last Consume</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li>';
+  HomeX2OViewChild.prototype.template = '<a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> <h5 class="text-center">Bonus</h5> <h4 class="text-center bold  text-primary" >{{bonus}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty1}}</sup></h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last Consume</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></a>';
 
   HomeX2OViewChild.prototype.serializeData = function() {
     var bonusArr, data, occurrenceArr, recent;

@@ -12,22 +12,10 @@ App.state 'profile',
 	.state 'userMeasurement',
 			url : '/measurements'
 			parent : 'profile'
-	.state 'AddProducts',
-					url : '/products'
-					parent : 'xooma'
 	.state 'UserProductList',
 					url : '/my-products'
 					parent : 'profile'
-	.state 'EditProducts',
-					url : '/products/:id/edit'
-					parent : 'xooma'
-	.state 'EditInventory',
-					url : '/inventory/:id/edit'
-					parent : 'xooma'
-	.state 'ViewInventory',
-					url : '/inventory/:id/view'
-					parent : 'xooma'
-		
+	
 
 
 class ProfileCtrlView extends Marionette.LayoutView

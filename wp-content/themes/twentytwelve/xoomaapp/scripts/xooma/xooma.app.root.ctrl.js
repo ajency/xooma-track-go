@@ -31,6 +31,11 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
+  XoomaAppRootView.prototype.initialize = function() {
+    this.showLoader();
+    return this.hideLoader();
+  };
+
   XoomaAppRootView.prototype.onShow = function() {
     var state;
     state = App.currentUser.get('state');
@@ -42,6 +47,20 @@ XoomaAppRootView = (function(_super) {
     return this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser
     }));
+  };
+
+  XoomaAppRootView.prototype.showLoader = function() {
+    return $(document).ajaxStart(function() {
+      console.log("suru");
+      return $('body').addClass("modal");
+    });
+  };
+
+  XoomaAppRootView.prototype.hideLoader = function() {
+    return $(document).ajaxComplete(function() {
+      console.log("surustop");
+      return $('body').removeClass("modal");
+    });
   };
 
   return XoomaAppRootView;

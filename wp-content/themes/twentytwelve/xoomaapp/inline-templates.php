@@ -750,3 +750,43 @@ markupup
 </div>
 
 </script>
+
+
+<script id="asperbmi-template" type="text/template">
+<div class="container"> </br></br>
+
+<div class="row">
+            <div class="col-md-12 col-xs-12"><h5 class="text-center"><i class="fa fa-calendar"></i> Wednesday 29 Oct 2014</h5></div>
+           
+            
+        </div>
+ <h4 class="text-center">0/3 <small>Bottle</small></h4>
+        <div class="row">
+            <div class="col-md-4 col-xs-3"> 
+                <button type="button" class="btn btn-primary plus pull-right m-t-100"><i class="fa fa-plus"></i>                        </button>
+            </div>
+            <div class="col-md-4 col-xs-6">
+                <div class="water-bottle">
+                    <div class="cap">
+                        <div class="cap-top">
+                        </div>
+                        <div class="cap-seal">
+                        </div>
+                    </div>
+                   <div class="bottle">
+                        <div class="water water-empty"> </div>
+                    </div>
+            </div>
+            </div>
+            <div class="col-md-4 col-xs-3">
+                <button type="button" class="btn btn-danger minus pull-left m-t-100"><i class="fa fa-minus"></i></button> 
+            </div>
+        </div>
+       <div class="row m-t-20">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal">Confirm </button>
+            </div>
+        </div>
+</div>
+
+</script>

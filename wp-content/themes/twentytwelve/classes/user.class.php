@@ -128,6 +128,10 @@ class User
             $aj_workflow->workflow_update_user($args['id'],'profileMeasurement');
 
 
+
+            add_asperbmi_products($args['id'],$args['weight']);
+
+
         }
         else
         {

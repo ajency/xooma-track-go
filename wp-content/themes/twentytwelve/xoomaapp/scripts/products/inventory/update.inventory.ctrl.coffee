@@ -1,3 +1,8 @@
+App.state 'EditInventory',
+					url : '/inventory/:id/edit'
+					parent : 'xooma'
+	
+
 class EditInventoryView extends Marionette.ItemView
 
 	class : 'animated fadeIn'

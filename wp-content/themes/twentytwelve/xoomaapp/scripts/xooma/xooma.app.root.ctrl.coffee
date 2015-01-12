@@ -12,6 +12,11 @@ class XoomaAppRootView extends Marionette.LayoutView
 		'click a.linkhref':(e)->
 			e.preventDefault()
 
+
+	initialize:->
+		@showLoader()
+		@hideLoader()
+
 	
 		
 	onShow : ->
@@ -22,6 +27,17 @@ class XoomaAppRootView extends Marionette.LayoutView
 			@ui.link.show()
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
+
+	showLoader:->
+		$( document ).ajaxStart  ()->
+		  console.log "suru"
+		  $('body').addClass "modal"
+
+	hideLoader:->
+		$( document ).ajaxComplete  ()->
+		  console.log "surustop"
+		  $('body').removeClass "modal"
+	
 
 class App.XoomaCtrl extends Ajency.RegionController
 	initialize: (options)->

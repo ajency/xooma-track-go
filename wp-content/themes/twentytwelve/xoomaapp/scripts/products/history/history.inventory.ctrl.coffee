@@ -1,3 +1,8 @@
+App.state 'ViewInventory',
+					url : '/inventory/:id/view'
+					parent : 'xooma'
+		
+
 class InventoryChildView extends Marionette.CompositeView
 
 	tagName : 'li'

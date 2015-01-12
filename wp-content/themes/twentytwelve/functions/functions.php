@@ -737,7 +737,7 @@ function send_emails($user_id){
 
   send_notifications_to_admin($user_id);
   send_notifications_to_user($user_id);
-  add_asperbmi_products($user_id);
+  
 }
 function check_workflow($user_model){
 
@@ -903,24 +903,52 @@ function store_reminders($main_id,$servings,$reminder){
 
 }
 
-function add_asperbmi_products($user_id){
+function add_asperbmi_products($user_id,$weight){
 
   //add asperbmi products
 
         $productList = new ProductList();
 
+        global $wpdb;
+
+        global $aj_workflow;
+
+        $product_main_table = $wpdb->prefix . "product_main";
+        
+        $state = $aj_workflow->workflow_needed($user_id);
+
         
 
         $all_terms = $productList->get_products($term_id="");
+
+
         foreach ($all_terms as $key => $value) {
-            
+
+          $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
+          and product_id=".$value['id']." and deleted_flag=0");
+
+          if($state != '/home' && is_null($object)) 
+          {
            $time_set = get_term_meta($value['id'], 'time_set', true);
             if( $time_set == 'asperbmi' ){
                 
-                    $value['time_set'] = 1;
+                    $bmi = get_term_meta($value['id'], 'bmi', true);
+                    
+                    foreach ($bmi as $key => $val) {
+                      
+                      $original = explode('<', $val['range']);
+
+                      $actual = 1 ;
+
+                      if(intval($original[0]) <= intval($weight) && intval($weight) <= intval($original[1]) )
+                        $actual = $val['quantity'];
+
+                    }
+                    $value['time_set'] = $actual;
                     save_anytime_product_details($user_id,$value);
 
             }
+          }
 
         }
 

@@ -5,7 +5,7 @@ class App.HomeCtrl extends Ajency.RegionController
 
 class HomeX2OViewChild extends Marionette.ItemView
 
-	template : '<li class="col-md-4 col-xs-4"> 
+	template : '<a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> 
 					<h5 class="text-center">Bonus</h5>
 					<h4 class="text-center bold  text-primary" >{{bonus}}</h4>
 				</li>
@@ -16,7 +16,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Last Consume</h5>
 					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
-				</li>'
+				</li></a>'
 
 	serializeData:->
 		data = super()

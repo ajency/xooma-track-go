@@ -1,4 +1,7 @@
-
+App.state 'AddProducts',
+					url : '/products'
+					parent : 'xooma'
+	
 
 class ProductChildView extends Marionette.ItemView
 

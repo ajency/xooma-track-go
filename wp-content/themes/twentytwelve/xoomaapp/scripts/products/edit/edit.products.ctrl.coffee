@@ -422,7 +422,10 @@ class EditProductsView extends Marionette.ItemView
 			
 
 			
-
+App.state 'EditProducts',
+					url : '/products/:id/edit'
+					parent : 'xooma'
+	
 		
 	
 
