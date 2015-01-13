@@ -20,11 +20,11 @@ class ScheduleView extends Marionette.ItemView
 			occurrence = _.has(occurrence, "occurrence")
 			expected = _.has(occurrence, "expected")
 			if occurrence == true && expected == true
-				data.classname = product_type+'occurred_class'
+				data.classname = product_type+'_occurred_class'
 			else if occurrence == false && expected == true
-				data.classname = product_type+'expected_class'
+				data.classname = product_type+'_expected_class'
 			else if occurrence == true && expected == false
-				data.classname = product_type+'bonus_class'
+				data.classname = product_type+'_bonus_class'
 
 			i = 0
 			servings = []
