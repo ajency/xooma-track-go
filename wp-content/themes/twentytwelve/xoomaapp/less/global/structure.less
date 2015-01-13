@@ -1,0 +1,417 @@
+
+html, body{
+	height: 100%;
+    
+}
+
+body{
+      
+//    background-image: radial-gradient(circle farthest-corner at center, lighten(@yellow, 40%) 0%, @yellow 80%);
+//    background: @gray-lighter;
+    & > .container{
+        padding: 0;
+    }
+}
+.button-center{
+    display: table;
+    margin: 0 auto;
+
+}
+.content-wrapper{
+    background: @white;
+    padding: 15px;
+}
+.loader{
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1ABC9C;
+    background-image: url(http://samherbert.net/svg-loaders/svg-loaders/puff.svg);
+    background-size: 80px;
+    z-index: 99999;
+    background-repeat: no-repeat;
+    background-position: 50% 46%;
+    position: fixed;
+}
+.footer{
+    background: @gray-light;
+    padding: 20px 0;
+    color: @white;
+}
+.margin-none{
+    margin: 0px !important;
+}
+.m-t-10{
+    margin-top: 10px;
+}
+.m-t-20{
+    margin-top: 20px;
+}
+.m-t-30{
+    margin-top: 30px;
+}
+.m-t-40{
+    margin-top: 40px;
+}
+.m-t-100{
+    margin-top: 120px;
+}
+.bold{
+    font-weight: @font-bold;
+}
+.section{
+    padding:70px 0px 10px 0px;
+}
+.list-style {
+    li{
+        border-bottom: 1px solid lighten(@gray-base, 80%);
+        padding-top: 15px;
+        padding-bottom: 15px;
+        position: relative;
+        .list-title{
+            margin-bottom: 10px;
+            h1,h2,h3,h4,h5,h6{
+                margin: 3px;
+            }
+        }
+        .text-success{
+            margin-bottom: 10px;
+            display: block;
+        }
+        &:before{
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: 'Glyphicons Halflings';
+            content: "\e080";
+            overflow: auto;
+              margin: auto;
+              position: absolute;
+              top: 0; bottom: 0; right: 0;
+            font-size: 21px;
+            color: #ccc;
+            width:40px;
+            height: 40px;
+        
+        }
+    }
+    
+}
+.row-line{
+    li{
+        border-left: 1px solid @gray-light;
+       
+        }
+     li:first-child { 
+            border:0px !important;
+        }
+}
+.dotted-line{
+    li{
+        border-right: 1px dotted @gray-light;
+        i{
+            font-size: 40px;
+        }
+        }
+     li:nth-child(3) { 
+            border:0px !important;
+        }
+}
+/*** Error Ui ***/
+.parsley-errors-list{
+    list-style-type: none;
+    color: @red;
+    margin:0px;
+    padding:0px;
+}
+
+
+text{
+display:none !important;
+}
+
+.mid-title{
+    position: relative;
+}
+.element-animation{
+  animation: animationFrames ease-in 2s;
+  animation-iteration-count:infinite;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: animationFrames ease-in 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -moz-animation: animationFrames ease-in 2s;
+  -moz-animation-iteration-count: infinite;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: animationFrames ease-in 2s;
+  -o-animation-iteration-count: infinite;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: animationFrames ease-in 2s;
+  -ms-animation-iteration-count: infinite;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
+    color:@blue;
+    font-size: 1.4em !important;
+}
+
+@keyframes animationFrames{
+  0% {
+    transform:  rotate(34deg) ;
+  }
+  50% {
+    transform:  rotate(-35deg) ;
+  }
+  100% {
+    transform:  rotate(35deg) ;
+  }
+
+}
+
+@-moz-keyframes animationFrames{
+  0% {
+    -moz-transform:  rotate(34deg) ;
+  }
+  50% {
+    -moz-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -moz-transform:  rotate(35deg) ;
+  }
+ 
+}
+
+@-webkit-keyframes animationFrames {
+  0% {
+    -webkit-transform:  rotate(34deg) ;
+  }
+  50% {
+    -webkit-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -webkit-transform:  rotate(35deg) ;
+  }
+ 
+}
+
+@-o-keyframes animationFrames {
+  0% {
+    -o-transform:  rotate(34deg) ;
+  }
+  50% {
+    -o-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -o-transform:  rotate(35deg) ;
+  }
+
+}
+
+@-ms-keyframes animationFrames {
+  0% {
+    -ms-transform:  rotate(34deg) ;
+  }
+  50% {
+    -ms-transform:  rotate(-35deg) ;
+  }
+  100% {
+    -ms-transform:  rotate(35deg) ;
+  }
+ 
+}
+
+/** Bottle **/
+  
+      	#canvas-holder{
+				width:30%;
+            margin: auto;
+			}
+      .fill-bottle{
+          width: 150px;
+        display: block;
+        margin: auto;
+        position: relative;
+        top: 85px;
+      }
+    .glass { 
+			height: 150px;
+            width: 150px;
+            position: absolute;
+			background-image: url('../images/fill-bottle.png'); /* Beer Glass */
+			background-repeat: no-repeat;
+            background-size: 100%;
+		}
+		.liquid {
+			z-index:-1;
+			position:absolute;
+			bottom:0;
+			width: 150px;
+			background:#9ad41e; /* Beer Liquid Pattern */
+			/* Remove the bottom two lines to stop animation */
+			-webkit-animation: move 50s linear infinite;
+			-moz-animation: move 50s linear infinite;
+		}
+		
+		@-webkit-keyframes move {
+		    0% {
+		       background-position: 0 0;
+		    }
+		    100% {
+		       background-position: 2212px 0px;
+		    }
+		}
+		
+		@-moz-keyframes move {
+		    0% {
+		       background-position: 0 0;
+		    }
+		    100% {
+		       background-position: 2212px 0px;
+		    }
+		}
+.popover-content {
+    .close{
+        position: absolute;
+        right: 7px;
+        top: 8px;
+    }
+}
+
+
+/** Bottle Ui ***/
+.bottle { background: #ddd; width:160px;border-radius:30px 30px 6px 6px; height:300px; padding:6px;box-shadow: 3px 3px 3px #efefef;margin: auto;}
+.bottle:hover { background: #eee;box-shadow: 2px  2px 2px #efefef;}
+.water-bottle{ position: relative;}
+
+.cap { background: #ddd; margin:auto;width:60px;border-radius:8px 8px 10px  12px; height:35px;border-top:1px solid #ddd; border-bottom:2px dotted #efefef;}
+.cap-top { background:#ededed; height:6px; border-radius:10px 10px 0 0; }
+.cap-seal { margin-top:20px;background:#ccc; height:6px; border-radius: 0 0 10px 10px; }
+.water{  -webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out;
+    width: 150px;
+}
+.water-full { background: #81BAE7 ;height:290px; z-index:1;border-radius:28px 28px 10px 10px;position: absolute;
+bottom: 5px;  -webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out;}
+.water-medium { background: #81BAE7 ;height:180px; z-index:1;position: absolute;
+bottom: 5px;-webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out;}
+.water-low { background: #81BAE7 ;height:80px; z-index:1;position: absolute;
+bottom: 5px;-webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out;}
+.water-empty { background: #81BAE7 ;height:15px;z-index:1;position: absolute;
+bottom: 5px;-webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out;
+    -o-transition: all 1s ease-out;
+    transition: all 1s ease-out;}
+@media (max-width: @screen-sm-min) {
+    .bottle{
+        width: 135px !important;
+        .water{
+            width:125px;
+        }
+    }
+}
+
+/*Tooltip component by www.menucool.com */
+
+/*For tooltip target element that has set class="tooltip" */
+.tooltip {text-decoration: none; border-bottom:1px dotted #36c;color: #36c; outline: none; }
+
+/*For tooltip box*/
+div#mcTooltip 
+{
+    line-height:16px;
+    border-width: 1px;   
+    color:#333; 
+    border-color:#BBBBBB;
+    padding:20px;
+    font-size: 12px;
+    font-family: Verdana, Arial;
+    border-radius:6px; /*Rounded corners. N/A for IE 8 and below.*/
+    box-shadow: 0 1px 4px #AAAAAA; /*Drop shadow. N/A for IE 8 and below.*/
+}
+
+div#mcTooltip, div.mcTooltipInner 
+{
+    background-color:#EAECF0;
+}
+
+/* For hyperlink within tooltip */
+div#mcTooltip a { color:#36c; }
+
+/*Close button. Available when sticky or overlay has been set to true, or is on iPhone, iPad, Android, BlackBerry, or IEMobile devices. */
+div#mcttCloseButton 
+{
+    width:14px;height:14px;position:absolute;background-image:url(../../assets/images/closeBtn.gif);cursor:pointer; overflow:hidden;
+    top:12px; right:12px; left:auto;
+}
+
+/*Give the close button a bigger size in smaller devices*/
+@media only screen and (max-width: 1024px) {
+    div#mcttCloseButton 
+    {
+        width:24px;height:24px;background-size:cover;
+    }
+} 
+
+/* Only applies when overlay has been set to true or 1 */
+div#mcOverlay 
+{
+    background-color: white;
+    opacity:0.8; filter: alpha(opacity=80); 
+    display:none;top:0;left:0;width:100%;height: 100%;overflow:visible;z-index:4; 
+}
+
+/*Only available when calling by tooltip.ajax(...). It will be a spinning image indicating a request is in progress.*/
+div#tooltipAjaxSpin {margin:20px 50px; background:transparent url(loading.gif) no-repeat center center; width:50px; height:30px; font-size:0;}
+
+/*The settings below should remain unchanged*/
+div#mcTooltipWrapper {position:absolute;visibility:hidden;overflow:visible;z-index:9999999999;top:0px;}
+div#mcTooltip {float:left;border-style:solid;position:relative;overflow:hidden;}
+div.mcTooltipInner {float:left;position:relative;width:auto;height:auto;}
+div#mcttCo {position:absolute;text-align:left;}
+div#mcttCo em, div#mcttCo b {display:block; width:0; height:0;overflow:hidden;}
+
+/*workable with bootstrap*/
+div#mcTooltip, div#mcTooltip div {
+     -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+     box-sizing:content-box;
+}
+
+img {
+  vertical-align: middle;border: 0;
+}
+
+/** Capsule-product-type **/
+.sprite-1{
+     background:url(../../assets/images/sprite.png)no-repeat;
+     width: 53px;
+     height: 50px;
+     display: inline-block;
+}
+.capsule_bonus_class{
+  .sprite-1;
+  background-position: -123px 0px;
+}
+.capsule_occurred_class{
+    .sprite-1;
+    background-position: -63px 0px;
+}
+.capsule_expected_class{
+  .sprite-1;
+}

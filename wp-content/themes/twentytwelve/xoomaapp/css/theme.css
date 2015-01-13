@@ -6369,9 +6369,27 @@ body {
 body > .container {
   padding: 0;
 }
+.button-center {
+  display: table;
+  margin: 0 auto;
+}
 .content-wrapper {
   background: #ffffff;
   padding: 15px;
+}
+.loader {
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #1ABC9C;
+  background-image: url(http://samherbert.net/svg-loaders/svg-loaders/puff.svg);
+  background-size: 80px;
+  z-index: 99999;
+  background-repeat: no-repeat;
+  background-position: 50% 46%;
+  position: fixed;
 }
 .footer {
   background: #cccccc;
@@ -6400,7 +6418,7 @@ body > .container {
   font-weight: 700;
 }
 .section {
-  padding: 100px 0px 10px 0px;
+  padding: 70px 0px 10px 0px;
 }
 .list-style li {
   border-bottom: 1px solid #cccccc;
@@ -6737,7 +6755,7 @@ div#mcttCloseButton {
   width: 14px;
   height: 14px;
   position: absolute;
-  background-image: url(../../images/closeBtn.gif);
+  background-image: url(../../assets/images/closeBtn.gif);
   cursor: pointer;
   overflow: hidden;
   top: 12px;
@@ -6814,6 +6832,33 @@ div#mcTooltip div {
 img {
   vertical-align: middle;
   border: 0;
+}
+/** Capsule-product-type **/
+.sprite-1 {
+  background: url(../../assets/images/sprite.png) no-repeat;
+  width: 53px;
+  height: 50px;
+  display: inline-block;
+}
+.capsule_bonus_class {
+  background: url(../../assets/images/sprite.png) no-repeat;
+  width: 53px;
+  height: 50px;
+  display: inline-block;
+  background-position: -123px 0px;
+}
+.capsule_occurred_class {
+  background: url(../../assets/images/sprite.png) no-repeat;
+  width: 53px;
+  height: 50px;
+  display: inline-block;
+  background-position: -63px 0px;
+}
+.capsule_expected_class {
+  background: url(../../assets/images/sprite.png) no-repeat;
+  width: 53px;
+  height: 50px;
+  display: inline-block;
 }
 /* Top - Header */
 .topheader {
@@ -8766,6 +8811,7 @@ img {
   display: inline-block;
   margin-left: .25em;
   margin-right: .25em;
+  font-size: .8em;
 }
 .picker__year {
   color: #999999;
@@ -8793,7 +8839,7 @@ img {
   width: 35%;
 }
 .picker__select--year {
-  width: 22.5%;
+  width: 29.5%;
 }
 .picker__select--month:focus,
 .picker__select--year:focus {
@@ -9597,8 +9643,6 @@ img {
   }
 }
 .form-control {
-  border: none;
-  background: #e6e6e6;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
