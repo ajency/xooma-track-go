@@ -793,18 +793,19 @@ markupup
 
 <script id="schedule-template" type="text/template">
 <div class="container"> </br></br>
-
+<form id="consume" class="form-horizontal" role="form" method="POST">
 <div><span class="day">{{day}}</span></div>
 <div><span class="today">{{today}}</span></div>
 {{#no_servings}}
 <div>
 {{#servings}}
-<span>{{classname}}</span>
+<div class="{{newClass}}"></div>
 {{/servings}}
 </div>
 {{/no_servings}}
 </div>
 
-
-<div class= "original">{{original}}</div>
+<br/>
+<a href="#" class="intake" ><div class= "{{original}}"></div></a>
+<input type="hidden" name="schduleid" value="{{schedule}}" />
 </script>

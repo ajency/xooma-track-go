@@ -18,6 +18,26 @@ ScheduleView = (function(_super) {
 
   ScheduleView.prototype.template = '#schedule-template';
 
+  ScheduleView.prototype.ui = {
+    intake: '.intake',
+    form: '#consume'
+  };
+
+  ScheduleView.prototype.events = {
+    'click @ui.intake': function(e) {
+      var product;
+      product = this.mode.get('id');
+      e.preventDefault();
+      return $.ajax({
+        method: 'POST',
+        data: this.ui.form.serialize(),
+        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        success: this.successHandler,
+        error: this.erroraHandler
+      });
+    }
+  };
+
   ScheduleView.prototype.serializeData = function() {
     var data, no_servings, occurr, product_type, qty;
     data = ScheduleView.__super__.serializeData.call(this);
@@ -26,33 +46,36 @@ ScheduleView = (function(_super) {
     qty = this.model.get('qty');
     occurr = this.model.get('occurrences');
     product_type = this.model.get('product_type_name');
+    product_type = product_type.toLowerCase();
     no_servings = [];
     $.each(qty, function(ind, val) {
-      var expected, i, occurrence, servings;
-      console.log(occurrence = occurr[ind]);
-      occurrence = _.has(occurrence, "occurrence");
-      expected = _.has(occurrence, "expected");
+      var expected, i, newClass, occurrence, servings;
+      console.log(occurrence = _.has(occurr[ind], "occurrence"));
+      console.log(expected = _.has(occurr[ind], "expected"));
       if (occurrence === true && expected === true) {
-        data.classname = product_type + '_occurred_class';
+        console.log(newClass = product_type + '_occurred_class');
       } else if (occurrence === false && expected === true) {
-        data.classname = product_type + '_expected_class';
+        console.log(newClass = product_type + '_expected_class');
       } else if (occurrence === true && expected === false) {
-        data.classname = product_type + '_bonus_class';
+        console.log(newClass = product_type + '_bonus_class');
       }
       i = 0;
       servings = [];
       while (i < val.qty) {
         servings.push({
-          classname: data.classname
+          newClass: newClass
         });
         i++;
       }
       no_servings.push({
         servings: servings
       });
+      no_servings.push({
+        schedule: occurr[ind]
+      });
       return data.no_servings = no_servings;
     });
-    dsata.original = product_type + 'occurred_class';
+    data.original = product_type + '_expected_class';
     return data;
   };
 

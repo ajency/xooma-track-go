@@ -65,6 +65,7 @@ class User_API
           //consumption
         $routes['/intakes/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
             array( array( $this, 'xooma_get_consumption_details'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_store_consumption_details'), WP_JSON_Server::CREATABLE),
         );
 
 
@@ -518,5 +519,31 @@ class User_API
         }
 
         return $response;
+    }
+
+    public function xooma_store_consumption_details($id,$pid){
+
+        $schedule_id = $_REQUEST['schduleid'];
+
+        $response = store_consumption_details($id,$pid,$schedule_id);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+        return $response;
+
+
+
+
     }
 }

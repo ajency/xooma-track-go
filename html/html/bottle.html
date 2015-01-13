@@ -105,7 +105,10 @@ bottom: 5px;-webkit-transition: all 1s ease-out;
                         </div>
                     </div>
                    <div  >
-                        <div class="high" style="height:300px" >
+                        <div class="high water water-full" ></div><br/>
+						<div class="high1" ><br/>
+						<div class="high2" ><br/>
+						<div class="high3" >
 						</div>
                     </div>
             </div>
@@ -184,11 +187,19 @@ bottom: 5px;-webkit-transition: all 1s ease-out;
     <script type="text/javascript">
    
 
-	$('.high').mouseup(function() {
 	
-	console.log('aaaa');
-	
-	});
+	 $('.high').bind('mousewheel', function(e){
+     if(e.originalEvent.wheelDelta < 0) {
+         //scroll down
+        $('.high').removeClass('water-full');
+     }else {
+         //scroll up
+         console.log('Up');
+     }
+
+     //prevent page fom scrolling
+     return false;
+ });
         
      
     </script>

@@ -6,6 +6,22 @@ class ScheduleView extends Marionette.ItemView
 
 	template : '#schedule-template'
 
+	ui :
+		intake : '.intake'
+		form 	: '#consume'
+
+	events:
+		'click @ui.intake':(e)->
+			product = @mode.get('id')
+			e.preventDefault()
+			$.ajax
+				method : 'POST'
+				data : @ui.form.serialize()
+				url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+				success: @successHandler
+				error :@erroraHandler
+
+
 
 	serializeData:->
 		data = super()
@@ -14,27 +30,29 @@ class ScheduleView extends Marionette.ItemView
 		qty = @model.get 'qty'
 		occurr = @model.get('occurrences')
 		product_type = @model.get('product_type_name')
+		product_type = product_type.toLowerCase()
 		no_servings  = []
 		$.each qty , (ind,val)->
-			console.log occurrence  = occurr[ind]
-			occurrence = _.has(occurrence, "occurrence")
-			expected = _.has(occurrence, "expected")
+			console.log occurrence = _.has(occurr[ind], "occurrence")
+			console.log expected = _.has(occurr[ind], "expected")
 			if occurrence == true && expected == true
-				data.classname = product_type+'_occurred_class'
+				console.log newClass = product_type+'_occurred_class'
 			else if occurrence == false && expected == true
-				data.classname = product_type+'_expected_class'
+				console.log newClass = product_type+'_expected_class'
 			else if occurrence == true && expected == false
-				data.classname = product_type+'_bonus_class'
+				console.log newClass = product_type+'_bonus_class'
 
 			i = 0
+			
 			servings = []
 			while(i < val.qty)
-				servings.push classname : data.classname
+				servings.push newClass : newClass
 				i++
 			no_servings.push servings : servings
+			no_servings.push schedule : occurr[ind]
 			data.no_servings =  no_servings
 		
-		dsata.original = product_type+'occurred_class'
+		data.original = product_type+'_expected_class'
 		data
 						
 

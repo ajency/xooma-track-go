@@ -1,5 +1,5 @@
 <?php
- date_default_timezone_set("UTC");
+
 
 function save_anytime_product_details($id,$data){
 
@@ -1135,4 +1135,28 @@ function get_consumption_details($id,$pid,$date)
         return $response;
 
         
+}
+
+function store_consumption_details($id,$pid,$schedule_id){
+
+    date_default_timezone_set("UTC");
+
+    $today = strtotime('H:i:s');
+    $start = date("Y-m-d 00:00:00"); 
+
+    $occurrence_data = array(
+            'schedule_id' =>  $schedule_id,
+            'occurrence' => $start,
+            'meta_value' => array()
+          );
+
+
+        $occurrences = \ajency\ScheduleReminder\Occurrence::
+        _insert_occurrence($occurrence_data); 
+
+        print_r($occurrences);
+
+
+
+
 }
