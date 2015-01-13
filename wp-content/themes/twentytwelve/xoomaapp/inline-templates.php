@@ -679,7 +679,7 @@ markupup
       <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
       <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
          <button type="button" class="btn btn-default cancel">Cancel</button>
-         <button type="button" class="btn btn-danger remove">Remove Product</button>
+         <button type="button" class="btn btn-danger remove hidden">Remove Product</button>
          <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block view hidden" >View History</a>	
     </div>
   </div>
@@ -797,15 +797,18 @@ markupup
 <div><span class="day">{{day}}</span></div>
 <div><span class="today">{{today}}</span></div>
 {{#no_servings}}
-<div>
+<a href="#" class="servings" data-value="{{meta_id}}">
+
 {{#servings}}
 <div class="{{newClass}}"></div>
 {{/servings}}
 </div>
 {{/no_servings}}
-</div>
+</div></a><br/>
 
 <br/>
-<a href="#" class="intake" ><div class= "{{original}}"></div></a>
-<input type="hidden" name="schduleid" value="{{schedule}}" />
+<a href="#" class="intake {{original}}" ></a>
+<input type="hidden" name="schduleid"  id="schduleid" value="{{scheduleid}}" />
+<input type="hidden" name="meta_id"  id="meta_id" value="" />
+</form>
 </script>

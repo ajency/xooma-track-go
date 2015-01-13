@@ -1,6 +1,9 @@
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
+		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+
+	_showView:(collection)=>
 		@show new Marionette.LayoutView template : '#home-template'
 
 class HomeX2OViewChild extends Marionette.ItemView
@@ -58,7 +61,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		consumed = occurrenceArr.length
 		target = @model.get 'qty1'
 
-		doughnutData = @drawBottle(target,consumed,bonusArr)
+		doughnutData = @drawBottle(@model.get('occurrence'))
 		
 		
 		ctx = document.getElementById("chart-area").getContext("2d")
@@ -66,46 +69,41 @@ class HomeX2OViewChild extends Marionette.ItemView
 			responsive : true,  
 			percentageInnerCutout : 80 
 		)
-		ctdx = document.getElementById("canvas").getContext("2d")
-		window.myLine = new Chart(ctdx).Line(lineChartData, 
-			responsive: true
-		)
+		
+	get_occurrence:(data)->
+		occurrence = _.has(data, "occurrence")
+		expected = _.has(data, "expected")
+		meta_value = _.has(data, "meta_value")
+		value = 0
+		$.each meta_value , (index,value)->
+			value += parseInt value.qty
+		
+		if occurrence == true && expected == true
+			color = "#6bbfff"
+			highlight =  "#50abf1"
+			value = value
+			
+		else if occurrence == false && expected == true
+			color = "#e3e3e3"
+			highlight =  "#cdcdcd"
+			value = value
+		else if occurrence == true && expected == false
+			color = "#e3e3e3"
+			highlight =  "#cdcdcd"
+			value = value
 
-		@ui.liquid.each (e)->
-			$(e.target)
-				.data("origHeight", $(e.target).height())
-				.height(0)
-				.animate(
-						height: $(this).data("origHeight")
-					, 3000)
 
-	drawBottle:(target,consumed,bonusArr)->
-		grey = parseInt(target) - parseInt(consumed)
-		i = 1 
+	drawBottle:(data)->
 		doughnutData = []
-		while i < parseInt(consumed)
+		$.each data, (ind,val)->
+			@get_occurrence(val)
+		
 			doughnutData.push 
-				value: 50
-				color:"#6bbfff "
-				highlight: "#50abf1"
-				label: "Bottle"+i
-			i++
-
-		while i <= parseInt(grey)
-			doughnutData.push 
-				value: 50
-				color:"#e3e3e3"
-				highlight: "#cdcdcd"
-				label: "Bottle"+i
-			i++
-
-		while i <= bonusArr
-			doughnutData.push 
-				value: 50
-				color:"#e3e3e3"
-				highlight: "#cdcdcd"
-				label: "Bottle"+i
-			i++
+					value: 50
+					color:"#6bbfff "
+					highlight: "#50abf1"
+					label: "Bottle"+i
+				
 		doughnutData
 
 	
@@ -131,16 +129,13 @@ class HomeX2OView extends Marionette.CompositeView
 class App.HomeX2OCtrl extends Ajency.RegionController
 
 	initialize:->
-		if App.currentUser.has 'x2o'
-			console.log x2oColl = new Backbone.Collection App.currentUser.get 'x2o'
-			@show new HomeX2OView
-						collection : x2oColl
-		else
-			App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		console.log App.useProductColl
+		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
-		productcollection = new Backbone.Collection collection
+		productcollection = collection.clone()
 		model = productcollection.shift() 
+		console.log App.useProductColl
 		modelColl = new Backbone.Collection model.get('products')
 		@show new HomeX2OView
 					collection : modelColl
@@ -221,7 +216,7 @@ class ProductChildView extends Marionette.ItemView
 		whenar = ['','Morning Before meal' , 'Morning After meal', 'Night Before Meal' , 'Night After Meal']
 		$.each @model.get('qty'), (ind,val)->
 			console.log occurrenceArr[ind]
-			occu_data = occurrenceArr[ind]
+			occu_data = occurrenceArr.length
 			if occurrenceArr[ind] == "" || occurrenceArr[ind] == undefined
 				occu_data = 0
 			shecule.push
@@ -264,10 +259,11 @@ class HomeOtherProductsView extends Marionette.CompositeView
 class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		console.log App.useProductColl
+		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
-		productcollection = new Backbone.Collection collection
+		productcollection = collection.clone()
 		productcollection.shift() 
 		App.homexProductsColl = new Backbone.Collection
 		App.homexProductsColl = productcollection

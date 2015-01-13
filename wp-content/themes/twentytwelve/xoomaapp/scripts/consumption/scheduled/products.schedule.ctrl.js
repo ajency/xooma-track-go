@@ -20,22 +20,39 @@ ScheduleView = (function(_super) {
 
   ScheduleView.prototype.ui = {
     intake: '.intake',
-    form: '#consume'
+    form: '#consume',
+    scheduleid: 'input[name="scheduleid"]',
+    servings: '.servings'
   };
 
   ScheduleView.prototype.events = {
-    'click @ui.intake': function(e) {
-      var product;
-      product = this.mode.get('id');
+    'click @ui.servings': function(e) {
+      var meta_id;
       e.preventDefault();
+      console.log(meta_id = $(e.target).parent().attr('data-value'));
+      if (meta_id === "") {
+        meta_id = 0;
+      }
+      return $('#meta_id').val(parseInt(meta_id));
+    },
+    'click @ui.intake': function(e) {
+      var data, meta_id, product;
+      e.preventDefault();
+      meta_id = $('#meta_id').val();
+      console.log(data = $('#schduleid').val());
+      product = this.model.get('id');
       return $.ajax({
         method: 'POST',
-        data: this.ui.form.serialize(),
+        data: 'meta_id=' + meta_id,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.successHandler,
         error: this.erroraHandler
       });
     }
+  };
+
+  ScheduleView.successHandler = function(response, status, xhr) {
+    return console.log(response);
   };
 
   ScheduleView.prototype.serializeData = function() {
@@ -44,13 +61,14 @@ ScheduleView = (function(_super) {
     console.log(data.day = moment().format("dddd"));
     console.log(data.today = moment().format("MMMM Do YYYY"));
     qty = this.model.get('qty');
-    occurr = this.model.get('occurrences');
-    product_type = this.model.get('product_type_name');
+    occurr = this.model.get('occurrence');
+    product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
     no_servings = [];
     $.each(qty, function(ind, val) {
       var expected, i, newClass, occurrence, servings;
       console.log(occurrence = _.has(occurr[ind], "occurrence"));
+      console.log(occurr[ind].meta_id);
       console.log(expected = _.has(occurr[ind], "expected"));
       if (occurrence === true && expected === true) {
         console.log(newClass = product_type + '_occurred_class');
@@ -68,14 +86,14 @@ ScheduleView = (function(_super) {
         i++;
       }
       no_servings.push({
-        servings: servings
-      });
-      no_servings.push({
-        schedule: occurr[ind]
+        servings: servings,
+        schedule: occurr[ind].schedule_id,
+        meta_id: occurr[ind].meta_id
       });
       return data.no_servings = no_servings;
     });
     data.original = product_type + '_expected_class';
+    data.scheduleid = occurr[0].schedule_id;
     return data;
   };
 
@@ -92,19 +110,23 @@ App.ScheduleCtrl = (function(_super) {
   }
 
   ScheduleCtrl.prototype.initialize = function(options) {
-    var product, productId;
+    var product, productId, productModel, products, productsColl;
     if (options == null) {
       options = {};
     }
     productId = this.getParams();
     product = parseInt(productId[0]);
-    return $.ajax({
-      method: 'GET',
-      data: 'date=""',
-      url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
-      success: this.successHandler,
-      error: this.erroraHandler
+    products = [];
+    App.homexProductsColl.each(function(val) {
+      return $.each(val.get('products'), function(index, value) {
+        return products.push(value);
+      });
     });
+    productsColl = new Backbone.Collection(products);
+    productModel = productsColl.where({
+      id: parseInt(productId[0])
+    });
+    return this._showView(productModel[0]);
   };
 
   ScheduleCtrl.prototype.successHandler = function(response, status, xhr) {

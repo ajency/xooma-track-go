@@ -523,9 +523,24 @@ class User_API
 
     public function xooma_store_consumption_details($id,$pid){
 
-        $schedule_id = $_REQUEST['schduleid'];
+        $schedule_id = $_REQUEST['scheduleid'];
 
-        $response = store_consumption_details($id,$pid,$schedule_id);
+        $meta_id = $_REQUEST['meta_id'];
+
+        $args = array(
+
+            'id'            => $id,
+            'pid'           => $pid,
+            'schedule_id'   => $schedule_id,
+            'meta_id'       => $meta_id
+
+
+            );
+
+
+
+
+        $response = store_consumption_details($args);
 
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );

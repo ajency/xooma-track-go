@@ -98,14 +98,17 @@ _.extend Ajency.CurrentUser::,
 			App.useProductColl = new Backbone.Collection
 			if xhr.status is 200
 				$.each response, (index,value)->
-					$.each value.products , (ind,val)->
-						App.useProductColl.add val
+					App.useProductColl.add value
 						
 
 		$.ajax
 			method : 'GET'
 			url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 			success: _successHandler
+
+
+	
+				
 
 
 

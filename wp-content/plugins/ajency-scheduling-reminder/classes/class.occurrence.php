@@ -130,7 +130,8 @@ class Occurrence{
 		$defaults = array(
 					'schedule_id' => 0,
 					'occurrence' => false,
-					'meta_value' => array()
+					'meta_value' => array(),
+					'meta_id'    => 0
 				);
 
 		$occurrence_args = wp_parse_args($occurrence_data, $defaults);
@@ -219,6 +220,48 @@ class Occurrence{
 
 		return $schedules;
 		
+	}
+
+
+	public static function _update_occurrence($occurrence_data){
+		global $wpdb;
+
+		$user_id = get_current_user_id();
+
+		$defaults = array(
+					'schedule_id' => 0,
+					'occurrence' => false,
+					'meta_value' => array(),
+					'meta_id'    => 0
+				);
+
+		$occurrence_args = wp_parse_args($occurrence_data, $defaults);
+
+		if(empty($occurrence_args['schedule_id']))
+			return new \WP_Error('schedule_id_param_missing', __('schedule_id cannot be empty'));
+
+		if(empty($occurrence_args['occurrence']))
+			return new \WP_Error('occurrence', __('occurrence must be a valid date time'));
+
+		$table_name = "{$wpdb->prefix}aj_occurrence_meta";
+		$record = $occurrence_args;
+
+		$record['meta_value'] = maybe_serialize($record['meta_value']);
+
+		echo "UPDATE $table_name SET occurrence='".date('Y-m-d H:i:s')."'
+
+			and meta_value='".$record['meta_value']."' where meta_id=".$record['meta_id'];
+
+		$sql_query = $wpdb->query("UPDATE $table_name SET occurrence='".date('Y-m-d H:i:s')."'
+
+			and meta_value='".$record['meta_value']."' where meta_id=".$record['meta_id']);
+
+
+		
+
+		return $record['meta_id'];
+
+
 	}
 }
 

@@ -844,7 +844,6 @@ function get_occurrence_date($product_id,$user_id="",$date=""){
       
 
 
-
       return $occurrences;
 
     
@@ -1137,24 +1136,34 @@ function get_consumption_details($id,$pid,$date)
         
 }
 
-function store_consumption_details($id,$pid,$schedule_id){
+function store_consumption_details($args){
 
     date_default_timezone_set("UTC");
 
-    $today = strtotime('H:i:s');
-    $start = date("Y-m-d 00:00:00"); 
+    
+    $start = date("Y-m-d H:i:s"); 
 
     $occurrence_data = array(
-            'schedule_id' =>  $schedule_id,
+            'schedule_id' =>  $args['schedule_id'],
             'occurrence' => $start,
-            'meta_value' => array()
+            'meta_value' => array(),
+            'meta_id'     => $args['meta_id']
           );
 
+        if($args['meta_id'] == 0)
+        {
+          $occurrences = \ajency\ScheduleReminder\Occurrence::
+          _insert_occurrence($occurrence_data); 
+        }
+        else
+        {
+          $occurrences = \ajency\ScheduleReminder\Occurrence::
+          _update_occurrence($occurrence_data);
+        }
+     
 
-        $occurrences = \ajency\ScheduleReminder\Occurrence::
-        _insert_occurrence($occurrence_data); 
 
-        print_r($occurrences);
+      return $occurrences;
 
 
 

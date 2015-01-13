@@ -142,9 +142,7 @@ _.extend(Ajency.CurrentUser.prototype, {
         App.useProductColl = new Backbone.Collection;
         if (xhr.status === 200) {
           return $.each(response, function(index, value) {
-            return $.each(value.products, function(ind, val) {
-              return App.useProductColl.add(val);
-            });
+            return App.useProductColl.add(value);
           });
         }
       };
