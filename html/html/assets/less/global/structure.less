@@ -280,26 +280,33 @@ display:none !important;
     transition: all 1s ease-out;
     width: 150px;
 }
-.water-full { background: #81BAE7 ;height:290px; z-index:1;border-radius:28px 28px 10px 10px;position: absolute;
-bottom: 5px;  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-medium { background: #81BAE7 ;height:180px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-low { background: #81BAE7 ;height:80px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-empty { background: #81BAE7 ;height:15px;z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
+
+.level-25{
+     background: @blue ;
+     width:100%;
+     height:25%;
+}
+.level-50{
+     background: @blue ;
+     width:100%;
+     height:25%;
+}
+.level-75{
+     background: @blue ;
+     width:100%;
+     height:25%;
+}
+.level-100{
+     background: @blue ;
+     width:100%;
+     height:25%;
+     border-top-left-radius::20px;
+     -webkit-border-top-left-radius:20px;
+     -moz-border-top-left-radius:20px;
+    border-border-top-right-radius:20px;
+     -webkit-border-top-right-radius:20px;
+     -moz-border-top-right-radius:20px;
+}
 @media (max-width: @screen-sm-min) {
     .bottle{
         width: 135px !important;

@@ -87,7 +87,7 @@
 											</div>
 											 <a class="link" href="#menu">
                             <h5><i class="fa fa-cog pull-right "></i></h5>
-                        </a>
+                        	</a>
 										</div>
 					
 								</div>
@@ -115,13 +115,13 @@
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
+												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
 														PERSONAL INFO</a>
 												</li>
-												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
+												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
 														MEASUREMENT</a>
 												</li>
-												<li><a id="product" href="#/profile/my-products"><i class="fa fa-check-circle-o"></i> 
+												<li><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
 														MYPRODUCTS</a>
 												</li>
 										</ul>
