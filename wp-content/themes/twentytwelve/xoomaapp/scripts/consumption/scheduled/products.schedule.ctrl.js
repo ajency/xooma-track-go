@@ -22,32 +22,46 @@ ScheduleView = (function(_super) {
     intake: '.intake',
     form: '#consume',
     scheduleid: 'input[name="scheduleid"]',
-    servings: '.servings'
+    servings: '.servings',
+    responseMessage: '.aj-response-message'
   };
 
   ScheduleView.prototype.events = {
     'click @ui.servings': function(e) {
-      var meta_id;
+      var meta_id, qty;
       e.preventDefault();
       console.log(meta_id = $(e.target).parent().attr('data-value'));
-      if (meta_id === "") {
-        meta_id = 0;
-      }
-      return $('#meta_id').val(parseInt(meta_id));
+      console.log(qty = $(e.target).parent().attr('data-qty'));
+      return ScheduleView.prototype.update_occurrences(meta_id, qty);
     },
     'click @ui.intake': function(e) {
-      var data, meta_id, product;
+      var data, i, meta_id, occurr, product, qty;
+      occurr = this.model.get('occurrence').length;
+      i = 0;
+      $.each(occurr, function(ind, val) {
+        var expected, occurrence;
+        occurrence = _.has(val, "occurrence");
+        expected = _.has(val, "expected");
+        if (occurrence === true && expected === true) {
+          return i++;
+        }
+      });
       e.preventDefault();
       meta_id = $('#meta_id').val();
+      qty = $('#qty').val();
       console.log(data = $('#schduleid').val());
       product = this.model.get('id');
-      return $.ajax({
-        method: 'POST',
-        data: 'meta_id=' + meta_id,
-        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
-        success: this.successHandler,
-        error: this.erroraHandler
-      });
+      if (parseInt(i) < parseInt(occurr)) {
+        return $.ajax({
+          method: 'POST',
+          data: 'meta_id=' + meta_id + '&qty=' + qty,
+          url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+          success: this.successHandler,
+          error: this.erroraHandler
+        });
+      } else {
+        return this.ui.responseMessage.text("Servings are done!!!!");
+      }
     }
   };
 
@@ -65,21 +79,22 @@ ScheduleView = (function(_super) {
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
     no_servings = [];
-    $.each(qty, function(ind, val) {
+    $.each(occurr, function(ind, val) {
       var expected, i, newClass, occurrence, servings;
-      console.log(occurrence = _.has(occurr[ind], "occurrence"));
+      console.log(occurrence = _.has(val, "occurrence"));
       console.log(occurr[ind].meta_id);
-      console.log(expected = _.has(occurr[ind], "expected"));
+      console.log(expected = _.has(val, "expected"));
       if (occurrence === true && expected === true) {
         console.log(newClass = product_type + '_occurred_class');
       } else if (occurrence === false && expected === true) {
         console.log(newClass = product_type + '_expected_class');
+        ScheduleView.prototype.create_occurrences(val);
       } else if (occurrence === true && expected === false) {
         console.log(newClass = product_type + '_bonus_class');
       }
       i = 0;
       servings = [];
-      while (i < val.qty) {
+      while (i < qty[ind].qty) {
         servings.push({
           newClass: newClass
         });
@@ -87,14 +102,28 @@ ScheduleView = (function(_super) {
       }
       no_servings.push({
         servings: servings,
-        schedule: occurr[ind].schedule_id,
-        meta_id: occurr[ind].meta_id
+        schedule: val.schedule_id,
+        meta_id: val.meta_id,
+        qty: qty[ind].qty
       });
       return data.no_servings = no_servings;
     });
     data.original = product_type + '_expected_class';
-    data.scheduleid = occurr[0].schedule_id;
     return data;
+  };
+
+  ScheduleView.prototype.create_occurrences = function(val) {
+    console.log(val);
+    $('#meta_id').val(0);
+    return $('#qty').val(val.qty);
+  };
+
+  ScheduleView.prototype.update_occurrences = function(meta_id, qty) {
+    if (meta_id === "") {
+      meta_id = 0;
+    }
+    $('#meta_id').val(parseInt(meta_id));
+    return $('#qty').val(qty);
   };
 
   return ScheduleView;

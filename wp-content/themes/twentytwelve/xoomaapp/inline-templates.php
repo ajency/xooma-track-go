@@ -85,12 +85,11 @@
 											<div ui-region="currentUser" class="pull-right user-data">
 
 											</div>
-										</div>
-										<div class="col-sm-9 col-xs-7">
-                        <a class="link" href="#menu">
+											 <a class="link" href="#menu">
                             <h5><i class="fa fa-cog pull-right "></i></h5>
                         </a>
-                    </div>
+										</div>
+					
 								</div>
 						</div>
 				</nav>
@@ -154,7 +153,7 @@
 
 								<img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture" width="150px" height="150px">
 
-								<h6 class="text-center bold">You are on the the spot!</h6>
+								
 								<p class="text-center">Let us know something about you.</p>
 								<br>
 								<div class="row">
@@ -429,7 +428,7 @@
               <div class="row">
                   <div class="col-md-3"></div>
                   <div class="col-md-6">
-                  <a href="#/products" class="btn btn-primary btn-lg center-block" ><i class="fa fa-plus-circle"></i> Add Products</a>
+                  <a href="#/products" class="btn btn-primary btn-lg button-center" ><i class="fa fa-plus-circle"></i> Add Products</a>
 
                       <br>
                             <ul class="list-unstyled list-style userProductList">
@@ -793,22 +792,25 @@ markupup
 
 <script id="schedule-template" type="text/template">
 <div class="container"> </br></br>
+<div class="aj-response-message"></div>
 <form id="consume" class="form-horizontal" role="form" method="POST">
 <div><span class="day">{{day}}</span></div>
 <div><span class="today">{{today}}</span></div>
 {{#no_servings}}
-<a href="#" class="servings" data-value="{{meta_id}}">
+<a href="#" class="servings" data-value="{{meta_id}}" data-qty="{{qty}}">
 
 {{#servings}}
 <div class="{{newClass}}"></div>
 {{/servings}}
-</div>
+
 {{/no_servings}}
-</div></a><br/>
+<br/></a>
 
 <br/>
 <a href="#" class="intake {{original}}" ></a>
 <input type="hidden" name="schduleid"  id="schduleid" value="{{scheduleid}}" />
 <input type="hidden" name="meta_id"  id="meta_id" value="" />
+<input type="hidden" name="qty"  id="qty" value="" />
+
 </form>
 </script>

@@ -523,7 +523,7 @@ class User_API
 
     public function xooma_store_consumption_details($id,$pid){
 
-        $schedule_id = $_REQUEST['scheduleid'];
+        $qty = $_REQUEST['qty'];
 
         $meta_id = $_REQUEST['meta_id'];
 
@@ -531,8 +531,12 @@ class User_API
 
             'id'            => $id,
             'pid'           => $pid,
-            'schedule_id'   => $schedule_id,
-            'meta_id'       => $meta_id
+            'meta_id'       => $meta_id,
+            'meta_value'    => array(
+                'date'      => date('Y-m-d H:i:s'),
+                'qty'       => $qty
+
+                )
 
 
             );

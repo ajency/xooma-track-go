@@ -71,37 +71,43 @@ class HomeX2OViewChild extends Marionette.ItemView
 		)
 		
 	get_occurrence:(data)->
-		occurrence = _.has(data, "occurrence")
-		expected = _.has(data, "expected")
-		meta_value = _.has(data, "meta_value")
+		console.log data
+		console.log occurrence = _.has(data, "occurrence")
+		console.log expected = _.has(data, "expected")
+		console.log meta_value = _.has(data, "meta_value")
 		value = 0
+		arr = []
 		$.each meta_value , (index,value)->
 			value += parseInt value.qty
 		
 		if occurrence == true && expected == true
-			color = "#6bbfff"
-			highlight =  "#50abf1"
-			value = value
+			arr['color'] = "#6bbfff"
+			arr['highlight'] =  "#50abf1"
+			arr['value'] = value
 			
 		else if occurrence == false && expected == true
-			color = "#e3e3e3"
-			highlight =  "#cdcdcd"
-			value = value
+			arr['color'] = "#e3e3e3"
+			arr['highlight'] =  "#cdcdcd"
+			arr['value'] = value
 		else if occurrence == true && expected == false
-			color = "#e3e3e3"
-			highlight =  "#cdcdcd"
-			value = value
+			arr['color'] = "#e3e3e3"
+			arr['highlight'] =  "#cdcdcd"
+			arr['value'] = value
+
+		arr
 
 
 	drawBottle:(data)->
 		doughnutData = []
 		$.each data, (ind,val)->
-			@get_occurrence(val)
-		
+			occurrence = HomeX2OViewChild::get_occurrence(val)
+			i = parseInt(ind) + 1
+			if occurrence['value'] == 0
+				occurrence['value'] = 1
 			doughnutData.push 
-					value: 50
-					color:"#6bbfff "
-					highlight: "#50abf1"
+					value: occurrence['value']
+					color:occurrence['color']
+					highlight:occurrence['highlight']
 					label: "Bottle"+i
 				
 		doughnutData

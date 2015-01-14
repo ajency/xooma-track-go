@@ -1138,15 +1138,23 @@ function get_consumption_details($id,$pid,$date)
 
 function store_consumption_details($args){
 
+    $object_id = get_object_id($args['pid'],$args['id']);
+
+    if(!is_wp_error($object_id)){
+
+      //get schedule id
+      $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+
+    }
     date_default_timezone_set("UTC");
 
     
     $start = date("Y-m-d H:i:s"); 
 
     $occurrence_data = array(
-            'schedule_id' =>  $args['schedule_id'],
+            'schedule_id' =>  $schedule,
             'occurrence' => $start,
-            'meta_value' => array(),
+            'meta_value' => $args['meta_value'],
             'meta_id'     => $args['meta_id']
           );
 

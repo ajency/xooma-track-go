@@ -11,27 +11,41 @@ class ScheduleView extends Marionette.ItemView
 		form 	: '#consume'
 		scheduleid : 'input[name="scheduleid"]'
 		servings : '.servings'
+		responseMessage : '.aj-response-message'
 
 	events:
 		'click @ui.servings':(e)->
 			e.preventDefault()
 			console.log meta_id  = $(e.target).parent().attr 'data-value'
-			if meta_id == ""
-				meta_id = 0
-			$('#meta_id').val parseInt meta_id
+			console.log qty  = $(e.target).parent().attr 'data-qty'
+			
+			ScheduleView::update_occurrences(meta_id,qty)
+			
+			
 
 		'click @ui.intake':(e)->
+			occurr = @model.get('occurrence').length
+			i = 0
+			$.each occurr , (ind,val)->
+				occurrence = _.has(val, "occurrence")
+				expected = _.has(val, "expected")
+				if occurrence == true && expected == true
+					i++
+				
 			e.preventDefault()
 			meta_id = $('#meta_id').val()
+			qty = $('#qty').val()
 			console.log data = $('#schduleid').val()
 			product = @model.get('id')
-			
-			$.ajax
-				method : 'POST'
-				data : 'meta_id='+meta_id
-				url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
-				success: @successHandler
-				error :@erroraHandler
+			if parseInt(i) < parseInt(occurr)
+				$.ajax
+					method : 'POST'
+					data : 'meta_id='+meta_id+'&qty='+qty
+					url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+					success: @successHandler
+					error :@erroraHandler
+			else
+				@ui.responseMessage.text "Servings are done!!!!"
 
 	@successHandler:(response,status,xhr)=>
 		console.log response
@@ -47,15 +61,16 @@ class ScheduleView extends Marionette.ItemView
 		product_type = @model.get('product_type')
 		product_type = product_type.toLowerCase()
 		no_servings  = []
-		$.each qty , (ind,val)->
-			console.log occurrence = _.has(occurr[ind], "occurrence")
+		$.each occurr , (ind,val)->
+			console.log occurrence = _.has(val, "occurrence")
 			console.log occurr[ind].meta_id
-			console.log expected = _.has(occurr[ind], "expected")
+			console.log expected = _.has(val, "expected")
 			if occurrence == true && expected == true
 				console.log newClass = product_type+'_occurred_class'
 				
 			else if occurrence == false && expected == true
 				console.log newClass = product_type+'_expected_class'
+				ScheduleView::create_occurrences(val);
 			else if occurrence == true && expected == false
 				console.log newClass = product_type+'_bonus_class'
 				
@@ -63,15 +78,29 @@ class ScheduleView extends Marionette.ItemView
 			i = 0
 			
 			servings = []
-			while(i < val.qty)
+			while(i < qty[ind].qty)
 				servings.push newClass : newClass 
 				i++
-			no_servings.push servings : servings , schedule : occurr[ind].schedule_id , meta_id : occurr[ind].meta_id
+			no_servings.push servings : servings , schedule : val.schedule_id , meta_id : val.meta_id ,qty : qty[ind].qty
 			data.no_servings =  no_servings
 		
 		data.original = product_type+'_expected_class'
-		data.scheduleid = occurr[0].schedule_id
 		data
+
+
+	create_occurrences:(val)->
+		console.log val
+		$('#meta_id').val 0
+		$('#qty').val val.qty
+
+	update_occurrences:(meta_id,qty)->
+		if meta_id == ""
+			meta_id = 0
+		$('#meta_id').val parseInt meta_id
+		$('#qty').val qty
+			
+
+
 						
 
 

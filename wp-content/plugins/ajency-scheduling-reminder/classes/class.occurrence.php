@@ -248,14 +248,22 @@ class Occurrence{
 
 		$record['meta_value'] = maybe_serialize($record['meta_value']);
 
-		echo "UPDATE $table_name SET occurrence='".date('Y-m-d H:i:s')."'
 
-			and meta_value='".$record['meta_value']."' where meta_id=".$record['meta_id'];
+		$wpdb->update( 
+	$table_name, 
+	array( 
+		'occurrence' => $record['occurrence'],	// string
+		'meta_value' => $record['meta_value']	// integer (number) 
+	), 
+	array( 'meta_id' => $record['meta_id'] ), 
+	array( 
+		'%s',	// value1
+		'%s'	// value2
+	), 
+	array( '%d' ) 
+);
 
-		$sql_query = $wpdb->query("UPDATE $table_name SET occurrence='".date('Y-m-d H:i:s')."'
-
-			and meta_value='".$record['meta_value']."' where meta_id=".$record['meta_id']);
-
+		
 
 		
 
