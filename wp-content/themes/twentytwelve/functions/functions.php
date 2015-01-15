@@ -1247,3 +1247,5 @@ function store_x20consumption_details($args){
         return $occurrence;
 
 }
+
+

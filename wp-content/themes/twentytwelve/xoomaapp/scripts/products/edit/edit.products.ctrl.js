@@ -89,19 +89,6 @@ EditProductsView = (function(_super) {
         }, 'slow');
       }
     },
-    'click .remove': function(e) {
-      var product, products;
-      product = parseInt(this.model.get('id'));
-      products = App.currentUser.get('products');
-      if ($.inArray(product, products) > -1) {
-        return $.ajax({
-          method: 'DELETE',
-          url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
-          success: this.successHandler,
-          error: this.erroraHandler
-        });
-      }
-    },
     'click @ui.schedule': function(e) {
       $(this.ui.schedule).removeClass('btn-primary');
       $(e.target).addClass('btn-primary');
@@ -323,6 +310,10 @@ EditProductsView = (function(_super) {
       data.success = 'btn-success';
     }
     return data;
+  };
+
+  EditProductsView.prototype.get_weight_bmi = function(bmi) {
+    return console.log(bmi);
   };
 
   EditProductsView.prototype.onShow = function() {

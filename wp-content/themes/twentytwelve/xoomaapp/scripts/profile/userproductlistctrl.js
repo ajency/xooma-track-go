@@ -18,10 +18,26 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.ui = {
     avail: '.avail',
     add: '.add',
-    update: '.update'
+    update: '.update',
+    remove: '.remove'
   };
 
-  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add"><a href="#/products/{{id}}/edit">Edit product</a></li> <li class="update"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="divider"></li> <li><a href="#">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> {{#servings}} <div class="{{classname}}"></div> {{/servings}} </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
+  ProductChildView.prototype.events = {
+    'click .remove': function(e) {
+      var product, products;
+      e.preventDefault();
+      product = parseInt(this.model.get('id'));
+      products = App.currentUser.get('products');
+      return $.ajax({
+        method: 'DELETE',
+        url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        success: this.successHandler,
+        error: this.erroraHandler
+      });
+    }
+  };
+
+  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/products/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
 
   ProductChildView.prototype.onShow = function() {
     var product, products;
@@ -30,28 +46,45 @@ ProductChildView = (function(_super) {
     if ($.inArray(product, products) > -1) {
       this.ui.avail.removeClass('hidden');
       this.ui.add.removeClass('hidden');
-      return this.ui.update.removeClass('hidden');
+      this.ui.update.removeClass('hidden');
+      return this.ui.remove.removeClass('hidden');
     }
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var available, contacount, containers, data, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, total, totalservings;
+    var available, contacount, containers, data, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalservings, type;
     data = ProductChildView.__super__.serializeData.call(this);
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
     settings = parseInt(this.model.get('settings')) * parseInt(qty.length);
     reminder = this.model.get('reminder');
+    type = this.model.get('type');
+    timezone = this.model.get('timezone');
     servings = [];
     reminderArr = [];
     $.each(qty, function(index, value) {
+      var i, newClass, servingsqty;
+      i = 0;
+      servingsqty = [];
+      while (i < value.qty) {
+        newClass = product_type + '_default_class';
+        if (type === 'asperbmi') {
+          newClass = 'x2o_default_class';
+        }
+        servingsqty.push({
+          classname: newClass
+        });
+        i++;
+      }
       return servings.push({
-        serving: value.qty,
-        classname: product_type + '_bonus_class'
+        serving: servingsqty
       });
     });
     $.each(reminder, function(ind, val) {
-      return reminderArr.push(val.time);
+      var time;
+      time = moment(val.time + timezone, "HH:mm Z").format("hA");
+      return reminderArr.push(time);
     });
     remind = reminderArr.join(',');
     if (parseInt(reminder.length) === 0) {
@@ -117,6 +150,10 @@ UserProductListView = (function(_super) {
         url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
         success: this._successHandler
       });
+    },
+    'click .add': function(e) {
+      console.log("aaaaaaaaaa");
+      return App.navigate('#/products', true);
     }
   };
 

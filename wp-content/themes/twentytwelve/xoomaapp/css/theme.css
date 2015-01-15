@@ -2302,7 +2302,6 @@ label {
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: normal;
-  text-transform: uppercase;
   text-align: left !important;
 }
 input[type="search"] {
@@ -6796,32 +6795,263 @@ img {
   vertical-align: middle;
   border: 0;
 }
-/** Capsule-product-type **/
+/** Capsule-Caplets product-type **/
 .sprite-1 {
-  background: url(../../xoomaapp/images/sprite.png) no-repeat;
+  background: url(../../images/sprite.png) no-repeat;
   width: 53px;
   height: 50px;
   display: inline-block;
 }
-.capsule_bonus_class {
-  background: url(../../xoomaapp/images/sprite.png) no-repeat;
-  width: 53px;
-  height: 50px;
+
+.capsule_default_class,
+caplet_default_class,
+softgels_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 18px;
+  height: 34px;
   display: inline-block;
-  background-position: -123px 0px;
+  background-position: -14px -385px;
 }
-.capsule_occurred_class {
-  background: url(../../xoomaapp/images/sprite.png) no-repeat;
-  width: 53px;
-  height: 50px;
+
+.capsule_bonus_class,
+caplet_bonus_class,
+softgels_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 18px;
+  height: 34px;
   display: inline-block;
-  background-position: -63px 0px;
+  background-position: -122px -385px;
 }
-.capsule_expected_class {
-  background: url(../../xoomaapp/images/sprite.png) no-repeat;
-  width: 53px;
-  height: 50px;
+
+.capsule_expected_class,
+caplet_expected_class,
+softgels_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 18px;
+  height: 34px;
   display: inline-block;
+  background-position: -50px -385px;
+}
+/** packet-sachet product-type **/
+.sprite-2 {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+}
+.sachet_default_class,
+packet_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -10px -10px;
+}
+.sachet_bonus_class,
+packet_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -118px -10px;
+}
+.sachet_occurred_class,
+packet_occurred_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -82px -10px;
+}
+.sachet_expected_class,
+packet_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -45px -10px;
+}
+/** Cream product-type **/
+.sprite-3 {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+}
+.cream_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -10px -64px;
+}
+.cream_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -118px -64px;
+}
+.cream_occurred_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -82px -64px;
+}
+.cream_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 38px;
+  display: inline-block;
+  background-position: -45px -64px;
+}
+/** tsp product-type **/
+.sprite-4 {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 27px;
+  display: inline-block;
+}
+.tsp_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 27px;
+  display: inline-block;
+  background-position: -10px -181px;
+}
+.tsp_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 27px;
+  display: inline-block;
+  background-position: -118px -181px;
+}
+.tsp_occurred_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 27px;
+  display: inline-block;
+  background-position: -82px -181px;
+}
+.tsp_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 27px;
+  display: inline-block;
+  background-position: -45px -181px;
+}
+/**  tsp-product-type **/
+/** scoop product-type **/
+.sprite-5 {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 47px;
+  display: inline-block;
+}
+.scoop_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 47px;
+  display: inline-block;
+  background-position: -10px -113px;
+}
+.scoop_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 47px;
+  display: inline-block;
+  background-position: -118px -113px;
+}
+.scoop_occurred_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 47px;
+  display: inline-block;
+  background-position: -82px -113px;
+}
+.scoop_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 47px;
+  display: inline-block;
+  background-position: -45px -113px;
+}
+/**  scoop-product-type **/
+/** stickpack product-type **/
+.sprite-6 {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 44px;
+  display: inline-block;
+}
+.stickpack_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 44px;
+  display: inline-block;
+  background-position: -10px -225px;
+}
+.stickpack_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 44px;
+  display: inline-block;
+  background-position: -118px -225px;
+}
+.stickpack_occurred_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 44px;
+  display: inline-block;
+  background-position: -82px -225px;
+}
+.stickpack_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 44px;
+  display: inline-block;
+  background-position: -45px -225px;
+}
+/**  scoop-product-type **/
+/** bottle product-type **/
+.sprite-7 {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 71px;
+  display: inline-block;
+}
+.x2o_default_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 71px;
+  display: inline-block;
+  background-position: -10px -286px;
+}
+.x2o_bonus_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 71px;
+  display: inline-block;
+  background-position: -118px -286px;
+}
+.x2o_occurred_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 71px;
+  display: inline-block;
+  background-position: -82px -286px;
+}
+.x2o_expected_class {
+  background: url(../images/sprite-type.png) no-repeat;
+  width: 25px;
+  height: 71px;
+  display: inline-block;
+  background-position: -45px -286px;
+}
+/**  scoop-product-type **/
+.no-remiander {
+  font-size: 1.4em !important;
 }
 .no-remiander {
   font-size: 1.4em !important;
@@ -9077,7 +9307,8 @@ img {
  * The picker input element.
  */
 .picker__input {
-  cursor: default;
+  cursor: default !important;
+  background: #ffffff !important;
 }
 /**
  * When the picker is opened, the input element is “activated”.
@@ -9537,7 +9768,10 @@ img {
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
   min-height: 70px;
-  margin: 0 auto;
+  margin: 10px auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4em;
 }
 .cbp-vm-view-grid .cbp-vm-price {
   margin: 10px 0;
@@ -9574,6 +9808,9 @@ img {
   padding: 0 15px;
   overflow: hidden;
   white-space: normal;
+  text-overflow: ellipsis;
+  height: 3em;
+  line-height: 21px;
 }
 .cbp-vm-view-list .cbp-vm-add {
   margin: 0;
@@ -9650,7 +9887,7 @@ textarea.form-control {
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 15px;
 }
-.form-group:first-child {
+.first-grp {
   border-top: 1px solid #e6e6e6;
   padding-top: 15px;
 }
@@ -9759,6 +9996,7 @@ textarea.form-control {
 output {
   font-size: 5rem !important;
   font-weight: 600;
+  margin-top: -33px;
   display: inline-block !important;
 }
 @media (max-width: 768px) {

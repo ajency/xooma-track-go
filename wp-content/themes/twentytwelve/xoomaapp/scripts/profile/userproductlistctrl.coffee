@@ -8,25 +8,42 @@ class ProductChildView extends Marionette.ItemView
 		avail 	: '.avail'
 		add		: '.add'
 		update 	: '.update'
+		remove   : '.remove'
+
+	events:
+		'click .remove':(e)->
+			e.preventDefault()
+			product = parseInt @model.get('id')
+			products = App.currentUser.get 'products'
+			$.ajax
+					method : 'DELETE'
+					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					success: @successHandler
+					error :@erroraHandler
 
 	template  : '
           <div class="panel-body ">
             <h5 class="bold margin-none mid-title "> {{name}}
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
-                        <li class="add"><a href="#/products/{{id}}/edit">Edit product</a></li>
-                        <li class="update"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
+                        <li class="add hidden"><a href="#/products/{{id}}/edit">Edit product</a></li>
+                        <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Remove the product</a></li>
+                        <li><a href="#" class="remove hidden">Remove the product</a></li>
                       </ul>
               </h5>
                       <ul class="list-inline   m-t-20">
 
                         <li class="col-md-7 col-xs-7">
+                        	 <div class="row">
                         	{{#servings}}
+                        	<div class="col-md-6 text-left">
+                        	{{#serving}}
                         	<div class="{{classname}}"></div>
+                        	{{/serving}}
+                        	</div>	
                         	{{/servings}}	
-                                
+                        </div>       
                         </li>
                         <li class="col-md-1 col-xs-1">
                     <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
@@ -42,9 +59,9 @@ class ProductChildView extends Marionette.ItemView
                 <div class="panel-footer">
           <i id="bell" class="fa fa-bell-slash no-remiander"></i> 
            {{reminder}}
-          </div>
-          
-                '                             
+          </div>' 
+
+                            
 
 	onShow:->
 		product = parseInt @model.get('id')
@@ -53,6 +70,7 @@ class ProductChildView extends Marionette.ItemView
 			@ui.avail.removeClass 'hidden'
 			@ui.add.removeClass 'hidden'
 			@ui.update.removeClass 'hidden'
+			@ui.remove.removeClass 'hidden'
 
 	serializeData:->
 		data = super()
@@ -61,13 +79,26 @@ class ProductChildView extends Marionette.ItemView
 		product_type = product_type.toLowerCase()
 		settings = parseInt(@model.get 'settings') * parseInt(qty.length)
 		reminder = @model.get 'reminder'
+		type = @model.get('type') 
+		timezone = @model.get('timezone')
 		servings = []
 		reminderArr = []
 		$.each qty , (index,value)->
-			servings.push serving : value.qty ,  classname : product_type+'_bonus_class'
+			i = 0
+			
+			servingsqty = []
+			while(i < value.qty)
+				newClass = product_type+'_default_class'
+				if type == 'asperbmi'
+					newClass = 'x2o_default_class'
+				servingsqty.push classname : newClass
+				i++
+			servings.push serving : servingsqty   
 
 		$.each reminder , (ind,val)->
-			reminderArr.push val.time
+			time  = moment(val.time+timezone, "HH:mm Z").format("hA")
+		
+			reminderArr.push time
 
 		remind  = reminderArr.join(',')
 		if parseInt(reminder.length) == 0 
@@ -100,16 +131,6 @@ class ProductChildView extends Marionette.ItemView
 		
 			
 
-# class UserProductChildView extends Marionette.CompositeView
-# 	tagName : 'li'
-# 	className : 'productlist'
-# 	template : '<b class="text-success">{{type}}</b>'
-# 	childView : ProductChildView
-	
-# 	initialize:->
-# 		products = @model.get 'products'
-# 		@collection = new Backbone.Collection products
-
 class UserProductListView extends Marionette.CompositeView
 
 	class : 'animated fadeIn'
@@ -134,6 +155,12 @@ class UserProductListView extends Marionette.CompositeView
 				method : 'POST'
 				url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 				success: @_successHandler
+
+		'click .add':(e)->
+    		console.log "aaaaaaaaaa"
+    		App.navigate '#/products' , true   
+
+	
 
 	onShow:->
 		if App.currentUser.get('state') == '/home'

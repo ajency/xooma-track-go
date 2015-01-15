@@ -352,6 +352,8 @@ class User
             //get stock count of the user//
             $stock_count = get_stock_count_user($id,$term->product_id);
 
+            //get users_timezone
+
             $sub[] = array(
                 'id'            => intval($term->product_id),
                 'name'          => $val[0]['name'],
@@ -362,7 +364,9 @@ class User
                 'available'     => $stock_count,
                 'total'         =>  $val[0]['total'],
                 'reminder'      => $reminder,
-                'settings'      => $settings_data->no_of_days
+                'settings'      => $settings_data->no_of_days,
+                'type'          => $val[0]['time_set'],
+                'timezone'      => $response['timezone']
 
 
     );
@@ -439,7 +443,8 @@ class User
 
         $user = new User();
 
-
+        $user_data = $user->get_user_details($id);
+        
         $product_main_table = $wpdb->prefix . "product_main";
 
         $product_meta_table = $wpdb->prefix . "product_meta";
@@ -519,7 +524,8 @@ class User
             'frequency_value'       => $all_terms[0]['frequency_value'],
             'image'                 => $all_terms[0]['image'],
             'time_set'              => $count,
-            'reminders'             => $reminder
+            'reminders'             => $reminder,
+            'timezone'              => $user_data['timezone']
                 
             
 

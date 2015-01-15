@@ -211,31 +211,13 @@
 														<label for="text8" class=" col-sm-3 control-label">Time Zone</label>
 														<div class="col-sm-9">
 																<select class="form-control" name="profile[timezone]">
-																		<option value="Asia/Tehran">(GMT+03:30) Tehran</option>
-																		<option value="Asia/Dubai">(GMT+04:00) Abu Dhabi, Muscat</option>
-																		<option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
-																		<option value="Asia/Kabul">(GMT+04:30) Kabul</option>
-																		<option value="Asia/Yekaterinburg">(GMT+05:00) Ekaterinburg</option>
-																		<option value="Asia/Tashkent">(GMT+05:00) Tashkent</option>
-																		<option value="Asia/Kolkata">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
-																		<option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
-																		<option value="Asia/Dhaka">(GMT+06:00) Astana, Dhaka</option>
-																		<option value="Asia/Novosibirsk">(GMT+06:00) Novosibirsk</option>
-																		<option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
-																		<option value="Asia/Bangkok">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
-																		<option value="Asia/Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
-																		<option value="Asia/Hong_Kong">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
-																		<option value="Asia/Irkutsk">(GMT+08:00) Irkutsk, Ulaan Bataar</option>
-																		<option value="Australia/Perth">(GMT+08:00) Perth</option>
-																		<option value="Australia/Eucla">(GMT+08:45) Eucla</option>
-																		<option value="Asia/Tokyo">(GMT+09:00) Osaka, Sapporo, Tokyo</option>
-																		<option value="Asia/Seoul">(GMT+09:00) Seoul</option>
-																		<option value="Asia/Yakutsk">(GMT+09:00) Yakutsk</option>
-																		<option value="Australia/Adelaide">(GMT+09:30) Adelaide</option>
-																		<option value="Australia/Darwin">(GMT+09:30) Darwin</option>
-																		<option value="Australia/Brisbane">(GMT+10:00) Brisbane</option>
-																		<option value="Australia/Hobart">(GMT+10:00) Hobart</option>
-																		<option value="Asia/Vladivostok">(GMT+10:00) Vladivostok</option>
+																		<option value="UTC-05:00">Eastern Time Zone (UTC-05:00)</option>
+																		<option value="UTC-06:00">Central Time Zone (UTC-06:00)</option>
+																		<option value="UTC-07:00">Mountain Time Zone (UTC-07:00)</option>
+																		<option value="UTC-08:00">Pacific Time Zone (UTC-08:00)</option>
+																		<option value="UTC-09:00">Alaska Time Zone (UTC-09:00)</option>
+																		<option value="UTC-10:00">Hawaii-Aleutian Time Zone (UTC-10:00)</option>
+																		
 																</select>
 														</div>
 												</div>
@@ -281,7 +263,9 @@
 														<div class="col-md-7 ">
 																<h4 class="text-left"> <output></output><small>pounds</small></h4>
 														</div>
+
 														<input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
+
 												</div>
 												</br>
 												</br>
@@ -428,10 +412,10 @@
               <div class="row">
                   <div class="col-md-2"></div>
                   <div class="col-md-8">
-               <button type="button" class="btn btn-primary btn-lg center-block"><i class="fa fa-plus-circle"></i> Add Products</button>
+               <button type="button" class="btn btn-primary btn-lg center-block add"><i class="fa fa-plus-circle"></i> Add Products</button>
                <br>
    	<div class="userproducts"></div>
-     <button type="button" class="btn btn-primary btn-lg pull-left "><i class="fa fa-plus-circle"></i> Add Products</button>
+     <button type="button" class="btn btn-primary btn-lg pull-left add"><i class="fa fa-plus-circle"></i> Add Products</button>
      <button type="button" class="btn btn-primary btn-lg pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
 
                   </div>
@@ -449,7 +433,7 @@
 
 
 	<div id="listproduct" class="section">
-          <br>  <br>       
+     
     
         <div class="container">
               <div class="row">
@@ -470,7 +454,9 @@
                   </div><br/>
                   <div class="row">
 					<div class="col-sm-12">
-							<a class="cbp-vm-icon cbp-vm-add" href="#/profile/my-products">Next</a>	</div>
+			
+<a type="button" href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
+							</div>
 			</div>
               
               </div>
@@ -502,7 +488,7 @@ markupup
             </div>
             <form id="edit_product" class="form-horizontal" role="form" method="POST">
             <div class="col-md-6 col-xs-12">
-                <b>Chosse the consumtion of {{name}}</b>
+                <!--<b>Chosse the consumtion of {{name}}</b>
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
                     <button type="button" {{anytime}}  class="btn btn-default {{anytimeclass}}">Any Time</button>
@@ -510,11 +496,19 @@ markupup
                   <div class="btn-group" role="group">
                     <button type="button"  {{schedule}} class="btn btn-default {{scheduleclass}}">Schedule</button>
                   <input type="hidden" name="frequency_type" value="{{frequency_value}}" /> </div>
-                </div>
+                </div>-->
+
                 <div class="asperbmi">
-                 <b class="m-t-20 center-block">Recommended Number of Bottle</b>
-                    <h4 class="text-center margin-none"> <output></output> <small>Bottle</small></h4>
+                <div class="form-group">
+                 <label for="inputEmail2" class="col-sm-6 col-xs-7  control-label">Recommended Number of Bottles</label>
+			     <div class="col-sm-6 col-xs-5">
+			        <p class="form-control-static"><b>2</b></p>
+			    </div>
+                 </div>
+                    <h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
                     <input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{x2o}}" data-rangeslider>
+          <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
+
            </div>
               
               <div class="anytime">
@@ -644,8 +638,8 @@ markupup
       </div>
   </div>
   </div>
-<div class="form-group">
-    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set Reminder</label>
+<div class="form-group first-grp">
+    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set remainder</label>
     <div class="col-sm-6 col-xs-5 ">
      <div class="btn-group" role="group" aria-label="...">
       <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
@@ -668,9 +662,10 @@ markupup
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
       <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
-         <button type="button" class="btn btn-default cancel">Cancel</button>
-         <button type="button" class="btn btn-danger remove hidden">Remove Product</button>
-         <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block view hidden" >View History</a>	
+
+         <a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>
+          <button type="button" class="btn btn-link cancel">Cancel</button>	
+
     </div>
   </div>
 
