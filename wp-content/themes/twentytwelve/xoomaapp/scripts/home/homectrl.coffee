@@ -14,7 +14,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Daily Target</h5>
-						<h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty1}}</sup></h4>
+						<h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty}}</sup></h4>
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Last Consume</h5>
@@ -45,7 +45,8 @@ class HomeX2OViewChild extends Marionette.ItemView
 				data.time = moment(recent).format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
-		data.remianing = parseInt(@model.get('qty1')) - parseInt(occurrenceArr.length)
+		data.remianing = parseInt(@model.get('qty').length) - parseInt(occurrenceArr.length)
+		data.qty = @model.get('qty').length
 		data
 
 	onShow:->
@@ -143,7 +144,7 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 		productcollection = collection.clone()
 		model = productcollection.shift() 
 		console.log App.useProductColl
-		modelColl = new Backbone.Collection model.get('products')
+		modelColl = new Backbone.Collection model
 		@show new HomeX2OView
 					collection : modelColl
 
@@ -240,17 +241,17 @@ class ProductChildView extends Marionette.ItemView
 
 
 
-class HomeViewChildView extends Marionette.CompositeView
+# class HomeViewChildView extends Marionette.CompositeView
 
-	template : '<div></div>'
+# 	template : '<div></div>'
 
-	childView : ProductChildView
+# 	childView : ProductChildView
 
 	
 
-	initialize:->
-		products = @model.get 'products'
-		@collection = new Backbone.Collection products
+# 	initialize:->
+# 		products = @model.get 'products'
+# 		@collection = new Backbone.Collection products
 
 
 class HomeOtherProductsView extends Marionette.CompositeView
@@ -259,7 +260,7 @@ class HomeOtherProductsView extends Marionette.CompositeView
 	  
 	template : '<span></span>'    
 
-	childView : HomeViewChildView
+	childView : ProductChildView
 
 	
 

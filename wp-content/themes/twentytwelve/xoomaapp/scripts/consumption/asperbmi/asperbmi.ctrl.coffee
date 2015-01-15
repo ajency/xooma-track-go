@@ -116,12 +116,29 @@ class AsperbmiView extends Marionette.ItemView
 	generate:(data)->
 			console.log  occur = data
 			bonus = 0
+			count1 = 0
+				
 			console.log @model.get('occurrence').length
 			console.log @model.get('servings')
 			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
 			$('.bonus').text bonus
+			$.each occur , (ind,val)->
+				console.log occurrence = _.has(val, "occurrence")
+				console.log  expected = _.has(val, "expected")
+				console.log val.meta_value
+				if!(_.isArray(val.meta_value)) 
+					count1 += parseFloat val.meta_value.qty
+				else
+					$.each val.meta_value , (ind,val)->
+						console.log val
+						if _.isArray(val)
+							$.each val ,  (item,value)->
+								count1 += parseFloat value.qty
+						else
+							count1 += parseFloat val.qty
 
-				
+			$('.bottlecnt').text parseInt count1
+					
 			$.each occur , (ind,val)->
 				count = 0
 				console.log occurrence = _.has(val, "occurrence")
@@ -139,7 +156,6 @@ class AsperbmiView extends Marionette.ItemView
 						else
 							count += parseFloat val.qty
 				console.log count
-				$('.bottlecnt').text parseInt count
 				if occurrence == true && expected == false && count !=  1
 					AsperbmiView::update_occurrences(val)
 					return
@@ -161,6 +177,7 @@ class AsperbmiView extends Marionette.ItemView
 			$('.low').addClass 'level-25'
 
 	update_occurrences:(data)->
+			$('#add').hide()
 			$('#meta_id').val parseInt data.meta_id
 			count = 0
 			meta_value = data.meta_value
@@ -197,8 +214,7 @@ class App.AsperbmiCtrl extends Ajency.RegionController
 		product = parseInt productId[0]
 		products = []
 		App.useProductColl.each (val)->
-			$.each val.get('products') , (index,value)->
-						products.push value
+			products.push val
 		
 		productsColl =  new Backbone.Collection products
 		productModel = productsColl.where({id:parseInt(productId[0])})

@@ -22,15 +22,17 @@ class Product
 			#add custom fields to the term
 			add_term_meta($term['term_id'], 'product_type',$args['product_type']);
 			add_term_meta($term['term_id'], 'frequency',$args['frequency']);
-			add_term_meta($term['term_id'], 'serving_size',$args['serving_size'].'|'.$args['serving_size_clone']);
-			add_term_meta($term['term_id'], 'when',$args['when'].'|'.$args['when_clone'] );
+			$clone_serving = isset($args['serving_size_clone']) ? $args['serving_size_clone'] : 0 ;
+			$clone_when = isset($args['when_clone']) ? $args['when_clone'] : 0 ;
+			add_term_meta($term['term_id'], 'serving_size',$args['serving_size'].'|'.$clone_serving);
+			add_term_meta($term['term_id'], 'when',$args['when'].'|'.$clone_when );
 			add_term_meta($term['term_id'], 'serving_per_container',$args['serving_per_container']);
 			#for storing anytime/settime and if set time then at what is the time
 			$time_set = !empty($args['serving_per_day_anytime']) ?  $args['serving_per_day_anytime'] :  
 						$args['serving_per_day_scheduled'];
 			add_term_meta($term['term_id'], 'time_set',$time_set);
 			#total is calculated and set
-			$total  = (intval($args['serving_size']) + intval($args['serving_size_clone'])) * intval($args['serving_per_container']);
+			$total  = (intval($args['serving_size']) + intval($clone_serving)) * intval($args['serving_per_container']);
 			#set the attachment id
 			add_term_meta($term['term_id'], 'attachment_id',$args['attachment_id']);
 			add_term_meta($term['term_id'], 'modified_date',date('y-m-d'));
@@ -72,15 +74,18 @@ class Product
 			#update custom fields to the term
 			update_term_meta($term['term_id'], 'product_type',$args['product_type']);
 			update_term_meta($term['term_id'], 'frequency',$args['frequency']);
-			update_term_meta($term['term_id'], 'serving_size',$args['serving_size'].'|'.$args['serving_size_clone']);
-			update_term_meta($term['term_id'], 'when',$args['when'].'|'.$args['when_clone'] );
+			$clone_serving = isset($args['serving_size_clone']) ? $args['serving_size_clone'] : 0 ;
+			$clone_when = isset($args['when_clone']) ? $args['when_clone'] : 0 ;
+			
+			update_term_meta($term['term_id'], 'serving_size',$args['serving_size'].'|'.$clone_serving);
+			update_term_meta($term['term_id'], 'when',$args['when'].'|'.$clone_when);
 			update_term_meta($term['term_id'], 'serving_per_container',$args['serving_per_container']);
 			#for storing anytime/settime and if set time then at what is the time
 			$time_set = !empty($args['serving_per_day_anytime']) ?  $args['serving_per_day_anytime'] :  
 						$args['serving_per_day_scheduled'];
 			update_term_meta($term['term_id'], 'time_set',$time_set);
 			#total is calculated and set
-			$total  = (intval($args['serving_size']) + intval($args['serving_size_clone'])) * intval($args['serving_per_container']);
+			$total  = (intval($args['serving_size']) + intval($clone_serving)) * intval($args['serving_per_container']);
 			#set the attachment id
 			update_term_meta($term['term_id'], 'attachment_id',$args['attachment_id']);
 			update_term_meta($term['term_id'], 'modified_date',date('y-m-d'));

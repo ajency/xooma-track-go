@@ -162,13 +162,35 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.generate = function(data) {
-    var bonus, occur;
+    var bonus, count1, occur;
     console.log(occur = data);
     bonus = 0;
+    count1 = 0;
     console.log(this.model.get('occurrence').length);
     console.log(this.model.get('servings'));
     bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings'));
     $('.bonus').text(bonus);
+    $.each(occur, function(ind, val) {
+      var expected, occurrence;
+      console.log(occurrence = _.has(val, "occurrence"));
+      console.log(expected = _.has(val, "expected"));
+      console.log(val.meta_value);
+      if (!(_.isArray(val.meta_value))) {
+        return count1 += parseFloat(val.meta_value.qty);
+      } else {
+        return $.each(val.meta_value, function(ind, val) {
+          console.log(val);
+          if (_.isArray(val)) {
+            return $.each(val, function(item, value) {
+              return count1 += parseFloat(value.qty);
+            });
+          } else {
+            return count1 += parseFloat(val.qty);
+          }
+        });
+      }
+    });
+    $('.bottlecnt').text(parseInt(count1));
     return $.each(occur, function(ind, val) {
       var count, expected, meta_id, occurrence;
       count = 0;
@@ -191,7 +213,6 @@ AsperbmiView = (function(_super) {
         });
       }
       console.log(count);
-      $('.bottlecnt').text(parseInt(count));
       if (occurrence === true && expected === false && count !== 1) {
         AsperbmiView.prototype.update_occurrences(val);
       } else if (occurrence === true && expected === true && count !== 1) {
@@ -213,6 +234,7 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.update_occurrences = function(data) {
     var classArr, confirm, count, i, meta_value, _results;
+    $('#add').hide();
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
     meta_value = data.meta_value;
@@ -261,9 +283,7 @@ App.AsperbmiCtrl = (function(_super) {
     product = parseInt(productId[0]);
     products = [];
     App.useProductColl.each(function(val) {
-      return $.each(val.get('products'), function(index, value) {
-        return products.push(value);
-      });
+      return products.push(val);
     });
     productsColl = new Backbone.Collection(products);
     productModel = productsColl.where({

@@ -268,7 +268,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
 														</div>
 														<div class="col-md-7">
-																<h4 class="text-left"> <output></output><small>Feet</small></h4>
+																<h4 class="text-left"> <output></output><small>Inches</small></h4>
 														</div>
 														<input type="range" min="4" max="9" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
 												</div>
@@ -281,7 +281,7 @@
 														<div class="col-md-7 ">
 																<h4 class="text-left"> <output></output><small>pounds</small></h4>
 														</div>
-														<input type="range" min="25" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
+														<input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
 												</div>
 												</br>
 												</br>
@@ -420,36 +420,27 @@
 
 
 <script id="produts-template" type="h-template">
-	<div id="xoomaproduct" class="section">
-                <h4 class="text-center"> My xooma products</h4>
 
+<div id="xoomaproduct" class="section">
+                <h4 class="text-center"> List Of xooma products</h4>
+    
         <div class="container">
-        <div class="aj-response-message"></div>
               <div class="row">
-                  <div class="col-md-3"></div>
-                  <div class="col-md-6">
-                  <a href="#/products" class="btn btn-primary btn-lg button-center" ><i class="fa fa-plus-circle"></i> Add Products</a>
-
-                      <br>
-                            <ul class="list-unstyled list-style userProductList">
-
-                             </ul>
-
-
+                  <div class="col-md-2"></div>
+                  <div class="col-md-8">
+               <button type="button" class="btn btn-primary btn-lg center-block"><i class="fa fa-plus-circle"></i> Add Products</button>
+               <br>
+   	<div class="userproducts"></div>
+     <button type="button" class="btn btn-primary btn-lg pull-left "><i class="fa fa-plus-circle"></i> Add Products</button>
+     <button type="button" class="btn btn-primary btn-lg pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
 
                   </div>
-                  <div class="col-md-3">
-                  	</div>
+                  <div class="col-md-2"></div>
               </div>
 
-        </div>
-        <div class="row">
-			<div class="col-sm-12">
-					<a href="#/home" class="btn btn-primary btn-lg center-block save_products" ><i class="fa fa-plus-circle"></i> View Home</a>
-			</div>
-	</div>
-</div>
-
+        </div>  
+                </div>
+	
 </script>
 
 

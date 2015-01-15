@@ -111,19 +111,12 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
-        var products, x2oArray;
+        var products;
         if (xhr.status === 200) {
-          console.log(response[0].products);
-          x2oArray = [];
-          $.each(response[0].products, function(index, value) {
-            return x2oArray.push(value);
-          });
-          App.currentUser.set('x2o', x2oArray);
+          console.log(response);
           products = [];
           $.each(response, function(ind, val) {
-            return $.each(val.products, function(index, value) {
-              return products.push(parseInt(value.id));
-            });
+            return products.push(parseInt(val.id));
           });
           return _this.set('products', products);
         }

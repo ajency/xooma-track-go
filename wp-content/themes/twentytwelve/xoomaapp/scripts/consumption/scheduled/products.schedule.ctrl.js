@@ -190,9 +190,7 @@ App.ScheduleCtrl = (function(_super) {
     product = parseInt(productId[0]);
     products = [];
     App.useProductColl.each(function(val) {
-      return $.each(val.get('products'), function(index, value) {
-        return products.push(value);
-      });
+      return products.push(val);
     });
     productsColl = new Backbone.Collection(products);
     productModel = productsColl.where({

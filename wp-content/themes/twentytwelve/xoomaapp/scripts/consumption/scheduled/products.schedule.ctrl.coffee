@@ -157,8 +157,7 @@ class App.ScheduleCtrl extends Ajency.RegionController
 		product = parseInt productId[0]
 		products = []
 		App.useProductColl.each (val)->
-			$.each val.get('products') , (index,value)->
-						products.push value
+			products.push val
 		
 		productsColl =  new Backbone.Collection products
 		productModel = productsColl.where({id:parseInt(productId[0])})
