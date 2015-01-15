@@ -13,7 +13,6 @@ class AsperbmiView extends Marionette.ItemView
 
 	events:
 		'click #remove':(e)->
-			console.log "aaaaaaaaaaaaa"
 			count = $('#confirm').attr('data-count')
 			percentage = parseFloat $('#percentage').val()
 			count++

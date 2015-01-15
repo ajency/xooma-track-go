@@ -28,7 +28,6 @@ AsperbmiView = (function(_super) {
   AsperbmiView.prototype.events = {
     'click #remove': function(e) {
       var count, percentage;
-      console.log("aaaaaaaaaaaaa");
       count = $('#confirm').attr('data-count');
       percentage = parseFloat($('#percentage').val());
       count++;

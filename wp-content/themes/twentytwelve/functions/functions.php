@@ -1190,9 +1190,9 @@ function store_x20consumption_details($args){
       $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
     }
-    date_default_timezone_set("UTC");
- $start = date("Y-m-d H:i:s"); 
-     $occurrence_data = array(
+      date_default_timezone_set("UTC");
+      $start = date("Y-m-d H:i:s"); 
+      $occurrence_data = array(
             'schedule_id' =>  $schedule,
             'occurrence' => $start,
             'meta_value' => $args['meta_value'],
