@@ -479,7 +479,7 @@
                   </div><br/>
                   <div class="row">
 					<div class="col-sm-12">
-			ß
+			
 <a type="button" href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
 							</div>
 			</div>
