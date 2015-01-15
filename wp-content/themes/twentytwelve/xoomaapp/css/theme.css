@@ -2302,7 +2302,6 @@ label {
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: normal;
-  text-transform: uppercase;
   text-align: left !important;
 }
 input[type="search"] {
@@ -9111,7 +9110,8 @@ img {
  * The picker input element.
  */
 .picker__input {
-  cursor: default;
+  cursor: default !important;
+  background: #ffffff !important;
 }
 /**
  * When the picker is opened, the input element is “activated”.
@@ -9571,7 +9571,10 @@ img {
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
   min-height: 70px;
-  margin: 0 auto;
+  margin: 10px auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4em;
 }
 .cbp-vm-view-grid .cbp-vm-price {
   margin: 10px 0;
@@ -9608,6 +9611,9 @@ img {
   padding: 0 15px;
   overflow: hidden;
   white-space: normal;
+  text-overflow: ellipsis;
+  height: 3em;
+  line-height: 21px;
 }
 .cbp-vm-view-list .cbp-vm-add {
   margin: 0;
@@ -9684,7 +9690,7 @@ textarea.form-control {
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 15px;
 }
-.form-group:first-child {
+.first-grp {
   border-top: 1px solid #e6e6e6;
   padding-top: 15px;
 }
@@ -9793,6 +9799,7 @@ textarea.form-control {
 output {
   font-size: 5rem !important;
   font-weight: 600;
+  margin-top: -33px;
   display: inline-block !important;
 }
 @media (max-width: 768px) {

@@ -281,7 +281,7 @@
 														<div class="col-md-7 ">
 																<h4 class="text-left"> <output></output><small>pounds</small></h4>
 														</div>
-														<input type="range" min="25" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
+														<input type="range" min="178" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
 												</div>
 												</br>
 												</br>
@@ -458,7 +458,7 @@
 
 
 	<div id="listproduct" class="section">
-          <br>  <br>       
+     
     
         <div class="container">
               <div class="row">
@@ -479,7 +479,9 @@
                   </div><br/>
                   <div class="row">
 					<div class="col-sm-12">
-							<a class="cbp-vm-icon cbp-vm-add" href="#/profile/my-products">Next</a>	</div>
+			ß
+<a type="button" href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
+							</div>
 			</div>
               
               </div>
@@ -511,7 +513,7 @@ markupup
             </div>
             <form id="edit_product" class="form-horizontal" role="form" method="POST">
             <div class="col-md-6 col-xs-12">
-                <b>Chosse the consumtion of {{name}}</b>
+                <!--<b>Chosse the consumtion of {{name}}</b>
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
                     <button type="button" {{anytime}}  class="btn btn-default {{anytimeclass}}">Any Time</button>
@@ -519,11 +521,19 @@ markupup
                   <div class="btn-group" role="group">
                     <button type="button"  {{schedule}} class="btn btn-default {{scheduleclass}}">Schedule</button>
                   <input type="hidden" name="frequency_type" value="{{frequency_value}}" /> </div>
-                </div>
+                </div>-->
+
                 <div class="asperbmi">
-                 <b class="m-t-20 center-block">Recommended Number of Bottle</b>
-                    <h4 class="text-center margin-none"> <output></output> <small>Bottle</small></h4>
+                <div class="form-group">
+                 <label for="inputEmail2" class="col-sm-6 col-xs-7  control-label">Recommended Number of Bottles</label>
+			     <div class="col-sm-6 col-xs-5">
+			        <p class="form-control-static"><b>2</b></p>
+			    </div>
+                 </div>
+                    <h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
                     <input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{x2o}}" data-rangeslider>
+          <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
+
            </div>
               
               <div class="anytime">
@@ -653,8 +663,8 @@ markupup
       </div>
   </div>
   </div>
-<div class="form-group">
-    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set Reminder</label>
+<div class="form-group first-grp">
+    <label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set remainder</label>
     <div class="col-sm-6 col-xs-5 ">
      <div class="btn-group" role="group" aria-label="...">
       <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
@@ -677,9 +687,10 @@ markupup
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
       <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
-         <button type="button" class="btn btn-default cancel">Cancel</button>
-         <button type="button" class="btn btn-danger remove">Remove Product</button>
-         <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block view hidden" >View History</a>	
+         
+         <!--<button type="button" class="btn btn-danger remove">Remove Product</button>-->
+         <a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>
+          <button type="button" class="btn btn-link cancel">Cancel</button>	
     </div>
   </div>
 
