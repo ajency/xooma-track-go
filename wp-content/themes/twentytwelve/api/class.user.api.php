@@ -68,6 +68,10 @@ class User_API
             array( array( $this, 'xooma_store_consumption_details'), WP_JSON_Server::CREATABLE),
         );
 
+        $routes['/intakesbmi/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
+            array( array( $this, 'xooma_store_x2oconsumption_details'), WP_JSON_Server::CREATABLE),
+        );
+
 
 
 
@@ -545,6 +549,51 @@ class User_API
 
 
         $response = store_consumption_details($args);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+        return $response;
+
+
+
+
+    }
+
+    public function  xooma_store_x2oconsumption_details($id,$pid){
+
+        $qty = $_REQUEST['qty'];
+
+        $meta_id = $_REQUEST['meta_id'];
+
+        $args = array(
+
+            'id'            => $id,
+            'pid'           => $pid,
+            'meta_id'       => $meta_id,
+            'meta_value'    => array(
+                'date'      => date('Y-m-d H:i:s'),
+                'qty'       => $qty
+
+                )
+
+
+            );
+
+
+
+
+        $response = store_x20consumption_details($args);
 
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );

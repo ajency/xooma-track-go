@@ -70,8 +70,9 @@ HomeX2OViewChild = (function(_super) {
     occurrenceArr = [];
     bonusArr = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
-      var date, occurrence;
+      var date, expected, occurrence;
       occurrence = _.has(val, "occurrence");
+      expected = _.has(val, "expected");
       if (occurrence === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
@@ -316,8 +317,6 @@ App.HomeOtherProductsCtrl = (function(_super) {
     var productcollection;
     productcollection = collection.clone();
     productcollection.shift();
-    App.homexProductsColl = new Backbone.Collection;
-    App.homexProductsColl = productcollection;
     return this.show(new HomeOtherProductsView({
       collection: productcollection
     }));

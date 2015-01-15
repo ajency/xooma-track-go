@@ -53,6 +53,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence")
+			expected = _.has(val, "expected")
 			if occurrence == true
 				date = val.occurrence
 				occurrenceArr.push date
@@ -271,8 +272,6 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 	_showView:(collection)=>
 		productcollection = collection.clone()
 		productcollection.shift() 
-		App.homexProductsColl = new Backbone.Collection
-		App.homexProductsColl = productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		

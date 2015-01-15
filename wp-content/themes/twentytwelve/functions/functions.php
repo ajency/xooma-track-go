@@ -1168,12 +1168,82 @@ function store_consumption_details($args){
           $occurrences = \ajency\ScheduleReminder\Occurrence::
           _update_occurrence($occurrence_data);
         }
+
+        $occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
      
 
 
-      return $occurrences;
+      return $occurrence;
 
 
 
+
+}
+
+function store_x20consumption_details($args){
+
+   $object_id = get_object_id($args['pid'],$args['id']);
+
+    if(!is_wp_error($object_id)){
+
+      //get schedule id
+      $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+
+    }
+    date_default_timezone_set("UTC");
+ $start = date("Y-m-d H:i:s"); 
+     $occurrence_data = array(
+            'schedule_id' =>  $schedule,
+            'occurrence' => $start,
+            'meta_value' => $args['meta_value'],
+            'meta_id'     => $args['meta_id']
+          );
+
+        if($args['meta_id'] == 0)
+        {
+          $occurrences = \ajency\ScheduleReminder\Occurrence::
+          _insert_occurrence($occurrence_data); 
+        }
+        else
+        {
+          $occ = \ajency\ScheduleReminder\Occurrence::get($args['meta_id']);
+          
+          $arr = [];
+          $arr1 = [];
+          $object = (object)$occ['meta_value'];
+         
+          $total = count((array)$object);
+          if($total == 2)
+          {
+            $arr[] = $occ['meta_value'];
+          }
+          else
+          {
+            foreach ($object  as $value) {
+            
+             $arr[] = array(
+              'date'    => $value['date'],
+              'qty'     => $value['qty']
+              ); 
+          }
+
+          }
+          
+
+          
+          
+          
+          
+          $arr[] = $args['meta_value'];
+
+          
+          $occurrence_data['meta_value'] = $arr;
+          
+          $occurrences = \ajency\ScheduleReminder\Occurrence::
+          _update_occurrence($occurrence_data);
+        }
+
+         $occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
+        return $occurrence;
 
 }

@@ -87,7 +87,7 @@
 											</div>
 											 <a class="link" href="#menu">
                             <h5><i class="fa fa-cog pull-right "></i></h5>
-                        </a>
+                        	</a>
 										</div>
 					
 								</div>
@@ -115,13 +115,13 @@
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-check-circle-o"></i>
+												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
 														PERSONAL INFO</a>
 												</li>
-												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-check-circle-o"></i>
+												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
 														MEASUREMENT</a>
 												</li>
-												<li><a id="product" href="#/profile/my-products"><i class="fa fa-check-circle-o"></i> 
+												<li><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
 														MYPRODUCTS</a>
 												</li>
 										</ul>
@@ -753,39 +753,65 @@ markupup
 
 <script id="asperbmi-template" type="text/template">
 <div class="container"> </br></br>
-
-<div class="row">
-            <div class="col-md-12 col-xs-12"><h5 class="text-center"><i class="fa fa-calendar"></i> Wednesday 29 Oct 2014</h5></div>
+<div class="aj-response-message"></div>
+  <div class="row">
+            <div class="col-md-12 col-xs-12"><h5 class="text-center"><i class="fa fa-calendar"></i> {{day}} {{today}}</h5></div>
            
             
         </div>
- <h4 class="text-center">0/3 <small>Bottle</small></h4>
-        <div class="row">
+ <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/{{org}}<small>Bottle</small></h4>
+        <div class="row"><div><span>Bonus:</span><span class="bonus">{{bonus}}</span></div>
             <div class="col-md-4 col-xs-3"> 
-                <button type="button" class="btn btn-primary plus pull-right m-t-100"><i class="fa fa-plus"></i>                        </button>
+                <button type="button" id="add" class="btn btn-primary plus pull-right m-t-100"><i class="fa fa-plus"></i>                        </button>
             </div>
             <div class="col-md-4 col-xs-6">
-                <div class="water-bottle">
-                    <div class="cap">
-                        <div class="cap-top">
+            
+                    <div class="water-bottle">
+                            <div class="cap">
+                                <div class="cap-top">
+                                </div>
+                                <div class="cap-seal">
+                                </div>
+                            </div>
+                           <div class="bottle">
+                                <div class="high level-25" data-level="high" data-qty="100"> </div>
+                                <div class="medium level-25" data-level="medium" data-qty="75"> </div>
+                                <div class="half level-25" data-level="half" data-qty="50"> </div>
+                                <div class="low level-25" data-level="low" data-qty="25"> </div>
+                            </div>
                         </div>
-                        <div class="cap-seal">
-                        </div>
+
                     </div>
-                   <div class="bottle">
-                        <div class="water water-empty"> </div>
-                    </div>
-            </div>
-            </div>
-            <div class="col-md-4 col-xs-3">
-                <button type="button" class="btn btn-danger minus pull-left m-t-100"><i class="fa fa-minus"></i></button> 
+
+             <div class="col-md-4 col-xs-3">
+                <button type="button" id="remove" class="btn btn-danger minus pull-left m-t-100"><i class="fa fa-minus"></i></button> 
             </div>
         </div>
        <div class="row m-t-20">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal">Confirm </button>
+            <input type="hidden" name="percentage" id="percentage" value="0" / >
+            <input type="hidden" name="meta_id" id="meta_id" value="" / >
+              <button type="submit" id="confirm" data-count="0" class="btn btn-primary center-block" >Confirm </button>
             </div>
         </div>
+  </div>
+    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </script>
@@ -796,8 +822,9 @@ markupup
 <form id="consume" class="form-horizontal" role="form" method="POST">
 <div><span class="day">{{day}}</span></div>
 <div><span class="today">{{today}}</span></div>
+<div><span>Bonus:</span><span class="bonus">{{bonus}}</span></div>
 {{#no_servings}}
-<a href="#" class="servings" data-value="{{meta_id}}" data-qty="{{qty}}">
+<a href="#" data-target="#mydataModal" class="servings" data-value="{{meta_id}}" data-qty="{{qty}}">
 
 {{#servings}}
 <div class="{{newClass}}"></div>
@@ -807,10 +834,28 @@ markupup
 <br/></a>
 
 <br/>
-<a href="#" class="intake {{original}}" ></a>
+<a href="#" data-toggle="modal" class="original {{original}}" ></a>
+
 <input type="hidden" name="schduleid"  id="schduleid" value="{{scheduleid}}" />
 <input type="hidden" name="meta_id"  id="meta_id" value="" />
-<input type="hidden" name="qty"  id="qty" value="" />
 
+</div>
+<div class="hidden" id="mydataModal" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="qty"  id="qty" value="" />
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-default cancel" data-dismiss="modal">Close</button>
+        <button type="button" id="intake" class="btn btn-primary intake">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </form>
 </script>

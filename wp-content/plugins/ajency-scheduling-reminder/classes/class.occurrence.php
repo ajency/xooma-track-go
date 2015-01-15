@@ -83,6 +83,7 @@ class Occurrence{
 		$grouped_occurrences = array();
 		foreach ($occurrences as $occurrence) {
 			$occurrence->meta_value = maybe_unserialize($occurrence->meta_value);
+
 			$grouped_occurrences[date('Y-m-d', strtotime($occurrence->occurrence))][] = $occurrence;
 		}
 		
@@ -103,17 +104,21 @@ class Occurrence{
 				$arr1 = $expected_occurrences[$date];
 				$arr2 = $grouped_occurrences[$date];
 			}
-
 			foreach ($arr1 as $occ) {
 				if(isset($arr2[$i]))	
-					$arr[] = array_merge((array)$occ, (array)$arr2[$i]);
+				{
+					//$arr2[$i]['meta_value'] = $occ->meta_value;
+					$arr[] = array_merge_recursive((array)$occ, (array)$arr2[$i]);
+				
+				}
+					
 				else
 					$arr[] = array_merge((array)$occ, array());
 				$i++;
 			}
 			
 		}
-
+		
 		return $arr;
 	}
 

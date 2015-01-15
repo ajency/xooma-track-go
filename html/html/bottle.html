@@ -18,43 +18,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-<style type="text/css">
-    
-    .bottle { background: #ddd; width:160px;border-radius:30px 30px 6px 6px; height:100% padding:6px;box-shadow: 3px 3px 3px #efefef;margin: auto;}
-.bottle:hover { background: #eee;box-shadow: 2px  2px 2px #efefef;}
-.water-bottle{ position: relative;}
 
-.cap { background: #ddd; margin:auto;width:60px;border-radius:8px 8px 10px  12px; height:35px;border-top:1px solid #ddd; border-bottom:2px dotted #efefef;}
-.cap-top { background:#ededed; height:6px; border-radius:10px 10px 0 0; }
-.cap-seal { margin-top:20px;background:#ccc; height:6px; border-radius: 0 0 10px 10px; }
-.water{  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;
-    width: 150px;
-}
-.water-full { background: #81BAE7 ;height:100px; z-index:1;border-radius:28px 28px 10px 10px;position: absolute;
-bottom: 5px;  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-medium { background: #81BAE7 ;height:100px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-low { background: #81BAE7 ;height:100px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-empty { background: #81BAE7 ;height:100px;z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-
-    </style>
 </head>
 
 <body class="gradient">
@@ -94,32 +58,34 @@ bottom: 5px;-webkit-transition: all 1s ease-out;
  <h4 class="text-center">0/3 <small>Bottle</small></h4>
         <div class="row">
             <div class="col-md-4 col-xs-3"> 
-                <button type="button" class="btn btn-primary plus pull-right m-t-100"><i class="fa fa-plus"></i>                        </button>
+           
             </div>
             <div class="col-md-4 col-xs-6">
-                <div class="water-bottle">
-                    <div class="cap">
-                        <div class="cap-top">
+            
+                    <div class="water-bottle">
+                            <div class="cap">
+                                <div class="cap-top">
+                                </div>
+                                <div class="cap-seal">
+                                </div>
+                            </div>
+                           <div class="bottle">
+                                <div class="high level-25"> </div>
+                                <div class="medium level-25"> </div>
+                                <div class="half level-25"> </div>
+                                <div class="low level-25"> </div>
+                            </div>
                         </div>
-                        <div class="cap-seal">
-                        </div>
+
                     </div>
-                   <div  >
-                        <div class="high water water-full" ></div><br/>
-						<div class="high1" ><br/>
-						<div class="high2" ><br/>
-						<div class="high3" >
-						</div>
-                    </div>
-            </div>
-            </div>
+
             <div class="col-md-4 col-xs-3">
-                <button type="button" class="btn btn-danger minus pull-left m-t-100"><i class="fa fa-minus"></i></button> 
+         
             </div>
         </div>
        <div class="row m-t-20">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal">Confirm </button>
+              <button type="submit" id="submit" data-count="0" class="btn btn-primary center-block" >Confirm </button>
             </div>
         </div>
   </div>
@@ -132,7 +98,7 @@ bottom: 5px;-webkit-transition: all 1s ease-out;
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
-        ...
+       <input type="text" name="qty"  id="qty" value="" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -184,25 +150,26 @@ bottom: 5px;-webkit-transition: all 1s ease-out;
 
     <!-- Mobile menu & popover -->
          
-    <script type="text/javascript">
-   
+
+ <script type="text/javascript">
 
 	
-	 $('.high').bind('mousewheel', function(e){
-     if(e.originalEvent.wheelDelta < 0) {
-         //scroll down
-        $('.high').removeClass('water-full');
-     }else {
-         //scroll up
-         console.log('Up');
-     }
+	$("#submit").click(function(event){
+	
 
-     //prevent page fom scrolling
-     return false;
- });
+		count = $(this).attr('data-count');
+		count++;
+		
+		$(this).attr('data-count',count);
+		if(count == 1)
+		$('.high').removeClass('level-25');
+		
+		
+  });  
         
      
     </script>
+
 
 
 </body>
