@@ -142,6 +142,7 @@ _.extend(Ajency.CurrentUser.prototype, {
         App.graph = new Backbone.Model;
         App.graph.set('dates', dates);
         App.graph.set('param', param);
+        App.graph.set('reg_date', response.reg_date);
         if (xhr.status === 200) {
           return $.each(data, function(index, value) {
             return App.useProductColl.add(value);

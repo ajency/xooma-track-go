@@ -1,10 +1,64 @@
-class App.HomeLayoutView extends Marionette.LayoutView
+class HomeLayoutView extends Marionette.LayoutView
 
 	template : '#home-template'
 
+	behaviors :
+		FormBehavior :
+			behaviorClass : Ajency.FormBehavior
+
+	ui :
+		time_period  : '.time_period'
+		start_date 	 : '#start_date'
+		end_date 	 : '#end_date'
+		generate 	 : 'input[name="generate"]'
+		form 		: '#generate_graph'
+
+	events:
+		'change @ui.time_period':(e)->
+			id = $(e.target).val()
+			date =  moment().subtract(id, 'days')
+			previous = date.format('YYYY-MM-DD')
+			today = moment().format('YYYY-MM-DD')
+			picker = @ui.start_date.pickadate('picker')
+			picker.set('select', previous, { format: 'yyyy-mm-dd' })
+			
+			if id == 'all'
+				reg_date = App.graph.get 'reg_date'
+				picker = @ui.start_date.pickadate('picker')
+				picker.set('select', reg_date, { format: 'yyyy-mm-dd' })
+			picker1 = @ui.end_date.pickadate('picker')
+			picker1.set('select', today, { format: 'yyyy-mm-dd' })
+
+	onFormSubmit: (_formData)=>
+		console.log _formData
+		$.ajax
+				method : 'GET'
+				data : _formData
+				url : "#{APIURL}/graphs/#{App.currentUser.get('ID')}"
+				success: @_successHandler
+
+	_successHandler: (response, status,xhr)=>
+		console.log response
+		$("#canvas").text ""
+		App.graph.set 'dates' , response.dates
+		App.graph.set 'param' , response.param
+		@generateGraph()
+
+
+
 	onShow:->
-		dates = App.graph.get 'dates'
-		param = App.graph.get 'param'
+		@ui.start_date.pickadate(
+			formatSubmit: 'yyyy-mm-dd'
+			hiddenName: true
+			)
+		@ui.end_date.pickadate(
+			formatSubmit: 'yyyy-mm-dd'
+			hiddenName: true
+			)
+		
+	generateGraph:->
+		console.log dates = App.graph.get 'dates'
+		console.log param = App.graph.get 'param'
 		lineChartData = 
 			labels : dates,
 			datasets : [
@@ -37,7 +91,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
 
 	_showView:(collection)=>
-		@show new App.HomeLayoutView
+		@show new HomeLayoutView
 
 class HomeX2OViewChild extends Marionette.ItemView
 
@@ -83,6 +137,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		data
 
 	onShow:->
+		HomeLayoutView::generateGraph()
 		occurrenceArr = []
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->

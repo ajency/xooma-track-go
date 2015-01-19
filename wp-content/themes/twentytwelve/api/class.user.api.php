@@ -74,6 +74,12 @@ class User_API
             
         );
 
+          //graphs
+        $routes['/graphs/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_get_graph_details'), WP_JSON_Server::READABLE),
+            
+        );
+
        
 
 
@@ -596,6 +602,33 @@ class User_API
         }
 
         return $response;
+    }
+
+    public function xooma_get_graph_details($id){
+
+        $start_date = $_REQUEST['start_date'];
+        $end_date = $_REQUEST['end_date'];
+        $param = $_REQUEST['param'];
+
+        $response = generate_dates($start_date,$end_date,$id,$param);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+
+
+
     }
 
     

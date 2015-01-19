@@ -416,44 +416,44 @@
                         <li><a href="#">Delete</a></li>
                       </ul>
               </h5>
-<form>
+<form id="generate_graph" method="POST"  role="form">
 
   <div class="m-t-30">
     <label for="exampleInputFile">Select</label>
-    <select class="form-control">
-      <option>Weight</option>
-      <option>Neck</option>
-      <option>Chest</option>
-      <option>Upperarm</option>
-      <option>Abdomen</option>
-        <option>Waist</option>
-      <option>Hips</option>
-      <option>Upper Thigh</option>
-      <option>Mid Thigh</option>
+    <select class="form-control" aj-field-required="true" name="param">
+      <option value="weight">Weight</option>
+      <option value="neck">Neck</option>
+      <option value="chest">Chest</option>
+      <option value="arm">Arm</option>
+      <option value="abdomen">Abdomen</option>
+        <option value="waist">Waist</option>
+      <option value="hips">Hips</option>
+      <option value="thigh">Thigh</option>
+     
     </select>
   </div>
 
                       <ul class="list-inline  dotted-line m-t-20">
                         <li class="col-md-4  col-xs-4"> 
                               <label for="exampleInputFile">Start Day</label>
-                                  <input type="text" class="form-control" id="text4" placeholder="0010100100">
+                                  <input type="text" aj-field-required="true" class="form-control" id="start_date" name="start_date" >
                         </li>
                         <li class="col-md-4  col-xs-4">
                              <label for="exampleInputFile">End Day</label>
-                                <select class="form-control">
-                                  <option>After 30 Days</option>
-                                  <option>After 60 Days</option>
-                                  <option>After 90 Days</option>
-                                </select>
+                                <input type="text" aj-field-required="true" class="form-control" id="end_date" name="end_date">
                         </li>
                         <li class="col-md-4  col-xs-4">
                            <label for="exampleInputFile">Weekly</label>
-                                <select class="form-control">
-                                  <option>Weekly</option>
-                                  <option>Monthly</option>
+                                <select class="form-control time_period ">
+                                  <option value="">--Select--</option>
+                                  <option value="7">Last 7 days</option>
+                                  <option value="30">Last 30 days</option>
+                                  <option value="all">All time</option>
                                 </select>
                         </li>
                     </ul>
+                    <br/>
+                    <button type="button" name="generate" class="aj-submit-button" >Generate</button>
     <div class="clearfix"></div><br>
     <div style="width:100%">
 			<div>

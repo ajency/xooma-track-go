@@ -1395,7 +1395,12 @@ function generate_graph($graph,$pre_date,$next_date)
 		return array('dates'=>$dates,'param'=>$param);
 }
 
-function get_history_product($id,$pid,$date){
+function get_user_measurement_date($id){
 
+	global $wpdb;
+    $measurements_table = $wpdb->prefix . "measurements";
 
+   $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
+
+   return $sql_query->date;
 }
