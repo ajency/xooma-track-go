@@ -68,9 +68,13 @@ class User_API
             array( array( $this, 'xooma_store_consumption_details'), WP_JSON_Server::CREATABLE),
         );
 
-        $routes['/intakesbmi/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
-            array( array( $this, 'xooma_store_x2oconsumption_details'), WP_JSON_Server::CREATABLE),
+          //history
+        $routes['/history/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
+            array( array( $this, 'xooma_get_history_details'), WP_JSON_Server::READABLE),
+            
         );
+
+       
 
 
 
@@ -137,7 +141,8 @@ class User_API
         //update measurements details of the user id passed
         global $user;
        
-        $date                               = $_REQUEST['date_field'];
+        //print_r($_POST);
+        $date  = $_REQUEST['date_field'];
 
 
         $response = $user->update_user_measurement_details($id,$_POST,$date);
@@ -571,30 +576,11 @@ class User_API
 
     }
 
-    public function  xooma_store_x2oconsumption_details($id,$pid){
+    public function xooma_get_history_details($id,$pid){
 
-        $qty = $_REQUEST['qty'];
+        $date = $_REQUEST['date'];
 
-        $meta_id = $_REQUEST['meta_id'];
-
-        $args = array(
-
-            'id'            => $id,
-            'pid'           => $pid,
-            'meta_id'       => $meta_id,
-            'meta_value'    => array(
-                'date'      => date('Y-m-d H:i:s'),
-                'qty'       => $qty
-
-                )
-
-
-            );
-
-
-
-
-        $response = store_x20consumption_details($args);
+        $response = get_occurrence_date($pid,$id,$date);
 
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
@@ -605,14 +591,12 @@ class User_API
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
             $response = new WP_JSON_Response( $response );
             }
-            $response->set_status( 201 );
+            $response->set_status( 200 );
 
         }
 
         return $response;
-
-
-
-
     }
+
+    
 }

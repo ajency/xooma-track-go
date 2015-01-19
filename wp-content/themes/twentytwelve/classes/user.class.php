@@ -354,6 +354,7 @@ class User
 
             //get users_timezone
 
+            
             $sub[] = array(
                 'id'            => intval($term->product_id),
                 'name'          => $val[0]['name'],
@@ -370,11 +371,19 @@ class User
 
 
     );
-                
+
+
           
      
 
     } 
+
+
+    //get graph data 
+    // $graph = generate_dates('2015-01-01','2015-01-16',186,'weight');
+    // $sub
+
+    
     
         
 

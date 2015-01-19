@@ -101,7 +101,7 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
-    this.model.set('occurrence', response);
+    this.model.set('occurrence', response.occurrence);
     this.ui.responseMessage.text("Servings are updated!!!!");
     return $('#mydataModal').addClass("hidden");
   };

@@ -24,7 +24,7 @@ ProfileMeasurementsView = (function(_super) {
     rangeSliders: '[data-rangeslider]',
     responseMessage: '.aj-response-message',
     link: '.link',
-    fa: '.fa'
+    inpt_el: '.inpt_el'
   };
 
   ProfileMeasurementsView.prototype.behaviors = {
@@ -33,14 +33,20 @@ ProfileMeasurementsView = (function(_super) {
     }
   };
 
+  ProfileMeasurementsView.prototype.initialize = function() {
+    return $(document).on('keyup', _.bind(this.keyup, this));
+  };
+
   ProfileMeasurementsView.prototype.events = {
     'change @ui.rangeSliders': function(e) {
       return this.valueOutput(e.currentTarget);
     }
   };
 
-  $(document).on('keypress', function(e) {
+  ProfileMeasurementsView.prototype.keyup = function(e) {
     var inputVal;
+    console.log(e.target.id);
+    console.log(this.measurements[e.target.id] = $('#' + e.target.id).val());
     if (e.charCode === 46) {
       console.log(inputVal = $(e.target).val().split('.').length);
       if (parseInt(inputVal) >= 2) {
@@ -48,7 +54,7 @@ ProfileMeasurementsView = (function(_super) {
       }
     }
     return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 44;
-  });
+  };
 
   ProfileMeasurementsView.prototype.onShow = function() {
     this.ui.rangeSliders.each((function(_this) {
@@ -56,13 +62,29 @@ ProfileMeasurementsView = (function(_super) {
         return _this.valueOutput(ele);
       };
     })(this));
-    return this.ui.rangeSliders.rangeslider({
+    this.ui.rangeSliders.rangeslider({
       polyfill: false
     });
+    this.measurements = {
+      'arm': '',
+      'chest': '',
+      'neck': '',
+      'waist': '',
+      'abdomen': '',
+      'midcalf': '',
+      'thigh': '',
+      'hips': ''
+    };
+    return console.log(this.view);
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
-    return this.model.saveMeasurements(_formData).done(this.successHandler).fail(this.errorHandler);
+    var formdata;
+    console.log(this.measurements['weight'] = $('#weight').val());
+    this.measurements['height'] = $('#height').val();
+    this.measurements['date_field'] = $('#date_field').val();
+    console.log(formdata = $.param(this.measurements));
+    return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {

@@ -245,7 +245,7 @@
 												<h5 class="text-center bold">Set your measurements</h5>
 												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your body needs on a daily basis </p>
 												<div class="row">
-												<input type="hidden" name="date_field" value="{{measurements.date}}" />
+												<input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
 														<div class="col-md-5 col-xs-5">
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
 														</div>
@@ -279,7 +279,7 @@
         <div style="display:none;">
             <div id="demo2_tip">
                 <b>Neck</b><br />
-           <input type="text" name="neck" class="inpt_el" value="{{measurements.neck}}" />
+           <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" />
             </div>
         </div>
 
@@ -289,7 +289,7 @@
         <div style="display:none;">
             <div id="demo3_tip">
                 <b>Chest</b><br />
-           <input type="text" name="chest" class="inpt_el" value="{{measurements.chest}}" />
+           <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}" />
             </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
@@ -298,7 +298,7 @@
            <div style="display:none;">
             <div id="demo4_tip">
                 <b>Arm</b><br />
-           <input type="text" name="arm" class="inpt_el" value="{{measurements.arm}}" />
+           <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
             </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
@@ -307,7 +307,7 @@
         <div style="display:none;">
             <div id="demo5_tip">
                 <b>Abdomen</b><br />
-           <input type="text" name="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
+           <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
             </div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
@@ -316,7 +316,7 @@
          <div style="display:none;">
             <div id="demo6_tip">
                 <b>Waist</b><br />
-           <input type="text" name="waist" class="inpt_el" value="{{measurements.waist}}" />
+           <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
             </div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
@@ -326,7 +326,7 @@
                           <div style="display:none;">
             <div id="demo7_tip">
                 <b>Hips</b><br />
-           <input type="text" name="hips" class="inpt_el" value="{{measurements.hips}}" />
+           <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
             </div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
@@ -335,7 +335,7 @@
                           <div style="display:none;">
             <div id="demo8_tip">
                 <b>Thigh</b><br />
-           <input type="text" name="thigh" class="inpt_el" value="{{measurements.thigh}}" />
+           <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
             </div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
@@ -345,7 +345,7 @@
                          <div style="display:none;">
             <div id="demo9_tip">
                 <b>Midcalf</b><br />
-           <input type="text" name="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
+           <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
             </div>
         </div> 
           
@@ -736,6 +736,22 @@ markupup
 
 </script>
 
+<script id="view-history-template" type="text/template">
+<div class="container"> </br></br>
+
+<div>
+<ul class="viewHistory" >
+
+
+
+</ul>
+</div>
+
+<a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >Cancel</a>	
+
+</div>
+
+</script>
 
 <script id="asperbmi-template" type="text/template">
 <div class="container"> </br></br>
@@ -745,7 +761,7 @@ markupup
            
             
         </div>
- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/{{org}}<small>Bottle</small></h4>
+ <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
         <div class="row"><div><span>Bonus:</span><span class="bonus">{{bonus}}</span></div>
             <div class="col-md-4 col-xs-3"> 
                 <button type="button" id="add" class="btn btn-primary plus pull-right m-t-100"><i class="fa fa-plus"></i>                        </button>

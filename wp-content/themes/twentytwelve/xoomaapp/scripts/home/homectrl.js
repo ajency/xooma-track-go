@@ -67,7 +67,7 @@ HomeX2OViewChild = (function(_super) {
   };
 
   HomeX2OViewChild.prototype.onShow = function() {
-    var bonusArr, consumed, ctx, doughnutData, occurrenceArr, target;
+    var bonusArr, consumed, ctdx, ctx, doughnutData, lineChartData, occurrenceArr, target;
     occurrenceArr = [];
     bonusArr = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
@@ -85,10 +85,29 @@ HomeX2OViewChild = (function(_super) {
     consumed = occurrenceArr.length;
     target = this.model.get('qty1');
     doughnutData = this.drawBottle(this.model.get('occurrence'));
+    lineChartData = {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [
+        {
+          label: "My Second dataset",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+        }
+      ]
+    };
     ctx = document.getElementById("chart-area").getContext("2d");
-    return window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
+    window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
       responsive: true,
       percentageInnerCutout: 80
+    });
+    lineChartData = ctdx = document.getElementById("canvas").getContext("2d");
+    return window.myLine = new Chart(ctdx).Line(lineChartData, {
+      responsive: true
     });
   };
 

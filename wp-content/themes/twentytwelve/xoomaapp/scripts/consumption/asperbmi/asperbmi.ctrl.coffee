@@ -68,17 +68,42 @@ class AsperbmiView extends Marionette.ItemView
 			$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty
-						url : "#{_SITEURL}/wp-json/intakesbmi/#{App.currentUser.get('ID')}/products/#{product}"
+						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
 
 	saveHandler:(response,status,xhr)=>
 		$('#percentage').val 0
 		console.log response
-		@model.set 'occurrence' , response
-		console.log $('#meta_id').val response[0].meta_id
+		@model.set 'occurrence' , response.occurrence
+		console.log $('#meta_id').val response.meta_id
+		cntColl = new Backbone.Collection response.occurrence
+		temp = cntColl.filter (model)->
+			meta_id = model.get 'meta_id'
+			model.set 'meta_id' , parseInt meta_id
+			return model
+		console.log tempColl = new Backbone.Collection temp
+		console.log model = tempColl.findWhere({meta_id:parseInt(response.meta_id)})
+		cnt = @getCount(model.get('meta_value'))
+		if parseInt(cnt) == 1
+			cnt = 0
+		$('.bottlecnt').text cnt
+		@generate(response.occurrence)
 
-		@generate(response)
+	getCount:(val)->
+		count = 0
+		if!(_.isArray(val)) 
+			count += parseFloat val.qty
+		else
+			$.each val , (ind,val1)->
+				console.log val1
+				if _.isArray(val1)
+					$.each val1 ,  (item,value)->
+						count += parseFloat value.qty
+				else
+					count += parseFloat val1.qty
+
+		count
 
 	serializeData:->
 		data = super()
@@ -86,27 +111,6 @@ class AsperbmiView extends Marionette.ItemView
 		count = 0
 		data.day = moment().format("dddd")
 		console.log data.today = moment().format("MMMM Do YYYY")
-		
-		$.each @model.get('occurrence') , (ind,val)->
-			expected = _.has(val, "expected")
-			console.log val.meta_value
-			if!(_.isArray(val.meta_value)) 
-				count += parseFloat val.meta_value.qty
-			else
-				$.each val.meta_value , (ind,val)->
-					console.log val
-					if _.isArray(val)
-						$.each val ,  (item,value)->
-							count += parseFloat value.qty
-					else
-						count += parseFloat val.qty
-			console.log count
-			if expected == true
-				arr1.push val.expected
-		data.org = arr1.length
-		data.confirm = parseInt count
-		
-
 		data
 
 	onShow:->
@@ -124,71 +128,42 @@ class AsperbmiView extends Marionette.ItemView
 			$.each occur , (ind,val)->
 				console.log occurrence = _.has(val, "occurrence")
 				console.log  expected = _.has(val, "expected")
-				console.log val.meta_value
-				if!(_.isArray(val.meta_value)) 
-					count1 += parseFloat val.meta_value.qty
-				else
-					$.each val.meta_value , (ind,val)->
-						console.log val
-						if _.isArray(val)
-							$.each val ,  (item,value)->
-								count1 += parseFloat value.qty
-						else
-							count1 += parseFloat val.qty
-
-			$('.bottlecnt').text parseInt count1
-					
-			$.each occur , (ind,val)->
-				count = 0
-				console.log occurrence = _.has(val, "occurrence")
-				console.log  expected = _.has(val, "expected")
 				meta_id = val.meta_id
 				console.log val.meta_value
-				if!(_.isArray(val.meta_value)) 
-					count += parseFloat val.meta_value.qty
-				else
-					$.each val.meta_value , (ind,val)->
-						console.log val
-						if _.isArray(val)
-							$.each val ,  (item,value)->
-								count += parseFloat value.qty
-						else
-							count += parseFloat val.qty
-				console.log count
-				if occurrence == true && expected == false && count !=  1
+				count = AsperbmiView::getCount(val.meta_value)
+				
+				if occurrence == true && (expected == true || expected == false) && count ==  1
+					count1++
+					return true
+				else if occurrence == true && (expected == true || expected == false) && count !=  1
+					console.log count
 					AsperbmiView::update_occurrences(val)
-					return
-				else if occurrence == true && expected == true && count !=  1
-					AsperbmiView::update_occurrences(val)
-					return
+					return false
 				else
-					AsperbmiView::create_occurrences(val)
-					return
+					AsperbmiView::create_occurrences()
+					return false
+			if(parseInt(@model.get('occurrence').length)) == parseInt count1
+				AsperbmiView::create_occurrences()
 				
-				
-				
-	create_occurrences:(data)->
+	create_occurrences:()->
 			$('#meta_id').val(0)
 			$('#confirm').attr 'data-count' , 0
 			$('.high').addClass 'level-25'
 			$('.half').addClass 'level-25'
 			$('.medium').addClass 'level-25'
 			$('.low').addClass 'level-25'
+			$('.bottlecnt').text 0
 
 	update_occurrences:(data)->
 			$('#add').hide()
 			$('#meta_id').val parseInt data.meta_id
 			count = 0
 			meta_value = data.meta_value
-			
-			if!(_.isArray(data.meta_value)) 
-				count += meta_value.qty
-			else
-				$.each meta_value , (ind,val)->
-					count += parseFloat val.qty
+			count = @getCount(data.meta_value)
 			confirm = parseFloat(count)/0.25
 			#$('#percentage').val count
 			$('#confirm').attr('data-count' , confirm)
+			$('.bottlecnt').text count
 			classArr  = ['high','medium','half','low']
 			i = 0 
 			arr = []

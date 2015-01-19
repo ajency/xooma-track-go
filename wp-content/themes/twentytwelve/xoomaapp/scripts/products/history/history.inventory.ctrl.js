@@ -22,7 +22,7 @@ InventoryChildView = (function(_super) {
 
   return InventoryChildView;
 
-})(Marionette.CompositeView);
+})(Marionette.ItemView);
 
 ViewInventoryView = (function(_super) {
   __extends(ViewInventoryView, _super);

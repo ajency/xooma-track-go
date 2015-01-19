@@ -83,7 +83,7 @@ class ScheduleView extends Marionette.ItemView
 			
 
 	saveHandler:(response,status,xhr)=>
-		@model.set 'occurrence' , response
+		@model.set 'occurrence' , response.occurrence
 		@ui.responseMessage.text "Servings are updated!!!!"
 		$('#mydataModal').addClass "hidden"
 

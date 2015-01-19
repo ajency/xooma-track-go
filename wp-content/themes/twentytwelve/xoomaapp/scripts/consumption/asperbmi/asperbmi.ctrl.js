@@ -106,7 +106,7 @@ AsperbmiView = (function(_super) {
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty,
-        url: "" + _SITEURL + "/wp-json/intakesbmi/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
@@ -114,11 +114,48 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
+    var cnt, cntColl, model, temp, tempColl;
     $('#percentage').val(0);
     console.log(response);
-    this.model.set('occurrence', response);
-    console.log($('#meta_id').val(response[0].meta_id));
-    return this.generate(response);
+    this.model.set('occurrence', response.occurrence);
+    console.log($('#meta_id').val(response.meta_id));
+    cntColl = new Backbone.Collection(response.occurrence);
+    temp = cntColl.filter(function(model) {
+      var meta_id;
+      meta_id = model.get('meta_id');
+      model.set('meta_id', parseInt(meta_id));
+      return model;
+    });
+    console.log(tempColl = new Backbone.Collection(temp));
+    console.log(model = tempColl.findWhere({
+      meta_id: parseInt(response.meta_id)
+    }));
+    cnt = this.getCount(model.get('meta_value'));
+    if (parseInt(cnt) === 1) {
+      cnt = 0;
+    }
+    $('.bottlecnt').text(cnt);
+    return this.generate(response.occurrence);
+  };
+
+  AsperbmiView.prototype.getCount = function(val) {
+    var count;
+    count = 0;
+    if (!(_.isArray(val))) {
+      count += parseFloat(val.qty);
+    } else {
+      $.each(val, function(ind, val1) {
+        console.log(val1);
+        if (_.isArray(val1)) {
+          return $.each(val1, function(item, value) {
+            return count += parseFloat(value.qty);
+          });
+        } else {
+          return count += parseFloat(val1.qty);
+        }
+      });
+    }
+    return count;
   };
 
   AsperbmiView.prototype.serializeData = function() {
@@ -128,31 +165,6 @@ AsperbmiView = (function(_super) {
     count = 0;
     data.day = moment().format("dddd");
     console.log(data.today = moment().format("MMMM Do YYYY"));
-    $.each(this.model.get('occurrence'), function(ind, val) {
-      var expected;
-      expected = _.has(val, "expected");
-      console.log(val.meta_value);
-      if (!(_.isArray(val.meta_value))) {
-        count += parseFloat(val.meta_value.qty);
-      } else {
-        $.each(val.meta_value, function(ind, val) {
-          console.log(val);
-          if (_.isArray(val)) {
-            return $.each(val, function(item, value) {
-              return count += parseFloat(value.qty);
-            });
-          } else {
-            return count += parseFloat(val.qty);
-          }
-        });
-      }
-      console.log(count);
-      if (expected === true) {
-        return arr1.push(val.expected);
-      }
-    });
-    data.org = arr1.length;
-    data.confirm = parseInt(count);
     return data;
   };
 
@@ -170,65 +182,37 @@ AsperbmiView = (function(_super) {
     bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings'));
     $('.bonus').text(bonus);
     $.each(occur, function(ind, val) {
-      var expected, occurrence;
-      console.log(occurrence = _.has(val, "occurrence"));
-      console.log(expected = _.has(val, "expected"));
-      console.log(val.meta_value);
-      if (!(_.isArray(val.meta_value))) {
-        return count1 += parseFloat(val.meta_value.qty);
-      } else {
-        return $.each(val.meta_value, function(ind, val) {
-          console.log(val);
-          if (_.isArray(val)) {
-            return $.each(val, function(item, value) {
-              return count1 += parseFloat(value.qty);
-            });
-          } else {
-            return count1 += parseFloat(val.qty);
-          }
-        });
-      }
-    });
-    $('.bottlecnt').text(parseInt(count1));
-    return $.each(occur, function(ind, val) {
       var count, expected, meta_id, occurrence;
-      count = 0;
       console.log(occurrence = _.has(val, "occurrence"));
       console.log(expected = _.has(val, "expected"));
       meta_id = val.meta_id;
       console.log(val.meta_value);
-      if (!(_.isArray(val.meta_value))) {
-        count += parseFloat(val.meta_value.qty);
-      } else {
-        $.each(val.meta_value, function(ind, val) {
-          console.log(val);
-          if (_.isArray(val)) {
-            return $.each(val, function(item, value) {
-              return count += parseFloat(value.qty);
-            });
-          } else {
-            return count += parseFloat(val.qty);
-          }
-        });
-      }
-      console.log(count);
-      if (occurrence === true && expected === false && count !== 1) {
+      count = AsperbmiView.prototype.getCount(val.meta_value);
+      if (occurrence === true && (expected === true || expected === false) && count === 1) {
+        count1++;
+        return true;
+      } else if (occurrence === true && (expected === true || expected === false) && count !== 1) {
+        console.log(count);
         AsperbmiView.prototype.update_occurrences(val);
-      } else if (occurrence === true && expected === true && count !== 1) {
-        AsperbmiView.prototype.update_occurrences(val);
+        return false;
       } else {
-        AsperbmiView.prototype.create_occurrences(val);
+        AsperbmiView.prototype.create_occurrences();
+        return false;
       }
     });
+    if ((parseInt(this.model.get('occurrence').length)) === parseInt(count1)) {
+      return AsperbmiView.prototype.create_occurrences();
+    }
   };
 
-  AsperbmiView.prototype.create_occurrences = function(data) {
+  AsperbmiView.prototype.create_occurrences = function() {
     $('#meta_id').val(0);
     $('#confirm').attr('data-count', 0);
     $('.high').addClass('level-25');
     $('.half').addClass('level-25');
     $('.medium').addClass('level-25');
-    return $('.low').addClass('level-25');
+    $('.low').addClass('level-25');
+    return $('.bottlecnt').text(0);
   };
 
   AsperbmiView.prototype.update_occurrences = function(data) {
@@ -237,15 +221,10 @@ AsperbmiView = (function(_super) {
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
     meta_value = data.meta_value;
-    if (!(_.isArray(data.meta_value))) {
-      count += meta_value.qty;
-    } else {
-      $.each(meta_value, function(ind, val) {
-        return count += parseFloat(val.qty);
-      });
-    }
+    count = this.getCount(data.meta_value);
     confirm = parseFloat(count) / 0.25;
     $('#confirm').attr('data-count', confirm);
+    $('.bottlecnt').text(count);
     classArr = ['high', 'medium', 'half', 'low'];
     i = 0;
     arr = [];

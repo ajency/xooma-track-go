@@ -64,6 +64,22 @@ class HomeX2OViewChild extends Marionette.ItemView
 		target = @model.get 'qty1'
 
 		doughnutData = @drawBottle(@model.get('occurrence'))
+		lineChartData = 
+			labels : ["January","February","March","April","May","June","July"],
+			datasets : [
+			
+				
+					label: "My Second dataset",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				
+			]
+
 		
 		
 		ctx = document.getElementById("chart-area").getContext("2d")
@@ -71,6 +87,11 @@ class HomeX2OViewChild extends Marionette.ItemView
 			responsive : true,  
 			percentageInnerCutout : 80 
 		)
+		lineChartData = 
+		ctdx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctdx).Line(lineChartData, 
+			responsive: true
+		);
 		
 	get_occurrence:(data)->
 		console.log data

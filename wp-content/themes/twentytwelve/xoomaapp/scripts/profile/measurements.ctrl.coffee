@@ -12,20 +12,25 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		rangeSliders : '[data-rangeslider]'
 		responseMessage : '.aj-response-message'
 		link : '.link'
-		fa   : '.fa'
+		inpt_el   : '.inpt_el'
 		
 
 	behaviors :
 		FormBehavior :
 			behaviorClass : Ajency.FormBehavior
+
+	initialize:->
+		$(document).on('keyup', _.bind(@keyup, @));
+
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
 		
+
 		
-		
-			
-	$(document).on 'keypress' , (e)->
+	keyup:(e)->
+		console.log e.target.id
+		console.log @measurements[e.target.id] = $('#'+e.target.id).val()
 		if  e.charCode == 46
 			console.log inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
@@ -36,13 +41,18 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	onShow:->
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
-		
+		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
+		console.log @view
 		
 		
 		
 
 	onFormSubmit : (_formData)=>
-		@model.saveMeasurements(_formData).done(@successHandler).fail(@errorHandler)
+		console.log @measurements['weight'] = $('#weight').val()
+		@measurements['height'] = $('#height').val()
+		@measurements['date_field'] = $('#date_field').val()
+		console.log formdata = $.param @measurements
+		@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
 	    
 

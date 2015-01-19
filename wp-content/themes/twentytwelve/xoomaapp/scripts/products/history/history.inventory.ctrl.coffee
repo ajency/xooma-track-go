@@ -3,7 +3,7 @@ App.state 'ViewInventory',
 					parent : 'xooma'
 		
 
-class InventoryChildView extends Marionette.CompositeView
+class InventoryChildView extends Marionette.ItemView
 
 	tagName : 'li'
 

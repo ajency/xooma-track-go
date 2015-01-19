@@ -3,109 +3,109 @@
 
 function save_anytime_product_details($id,$data){
 
-    //store default values for the users's product
+		//store default values for the users's product
 
-    global $wpdb;
+		global $wpdb;
 
-    $product_main_table = $wpdb->prefix . "product_main";
+		$product_main_table = $wpdb->prefix . "product_main";
 
-    $product_meta_table = $wpdb->prefix . "product_meta";
+		$product_meta_table = $wpdb->prefix . "product_meta";
 
-    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$data['id']." and deleted_flag=0");
+		$sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$data['id']." and deleted_flag=0");
 
-    if((is_null($sql_query))){
-    $main = $wpdb->insert(
-                $product_main_table,
-                array(
-                  'user_id'             => $id,
-                  'product_id'          => $data['id'],
-                  'deleted_flag'        => 0
-                ),
-                array(
-                  '%d',
-                  '%d',
-                  '%d'
-                )
-              );
-    $main_id = $wpdb->insert_id;
+		if((is_null($sql_query))){
+		$main = $wpdb->insert(
+								$product_main_table,
+								array(
+									'user_id'             => $id,
+									'product_id'          => $data['id'],
+									'deleted_flag'        => 0
+								),
+								array(
+									'%d',
+									'%d',
+									'%d'
+								)
+							);
+		$main_id = $wpdb->insert_id;
 
-    //saving quantity per servings
-    for($i=0;$i<$data['time_set'];$i++){
-        $qty = explode('|', $data['serving_size']);
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array('qty' =>$qty[0],'when' => 1))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+		//saving quantity per servings
+		for($i=0;$i<$data['time_set'];$i++){
+				$qty = explode('|', $data['serving_size']);
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'qty_per_servings',
+									'value'                       => serialize(array('qty' =>$qty[0],'when' => 1))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-    }
+		}
 
-        //saving no of containers
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
-                                                            'reminder_flag'=>0,
-                                                            'check' => 0))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
-
-
-
-    if($main){
-
-      //stroring trasaction to keeptrack of quantity
-        $args = array(
-
-            'user_id'     => $id,
-            'product_id'  => $data['id'],
-            'type'        => 'stock',
-            'amount'      =>  $data['total'],
-            'consumption_type'  => ''
+				//saving no of containers
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'no_of_containers',
+									'value'                       => serialize(array('no_of_container' => $data['serving_per_container'],
+																														'reminder_flag'=>0,
+																														'check' => 0))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
 
-          );
+
+		if($main){
+
+			//stroring trasaction to keeptrack of quantity
+				$args = array(
+
+						'user_id'     => $id,
+						'product_id'  => $data['id'],
+						'type'        => 'stock',
+						'amount'      =>  $data['total'],
+						'consumption_type'  => ''
 
 
-        store_stock_data($args);
+					);
 
-       //stroring trasaction to keeptrack of quantity
 
-        //store schedule
+				store_stock_data($args);
 
-        $schedule = array(
-          'main_id'   => $main_id,
-          'time_set'  => $data['time_set']
+			 //stroring trasaction to keeptrack of quantity
 
-          );
-        store_add_schedule($schedule);
+				//store schedule
 
-      //store schedule
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['time_set']
 
-        
-        
+					);
+				store_add_schedule($schedule);
 
-        return $data['id'];
-    }
-    else{
-        new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
-    }
-  }
+			//store schedule
+
+				
+				
+
+				return $data['id'];
+		}
+		else{
+				new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
+		}
+	}
 }
 
 
@@ -113,256 +113,256 @@ function save_anytime_product_details($id,$data){
 
 function update_anytime_product_details($id,$pid,$data){
 
-    global $wpdb;
-
-    $product_main_table = $wpdb->prefix . "product_main";
-
-    $product_meta_table = $wpdb->prefix . "product_meta";
-    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
-
-    if((is_null($sql_query))){
-
-    $main = $wpdb->insert(
-                $product_main_table,
-                array(
-                  'user_id'             => $id,
-                  'product_id'          => $pid,
-                  'deleted_flag'        => 0
-                ),
-                array(
-                  '%d',
-                  '%d',
-                  '%d'
-                )
-              );
-
-
-
-    $main_id = $wpdb->insert_id;
-    $quantity_arr = array();
-    for($i=0;$i<$data['servings_per_day'];$i++){
+		global $wpdb;
+
+		$product_main_table = $wpdb->prefix . "product_main";
+
+		$product_meta_table = $wpdb->prefix . "product_meta";
+		$sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
+
+		if((is_null($sql_query))){
+
+		$main = $wpdb->insert(
+								$product_main_table,
+								array(
+									'user_id'             => $id,
+									'product_id'          => $pid,
+									'deleted_flag'        => 0
+								),
+								array(
+									'%d',
+									'%d',
+									'%d'
+								)
+							);
+
+
+
+		$main_id = $wpdb->insert_id;
+		$quantity_arr = array();
+		for($i=0;$i<$data['servings_per_day'];$i++){
 
-        //saving quantity per servings
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>1))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+				//saving quantity per servings
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'qty_per_servings',
+									'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>1))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-        
+				
 
-            
+						
 
 
-        }
+				}
 
-        for($i=0;$i<$data['reminders_length'];$i++){
+				for($i=0;$i<$data['reminders_length'];$i++){
 
-            //savings reminders
-           $meta_id = $wpdb->insert(
-                  $product_meta_table,
-                  array(
-                    'main_id'                     => $main_id,
-                    'key'                         => 'reminders',
-                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
-                  ),
-                  array(
-                    '%d',
-                    '%s',
-                    '%s'
-                  )
-                );
+						//savings reminders
+					 $meta_id = $wpdb->insert(
+									$product_meta_table,
+									array(
+										'main_id'                     => $main_id,
+										'key'                         => 'reminders',
+										'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+									),
+									array(
+										'%d',
+										'%s',
+										'%s'
+									)
+								);
 
-           //reminders
-           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
-           
-            }
+					 //reminders
+					 store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
+					 
+						}
 
-            
+						
 
 
-       
+			 
 
-        
+				
 
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'reminder_flag'=>$data['reminder'],
-                                                            'check' => $data['check']))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'no_of_containers',
+									'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
+																														'reminder_flag'=>$data['reminder'],
+																														'check' => $data['check']))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-        //stroring trasaction to keeptrack of quantity
-        $args = array(
-
-            'user_id'     => $id,
-            'product_id'  => $pid,
-            'type'        => 'stock',
-            'amount'      =>  $data['available'],
-            'consumption_type'  => ''
+				//stroring trasaction to keeptrack of quantity
+				$args = array(
+
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'stock',
+						'amount'      =>  $data['available'],
+						'consumption_type'  => ''
 
 
-          );
+					);
 
 
-        store_stock_data($args);
+				store_stock_data($args);
 
-        $args_del = array(
+				$args_del = array(
 
-            'user_id'     => $id,
-            'product_id'  => $pid,
-            'type'        => 'remove',
-            'amount'      =>  $data['subtract'],
-            'consumption_type'  => 'sales'
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'remove',
+						'amount'      =>  $data['subtract'],
+						'consumption_type'  => 'sales'
 
 
-          );
-      if($data['subtract'] !=0) 
-      store_stock_data($args_del);
-       //stroring trasaction to keeptrack of quantity
+					);
+			if($data['subtract'] !=0) 
+			store_stock_data($args_del);
+			 //stroring trasaction to keeptrack of quantity
 
-        //store schedule
+				//store schedule
 
-        $schedule = array(
-          'main_id'   => $main_id,
-          'time_set'  => $data['servings_per_day']
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['servings_per_day']
 
-          );
-        store_add_schedule($schedule);
+					);
+				store_add_schedule($schedule);
 
-      //store schedule
-       
-       
+			//store schedule
+			 
+			 
 
 
 
 
-  }
-  else
-  {
-    
-    $query = $wpdb->query("DELETE from $product_meta_table where main_id=".$sql_query->id);
+	}
+	else
+	{
+		
+		$query = $wpdb->query("DELETE from $product_meta_table where main_id=".$sql_query->id);
 
 
-    $main_id = $sql_query->id;
-    for($i=0;$i<$data['servings_per_day'];$i++){
+		$main_id = $sql_query->id;
+		for($i=0;$i<$data['servings_per_day'];$i++){
 
-        //saving quantity per servings
-        $main = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>1))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+				//saving quantity per servings
+				$main = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'qty_per_servings',
+									'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>1))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-        
+				
 
-            
+						
 
 
-        }
+				}
 
-        for($i=0;$i<$data['reminders_length'];$i++){
+				for($i=0;$i<$data['reminders_length'];$i++){
 
-            //savings reminders
-           $meta_id = $wpdb->insert(
-                  $product_meta_table,
-                  array(
-                    'main_id'                     => $main_id,
-                    'key'                         => 'reminders',
-                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
-                  ),
-                  array(
-                    '%d',
-                    '%s',
-                    '%s'
-                  )
-                );
+						//savings reminders
+					 $meta_id = $wpdb->insert(
+									$product_meta_table,
+									array(
+										'main_id'                     => $main_id,
+										'key'                         => 'reminders',
+										'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+									),
+									array(
+										'%d',
+										'%s',
+										'%s'
+									)
+								);
 
-           //reminders
-           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
-        }
+					 //reminders
+					 store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
+				}
 
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'reminder_flag'=>$data['reminder'],
-                                                            'check' => $data['check']))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'no_of_containers',
+									'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
+																														'reminder_flag'=>$data['reminder'],
+																														'check' => $data['check']))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
 
-        //stroring trasaction to keeptrack of quantity
-         $args_del = array(
+				//stroring trasaction to keeptrack of quantity
+				 $args_del = array(
 
-            'user_id'     => $id,
-            'product_id'  => $pid,
-            'type'        => 'remove',
-            'amount'      =>  $data['subtract'],
-            'consumption_type'  => 'sales'
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'remove',
+						'amount'      =>  $data['subtract'],
+						'consumption_type'  => 'sales'
 
 
-          );
-      if($data['subtract'] !=0) 
-      store_stock_data($args_del);
+					);
+			if($data['subtract'] !=0) 
+			store_stock_data($args_del);
 
-    //store schedule
+		//store schedule
 
-        $schedule = array(
-          'main_id'   => $main_id,
-          'time_set'  => $data['servings_per_day']
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['servings_per_day']
 
-          );
-        store_add_schedule($schedule);
+					);
+				store_add_schedule($schedule);
 
-      //store schedule
-  }
+			//store schedule
+	}
 
 
-    if($main){
+		if($main){
 
-        return $pid;
+				return $pid;
 
-    }
-    else{
+		}
+		else{
 
-        
+				
 
-        return new WP_Error( 'json_user_product_details_not_updated', __( 'User Product details not updated.' ));
+				return new WP_Error( 'json_user_product_details_not_updated', __( 'User Product details not updated.' ));
 
-    }
+		}
 
 
 }
@@ -371,245 +371,245 @@ function update_anytime_product_details($id,$pid,$data){
 
 function update_schedule_product_details($id,$pid,$data){
 
-    global $wpdb;
+		global $wpdb;
 
-    $product_main_table = $wpdb->prefix . "product_main";
+		$product_main_table = $wpdb->prefix . "product_main";
 
-    $product_meta_table = $wpdb->prefix . "product_meta";
+		$product_meta_table = $wpdb->prefix . "product_meta";
 
-    $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
+		$sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
  
-    if((is_null($sql_query))){
+		if((is_null($sql_query))){
 
-    $main = $wpdb->insert(
-                $product_main_table,
-                array(
-                  'user_id'             => $id,
-                  'product_id'          => $pid,
-                  'deleted_flag'        => 0
-                ),
-                array(
-                  '%d',
-                  '%d',
-                  '%d'
-                )
-              );
-
-
-
-    $main_id = $wpdb->insert_id;
-    $quantity_arr = array();
-    for($i=0;$i<$data['servings_per_day'];$i++){
-
-        //saving quantity per servings
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>$data['when'.$i]))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
-
-         
-            
-
-
-        }
-
-        for($i=0;$i<$data['reminders_length'];$i++){
-
-            //savings reminders
-           $meta_id = $wpdb->insert(
-                  $product_meta_table,
-                  array(
-                    'main_id'                     => $main_id,
-                    'key'                         => 'reminders',
-                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
-                  ),
-                  array(
-                    '%d',
-                    '%s',
-                    '%s'
-                  )
-                );
-
-           //reminders
-           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
-        }
-
-
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'reminder_flag'=>$data['reminder'],
-                                                            'check' => $data['check']))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
-
-        //stroring trasaction to keeptrack of quantity
-        $args = array(
-
-            'user_id'     => $id,
-            'product_id'  => $pid,
-            'type'        => 'stock',
-            'amount'      =>  $data['available'],
-            'consumption_type'  => ''
-
-
-          );
-
-
-        store_stock_data($args);
-
-        $args_del = array(
-
-            'user_id'     => $id,
-            'product_id'  => $pid,
-            'type'        => 'remove',
-            'amount'      =>  $data['subtract'],
-            'consumption_type'  => 'sales'
-
-
-          );
-      if($data['subtract'] !=0) 
-      store_stock_data($args_del);
-       //stroring trasaction to keeptrack of quantity
-
-    //store schedule
-
-        $schedule = array(
-          'main_id'   => $main_id,
-          'time_set'  => $data['servings_per_day']
-
-          );
-        store_add_schedule($schedule);
-
-      //store schedule
+		$main = $wpdb->insert(
+								$product_main_table,
+								array(
+									'user_id'             => $id,
+									'product_id'          => $pid,
+									'deleted_flag'        => 0
+								),
+								array(
+									'%d',
+									'%d',
+									'%d'
+								)
+							);
 
 
 
+		$main_id = $wpdb->insert_id;
+		$quantity_arr = array();
+		for($i=0;$i<$data['servings_per_day'];$i++){
 
-  }
-  else
-  {
-    $query = $wpdb->query("DELETE from $product_meta_table where main_id=".$sql_query->id);
+				//saving quantity per servings
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'qty_per_servings',
+									'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>$data['when'.$i]))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-
-    $main_id = $sql_query->id;
-    for($i=0;$i<$data['servings_per_day'];$i++){
-
-        //saving quantity per servings
-        $main = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'qty_per_servings',
-                  'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>$data['when'.$i]))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
-
-        
-            
+				 
+						
 
 
-        }
+				}
 
-        for($i=0;$i<$data['reminders_length'];$i++){
+				for($i=0;$i<$data['reminders_length'];$i++){
 
-            //savings reminders
-           $meta_id = $wpdb->insert(
-                  $product_meta_table,
-                  array(
-                    'main_id'                     => $main_id,
-                    'key'                         => 'reminders',
-                    'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
-                  ),
-                  array(
-                    '%d',
-                    '%s',
-                    '%s'
-                  )
-                );
+						//savings reminders
+					 $meta_id = $wpdb->insert(
+									$product_meta_table,
+									array(
+										'main_id'                     => $main_id,
+										'key'                         => 'reminders',
+										'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+									),
+									array(
+										'%d',
+										'%s',
+										'%s'
+									)
+								);
 
-           //reminders
-           store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
-        }
-
-        $meta_id = $wpdb->insert(
-                $product_meta_table,
-                array(
-                  'main_id'                     => $main_id,
-                  'key'                         => 'no_of_containers',
-                  'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
-                                                            'reminder_flag'=>$data['reminder'],
-                                                            'check' => $data['check']))
-                ),
-                array(
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
-
-        //stroring trasaction to keeptrack of quantity
-         $args_del = array(
-
-            'user_id'     => $id,
-            'product_id'  => $pid,
-            'type'        => 'remove',
-            'amount'      =>  $data['subtract'],
-            'consumption_type'  => 'sales'
+					 //reminders
+					 store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
+				}
 
 
-          );
-      if($data['subtract'] !=0) 
-      store_stock_data($args_del);
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'no_of_containers',
+									'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
+																														'reminder_flag'=>$data['reminder'],
+																														'check' => $data['check']))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-     //store schedule
+				//stroring trasaction to keeptrack of quantity
+				$args = array(
 
-        $schedule = array(
-          'main_id'   => $main_id,
-          'time_set'  => $data['servings_per_day']
-
-          );
-        store_add_schedule($schedule);
-
-      //store schedule
-       
-  }
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'stock',
+						'amount'      =>  $data['available'],
+						'consumption_type'  => ''
 
 
-    if($main){
+					);
 
-        return $pid;
 
-    }
-    else{
+				store_stock_data($args);
 
-        
+				$args_del = array(
 
-        return new WP_Error( 'json_user_product_details_not_updated', __( 'User Product details not updated.' ));
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'remove',
+						'amount'      =>  $data['subtract'],
+						'consumption_type'  => 'sales'
 
-    }
+
+					);
+			if($data['subtract'] !=0) 
+			store_stock_data($args_del);
+			 //stroring trasaction to keeptrack of quantity
+
+		//store schedule
+
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['servings_per_day']
+
+					);
+				store_add_schedule($schedule);
+
+			//store schedule
+
+
+
+
+	}
+	else
+	{
+		$query = $wpdb->query("DELETE from $product_meta_table where main_id=".$sql_query->id);
+
+
+		$main_id = $sql_query->id;
+		for($i=0;$i<$data['servings_per_day'];$i++){
+
+				//saving quantity per servings
+				$main = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'qty_per_servings',
+									'value'                       => serialize(array('qty' => $data['qty_per_servings'.$i],'when' =>$data['when'.$i]))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
+
+				
+						
+
+
+				}
+
+				for($i=0;$i<$data['reminders_length'];$i++){
+
+						//savings reminders
+					 $meta_id = $wpdb->insert(
+									$product_meta_table,
+									array(
+										'main_id'                     => $main_id,
+										'key'                         => 'reminders',
+										'value'                       => serialize(array('time' => $data['reminder_time'.$i]))
+									),
+									array(
+										'%d',
+										'%s',
+										'%s'
+									)
+								);
+
+					 //reminders
+					 store_reminders($main_id,$data['servings_per_day'],$data['reminder_time'.$i]);
+				}
+
+				$meta_id = $wpdb->insert(
+								$product_meta_table,
+								array(
+									'main_id'                     => $main_id,
+									'key'                         => 'no_of_containers',
+									'value'                       => serialize(array('no_of_container' => $data['no_of_container'],
+																														'reminder_flag'=>$data['reminder'],
+																														'check' => $data['check']))
+								),
+								array(
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
+
+				//stroring trasaction to keeptrack of quantity
+				 $args_del = array(
+
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'remove',
+						'amount'      =>  $data['subtract'],
+						'consumption_type'  => 'sales'
+
+
+					);
+			if($data['subtract'] !=0) 
+			store_stock_data($args_del);
+
+		 //store schedule
+
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['servings_per_day']
+
+					);
+				store_add_schedule($schedule);
+
+			//store schedule
+			 
+	}
+
+
+		if($main){
+
+				return $pid;
+
+		}
+		else{
+
+				
+
+				return new WP_Error( 'json_user_product_details_not_updated', __( 'User Product details not updated.' ));
+
+		}
 
 
 }
@@ -619,57 +619,57 @@ function update_schedule_product_details($id,$pid,$data){
 function send_notifications_to_admin($user_id){
 
 
-  global $aj_comm;
+	global $aj_comm;
 
-  $args = array(
-    'component'             => 'xooma_users',
-    'communication_type'    => 'xooma_admin_email',
-    'user_id'               => $user_id
+	$args = array(
+		'component'             => 'xooma_users',
+		'communication_type'    => 'xooma_admin_email',
+		'user_id'               => $user_id
 
-    );
-  // user data
-  $user = login_response($user_id);
+		);
+	// user data
+	$user = login_response($user_id);
 
-  $meta = array(
-    'username'        => $user['display_name'],
-    'email'           => $user['user_email'],
-    'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
-    'registered'      => $user['user_registered'],
-    'siteurl'         => site_url().'/wp-admin'
-
-
-    );
-
-  //get all the admins
-  $arguments = array(
-        'role' => 'Administrator',
-        'orderby' => 'ID',
-        'order' => 'ASC',
-        'offset' => 0,
-        'number' => 0
-    );
-  $admins = get_users($arguments);
-
-  foreach ((array) $admins as $value) {
-
-    $recipients_args = array(
-              array(
-              'user_id'     => $user_id,
-              'type'        => 'email',
-              'value'       => $value->user_email
-
-            )
-
-      );
-
-    $aj_comm->create_communication($args,$meta,$recipients_args);
-
-    }
+	$meta = array(
+		'username'        => $user['display_name'],
+		'email'           => $user['user_email'],
+		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
+		'registered'      => $user['user_registered'],
+		'siteurl'         => site_url().'/wp-admin'
 
 
+		);
+
+	//get all the admins
+	$arguments = array(
+				'role' => 'Administrator',
+				'orderby' => 'ID',
+				'order' => 'ASC',
+				'offset' => 0,
+				'number' => 0
+		);
+	$admins = get_users($arguments);
+
+	foreach ((array) $admins as $value) {
+
+		$recipients_args = array(
+							array(
+							'user_id'     => $user_id,
+							'type'        => 'email',
+							'value'       => $value->user_email
+
+						)
+
+			);
+
+		$aj_comm->create_communication($args,$meta,$recipients_args);
+
+		}
 
 
-  return true;
+
+
+	return true;
 
 
 }
@@ -678,53 +678,53 @@ function send_notifications_to_admin($user_id){
 function send_notifications_to_user($user_id){
 
 
-  global $aj_comm;
+	global $aj_comm;
 
-  $args = array(
-    'component'             => 'xooma_users',
-    'communication_type'    => 'xooma_user_email',
-    'user_id'               => $user_id
+	$args = array(
+		'component'             => 'xooma_users',
+		'communication_type'    => 'xooma_user_email',
+		'user_id'               => $user_id
 
-    );
-  // user data
-  $user = login_response($user_id);
+		);
+	// user data
+	$user = login_response($user_id);
 
-  $meta = array(
-    'siteurl'         => site_url().'/wp-admin'
+	$meta = array(
+		'siteurl'         => site_url().'/wp-admin'
 
 
-    );
+		);
 
-  $recipients_args = array(
-                        array(
-                          'user_id'     => $user_id,
-                          'type'        => 'email',
-                          'value'       =>  $user['user_email']
+	$recipients_args = array(
+												array(
+													'user_id'     => $user_id,
+													'type'        => 'email',
+													'value'       =>  $user['user_email']
 
-                        )
+												)
 
-                    );
+										);
 
-  $aj_comm->create_communication($args,$meta,$recipients_args);
+	$aj_comm->create_communication($args,$meta,$recipients_args);
 
-  return true;
+	return true;
 
 
 }
 
 function get_all_timezones(){
 
-    $country_id = get_category_by_slug('country');
-    $term = get_categories('parent='.$country_id->term_id.'&hide_empty=0');
-    foreach ($term as $term_data) {
+		$country_id = get_category_by_slug('country');
+		$term = get_categories('parent='.$country_id->term_id.'&hide_empty=0');
+		foreach ($term as $term_data) {
 
-      $country_code = geoip_country_code_by_name($term_data->name);
+			$country_code = geoip_country_code_by_name($term_data->name);
 
-      $temp_arr = DateTimeZone::listIdentifiers(DateTimeZone::PER_COUNTRY,$country_code );
+			$temp_arr = DateTimeZone::listIdentifiers(DateTimeZone::PER_COUNTRY,$country_code );
 
 
 
-    }
+		}
 }
 
 //filter to check workflow process
@@ -735,517 +735,665 @@ add_action( 'user_register', 'send_emails', 10, 1 );
 
 function send_emails($user_id){
 
-  send_notifications_to_admin($user_id);
-  send_notifications_to_user($user_id);
-  
+	send_notifications_to_admin($user_id);
+	send_notifications_to_user($user_id);
+	
 }
 function check_workflow($user_model){
 
 
 
 
-  //workflow plugin code
-    global $aj_workflow;
-    $args = array(
-        'name'    => 'login',
+	//workflow plugin code
+		global $aj_workflow;
+		$args = array(
+				'name'    => 'login',
 
-    );
-    $status = array(
-        'default'   => 'incomplete',
-        'complete'  => 'complete'
-
-
-      );
-    $aj_workflow->workflow_insert_main($args,$status);
-
-    //call workflow function
-
-    $state = $aj_workflow->workflow_needed($user_model->ID);
-
-    //call workflow function
-    //workflow plugin code
-
-    $products = get_user_products($user_model->ID);
-
-    $user_model->state = $state;
-
-    $user_model->products = $products;
+		);
+		$status = array(
+				'default'   => 'incomplete',
+				'complete'  => 'complete'
 
 
+			);
+		$aj_workflow->workflow_insert_main($args,$status);
+
+		//call workflow function
+
+		$state = $aj_workflow->workflow_needed($user_model->ID);
+
+		//call workflow function
+		//workflow plugin code
+
+		$products = get_user_products($user_model->ID);
+
+		$user_model->state = $state;
+
+		$user_model->products = $products;
 
 
 
-    return $user_model;
+
+
+		return $user_model;
 }
 
 function get_user_products($id){
 
-    global $wpdb;
+		global $wpdb;
 
-    $product_main_table = $wpdb->prefix . "product_main";
+		$product_main_table = $wpdb->prefix . "product_main";
 
-    $results = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
+		$results = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
 
-    $product_arr = array();
-    foreach ($results as $key => $value) {
+		$product_arr = array();
+		foreach ($results as $key => $value) {
 
 
-      array_push($product_arr, intval($value->product_id));
-    }
+			array_push($product_arr, intval($value->product_id));
+		}
 
-    return $product_arr;
+		return $product_arr;
 }
 
 function login_response($user_id){
 
-    global $user_ID,  $wp_roles ;
-    $user = array();
-    $user_info = get_userdata($user_id);
-    $usermeta = get_user_meta($user_id);
-    $user['status'] = 'true';
-    $user['id'] = $user_id;
-    $user['user_login'] = $user_info->data->user_login;
-    $user['user_email'] = $user_info->data->user_email;
-    $user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0];
-    $user['user_registered'] = $user_info->data->user_registered;
+		global $user_ID,  $wp_roles ;
+		$user = array();
+		$user_info = get_userdata($user_id);
+		$usermeta = get_user_meta($user_id);
+		$user['status'] = 'true';
+		$user['id'] = $user_id;
+		$user['user_login'] = $user_info->data->user_login;
+		$user['user_email'] = $user_info->data->user_email;
+		$user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0];
+		$user['user_registered'] = $user_info->data->user_registered;
 
-    return  $user;
+		return  $user;
 }
 
 
 function get_occurrence_date($product_id,$user_id="",$date=""){
 
-  if($user_id ==""){
-    $user_id = get_current_user_id();
-  }
-  
-  //get object id
-  $object_id = get_object_id($product_id,$user_id);
+	if($user_id ==""){
+		$user_id = get_current_user_id();
+	}
+	
+	//get object id
+	$object_id = get_object_id($product_id,$user_id);
 
-    if(!is_wp_error($object_id)){
+		if(!is_wp_error($object_id)){
 
-      //get schedule id
-      $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+			//get schedule id
+			$schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
-      if($date=="")
-      {
-        $start_datetime = date('Y-m-d 00:00:00');
-        $end_datetime = date('Y-m-d 23:59:59');
-      }
-      else
-      {
-        $new_date = date('Y-m-d',strtotime($date));
-        $start_datetime = date('$new_date 00:00:00');
-        $end_datetime = date('$new_date 23:59:59');
-      }
+			if($date=="")
+			{
+				$start_datetime = date('Y-m-d 00:00:00');
+				$end_datetime = date('Y-m-d 23:59:59');
+			}
+			else
+			{
+				$new_date = date('Y-m-d',strtotime($date));
+				$start_datetime = date('$new_date 00:00:00');
+				$end_datetime = date('$new_date 23:59:59');
+			}
 
-      $occurrences = \ajency\ScheduleReminder\Occurrence::
-      get_occurrences($schedule, $start_datetime, $end_datetime); 
-      
+			$occurrences = \ajency\ScheduleReminder\Occurrence::
+			get_occurrences($schedule, $start_datetime, $end_datetime); 
+			
 
 
-      return $occurrences;
+			return $occurrences;
 
-    
-  }
+		
+	}
 
 }
 
 
 function get_object_id($product_id,$user_id){
 
-  global $wpdb;
+	global $wpdb;
 
-  $product_main_table = $wpdb->prefix . "product_main";
-  $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
-    and product_id=".$product_id." and deleted_flag=0");
+	$product_main_table = $wpdb->prefix . "product_main";
+	$object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
+		and product_id=".$product_id." and deleted_flag=0");
 
-  if(!(is_null($object)))
-  {
+	if(!(is_null($object)))
+	{
 
-    return $object->id;
+		return $object->id;
 
-  }
-  else
-  {
-    return new WP_Error( 'object_id_not_found', __( 'Object ID not found.' ));
-  }
+	}
+	else
+	{
+		return new WP_Error( 'object_id_not_found', __( 'Object ID not found.' ));
+	}
 
-  
+	
 
 }
 
 function update_status($id){
 
-      global $aj_workflow;
-      $response = $aj_workflow->workflow_update_user($id,'UserProductList');
+			global $aj_workflow;
+			$response = $aj_workflow->workflow_update_user($id,'UserProductList');
 
-      if (is_wp_error($response)){
+			if (is_wp_error($response)){
 
-        return new WP_Error( 'status_not_updated', __( 'Status not updated.' ));
+				return new WP_Error( 'status_not_updated', __( 'Status not updated.' ));
 
-      }
-      else
-      {
-        return true;
-      }
+			}
+			else
+			{
+				return true;
+			}
 }
 
 function store_reminders($main_id,$servings,$reminder){
 
-            date_default_timezone_set("UTC");
-            $interval = 24/intval($servings);
-            $today = date("H:i:s", strtotime($reminder));
-            $start = date("Y-m-d $today ");
-            $schedule_data = array(
-                'object_type' => 'user_product_reminder',
-                'object_id' => $main_id,
-                'start_dt'  => $start,
-                'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-            );
-            
-            $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+						date_default_timezone_set("UTC");
+						$interval = 24/intval($servings);
+						$today = date("H:i:s", strtotime($reminder));
+						$start = date("Y-m-d $today ");
+						$schedule_data = array(
+								'object_type' => 'user_product_reminder',
+								'object_id' => $main_id,
+								'start_dt'  => $start,
+								'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+						);
+						
+						$id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
-           
+					 
 
 }
 
 function add_asperbmi_products($user_id,$weight){
 
-  //add asperbmi products
+	//add asperbmi products
 
-        $productList = new ProductList();
+				$productList = new ProductList();
 
-        global $wpdb;
+				global $wpdb;
 
-        global $aj_workflow;
+				global $aj_workflow;
 
-        $product_main_table = $wpdb->prefix . "product_main";
-        
-        $state = $aj_workflow->workflow_needed($user_id);
+				$product_main_table = $wpdb->prefix . "product_main";
+				
+				$state = $aj_workflow->workflow_needed($user_id);
 
-      
+			
 
-        $all_terms = $productList->get_products($term_id="");
+				$all_terms = $productList->get_products($term_id="");
 
 
-        foreach ($all_terms as $key => $value) {
+				foreach ($all_terms as $key => $value) {
 
-         
+				 
 
-          $object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
-          and product_id=".$value['id']." and deleted_flag=0");
+					$object = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$user_id." 
+					and product_id=".$value['id']." and deleted_flag=0");
 
-          if($state != '/home' && is_null($object)) 
-          {
-          $time_set = $value['time_set'];
-            if( $time_set == 'asperbmi' ){
-               
-                    $bmi = $value['bmi'];
-                    
-                    foreach ($bmi as $key => $val) {
-                      
-                      $original = explode('<', $val['range']);
+					if($state != '/home' && is_null($object)) 
+					{
+					$time_set = $value['time_set'];
+						if( $time_set == 'asperbmi' ){
+							 
+										$bmi = $value['bmi'];
+										
+										foreach ($bmi as $key => $val) {
+											
+											$original = explode('<', $val['range']);
 
-                      $actual = 1 ;
+											$actual = 1 ;
 
-                      if(intval($original[0]) <= intval($weight) && intval($weight) <= intval($original[1]) )
-                        $actual = $val['quantity'];
+											if(intval($original[0]) <= intval($weight) && intval($weight) <= intval($original[1]) )
+												$actual = $val['quantity'];
 
-                    }
-                    $value['time_set'] = $actual;
-                    save_anytime_product_details($user_id,$value);
+										}
+										$value['time_set'] = $actual;
+										save_anytime_product_details($user_id,$value);
 
-            }
-          }
+						}
+					}
 
-        }
+				}
 
 
 }
 
 function store_stock_data($args){
 
-  global $wpdb;
+	global $wpdb;
 
  
 
-  $transactions = $wpdb->prefix . "transactions";
+	$transactions = $wpdb->prefix . "transactions";
 
-  $main = $wpdb->insert(
-                $transactions,
-                array(
-                  'user_id'                        => $args['user_id'],
-                  'product_id'                     => $args['product_id'],
-                  'type'                           => $args['type'],
-                  'amount'                         => $args['amount'],
-                  'consumption_type'               => $args['consumption_type'],
-                  'datetime'                            => date('y-m-d H:i:s')
-                ),
-                array(
-                  '%d',
-                  '%d',
-                  '%s',
-                  '%d',
-                  '%s',
-                  '%s'
-                )
-              );
+	$main = $wpdb->insert(
+								$transactions,
+								array(
+									'user_id'                        => $args['user_id'],
+									'product_id'                     => $args['product_id'],
+									'type'                           => $args['type'],
+									'amount'                         => $args['amount'],
+									'consumption_type'               => $args['consumption_type'],
+									'datetime'                            => date('y-m-d H:i:s')
+								),
+								array(
+									'%d',
+									'%d',
+									'%s',
+									'%d',
+									'%s',
+									'%s'
+								)
+							);
 
-    if($main){
-      return true;
-    }
-    else
-    {
-      return new WP_Error( 'stock_not_updated', __( 'Stock not updated.' ));
-    }
+		if($main){
+			return true;
+		}
+		else
+		{
+			return new WP_Error( 'stock_not_updated', __( 'Stock not updated.' ));
+		}
 
 }
 
 function store_add_schedule($args){
 
 
-      update_schedule($args['main_id']);
+			update_schedule($args['main_id']);
 
 
-        date_default_timezone_set("UTC");
-            $interval = 24/intval($args['time_set']);
-            $today = strtotime('00:00:00');
-           $start = date("Y-m-d 00:00:00");
-            $schedule_data = array(
-                'object_type' => 'user_product',
-                'object_id' => $args['main_id'],
-                'start_dt'  => $start,
-                'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
-            );
-        
-        $id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
+				date_default_timezone_set("UTC");
+						$interval = 24/intval($args['time_set']);
+						$today = strtotime('00:00:00');
+					 $start = date("Y-m-d 00:00:00");
+						$schedule_data = array(
+								'object_type' => 'user_product',
+								'object_id' => $args['main_id'],
+								'start_dt'  => $start,
+								'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
+						);
+				
+				$id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
-        
+				
 
 }
 function update_schedule($main_id){
 
-  global $wpdb;
+	global $wpdb;
 
-  $schedules = $wpdb->prefix . "aj_schedules";
+	$schedules = $wpdb->prefix . "aj_schedules";
 
-  $occurrence_meta = $wpdb->prefix . "aj_occurrence_meta";
+	$occurrence_meta = $wpdb->prefix . "aj_occurrence_meta";
 
-  $sqlquery = $wpdb->get_row("SELECT * from $schedules where object_id=".$main_id);
+	$sqlquery = $wpdb->get_row("SELECT * from $schedules where object_id=".$main_id);
 
-  $query = $wpdb->query("DELETE from $schedules where object_id=".$main_id);
+	$query = $wpdb->query("DELETE from $schedules where object_id=".$main_id);
 
-  if( $sqlquery)
-  $query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
+	if( $sqlquery)
+	$query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
 
 
 
 }
 function get_stock_count_user($id,$product_id){
 
-    global $wpdb;
+		global $wpdb;
 
-    $transactions = $wpdb->prefix . "transactions";
+		$transactions = $wpdb->prefix . "transactions";
 
-    
-    $stock = $wpdb->get_row("SELECT sum(amount) as stock from  $transactions where user_id=".$id
-      ." and product_id=".$product_id." and type='stock'");
-
-
-
-   
-    $del = $wpdb->get_row("SELECT sum(amount) as del from  $transactions where user_id=".$id
-      ." and product_id=".$product_id." and type='remove'");
+		
+		$stock = $wpdb->get_row("SELECT sum(amount) as stock from  $transactions where user_id=".$id
+			." and product_id=".$product_id." and type='stock'");
 
 
 
-    $amt = $stock->stock == null ? 0 : $stock->stock;
-    $remove = $del->del == null ? 0 : $del->del;
+	 
+		$del = $wpdb->get_row("SELECT sum(amount) as del from  $transactions where user_id=".$id
+			." and product_id=".$product_id." and type='remove'");
 
-    $stock_count  = intval($amt) - intval($remove);
 
-    return $stock_count;
+
+		$amt = $stock->stock == null ? 0 : $stock->stock;
+		$remove = $del->del == null ? 0 : $del->del;
+
+		$stock_count  = intval($amt) - intval($remove);
+
+		return $stock_count;
 
 }
 
 function get_history_user_product($id,$product_id){
 
-    global $wpdb;
+		global $wpdb;
 
-    $transactions = $wpdb->prefix . "transactions";
+		$transactions = $wpdb->prefix . "transactions";
 
-    global $productList;
-    $term = $productList->get_products($product_id);
+		global $productList;
+		$term = $productList->get_products($product_id);
 
-    $results = $wpdb->get_results("SELECT sum(amount) as stock, DATE(datetime) as datefield from $transactions
-        where user_id=".$id." and product_id=".$product_id." and type='stock' group by DATE(datetime) DESC");
+		$results = $wpdb->get_results("SELECT sum(amount) as stock, DATE(datetime) as datefield from $transactions
+				where user_id=".$id." and product_id=".$product_id." and type='stock' group by DATE(datetime) DESC");
 
-      $transaction= array();
-      foreach ($results as $key => $value) {
-       
-             $sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
-              where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type='sales'");
-             
-             $consumption = $wpdb->get_row("SELECT sum(amount) as consumption from $transactions
-              where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type=''");
-             
+			$transaction= array();
+			foreach ($results as $key => $value) {
+			 
+						 $sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
+							where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type='sales'");
+						 
+						 $consumption = $wpdb->get_row("SELECT sum(amount) as consumption from $transactions
+							where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type=''");
+						 
 
-             $consumed = $consumption->consumption == null ? 0 : $consumption->consumption;
-             $sales_data = $sales->sales == null ? 0 : $sales->sales;
+						 $consumed = $consumption->consumption == null ? 0 : $consumption->consumption;
+						 $sales_data = $sales->sales == null ? 0 : $sales->sales;
 
-             $transaction = array(
-              'date'        =>  $value->datefield, 
-              'stock'       =>  $value->stock,
-              'sales'       =>  $sales_data,
-              'consumption'   => $consumed,
-              'type'          => $term[0]['product_type_name']
+						 $transaction = array(
+							'date'        =>  $value->datefield, 
+							'stock'       =>  $value->stock,
+							'sales'       =>  $sales_data,
+							'consumption'   => $consumed,
+							'type'          => $term[0]['product_type_name']
 
 
-              );
-      }
+							);
+			}
 
-   return $transaction;
+	 return $transaction;
 
 }
 
 function get_consumption_details($id,$pid,$date)
 {
 
-        global $wpdb;
+				global $wpdb;
 
-        $user = new User();
+				$user = new User();
 
-        $product_meta_table = $wpdb->prefix . "product_meta";
+				$product_meta_table = $wpdb->prefix . "product_meta";
 
-        $product_main_table = $wpdb->prefix . "product_main";
-
-
-        $response = $user->get_user_product_details($id,$pid);
+				$product_main_table = $wpdb->prefix . "product_main";
 
 
+				$response = $user->get_user_product_details($id,$pid);
 
-        $occurrences = get_occurrence_date($pid,$id,$date);
 
-        $response['occurrences']  = $occurrences;
 
-        $response['date'] = $date ; 
+				$occurrences = get_occurrence_date($pid,$id,$date);
 
-        return $response;
+				$response['occurrences']  = $occurrences;
 
-        
+				$response['date'] = $date ; 
+
+				return $response;
+
+				
 }
 
 function store_consumption_details($args){
 
-    $object_id = get_object_id($args['pid'],$args['id']);
+		$object_id = get_object_id($args['pid'],$args['id']);
 
-    if(!is_wp_error($object_id)){
+		if(!is_wp_error($object_id)){
 
-      //get schedule id
-      $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+			//get schedule id
+			$schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
-    }
-    date_default_timezone_set("UTC");
+		}
+		date_default_timezone_set("UTC");
 
-    
-    $start = date("Y-m-d H:i:s"); 
+		
+		$start = date("Y-m-d H:i:s"); 
 
-    $occurrence_data = array(
-            'schedule_id' =>  $schedule,
-            'occurrence' => $start,
-            'meta_value' => $args['meta_value'],
-            'meta_id'     => $args['meta_id']
-          );
+		$occurrence_data = array(
+						'schedule_id' =>  $schedule,
+						'occurrence' => $start,
+						'meta_value' => $args['meta_value'],
+						'meta_id'     => $args['meta_id']
+					);
 
-        if($args['meta_id'] == 0)
-        {
-          $occurrences = \ajency\ScheduleReminder\Occurrence::
-          _insert_occurrence($occurrence_data); 
-        }
-        else
-        {
-          $occurrences = \ajency\ScheduleReminder\Occurrence::
-          _update_occurrence($occurrence_data);
-        }
+				if($args['meta_id'] == 0)
+				{
+					$occurrences = \ajency\ScheduleReminder\Occurrence::
+					_insert_occurrence($occurrence_data); 
 
-        $occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
-     
+					$meta_id = $occurrences;
+				}
+				else
+				{
+
+					//for x2o , getting the quantity///
+					$occ = \ajency\ScheduleReminder\Occurrence::get($args['meta_id']);
+
+					$arr = [];
+					$object = (object)$occ['meta_value'];
+				 
+					$total = count((array)$object);
+
+					if($total == 2)
+					{
+							$arr[] = $occ['meta_value'];
+					}
+					else
+					{
+							foreach ($object  as $value) {
+									
+									 $arr[] = array(
+										'date'    => $value['date'],
+										'qty'     => $value['qty']
+										); 
+							}
+
+					}
+
+					$arr[] = $args['meta_value'];
+
+					
+					$occurrence_data['meta_value'] = $arr;
+
+					//for x2o , getting the quantity///
+					$occurrences = \ajency\ScheduleReminder\Occurrence::
+					_update_occurrence($occurrence_data);
+
+					$meta_id = $args['meta_id'];
+				}
+
+				$occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
 
 
-      return $occurrence;
+
+				return array('occurrence'=> $occurrence, 'meta_id'=>$meta_id);
 
 
 
 
 }
+//generate_dates('2015-01-01','2015-01-16',186,'weight');
 
-function store_x20consumption_details($args){
+function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
-   $object_id = get_object_id($args['pid'],$args['id']);
+		global $wpdb;
 
-    if(!is_wp_error($object_id)){
+		$table = $wpdb->prefix . "measurements";
 
-      //get schedule id
-      $schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+		$graph_arr = array();
 
-    }
-      date_default_timezone_set("UTC");
-      $start = date("Y-m-d H:i:s"); 
-      $occurrence_data = array(
-            'schedule_id' =>  $schedule,
-            'occurrence' => $start,
-            'meta_value' => $args['meta_value'],
-            'meta_id'     => $args['meta_id']
-          );
+		$temp_arr = array();
 
-        if($args['meta_id'] == 0)
-        {
-          $occurrences = \ajency\ScheduleReminder\Occurrence::
-          _insert_occurrence($occurrence_data); 
-        }
-        else
-        {
-          $occ = \ajency\ScheduleReminder\Occurrence::get($args['meta_id']);
-          
-          $arr = [];
-          $arr1 = [];
-          $object = (object)$occ['meta_value'];
-         
-          $total = count((array)$object);
-          if($total == 2)
-          {
-            $arr[] = $occ['meta_value'];
-          }
-          else
-          {
-            foreach ($object  as $value) {
-            
-             $arr[] = array(
-              'date'    => $value['date'],
-              'qty'     => $value['qty']
-              ); 
-          }
+		$begin = new DateTime($start_dt);
+		$end = new DateTime($end_dt);
 
-          }
-          
+		$daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
 
-          
-          
-          
-          
-          $arr[] = $args['meta_value'];
+		foreach($daterange as $date){
 
-          
-          $occurrence_data['meta_value'] = $arr;
-          
-          $occurrences = \ajency\ScheduleReminder\Occurrence::
-          _update_occurrence($occurrence_data);
-        }
+				$date = $date->format('Y-m-d');
+		   	$graph_arr[] = array(
+									'date'		=> $date,
+									'weight'	=> ''
 
-         $occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
-        return $occurrence;
+							);
+		}
+		$sqlquery = $wpdb->get_results("SELECT * , DATE(`date`) as datefield from $table where `date` BETWEEN 
+			'".$start_dt."' and '".$end_dt."' and user_id=".$user_id);
+
+		//get previous record 
+		$pre_date = get_previous_record($start_dt,$user_id,$parameter);
+		
+		//get previous record 
+
+		//get next record
+		$next_date = get_next_record($end_dt,$user_id,$parameter);
+		
+		//get next record
+		
+
+		foreach ($graph_arr as $key => $value) {
+			
+				foreach ($sqlquery as $key1 => $val) {
+					
+						if($val->datefield == $value['date'] )
+						{
+							
+							$measurements_data = maybe_unserialize($val->value);
+
+							$graph_arr[$key]['weight'] =  $measurements_data[$parameter];
+									
+						
+						}
+						
+				}
+		}
+
+
+		generate_graph($graph_arr,$pre_date,$next_date);
+
 
 }
 
+function get_previous_record($start_dt,$user_id,$parameter){
 
+			global $wpdb;
+
+			$table = $wpdb->prefix . "measurements";
+
+		  $previous_ro = $wpdb->get_row("SELECT * from $table where `date`='".$start_dt."' and user_id=".$user_id);
+			$pre_date = array('previous_date' => $start_dt , 'param' => 0 ) ; 
+			
+			if(!(is_null($previous_ro)))
+			{
+
+				$previous_data = maybe_unserialize($previous_ro->value);
+				$pre_date = array('previous_date' => $start_dt , 'param' => $previous_data[$parameter] ) ; 
+			
+				$previous = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where id < $previous_ro->id LIMIT 1 ");
+				$previous_data = maybe_unserialize($previous->value);
+				$pre_date = array('previous_date' => $previous->datefield , 'param' => $previous_data[$parameter] ) ; 
+			
+			}
+	return $pre_date;
+
+}
+
+function get_next_record($end_dt,$user_id,$parameter){
+
+				global $wpdb;
+
+			  $table = $wpdb->prefix . "measurements";
+
+				$next_ro = $wpdb->get_row("SELECT * from $table where `date`='".$end_dt."' and user_id=".$user_id);
+				$next_date = array('next_date' => $end_dt , 'param' => 0) ; 
+				if(!(is_null($next_ro)))
+				{
+
+					$next_data = maybe_unserialize($next_ro->value);
+					$next_date = array('next_date' => $end_dt , 'param' => $next_data[$parameter] ) ; 
+					$next = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where id > $next_ro->id LIMIT 1 ");
+					$next_data = maybe_unserialize($next->value);
+
+					$next_date = array('next_date' => $next->datefield , 'param' => $next_data[$parameter] ) ; 
+				}
+		return $next_date;
+
+}
+
+function generate_graph($graph,$pre_date,$next_date)
+{
+		$count = 0;
+		$record = 0;
+		$track = array();
+		
+		
+		foreach ($graph as $key => $value) {
+				$count = intval($count) + 1;	
+				if( $value['weight'] == "" && $count == 1 && $pre_date['param'] != "")
+				{
+						$value['weight']	= $pre_date['param'];
+				}
+				else if($value['weight'] != "" )
+				{
+						array_push($track, $key);
+						$cnt = count($track) ;
+						$total = intval($value['weight']) + intval($record) ;
+						$divide = $total/ $cnt;
+						array_pop($track);
+						$minus = $total ; 
+						for ($i = count($track) - 1 ; $i >= 0 ; $i--) { 
+								$minus = intval($minus) - intval($divide);
+								$graph[$track[$i]]['weight'] = $minus;
+						}
+						$record = $value['weight'];
+						$track = array();
+				} 
+				else if($value['weight'] == "" && $count == count($graph) && $next_date['param']!="")	
+				{
+						array_push($track, $key);
+						
+						$cnt = count($track) ;
+						$total = intval($next_date['param']) + intval($record) ;
+						$divide = $total/ $cnt;
+						$divide = round($divide, 2);
+						$minus = $total ; 
+						for ($i= 0   ; $i <= count($track) - 1 ; $i++) { 
+								$minus = intval($minus) - intval($divide);
+								$graph[$track[$i]]['weight'] = $minus;
+						}
+						$record = $value['weight'];
+						
+				}
+				else
+				{
+							array_push($track, $key);
+							continue;
+
+				}
+					
+		
+	
+		}
+		
+		$dates = array();
+		$param = array();
+		foreach ($graph as $key => $value) {
+				if($value['weight'] != ""){
+
+					array_push($param, $value['weight']);
+					array_push($dates, $value['date']);
+					//unset($graph[$key]);
+				}
+		}
+
+		
+		return array('dates'=>$dates,'param'=>$param);
+}
+
+function get_history_product($id,$pid,$date){
+
+
+}
