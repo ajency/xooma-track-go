@@ -4,8 +4,9 @@ class App.HomeLayoutView extends Marionette.LayoutView
 
 	onShow:->
 		dates = App.graph.get 'dates'
+		param = App.graph.get 'param'
 		lineChartData = 
-			labels : ["January","February","March","April","May","June","July"],
+			labels : dates,
 			datasets : [
 			
 				
@@ -16,7 +17,7 @@ class App.HomeLayoutView extends Marionette.LayoutView
 					pointStrokeColor : "#fff",
 					pointHighlightFill : "#fff",
 					pointHighlightStroke : "rgba(151,187,205,1)",
-					data : dates
+					data : param
 				
 			]
 

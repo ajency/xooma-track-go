@@ -525,7 +525,13 @@
 
 </script>
 <script id="current-user-template" type="text/template">
-
+<div data-placement="bottom" data-toggle="popover" title="{{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
+                <div class="hidden popover-content">
+                    <div class="text-center">
+                        <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
+                        <button class="btn btn-small logout-button" >Logout</button>
+                    </div>
+                </div>
 </script>
 
 

@@ -14,10 +14,11 @@ App.HomeLayoutView = (function(_super) {
   HomeLayoutView.prototype.template = '#home-template';
 
   HomeLayoutView.prototype.onShow = function() {
-    var ctdx, dates, lineChartData;
+    var ctdx, dates, lineChartData, param;
     dates = App.graph.get('dates');
+    param = App.graph.get('param');
     lineChartData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: dates,
       datasets: [
         {
           label: "My Second dataset",
@@ -27,7 +28,7 @@ App.HomeLayoutView = (function(_super) {
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
-          data: dates
+          data: param
         }
       ]
     };

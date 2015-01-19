@@ -141,7 +141,7 @@ _.extend(Ajency.CurrentUser.prototype, {
         param = response.graph['param'];
         App.graph = new Backbone.Model;
         App.graph.set('dates', dates);
-        App.graph.set('bmi', param);
+        App.graph.set('param', param);
         if (xhr.status === 200) {
           return $.each(data, function(index, value) {
             return App.useProductColl.add(value);
