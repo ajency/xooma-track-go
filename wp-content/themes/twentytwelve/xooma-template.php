@@ -29,7 +29,7 @@
 
 
 </head>
-<body class="gradient"><!--<div class="loader"></div>-->
+<body class="gradient"><!--<div class="loader fade-out"></div>-->
 <div ui-region></div>
 <div id="fb-root"></div>
 <!-- Templates -->
