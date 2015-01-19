@@ -101,6 +101,7 @@ _.extend Ajency.CurrentUser::,
 			App.graph = new Backbone.Model
 			App.graph.set 'dates' , dates
 			App.graph.set 'param' , param
+			App.graph.set 'reg_date' , response.reg_date
 			if xhr.status is 200
 				$.each data, (index,value)->
 					App.useProductColl.add value
