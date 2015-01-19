@@ -115,7 +115,7 @@ _.extend(Ajency.CurrentUser.prototype, {
       return function(response, status, xhr) {
         var products;
         if (xhr.status === 200) {
-          console.log(response);
+          console.log(response = response.response);
           products = [];
           $.each(response, function(ind, val) {
             return products.push(parseInt(val.id));

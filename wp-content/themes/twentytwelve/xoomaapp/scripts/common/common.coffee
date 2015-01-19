@@ -76,7 +76,7 @@ _.extend Ajency.CurrentUser::,
 	getUserProducts : ->
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
-				console.log response
+				console.log response = response.response
 				# x2oArray = []
 				# $.each response , (index,value)->
 				# 	x2oArray.push value
