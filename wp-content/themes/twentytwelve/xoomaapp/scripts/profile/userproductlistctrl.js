@@ -191,7 +191,7 @@ App.UserProductListCtrl = (function(_super) {
   UserProductListCtrl.prototype._showView = function(collection) {
     var productcollection;
     collection = collection.response;
-    App.UserProductsColl = new Backbone.Collection(collection.response);
+    console.log(App.UserProductsColl = new Backbone.Collection(collection));
     productcollection = new Backbone.Collection(collection);
     return this.show(new UserProductListView({
       collection: productcollection

@@ -52,19 +52,13 @@ App.ViewInventoryCtrl = (function(_super) {
   }
 
   ViewInventoryCtrl.prototype.initialize = function(options) {
-    var productId, productModel, products, productsColl;
+    var productId, productModel, products;
     if (options == null) {
       options = {};
     }
     productId = this.getParams();
     products = [];
-    App.UserProductsColl.each(function(val) {
-      return $.each(val.get('products'), function(index, value) {
-        return products.push(value);
-      });
-    });
-    productsColl = new Backbone.Collection(products);
-    productModel = productsColl.where({
+    productModel = App.UserProductsColl.where({
       id: parseInt(productId[0])
     });
     return this._showView(productModel[0]);
