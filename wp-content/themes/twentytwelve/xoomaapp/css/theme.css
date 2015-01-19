@@ -6382,13 +6382,39 @@ body > .container {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #1ABC9C;
+  background-color: #3099ea;
   background-image: url(http://samherbert.net/svg-loaders/svg-loaders/puff.svg);
   background-size: 80px;
   z-index: 99999;
   background-repeat: no-repeat;
   background-position: 50% 46%;
   position: fixed;
+  animation: fadeOut 0.5s 1;
+  -webkit-animation: fadeOut 0.5s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+  -webkit-animation-delay: 1s;
+  /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-30px);
+  }
+  100% .loader {
+    display: none !important;
+  }
 }
 .footer {
   background: #cccccc;
