@@ -431,7 +431,7 @@ class User_API
 
     public function xooma_store_inventory($id,$pid){
 
-        $subtract = $_REQUEST['subtract'];
+        $slider = $_REQUEST['slider'];
         $containers = $_REQUEST['containers'];
         $total = $_REQUEST['total'];
         //stroring trasaction to keeptrack of quantity
@@ -440,7 +440,7 @@ class User_API
 
        
 
-        if($containers !="") 
+        if(intval($containers) != 0) 
         {
 
             $stock = intval($total) * intval($containers);
@@ -461,18 +461,35 @@ class User_API
 
         //stroring trasaction to keeptrack of quantity\
 
-          $args_del = array(
+          
+
+
+       
+          if($slider < 0 && $slider != 0) 
+          {
+            $args_del = array(
 
             'user_id'     => $id,
             'product_id'  => $pid,
             'type'        => 'remove',
-            'amount'      =>  $subtract,
+            'amount'      =>  abs($slider),
             'consumption_type'  => 'sales'
+               );
+            $response = store_stock_data($args_del);
+          }
+          else if ($slider > 0 && $slider != 0) 
+          {
+            $args = array(
 
-
-          );
-          if($subtract !=0) 
-          $response = store_stock_data($args_del);
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'stock',
+            'amount'      =>  abs($slider),
+            'consumption_type'  => ''
+               );
+            $response = store_stock_data($args);
+          }
+          
 
 
        if (is_wp_error($response)){

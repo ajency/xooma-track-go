@@ -31,10 +31,7 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
-  XoomaAppRootView.prototype.initialize = function() {
-    this.showLoader();
-    return this.hideLoader();
-  };
+  XoomaAppRootView.prototype.initialize = function() {};
 
   XoomaAppRootView.prototype.onShow = function() {
     var state;

@@ -14,8 +14,8 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
 	initialize:->
-		@showLoader()
-		@hideLoader()
+		# @showLoader()
+		# @hideLoader()
 
 	
 		

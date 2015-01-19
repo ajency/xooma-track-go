@@ -65,7 +65,6 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype._successHandler = function(response, status, xhr) {
-    console.log(response);
     $("#canvas").text("");
     App.graph.set('dates', response.dates);
     App.graph.set('param', response.param);

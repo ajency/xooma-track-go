@@ -1214,10 +1214,13 @@ function store_consumption_details($args){
 
 
 }
-//generate_dates('2015-01-01','2015-01-16',186,'weight');
+//generate_dates('2014-01-01','2015-01-01',186,'weight');
 
 function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
+
+
+$start = microtime(true);
 		global $wpdb;
 
 		$table = $wpdb->prefix . "measurements";
@@ -1274,6 +1277,9 @@ function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
 		$response = generate_graph($graph_arr,$pre_date,$next_date);
 
+		$end = microtime(true);
+
+		$sec = ($end-$start)*1000;
 		return $response;
 
 
