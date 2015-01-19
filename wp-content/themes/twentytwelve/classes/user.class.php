@@ -380,8 +380,8 @@ class User
 
 
     //get graph data 
-    // $graph = generate_dates('2015-01-01','2015-01-16',186,'weight');
-    // $sub
+    $graph = generate_dates('2015-01-01','2015-01-16',186,'weight');
+  
 
     
     
@@ -438,8 +438,8 @@ class User
               
 
 
-      
-    return $sub;
+   
+    return array('response'=>$sub, 'graph'=> $graph);
         
 
     }

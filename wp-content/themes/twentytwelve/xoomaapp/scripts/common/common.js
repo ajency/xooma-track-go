@@ -6,6 +6,8 @@ App.LoginCtrl = Ajency.LoginCtrl;
 
 App.NothingFoundCtrl = Ajency.NothingFoundCtrl;
 
+Ajency.CurrentUserView.prototype.template = '#current-user-template';
+
 Ajency.LoginView.prototype.template = '#login-template';
 
 Ajency.FormView = (function(_super) {
@@ -132,9 +134,16 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
+        var data, dates, param;
         App.useProductColl = new Backbone.Collection;
+        data = response.response;
+        dates = response.graph['dates'];
+        param = response.graph['param'];
+        App.graph = new Backbone.Model;
+        App.graph.set('dates', dates);
+        App.graph.set('bmi', param);
         if (xhr.status === 200) {
-          return $.each(response, function(index, value) {
+          return $.each(data, function(index, value) {
             return App.useProductColl.add(value);
           });
         }

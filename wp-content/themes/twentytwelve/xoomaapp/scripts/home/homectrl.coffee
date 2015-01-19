@@ -1,10 +1,42 @@
+class App.HomeLayoutView extends Marionette.LayoutView
+
+	template : '#home-template'
+
+	onShow:->
+		dates = App.graph.get 'dates'
+		lineChartData = 
+			labels : ["January","February","March","April","May","June","July"],
+			datasets : [
+			
+				
+					label: "My Second dataset",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : dates
+				
+			]
+
+		ctdx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctdx).Line(lineChartData, 
+			responsive: true
+		);
+
+		
+
+
+
+
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
 		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
 
 	_showView:(collection)=>
-		@show new Marionette.LayoutView template : '#home-template'
+		@show new App.HomeLayoutView
 
 class HomeX2OViewChild extends Marionette.ItemView
 
@@ -64,21 +96,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		target = @model.get 'qty1'
 
 		doughnutData = @drawBottle(@model.get('occurrence'))
-		lineChartData = 
-			labels : ["January","February","March","April","May","June","July"],
-			datasets : [
-			
-				
-					label: "My Second dataset",
-					fillColor : "rgba(151,187,205,0.2)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(151,187,205,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				
-			]
+		
 
 		
 		
@@ -87,11 +105,8 @@ class HomeX2OViewChild extends Marionette.ItemView
 			responsive : true,  
 			percentageInnerCutout : 80 
 		)
-		lineChartData = 
-		ctdx = document.getElementById("canvas").getContext("2d");
-		window.myLine = new Chart(ctdx).Line(lineChartData, 
-			responsive: true
-		);
+		
+		
 		
 	get_occurrence:(data)->
 		console.log data

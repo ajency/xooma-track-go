@@ -1,6 +1,6 @@
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-#Ajency.CurrentUserView::template = '#current-user-template'
+Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
 
 class Ajency.FormView extends Marionette.LayoutView
@@ -95,8 +95,14 @@ _.extend Ajency.CurrentUser::,
 	getHomeProducts : ->
 		_successHandler = (response, status, xhr)=>
 			App.useProductColl = new Backbone.Collection
+			data = response.response
+			dates = response.graph['dates']
+			param = response.graph['param']
+			App.graph = new Backbone.Model
+			App.graph.set 'dates' , dates
+			App.graph.set 'bmi' , param
 			if xhr.status is 200
-				$.each response, (index,value)->
+				$.each data, (index,value)->
 					App.useProductColl.add value
 						
 

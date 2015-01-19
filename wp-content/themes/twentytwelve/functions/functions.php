@@ -1272,7 +1272,9 @@ function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 		}
 
 
-		generate_graph($graph_arr,$pre_date,$next_date);
+		$response = generate_graph($graph_arr,$pre_date,$next_date);
+
+		return $response;
 
 
 }
