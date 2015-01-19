@@ -38,7 +38,6 @@ class HomeLayoutView extends Marionette.LayoutView
 				success: @_successHandler
 
 	_successHandler: (response, status,xhr)=>
-		console.log response
 		$("#canvas").text ""
 		App.graph.set 'dates' , response.dates
 		App.graph.set 'param' , response.param

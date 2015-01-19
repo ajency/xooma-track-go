@@ -1214,10 +1214,13 @@ function store_consumption_details($args){
 
 
 }
-//generate_dates('2015-01-01','2015-01-16',186,'weight');
+//generate_dates('2014-01-01','2015-01-01',186,'weight');
 
 function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
+
+
+$start = microtime(true);
 		global $wpdb;
 
 		$table = $wpdb->prefix . "measurements";
@@ -1265,7 +1268,7 @@ function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
 							$graph_arr[$key]['weight'] =  $measurements_data[$parameter];
 									
-						
+					
 						}
 						
 				}
@@ -1274,6 +1277,9 @@ function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
 		$response = generate_graph($graph_arr,$pre_date,$next_date);
 
+		$end = microtime(true);
+
+		$sec = ($end-$start)*1000;
 		return $response;
 
 
@@ -1295,8 +1301,23 @@ function get_previous_record($start_dt,$user_id,$parameter){
 				$pre_date = array('previous_date' => $start_dt , 'param' => $previous_data[$parameter] ) ; 
 			
 				$previous = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where id < $previous_ro->id LIMIT 1 ");
-				$previous_data = maybe_unserialize($previous->value);
-				$pre_date = array('previous_date' => $previous->datefield , 'param' => $previous_data[$parameter] ) ; 
+				
+				if(is_null($previous))
+				{
+					$previousdata = '';
+					$pre_date = array('previous_date' => $start_dt , 'param' => $previousdata) ;
+				}
+					 
+
+				else
+				{
+					$previous_data = maybe_unserialize($previous->value);
+					$previousdata = $previous_data[$parameter];
+					$pre_date = array('previous_date' => $pre_date , 'param' => $previousdata ) ; 
+				}
+					
+
+				
 			
 			}
 	return $pre_date;
@@ -1317,9 +1338,23 @@ function get_next_record($end_dt,$user_id,$parameter){
 					$next_data = maybe_unserialize($next_ro->value);
 					$next_date = array('next_date' => $end_dt , 'param' => $next_data[$parameter] ) ; 
 					$next = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where id > $next_ro->id LIMIT 1 ");
-					$next_data = maybe_unserialize($next->value);
+					if(is_null($next))
+					{
+						$nextdata = '';
+						$next_date = array('next_date' => $end_dt , 'param' => $nextdata) ; 
+					}
+						
+					else
+					{
+						$next_data = maybe_unserialize($next->value);
+						$nextdata = $next_data[$parameter];
+						$next_date = array('next_date' => $next->datefield , 'param' => $nextdata ) ; 
+					}
+						
 
-					$next_date = array('next_date' => $next->datefield , 'param' => $next_data[$parameter] ) ; 
+					
+
+					
 				}
 		return $next_date;
 

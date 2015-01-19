@@ -770,40 +770,42 @@
     <div class="aj-response-message"></div>
      <form id="inventory" class="form-horizontal" role="form" method="POST">
       <div class="form-group">
-	    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">How many containers do i have ?</label>
+	    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">How many containers do I have ?</label>
 	    <div class="col-sm-6 col-xs-5">
-	      <p class="form-control-static"><b>{{available}}</b></p>
+	      <p class="form-control-static"><b><div id="container_label"></div></b></p>
 	    </div>
 	  </div>
 		 <div class="form-group">
-	    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Capsule i have with me
-	   <br> <small><i>Each container has 30 capsules</i></small>
+	    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">{{producttype}}(s) I have with me
+	   <br> <small><i>Each container has {{total}} {{product_type}}(s)</i></small>
 	    </label>
 	    <div class="col-sm-6 col-xs-5">
-	      <p class="form-control-static"><b><div id="container_label"></div></b></p>
+	      <p class="form-control-static"><b>{{available}}</b></p>
 	    </div>
 	  </div>	
 	   <div class="form-group">
 	     	<div class="col-sm-12">
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
-                      <a href="#"><button type="button" class="btn btn-default">Adjust</button></a>
+                      <button type="button" class="btn entry btn-default" value="adjust">Adjust</button>
                   </div>
                   <div class="btn-group" role="group">
-                    <a href="#"><button type="button" class="btn btn-primary" >Record new entry</button></a>
+                    <button type="button" class="btn entry btn-default" id="record" value="record">Record new entry</button>
                   </div>
           
 	  			</div>	
 	  		</div>    
 	</div>	 
 	<!-- Record new entry --->
-	    <div class="form-group">
+	
+	    <div class="form-group record_new">
+	   
 		    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">
 		    Number of new containers
 		    </label>
 		    <div class="col-sm-6 col-xs-5">
      			<select class="form-control" name="containers" id="containers">
-			    <option value=""></option>
+			    <option value="0"></option>
 			    <option value="1">1</option>
 			    <option value="2">2</option>
 			    <option value="3">3</option>
@@ -817,61 +819,47 @@
 			    </select>
       		</div>
 	  </div>	
-	  <div class="form-group">
+	  <div class="form-group record_new">
 			    <label class="col-sm-6  col-xs-7 control-label">
-			    	Number of capsules which will be added
+			    	Number of {{product_type}}(s) which will be added
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static"><b> 2 * 30 = 60</b></p>
+			      <p class="form-control-static"><b><span class="newsum"><span class="ncon"></span> * <span class="ntotal"></span>= <span class="nequalto"></span></span></b></p>
 			    </div>
 	  </div>
+	 
 	    <div class="form-group">
 			    <label class="col-sm-6  col-xs-7 control-label">
 			    	Adjust
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static">Slider</p>
+			    <h4 class="text-center margin-none"> <output></output><small>{{product_type}}(s)</small></h4>
+			     <input class="pull-left" type="range" name="slider"  min="-20" max="20" step="1" value="0" data-rangeslider>
 			    </div>
 	  </div>
 	   <div class="form-group">
 			    <label class="col-sm-6  col-xs-7 control-label">
-			    	Number of capsules will updated to 
+			    	Number of {{product_type}}(s) will be updated to 
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static"><b> 55 + 60 - 10 = 105</b></p>
+			      <p class="form-control-static"><b><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> -</span> <span class="nsub"></span>  = <span class="eqa"></span></b></p>
 			    </div>
 	  </div>
+	  
 	  <!-- Record new entry --->
 
-	  <!-- Adjust tab screen
-	      <div class="form-group">
-			    <label class="col-sm-6  col-xs-7 control-label">
-			    	Adjust
-			    </label>
-			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static">Slider</p>
-			    </div>
-	  </div>
-	   <div class="form-group">
-			    <label class="col-sm-6  col-xs-7 control-label">
-			    	Number of capsules will updated to 
-			    </label>
-			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static"><b> 55 + 10 = 65</b></p>
-			    </div>
-	  </div>
- Adjust tab screen -->
 	<!--
 	<div class="form-group">
 		   <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
 					     <div class="col-sm-6 col-xs-5">
-					      <input type="text" name="subtract" aj-field-type="number" value="" />
-					      <input type="hidden" name="total" value="{{total}}" / >
 					      </div>			 
 	</div>-->			
 
 				<div class="form-group">
 				    <div class="col-sm-12 pull-right">
+				    <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
+					      <input type="hidden" name="total" value="{{total}}" / >
+					      
 				      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
 				       <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>	
 
