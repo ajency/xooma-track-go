@@ -15,6 +15,7 @@
                     <!--    <a href="#menu">
                             <h5><i class="fa fa-cog pull-right "></i></h5>
                         </a>-->
+                      
                     </div>
                 </div>
             </div>
@@ -86,7 +87,10 @@
 
 											</div>
 											 <a class="link" href="#menu">
-                            <h5><i class="fa fa-cog pull-right "></i></h5>
+                            <h4><i class="fa fa-cog pull-right "></i></h4>
+                        	</a>
+                        	<a class="link" href="#/home">
+                        	<h4><i class="fa fa-home pull-right"></i></h4>
                         	</a>
 										</div>
 					
@@ -745,41 +749,137 @@
 </script>
 
 <script id="update-inventory-template" type="text/template">
-
-<div class="container"> </br></br>
+   
+    <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>Inventory details</b>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
+<br>
+<div class="container">
+<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
     <div class="aj-response-message"></div>
      <form id="inventory" class="form-horizontal" role="form" method="POST">
-    <span>Available with me :</span>{{available}}<br/>
-    <div><span>No. of container available : </span><div id="container_label"></div></div>
-    <div><span>No of container</span></div><div><select class="containers" name="containers" id="containers">
-    <option value=""></option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    </select>
-</div><br/>
-<div class="form-group">
-    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
-     <div class="col-sm-6 col-xs-5">
-      <input type="text" name="subtract" aj-field-type="number" value="" />
-      <input type="hidden" name="total" value="{{total}}" / >
-      </div>
-  </div>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
-       <a href="#/inventory/{{id}}/view" class="btn btn-primary btn-lg center-block " >View History</a>	
+      <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">How many containers do i have ?</label>
+	    <div class="col-sm-6 col-xs-5">
+	      <p class="form-control-static"><b>{{available}}</b></p>
+	    </div>
+	  </div>
+		 <div class="form-group">
+	    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Capsule i have with me
+	   <br> <small><i>Each container has 30 capsules</i></small>
+	    </label>
+	    <div class="col-sm-6 col-xs-5">
+	      <p class="form-control-static"><b><div id="container_label"></div></b></p>
+	    </div>
+	  </div>	
+	   <div class="form-group">
+	     	<div class="col-sm-12">
+                <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
+                  <div class="btn-group" role="group">
+                      <a href="#"><button type="button" class="btn btn-default">Adjust</button></a>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <a href="#"><button type="button" class="btn btn-primary" >Record new entry</button></a>
+                  </div>
+          
+	  			</div>	
+	  		</div>    
+	</div>	 
+	<!-- Record new entry --->
+	    <div class="form-group">
+		    <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">
+		    Number of new containers
+		    </label>
+		    <div class="col-sm-6 col-xs-5">
+     			<select class="form-control" name="containers" id="containers">
+			    <option value=""></option>
+			    <option value="1">1</option>
+			    <option value="2">2</option>
+			    <option value="3">3</option>
+			    <option value="4">4</option>
+			    <option value="5">5</option>
+			    <option value="6">6</option>
+			    <option value="7">7</option>
+			    <option value="8">8</option>
+			    <option value="9">9</option>
+			    <option value="10">10</option>
+			    </select>
+      		</div>
+	  </div>	
+	  <div class="form-group">
+			    <label class="col-sm-6  col-xs-7 control-label">
+			    	Number of capsules which will be added
+			    </label>
+			    <div class="col-sm-6 col-xs-5">
+			      <p class="form-control-static"><b> 2 * 30 = 60</b></p>
+			    </div>
+	  </div>
+	    <div class="form-group">
+			    <label class="col-sm-6  col-xs-7 control-label">
+			    	Adjust
+			    </label>
+			    <div class="col-sm-6 col-xs-5">
+			      <p class="form-control-static">Slider</p>
+			    </div>
+	  </div>
+	   <div class="form-group">
+			    <label class="col-sm-6  col-xs-7 control-label">
+			    	Number of capsules will updated to 
+			    </label>
+			    <div class="col-sm-6 col-xs-5">
+			      <p class="form-control-static"><b> 55 + 60 - 10 = 105</b></p>
+			    </div>
+	  </div>
+	  <!-- Record new entry --->
 
-    </div>
-  </div>
-  </form>
+	  <!-- Adjust tab screen
+	      <div class="form-group">
+			    <label class="col-sm-6  col-xs-7 control-label">
+			    	Adjust
+			    </label>
+			    <div class="col-sm-6 col-xs-5">
+			      <p class="form-control-static">Slider</p>
+			    </div>
+	  </div>
+	   <div class="form-group">
+			    <label class="col-sm-6  col-xs-7 control-label">
+			    	Number of capsules will updated to 
+			    </label>
+			    <div class="col-sm-6 col-xs-5">
+			      <p class="form-control-static"><b> 55 + 10 = 65</b></p>
+			    </div>
+	  </div>
+ Adjust tab screen -->
+	<!--
+	<div class="form-group">
+		   <label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
+					     <div class="col-sm-6 col-xs-5">
+					      <input type="text" name="subtract" aj-field-type="number" value="" />
+					      <input type="hidden" name="total" value="{{total}}" / >
+					      </div>			 
+	</div>-->			
+
+				<div class="form-group">
+				    <div class="col-sm-12 pull-right">
+				      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+				       <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>	
+
+				    </div>
+		 	 	</div>
+		 	 </form>
+		  </div>
+		<div class="col-sm-2"></div>
+	 </div>
   </div>
 </script>
 
