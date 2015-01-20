@@ -790,10 +790,10 @@
 	     	<div class="col-sm-12">
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
-                      <button type="button" class="btn entry btn-default" value="adjust">Adjust</button>
+                      <button type="button" class="btn entry btn-default" value="adjust">Edit inventory</button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn entry btn-default" id="record" value="record">Record new entry</button>
+                    <button type="button" class="btn entry btn-default" id="record" value="record">Refill</button>
                   </div>
           
 	  			</div>	
@@ -827,7 +827,7 @@
 			    	Number of {{product_type}}(s) which will be added
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static"><b><span class="newsum"><span class="ncon"></span> * <span class="ntotal"></span>= <span class="nequalto"></span></span></b></p>
+			      <h3 class="bold-sum"><span class="newsum"><span class="ncon"></span> * <span class="ntotal"></span> = <span class="nequalto"></span></span></h3>
 			    </div>
 	  </div>
 	 
@@ -845,7 +845,7 @@
 			    	Number of {{product_type}}(s) will be updated to 
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
-			      <p class="form-control-static"><b><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> -</span> <span class="nsub"></span>  = <span class="eqa"></span></b></p>
+			     <h3 class="bold-sum"><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> - </span> <span class="nsub"></span>  = <span class="eqa"></span></h3>
 			    </div>
 	  </div>
 	  
@@ -876,17 +876,81 @@
 </script>
 
 <script id="view-inventory-template" type="text/template">
-<div class="container"> </br></br>
+    <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>Inventory History</b>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
 
-<div>
-<ul class="viewInventory" >
+<div class="container"> 
+<ul class="viewInventory" style="display:none;">
 
 
 
 </ul>
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+<ul id='timeline' >
+
+  <li class='work'>
+    <input class='radio' id='work5' name='works' type='radio' checked>
+    <div class="relative">
+      <label class="labels" for='work5'>Sachets</label>
+      <span class='date'>12 May 2013</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+     <p>
+      Stock updated(+) : <b>1</b><br>
+      Samples to customer(-) :<b>1</b><br>
+      Consumed(-) : <b>1</b><br>
+     </p>
+    </div>
+  </li>
+
+  <li class='work'>
+    <input class='radio' id='work4' name='works' type='radio'>
+    <div class="relative">
+      <label class="labels" for='work4'>Sachets</label>
+      <span class='date'>11 May 2013</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+     <p>
+      Stock updated(+) : <b>1</b><br>
+      Samples to customer(-) :<b>1</b><br>
+      Consumed(-) : <b>1</b><br>
+     </p>
+    </div>
+  </li>
+  <li class='work'>
+    <input class='radio' id='work3' name='works' type='radio'>
+    <div class="relative">
+      <label class="labels" for='work3'>Sachets</label>
+      <span class='date'>10 May 2013</span>
+      <span class='circle'></span>
+    </div>
+    <div class='content'>
+    <p>
+      Stock updated(+) : <b>1</b><br>
+      Samples to customer(-) :<b>1</b><br>
+      Consumed(-) : <b>1</b><br>
+     </p>
+    </div>
+  </li>
+
+</ul>
+</div>
 </div>
 
-<a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >Cancel</a>	
+
+<a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
 
 </div>
 
