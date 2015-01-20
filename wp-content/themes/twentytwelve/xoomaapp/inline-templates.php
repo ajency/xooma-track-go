@@ -789,10 +789,10 @@
 	     	<div class="col-sm-12">
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
                   <div class="btn-group" role="group">
-                      <button type="button" class="btn entry btn-default" value="adjust">Adjust</button>
+                      <button type="button" class="btn entry btn-default" value="adjust">Edit inventory</button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn entry btn-default" id="record" value="record">Record new entry</button>
+                    <button type="button" class="btn entry btn-default" id="record" value="record">Refill</button>
                   </div>
           
 	  			</div>	
