@@ -52,14 +52,14 @@ XoomaAppRootView = (function(_super) {
   XoomaAppRootView.prototype.showLoader = function() {
     return $(document).ajaxStart(function() {
       console.log("suru");
-      return $('body').addClass("loader");
+      return $('#loader').addClass("loader");
     });
   };
 
   XoomaAppRootView.prototype.hideLoader = function() {
     return $(document).ajaxComplete(function() {
       console.log("surustop");
-      return $('body').removeClass("loader");
+      return $('#loader').removeClass("loader");
     });
   };
 

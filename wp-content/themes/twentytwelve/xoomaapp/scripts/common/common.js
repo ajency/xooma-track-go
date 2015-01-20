@@ -140,6 +140,7 @@ _.extend(Ajency.CurrentUser.prototype, {
         dates = response.graph['dates'];
         param = response.graph['param'];
         App.graph = new Backbone.Model;
+        App.currentUser.set('weight', response.weight);
         App.graph.set('dates', dates);
         App.graph.set('param', param);
         App.graph.set('reg_date', response.reg_date);

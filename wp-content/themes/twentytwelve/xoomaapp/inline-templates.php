@@ -113,7 +113,9 @@
            
         </ul>
     </nav>
-		<div ui-region style="margin-top:60px"></div>
+		<div ui-region style="margin-top:60px">
+		
+		</div>
 </script>
 <script id="profile-template" type="text/template">
 		<div class="sub-header">
@@ -834,7 +836,7 @@
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
 			    <h4 class="text-center margin-none"> <output></output><small>{{product_type}}(s)</small></h4>
-			     <input class="pull-left" type="range" name="slider"  min="-20" max="20" step="1" value="0" data-rangeslider>
+			     <input class="pull-left" type="range" name="slider"  min="-20" max="20" disabled step="1" value="0" data-rangeslider>
 			    </div>
 	  </div>
 	   <div class="form-group">
