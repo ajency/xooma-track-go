@@ -272,9 +272,11 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.serializeData = function() {
-    var data, frequecy, product, products, qty, reminder_flag, reminders;
+    var data, frequecy, product, products, qty, reminder_flag, reminders, weightbmi;
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
+    weightbmi = this.get_weight_bmi(this.model.get('bmi'));
+    data.x2o = weightbmi;
     products = App.currentUser.get('products');
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
@@ -313,7 +315,20 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.get_weight_bmi = function(bmi) {
-    return console.log(bmi);
+    var actual, weight;
+    console.log(bmi);
+    weight = App.currentUser.get('weight');
+    actual = 1;
+    $.each(bmi, function(index, value) {
+      var bmi_val;
+      bmi_val = value['range'].split('<');
+      console.log(bmi_val[0]);
+      console.log(bmi_val[1]);
+      if (parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])) {
+        return actual = value['quantity'];
+      }
+    });
+    return actual;
   };
 
   EditProductsView.prototype.onShow = function() {

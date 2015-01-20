@@ -113,7 +113,9 @@
            
         </ul>
     </nav>
-		<div ui-region style="margin-top:60px"></div>
+		<div ui-region style="margin-top:60px">
+		
+		</div>
 </script>
 <script id="profile-template" type="text/template">
 		<div class="sub-header">

@@ -771,6 +771,8 @@ function check_workflow($user_model){
 
 		$user_model->products = $products;
 
+		
+
 
 
 

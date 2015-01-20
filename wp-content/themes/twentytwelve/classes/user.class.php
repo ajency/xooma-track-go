@@ -382,6 +382,9 @@ class User
     //get graph data 
     $reg_date = get_user_measurement_date($id);
     $graph = generate_dates($reg_date,date('Y-m-d'),$id,'weight');
+
+    $data = USER::get_user_measurement_details($id,$date="");
+    
   
 
     
@@ -440,7 +443,7 @@ class User
 
 
    
-    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date);
+    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight']);
         
 
     }

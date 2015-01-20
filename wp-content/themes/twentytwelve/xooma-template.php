@@ -29,8 +29,8 @@
 
 
 </head>
-<body class="gradient"><!--<div class="loader fade-out"></div>-->
-<div ui-region></div>
+<body class="gradient">
+<div id="loader" ui-region></div>
 <div id="fb-root"></div>
 <!-- Templates -->
 <?php include_once 'xoomaapp/inline-templates.php'; ?>
