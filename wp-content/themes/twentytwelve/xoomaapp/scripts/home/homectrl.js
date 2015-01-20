@@ -26,7 +26,8 @@ HomeLayoutView = (function(_super) {
     start_date: '#start_date',
     end_date: '#end_date',
     generate: 'input[name="generate"]',
-    form: '#generate_graph'
+    form: '#generate_graph',
+    param: 'input[name="param"]'
   };
 
   HomeLayoutView.prototype.events = {
@@ -55,7 +56,6 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onFormSubmit = function(_formData) {
-    console.log(_formData);
     return $.ajax({
       method: 'GET',
       data: _formData,
@@ -65,10 +65,15 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype._successHandler = function(response, status, xhr) {
-    $("#canvas").text("");
-    App.graph.set('dates', response.dates);
-    App.graph.set('param', response.param);
-    return this.generateGraph();
+    var dates;
+    dates = _.has(response, "dates");
+    if (dates === true && xhr.status === 200) {
+      App.graph.set('dates', response.dates);
+      App.graph.set('param', response.param);
+      return this.generateGraph();
+    } else if (dates === false && xhr.status === 200) {
+      return this.generateBMIGraph(response);
+    }
   };
 
   HomeLayoutView.prototype.onShow = function() {
@@ -82,10 +87,40 @@ HomeLayoutView = (function(_super) {
     });
   };
 
+  HomeLayoutView.prototype.generateBMIGraph = function(response) {
+    var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    dates = [response['st_date'], response['et_date']];
+    bmi_start_ht = parseFloat(response['st_height']) * 12;
+    bmi_end_ht = parseFloat(response['et_height']) * 12;
+    st_square = parseFloat(bmi_start_ht) * parseFloat(bmi_start_ht);
+    et_square = parseFloat(bmi_end_ht) * parseFloat(bmi_end_ht);
+    bmi_start = (parseFloat(response['st_weight']) / parseFloat(st_square)) * 703;
+    bmi_end = (parseFloat(response['et_weight']) / parseFloat(et_square)) * 703;
+    lineChartData = {
+      labels: dates,
+      datasets: [
+        {
+          label: "My Second dataset",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [bmi_start, bmi_end]
+        }
+      ]
+    };
+    ctdx = document.getElementById("canvas").getContext("2d");
+    return window.myLine = new Chart(ctdx).Line(lineChartData, {
+      responsive: true
+    });
+  };
+
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param;
-    console.log(dates = App.graph.get('dates'));
-    console.log(param = App.graph.get('param'));
+    dates = App.graph.get('dates');
+    param = App.graph.get('param');
     lineChartData = {
       labels: dates,
       datasets: [

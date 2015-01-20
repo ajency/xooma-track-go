@@ -51,14 +51,21 @@ EditInventoryView = (function(_super) {
       $(e.target).removeClass('btn-default');
       $(e.target).addClass('btn-primary');
       $('#subtract').val($(e.target).val());
+      this.ui.rangeSliders.val(0);
+      this.ui.rangeSliders.parent().find("output").html(0);
+      this.ui.save.hide();
       if ($(e.target).val() === 'adjust') {
         $('.record_new').hide();
         $('.record').hide();
         this.adjustValue();
-        return this.ui.containers.val();
+        this.ui.containers.val();
+        $('#slider').removeAttr('disabled');
+        return $('.rangeslider').removeClass('rangeslider--disabled');
       } else {
         $('.record_new').show();
-        return $('.record').show();
+        $('.record').show();
+        this.ui.containers.val(0);
+        return $(this.ui.containers).trigger("change");
       }
     },
     'change @ui.rangeSliders': function(e) {
@@ -73,7 +80,15 @@ EditInventoryView = (function(_super) {
     'change @ui.containers': function(e) {
       var available, contacount, containers, count, eqt, equalto, total;
       if (parseInt($(e.target).val()) !== 0) {
-        this.ui.rangeSliders.removeAttr('disabled');
+        $('#slider').removeAttr('disabled');
+        $('.rangeslider').removeClass('rangeslider--disabled');
+        this.ui.save.show();
+      } else {
+        this.ui.rangeSliders.val(0);
+        this.ui.rangeSliders.parent().find("output").html($(e.target).val());
+        $('#slider').attr('disabled', true);
+        $('.rangeslider').addClass('rangeslider--disabled');
+        this.ui.save.hide();
       }
       available = this.model.get('available');
       total = this.model.get('total');
@@ -140,12 +155,18 @@ EditInventoryView = (function(_super) {
     available = this.model.get('available');
     total = this.model.get('total');
     this.ui.navail.text(available);
+    console.log(this.ui.rangeSliders.val());
+    if (parseInt(this.ui.rangeSliders.val()) === 0) {
+      this.ui.save.hide();
+    }
     if (this.ui.rangeSliders.val() < 0) {
       $('.sign').text('-');
       eqt = parseInt(available) - parseInt(Math.abs(this.ui.rangeSliders.val()));
-    } else {
+      this.ui.save.show();
+    } else if (this.ui.rangeSliders.val() > 0) {
       $('.sign').text('+');
       eqt = parseInt(available) + parseInt(Math.abs(this.ui.rangeSliders.val()));
+      this.ui.save.show();
     }
     this.ui.nsub.text(Math.abs(this.ui.rangeSliders.val()));
     this.ui.eqa.text(eqt);
