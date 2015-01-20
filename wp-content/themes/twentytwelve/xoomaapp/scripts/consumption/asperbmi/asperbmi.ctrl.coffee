@@ -1,7 +1,7 @@
 App.state 'Asperbmi',
 					url : '/products/:id/bmi'
 					parent : 'xooma'
-arr = []
+
 			
 class AsperbmiView extends Marionette.ItemView
 
@@ -12,51 +12,7 @@ class AsperbmiView extends Marionette.ItemView
 
 
 	events:
-		'click #remove':(e)->
-			count = $('#confirm').attr('data-count')
-			percentage = parseFloat $('#percentage').val()
-			count++
-			console.log count
-			if(count>5)
-				return false
-
-			$('#confirm').attr('data-count',count)
-			if(count == 1)
-				percentage +=  0.25
-				$('.high').removeClass('level-25')
-				arr.push class: $('.high').attr('data-level') , qty :$('.high').attr('data-qty') , per : 25
-			if(count == 2)
-				percentage +=  0.25
-				$('.medium').removeClass('level-25')
-				arr.push class: $('.medium').attr('data-level') , qty :$('.medium').attr('data-qty'), per :25
-			if(count == 3)
-				percentage +=  0.25
-				$('.half').removeClass('level-25')
-				arr.push class: $('.half').attr('data-level') , qty :$('.half').attr('data-qty'), per : 25
-			if(count == 4)
-				percentage += 0.25
-				$('.low').removeClass('level-25')
-				arr.push class: $('.low').attr('data-level') , qty :$('.low').attr('data-qty'), per : 25
-			console.log percentage
-			$('#percentage').val percentage
-			
-		
-		'click #add':(e)->
-			console.log arr
-			per = 0
-			count = $('#confirm').attr('data-count')
-			$.each arr , (ind,val)->
-				classname = val.class
-				qty = val.qty
-				$('.'+classname).addClass "level-25"
-				count--
-				per += parseInt val.per
-			$('#percentage').val 0
-			$('#confirm').attr('data-count',count)
-			arr = []
-			
-
-		'click #confirm':(e)->
+		'click #ssconfirm':(e)->
 			e.preventDefault()
 			console.log count = $('#confirm').attr('data-count',count)
 			if parseInt(count) == 0

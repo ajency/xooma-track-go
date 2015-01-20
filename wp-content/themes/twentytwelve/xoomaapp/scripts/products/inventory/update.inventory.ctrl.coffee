@@ -55,6 +55,8 @@ class EditInventoryView extends Marionette.ItemView
 				$( @ui.containers ).trigger( "change" )
 
 		'change @ui.containers':(e)->
+			if parseInt($(e.target).val()) != 0 
+				@ui.rangeSliders.removeAttr('disabled');	
 			available = @model.get 'available'
 			total = @model.get 'total'
 			@ui.ntotal.text total
@@ -132,6 +134,7 @@ class EditInventoryView extends Marionette.ItemView
 		$(element).parent().find("output").html $(element).val()
 
 	onShow:->
+		@ui.save.hide()
 		$('#subtract').val 'record'
 		console.log $('#subtract').val()
 		$('#record').addClass 'btn-primary'

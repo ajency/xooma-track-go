@@ -72,6 +72,9 @@ EditInventoryView = (function(_super) {
     },
     'change @ui.containers': function(e) {
       var available, contacount, containers, count, eqt, equalto, total;
+      if (parseInt($(e.target).val()) !== 0) {
+        this.ui.rangeSliders.removeAttr('disabled');
+      }
       available = this.model.get('available');
       total = this.model.get('total');
       this.ui.ntotal.text(total);
@@ -155,6 +158,7 @@ EditInventoryView = (function(_super) {
 
   EditInventoryView.prototype.onShow = function() {
     var available, contacount, containers, total;
+    this.ui.save.hide();
     $('#subtract').val('record');
     console.log($('#subtract').val());
     $('#record').addClass('btn-primary');
