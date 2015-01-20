@@ -6385,7 +6385,7 @@ body > .container {
   background-color: #3099ea;
   background-image: url(http://samherbert.net/svg-loaders/svg-loaders/puff.svg);
   background-size: 80px;
-  z-index: 99999;
+  z-index: 999999;
   background-repeat: no-repeat;
   background-position: 50% 46%;
   position: fixed;
@@ -6443,7 +6443,7 @@ body > .container {
   font-weight: 700;
 }
 .section {
-  padding: 70px 0px 10px 0px;
+  padding: 47px 0px 10px 0px;
 }
 .list-style li {
   border-bottom: 1px solid #cccccc;

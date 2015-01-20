@@ -155,7 +155,7 @@
 
 				<div class="container">
 
-						<div class="aj-response-message"></div>
+						<div class="aj-response-message alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
 						<form class="form-horizontal update_user_details" role="form">
 
 
