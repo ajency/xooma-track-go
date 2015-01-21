@@ -268,10 +268,10 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.shift() 
-		console.log App.useProductColl
+		model = productcollection.findWhere({name:'x2o'}) 
+		console.log model.get('name')
 		if model.get('name') == 'x2o'
-			modelColl = new Backbone.Collection model
+			console.log modelColl = new Backbone.Collection model
 			@show new HomeX2OView
 						collection : modelColl
 
@@ -399,7 +399,7 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.shift() 
+		model = productcollection.findWhere({name:'x2o'})  
 		if model.get('name') != 'x2o'
 			productcollection.reset App.useProductColl.toArray()
 		console.log productcollection

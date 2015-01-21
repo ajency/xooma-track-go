@@ -322,10 +322,12 @@ App.HomeX2OCtrl = (function(_super) {
   HomeX2OCtrl.prototype._showView = function(collection) {
     var model, modelColl, productcollection;
     productcollection = collection.clone();
-    model = productcollection.shift();
-    console.log(App.useProductColl);
+    model = productcollection.findWhere({
+      name: 'x2o'
+    });
+    console.log(model.get('name'));
     if (model.get('name') === 'x2o') {
-      modelColl = new Backbone.Collection(model);
+      console.log(modelColl = new Backbone.Collection(model));
       return this.show(new HomeX2OView({
         collection: modelColl
       }));
@@ -439,7 +441,9 @@ App.HomeOtherProductsCtrl = (function(_super) {
   HomeOtherProductsCtrl.prototype._showView = function(collection) {
     var model, productcollection;
     productcollection = collection.clone();
-    model = productcollection.shift();
+    model = productcollection.findWhere({
+      name: 'x2o'
+    });
     if (model.get('name') !== 'x2o') {
       productcollection.reset(App.useProductColl.toArray());
     }
