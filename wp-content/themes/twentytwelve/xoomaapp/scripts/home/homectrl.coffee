@@ -123,7 +123,11 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		console.log App.useProductColl
+		if App.useProductColl.length == 0
+			App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		else
+			@_showView(App.useProductColl)
 
 	_showView:(collection)=>
 		@show new HomeLayoutView
