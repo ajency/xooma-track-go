@@ -66,7 +66,16 @@
 	</div>
 </script>
 <script id="404-template" type="text/template">
-		<h3>Add 404 View Here</h3>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/404.jpg" class="center-block"/>
+				<h4 class="text-center" > We can't seem to find page you're looking for</h4>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
 </script>
 
 
@@ -145,7 +154,16 @@
 </script>
 <script id="no-access-template" type="text/template">
 		{{#if no_access}}
-		<h1>Add no access View Here</h1> {{/if}} {{#if no_access_login}}
+				<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/noaccess.jpg" class="center-block"/>
+				<h4 class="text-center" > You do not have permission to view the page</h4>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div> {{/if}} {{#if no_access_login}}
 		<h1>Add no access with login options View Here</h1> {{/if}} {{#if not_defined}}
 		<h1>This view is not configured. Please contact administrator</h1> {{/if}}
 </script>
