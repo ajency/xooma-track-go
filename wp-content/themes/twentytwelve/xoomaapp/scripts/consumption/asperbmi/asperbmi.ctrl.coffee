@@ -12,18 +12,15 @@ class AsperbmiView extends Marionette.ItemView
 
 
 	events:
-		'click #ssconfirm':(e)->
+		'click #confirm':(e)->
 			e.preventDefault()
-			console.log count = $('#confirm').attr('data-count',count)
-			if parseInt(count) == 0
-				@ui.responseMessage.text "Consumption not updated!!!!"
-				return false
-			meta_id = $('#meta_id').val()
-			qty = $('#percentage').val()
+			meta_id = @$el.find('#meta_id').val()
+			qty = ( @originalBottleRemaining - @bottleRemaining ) / 100
 			product = @model.get('id')
+			date = moment().format('YYYY-MM-DD')
 			$.ajax
 						method : 'POST'
-						data : 'meta_id='+meta_id+'&qty='+qty
+						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
@@ -39,32 +36,32 @@ class AsperbmiView extends Marionette.ItemView
 
 
 	saveHandler:(response,status,xhr)=>
-		$('#percentage').val 0
 		console.log response
-		@model.set 'occurrence' , response.occurrence
-		console.log $('#meta_id').val response.meta_id
-		cntColl = new Backbone.Collection response.occurrence
-		temp = cntColl.filter (model)->
-			meta_id = model.get 'meta_id'
-			model.set 'meta_id' , parseInt meta_id
-			return model
-		console.log tempColl = new Backbone.Collection temp
-		console.log model = tempColl.findWhere({meta_id:parseInt(response.meta_id)})
-		cnt = @getCount(model.get('meta_value'))
-		if parseInt(cnt) == 1
+		occurResponse = _.map response.occurrence, (occurrence)->
+			occurrence.meta_id = parseInt occurrence.meta_id
+			occurrence
+		@model.set 'occurrence' , occurResponse
+		console.log @$el.find('#meta_id').val response.meta_id		
+		tempColl = new Backbone.Collection occurResponse
+		model = tempColl.findWhere
+			meta_id : parseInt response.meta_id
+
+		cnt = @getCount model.get 'meta_value'
+		@originalBottleRemaining = @bottleRemaining
+		if parseInt(cnt) is 1
 			cnt = 0
 		$('.bottlecnt').text cnt
-		@generate(response.occurrence)
+		# @generate(response.occurrence)
 
 	getCount:(val)->
 		count = 0
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
 		else
-			$.each val , (ind,val1)->
+			_.each val , (val1)->
 				console.log val1
 				if _.isArray(val1)
-					$.each val1 ,  (item,value)->
+					_.each val1 ,  (value)->
 						count += parseFloat value.qty
 				else
 					count += parseFloat val1.qty
@@ -76,34 +73,32 @@ class AsperbmiView extends Marionette.ItemView
 		arr1 = []
 		count = 0
 		data.day = moment().format("dddd")
-		console.log data.today = moment().format("MMMM Do YYYY")
+		data.today = moment().format("MMMM Do YYYY")
 		data
 
 	onShow:->
-			@$el.closest('html').find('head').append('<link rel="stylesheet" href="http://localhost/xooma/wp-content/themes/twentytwelve/xoomaapp/bower_components/ea-vertical-progress/css/style.css">')
 			@generate(@model.get('occurrence'))
 
 	generate:(data)->
-			console.log  occur = data
+			occur = data
 			bonus = 0
 			count1 = 0
 				
-			console.log @model.get('occurrence').length
-			console.log @model.get('servings')
+			# console.log @model.get('occurrence').length
+			# console.log @model.get('servings')
 			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
 			$('.bonus').text bonus
-			$.each occur , (ind,val)=>
-				console.log occurrence = _.has(val, "occurrence")
-				console.log  expected = _.has(val, "expected")
+			_.each occur , (val)=>
+				occurrence = _.has(val, "occurrence")
+				expected = _.has(val, "expected")
 				meta_id = val.meta_id
-				console.log val.meta_value
+				# console.log val.meta_value
 				count = @getCount(val.meta_value)
 				
 				if occurrence == true && (expected == true || expected == false) && count ==  1
 					count1++
 					return true
 				else if occurrence == true && (expected == true || expected == false) && count !=  1
-					console.log count
 					@update_occurrences(val)
 					return false
 				else
@@ -115,7 +110,9 @@ class AsperbmiView extends Marionette.ItemView
 	create_occurrences:()=>
 			$('#meta_id').val(0)
 			$('.bottlecnt').text 0
-			@bottle = new EAProgressVertical(@$el.find('.bottle'),100,'empty',10000,[25,50,75])
+			@originalBottleRemaining = 100
+			@bottleRemaining = 100
+			@bottle = new EAProgressVertical(@$el.find('.bottle'),@bottleRemaining,'empty',10000,[25,50,75])
 
 	update_occurrences:(data)->
 			$('#add').hide()
@@ -123,9 +120,10 @@ class AsperbmiView extends Marionette.ItemView
 			count = 0
 			meta_value = data.meta_value
 			count = @getCount(data.meta_value)
-			confirm = parseFloat(count)/0.25
 			$('.bottlecnt').text count
-			@bottle = new EAProgressVertical(@$el.find('.bottle'),50,'empty',10000,[25,50,75])
+			@bottleRemaining = 100 - 100*count
+			@originalBottleRemaining = @bottleRemaining 
+			@bottle = new EAProgressVertical(@$el.find('.bottle'),@bottleRemaining,'empty',10000,[25,50,75])
 			
 
 	startProgress : =>
@@ -135,6 +133,7 @@ class AsperbmiView extends Marionette.ItemView
 		progress = @bottle.stopProgress(true)
 		console.log progress
 		@bottle.setProgress(progress)
+		@bottleRemaining = progress
 
 
 

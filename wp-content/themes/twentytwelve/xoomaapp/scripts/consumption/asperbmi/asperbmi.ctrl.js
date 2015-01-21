@@ -26,20 +26,16 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.events = {
-    'click #ssconfirm': function(e) {
-      var count, meta_id, product, qty;
+    'click #confirm': function(e) {
+      var date, meta_id, product, qty;
       e.preventDefault();
-      console.log(count = $('#confirm').attr('data-count', count));
-      if (parseInt(count) === 0) {
-        this.ui.responseMessage.text("Consumption not updated!!!!");
-        return false;
-      }
-      meta_id = $('#meta_id').val();
-      qty = $('#percentage').val();
+      meta_id = this.$el.find('#meta_id').val();
+      qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
       product = this.model.get('id');
+      date = moment().format('YYYY-MM-DD');
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty,
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
@@ -53,28 +49,24 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
-    var cnt, cntColl, model, temp, tempColl;
-    $('#percentage').val(0);
+    var cnt, model, occurResponse, tempColl;
     console.log(response);
-    this.model.set('occurrence', response.occurrence);
-    console.log($('#meta_id').val(response.meta_id));
-    cntColl = new Backbone.Collection(response.occurrence);
-    temp = cntColl.filter(function(model) {
-      var meta_id;
-      meta_id = model.get('meta_id');
-      model.set('meta_id', parseInt(meta_id));
-      return model;
+    occurResponse = _.map(response.occurrence, function(occurrence) {
+      occurrence.meta_id = parseInt(occurrence.meta_id);
+      return occurrence;
     });
-    console.log(tempColl = new Backbone.Collection(temp));
-    console.log(model = tempColl.findWhere({
+    this.model.set('occurrence', occurResponse);
+    console.log(this.$el.find('#meta_id').val(response.meta_id));
+    tempColl = new Backbone.Collection(occurResponse);
+    model = tempColl.findWhere({
       meta_id: parseInt(response.meta_id)
-    }));
+    });
     cnt = this.getCount(model.get('meta_value'));
+    this.originalBottleRemaining = this.bottleRemaining;
     if (parseInt(cnt) === 1) {
       cnt = 0;
     }
-    $('.bottlecnt').text(cnt);
-    return this.generate(response.occurrence);
+    return $('.bottlecnt').text(cnt);
   };
 
   AsperbmiView.prototype.getCount = function(val) {
@@ -83,10 +75,10 @@ AsperbmiView = (function(_super) {
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
     } else {
-      $.each(val, function(ind, val1) {
+      _.each(val, function(val1) {
         console.log(val1);
         if (_.isArray(val1)) {
-          return $.each(val1, function(item, value) {
+          return _.each(val1, function(value) {
             return count += parseFloat(value.qty);
           });
         } else {
@@ -103,37 +95,32 @@ AsperbmiView = (function(_super) {
     arr1 = [];
     count = 0;
     data.day = moment().format("dddd");
-    console.log(data.today = moment().format("MMMM Do YYYY"));
+    data.today = moment().format("MMMM Do YYYY");
     return data;
   };
 
   AsperbmiView.prototype.onShow = function() {
-    this.$el.closest('html').find('head').append('<link rel="stylesheet" href="http://localhost/xooma/wp-content/themes/twentytwelve/xoomaapp/bower_components/ea-vertical-progress/css/style.css">');
     return this.generate(this.model.get('occurrence'));
   };
 
   AsperbmiView.prototype.generate = function(data) {
     var bonus, count1, occur;
-    console.log(occur = data);
+    occur = data;
     bonus = 0;
     count1 = 0;
-    console.log(this.model.get('occurrence').length);
-    console.log(this.model.get('servings'));
     bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings'));
     $('.bonus').text(bonus);
-    $.each(occur, (function(_this) {
-      return function(ind, val) {
+    _.each(occur, (function(_this) {
+      return function(val) {
         var count, expected, meta_id, occurrence;
-        console.log(occurrence = _.has(val, "occurrence"));
-        console.log(expected = _.has(val, "expected"));
+        occurrence = _.has(val, "occurrence");
+        expected = _.has(val, "expected");
         meta_id = val.meta_id;
-        console.log(val.meta_value);
         count = _this.getCount(val.meta_value);
         if (occurrence === true && (expected === true || expected === false) && count === 1) {
           count1++;
           return true;
         } else if (occurrence === true && (expected === true || expected === false) && count !== 1) {
-          console.log(count);
           _this.update_occurrences(val);
           return false;
         } else {
@@ -150,19 +137,22 @@ AsperbmiView = (function(_super) {
   AsperbmiView.prototype.create_occurrences = function() {
     $('#meta_id').val(0);
     $('.bottlecnt').text(0);
-    return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), 100, 'empty', 10000, [25, 50, 75]);
+    this.originalBottleRemaining = 100;
+    this.bottleRemaining = 100;
+    return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
   };
 
   AsperbmiView.prototype.update_occurrences = function(data) {
-    var confirm, count, meta_value;
+    var count, meta_value;
     $('#add').hide();
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
-    confirm = parseFloat(count) / 0.25;
     $('.bottlecnt').text(count);
-    return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), 50, 'empty', 10000, [25, 50, 75]);
+    this.bottleRemaining = 100 - 100 * count;
+    this.originalBottleRemaining = this.bottleRemaining;
+    return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
   };
 
   AsperbmiView.prototype.startProgress = function() {
@@ -173,7 +163,8 @@ AsperbmiView = (function(_super) {
     var progress;
     progress = this.bottle.stopProgress(true);
     console.log(progress);
-    return this.bottle.setProgress(progress);
+    this.bottle.setProgress(progress);
+    return this.bottleRemaining = progress;
   };
 
   return AsperbmiView;
