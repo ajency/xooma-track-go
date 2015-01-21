@@ -139,11 +139,6 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.create_occurrences = function() {
     $('#meta_id').val(0);
-    $('#confirm').attr('data-count', 0);
-    $('.high').addClass('level-25');
-    $('.half').addClass('level-25');
-    $('.medium').addClass('level-25');
-    $('.low').addClass('level-25');
     return $('.bottlecnt').text(0);
   };
 
@@ -155,7 +150,6 @@ AsperbmiView = (function(_super) {
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
     confirm = parseFloat(count) / 0.25;
-    $('#confirm').attr('data-count', confirm);
     return $('.bottlecnt').text(count);
   };
 

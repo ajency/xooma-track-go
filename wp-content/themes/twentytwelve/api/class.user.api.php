@@ -559,14 +559,15 @@ class User_API
         $qty = $_REQUEST['qty'];
 
         $meta_id = $_REQUEST['meta_id'];
-
+        $date = $_REQUEST['date'];
+        $new_date = date('Y-m-d',strtotime($date));
         $args = array(
 
             'id'            => $id,
             'pid'           => $pid,
             'meta_id'       => $meta_id,
             'meta_value'    => array(
-                'date'      => date('Y-m-d H:i:s'),
+                'date'      => date('$new_date H:i:s'),
                 'qty'       => $qty
 
                 )

@@ -55,7 +55,7 @@ class ScheduleView extends Marionette.ItemView
 				product = @model.get('id')
 				$.ajax
 						method : 'POST'
-						data : 'meta_id='+meta_id+'&qty='+qty
+						data : 'meta_id='+meta_id+'&qty='+qty+'date=2015-12-11'
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
