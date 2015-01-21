@@ -9,3 +9,17 @@ class ProductCollection extends Backbone.Collection
 		"#{APIURL}/products"
 
 App.productCollection = new ProductCollection()
+
+class UserProductModel extends Backbone.Model
+	defaults : ->
+
+class UserProductCollection extends Backbone.Collection
+	model : UserProductModel
+
+
+App.useProductColl = new UserProductCollection()
+
+
+
+
+

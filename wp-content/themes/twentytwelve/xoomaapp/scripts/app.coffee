@@ -52,4 +52,7 @@ jQuery(document).ready ($)->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
+	
+
 	App.start()
+

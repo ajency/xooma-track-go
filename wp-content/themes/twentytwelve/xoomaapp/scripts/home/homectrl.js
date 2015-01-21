@@ -155,7 +155,12 @@ App.HomeCtrl = (function(_super) {
   }
 
   HomeCtrl.prototype.initialize = function() {
-    return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
+    console.log(App.useProductColl);
+    if (App.useProductColl.length === 0) {
+      return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
+    } else {
+      return this._showView(App.useProductColl);
+    }
   };
 
   HomeCtrl.prototype._showView = function(collection) {

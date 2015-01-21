@@ -266,55 +266,63 @@ display:none !important;
 }
 
 
-/** Bottle Ui ***/
-.bottle { background: #ddd; width:160px;border-radius:30px 30px 6px 6px; height:300px; padding:6px;box-shadow: 3px 3px 3px #efefef;margin: auto;}
-.bottle:hover { background: #eee;box-shadow: 2px  2px 2px #efefef;}
-.water-bottle{ position: relative;}
+/** Bottle Consumption ***/
+.water-marker{
+  position: absolute;
+  z-index:@zindex-popover;
+  color:#ccc;
+  left: -3%;
+}
+.water-25{
+    bottom:16%;
+}
+.water-50{
+    bottom:35%;
+}
+.water-75{
+    bottom:54%;
+}
+.water-100{
+    bottom:73%;
+}
+      .bottle-bg{
+               width: 218px;
+              display: block;
+              margin: auto;
+              position: relative;
+              height: 381px;
+      }
+    .bottle { 
+            height: 381px;
+            width: 218px;
+            position: absolute;
+            background-image:url('../images/bottle-ui.png'); /* Beer Glass */
+            background-repeat: no-repeat;
+            background-size: 100%;
+            .ea-empty{
+                background : #ddd;
+                z-index:-1;
+                position:absolute;
+                width:218px;
+                
 
-.cap { background: #ddd; margin:auto;width:60px;border-radius:8px 8px 10px  12px; height:35px;border-top:1px solid #ddd; border-bottom:2px dotted #efefef;}
-.cap-top { background:#ededed; height:6px; border-radius:10px 10px 0 0; }
-.cap-seal { margin-top:20px;background:#ccc; height:6px; border-radius: 0 0 10px 10px; }
-.water{  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;
-    width: 150px;
-}
+            }
+            .ea-full{
+                background : @green;
+               z-index:-1;
+               position:absolute;
+                width:218px;
+                bottom:0;
+              
+            }
 
-.level-25{
-     background: @blue ;
-     width:100%;
-     height:25%;
+            }
+.bottle-bg:before{
+  padding-top:40%;
 }
-.level-50{
-     background: @blue ;
-     width:100%;
-     height:25%;
-}
-.level-75{
-     background: @blue ;
-     width:100%;
-     height:25%;
-}
-.level-100{
-     background: @blue ;
-     width:100%;
-     height:25%;
-     border-top-left-radius::20px;
-     -webkit-border-top-left-radius:20px;
-     -moz-border-top-left-radius:20px;
-    border-border-top-right-radius:20px;
-     -webkit-border-top-right-radius:20px;
-     -moz-border-top-right-radius:20px;
-}
-@media (max-width: @screen-sm-min) {
-    .bottle{
-        width: 135px !important;
-        .water{
-            width:125px;
-        }
-    }
-}
+ 
+
+
 
 /*Tooltip component by www.menucool.com */
 

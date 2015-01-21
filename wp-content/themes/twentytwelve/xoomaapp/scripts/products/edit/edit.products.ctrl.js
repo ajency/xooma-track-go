@@ -318,15 +318,17 @@ EditProductsView = (function(_super) {
     console.log(bmi);
     weight = App.currentUser.get('weight');
     actual = 1;
-    $.each(bmi, function(index, value) {
-      var bmi_val;
-      bmi_val = value['range'].split('<');
-      console.log(bmi_val[0]);
-      console.log(bmi_val[1]);
-      if (parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])) {
-        return actual = value['quantity'];
-      }
-    });
+    if (bmi !== void 0) {
+      $.each(bmi, function(index, value) {
+        var bmi_val;
+        bmi_val = value['range'].split('<');
+        console.log(bmi_val[0]);
+        console.log(bmi_val[1]);
+        if (parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])) {
+          return actual = value['quantity'];
+        }
+      });
+    }
     return actual;
   };
 
