@@ -73,7 +73,7 @@ ScheduleView = (function(_super) {
       product = this.model.get('id');
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty + 'date=2015-12-11',
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=2015-12-11',
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler

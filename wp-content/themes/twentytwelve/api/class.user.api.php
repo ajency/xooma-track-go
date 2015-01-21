@@ -560,14 +560,16 @@ class User_API
 
         $meta_id = $_REQUEST['meta_id'];
         $date = $_REQUEST['date'];
-        $new_date = date('Y-m-d',strtotime($date));
+        $today = date("Y-m-d", strtotime($date));
+        $start = date("$today H:i:s ");
         $args = array(
 
             'id'            => $id,
             'pid'           => $pid,
             'meta_id'       => $meta_id,
+            'date'          => $date,
             'meta_value'    => array(
-                'date'      => date('$new_date H:i:s'),
+                'date'      => $start,
                 'qty'       => $qty
 
                 )
