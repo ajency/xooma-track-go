@@ -1056,7 +1056,7 @@
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
-              	<button class="change-progress btn btn-success  " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+              	<button class="reset-progress btn btn-success  " type="button"> <i class="fa fa-refresh"></i> Reset</button>
 			</div>
 			<div class="col-sm-4"></div>
 		</div>

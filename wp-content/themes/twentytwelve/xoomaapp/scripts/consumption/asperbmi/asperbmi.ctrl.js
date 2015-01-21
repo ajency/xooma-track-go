@@ -31,6 +31,9 @@ AsperbmiView = (function(_super) {
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
+      if (qty === 0) {
+        return;
+      }
       product = this.model.get('id');
       date = moment().format('YYYY-MM-DD');
       return $.ajax({
@@ -40,6 +43,10 @@ AsperbmiView = (function(_super) {
         success: this.saveHandler,
         error: this.erroraHandler
       });
+    },
+    'click .reset-progress': function() {
+      this.bottleRemaining = this.originalBottleRemaining;
+      return this.bottle.setProgress(this.bottleRemaining);
     },
     'touchstart .bottle': 'startProgress',
     'mousedown .bottle': 'startProgress',

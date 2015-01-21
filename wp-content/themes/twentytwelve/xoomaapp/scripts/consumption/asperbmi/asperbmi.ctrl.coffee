@@ -16,6 +16,8 @@ class AsperbmiView extends Marionette.ItemView
 			e.preventDefault()
 			meta_id = @$el.find('#meta_id').val()
 			qty = ( @originalBottleRemaining - @bottleRemaining ) / 100
+			if qty is 0
+			  return
 			product = @model.get('id')
 			date = moment().format('YYYY-MM-DD')
 			$.ajax
@@ -24,6 +26,10 @@ class AsperbmiView extends Marionette.ItemView
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
+
+		'click .reset-progress' : ->
+			@bottleRemaining = @originalBottleRemaining
+			@bottle.setProgress @bottleRemaining
 
 		'touchstart .bottle' : 'startProgress'
 		'mousedown .bottle' : 'startProgress'
