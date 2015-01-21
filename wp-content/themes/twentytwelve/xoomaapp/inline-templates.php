@@ -86,7 +86,7 @@
 											<div ui-region="currentUser" class="pull-right user-data">
 
 											</div>
-											 <a class="link" href="#menu">
+											 <a class="link" href="#settings">
                             <h4><i class="fa fa-cog pull-right "></i></h4>
                         	</a>
                         	<a class="link" href="#/home">
@@ -141,7 +141,63 @@
 		<div ui-region></div>
 </script>
 <script id="settings-template" type="text/template">
-		<h2>THis is the settings template </h2>
+		<div class="container"> </br></br></br>
+        
+          <div class="row">
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              
+              <form class="form-horizontal m-t-30">
+  <div class="form-group "  onclick="location.href='#profile/my-products'">
+    <label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
+  </div>
+    <div class="form-group"  onclick="location.href='#products'">
+    <label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
+  </div>
+   <div class="form-group"  onclick="location.href='#profile/personal-info'">
+    <label  class="col-sm-12 col-xs-12  control-label">Profile</label>
+  </div>
+   <div class="form-group"  onclick="location.href='#profile/measurements'">
+    <label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
+  </div>
+   <div class="form-group"  onclick="location.href='#home'">
+    <label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-8 col-xs-8  control-label">Notification</label>
+    <div class="col-sm-4 col-xs-4 ">
+     <div class="switch">
+            <input id="cmn-toggle-5" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+            <label for="cmn-toggle-5"></label>
+   </div>
+    </div>
+  </div> 
+  <div class="form-group">
+    <label  class="col-sm-8 col-xs-8 control-label">Email Alerts</label>
+    <div class="col-sm-4 col-xs-4 ">
+ <div class="switch">
+            <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+            <label for="cmn-toggle-6"></label>
+   </div>
+    </div>
+  </div> 
+     <div class="form-group"  onclick="location.href='unit_01.htm'">
+    <label  class="col-sm-12 col-xs-12  control-label">About Xooma</label>
+  </div>
+
+</form>
+              
+              
+              
+              
+              </div>
+            <div class="col-md-2">
+         </div>
+        </div>
+      
+    </div> 
 </script>
 <script id="no-access-template" type="text/template">
 		{{#if no_access}}

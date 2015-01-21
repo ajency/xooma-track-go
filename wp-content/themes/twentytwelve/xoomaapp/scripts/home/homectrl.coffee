@@ -51,6 +51,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		@generateGraph()
 		@ui.start_date.pickadate(
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
@@ -171,7 +172,6 @@ class HomeX2OViewChild extends Marionette.ItemView
 		data
 
 	onShow:->
-		HomeLayoutView::generateGraph()
 		occurrenceArr = []
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->
@@ -270,9 +270,10 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 		productcollection = collection.clone()
 		model = productcollection.shift() 
 		console.log App.useProductColl
-		modelColl = new Backbone.Collection model
-		@show new HomeX2OView
-					collection : modelColl
+		if model.get('name') == 'X2O'
+			modelColl = new Backbone.Collection model
+			@show new HomeX2OView
+						collection : modelColl
 
 class ProductChildView extends Marionette.ItemView
 
@@ -398,7 +399,10 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		productcollection.shift() 
+		model = productcollection.shift() 
+		if model.get('name') != 'X2O'
+			productcollection.reset App.useProductColl.toArray()
+		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		

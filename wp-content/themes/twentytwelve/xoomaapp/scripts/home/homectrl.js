@@ -77,6 +77,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
+    this.generateGraph();
     this.ui.start_date.pickadate({
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true
@@ -208,7 +209,6 @@ HomeX2OViewChild = (function(_super) {
 
   HomeX2OViewChild.prototype.onShow = function() {
     var bonusArr, consumed, ctx, doughnutData, occurrenceArr, target;
-    HomeLayoutView.prototype.generateGraph();
     occurrenceArr = [];
     bonusArr = 0;
     $.each(this.model.get('occurrence'), function(ind, val) {
@@ -324,10 +324,12 @@ App.HomeX2OCtrl = (function(_super) {
     productcollection = collection.clone();
     model = productcollection.shift();
     console.log(App.useProductColl);
-    modelColl = new Backbone.Collection(model);
-    return this.show(new HomeX2OView({
-      collection: modelColl
-    }));
+    if (model.get('name') === 'X2O') {
+      modelColl = new Backbone.Collection(model);
+      return this.show(new HomeX2OView({
+        collection: modelColl
+      }));
+    }
   };
 
   return HomeX2OCtrl;
@@ -435,9 +437,13 @@ App.HomeOtherProductsCtrl = (function(_super) {
   };
 
   HomeOtherProductsCtrl.prototype._showView = function(collection) {
-    var productcollection;
+    var model, productcollection;
     productcollection = collection.clone();
-    productcollection.shift();
+    model = productcollection.shift();
+    if (model.get('name') !== 'X2O') {
+      productcollection.reset(App.useProductColl.toArray());
+    }
+    console.log(productcollection);
     return this.show(new HomeOtherProductsView({
       collection: productcollection
     }));

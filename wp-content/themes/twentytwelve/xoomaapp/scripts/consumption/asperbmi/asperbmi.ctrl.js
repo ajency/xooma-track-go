@@ -148,7 +148,7 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.update_occurrences = function(data) {
-    var arr, classArr, confirm, count, i, meta_value, _results;
+    var confirm, count, meta_value;
     $('#add').hide();
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
@@ -156,21 +156,7 @@ AsperbmiView = (function(_super) {
     count = this.getCount(data.meta_value);
     confirm = parseFloat(count) / 0.25;
     $('#confirm').attr('data-count', confirm);
-    $('.bottlecnt').text(count);
-    classArr = ['high', 'medium', 'half', 'low'];
-    i = 0;
-    arr = [];
-    _results = [];
-    while (i < confirm) {
-      $('.' + classArr[i]).removeClass('level-25');
-      arr.push({
-        "class": $('.' + classArr[i]).attr('data-level'),
-        qty: $('.' + classArr[i]).attr('data-qty'),
-        per: 25
-      });
-      _results.push(i++);
-    }
-    return _results;
+    return $('.bottlecnt').text(count);
   };
 
   return AsperbmiView;

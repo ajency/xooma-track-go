@@ -1083,8 +1083,8 @@ function get_history_user_product($id,$product_id){
 
 		$object_id = get_object_id($product_id,$id);
 
-		// global $productList;
-		// $term = $productList->get_products($product_id);
+		global $productList;
+		$term = $productList->get_products($product_id);
 		$results = $wpdb->get_results("SELECT *,DATE(datetime) as datefield from $transactions
 				where object_id=".$object_id."");
 
@@ -1094,25 +1094,6 @@ function get_history_user_product($id,$product_id){
 			 			
 			 			array_push($transaction_dates, $value->datefield);
 
-						 // $sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
-							// where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type='sales'");
-						 
-						 // $consumption = $wpdb->get_row("SELECT sum(amount) as consumption from $transactions
-							// where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type=''");
-						 
-
-						 // $consumed = $consumption->consumption == null ? 0 : $consumption->consumption;
-						 // $sales_data = $sales->sales == null ? 0 : $sales->sales;
-
-						 // $transaction = array(
-							// 'date'          =>  $value->datefield, 
-							// 'stock'         =>  $value->stock,
-							// 'sales'         =>  $sales_data,
-							// 'consumption'   => $consumed,
-							// 'type'          => $term[0]['product_type_name']
-
-
-							// );
 			}
 
 			$schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
@@ -1124,7 +1105,8 @@ function get_history_user_product($id,$product_id){
 			 } 
 
 			 $transaction_data = array_unique($transaction_dates);
-
+			 $i = 0 ;
+			 
 			 foreach ($transaction_data as $value) {
 
 			 	$stock = $wpdb->get_row("SELECT sum(amount) as stock from $transactions
@@ -1133,18 +1115,29 @@ function get_history_user_product($id,$product_id){
 
 			 	$sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
 							where object_id=".$object_id." and type='remove' and consumption_type='sales' and DATE(`datetime`)='".$value."'");
-				
+				$sql =  $wpdb->get_results("SELECT *,DATE(occurrence) as datefield from $table_name where DATE(occurrence)='".$value."' and schedule_id=".$schedule);
+
+				$qty = 0;
+				foreach ($sql as $key => $val) {
+
+					$data = maybe_unserialize($val->meta_value);
+					$qty += intval($data['qty']);
+
+				}
+				$i++;
 			 	$sales_data = $sales->sales == null ? 0 : $sales->sales;
-				$transaction = array(
+				$transaction[] = array(
+							'id'			=> $i,
 							'date'          =>  $value, 
-							'stock'         =>  $stock->$stock,
+							'stock'         =>  $stock->stock,
 							'sales'         =>  $sales_data,
-							'consumption'   => ''
+							'consumption'   => $qty,
+							'product_type'	=> $term[0]['product_type_name']
 
 
 							);		 
 			 }
-print_r($transaction);
+
 			 
 	 return $transaction;
 

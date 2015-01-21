@@ -120,14 +120,7 @@ class AsperbmiView extends Marionette.ItemView
 			#$('#percentage').val count
 			$('#confirm').attr('data-count' , confirm)
 			$('.bottlecnt').text count
-			classArr  = ['high','medium','half','low']
-			i = 0 
-			arr = []
-			while(i < confirm)
-				$('.'+classArr[i]).removeClass 'level-25'
-				arr.push class: $('.'+classArr[i]).attr('data-level') , qty :$('.'+classArr[i]).attr('data-qty'), per : 25
-
-				i++
+			
 
 		
 

@@ -11,7 +11,7 @@ class InventoryChildView extends Marionette.ItemView
 
 	template : '<input class="radio" id ="work{{id}}" name="works" type="radio" checked>
     <div class="relative">
-      <label class="labels" for="work5">Sachets</label>
+      <label class="labels" for="work{{id}}">{{product_type}}</label>
       <span class="date">{{date}}</span>
       <span class="circle"></span>
     </div>
