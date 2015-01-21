@@ -12,6 +12,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		end_date 	 : '#end_date'
 		generate 	 : 'input[name="generate"]'
 		form 		: '#generate_graph'
+		param 		: 'input[name="param"]'
 
 	events:
 		'change @ui.time_period':(e)->
@@ -30,22 +31,27 @@ class HomeLayoutView extends Marionette.LayoutView
 			picker1.set('select', today, { format: 'yyyy-mm-dd' })
 
 	onFormSubmit: (_formData)=>
-		console.log _formData
 		$.ajax
-				method : 'GET'
-				data : _formData
-				url : "#{APIURL}/graphs/#{App.currentUser.get('ID')}"
-				success: @_successHandler
+			method : 'GET'
+			data : _formData
+			url : "#{APIURL}/graphs/#{App.currentUser.get('ID')}"
+			success: @_successHandler
 
 	_successHandler: (response, status,xhr)=>
-		$("#canvas").text ""
-		App.graph.set 'dates' , response.dates
-		App.graph.set 'param' , response.param
-		@generateGraph()
+		dates = _.has(response, "dates")
+		if dates == true && xhr.status == 200
+			App.graph.set 'dates' , response.dates
+			App.graph.set 'param' , response.param
+			@generateGraph()
 
+		else if dates == false && xhr.status == 200
+			@generateBMIGraph(response)
+
+		
 
 
 	onShow:->
+		@generateGraph()
 		@ui.start_date.pickadate(
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
@@ -54,10 +60,40 @@ class HomeLayoutView extends Marionette.LayoutView
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
 			)
-		
+
+	generateBMIGraph:(response)->
+		dates = [response['st_date'],response['et_date']]
+
+		bmi_start_ht = parseFloat(response['st_height']) *  12
+		bmi_end_ht = parseFloat(response['et_height']) *  12
+		st_square = parseFloat(bmi_start_ht) * parseFloat(bmi_start_ht)
+		et_square = parseFloat(bmi_end_ht) * parseFloat(bmi_end_ht)
+		bmi_start = (parseFloat(response['st_weight'])/parseFloat(st_square))* 703
+		bmi_end = (parseFloat(response['et_weight'])/parseFloat(et_square))* 703
+		lineChartData = 
+			labels : dates,
+			datasets : [
+				
+					label: "My Second dataset",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : [bmi_start,bmi_end]
+				
+				
+			]
+
+		ctdx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctdx).Line(lineChartData, 
+			responsive: true
+		);
+
 	generateGraph:->
-		console.log dates = App.graph.get 'dates'
-		console.log param = App.graph.get 'param'
+		dates = App.graph.get 'dates'
+		param = App.graph.get 'param'
 		lineChartData = 
 			labels : dates,
 			datasets : [
@@ -136,7 +172,6 @@ class HomeX2OViewChild extends Marionette.ItemView
 		data
 
 	onShow:->
-		HomeLayoutView::generateGraph()
 		occurrenceArr = []
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->
@@ -233,11 +268,12 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.shift() 
-		console.log App.useProductColl
-		modelColl = new Backbone.Collection model
-		@show new HomeX2OView
-					collection : modelColl
+		model = productcollection.findWhere({name:'x2o'}) 
+		console.log model.get('name')
+		if model.get('name') == 'x2o'
+			console.log modelColl = new Backbone.Collection model
+			@show new HomeX2OView
+						collection : modelColl
 
 class ProductChildView extends Marionette.ItemView
 
@@ -363,7 +399,10 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		productcollection.shift() 
+		model = productcollection.findWhere({name:'x2o'})  
+		if model.get('name') != 'x2o'
+			productcollection.reset App.useProductColl.toArray()
+		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		

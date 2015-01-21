@@ -36,15 +36,24 @@ class EditInventoryView extends Marionette.ItemView
 			$(e.target).removeClass 'btn-default'
 			$(e.target).addClass 'btn-primary'
 			$('#subtract').val $(e.target).val()
-				
+			@ui.rangeSliders.val(0)
+			@ui.rangeSliders.parent().find("output").html 0	
+			@ui.save.hide()
 			if $(e.target).val() == 'adjust'
 				$('.record_new').hide()
 				$('.record').hide()
 				@adjustValue()
 				@ui.containers.val()
+				$('#slider').removeAttr('disabled')
+				$('.rangeslider').removeClass('rangeslider--disabled')
+				
 			else
 				$('.record_new').show()
 				$('.record').show()
+				@ui.containers.val(0)
+				$( @ui.containers ).trigger( "change" )
+				
+
 				
 		'change @ui.rangeSliders' : (e)-> 
 			@valueOutput e.currentTarget
@@ -56,7 +65,15 @@ class EditInventoryView extends Marionette.ItemView
 
 		'change @ui.containers':(e)->
 			if parseInt($(e.target).val()) != 0 
-				@ui.rangeSliders.removeAttr('disabled');	
+				$('#slider').removeAttr('disabled')
+				$('.rangeslider').removeClass('rangeslider--disabled')
+				@ui.save.show()
+			else
+				@ui.rangeSliders.val(0)
+				@ui.rangeSliders.parent().find("output").html $(e.target).val()
+				$('#slider').attr('disabled',true)
+				$('.rangeslider').addClass('rangeslider--disabled')
+				@ui.save.hide()
 			available = @model.get 'available'
 			total = @model.get 'total'
 			@ui.ntotal.text total
@@ -117,14 +134,17 @@ class EditInventoryView extends Marionette.ItemView
 		available = @model.get 'available'
 		total = @model.get 'total'
 		@ui.navail.text available
+		console.log @ui.rangeSliders.val()
+		if parseInt(@ui.rangeSliders.val()) == 0
+			@ui.save.hide()
 		if @ui.rangeSliders.val() < 0 
 			$('.sign').text '-'
 			eqt = parseInt(available) - parseInt(Math.abs(@ui.rangeSliders.val()))
-		
-		else
+			@ui.save.show()
+		else if @ui.rangeSliders.val() > 0
 			$('.sign').text '+'
 			eqt = parseInt(available) + parseInt(Math.abs(@ui.rangeSliders.val()))
-		
+			@ui.save.show()
 			
 		@ui.nsub.text Math.abs(@ui.rangeSliders.val())
 		@ui.eqa.text eqt

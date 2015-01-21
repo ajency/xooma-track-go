@@ -627,7 +627,10 @@ class User_API
         $end_date = $_REQUEST['end_date'];
         $param = $_REQUEST['param'];
 
-        $response = generate_dates($start_date,$end_date,$id,$param);
+        if($param == 'bmi')
+            $response = generate_bmi($start_date,$end_date,$id,$param);
+        else
+            $response = generate_dates($start_date,$end_date,$id,$param);
 
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );

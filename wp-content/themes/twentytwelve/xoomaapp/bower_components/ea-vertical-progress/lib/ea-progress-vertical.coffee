@@ -22,6 +22,7 @@
 
 		startProgress : ->
 			limit = if @type is 'fill' then 100 else 0
+			clearInterval @animateInterval
 			@animateInterval = setInterval @animateBottle, @delay , @type , limit
 
 		stopProgress : (returnBreak=false)->
@@ -56,9 +57,11 @@
 
 
 			else if progress > @progress
+				clearInterval @animateInterval
 				@animateInterval = setInterval @animateBottle, @delay , 'fill' , progress
 
 			else
+				clearInterval @animateInterval
 				@animateInterval = setInterval @animateBottle, @delay , 'empty' , progress
 
 			return progress

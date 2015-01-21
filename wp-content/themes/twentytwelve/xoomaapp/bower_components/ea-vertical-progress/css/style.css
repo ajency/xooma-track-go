@@ -7,9 +7,9 @@
     box-shadow: 3px 3px 3px #efefef;
     margin: auto;
 }
-.empty{
+.ea-empty{
     background : #ddd;
 }
-.full{
+.ea-full{
     background : blue;
 }

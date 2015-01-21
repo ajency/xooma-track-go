@@ -39,6 +39,7 @@
       EAProgressVertical.prototype.startProgress = function() {
         var limit;
         limit = this.type === 'fill' ? 100 : 0;
+        clearInterval(this.animateInterval);
         return this.animateInterval = setInterval(this.animateBottle, this.delay, this.type, limit);
       };
 
@@ -84,8 +85,10 @@
           this.progress = progress;
           this.setProgressUI();
         } else if (progress > this.progress) {
+          clearInterval(this.animateInterval);
           this.animateInterval = setInterval(this.animateBottle, this.delay, 'fill', progress);
         } else {
+          clearInterval(this.animateInterval);
           this.animateInterval = setInterval(this.animateBottle, this.delay, 'empty', progress);
         }
         return progress;
