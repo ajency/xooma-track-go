@@ -83,6 +83,7 @@ class Occurrence{
 		$grouped_occurrences = array();
 		foreach ($occurrences as $occurrence) {
 			$occurrence->meta_value = maybe_unserialize($occurrence->meta_value);
+
 			$grouped_occurrences[date('Y-m-d', strtotime($occurrence->occurrence))][] = $occurrence;
 		}
 		
@@ -103,17 +104,21 @@ class Occurrence{
 				$arr1 = $expected_occurrences[$date];
 				$arr2 = $grouped_occurrences[$date];
 			}
-
 			foreach ($arr1 as $occ) {
 				if(isset($arr2[$i]))	
-					$arr[] = array_merge((array)$occ, (array)$arr2[$i]);
+				{
+					//$arr2[$i]['meta_value'] = $occ->meta_value;
+					$arr[] = array_merge_recursive((array)$occ, (array)$arr2[$i]);
+				
+				}
+					
 				else
 					$arr[] = array_merge((array)$occ, array());
 				$i++;
 			}
 			
 		}
-
+		
 		return $arr;
 	}
 
@@ -130,7 +135,8 @@ class Occurrence{
 		$defaults = array(
 					'schedule_id' => 0,
 					'occurrence' => false,
-					'meta_value' => array()
+					'meta_value' => array(),
+					'meta_id'    => 0
 				);
 
 		$occurrence_args = wp_parse_args($occurrence_data, $defaults);
@@ -219,6 +225,56 @@ class Occurrence{
 
 		return $schedules;
 		
+	}
+
+
+	public static function _update_occurrence($occurrence_data){
+		global $wpdb;
+
+		$user_id = get_current_user_id();
+
+		$defaults = array(
+					'schedule_id' => 0,
+					'occurrence' => false,
+					'meta_value' => array(),
+					'meta_id'    => 0
+				);
+
+		$occurrence_args = wp_parse_args($occurrence_data, $defaults);
+
+		if(empty($occurrence_args['schedule_id']))
+			return new \WP_Error('schedule_id_param_missing', __('schedule_id cannot be empty'));
+
+		if(empty($occurrence_args['occurrence']))
+			return new \WP_Error('occurrence', __('occurrence must be a valid date time'));
+
+		$table_name = "{$wpdb->prefix}aj_occurrence_meta";
+		$record = $occurrence_args;
+
+		$record['meta_value'] = maybe_serialize($record['meta_value']);
+
+
+		$wpdb->update( 
+	$table_name, 
+	array( 
+		'occurrence' => $record['occurrence'],	// string
+		'meta_value' => $record['meta_value']	// integer (number) 
+	), 
+	array( 'meta_id' => $record['meta_id'] ), 
+	array( 
+		'%s',	// value1
+		'%s'	// value2
+	), 
+	array( '%d' ) 
+);
+
+		
+
+		
+
+		return $record['meta_id'];
+
+
 	}
 }
 

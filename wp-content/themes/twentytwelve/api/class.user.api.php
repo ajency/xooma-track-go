@@ -65,7 +65,22 @@ class User_API
           //consumption
         $routes['/intakes/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
             array( array( $this, 'xooma_get_consumption_details'), WP_JSON_Server::READABLE),
+            array( array( $this, 'xooma_store_consumption_details'), WP_JSON_Server::CREATABLE),
         );
+
+          //history
+        $routes['/history/(?P<id>\d+)/products/(?P<pid>\d+)'] = array(
+            array( array( $this, 'xooma_get_history_details'), WP_JSON_Server::READABLE),
+            
+        );
+
+          //graphs
+        $routes['/graphs/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_get_graph_details'), WP_JSON_Server::READABLE),
+            
+        );
+
+       
 
 
 
@@ -132,7 +147,8 @@ class User_API
         //update measurements details of the user id passed
         global $user;
        
-        $date                               = $_REQUEST['date_field'];
+        //print_r($_POST);
+        $date  = $_REQUEST['date_field'];
 
 
         $response = $user->update_user_measurement_details($id,$_POST,$date);
@@ -229,6 +245,7 @@ class User_API
         }
         else if ($_REQUEST['timeset'] =="asperbmi")
         {
+            
             $servings = $_REQUEST['x2o'];
             $data['servings_per_day'] = $_REQUEST['x2o'];
             for($i=0;$i<$servings;$i++)
@@ -414,7 +431,7 @@ class User_API
 
     public function xooma_store_inventory($id,$pid){
 
-        $subtract = $_REQUEST['subtract'];
+        $slider = $_REQUEST['slider'];
         $containers = $_REQUEST['containers'];
         $total = $_REQUEST['total'];
         //stroring trasaction to keeptrack of quantity
@@ -423,7 +440,7 @@ class User_API
 
        
 
-        if($containers !="") 
+        if(intval($containers) != 0) 
         {
 
             $stock = intval($total) * intval($containers);
@@ -444,18 +461,35 @@ class User_API
 
         //stroring trasaction to keeptrack of quantity\
 
-          $args_del = array(
+          
+
+
+       
+          if($slider < 0 && $slider != 0) 
+          {
+            $args_del = array(
 
             'user_id'     => $id,
             'product_id'  => $pid,
             'type'        => 'remove',
-            'amount'      =>  $subtract,
+            'amount'      =>  abs($slider),
             'consumption_type'  => 'sales'
+               );
+            $response = store_stock_data($args_del);
+          }
+          else if ($slider > 0 && $slider != 0) 
+          {
+            $args = array(
 
-
-          );
-          if($subtract !=0) 
-          $response = store_stock_data($args_del);
+            'user_id'     => $id,
+            'product_id'  => $pid,
+            'type'        => 'stock',
+            'amount'      =>  abs($slider),
+            'consumption_type'  => ''
+               );
+            $response = store_stock_data($args);
+          }
+          
 
 
        if (is_wp_error($response)){
@@ -519,4 +553,103 @@ class User_API
 
         return $response;
     }
+
+    public function xooma_store_consumption_details($id,$pid){
+
+        $qty = $_REQUEST['qty'];
+
+        $meta_id = $_REQUEST['meta_id'];
+
+        $args = array(
+
+            'id'            => $id,
+            'pid'           => $pid,
+            'meta_id'       => $meta_id,
+            'meta_value'    => array(
+                'date'      => date('Y-m-d H:i:s'),
+                'qty'       => $qty
+
+                )
+
+
+            );
+
+
+
+
+        $response = store_consumption_details($args);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+        return $response;
+
+
+
+
+    }
+
+    public function xooma_get_history_details($id,$pid){
+
+        $date = $_REQUEST['date'];
+
+        $response = get_occurrence_date($pid,$id,$date);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+    }
+
+    public function xooma_get_graph_details($id){
+
+        $start_date = $_REQUEST['start_date'];
+        $end_date = $_REQUEST['end_date'];
+        $param = $_REQUEST['param'];
+
+        if($param == 'bmi')
+            $response = generate_bmi($start_date,$end_date,$id,$param);
+        else
+            $response = generate_dates($start_date,$end_date,$id,$param);
+
+        if (is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+
+
+
+    }
+
+    
 }

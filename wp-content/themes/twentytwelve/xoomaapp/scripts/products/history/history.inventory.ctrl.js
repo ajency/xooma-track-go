@@ -17,11 +17,13 @@ InventoryChildView = (function(_super) {
 
   InventoryChildView.prototype.tagName = 'li';
 
-  InventoryChildView.prototype.template = '<div><span>{{date}}</span></div><div><span>{{type}}</span></div><br/> <div><span>Stock updated(+):</span>{{stock}}</div><br/> <div><span>Samples to customer(-):</span>{{sales}}</div><br/> <div><span>Consumed(-) :</span>{{consumption}}</div><br/>';
+  InventoryChildView.prototype.className = '.class';
+
+  InventoryChildView.prototype.template = '<input class="radio" id ="work{{id}}" name="works" type="radio" checked> <div class="relative"> <label class="labels" for="work{{id}}">{{product_type}}</label> <span class="date">{{date}}</span> <span class="circle"></span> </div> <div class="content"> <p> Stock updated(+) : <b>{{stock}}</b><br> Samples to customer(-) :<b>{{sales}}</b><br> Consumed(-) : <b>{{consumption}}</b><br> </p> </div>';
 
   return InventoryChildView;
 
-})(Marionette.CompositeView);
+})(Marionette.ItemView);
 
 ViewInventoryView = (function(_super) {
   __extends(ViewInventoryView, _super);
@@ -51,19 +53,13 @@ App.ViewInventoryCtrl = (function(_super) {
   }
 
   ViewInventoryCtrl.prototype.initialize = function(options) {
-    var productId, productModel, products, productsColl;
+    var productId, productModel, products;
     if (options == null) {
       options = {};
     }
     productId = this.getParams();
     products = [];
-    App.UserProductsColl.each(function(val) {
-      return $.each(val.get('products'), function(index, value) {
-        return products.push(value);
-      });
-    });
-    productsColl = new Backbone.Collection(products);
-    productModel = productsColl.where({
+    productModel = App.UserProductsColl.where({
       id: parseInt(productId[0])
     });
     return this._showView(productModel[0]);

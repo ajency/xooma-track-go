@@ -1,6 +1,6 @@
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-#Ajency.CurrentUserView::template = '#current-user-template'
+Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
 
 class Ajency.FormView extends Marionette.LayoutView
@@ -76,15 +76,14 @@ _.extend Ajency.CurrentUser::,
 	getUserProducts : ->
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
-				console.log response[0].products
-				x2oArray = []
-				$.each response[0].products , (index,value)->
-					x2oArray.push value
-				App.currentUser.set 'x2o' , x2oArray
+				console.log response = response.response
+				# x2oArray = []
+				# $.each response , (index,value)->
+				# 	x2oArray.push value
+				# App.currentUser.set 'x2o' , x2oArray
 				products = []
 				$.each response , (ind,val)->
-					$.each val.products , (index,value)->
-						products.push parseInt(value.id)
+					products.push parseInt(val.id)
 				@set 'products', products
 
 
@@ -96,16 +95,27 @@ _.extend Ajency.CurrentUser::,
 	getHomeProducts : ->
 		_successHandler = (response, status, xhr)=>
 			App.useProductColl = new Backbone.Collection
+			data = response.response
+			dates = response.graph['dates']
+			param = response.graph['param']
+			App.graph = new Backbone.Model
+			App.currentUser.set 'weight', response.weight
+			App.graph.set 'dates' , dates
+			App.graph.set 'param' , param
+			App.graph.set 'reg_date' , response.reg_date
 			if xhr.status is 200
-				$.each response, (index,value)->
-					$.each value.products , (ind,val)->
-						App.useProductColl.add val
+				$.each data, (index,value)->
+					App.useProductColl.add value
 						
 
 		$.ajax
 			method : 'GET'
 			url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 			success: _successHandler
+
+
+	
+				
 
 
 

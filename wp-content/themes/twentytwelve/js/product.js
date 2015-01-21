@@ -246,7 +246,7 @@ jQuery(document).ready(function($) {
 		if(this.value == 'asperbmi')
 		{
 			row = '<input type="button" name="add" id="add" value="Add Values for BMI" >';
-		    row2 = '<table class="add_rows">'+ 
+		    row2 = '<table class="add_rows"><tr><td><label>From</label></td><td><label>To</label></td><td><label>Quantity</label></td></tr>'+ 
 		            	'<tr id="row'+i+'">'+
 		            		'<td>'+
 		            			'<input type="textbox" number required class="check_number" id="weight_from'+i+'" name="weight_from'+i+'" value="">'+
@@ -267,7 +267,7 @@ jQuery(document).ready(function($) {
 		    $(".widefat").find('#add_table_weight').append($('<td>').append(row),
     		$('<td>').append(row2)
 			);
-		    $('#count').val($("table .add_rows tr").length);
+		    $('#count').val($("table .add_rows tr").length - 1);
 		    console.log($('#count').val());
 		     
 
@@ -356,7 +356,7 @@ jQuery(document).ready(function($) {
 	
 	$('#add').live('click',function(event){
 
-		i = $("table .add_rows tr").length;
+		i = $("table .add_rows tr").length - 1;
 		$('#count').val(i);
 		
 		row1 = '<input type="textbox"  class="check_number" required id="weight_from'+i+'" name="weight_from'+i+'" value="">';
@@ -499,7 +499,7 @@ jQuery(document).ready(function($) {
 				console.log(quantity);
 				i = inde
 				bmi_text += 
-		    	'<tr id="row'+i+'"><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
+		    	'<tr><td><label>From</label></td><td><label>To</label></td><td><label>Quantity</label></td></tr><tr id="row'+i+'"><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
 				'<td><input type="textbox" class="check_number" required id="weight_to'+i+'" name="weight_to'+i+'" value="'+range_arr[1]+'"></td>'+
 				'<td><input type="textbox" class="check_number" required id="quantity'+i+'" name="quantity'+i+'" value="'+quantity+'"></td>'+
 				'<td><input type="button" class="del" data-del="'+i+'" name="del'+i+'" id="del'+i+'" value="Del" ></td>'+

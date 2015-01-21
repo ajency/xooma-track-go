@@ -1,7 +1,132 @@
+class HomeLayoutView extends Marionette.LayoutView
+
+	template : '#home-template'
+
+	behaviors :
+		FormBehavior :
+			behaviorClass : Ajency.FormBehavior
+
+	ui :
+		time_period  : '.time_period'
+		start_date 	 : '#start_date'
+		end_date 	 : '#end_date'
+		generate 	 : 'input[name="generate"]'
+		form 		: '#generate_graph'
+		param 		: 'input[name="param"]'
+
+	events:
+		'change @ui.time_period':(e)->
+			id = $(e.target).val()
+			date =  moment().subtract(id, 'days')
+			previous = date.format('YYYY-MM-DD')
+			today = moment().format('YYYY-MM-DD')
+			picker = @ui.start_date.pickadate('picker')
+			picker.set('select', previous, { format: 'yyyy-mm-dd' })
+			
+			if id == 'all'
+				reg_date = App.graph.get 'reg_date'
+				picker = @ui.start_date.pickadate('picker')
+				picker.set('select', reg_date, { format: 'yyyy-mm-dd' })
+			picker1 = @ui.end_date.pickadate('picker')
+			picker1.set('select', today, { format: 'yyyy-mm-dd' })
+
+	onFormSubmit: (_formData)=>
+		$.ajax
+			method : 'GET'
+			data : _formData
+			url : "#{APIURL}/graphs/#{App.currentUser.get('ID')}"
+			success: @_successHandler
+
+	_successHandler: (response, status,xhr)=>
+		dates = _.has(response, "dates")
+		if dates == true && xhr.status == 200
+			App.graph.set 'dates' , response.dates
+			App.graph.set 'param' , response.param
+			@generateGraph()
+
+		else if dates == false && xhr.status == 200
+			@generateBMIGraph(response)
+
+		
+
+
+	onShow:->
+		@generateGraph()
+		@ui.start_date.pickadate(
+			formatSubmit: 'yyyy-mm-dd'
+			hiddenName: true
+			)
+		@ui.end_date.pickadate(
+			formatSubmit: 'yyyy-mm-dd'
+			hiddenName: true
+			)
+
+	generateBMIGraph:(response)->
+		dates = [response['st_date'],response['et_date']]
+
+		bmi_start_ht = parseFloat(response['st_height']) *  12
+		bmi_end_ht = parseFloat(response['et_height']) *  12
+		st_square = parseFloat(bmi_start_ht) * parseFloat(bmi_start_ht)
+		et_square = parseFloat(bmi_end_ht) * parseFloat(bmi_end_ht)
+		bmi_start = (parseFloat(response['st_weight'])/parseFloat(st_square))* 703
+		bmi_end = (parseFloat(response['et_weight'])/parseFloat(et_square))* 703
+		lineChartData = 
+			labels : dates,
+			datasets : [
+				
+					label: "My Second dataset",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : [bmi_start,bmi_end]
+				
+				
+			]
+
+		ctdx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctdx).Line(lineChartData, 
+			responsive: true
+		);
+
+	generateGraph:->
+		dates = App.graph.get 'dates'
+		param = App.graph.get 'param'
+		lineChartData = 
+			labels : dates,
+			datasets : [
+			
+				
+					label: "My Second dataset",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : param
+				
+			]
+
+		ctdx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctdx).Line(lineChartData, 
+			responsive: true
+		);
+
+		
+
+
+
+
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		@show new Marionette.LayoutView template : '#home-template'
+		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+
+	_showView:(collection)=>
+		@show new HomeLayoutView
 
 class HomeX2OViewChild extends Marionette.ItemView
 
@@ -11,7 +136,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Daily Target</h5>
-						<h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty1}}</sup></h4>
+						<h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty}}</sup></h4>
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Last Consume</h5>
@@ -42,7 +167,8 @@ class HomeX2OViewChild extends Marionette.ItemView
 				data.time = moment(recent).format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
-		data.remianing = parseInt(@model.get('qty1')) - parseInt(occurrenceArr.length)
+		data.remianing = parseInt(@model.get('qty').length) - parseInt(occurrenceArr.length)
+		data.qty = @model.get('qty').length
 		data
 
 	onShow:->
@@ -50,6 +176,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence")
+			expected = _.has(val, "expected")
 			if occurrence == true
 				date = val.occurrence
 				occurrenceArr.push date
@@ -58,7 +185,9 @@ class HomeX2OViewChild extends Marionette.ItemView
 		consumed = occurrenceArr.length
 		target = @model.get 'qty1'
 
-		doughnutData = @drawBottle(target,consumed,bonusArr)
+		doughnutData = @drawBottle(@model.get('occurrence'))
+		
+
 		
 		
 		ctx = document.getElementById("chart-area").getContext("2d")
@@ -66,46 +195,49 @@ class HomeX2OViewChild extends Marionette.ItemView
 			responsive : true,  
 			percentageInnerCutout : 80 
 		)
-		ctdx = document.getElementById("canvas").getContext("2d")
-		window.myLine = new Chart(ctdx).Line(lineChartData, 
-			responsive: true
-		)
+		
+		
+		
+	get_occurrence:(data)->
+		console.log data
+		console.log occurrence = _.has(data, "occurrence")
+		console.log expected = _.has(data, "expected")
+		console.log meta_value = _.has(data, "meta_value")
+		value = 0
+		arr = []
+		$.each meta_value , (index,value)->
+			value += parseInt value.qty
+		
+		if occurrence == true && expected == true
+			arr['color'] = "#6bbfff"
+			arr['highlight'] =  "#50abf1"
+			arr['value'] = value
+			
+		else if occurrence == false && expected == true
+			arr['color'] = "#e3e3e3"
+			arr['highlight'] =  "#cdcdcd"
+			arr['value'] = value
+		else if occurrence == true && expected == false
+			arr['color'] = "#e3e3e3"
+			arr['highlight'] =  "#cdcdcd"
+			arr['value'] = value
 
-		@ui.liquid.each (e)->
-			$(e.target)
-				.data("origHeight", $(e.target).height())
-				.height(0)
-				.animate(
-						height: $(this).data("origHeight")
-					, 3000)
+		arr
 
-	drawBottle:(target,consumed,bonusArr)->
-		grey = parseInt(target) - parseInt(consumed)
-		i = 1 
+
+	drawBottle:(data)->
 		doughnutData = []
-		while i < parseInt(consumed)
+		$.each data, (ind,val)->
+			occurrence = HomeX2OViewChild::get_occurrence(val)
+			i = parseInt(ind) + 1
+			if occurrence['value'] == 0
+				occurrence['value'] = 1
 			doughnutData.push 
-				value: 50
-				color:"#6bbfff "
-				highlight: "#50abf1"
-				label: "Bottle"+i
-			i++
-
-		while i <= parseInt(grey)
-			doughnutData.push 
-				value: 50
-				color:"#e3e3e3"
-				highlight: "#cdcdcd"
-				label: "Bottle"+i
-			i++
-
-		while i <= bonusArr
-			doughnutData.push 
-				value: 50
-				color:"#e3e3e3"
-				highlight: "#cdcdcd"
-				label: "Bottle"+i
-			i++
+					value: occurrence['value']
+					color:occurrence['color']
+					highlight:occurrence['highlight']
+					label: "Bottle"+i
+				
 		doughnutData
 
 	
@@ -131,19 +263,17 @@ class HomeX2OView extends Marionette.CompositeView
 class App.HomeX2OCtrl extends Ajency.RegionController
 
 	initialize:->
-		if App.currentUser.has 'x2o'
-			console.log x2oColl = new Backbone.Collection App.currentUser.get 'x2o'
-			@show new HomeX2OView
-						collection : x2oColl
-		else
-			App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		console.log App.useProductColl
+		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
-		productcollection = new Backbone.Collection collection
-		model = productcollection.shift() 
-		modelColl = new Backbone.Collection model.get('products')
-		@show new HomeX2OView
-					collection : modelColl
+		productcollection = collection.clone()
+		model = productcollection.findWhere({name:'x2o'}) 
+		console.log model.get('name')
+		if model.get('name') == 'x2o'
+			console.log modelColl = new Backbone.Collection model
+			@show new HomeX2OView
+						collection : modelColl
 
 class ProductChildView extends Marionette.ItemView
 
@@ -221,7 +351,7 @@ class ProductChildView extends Marionette.ItemView
 		whenar = ['','Morning Before meal' , 'Morning After meal', 'Night Before Meal' , 'Night After Meal']
 		$.each @model.get('qty'), (ind,val)->
 			console.log occurrenceArr[ind]
-			occu_data = occurrenceArr[ind]
+			occu_data = occurrenceArr.length
 			if occurrenceArr[ind] == "" || occurrenceArr[ind] == undefined
 				occu_data = 0
 			shecule.push
@@ -238,17 +368,17 @@ class ProductChildView extends Marionette.ItemView
 
 
 
-class HomeViewChildView extends Marionette.CompositeView
+# class HomeViewChildView extends Marionette.CompositeView
 
-	template : '<div></div>'
+# 	template : '<div></div>'
 
-	childView : ProductChildView
+# 	childView : ProductChildView
 
 	
 
-	initialize:->
-		products = @model.get 'products'
-		@collection = new Backbone.Collection products
+# 	initialize:->
+# 		products = @model.get 'products'
+# 		@collection = new Backbone.Collection products
 
 
 class HomeOtherProductsView extends Marionette.CompositeView
@@ -257,20 +387,22 @@ class HomeOtherProductsView extends Marionette.CompositeView
 	  
 	template : '<span></span>'    
 
-	childView : HomeViewChildView
+	childView : ProductChildView
 
 	
 
 class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		console.log App.useProductColl
+		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
-		productcollection = new Backbone.Collection collection
-		productcollection.shift() 
-		App.homexProductsColl = new Backbone.Collection
-		App.homexProductsColl = productcollection
+		productcollection = collection.clone()
+		model = productcollection.findWhere({name:'x2o'})  
+		if model.get('name') != 'x2o'
+			productcollection.reset App.useProductColl.toArray()
+		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		

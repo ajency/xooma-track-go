@@ -1,0 +1,34 @@
+/* Sub - Header */
+.sub-header{
+    background: @gray-lighter;
+    padding: @padding-base-vertical;
+    position: fixed;
+    width: 100%;
+    top: 60px;
+    z-index:9;
+   ul{
+      
+            display: block;
+            text-align: center;
+            line-height: 30px;
+            margin:@margin-none;
+        li{
+           a{
+                padding: 0px 40px;
+                color:lighten(@gray-base, 60%);
+               text-decoration:none;
+               @media (max-width: @screen-sm-min) {
+                        padding: 0px 20px !important;
+                }
+            }
+            &.selected{
+                a, i{
+                    color: @brand-primary;
+                }
+
+            }
+       }
+   }
+}
+
+

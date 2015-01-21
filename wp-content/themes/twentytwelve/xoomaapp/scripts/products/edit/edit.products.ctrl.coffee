@@ -67,15 +67,7 @@ class EditProductsView extends Marionette.ItemView
 							}, 'slow')
 
 
-		'click .remove':(e)->
-			product = parseInt @model.get('id')
-			products = App.currentUser.get 'products'
-			if $.inArray( product, products ) > -1
-				$.ajax
-					method : 'DELETE'
-					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
-					success: @successHandler
-					error :@erroraHandler
+		
 
 		'click @ui.schedule':(e)->
 			$(@ui.schedule).removeClass 'btn-primary'
@@ -253,6 +245,8 @@ class EditProductsView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		product = parseInt @model.get('id')
+		weightbmi = @get_weight_bmi(@model.get('bmi'))
+		data.x2o = weightbmi	
 		products = App.currentUser.get 'products'
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
@@ -287,6 +281,20 @@ class EditProductsView extends Marionette.ItemView
 			
 		
 		data
+
+	get_weight_bmi:(bmi)->
+		console.log bmi
+		weight = App.currentUser.get('weight')
+		actual = 1
+			
+		$.each bmi , (index,value)->
+			bmi_val  = value['range'].split('<')
+			console.log bmi_val[0]
+			console.log bmi_val[1]
+			if parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])
+				actual = value['quantity'];
+		actual
+
 
 	
 

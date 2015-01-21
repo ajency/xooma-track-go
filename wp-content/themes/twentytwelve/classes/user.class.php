@@ -104,6 +104,7 @@ class User
 
             $date = date('Y-m-d');
         }
+        unset($args['date_field']);
         $user_meta_value = maybe_serialize($args);
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
 
@@ -269,7 +270,7 @@ class User
 
           );
       
-      store_stock_data($args_del);
+      //store_stock_data($args_del);
 
         if($updated_id){
 
@@ -297,6 +298,8 @@ class User
 
         $product_main_table = $wpdb->prefix . "product_main";
 
+        $product_meta_table = $wpdb->prefix . "product_meta";
+
 
         $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
 
@@ -307,116 +310,140 @@ class User
         
         foreach ($sql_query as $key => $term) {
 
-            $value = $productList->get_products($term->product_id);
+            $val = $productList->get_products($term->product_id);
             
-            $time_set = $value[0]['time_set'];
-            if( $time_set == 'asperbmi'){
-                        $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
+        
+            $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($val[0]['id'], 'product_type', true)." and type='product_type'");
                     
+            $sub_query2 = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='reminders' and main_id = ".$term->id);
 
 
+                $reminders = array();
+                foreach ($sub_query2 as $key => $value) {
+                   
+                    $data2  = maybe_unserialize($value->value);
+
+                    
+                    
+                    $reminders[] = array(
+                        'time'       => $data2['time']
+
+                        );
+
+
+
+                }
+                $reminder =  count($reminders) == 0 ? array() : $reminders;
+               
+
+            $settings = $wpdb->get_row("SELECT * FROM $product_type_table WHERE type='settings'");
                         
-
-                       
+            $settings_data = json_decode($settings->value);
+            
+             
                         
-                        
-                        $user_id = $id;
+            
+            $user_id = $id;
 
-                        $occurrence = get_occurrence_date($value[0]['id'],$user_id,$date="");
+            $occurrence = get_occurrence_date($term->product_id,$id,$date="");
 
-                        $response = $user->get_user_product_details($id,$term->product_id);
+            $response = $user->get_user_product_details($id,$term->product_id);
 
-                        //get stock count of the user//
-                        $stock_count = get_stock_count_user($id,$term->product_id);
+            //get stock count of the user//
+            $stock_count = get_stock_count_user($id,$term->product_id);
 
-                        $sub[] = array(
-                            'id'            => intval($value[0]['id']),
-                            'name'          => $value[0]['name'],
-                            'servings'      => count($response['qty']),
-                            'qty1'          => $response['qty'][0]['qty'],
-                            'product_type'  => $product_type->value,
-                            'occurrence'    => $occurrence,
-                            'available'     => $stock_count,
-                            'total'         =>  $value[0]['total']
+            //get users_timezone
+
+            
+            $sub[] = array(
+                'id'            => intval($term->product_id),
+                'name'          => $val[0]['name'],
+                'servings'      => count($response['qty']),
+                'qty'          => $response['qty'],
+                'product_type'  => $product_type->value,
+                'occurrence'    => $occurrence,
+                'available'     => $stock_count,
+                'total'         =>  $val[0]['total'],
+                'reminder'      => $reminder,
+                'settings'      => $settings_data->no_of_days,
+                'type'          => $val[0]['time_set'],
+                'timezone'      => $response['timezone']
 
 
-                );
-                
+    );
+
+
           
-        }
+     
 
     } 
-     $pr_main[] = array(
 
-                            'type'      => 'As per BMI',
-                            'products'  => $sub
 
-                            );   
+    //get graph data 
+    $reg_date = get_user_measurement_date($id);
+    $graph = generate_dates($reg_date,date('Y-m-d'),$id,'weight');
+
+    $data = USER::get_user_measurement_details($id,$date="");
+    
+  
+
+    
+    
         
 
        
             
 
-            $product_type = array('Anytime','Scheduled');
+           
+                
+                // foreach ($sql_query as $key => $term) {
 
-            
-            foreach ($product_type as $key => $val) {
-                $sub = array();
-                foreach ($sql_query as $key => $term) {
-
-                    $value = $productList->get_products($term->product_id);
+                //     $value = $productList->get_products($term->product_id);
                   
-                    $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
-                    $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                    $time_set = get_term_meta($value[0]['id'], 'time_set', true);
+                //     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
+                //     $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
+                //     $time_set = get_term_meta($value[0]['id'], 'time_set', true);
                     
 
-                    if($frequency == $val && $time_set != 'asperbmi'){
+                //     if($frequency == $val && $time_set != 'asperbmi'){
                         
                         
                        
-                        $meta_arr = array();
-                        $user_id = $id;
+                //         $meta_arr = array();
+                //         $user_id = $id;
                         
-                        $occurrence = get_occurrence_date($term->product_id,$user_id,$date="");
-                        $response = $user->get_user_product_details($id,$term->product_id);
-                        //get stock count of the user//
-                        $stock_count = get_stock_count_user($id,$term->product_id);
-                        $sub[] = array(
+                //         $occurrence = get_occurrence_date($term->product_id,$user_id,$date="");
+                //         $response = $user->get_user_product_details($id,$term->product_id);
+                //         //get stock count of the user//
+                //         $stock_count = get_stock_count_user($id,$term->product_id);
+                //         $sub[] = array(
 
 
-                            'id'            => intval($term->product_id),
-                            'name'          => $value[0]['name'],
-                            'qty'           => $response['qty'],
-                            'servings'      => count($response['qty']),
-                            'product_type'  => $product_type->value,
-                            'occurrence'    => $occurrence,
-                            'type'          => $val,
-                            'available'     => $stock_count,
-                            'total'         => $value[0]['total']
+                //             'id'            => intval($term->product_id),
+                //             'name'          => $value[0]['name'],
+                //             'qty'           => $response['qty'],
+                //             'servings'      => count($response['qty']),
+                //             'product_type'  => $product_type->value,
+                //             'occurrence'    => $occurrence,
+                //             'available'     => $stock_count,
+                //             'total'         => $value[0]['total']
 
 
-                            );
+                //             );
                         
 
-                    }
+                //     }
                     
 
-                }
+                // }
 
                
 
-                        $pr_main[] = array(
-
-                            'type'      => $val,
-                            'products'  => $sub
-
-                            );
-            }
+              
 
 
-      
-    return $pr_main;
+   
+    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight']);
         
 
     }
@@ -429,7 +456,8 @@ class User
 
         $user = new User();
 
-
+        $user_data = $user->get_user_details($id);
+        
         $product_main_table = $wpdb->prefix . "product_main";
 
         $product_meta_table = $wpdb->prefix . "product_meta";
@@ -509,7 +537,8 @@ class User
             'frequency_value'       => $all_terms[0]['frequency_value'],
             'image'                 => $all_terms[0]['image'],
             'time_set'              => $count,
-            'reminders'             => $reminder
+            'reminders'             => $reminder,
+            'timezone'              => $user_data['timezone']
                 
             
 

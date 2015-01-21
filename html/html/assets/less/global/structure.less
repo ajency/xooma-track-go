@@ -45,7 +45,7 @@ body{
     font-weight: @font-bold;
 }
 .section{
-    padding:100px 0px 10px 0px;
+    padding:70px 0px 10px 0px;
 }
 .list-style {
     li{
@@ -280,26 +280,33 @@ display:none !important;
     transition: all 1s ease-out;
     width: 150px;
 }
-.water-full { background: #81BAE7 ;height:290px; z-index:1;border-radius:28px 28px 10px 10px;position: absolute;
-bottom: 5px;  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-medium { background: #81BAE7 ;height:180px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-low { background: #81BAE7 ;height:80px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-empty { background: #81BAE7 ;height:15px;z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
+
+.level-25{
+     background: @blue ;
+     width:100%;
+     height:25%;
+}
+.level-50{
+     background: @blue ;
+     width:100%;
+     height:25%;
+}
+.level-75{
+     background: @blue ;
+     width:100%;
+     height:25%;
+}
+.level-100{
+     background: @blue ;
+     width:100%;
+     height:25%;
+     border-top-left-radius::20px;
+     -webkit-border-top-left-radius:20px;
+     -moz-border-top-left-radius:20px;
+    border-border-top-right-radius:20px;
+     -webkit-border-top-right-radius:20px;
+     -moz-border-top-right-radius:20px;
+}
 @media (max-width: @screen-sm-min) {
     .bottle{
         width: 135px !important;
@@ -380,21 +387,178 @@ img {
   vertical-align: middle;border: 0;
 }
 
-/** Capsule-product-type **/
+/** Capsule-Caplets product-type **/
 .sprite-1{
-     background:url(../../assets/images/sprite.png)no-repeat;
-     width: 53px;
-     height: 50px;
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 18px;
+     height: 34px;
      display: inline-block;
 }
-.capsule_bonus_class{
+.capsule_default_class, caplet_default_class, softgels_default_class{
   .sprite-1;
-  background-position: -123px 0px;
+  background-position: -14px -385px;
 }
-.capsule_occurred_class{
+.capsule_bonus_class, caplet_bonus_class, softgels_bonus_class{
+  .sprite-1;
+  background-position: -122px -385px;
+}
+.capsule_occurred_class, caplet_occurred_class, softgels_occurred_class {
     .sprite-1;
-    background-position: -63px 0px;
+    background-position: -85px -385px;
 }
-.capsule_expected_class{
+.capsule_expected_class, caplet_expected_class, softgels_expected_class {
   .sprite-1;
+   background-position: -50px -385px;
+}
+
+/** packet-sachet product-type **/
+.sprite-2{
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 25px;
+     height: 38px;
+     display: inline-block;
+}
+.sachet_default_class, packet_default_class{
+  .sprite-2;
+  background-position: -10px -10px;
+}
+.sachet_bonus_class, packet_bonus_class{
+  .sprite-2;
+  background-position: -118px -10px;
+}
+.sachet_occurred_class, packet_occurred_class {
+    .sprite-2;
+    background-position: -82px -10px;
+}
+.sachet_expected_class, packet_expected_class{
+  .sprite-2;
+   background-position: -45px -10px;
+}
+
+/** Cream product-type **/
+.sprite-3{
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 25px;
+     height: 38px;
+     display: inline-block;
+}
+.cream_default_class{
+  .sprite-3;
+  background-position: -10px -64px;
+}
+.cream_bonus_class{
+  .sprite-3;
+  background-position: -118px -64px;
+}
+.cream_occurred_class{
+    .sprite-3;
+    background-position: -82px -64px;
+}
+.cream_expected_class{
+  .sprite-3;
+   background-position: -45px -64px;
+}
+
+/** tsp product-type **/
+.sprite-4{
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 25px;
+     height: 27px;
+     display: inline-block;
+}
+.tsp_default_class{
+  .sprite-4;
+  background-position: -10px -181px;
+}
+.tsp_bonus_class{
+  .sprite-4;
+  background-position: -118px -181px;
+}
+.tsp_occurred_class{
+    .sprite-4;
+    background-position: -82px -181px;
+}
+.tsp_expected_class{
+  .sprite-4;
+   background-position: -45px -181px;
+}
+/**  tsp-product-type **/
+
+/** scoop product-type **/
+.sprite-5{
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 25px;
+     height: 47px;
+     display: inline-block;
+}
+.scoop_default_class{
+  .sprite-5;
+  background-position: -10px -113px;
+}
+.scoop_bonus_class{
+  .sprite-5;
+  background-position: -118px -113px;
+}
+.scoop_occurred_class{
+    .sprite-5;
+    background-position: -82px -113px;
+}
+.scoop_expected_class{
+  .sprite-5;
+   background-position: -45px -113px;
+}
+/**  scoop-product-type **/
+
+/** stickpack product-type **/
+.sprite-6{
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 25px;
+     height: 44px;
+     display: inline-block;
+}
+.stickpack_default_class{
+  .sprite-6;
+  background-position: -10px -225px;
+}
+.stickpack_bonus_class{
+  .sprite-6;
+  background-position: -118px -225px;
+}
+.stickpack_occurred_class{
+    .sprite-6;
+    background-position: -82px -225px;
+}
+.stickpack_expected_class{
+  .sprite-6;
+   background-position: -45px -225px;
+}
+/**  scoop-product-type **/
+
+/** bottle product-type **/
+.sprite-7{
+     background:url(../../assets/images/sprite-type.png)no-repeat;
+     width: 25px;
+     height: 71px;
+     display: inline-block;
+}
+.x2o_default_class{
+  .sprite-7;
+  background-position: -10px -286px;
+}
+.x2o_bonus_class{
+  .sprite-7;
+  background-position: -118px -286px;
+}
+.x2o_occurred_class{
+    .sprite-7;
+    background-position: -82px -286px;
+}
+.x2o_expected_class{
+  .sprite-7;
+   background-position: -45px -286px;
+}
+/**  scoop-product-type **/
+.no-remiander{
+    font-size:1.4em !important;
+
 }

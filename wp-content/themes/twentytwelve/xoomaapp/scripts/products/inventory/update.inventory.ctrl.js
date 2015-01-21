@@ -12,7 +12,9 @@ EditInventoryView = (function(_super) {
   __extends(EditInventoryView, _super);
 
   function EditInventoryView() {
+    this.errorSave = __bind(this.errorSave, this);
     this.successSave = __bind(this.successSave, this);
+    this.valueOutput = __bind(this.valueOutput, this);
     return EditInventoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -27,43 +29,104 @@ EditInventoryView = (function(_super) {
     responseMessage: '.aj-response-message',
     form: '#inventory',
     view: '.view',
-    container_label: '#container_label'
+    container_label: '#container_label',
+    newsum: '.newsum',
+    ntotal: '.ntotal',
+    ncon: '.ncon',
+    nequalto: '.nequalto',
+    rangeSliders: '[data-rangeslider]',
+    navail: '.navail',
+    nadd: '.nadd',
+    nsub: '.nsub',
+    finaladd: '.finaladd',
+    eqa: '.eqa',
+    entry: '.entry',
+    record: 'input[name="record"]'
   };
 
   EditInventoryView.prototype.events = {
+    'click @ui.entry': function(e) {
+      this.ui.entry.removeClass('btn-primary');
+      $(e.target).removeClass('btn-default');
+      $(e.target).addClass('btn-primary');
+      $('#subtract').val($(e.target).val());
+      this.ui.rangeSliders.val(0);
+      this.ui.rangeSliders.parent().find("output").html(0);
+      this.ui.save.hide();
+      if ($(e.target).val() === 'adjust') {
+        $('.record_new').hide();
+        $('.record').hide();
+        this.adjustValue();
+        this.ui.containers.val();
+        $('#slider').removeAttr('disabled');
+        return $('.rangeslider').removeClass('rangeslider--disabled');
+      } else {
+        $('.record_new').show();
+        $('.record').show();
+        this.ui.containers.val(0);
+        return $(this.ui.containers).trigger("change");
+      }
+    },
+    'change @ui.rangeSliders': function(e) {
+      this.valueOutput(e.currentTarget);
+      console.log($('#subtract').val());
+      if ($('#subtract').val() === 'adjust') {
+        return this.adjustValue();
+      } else {
+        return $(this.ui.containers).trigger("change");
+      }
+    },
     'change @ui.containers': function(e) {
-      var available, contacount, containers, count, total;
+      var available, contacount, containers, count, eqt, equalto, total;
+      if (parseInt($(e.target).val()) !== 0) {
+        $('#slider').removeAttr('disabled');
+        $('.rangeslider').removeClass('rangeslider--disabled');
+        this.ui.save.show();
+      } else {
+        this.ui.rangeSliders.val(0);
+        this.ui.rangeSliders.parent().find("output").html($(e.target).val());
+        $('#slider').attr('disabled', true);
+        $('.rangeslider').addClass('rangeslider--disabled');
+        this.ui.save.hide();
+      }
       available = this.model.get('available');
       total = this.model.get('total');
+      this.ui.ntotal.text(total);
       containers = parseInt(available) / parseInt(total);
       console.log(contacount = Math.ceil(containers));
       console.log(count = parseInt($(e.target).val()) + parseInt(contacount));
-      return this.ui.container_label.text(count);
+      this.ui.ncon.text($(e.target).val());
+      equalto = parseInt($(e.target).val()) * parseInt(total);
+      this.ui.nequalto.text(equalto);
+      this.ui.navail.text(available);
+      this.ui.nadd.text(equalto);
+      if (this.ui.rangeSliders.val() < 0) {
+        $('.sign').text('-');
+        eqt = parseInt(available) + parseInt(equalto) - parseInt(Math.abs(this.ui.rangeSliders.val()));
+      } else {
+        $('.sign').text('+');
+        eqt = parseInt(available) + parseInt(equalto) + parseInt(Math.abs(this.ui.rangeSliders.val()));
+      }
+      this.ui.nsub.text(Math.abs(this.ui.rangeSliders.val()));
+      this.ui.eqa.text(eqt);
+      this.ui.newsum.show();
+      return this.ui.finaladd.show();
     },
     'keypress @ui.subtract': function(e) {
       return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 44;
     },
     'click @ui.save': function(e) {
-      var data, product, sub;
+      var data, product;
       e.preventDefault();
-      sub = this.ui.subtract.val();
-      if (sub === "") {
-        sub = 0;
-        this.ui.subtract.val(0);
-      }
-      if (parseInt(this.model.get('available')) > parseInt(sub)) {
-        data = this.ui.form.serialize();
-        product = this.model.get('id');
-        return $.ajax({
-          method: 'POST',
-          url: "" + _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
-          data: data,
-          success: this.successSave,
-          error: this.errorSave
-        });
-      } else {
-        return this.errorMsg();
-      }
+      data = this.ui.form.serialize();
+      product = this.model.get('id');
+      return $.ajax({
+        method: 'POST',
+        url: "" + _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
+        data: data,
+        success: this.successSave,
+        error: this.errorSave
+      });
     },
     'click @ui.view': function(e) {
       var product;
@@ -78,8 +141,57 @@ EditInventoryView = (function(_super) {
     }
   };
 
+  EditInventoryView.prototype.serializeData = function() {
+    var data;
+    data = EditInventoryView.__super__.serializeData.call(this);
+    data.producttype = this.model.get('product_type');
+    data.product_type = this.model.get('product_type').toLowerCase();
+    return data;
+  };
+
+  EditInventoryView.prototype.adjustValue = function() {
+    var available, eqt, total;
+    available = this.model.get('available');
+    total = this.model.get('total');
+    this.ui.navail.text(available);
+    console.log(this.ui.rangeSliders.val());
+    if (parseInt(this.ui.rangeSliders.val()) === 0) {
+      this.ui.save.hide();
+    }
+    if (this.ui.rangeSliders.val() < 0) {
+      $('.sign').text('-');
+      eqt = parseInt(available) - parseInt(Math.abs(this.ui.rangeSliders.val()));
+      this.ui.save.show();
+    } else if (this.ui.rangeSliders.val() > 0) {
+      $('.sign').text('+');
+      eqt = parseInt(available) + parseInt(Math.abs(this.ui.rangeSliders.val()));
+      this.ui.save.show();
+    }
+    this.ui.nsub.text(Math.abs(this.ui.rangeSliders.val()));
+    this.ui.eqa.text(eqt);
+    return this.ui.finaladd.show();
+  };
+
+  EditInventoryView.prototype.valueOutput = function(element) {
+    return $(element).parent().find("output").html($(element).val());
+  };
+
   EditInventoryView.prototype.onShow = function() {
     var available, contacount, containers, total;
+    this.ui.save.hide();
+    $('#subtract').val('record');
+    console.log($('#subtract').val());
+    $('#record').addClass('btn-primary');
+    this.ui.rangeSliders.each((function(_this) {
+      return function(index, ele) {
+        return _this.valueOutput(ele);
+      };
+    })(this));
+    this.ui.rangeSliders.rangeslider({
+      polyfill: false
+    });
+    this.ui.newsum.hide();
+    this.ui.finaladd.hide();
     available = this.model.get('available');
     total = this.model.get('total');
     containers = parseInt(available) / parseInt(total);
@@ -95,8 +207,12 @@ EditInventoryView = (function(_super) {
     }
   };
 
+  EditInventoryView.prototype.errorSave = function(response, status, xhr) {
+    return this.errorMsg();
+  };
+
   EditInventoryView.prototype.errorMsg = function() {
-    this.ui.responseMessage.text("Value entered shoule be less than available count");
+    this.ui.responseMessage.text("Details could not be saved");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -114,21 +230,16 @@ App.EditInventoryCtrl = (function(_super) {
   }
 
   EditInventoryCtrl.prototype.initialize = function(options) {
-    var productId, productModel, products, productsColl;
+    var productId, productModel, products;
     if (options == null) {
       options = {};
     }
     productId = this.getParams();
     products = [];
-    App.UserProductsColl.each(function(val) {
-      return $.each(val.get('products'), function(index, value) {
-        return products.push(value);
-      });
-    });
-    productsColl = new Backbone.Collection(products);
-    productModel = productsColl.where({
+    console.log(App.UserProductsColl);
+    console.log(productModel = App.UserProductsColl.where({
       id: parseInt(productId[0])
-    });
+    }));
     return this.show(new EditInventoryView({
       model: productModel[0]
     }));
