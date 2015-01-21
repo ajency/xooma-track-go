@@ -559,6 +559,7 @@
                 </div>
             </div>
             <form id="edit_product" class="form-horizontal" role="form" method="POST">
+            <input type="hidden" name="frequency_type" value="{{frequency_value}}" />
             <div class="col-md-6 col-xs-12">
                 <!--<b>Chosse the consumtion of {{name}}</b>
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
@@ -567,7 +568,7 @@
                   </div>
                   <div class="btn-group" role="group">
                     <button type="button"  {{schedule}} class="btn btn-default {{scheduleclass}}">Schedule</button>
-                  <input type="hidden" name="frequency_type" value="{{frequency_value}}" /> </div>
+                   </div>
                 </div>-->
 
                 <div class="asperbmi">
@@ -864,7 +865,7 @@
 					      <input type="hidden" name="total" value="{{total}}" / >
 					      
 				      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
-				       <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>	
+				      <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
 
 				    </div>
 		 	 	</div>
@@ -889,67 +890,13 @@
 <br>
 
 <div class="container"> 
-<ul class="viewInventory" style="display:none;">
 
-
-
-</ul>
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
-<ul id='timeline' >
-
-  <li class='work'>
-    <input class='radio' id='work5' name='works' type='radio' checked>
-    <div class="relative">
-      <label class="labels" for='work5'>Sachets</label>
-      <span class='date'>12 May 2013</span>
-      <span class='circle'></span>
-    </div>
-    <div class='content'>
-     <p>
-      Stock updated(+) : <b>1</b><br>
-      Samples to customer(-) :<b>1</b><br>
-      Consumed(-) : <b>1</b><br>
-     </p>
-    </div>
-  </li>
-
-  <li class='work'>
-    <input class='radio' id='work4' name='works' type='radio'>
-    <div class="relative">
-      <label class="labels" for='work4'>Sachets</label>
-      <span class='date'>11 May 2013</span>
-      <span class='circle'></span>
-    </div>
-    <div class='content'>
-     <p>
-      Stock updated(+) : <b>1</b><br>
-      Samples to customer(-) :<b>1</b><br>
-      Consumed(-) : <b>1</b><br>
-     </p>
-    </div>
-  </li>
-  <li class='work'>
-    <input class='radio' id='work3' name='works' type='radio'>
-    <div class="relative">
-      <label class="labels" for='work3'>Sachets</label>
-      <span class='date'>10 May 2013</span>
-      <span class='circle'></span>
-    </div>
-    <div class='content'>
-    <p>
-      Stock updated(+) : <b>1</b><br>
-      Samples to customer(-) :<b>1</b><br>
-      Consumed(-) : <b>1</b><br>
-     </p>
-    </div>
-  </li>
-
+<ul id='timeline' class="viewInventory">
 </ul>
 </div>
 </div>
-
-
 <a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
 
 </div>

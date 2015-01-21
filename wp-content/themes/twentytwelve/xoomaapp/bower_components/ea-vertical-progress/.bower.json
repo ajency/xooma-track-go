@@ -1,0 +1,32 @@
+{
+  "name": "ea-vertical-progress",
+  "authors": [
+    "Elroy Antao (elroyantao@gmail.com)"
+  ],
+  "description": "ea-vertical-progress",
+  "keywords": [
+    "progressbar",
+    "vertical"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  },
+  "homepage": "https://github.com/elroyantao/ea-vertical-progress",
+  "_release": "f4137ab939",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "f4137ab939418aa1ede61a13b981528473cb34a4"
+  },
+  "_source": "git://github.com/elroyantao/ea-vertical-progress.git",
+  "_target": "*",
+  "_originalSource": "ea-vertical-progress",
+  "_direct": true
+}

@@ -970,22 +970,20 @@ function store_stock_data($args){
 
 	global $wpdb;
 
- 
+ 	$object_id = get_object_id($args['product_id'],$args['user_id']);
 
 	$transactions = $wpdb->prefix . "transactions";
 
 	$main = $wpdb->insert(
 								$transactions,
 								array(
-									'user_id'                        => $args['user_id'],
-									'product_id'                     => $args['product_id'],
-									'type'                           => $args['type'],
-									'amount'                         => $args['amount'],
-									'consumption_type'               => $args['consumption_type'],
+									'object_id'                        => $object_id,
+									'type'                             => $args['type'],
+									'amount'                           => $args['amount'],
+									'consumption_type'                 => $args['consumption_type'],
 									'datetime'                            => date('y-m-d H:i:s')
 								),
 								array(
-									'%d',
 									'%d',
 									'%s',
 									'%d',
@@ -1005,6 +1003,7 @@ function store_stock_data($args){
 }
 
 function store_add_schedule($args){
+
 
 
 			update_schedule($args['main_id']);
@@ -1050,15 +1049,16 @@ function get_stock_count_user($id,$product_id){
 
 		$transactions = $wpdb->prefix . "transactions";
 
+		$object_id = get_object_id($product_id,$id);
 		
-		$stock = $wpdb->get_row("SELECT sum(amount) as stock from  $transactions where user_id=".$id
-			." and product_id=".$product_id." and type='stock'");
+		$stock = $wpdb->get_row("SELECT sum(amount) as stock from  $transactions where object_id=".$object_id
+			."  and type='stock'");
 
 
 
 	 
-		$del = $wpdb->get_row("SELECT sum(amount) as del from  $transactions where user_id=".$id
-			." and product_id=".$product_id." and type='remove'");
+		$del = $wpdb->get_row("SELECT sum(amount) as del from  $transactions where object_id=".$object_id
+			." and type='remove'");
 
 
 
@@ -1077,36 +1077,75 @@ function get_history_user_product($id,$product_id){
 
 		$transactions = $wpdb->prefix . "transactions";
 
-		global $productList;
-		$term = $productList->get_products($product_id);
 
-		$results = $wpdb->get_results("SELECT sum(amount) as stock, DATE(datetime) as datefield from $transactions
-				where user_id=".$id." and product_id=".$product_id." and type='stock' group by DATE(datetime) DESC");
+		$table_name = $wpdb->prefix ."aj_occurrence_meta";
 
+
+		$object_id = get_object_id($product_id,$id);
+
+		// global $productList;
+		// $term = $productList->get_products($product_id);
+		$results = $wpdb->get_results("SELECT *,DATE(datetime) as datefield from $transactions
+				where object_id=".$object_id."");
+
+			$transaction_dates= array();
 			$transaction= array();
 			foreach ($results as $key => $value) {
-			 
-						 $sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
-							where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type='sales'");
+			 			
+			 			array_push($transaction_dates, $value->datefield);
+
+						 // $sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
+							// where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type='sales'");
 						 
-						 $consumption = $wpdb->get_row("SELECT sum(amount) as consumption from $transactions
-							where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type=''");
+						 // $consumption = $wpdb->get_row("SELECT sum(amount) as consumption from $transactions
+							// where user_id=".$id." and product_id=".$product_id." and type='remove' and consumption_type=''");
 						 
 
-						 $consumed = $consumption->consumption == null ? 0 : $consumption->consumption;
-						 $sales_data = $sales->sales == null ? 0 : $sales->sales;
+						 // $consumed = $consumption->consumption == null ? 0 : $consumption->consumption;
+						 // $sales_data = $sales->sales == null ? 0 : $sales->sales;
 
-						 $transaction = array(
-							'date'        =>  $value->datefield, 
-							'stock'       =>  $value->stock,
-							'sales'       =>  $sales_data,
-							'consumption'   => $consumed,
-							'type'          => $term[0]['product_type_name']
+						 // $transaction = array(
+							// 'date'          =>  $value->datefield, 
+							// 'stock'         =>  $value->stock,
+							// 'sales'         =>  $sales_data,
+							// 'consumption'   => $consumed,
+							// 'type'          => $term[0]['product_type_name']
 
 
-							);
+							// );
 			}
 
+			$schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
+
+			$occurrences = $wpdb->get_results("SELECT *,DATE(occurrence) as datefield from $table_name where schedule_id=".$schedule);
+
+			foreach ($occurrences as $key => $value) {
+			 	array_push($transaction_dates, $value->datefield);
+			 } 
+
+			 $transaction_data = array_unique($transaction_dates);
+
+			 foreach ($transaction_data as $value) {
+
+			 	$stock = $wpdb->get_row("SELECT sum(amount) as stock from $transactions
+							where object_id=".$object_id." and type='stock'  and DATE(`datetime`)='".$value."'");
+				
+
+			 	$sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
+							where object_id=".$object_id." and type='remove' and consumption_type='sales' and DATE(`datetime`)='".$value."'");
+				
+			 	$sales_data = $sales->sales == null ? 0 : $sales->sales;
+				$transaction = array(
+							'date'          =>  $value, 
+							'stock'         =>  $stock->$stock,
+							'sales'         =>  $sales_data,
+							'consumption'   => ''
+
+
+							);		 
+			 }
+print_r($transaction);
+			 
 	 return $transaction;
 
 }
@@ -1450,15 +1489,31 @@ function generate_bmi($start_date,$end_date,$id,$param){
 
     $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
 
-    $start_date = $sql_query->date;
+    if(!is_null($sql_query)){
 
-    $start_data = maybe_unserialize($sql_query->value);
+    	$start_date = $sql_query->date;
 
+    	$start_data = maybe_unserialize($sql_query->value);
+
+
+    }
+    
     $sqlquery = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) DESC LIMIT 1" );
 
-    $end_date = $sqlquery->date;
+    if(!is_null($sql_query)){
 
-    $end_data = maybe_unserialize($sqlquery->value);
+    	$end_date = $sqlquery->date;
+
+    	$end_data = maybe_unserialize($sqlquery->value);
+
+    }
+    else
+    {
+    	$end_date = date('Y-m-d');
+    	$end_data = maybe_unserialize($sql_query->value);
+
+    }
+    
 
     return array('st_weight'    => $start_data['weight'] , 
     				'st_height' => $start_data['height'],

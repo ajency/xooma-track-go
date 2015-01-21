@@ -270,7 +270,7 @@ class User
 
           );
       
-      store_stock_data($args_del);
+      //store_stock_data($args_del);
 
         if($updated_id){
 
