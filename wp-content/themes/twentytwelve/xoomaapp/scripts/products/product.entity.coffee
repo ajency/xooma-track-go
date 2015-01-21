@@ -9,3 +9,8 @@ class ProductCollection extends Backbone.Collection
 		"#{APIURL}/products"
 
 App.productCollection = new ProductCollection()
+
+
+
+
+

@@ -1183,8 +1183,10 @@ function store_consumption_details($args){
 		date_default_timezone_set("UTC");
 
 		
-		$start = date("Y-m-d H:i:s"); 
-
+		$today = date("Y-m-d", strtotime($args['date']));
+		$start = date("$today H:i:s ");
+		
+		
 		$occurrence_data = array(
 						'schedule_id' =>  $schedule,
 						'occurrence' => $start,

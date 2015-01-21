@@ -21,8 +21,10 @@ document.addEventListener "deviceready", ->
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
+	
 	App.currentUser.on 'user:auth:success', ->
 		# App.trigger 'fb:status:connected'
+		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
 
@@ -51,6 +53,8 @@ document.addEventListener "deviceready", ->
 						ctrl : 'HomeX2OCtrl'
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
+
+		
 				
 
 	App.addInitializer ->
@@ -71,12 +75,14 @@ document.addEventListener "deviceready", ->
 		_.enableDeviceBackNavigation()
 
 
-
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
+
 	App.start()
+	
 
 , false
+
 

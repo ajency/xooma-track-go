@@ -103,11 +103,6 @@ class AsperbmiView extends Marionette.ItemView
 				
 	create_occurrences:()->
 			$('#meta_id').val(0)
-			$('#confirm').attr 'data-count' , 0
-			$('.high').addClass 'level-25'
-			$('.half').addClass 'level-25'
-			$('.medium').addClass 'level-25'
-			$('.low').addClass 'level-25'
 			$('.bottlecnt').text 0
 
 	update_occurrences:(data)->
@@ -117,8 +112,6 @@ class AsperbmiView extends Marionette.ItemView
 			meta_value = data.meta_value
 			count = @getCount(data.meta_value)
 			confirm = parseFloat(count)/0.25
-			#$('#percentage').val count
-			$('#confirm').attr('data-count' , confirm)
 			$('.bottlecnt').text count
 			
 
