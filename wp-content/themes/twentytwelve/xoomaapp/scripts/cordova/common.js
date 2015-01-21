@@ -1,4 +1,11 @@
 _.mixin({
+  isDeviceOnline: function() {
+    if (navigator.connection.type === Connection.NONE) {
+      return false;
+    } else {
+      return true;
+    }
+  },
   isPlatformAndroid: function() {
     if (device.platform.toLowerCase() === "android") {
       return true;
@@ -13,37 +20,34 @@ _.mixin({
       return false;
     }
   },
-  cordovaHideSplashscreen: function() {
-    return navigator.splashscreen.hide();
+  hideSplashscreen: function() {
+    return setTimeout(function() {
+      return navigator.splashscreen.hide();
+    }, 500);
   },
-  enableCordovaBackbuttonNavigation: function() {
+  enableDeviceBackNavigation: function() {
+    var onDeviceBackClick;
+    onDeviceBackClick = function() {
+      var currentRoute;
+      currentRoute = App.getCurrentRoute();
+      console.log('Fired cordova back button event for ' + currentRoute);
+      if (currentRoute === 'login' || currentRoute === 'profile/personal-info') {
+        if (navigator.app) {
+          navigator.app.exitApp();
+        }
+      } else {
+        Backbone.history.history.back();
+      }
+      return document.removeEventListener("backbutton", onDeviceBackClick, false);
+    };
     if (navigator.app) {
       navigator.app.overrideBackbutton(true);
     }
-    return document.addEventListener("backbutton", _.onDeviceBackButtonClick, false);
+    return document.addEventListener("backbutton", onDeviceBackClick, false);
   },
-  disableCordovaBackbuttonNavigation: function() {
-    return navigator.app.overrideBackbutton(false);
-  },
-  onDeviceBackButtonClick: function() {
-    var currentRoute;
-    currentRoute = App.getCurrentRoute();
-    console.log('Fired cordova back button event for ' + currentRoute);
-    if (currentRoute === 'login' || currentRoute === 'profile/personal-info') {
-      navigator.app.exitApp();
-    } else {
-      Backbone.history.history.back();
-    }
-    return _.removeCordovaBackbuttonEventListener();
-  },
-  removeCordovaBackbuttonEventListener: function() {
-    return document.removeEventListener("backbutton", _.onDeviceBackButtonClick, false);
-  },
-  onlineStatus: function() {
-    if (navigator.connection.type === Connection.NONE) {
-      return false;
-    } else {
-      return true;
+  disableDeviceBackNavigation: function() {
+    if (navigator.app) {
+      return navigator.app.overrideBackbutton(false);
     }
   }
 });

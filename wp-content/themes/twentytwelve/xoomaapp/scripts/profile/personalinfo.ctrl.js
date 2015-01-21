@@ -43,7 +43,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    return _.enableCordovaBackbuttonNavigation();
+    return _.enableDeviceBackNavigation();
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
@@ -104,10 +104,10 @@ App.UserPersonalInfoCtrl = (function(_super) {
   }
 
   UserPersonalInfoCtrl.prototype.initialize = function(options) {
-    if (_.onlineStatus() === false) {
-      return window.plugins.toast.showLongBottom("Please check your internet connection.");
-    } else {
+    if (_.isDeviceOnline()) {
       return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
+    } else {
+      return window.plugins.toast.showLongBottom("Please check your internet connection.");
     }
   };
 

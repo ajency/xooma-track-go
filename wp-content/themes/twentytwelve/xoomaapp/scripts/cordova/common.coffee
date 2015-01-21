@@ -1,6 +1,10 @@
 #Common cordova related functions used across the project
 
 _.mixin
+	
+	isDeviceOnline : ->
+		if navigator.connection.type is Connection.NONE	then false else true
+
 
 	isPlatformAndroid : ->
 		if device.platform.toLowerCase() is "android" then true else false
@@ -10,37 +14,29 @@ _.mixin
 		if device.platform.toLowerCase() is "ios" then true else false
 
 
-	cordovaHideSplashscreen : ->
-		navigator.splashscreen.hide()
+	hideSplashscreen : ->
+		setTimeout ->
+			navigator.splashscreen.hide()
+		, 500
 
 
-	enableCordovaBackbuttonNavigation : ->
-		navigator.app.overrideBackbutton true if navigator.app
-		document.addEventListener("backbutton", _.onDeviceBackButtonClick, false)
+	enableDeviceBackNavigation : ->
+
+		onDeviceBackClick = ->
+			currentRoute = App.getCurrentRoute()
+			console.log 'Fired cordova back button event for '+currentRoute
+
+			if currentRoute is 'login' or currentRoute is 'profile/personal-info'
+				navigator.app.exitApp() if navigator.app
+			else 
+				Backbone.history.history.back()
+
+			document.removeEventListener "backbutton", onDeviceBackClick, false
 
 
-	disableCordovaBackbuttonNavigation : ->
-		navigator.app.overrideBackbutton(false)
+		navigator.app.overrideBackbutton(true) if navigator.app
+		document.addEventListener "backbutton", onDeviceBackClick, false
 
 
-	onDeviceBackButtonClick : ->
-		currentRoute = App.getCurrentRoute()
-		console.log 'Fired cordova back button event for '+currentRoute
-
-		if currentRoute is 'login' or currentRoute is 'profile/personal-info'
-			navigator.app.exitApp()
-		else    
-			Backbone.history.history.back()
-
-		_.removeCordovaBackbuttonEventListener()
-
-
-	removeCordovaBackbuttonEventListener : ->
-		document.removeEventListener("backbutton", _.onDeviceBackButtonClick, false)
-		
-
-	onlineStatus :->
-		if navigator.connection.type is Connection.NONE	then false else true
-
-
-
+	disableDeviceBackNavigation : ->
+		navigator.app.overrideBackbutton(false) if navigator.app

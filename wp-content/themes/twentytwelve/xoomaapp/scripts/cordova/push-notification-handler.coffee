@@ -14,32 +14,44 @@
 
 	Push = 
 
-		initialize : ->
+
+		register : ->
+
+			defer = $.Deferred()
+
+			parsePlugin.initialize APP_ID, CLIENT_KEY, ->
+				defer.resolve Push.bindPushNotificationEvents()
+			, (e)->
+				defer.reject e
+
+			defer.promise()
+
+
+		bindPushNotificationEvents : ->
 
 			@pushNotification = window.plugins.pushNotification
 
-			if _.isPlatformAndroid()
-				@registerAndroid()
-			else if _.isPlatformIOS()
-				@registerIOS()
+			if _.isPlatformAndroid() then @bindGCMEventListener()
+			else if _.isPlatformIOS() then @bindAPNSEventListener()
+			else console.log "Unknown Platform"
 
 
-		registerAndroid : ->
+		bindGCMEventListener : ->
 
 			@pushNotification.register (result)->
-				console.log 'registerAndroid success'
+				console.log 'Android event success'
 			, (error)->
-				console.log 'registerAndroid error'
+				console.log 'Android event error'
 
 			,{ "senderID":"dummy", "ecb":"onNotificationGCM" }
 
 
-		registerIOS : ->
+		bindAPNSEventListener : ->
 
 			@pushNotification.register (result)->
-				console.log 'registerIOS success'
+				console.log 'iOS event success'
 			, (error)->
-				console.log 'registerAndroid error'
+				console.log 'iOS event error'
 				
 			,{ "badge":"true", "sound":"true", "alert":"true", "ecb":"onNotificationAPN" }
 

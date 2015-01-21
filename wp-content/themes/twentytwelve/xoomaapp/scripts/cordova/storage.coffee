@@ -1,11 +1,12 @@
-#This file has refrence to all the localstorage used
+	#Cordova local storage using jQuery-Storage-API
 
-_.mixin
+	CordovaStorage = 
 
-	#Store the User data for logged in user
-	setUserData : (userData)->
-		window.localStorage.setItem "user_data", JSON.stringify(userData)
+		setUserData : (data)->
+			$.localStorage.set 'user_data', data
 
-	getUserData : ->
-		JSON.parse window.localStorage.getItem "user_data"
+		getUserData : ->
+			$.localStorage.get 'user_data'
 
+		clear : ->
+			$.localStorage.removeAll()

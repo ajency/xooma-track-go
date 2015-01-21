@@ -21,7 +21,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	
 	onShow:->
 		#Device
-		_.enableCordovaBackbuttonNavigation()
+		_.enableDeviceBackNavigation()
 
 
 	onRender:->
@@ -68,10 +68,11 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		#Device
-		if _.onlineStatus() is false
-			window.plugins.toast.showLongBottom("Please check your internet connection.")
-		else 
+		if _.isDeviceOnline()
 			App.currentUser.getProfile().done(@_showView).fail @errorHandler
+		else
+			window.plugins.toast.showLongBottom("Please check your internet connection.")
+			
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView

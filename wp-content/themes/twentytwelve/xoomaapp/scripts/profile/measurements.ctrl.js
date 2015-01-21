@@ -7,7 +7,6 @@ ProfileMeasurementsView = (function(_super) {
   __extends(ProfileMeasurementsView, _super);
 
   function ProfileMeasurementsView() {
-    this.onPauseSessionClick = __bind(this.onPauseSessionClick, this);
     this.valueOutput = __bind(this.valueOutput, this);
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
@@ -59,7 +58,7 @@ ProfileMeasurementsView = (function(_super) {
     this.ui.rangeSliders.rangeslider({
       polyfill: false
     });
-    return this.cordovaEventsForModuleDescriptionView();
+    return this.cordovaDeviceEvents();
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
@@ -95,16 +94,17 @@ ProfileMeasurementsView = (function(_super) {
     return $(element).parent().find("output").html($(element).val());
   };
 
-  ProfileMeasurementsView.prototype.onPauseSessionClick = function() {
-    console.log('Invoked onPauseSessionClick');
-    Backbone.history.history.back();
-    return document.removeEventListener("backbutton", this.onPauseSessionClick, false);
-  };
-
-  ProfileMeasurementsView.prototype.cordovaEventsForModuleDescriptionView = function() {
-    navigator.app.overrideBackbutton(true);
-    document.addEventListener("backbutton", this.onPauseSessionClick, false);
-    return document.addEventListener("pause", this.onPauseSessionClick, false);
+  ProfileMeasurementsView.prototype.cordovaDeviceEvents = function() {
+    var onDeviceEvent;
+    onDeviceEvent = function() {
+      Backbone.history.history.back();
+      return document.removeEventListener("backbutton", onDeviceEvent, false);
+    };
+    if (navigator.app) {
+      navigator.app.overrideBackbutton(true);
+    }
+    document.addEventListener("backbutton", onDeviceEvent, false);
+    return document.addEventListener("pause", onDeviceEvent, false);
   };
 
   return ProfileMeasurementsView;
@@ -122,11 +122,11 @@ App.UserMeasurementCtrl = (function(_super) {
 
   UserMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
-    if (_.onlineStatus() === false) {
-      return window.plugins.toast.showLongBottom("Please check your internet connection.");
-    } else {
+    if (_.isDeviceOnline()) {
       xhr = this._get_measurement_details();
       return xhr.done(this._showView).fail(this._showView);
+    } else {
+      return window.plugins.toast.showLongBottom("Please check your internet connection.");
     }
   };
 

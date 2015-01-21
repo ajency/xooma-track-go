@@ -21,9 +21,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
-		
-		
-		
 			
 	$(document).on 'keypress' , (e)->
 		if  e.charCode == 46
@@ -38,10 +35,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.rangeSliders.rangeslider polyfill: false
 
 		#Device
-		@cordovaEventsForModuleDescriptionView()
-		
-		
-		
+		@cordovaDeviceEvents()
 		
 
 	onFormSubmit : (_formData)=>
@@ -73,32 +67,31 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
 
-
-	onPauseSessionClick : =>
-		console.log 'Invoked onPauseSessionClick'
-		Backbone.history.history.back()
-
-		document.removeEventListener("backbutton", @onPauseSessionClick, false)
 		
-	cordovaEventsForModuleDescriptionView : ->
+	cordovaDeviceEvents : ->
+
+		onDeviceEvent = ->
+			Backbone.history.history.back()
+			document.removeEventListener "backbutton", onDeviceEvent, false
+
 		# Cordova backbutton event
-		navigator.app.overrideBackbutton(true)
-		document.addEventListener("backbutton", @onPauseSessionClick, false)
+		navigator.app.overrideBackbutton(true) if navigator.app
+		document.addEventListener "backbutton", onDeviceEvent, false
 
 		# Cordova pause event
-		document.addEventListener("pause", @onPauseSessionClick, false)
+		document.addEventListener "pause", onDeviceEvent, false
 
 
 class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		#Device
-		if _.onlineStatus() is false
-			window.plugins.toast.showLongBottom("Please check your internet connection.")
-		else 
+		if _.isDeviceOnline()
 			xhr = @_get_measurement_details()
 			xhr.done(@_showView).fail @_showView
 			# xhr.done(@_showView).fail @errorHandler
+		else 
+			window.plugins.toast.showLongBottom("Please check your internet connection.")
 
 	_showView :=>
 		@show new ProfileMeasurementsView

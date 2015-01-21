@@ -1,9 +1,6 @@
 #start of the Application
 document.addEventListener "deviceready", ->
 
-	_.enableCordovaBackbuttonNavigation()
-	Push.initialize()
-
 	App.state 'login'
 
 		.state 'xooma',
@@ -26,13 +23,21 @@ document.addEventListener "deviceready", ->
 
 	App.currentUser.on 'user:auth:success', ->
 		# App.trigger 'fb:status:connected'
-		# store the user model data in local storage here
-		_.setUserData App.currentUser.toJSON()
-		App.navigate '#'+App.currentUser.get('state'), true
+		#Device
+		CordovaStorage.setUserData App.currentUser.toJSON() 
+
+		ParseCloud.register()
+		.done ->
+			App.navigate '#'+App.currentUser.get('state'), true
+
 
 	App.currentUser.on 'user:logged:out', ->
-		window.localStorage.removeItem("user_data");
-		App.navigate '/login', true
+		#Device
+		ParseCloud.deregister()
+		.done ->
+			CordovaStorage.clear() 
+			App.navigate '/login', true
+
 
 	App.state 'settings',
 				url : '/settings'
@@ -46,13 +51,25 @@ document.addEventListener "deviceready", ->
 						ctrl : 'HomeX2OCtrl'
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
-
-		
 				
 
 	App.addInitializer ->
 		Backbone.history.start()
-		_.cordovaHideSplashscreen()
+
+		#Device
+		Push.register()
+		.done ->
+			console.log 'register_GCM_APNS success'
+
+			if not App.currentUser.isLoggedIn()
+				App.navigate '/login', true
+			else 
+				console.log 'USER LOGGED IN'
+
+			_.hideSplashscreen()
+		
+		_.enableDeviceBackNavigation()
+
 
 
 	App.on 'fb:status:connected', ->

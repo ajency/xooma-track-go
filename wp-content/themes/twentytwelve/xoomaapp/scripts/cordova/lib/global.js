@@ -1,0 +1,5 @@
+//Parse Keys
+
+var APP_ID = '7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1';
+var CLIENT_KEY = 'UEkdQeVTf7lERGv8p0HnKCPrIIr3MXLtAZlU9r7M';
+var JS_KEY = 'pIKddWWKvSdtM8IrsuyURRaHjxAPulgkvdHiQQzP';

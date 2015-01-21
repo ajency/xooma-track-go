@@ -1,8 +1,13 @@
-_.mixin({
-  setUserData: function(userData) {
-    return window.localStorage.setItem("user_data", JSON.stringify(userData));
+var CordovaStorage;
+
+CordovaStorage = {
+  setUserData: function(data) {
+    return $.localStorage.set('user_data', data);
   },
   getUserData: function() {
-    return JSON.parse(window.localStorage.getItem("user_data"));
+    return $.localStorage.get('user_data');
+  },
+  clear: function() {
+    return $.localStorage.removeAll();
   }
-});
+};

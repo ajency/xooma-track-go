@@ -95,9 +95,12 @@
 <!-- facebook -->
 <script "text/javascript" src="scripts/common/facebook.js"></script>
 
+<!-- cordova -->
+<script type="text/javascript" src="scripts/cordova/storage.js"></script>
+
 
 <script type="text/javascript">
-	userData = JSON.parse(window.localStorage.getItem("user_data"));
+	userData = CordovaStorage.getUserData();
 	notLoggedInCaps = {"access_login":true,"level_0":true};
 	allSystemCaps = ['access_login',"read","level_0","access_xooma","access_userpersonalinfo","access_profile","access_usermeasurement","access_addproducts","access_userproductlist","edit_occurrence","edit_schedule","access_home","subscriber"]
 	App                   = new Marionette.Application()  
@@ -127,9 +130,11 @@
 
 <!-- cordova -->
 <script type="text/javascript" src="../cordova.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/global.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/parse.sdk.min.js"></script>
 <script type="text/javascript" src="scripts/cordova/common.js"></script>
-<script type="text/javascript" src="scripts/cordova/storage.js"></script>
 <script type="text/javascript" src="scripts/cordova/push-notification-handler.js"></script>
+<script type="text/javascript" src="scripts/cordova/parse-cloud-auth.js"></script>
 <!-- end cordova -->
 
 <script type="text/javascript" src="scripts/app.js"></script>

@@ -11,29 +11,41 @@ onNotificationAPN = function(e) {
 };
 
 Push = {
-  initialize: function() {
+  register: function() {
+    var defer;
+    defer = $.Deferred();
+    parsePlugin.initialize(APP_ID, CLIENT_KEY, function() {
+      return defer.resolve(Push.bindPushNotificationEvents());
+    }, function(e) {
+      return defer.reject(e);
+    });
+    return defer.promise();
+  },
+  bindPushNotificationEvents: function() {
     this.pushNotification = window.plugins.pushNotification;
     if (_.isPlatformAndroid()) {
-      return this.registerAndroid();
+      return this.bindGCMEventListener();
     } else if (_.isPlatformIOS()) {
-      return this.registerIOS();
+      return this.bindAPNSEventListener();
+    } else {
+      return console.log("Unknown Platform");
     }
   },
-  registerAndroid: function() {
+  bindGCMEventListener: function() {
     return this.pushNotification.register(function(result) {
-      return console.log('registerAndroid success');
+      return console.log('Android event success');
     }, function(error) {
-      return console.log('registerAndroid error');
+      return console.log('Android event error');
     }, {
       "senderID": "dummy",
       "ecb": "onNotificationGCM"
     });
   },
-  registerIOS: function() {
+  bindAPNSEventListener: function() {
     return this.pushNotification.register(function(result) {
-      return console.log('registerIOS success');
+      return console.log('iOS event success');
     }, function(error) {
-      return console.log('registerAndroid error');
+      return console.log('iOS event error');
     }, {
       "badge": "true",
       "sound": "true",
