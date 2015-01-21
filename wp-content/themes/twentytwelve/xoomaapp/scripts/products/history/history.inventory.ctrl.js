@@ -18,7 +18,9 @@ InventoryChildView = (function(_super) {
 
   InventoryChildView.prototype.tagName = 'li';
 
-  InventoryChildView.prototype.template = '<div><span>{{date}}</span></div><div><span>{{type}}</span></div><br/> <div><span>Stock updated(+):</span>{{stock}}</div><br/> <div><span>Samples to customer(-):</span>{{sales}}</div><br/> <div><span>Consumed(-) :</span>{{consumption}}</div><br/>';
+  InventoryChildView.prototype.className = '.class';
+
+  InventoryChildView.prototype.template = '<input class="radio" id ="work{{id}}" name="works" type="radio" checked> <div class="relative"> <label class="labels" for="work{{id}}">{{product_type}}</label> <span class="date">{{date}}</span> <span class="circle"></span> </div> <div class="content"> <p> Stock updated(+) : <b>{{stock}}</b><br> Samples to customer(-) :<b>{{sales}}</b><br> Consumed(-) : <b>{{consumption}}</b><br> </p> </div>';
 
   return InventoryChildView;
 

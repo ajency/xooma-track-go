@@ -28,6 +28,7 @@ class ProductChildView extends Marionette.ItemView
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/products/{{id}}/edit">Edit product</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
+                        <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li>
                         <li class="divider"></li>
                         <li><a href="#" class="remove hidden">Remove the product</a></li>
                       </ul>

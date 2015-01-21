@@ -51,6 +51,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		@generateGraph()
 		@ui.start_date.pickadate(
 			formatSubmit: 'yyyy-mm-dd'
 			hiddenName: true
@@ -122,7 +123,11 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		console.log App.useProductColl
+		if App.useProductColl.length == 0
+			App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+		else
+			@_showView(App.useProductColl)
 
 	_showView:(collection)=>
 		@show new HomeLayoutView
@@ -171,7 +176,6 @@ class HomeX2OViewChild extends Marionette.ItemView
 		data
 
 	onShow:->
-		HomeLayoutView::generateGraph()
 		occurrenceArr = []
 		bonusArr = 0
 		$.each @model.get('occurrence'), (ind,val)->
@@ -268,11 +272,12 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.shift() 
-		console.log App.useProductColl
-		modelColl = new Backbone.Collection model
-		@show new HomeX2OView
-					collection : modelColl
+		model = productcollection.findWhere({name:'x2o'}) 
+		console.log model.get('name')
+		if model.get('name') == 'x2o'
+			console.log modelColl = new Backbone.Collection model
+			@show new HomeX2OView
+						collection : modelColl
 
 class ProductChildView extends Marionette.ItemView
 
@@ -398,7 +403,10 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		productcollection.shift() 
+		model = productcollection.findWhere({name:'x2o'})  
+		if model.get('name') != 'x2o'
+			productcollection.reset App.useProductColl.toArray()
+		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		

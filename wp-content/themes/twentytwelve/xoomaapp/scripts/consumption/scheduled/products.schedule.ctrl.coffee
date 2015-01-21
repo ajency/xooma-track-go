@@ -53,9 +53,10 @@ class ScheduleView extends Marionette.ItemView
 				qty = $('#qty').val()
 				console.log data = $('#schduleid').val()
 				product = @model.get('id')
+				date = moment().format("YYYY-MM-DD")
 				$.ajax
 						method : 'POST'
-						data : 'meta_id='+meta_id+'&qty='+qty
+						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
@@ -156,6 +157,7 @@ class App.ScheduleCtrl extends Ajency.RegionController
 		productId  = @getParams()
 		product = parseInt productId[0]
 		products = []
+		console.log App.useProductColl
 		App.useProductColl.each (val)->
 			products.push val
 		

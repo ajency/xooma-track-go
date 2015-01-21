@@ -95,7 +95,7 @@
 											<div ui-region="currentUser" class="pull-right user-data">
 
 											</div>
-											 <a class="link" href="#menu">
+											 <a class="link" href="#settings">
                             <h4><i class="fa fa-cog pull-right "></i></h4>
                         	</a>
                         	<a class="link" href="#/home">
@@ -150,7 +150,63 @@
 		<div ui-region></div>
 </script>
 <script id="settings-template" type="text/template">
-		<h2>THis is the settings template </h2>
+		<div class="container"> </br></br></br>
+        
+          <div class="row">
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              
+              <form class="form-horizontal m-t-30">
+  <div class="form-group "  onclick="location.href='#profile/my-products'">
+    <label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
+  </div>
+    <div class="form-group"  onclick="location.href='#products'">
+    <label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
+  </div>
+   <div class="form-group"  onclick="location.href='#profile/personal-info'">
+    <label  class="col-sm-12 col-xs-12  control-label">Profile</label>
+  </div>
+   <div class="form-group"  onclick="location.href='#profile/measurements'">
+    <label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
+  </div>
+   <div class="form-group"  onclick="location.href='#home'">
+    <label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-8 col-xs-8  control-label">Notification</label>
+    <div class="col-sm-4 col-xs-4 ">
+     <div class="switch">
+            <input id="cmn-toggle-5" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+            <label for="cmn-toggle-5"></label>
+   </div>
+    </div>
+  </div> 
+  <div class="form-group">
+    <label  class="col-sm-8 col-xs-8 control-label">Email Alerts</label>
+    <div class="col-sm-4 col-xs-4 ">
+ <div class="switch">
+            <input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+            <label for="cmn-toggle-6"></label>
+   </div>
+    </div>
+  </div> 
+     <div class="form-group"  onclick="location.href='unit_01.htm'">
+    <label  class="col-sm-12 col-xs-12  control-label">About Xooma</label>
+  </div>
+
+</form>
+              
+              
+              
+              
+              </div>
+            <div class="col-md-2">
+         </div>
+        </div>
+      
+    </div> 
 </script>
 <script id="no-access-template" type="text/template">
 		{{#if no_access}}
@@ -586,6 +642,7 @@
                 </div>
             </div>
             <form id="edit_product" class="form-horizontal" role="form" method="POST">
+            <input type="hidden" name="frequency_type" value="{{frequency_value}}" />
             <div class="col-md-6 col-xs-12">
                 <!--<b>Chosse the consumtion of {{name}}</b>
                 <div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
@@ -594,7 +651,7 @@
                   </div>
                   <div class="btn-group" role="group">
                     <button type="button"  {{schedule}} class="btn btn-default {{scheduleclass}}">Schedule</button>
-                  <input type="hidden" name="frequency_type" value="{{frequency_value}}" /> </div>
+                   </div>
                 </div>-->
 
                 <div class="asperbmi">
@@ -891,7 +948,7 @@
 					      <input type="hidden" name="total" value="{{total}}" / >
 					      
 				      <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
-				       <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>	
+				      <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
 
 				    </div>
 		 	 	</div>
@@ -916,67 +973,13 @@
 <br>
 
 <div class="container"> 
-<ul class="viewInventory" style="display:none;">
 
-
-
-</ul>
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
-<ul id='timeline' >
-
-  <li class='work'>
-    <input class='radio' id='work5' name='works' type='radio' checked>
-    <div class="relative">
-      <label class="labels" for='work5'>Sachets</label>
-      <span class='date'>12 May 2013</span>
-      <span class='circle'></span>
-    </div>
-    <div class='content'>
-     <p>
-      Stock updated(+) : <b>1</b><br>
-      Samples to customer(-) :<b>1</b><br>
-      Consumed(-) : <b>1</b><br>
-     </p>
-    </div>
-  </li>
-
-  <li class='work'>
-    <input class='radio' id='work4' name='works' type='radio'>
-    <div class="relative">
-      <label class="labels" for='work4'>Sachets</label>
-      <span class='date'>11 May 2013</span>
-      <span class='circle'></span>
-    </div>
-    <div class='content'>
-     <p>
-      Stock updated(+) : <b>1</b><br>
-      Samples to customer(-) :<b>1</b><br>
-      Consumed(-) : <b>1</b><br>
-     </p>
-    </div>
-  </li>
-  <li class='work'>
-    <input class='radio' id='work3' name='works' type='radio'>
-    <div class="relative">
-      <label class="labels" for='work3'>Sachets</label>
-      <span class='date'>10 May 2013</span>
-      <span class='circle'></span>
-    </div>
-    <div class='content'>
-    <p>
-      Stock updated(+) : <b>1</b><br>
-      Samples to customer(-) :<b>1</b><br>
-      Consumed(-) : <b>1</b><br>
-     </p>
-    </div>
-  </li>
-
+<ul id='timeline' class="viewInventory">
 </ul>
 </div>
 </div>
-
-
 <a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
 
 </div>

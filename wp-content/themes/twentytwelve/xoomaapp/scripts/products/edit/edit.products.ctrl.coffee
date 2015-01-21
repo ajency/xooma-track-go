@@ -286,13 +286,13 @@ class EditProductsView extends Marionette.ItemView
 		console.log bmi
 		weight = App.currentUser.get('weight')
 		actual = 1
-			
-		$.each bmi , (index,value)->
-			bmi_val  = value['range'].split('<')
-			console.log bmi_val[0]
-			console.log bmi_val[1]
-			if parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])
-				actual = value['quantity'];
+		if bmi != undefined	
+			$.each bmi , (index,value)->
+				bmi_val  = value['range'].split('<')
+				console.log bmi_val[0]
+				console.log bmi_val[1]
+				if parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])
+					actual = value['quantity'];
 		actual
 
 
