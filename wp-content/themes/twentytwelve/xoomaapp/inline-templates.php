@@ -164,7 +164,16 @@
 				<div class="col-md-3"></div>
 			</div>
 		</div> {{/if}} {{#if no_access_login}}
-		<h1>Add no access with login options View Here</h1> {{/if}} {{#if not_defined}}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/noaccess.jpg" class="center-block"/>
+				<h4 class="text-center" > Please login to view this page</h4>
+				<button type="submit" class="btn btn-primary aj-submit-button center-block">Click here to login</button>
+				</div>
+				<div class="col-md-3"></div>
+			</div> {{/if}} {{#if not_defined}}
 		<h1>This view is not configured. Please contact administrator</h1> {{/if}}
 </script>
 <script id="profile-personal-info-template" type="text/template">
