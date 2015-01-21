@@ -7130,6 +7130,54 @@ packet_expected_class {
 .carousel-inner > .item > a > img {
   width: 100%;
 }
+/* Bottle consuptimon */
+.water-marker {
+  position: absolute;
+  z-index: 1060;
+  color: #ccc;
+  left: -3%;
+}
+.water-25 {
+  bottom: 16%;
+}
+.water-50 {
+  bottom: 35%;
+}
+.water-75 {
+  bottom: 54%;
+}
+.water-100 {
+  bottom: 73%;
+}
+.bottle-bg {
+  width: 218px;
+  display: block;
+  margin: auto;
+  position: relative;
+  height: 381px;
+}
+.bottle {
+  height: 381px;
+  width: 218px;
+  position: absolute;
+  background-image: url('../images/bottle-ui.png');
+  /* Beer Glass */
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.bottle .ea-empty {
+  background: #ddd;
+  z-index: -1;
+  position: absolute;
+  width: 218px;
+}
+.bottle .ea-full {
+  background: #9ad41e;
+  z-index: -1;
+  position: absolute;
+  width: 218px;
+  bottom: 0;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
