@@ -7,16 +7,20 @@ ParseCloud = {
     var defer, userData;
     defer = $.Deferred();
     userData = CordovaStorage.getUserData();
-    Parse.Cloud.run('registerXoomaUser', {
-      'userId': userData.ID,
-      'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
-    }, {
-      success: function(result) {
-        return defer.resolve(result);
-      },
-      error: function(error) {
-        return defer.reject(error);
-      }
+    this.getInstallationId().then(function(installationId) {
+      return Parse.Cloud.run('registerXoomaUser', {
+        'userId': userData.ID,
+        'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
+      }, {
+        success: function(result) {
+          return defer.resolve(result);
+        },
+        error: function(error) {
+          return defer.reject(error);
+        }
+      });
+    }, function(error) {
+      return defer.reject(error);
     });
     return defer.promise();
   },
@@ -24,23 +28,31 @@ ParseCloud = {
     var defer, userData;
     defer = $.Deferred();
     userData = CordovaStorage.getUserData();
-    Parse.Cloud.run('unregisterXoomaUser', {
-      'userId': userData.ID,
-      'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
-    }, {
-      success: function(result) {
-        return defer.resolve(result);
-      },
-      error: function(error) {
-        return defer.reject(error);
-      }
+    this.getInstallationId().then(function(installationId) {
+      return Parse.Cloud.run('unregisterXoomaUser', {
+        'userId': userData.ID,
+        'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
+      }, {
+        success: function(result) {
+          return defer.resolve(result);
+        },
+        error: function(error) {
+          return defer.reject(error);
+        }
+      });
+    }, function(error) {
+      return defer.reject(error);
     });
     return defer.promise();
   },
   getInstallationId: function() {
     var defer;
     defer = $.Deferred();
-    defer.resolve('920d4b2e-4c39-4971-9a75-985380bd946f');
+    parsePlugin.getInstallationId(function(installationId) {
+      return defer.resolve(installationId);
+    }, function(error) {
+      return defer.reject(error);
+    });
     return defer.promise();
   }
 };

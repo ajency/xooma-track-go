@@ -10,22 +10,22 @@
 
 			defer = $.Deferred()
 			userData = CordovaStorage.getUserData()
+			
+			@getInstallationId()
+			.then (installationId)->
 
-			# @getInstallationId()
-			# .done (installationId)->
+				Parse.Cloud.run 'registerXoomaUser', {
+					'userId': userData.ID
+					'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
+					} 
 
-			Parse.Cloud.run 'registerXoomaUser', {
-				'userId': userData.ID
-				'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
-				} 
+					, success: (result)-> 
+						defer.resolve result
+					, error: (error)-> 
+						defer.reject error
 
-				, success: (result)-> 
-					defer.resolve result
-				, error: (error)-> 
-					defer.reject error
-
-			# , (error)->
-			# 	defer.reject error
+			, (error)->
+				defer.reject error
 
 			defer.promise()
 
@@ -35,20 +35,20 @@
 			defer = $.Deferred()
 			userData = CordovaStorage.getUserData()
 
-			# @getInstallationId()
-			# .done (installationId)->
+			@getInstallationId()
+			.then (installationId)->
 
-			Parse.Cloud.run 'unregisterXoomaUser', {
-				'userId': userData.ID
-				'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
-				}
-				, success: (result)-> 
-					defer.resolve result
-				, error: (error)-> 
-					defer.reject error
+				Parse.Cloud.run 'unregisterXoomaUser', {
+					'userId': userData.ID
+					'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
+					}
+					, success: (result)-> 
+						defer.resolve result
+					, error: (error)-> 
+						defer.reject error
 
-			# , (error)->
-			# 	defer.reject error
+			, (error)->
+				defer.reject error
 
 			defer.promise()
 
@@ -57,12 +57,10 @@
 
 			defer = $.Deferred()
 
-			defer.resolve '920d4b2e-4c39-4971-9a75-985380bd946f'
-
-			# parsePlugin.getInstallationId (installationId)-> 
-			# 	defer.resolve installationId
-			# , (error) ->
-			# 	defer.reject error
+			parsePlugin.getInstallationId (installationId)-> 
+				defer.resolve installationId
+			, (error) ->
+				defer.reject error
 
 			defer.promise()
 

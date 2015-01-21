@@ -10,27 +10,12 @@
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
 	<link rel="stylesheet" href="bower_components/pickadate/lib/compressed/themes/default.css">
+	<script type="text/javascript" src="scripts/cordova/lib/tooltip.js"></script>
 
-	<!-- <script "text/javascript" src="/wp-content/themes/twentytwelve/js/tooltip.js"></script> -->
-	<style type="text/css">
-		.modal {
-		    display:    block;
-		    position:   fixed;
-		    z-index:    1000;
-		    top:        0;
-		    left:       0;
-		    height:     100%;
-		    width:      100%;
-		    background: rgba( 255, 255, 255, .8 ) 
-		                url('./images/loading.gif') 
-		                50% 50% 
-		                no-repeat;
-		}
-	</style>
 </head>
 
 <body class="gradient">
-<div ui-region></div>
+<div id="loader" ui-region></div>
 <div id="fb-root"></div>
 
 <!-- inline-template -->
@@ -127,6 +112,8 @@
 <script type="text/javascript" src="scripts/products/history/history.inventory.ctrl.js"></script>
 <script type="text/javascript" src="scripts/consumption/asperbmi/asperbmi.ctrl.js"></script>
 <script type="text/javascript" src="scripts/consumption/scheduled/products.schedule.ctrl.js"></script>
+<script type="text/javascript" src="scripts/history/history.product.ctrl.js"></script>
+<script type="text/javascript" src="scripts/settings/settings.ctrl.js"></script>
 
 <!-- cordova -->
 <script type="text/javascript" src="../cordova.js"></script>
