@@ -54,7 +54,7 @@
           if (this.type === 'empty') {
             i = 0;
             while (i < this.breakArray.length - 1) {
-              if (this.progress > this.breakArray[i] && this.progress < this.breakArray[i + 1]) {
+              if (this.progress > this.breakArray[i] && this.progress <= this.breakArray[i + 1]) {
                 returnValue = this.breakArray[i + 1];
                 break;
               }
@@ -63,7 +63,7 @@
           } else {
             i = 0;
             while (i < this.breakArray.length - 1) {
-              if (this.progress > this.breakArray[i] && this.progress < this.breakArray[i + 1]) {
+              if (this.progress >= this.breakArray[i] && this.progress < this.breakArray[i + 1]) {
                 returnValue = this.breakArray[i];
                 break;
               }

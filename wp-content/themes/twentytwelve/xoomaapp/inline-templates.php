@@ -1017,10 +1017,7 @@
                                 </div>
                             </div>
                            <div class="bottle">
-                                <div class="high level-25" data-level="high" data-qty="100"> </div>
-                                <div class="medium level-25" data-level="medium" data-qty="75"> </div>
-                                <div class="half level-25" data-level="half" data-qty="50"> </div>
-                                <div class="low level-25" data-level="low" data-qty="25"> </div>
+                                
                             </div>
                         </div>
 

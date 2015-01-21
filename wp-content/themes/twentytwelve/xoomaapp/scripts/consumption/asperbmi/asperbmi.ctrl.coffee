@@ -28,6 +28,16 @@ class AsperbmiView extends Marionette.ItemView
 						success: @saveHandler
 						error :@erroraHandler
 
+		'touchstart .bottle' : 'startProgress'
+		'mousedown .bottle' : 'startProgress'
+
+
+		'touchend .bottle' : 'stopProgress'
+		'mouseup .bottle' : 'stopProgress'
+		'mouseout .bottle' : 'stopProgress'
+
+
+
 	saveHandler:(response,status,xhr)=>
 		$('#percentage').val 0
 		console.log response
@@ -70,6 +80,7 @@ class AsperbmiView extends Marionette.ItemView
 		data
 
 	onShow:->
+			@$el.closest('html').find('head').append('<link rel="stylesheet" href="http://localhost/xooma/wp-content/themes/twentytwelve/xoomaapp/bower_components/ea-vertical-progress/css/style.css">')
 			@generate(@model.get('occurrence'))
 
 	generate:(data)->
@@ -81,34 +92,30 @@ class AsperbmiView extends Marionette.ItemView
 			console.log @model.get('servings')
 			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
 			$('.bonus').text bonus
-			$.each occur , (ind,val)->
+			$.each occur , (ind,val)=>
 				console.log occurrence = _.has(val, "occurrence")
 				console.log  expected = _.has(val, "expected")
 				meta_id = val.meta_id
 				console.log val.meta_value
-				count = AsperbmiView::getCount(val.meta_value)
+				count = @getCount(val.meta_value)
 				
 				if occurrence == true && (expected == true || expected == false) && count ==  1
 					count1++
 					return true
 				else if occurrence == true && (expected == true || expected == false) && count !=  1
 					console.log count
-					AsperbmiView::update_occurrences(val)
+					@update_occurrences(val)
 					return false
 				else
-					AsperbmiView::create_occurrences()
+					@create_occurrences()
 					return false
 			if(parseInt(@model.get('occurrence').length)) == parseInt count1
-				AsperbmiView::create_occurrences()
+				@create_occurrences()
 				
-	create_occurrences:()->
+	create_occurrences:()=>
 			$('#meta_id').val(0)
-			$('#confirm').attr 'data-count' , 0
-			$('.high').addClass 'level-25'
-			$('.half').addClass 'level-25'
-			$('.medium').addClass 'level-25'
-			$('.low').addClass 'level-25'
 			$('.bottlecnt').text 0
+			@bottle = new EAProgressVertical(@$el.find('.bottle'),100,'empty',10000,[25,50,75])
 
 	update_occurrences:(data)->
 			$('#add').hide()
@@ -117,12 +124,17 @@ class AsperbmiView extends Marionette.ItemView
 			meta_value = data.meta_value
 			count = @getCount(data.meta_value)
 			confirm = parseFloat(count)/0.25
-			#$('#percentage').val count
-			$('#confirm').attr('data-count' , confirm)
 			$('.bottlecnt').text count
+			@bottle = new EAProgressVertical(@$el.find('.bottle'),50,'empty',10000,[25,50,75])
 			
 
-		
+	startProgress : =>
+		@bottle.startProgress()
+
+	stopProgress : =>
+		progress = @bottle.stopProgress(true)
+		console.log progress
+		@bottle.setProgress(progress)
 
 
 

@@ -32,14 +32,14 @@
 				if @type is 'empty'
 					i = 0
 					while i < @breakArray.length - 1
-						if @progress > @breakArray[i] and @progress < @breakArray[i + 1]
+						if @progress > @breakArray[i] and @progress <= @breakArray[i + 1]
 							returnValue = @breakArray[i + 1]
 							break;
 						i++
 				else
 					i = 0
 					while i < @breakArray.length - 1
-						if @progress > @breakArray[i] and @progress < @breakArray[i + 1]
+						if @progress >= @breakArray[i] and @progress < @breakArray[i + 1]
 							returnValue = @breakArray[i]						
 							break;
 						i++
