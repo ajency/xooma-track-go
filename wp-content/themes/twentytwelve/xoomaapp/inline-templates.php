@@ -446,9 +446,10 @@
       <option value="chest">Chest</option>
       <option value="arm">Arm</option>
       <option value="abdomen">Abdomen</option>
-        <option value="waist">Waist</option>
+      <option value="waist">Waist</option>
       <option value="hips">Hips</option>
       <option value="thigh">Thigh</option>
+      <option value="bmi">BMI</option>
      
     </select>
   </div>
@@ -854,7 +855,7 @@
 			    </label>
 			    <div class="col-sm-6 col-xs-5">
 			    <h4 class="text-center margin-none"> <output></output><small>{{product_type}}(s)</small></h4>
-			     <input class="pull-left" type="range" name="slider"  min="-20" max="20" disabled step="1" value="0" data-rangeslider>
+			     <input class="pull-left" type="range" name="slider" id="slider"  min="-20" max="20" disabled step="1" value="0" data-rangeslider>
 			    </div>
 	  </div>
 	   <div class="form-group">

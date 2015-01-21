@@ -1441,3 +1441,30 @@ function get_user_measurement_date($id){
 
    return $sql_query->date;
 }
+
+function generate_bmi($start_date,$end_date,$id,$param){
+
+	global $wpdb;
+
+    $measurements_table = $wpdb->prefix . "measurements";
+
+    $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
+
+    $start_date = $sql_query->date;
+
+    $start_data = maybe_unserialize($sql_query->value);
+
+    $sqlquery = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) DESC LIMIT 1" );
+
+    $end_date = $sqlquery->date;
+
+    $end_data = maybe_unserialize($sqlquery->value);
+
+    return array('st_weight'    => $start_data['weight'] , 
+    				'st_height' => $start_data['height'],
+    				'et_weight' => $end_data['weight'],
+    				'et_height' => $end_data['height'],
+    				'st_date'   => $start_date,
+    				'et_date'   => $end_date);
+
+}
