@@ -1,5 +1,6 @@
 {
   "name": "ea-vertical-progress",
+  "version": "0.0.4",
   "authors": [
     "Elroy Antao (elroyantao@gmail.com)"
   ],
@@ -19,14 +20,14 @@
     "jquery": "~2.1.3"
   },
   "homepage": "https://github.com/elroyantao/ea-vertical-progress",
-  "_release": "29968c949e",
+  "_release": "0.0.4",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "29968c949ea27a57034b67f89f943d383593833d"
+    "type": "version",
+    "tag": "v0.0.4",
+    "commit": "b6a14862912d2f21fa5820b990321b7dcae2e1ec"
   },
   "_source": "git://github.com/elroyantao/ea-vertical-progress.git",
-  "_target": "*",
+  "_target": "~0.0.4",
   "_originalSource": "ea-vertical-progress",
   "_direct": true
 }
