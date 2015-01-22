@@ -19,11 +19,11 @@
     "jquery": "~2.1.3"
   },
   "homepage": "https://github.com/elroyantao/ea-vertical-progress",
-  "_release": "f4137ab939",
+  "_release": "29968c949e",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "f4137ab939418aa1ede61a13b981528473cb34a4"
+    "commit": "29968c949ea27a57034b67f89f943d383593833d"
   },
   "_source": "git://github.com/elroyantao/ea-vertical-progress.git",
   "_target": "*",

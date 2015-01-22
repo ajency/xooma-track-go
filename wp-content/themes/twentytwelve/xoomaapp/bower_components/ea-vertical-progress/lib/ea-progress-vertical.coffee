@@ -11,16 +11,18 @@
 				breakArray.push 100
 			@breakArray = breakArray
 			@parent = parent
-			@parent.html '<div class="empty"></div><div class="full"></div>'
-			@progress = initial
-			@time = time
-			@delay = @time*@change/100
-			@type = type
+			@parent.html '<div class="ea-empty"></div><div class="ea-full"></div>'
+			@progress = if not isNaN(initial) and initial <= 100 and initial >=0 then initial else 0
+			time = if not isNaN(time) and time > 0 then time else 10000
+			delay = time*@change/100
+			@delay = if delay >= 0.05 then delay else 0.05
+			@type = if type in ['fill','empty'] then type else 'fill' 
+			@setProgressUI()
 
 
 		startProgress : ->
-			console.log @delay
 			limit = if @type is 'fill' then 100 else 0
+			clearInterval @animateInterval
 			@animateInterval = setInterval @animateBottle, @delay , @type , limit
 
 		stopProgress : (returnBreak=false)->
@@ -30,14 +32,14 @@
 				if @type is 'empty'
 					i = 0
 					while i < @breakArray.length - 1
-						if @progress > @breakArray[i] and @progress < @breakArray[i + 1]
+						if @progress > @breakArray[i] and @progress <= @breakArray[i + 1]
 							returnValue = @breakArray[i + 1]
 							break;
 						i++
 				else
 					i = 0
 					while i < @breakArray.length - 1
-						if @progress > @breakArray[i] and @progress < @breakArray[i + 1]
+						if @progress >= @breakArray[i] and @progress < @breakArray[i + 1]
 							returnValue = @breakArray[i]						
 							break;
 						i++
@@ -45,18 +47,24 @@
 			else
 				return @progress
 
-		setProgress : (progress,speed='fast')->
+		setProgress : (progress,slow=false)->
 
-			if speed is 'fast'
+			progress = if not isNaN(progress) and progress <= 100 and progress >=0 then progress else 100
+
+			if not slow 
 				@progress = progress
 				@setProgressUI()
 
 
 			else if progress > @progress
+				clearInterval @animateInterval
 				@animateInterval = setInterval @animateBottle, @delay , 'fill' , progress
 
 			else
+				clearInterval @animateInterval
 				@animateInterval = setInterval @animateBottle, @delay , 'empty' , progress
+
+			return progress
 
 
 
@@ -64,9 +72,7 @@
 
 			
 		animateBottle : (direction='fill',limit=100)=>
-			# console.log change
 			if (direction is 'fill' and @progress >= limit) or (direction is 'empty' and @progress <= limit)
-				console.log 's'
 				clearInterval @animateInterval
 			else
 				if direction is 'fill'
@@ -80,9 +86,8 @@
 			empty = 100 - @progress
 			full = @progress
 			
-			# console.log @progress
-			@parent.find('.empty').css 'height', empty+'%'
-			@parent.find('.full').css 'height', full+'%'
+			@parent.find('.ea-empty').css 'height', empty+'%'
+			@parent.find('.ea-full').css 'height', full+'%'
 
 	root.EAProgressVertical = EAProgressVertical
 
