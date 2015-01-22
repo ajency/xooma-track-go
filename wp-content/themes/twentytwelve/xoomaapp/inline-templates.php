@@ -332,7 +332,14 @@
 		<div id="measuremnt" class="section">
 
 				<div class="container">
+				<div class="alert alert-warning alert-msg" role="alert">
+				  <i class="fa fa-bullhorn"></i> Click here to update the measurements 
+				<button type="button" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i> Update Calender</button>
+				<div class="clearfix"></div>
+				</div>
 				<div class="aj-response-message"></div>
+
+
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">
@@ -341,7 +348,7 @@
 												<div class="row">
 												<input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
 														<div class="col-md-5 col-xs-5">
-																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-40">
+																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7">
 																<h4 class="text-left"> <output></output><small>Inches</small></h4>
@@ -352,7 +359,7 @@
 												</br>
 												<div class="row">
 														<div class="col-md-5 col-xs-5">
-																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-40">
+																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7 ">
 																<h4 class="text-left"> <output></output><small>pounds</small></h4>
@@ -905,8 +912,8 @@
 				<label class="col-sm-6  col-xs-7 control-label">
 					Adjust
 				</label>
-				<div class="col-sm-6 col-xs-5">
-				<h4 class="text-center margin-none"> <output></output><small>{{product_type}}(s)</small></h4>
+				<div class="col-sm-6 col-xs-5 range-inventory">
+				<h3 class="bold-sum  margin-none"> <output></output><small>{{product_type}}(s)</small></h3>
 				 <input class="pull-left" type="range" name="slider" id="slider"  min="-20" max="20" disabled step="1" value="0" data-rangeslider>
 				</div>
 	  </div>
