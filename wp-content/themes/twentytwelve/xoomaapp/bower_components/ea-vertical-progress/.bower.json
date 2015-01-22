@@ -27,7 +27,6 @@
     "commit": "b6a14862912d2f21fa5820b990321b7dcae2e1ec"
   },
   "_source": "git://github.com/elroyantao/ea-vertical-progress.git",
-  "_target": "~0.0.4",
-  "_originalSource": "ea-vertical-progress",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "ea-vertical-progress"
 }

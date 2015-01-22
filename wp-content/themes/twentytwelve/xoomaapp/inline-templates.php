@@ -973,30 +973,26 @@
 </script>
 
 <script id="view-history-template" type="text/template">
-<div class="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>Inventory History</b>
-                </div>
-            </div>
-        </div>
-    </div>
-<br>
-<br>
-
-<div class="container"> 
-
 <div class="row">
-<div class="col-sm-6 col-sm-offset-3">
-<ul id='timeline' class="viewHistory">
-</ul>
-</div>
-</div>
-<a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              <h3 class="text-center">{{name}}<small> ( History )</small></h3>
+              <form class="form-horizontal ">
 
-</div>
-
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
+               </form>
+              <ul id='timeline' class="viewHistory">
+                
+              </ul>
+            </div>
+            <div class="col-md-2">
+         </div>
+        </div>
 
 </script>
 

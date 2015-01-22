@@ -7,27 +7,26 @@ class ProductHistoryChildView extends Marionette.ItemView
 
 	tagName : 'li'
 
-	className : '.class'
+	className : '.work'
 
-	template : '<input class="radio" id ="work{{meta_id}}" name="works" type="radio" checked>
-				    <div class="relative">
-				      <label class="labels" for="work{{meta_id}}">{{product_type}}</label>
-				      <span class="date">{{date}}</span>
-				      <span class="circle"></span>
-				    </div>
-				    <div class="content">
-				     <p>
-				      Consumed : <b>{{qty}}</b><br>
-				      Time : <b>{{time}}</b><br>
-				      </p>
+	template : '<div class="relative">
+				      <label class="labels" class="m-t-20" for="work{{meta_id}}">{{qty}} CONSUMED</label>
+				      <span class="date"><i class="fa fa-clock-o"></i>{{time}}<small class="">( {{fromnow}} ) </small></span>
+                    <span class="circle"></span>
 				    </div>'
 	serializeData:->
 		data = super()
-		meta_value = @model.get 'meta_value'
+		console.log meta_value = @model.get 'meta_value'
 		timezone = App.currentUser.get 'timezone'
 		data.time = moment(meta_value.date+timezone, "HH:mm Z").format("hA")
+		console.log meta_value.date
+		data.fromnow = moment([meta_value.date]).fromNow()
 		data.qty = meta_value.qty
 		data
+
+class emptyChildView extends Marionette.ItemView
+
+	template : 'No Consumption done for current date'
 
 
 class ViewProductHistoryView extends Marionette.CompositeView
@@ -37,6 +36,54 @@ class ViewProductHistoryView extends Marionette.CompositeView
 	childView : ProductHistoryChildView
 
 	childViewContainer : 'ul.viewHistory'
+
+	emptyView : emptyChildView
+
+
+	onShow:->
+		$( '#picker_inline_fixed' ).pickadate
+			onOpen:->
+				scrollPageTo( @$node )
+			,
+			onClose:->
+				$( 'body' ).css( 'overflow', '' )
+
+	serializeData:->
+		data  = super
+		name = Marionette.getOption( @, 'name' )
+		data.name = name.toUpperCase()
+		data
+
+
+	scrollPageTo:($node)->
+		$( 'html, body' ).animate
+                scrollTop: ~~$node.offset().top - 60
+            , 150
+
+            
+            $( 'body' ).css( 'overflow', 'auto' )
+
+
+
+	
+
+    
+
+
+
+	
+           
+            
+            	
+
+    
+    
+
+
+        
+
+
+
 
 
 class App.ViewProductHistoryCtrl extends Ajency.RegionController
@@ -56,6 +103,13 @@ class App.ViewProductHistoryCtrl extends Ajency.RegionController
 			error : @errorHandler	
 
 	successHandler:(response,status,xhr)=>
-		coll = new Backbone.Collection response
+		console.log coll = new Backbone.Collection response.response
+		console.log response.name
+		arrColl = []
+		coll.each (item)->
+			if item.get('meta_value').length != 0
+				arrColl.push meta_id:item.get('item') , meta_value : item.get('meta_value') 
+		console.log temp = new Backbone.Collection arrColl
 		@show new ViewProductHistoryView
-				collection : coll
+				collection : temp
+				name   : response.name
