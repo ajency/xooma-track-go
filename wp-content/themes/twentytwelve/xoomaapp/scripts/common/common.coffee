@@ -84,6 +84,7 @@ _.extend Ajency.CurrentUser::,
 				products = []
 				$.each response , (ind,val)->
 					products.push parseInt(val.id)
+					App.useProductColl.add val
 				@set 'products', products
 
 
@@ -94,7 +95,6 @@ _.extend Ajency.CurrentUser::,
 
 	getHomeProducts : ->
 		_successHandler = (response, status, xhr)=>
-			App.useProductColl = new Backbone.Collection
 			data = response.response
 			dates = response.graph['dates']
 			param = response.graph['param']

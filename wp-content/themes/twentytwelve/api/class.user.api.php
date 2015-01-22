@@ -568,6 +568,7 @@ class User_API
             'pid'           => $pid,
             'meta_id'       => $meta_id,
             'date'          => $date,
+            'qty'           => $qty,
             'meta_value'    => array(
                 'date'      => $start,
                 'qty'       => $qty
@@ -607,6 +608,7 @@ class User_API
         $date = $_REQUEST['date'];
 
         $response = get_occurrence_date($pid,$id,$date);
+
 
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );

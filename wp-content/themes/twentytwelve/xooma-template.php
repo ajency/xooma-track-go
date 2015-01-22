@@ -30,7 +30,7 @@
 
 </head>
 <body class="gradient">
-<div id="loader" ui-region></div>
+<div ui-region></div>
 <div id="fb-root"></div>
 <!-- Templates -->
 <?php include_once 'xoomaapp/inline-templates.php'; ?>

@@ -7,7 +7,27 @@ class ProductHistoryChildView extends Marionette.ItemView
 
 	tagName : 'li'
 
-	template : '<div>{{qty}}</div><div>{{date}}</div>'
+	className : '.class'
+
+	template : '<input class="radio" id ="work{{meta_id}}" name="works" type="radio" checked>
+				    <div class="relative">
+				      <label class="labels" for="work{{meta_id}}">{{product_type}}</label>
+				      <span class="date">{{date}}</span>
+				      <span class="circle"></span>
+				    </div>
+				    <div class="content">
+				     <p>
+				      Consumed : <b>{{qty}}</b><br>
+				      Time : <b>{{time}}</b><br>
+				      </p>
+				    </div>'
+	serializeData:->
+		data = super()
+		meta_value = @model.get 'meta_value'
+		timezone = App.currentUser.get 'timezone'
+		data.time = moment(meta_value.date+timezone, "HH:mm Z").format("hA")
+		data.qty = meta_value.qty
+		data
 
 
 class ViewProductHistoryView extends Marionette.CompositeView
@@ -27,10 +47,10 @@ class App.ViewProductHistoryCtrl extends Ajency.RegionController
 
 	_showView:(model)->
 		product = model
-		
+		date = moment().format("YYYY-MM-DD")
 		$.ajax
 			method : 'GET'
-			data : 'date=2015-01-13'
+			data : 'date='+date
 			url : "#{_SITEURL}/wp-json/history/#{App.currentUser.get('ID')}/products/#{product}"
 			success : @successHandler
 			error : @errorHandler	

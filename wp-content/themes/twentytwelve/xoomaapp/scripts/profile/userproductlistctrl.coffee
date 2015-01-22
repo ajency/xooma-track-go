@@ -21,6 +21,15 @@ class ProductChildView extends Marionette.ItemView
 					success: @successHandler
 					error :@erroraHandler
 
+	successHandler:(response, status, xhr)=>
+		products = App.currentUser.get 'products'
+		products = _.without(products,parseInt(response))
+		App.currentUser.set 'products' , products
+		console.log App.useProductColl.remove parseInt(response)
+		console.log App.useProductColl
+		
+
+
 	template  : '
           <div class="panel-body ">
             <h5 class="bold margin-none mid-title "> {{name}}

@@ -67,12 +67,18 @@ ProfilePersonalInfoView = (function(_super) {
     var state;
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
+      $('.alert').remove();
+      this.ui.responseMessage.removeClass(' hidden');
+      this.ui.responseMessage.addClass(' alert-error');
       this.ui.responseMessage.text("Something went wrong");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
       if (state === '/home') {
+        $('.alert').remove();
+        this.ui.responseMessage.removeClass(' hidden');
+        this.ui.responseMessage.addClass(' alert-success');
         return this.ui.responseMessage.text("profile successfully updated");
       } else {
         App.currentUser.set('state', '/profile/measurements');
@@ -82,6 +88,9 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
+    $('.alert').remove();
+    this.ui.responseMessage.removeClass(' hidden');
+    this.ui.responseMessage.addClass(' alert-error');
     this.ui.responseMessage.text("Data couldn't be saved due to some error.");
     return $('html, body').animate({
       scrollTop: 0

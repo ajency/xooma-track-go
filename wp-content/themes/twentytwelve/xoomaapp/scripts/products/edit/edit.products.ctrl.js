@@ -57,7 +57,6 @@ EditProductsView = (function(_super) {
         val.name = 'reminder_time' + ind;
         return val.id = 'reminder_time' + ind;
       });
-      $(this.ui.servings_per_day).trigger("change");
       console.log(this.model.get('frequency_value'));
       if (parseInt(this.model.get('frequency_value')) === 2) {
         this.selectSchdule(this.model);

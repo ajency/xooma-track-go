@@ -18,7 +18,19 @@ ProductHistoryChildView = (function(_super) {
 
   ProductHistoryChildView.prototype.tagName = 'li';
 
-  ProductHistoryChildView.prototype.template = '<div>{{qty}}</div><div>{{date}}</div>';
+  ProductHistoryChildView.prototype.className = '.class';
+
+  ProductHistoryChildView.prototype.template = '<input class="radio" id ="work{{meta_id}}" name="works" type="radio" checked> <div class="relative"> <label class="labels" for="work{{meta_id}}">{{product_type}}</label> <span class="date">{{date}}</span> <span class="circle"></span> </div> <div class="content"> <p> Consumed : <b>{{qty}}</b><br> Time : <b>{{time}}</b><br> </p> </div>';
+
+  ProductHistoryChildView.prototype.serializeData = function() {
+    var data, meta_value, timezone;
+    data = ProductHistoryChildView.__super__.serializeData.call(this);
+    meta_value = this.model.get('meta_value');
+    timezone = App.currentUser.get('timezone');
+    data.time = moment(meta_value.date + timezone, "HH:mm Z").format("hA");
+    data.qty = meta_value.qty;
+    return data;
+  };
 
   return ProductHistoryChildView;
 
@@ -60,11 +72,12 @@ App.ViewProductHistoryCtrl = (function(_super) {
   };
 
   ViewProductHistoryCtrl.prototype._showView = function(model) {
-    var product;
+    var date, product;
     product = model;
+    date = moment().format("YYYY-MM-DD");
     return $.ajax({
       method: 'GET',
-      data: 'date=2015-01-13',
+      data: 'date=' + date,
       url: "" + _SITEURL + "/wp-json/history/" + (App.currentUser.get('ID')) + "/products/" + product,
       success: this.successHandler,
       error: this.errorHandler

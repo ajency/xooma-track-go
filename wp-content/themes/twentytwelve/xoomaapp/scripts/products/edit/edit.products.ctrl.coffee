@@ -39,7 +39,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.js__timepicker').each (ind,val)->
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
-			$( @ui.servings_per_day ).trigger( "change" )
+			#$( @ui.servings_per_day ).trigger( "change" )
 			console.log @model.get('frequency_value')
 			if parseInt(@model.get('frequency_value')) == 2
 				@selectSchdule(@model)

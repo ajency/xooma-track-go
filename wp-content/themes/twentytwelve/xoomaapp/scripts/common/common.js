@@ -118,7 +118,8 @@ _.extend(Ajency.CurrentUser.prototype, {
           console.log(response = response.response);
           products = [];
           $.each(response, function(ind, val) {
-            return products.push(parseInt(val.id));
+            products.push(parseInt(val.id));
+            return App.useProductColl.add(val);
           });
           return _this.set('products', products);
         }
@@ -135,7 +136,6 @@ _.extend(Ajency.CurrentUser.prototype, {
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param;
-        App.useProductColl = new Backbone.Collection;
         data = response.response;
         dates = response.graph['dates'];
         param = response.graph['param'];

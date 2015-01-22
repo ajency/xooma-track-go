@@ -122,6 +122,7 @@
            
         </ul>
     </nav>
+    <div id="loader"></div> 
 		<div ui-region style="margin-top:60px">
 		
 		</div>
@@ -229,7 +230,7 @@
 
 				<div class="container">
 
-						<div class="aj-response-message alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+						<div class="aj-response-message hidden"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
 						<form class="form-horizontal update_user_details" role="form">
 
 
@@ -978,19 +979,30 @@
 </script>
 
 <script id="view-history-template" type="text/template">
-<div class="container"> </br></br>
+<div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>Inventory History</b>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
 
-<div>
-<ul class="viewHistory" >
+<div class="container"> 
 
-
-
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+<ul id='timeline' class="viewHistory">
 </ul>
 </div>
-
-<a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >Cancel</a>	
+</div>
+<a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
 
 </div>
+
 
 </script>
 

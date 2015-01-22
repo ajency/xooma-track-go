@@ -44,12 +44,18 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	successHandler:(response, status,xhr)=>
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
+			$('.alert').remove()
+			@ui.responseMessage.removeClass ' hidden'
+			@ui.responseMessage.addClass ' alert-error'
 			@ui.responseMessage.text "Something went wrong"
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 		else
 			if state == '/home'
+				$('.alert').remove()
+				@ui.responseMessage.removeClass ' hidden'
+				@ui.responseMessage.addClass ' alert-success'
 				@ui.responseMessage.text "profile successfully updated"
 			else
 				App.currentUser.set 'state' , '/profile/measurements'
@@ -57,6 +63,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	errorHandler:(error)=>
+		$('.alert').remove()
+		@ui.responseMessage.removeClass ' hidden'
+		@ui.responseMessage.addClass ' alert-error'
 		@ui.responseMessage.text "Data couldn't be saved due to some error."
 		$('html, body').animate({
 							scrollTop: 0
