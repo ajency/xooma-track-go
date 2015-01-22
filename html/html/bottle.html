@@ -49,44 +49,50 @@
 
     <!--TopHeader-->
    
-    <div class="container"> </br></br>
+    <div class="container"> </br></br> </br></br>
   <div class="row">
-            <div class="col-md-12 col-xs-12"><h5 class="text-center"><i class="fa fa-calendar"></i> Wednesday 29 Oct 2014</h5></div>
-           
-            
-        </div>
- <h4 class="text-center">0/3 <small>Bottle</small></h4>
+
         <div class="row">
             <div class="col-md-4 col-xs-3"> 
            
             </div>
             <div class="col-md-4 col-xs-6">
-            
-                    <div class="water-bottle">
-                            <div class="cap">
-                                <div class="cap-top">
-                                </div>
-                                <div class="cap-seal">
-                                </div>
-                            </div>
-                           <div class="bottle">
-                                <div class="high level-25"> </div>
-                                <div class="medium level-25"> </div>
-                                <div class="half level-25"> </div>
-                                <div class="low level-25"> </div>
-                            </div>
-                        </div>
 
-                    </div>
-
+            <div class="water-100 water-marker"> 
+                100%<br>
+                Consumed ------------
+            </div>
+            <div class="water-75 water-marker"> 
+                75%<br>
+                Consumed ------------
+            </div>
+            <div class="water-50 water-marker"> 
+                50%<br>
+                Consumed ------------
+            </div>
+            <div class="water-25 water-marker"> 
+                25%<br>
+                Consumed ------------
+            </div>
+            <!--- Bottle UI -->
+                    <div> <img src="assets/images/bottle-cap.png" class="center-block"/></div>
+                    <div class="bottle-bg">
+                            <div class="bottle"></div>
+                     </div>
+            <!--- Bottle UI -->
+            </div>
             <div class="col-md-4 col-xs-3">
          
             </div>
         </div>
        <div class="row m-t-20">
-            <div class="col-sm-12">
-              <button type="submit" id="submit" data-count="0" class="btn btn-primary center-block" >Confirm </button>
+         <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <br>
+              <button class="change-progress btn btn-primary  " type="button"> Press to  Consume </button>
+              <button class="change-progress btn btn-success  " type="button"> <i class="fa fa-refresh"></i> Reset</button>
             </div>
+              <div class="col-sm-4"></div>
         </div>
   </div>
     
@@ -111,32 +117,7 @@
     
 
     <!-- Left  footer -->
-    <nav id="menu">
-        <ul>
-            <li><a href="#">Home</a>
-            </li>
-            <li><a href="#about">About us</a>
-                <ul>
-                    <li><a href="#about/history">History</a>
-                    </li>
-                    <li><a href="#about/team">The team</a>
-                        <ul>
-                            <li><a href="#about/team/management">Management</a>
-                            </li>
-                            <li><a href="#about/team/sales">Sales</a>
-                            </li>
-                            <li><a href="#about/team/development">Development</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#about/address">Our address</a>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="#contact">Contact</a>
-            </li>
-        </ul>
-    </nav>
+   
 
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -147,28 +128,25 @@
     <script src="assets/js/datepicker/picker.time.js"></script>
     <script src="assets/js/datepicker/demo.js"></script>
    <script src="assets/js/chart.js"></script>
-
+<script type="text/javascript" src="assets/js/ea-progress-vertical.js"></script>
     <!-- Mobile menu & popover -->
          
 
- <script type="text/javascript">
 
-	
-	$("#submit").click(function(event){
-	
 
-		count = $(this).attr('data-count');
-		count++;
-		
-		$(this).attr('data-count',count);
-		if(count == 1)
-		$('.high').removeClass('level-25');
-		
-		
-  });  
-        
-     
-    </script>
+<script type="text/javascript">
+    progress = new EAProgressVertical($('.bottle'), 100, 'empty', 10000, [25,50,75] );
+    
+    $('.change-progress').on('mousedown',function (e) { 
+        progress.startProgress();
+    })
+    $('.change-progress').on('mouseup',function(e){
+        pro = progress.stopProgress(true);
+        console.log(pro);
+        progress.setProgress(pro,true);
+    })
+    // progress.startProgress();
+</script>
 
 
 

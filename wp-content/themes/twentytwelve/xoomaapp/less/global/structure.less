@@ -303,49 +303,6 @@ display:none !important;
 }
 
 
-/** Bottle Ui ***/
-.bottle { background: #ddd; width:160px;border-radius:30px 30px 6px 6px; height:300px; padding:6px;box-shadow: 3px 3px 3px #efefef;margin: auto;}
-.bottle:hover { background: #eee;box-shadow: 2px  2px 2px #efefef;}
-.water-bottle{ position: relative;}
-
-.cap { background: #ddd; margin:auto;width:60px;border-radius:8px 8px 10px  12px; height:35px;border-top:1px solid #ddd; border-bottom:2px dotted #efefef;}
-.cap-top { background:#ededed; height:6px; border-radius:10px 10px 0 0; }
-.cap-seal { margin-top:20px;background:#ccc; height:6px; border-radius: 0 0 10px 10px; }
-.water{  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;
-    width: 150px;
-}
-.water-full { background: #81BAE7 ;height:290px; z-index:1;border-radius:28px 28px 10px 10px;position: absolute;
-bottom: 5px;  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-medium { background: #81BAE7 ;height:180px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-low { background: #81BAE7 ;height:80px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-empty { background: #81BAE7 ;height:15px;z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-@media (max-width: @screen-sm-min) {
-    .bottle{
-        width: 135px !important;
-        .water{
-            width:125px;
-        }
-    }
-}
-
 /*Tooltip component by www.menucool.com */
 
 /*For tooltip target element that has set class="tooltip" */
@@ -596,3 +553,55 @@ img {
 .img-responsive{
   width:100%;
 }
+
+/* Bottle consuptimon */
+.water-marker{
+  position: absolute;
+  z-index:@zindex-popover;
+  color:#ccc;
+  left: -3%;
+}
+.water-25{
+    bottom:16%;
+}
+.water-50{
+    bottom:35%;
+}
+.water-75{
+    bottom:54%;
+}
+.water-100{
+    bottom:73%;
+}
+      .bottle-bg{
+               width: 218px;
+              display: block;
+              margin: auto;
+              position: relative;
+              height: 381px;
+      }
+    .bottle { 
+            height: 381px;
+            width: 218px;
+            position: absolute;
+            background-image:url('../images/bottle-ui.png'); /* Beer Glass */
+            background-repeat: no-repeat;
+            background-size: 100%;
+            .ea-empty{
+                background : #ddd;
+                z-index:-1;
+                position:absolute;
+                width:218px;
+                
+
+            }
+            .ea-full{
+                background : @green;
+               z-index:-1;
+               position:absolute;
+                width:218px;
+                bottom:0;
+              
+            }
+
+            }
