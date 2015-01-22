@@ -24,6 +24,8 @@ document.addEventListener "deviceready", ->
 	
 	App.currentUser.on 'user:auth:success', ->
 		# App.trigger 'fb:status:connected'
+
+		console.log 'USER AUTH'
 		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
@@ -53,8 +55,6 @@ document.addEventListener "deviceready", ->
 						ctrl : 'HomeX2OCtrl'
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
-
-		
 				
 
 	App.addInitializer ->
@@ -81,7 +81,6 @@ document.addEventListener "deviceready", ->
 
 
 	App.start()
-	
 
 , false
 

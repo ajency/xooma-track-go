@@ -10,7 +10,7 @@ ParseCloud = {
     this.getInstallationId().then(function(installationId) {
       return Parse.Cloud.run('registerXoomaUser', {
         'userId': userData.ID,
-        'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
+        'installationId': installationId
       }, {
         success: function(result) {
           return defer.resolve(result);
@@ -31,7 +31,7 @@ ParseCloud = {
     this.getInstallationId().then(function(installationId) {
       return Parse.Cloud.run('unregisterXoomaUser', {
         'userId': userData.ID,
-        'installationId': '920d4b2e-4c39-4971-9a75-985380bd946f'
+        'installationId': installationId
       }, {
         success: function(result) {
           return defer.resolve(result);
