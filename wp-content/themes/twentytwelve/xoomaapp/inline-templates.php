@@ -984,7 +984,7 @@
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
-              <h3 class="text-center">{{name}}<small> ( History )</small></h3>
+              <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
               <form class="form-horizontal ">
 
                     <section class="holder" id="inline_fixed">
@@ -992,9 +992,11 @@
                           <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
                       </fieldset>
                     </section>
+                    <br/>
+                    <button type="button" id="show" name="show">Show</button>
                </form>
               <ul id='timeline' class="viewHistory">
-                
+              
               </ul>
             </div>
             <div class="col-md-2">

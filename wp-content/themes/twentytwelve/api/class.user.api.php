@@ -625,7 +625,7 @@ class User_API
 
             $term = $product->get_products($pid);
 
-            $response = array('name' => $term[0]['name'], 'response' => $response);
+            $response = array('id'=>$pid,'name' => $term[0]['name'], 'response' => $response);
             
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
             $response = new WP_JSON_Response( $response );
