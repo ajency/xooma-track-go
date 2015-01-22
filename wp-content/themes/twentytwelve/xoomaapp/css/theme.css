@@ -7081,6 +7081,9 @@ packet_expected_class {
   width: 218px;
   bottom: 0;
 }
+.alert-msg {
+  line-height: 40px;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
@@ -10375,6 +10378,9 @@ textarea.form-control {
 .rangeslider {
   position: relative;
 }
+.range-inventory .rangeslider {
+  width: 100% !important;
+}
 .rangeslider--disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   opacity: 0.4;
@@ -10385,7 +10391,7 @@ textarea.form-control {
   top: 0;
 }
 output {
-  font-size: 5rem !important;
+  font-size: 4rem !important;
   font-weight: 600;
   margin-top: -33px;
   display: inline-block !important;
