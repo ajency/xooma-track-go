@@ -7242,6 +7242,142 @@ packet_expected_class {
 .sub-header ul li.selected i {
   color: #3099ea;
 }
+/* -------------------------------------
+ * timeline
+ * ------------------------------------- */
+#timeline {
+  list-style: none;
+  margin: 40px 0 30px 0px;
+  padding-left: 30px;
+  border-left: 2px solid #ccc;
+}
+#timeline li {
+  margin: 40px 0;
+  position: relative;
+}
+#timeline p {
+  margin: 0 0 15px;
+}
+.date {
+  font-size: 0.95em;
+  line-height: 20px;
+  position: absolute;
+  color: #3099ea;
+  margin-top: -7px;
+  left: 0;
+}
+.circle {
+  margin-top: -10px;
+  top: 12%;
+  left: -36px;
+  width: 10px;
+  height: 10px;
+  background: #999999;
+  border: 1px solid #ffffff;
+  display: block;
+  position: absolute;
+}
+.content {
+  max-height: 20px;
+  padding: 40px 20px 10px;
+  border-color: transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.5em;
+  position: relative;
+  width: 60%;
+}
+.content p {
+  max-height: 0;
+  color: transparent;
+  text-align: justify;
+  word-break: break-word;
+  hyphens: auto;
+  overflow: hidden;
+}
+.labels {
+  font-size: 1.3em;
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  top: 20px;
+  transition: transform 0.2s linear;
+}
+.radio {
+  display: none;
+}
+.radio:checked + .relative label {
+  cursor: auto;
+  transform: translateX(19px) translateY(15px);
+}
+.radio:checked ~ .content {
+  max-height: 180px;
+  border-color: #eee9dc;
+  margin-right: 20px;
+  transform: translateY(27px);
+  transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
+}
+.radio:checked ~ .content p {
+  max-height: 200px;
+  color: #6B6B6B;
+  text-align: left;
+  transition: color 0.3s linear 0.3s;
+}
+/* -------------------------------------
+ * mobile phones (vertical version only)
+ * -------------------------------------
+@media screen and (max-width: 767px) {
+  #timeline {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+  }
+  #timeline li {
+    margin: 50px 0;
+  }
+
+  label {
+    width: 85%;
+    font-size: 1.1em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    transform: translateX(18px);
+  }
+
+  .content {
+    padding-top: 45px;
+    border-color: #eee9dc;
+  }
+  .content:before, .content:after {
+    border: solid transparent;
+    bottom: 100%;
+  }
+  .content:before {
+    border-bottom-color: inherit;
+    border-width: 17px;
+    top: -16px;
+    left: 50px;
+    margin-left: -17px;
+  }
+  .content:after {
+    border-bottom-color: #48b379;
+    border-width: 20px;
+    top: -20px;
+    left: 50px;
+    margin-left: -20px;
+  }
+  .content p {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+
+  .circle, .date {
+    display: none;
+  }
+}
+ */
 /* Site Elements */
 @font-face {
   font-family: 'Open Sans';
@@ -9554,6 +9690,232 @@ packet_expected_class {
   .picker--time .picker__box {
     margin-bottom: 5em;
   }
+}
+/**
+     * The picker holder
+     */
+.picker-holder--inline-fixed .pickadate__holder {
+  /* The base font-size */
+  font-size: 16px;
+  line-height: 1.2;
+  color: #000;
+}
+/**
+     * The frame that bounds the calendar
+     */
+.picker-holder--inline-fixed .pickadate__frame {
+  position: relative;
+  min-width: 256px;
+  top: .5em;
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+/**
+     * The calendar itself
+     */
+.picker-holder--inline-fixed .pickadate__calendar {
+  color: #000;
+  background: #fff;
+  padding: 1em;
+  font-size: 1em;
+  /* Add the borders */
+  border: 1px solid #ccc;
+}
+/**
+     * The calendar table of dates
+     */
+.picker-holder--inline-fixed .pickadate__table {
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: inherit;
+  width: 100%;
+  margin-top: .75em;
+}
+/* Remove browser stylings on a table cell */
+.picker-holder--inline-fixed .pickadate__table td {
+  margin: 0;
+  padding: 0;
+}
+/**
+     * The header containing the month and year tags/selectors
+     */
+.picker-holder--inline-fixed .pickadate__header {
+  text-align: center;
+  position: relative;
+}
+.picker-holder--inline-fixed .pickadate__nav--prev,
+.picker-holder--inline-fixed .pickadate__nav--next {
+  position: absolute;
+  top: -0.1em;
+  padding: .5em;
+  margin: -0.5em;
+  text-align: center;
+  min-width: 24px;
+  line-height: 26px;
+}
+.picker-holder--inline-fixed .pickadate__nav--prev {
+  left: 0;
+}
+.picker-holder--inline-fixed .pickadate__nav--next {
+  right: 0;
+}
+.picker-holder--inline-fixed .pickadate__month,
+.picker-holder--inline-fixed .pickadate__year {
+  font-weight: 500;
+  display: inline-block;
+}
+.picker-holder--inline-fixed .pickadate__year {
+  color: #999;
+  font-size: .8em;
+  font-style: italic;
+  margin-left: .5em;
+}
+.picker-holder--inline-fixed .pickadate__select--month,
+.picker-holder--inline-fixed .pickadate__select--year {
+  font-size: .8em;
+  border: 1px solid #ccc;
+  height: 2.5em;
+  margin-top: -0.5em;
+}
+.picker-holder--inline-fixed .pickadate__select--month {
+  width: 35%;
+}
+.picker-holder--inline-fixed .pickadate__select--year {
+  width: 22.5%;
+  margin-left: .5em;
+}
+.picker-holder--inline-fixed .pickadate__select--month:focus,
+.picker-holder--inline-fixed .pickadate__select--year:focus {
+  border-color: #0089ec;
+}
+/**
+     * The weekday labels
+     */
+.picker-holder--inline-fixed .pickadate__weekday {
+  width: 14.285714286%;
+  /* 100/7 */
+  font-size: .75em;
+  padding-bottom: .5em;
+  color: #999;
+  font-weight: 500;
+  text-align: center;
+}
+/**
+     * The days on the calendar
+     */
+.picker-holder--inline-fixed .pickadate__day {
+  padding: .33em 0 .25em;
+  font-weight: 100;
+  border: 1px solid #fff;
+  margin-bottom: 1px;
+}
+/**
+     * The various states of a day
+     */
+.picker-holder--inline-fixed .pickadate__day--today {
+  color: #0089ec;
+  position: relative;
+}
+.picker-holder--inline-fixed .pickadate__day--today:before {
+  content: " ";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-top: .5em solid #0059bc;
+  border-left: .5em solid transparent;
+}
+.picker-holder--inline-fixed .pickadate__day--selected,
+.picker-holder--inline-fixed .pickadate__day--selected:hover {
+  border-color: #0089ec;
+}
+.picker-holder--inline-fixed .pickadate__day--highlighted {
+  background: #fff;
+}
+.picker-holder--inline-fixed .pickadate__day--disabled:before {
+  border-top-color: #aaa;
+}
+.picker-holder--inline-fixed .pickadate__day--outfocus {
+  color: #ddd;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+  -moz-opacity: .75;
+  opacity: .75;
+}
+/**
+     * The footer containing the "today" and "clear" buttons
+     */
+.picker-holder--inline-fixed .pickadate__footer {
+  text-align: center;
+  margin: 0.5em 0 -0.5em;
+}
+.picker-holder--inline-fixed .pickadate__button--today,
+.picker-holder--inline-fixed .pickadate__button--clear {
+  border: 1px solid #fff;
+  background: #fff;
+  font-size: .8em;
+  padding: .66em 0;
+  margin: 0 2.5%;
+  font-weight: bold;
+  width: 40%;
+  display: none;
+}
+.picker-holder--inline-fixed .pickadate__button--today:before,
+.picker-holder--inline-fixed .pickadate__button--clear:before {
+  position: relative;
+  display: inline-block;
+  height: 0;
+}
+.picker-holder--inline-fixed .pickadate__button--today:before {
+  content: " ";
+  margin-right: .45em;
+  top: -0.05em;
+  width: 0;
+  border-top: .66em solid #0089ec;
+  border-left: .66em solid transparent;
+}
+.picker-holder--inline-fixed .pickadate__button--clear:before {
+  content: "×";
+  margin-right: .35em;
+  top: -0.1em;
+  color: #e20;
+  vertical-align: top;
+  font-size: 1.1em;
+}
+.picker-holder--inline-fixed .pickadate__button--today:focus,
+.picker-holder--inline-fixed .pickadate__button--clear:focus {
+  background: #b1dcfb;
+  border-color: #0089ec;
+  outline: none;
+}
+/**
+     * The hover effect on any buttons
+     */
+.picker-holder--inline-fixed .pickadate__day--infocus:hover,
+.picker-holder--inline-fixed .pickadate__day--outfocus:hover,
+.picker-holder--inline-fixed .pickadate__nav--prev:hover,
+.picker-holder--inline-fixed .pickadate__nav--next:hover,
+.picker-holder--inline-fixed .pickadate__button--today:hover,
+.picker-holder--inline-fixed .pickadate__button--clear:hover {
+  cursor: pointer;
+  color: #000;
+  background: #b1dcfb;
+}
+.picker-holder--inline-fixed .pickadate__day--disabled,
+.picker-holder--inline-fixed .pickadate__day--disabled:hover {
+  background: #f5f5f5;
+  border-color: #f5f5f5;
+  color: #ddd;
+  cursor: default;
+}
+.picker-holder--inline-fixed .pickadate__day--highlighted:hover,
+.picker-holder--inline-fixed .pickadate__holder--focused .pickadate__day--highlighted {
+  background: #0089ec;
+  color: #fff;
 }
 .main,
 .container > header {
