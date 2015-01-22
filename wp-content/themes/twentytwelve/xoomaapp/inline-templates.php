@@ -173,7 +173,7 @@
    <div class="form-group"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group"  onclick="location.href='#home'">
+   <div class="form-group"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
   </div>
 
@@ -298,6 +298,7 @@
 												<div class="form-group">
 														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
+
 																<input class="form-control" type="text" name="profile[birth_date]" required />
 														</div>
 												</div>
@@ -332,9 +333,9 @@
 		<div id="measuremnt" class="section">
 
 				<div class="container">
-				<div class="alert alert-warning alert-msg" role="alert">
+				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Click here to update the measurements 
-				<button type="button" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i> Update Calender</button>
+				<button type="button" class="btn btn-primary pull-right update"><i class="fa fa-calendar"></i> Update</button>
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
@@ -993,7 +994,7 @@
                       </fieldset>
                     </section>
                     <br/>
-                    <button type="button" id="show" name="show">Show</button>
+                    <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>
               <ul id='timeline' class="viewHistory">
               

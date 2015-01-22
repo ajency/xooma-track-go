@@ -14,14 +14,14 @@ _.extend Ajency.CurrentUser::,
 		"#{APIURL}/users/#{App.currentUser.get('ID')}/#{property}"
 
 	saveMeasurements : (measurements)->
-
+		formdata = $.param measurements
 		_successHandler = (resp)=>
 			@set 'measurements', measurements
 
 		$.ajax
 			method : 'POST'
 			url : @_getUrl 'measurements'
-			data : measurements
+			data : formdata
 			success: _successHandler
 
 	getProfile : ()->

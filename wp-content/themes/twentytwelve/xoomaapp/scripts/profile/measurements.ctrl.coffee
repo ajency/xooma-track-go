@@ -13,6 +13,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		responseMessage : '.aj-response-message'
 		link : '.link'
 		inpt_el   : '.inpt_el'
+		update : '.update'
 		
 
 	behaviors :
@@ -24,6 +25,26 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+
+		'click @ui.update':(e)->
+			date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
+			@ui.update.pickadate(
+				formatSubmit: 'yyyy-mm-dd'
+				hiddenName: true
+				max: new Date()
+				min : date
+				onClose:=>
+					$input = @ui.update.pickadate()
+					picker = $input.pickadate('picker')
+					selected =  picker.get()
+					date = moment(selected).format('YYYY-MM-DD')
+					$('#date_field').val date
+
+				
+			)
+
+			
+
 
 		
 
@@ -42,7 +63,10 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
-		console.log @view
+		
+		state = App.currentUser.get 'state'
+		if state == '/home'
+			$('.measurements_update').removeClass 'hidden'
 		
 		
 		
@@ -50,8 +74,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	onFormSubmit : (_formData)=>
 		console.log @measurements['weight'] = $('#weight').val()
 		@measurements['height'] = $('#height').val()
-		@measurements['date_field'] = $('#date_field').val()
-		console.log formdata = $.param @measurements
+		@measurements['date'] = $('#date_field').val()
+		console.log formdata = @measurements
 		@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
 	    

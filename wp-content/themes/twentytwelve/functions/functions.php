@@ -1320,14 +1320,22 @@ $start = microtime(true);
 		
 		foreach($daterange as $date){
 
-				$date = $date->format('Y-m-d');
+			$date = $date->format('Y-m-d');
 		   	$graph_arr[] = array(
 									'date'		=> $date,
 									'weight'	=> ''
 
 							);
 		}
-		
+
+		if(count($graph_arr)==1)
+		{
+			$graph_arr[] = array(
+									'date'		=> date('Y-m-d'),
+									'weight'	=> ''
+
+							);
+		}		
 		$sqlquery = $wpdb->get_results("SELECT * , DATE(`date`) as datefield from $table where `date` BETWEEN 
 			'".$start_dt."' and '".$end_dt."' and user_id=".$user_id);
 

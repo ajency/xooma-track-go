@@ -13,6 +13,7 @@ ViewProductHistoryView = (function(_super) {
   __extends(ViewProductHistoryView, _super);
 
   function ViewProductHistoryView() {
+    this.getCount = __bind(this.getCount, this);
     this.successHandler = __bind(this.successHandler, this);
     return ViewProductHistoryView.__super__.constructor.apply(this, arguments);
   }
@@ -66,24 +67,61 @@ ViewProductHistoryView = (function(_super) {
     arr = 0;
     timezone = App.currentUser.get('timezone');
     coll.each(function(index) {
-      var fromnow, meta_id, meta_value, qty, time;
-      if (index.get('meta_value').length !== 0) {
+      var data, fromnow, i, meta_id, meta_value, qty, time;
+      if (index.get('meta_value').length !== 0 && response.name.toUpperCase() !== 'X2O') {
         meta_value = index.get('meta_value');
         meta_id = index.get('meta_value');
         time = moment(meta_value.date + timezone, "HH:mm Z").format("hA");
         fromnow = moment(meta_value.date + timezone).fromNow();
         qty = meta_value.qty;
-        if (response.name.toUpperCase() === 'X2O') {
-          qty = parseInt(meta_value.qty) * 100 + '%';
-        }
         arr++;
         return html += '<li class="work"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
+      } else {
+        i = 0;
+        data = ViewProductHistoryView.prototype.getCount(index.get('meta_value'));
+        return $.each(data, function(ind, val) {
+          i++;
+          time = moment(val.date + timezone, "HH:mm Z").format("hA");
+          fromnow = moment(val.date + timezone).fromNow();
+          qty = val.qty;
+          meta_id = parseInt(index.get('meta_id')) + parseInt(i);
+          arr++;
+          return html += '<li class="work"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
+        });
       }
     });
     if (arr === 0) {
       html = '<li>No Consumption found for the current date.<li>';
     }
     return $('.viewHistory').html(html);
+  };
+
+  ViewProductHistoryView.prototype.getCount = function(val) {
+    var count;
+    count = [];
+    if (!(_.isArray(val))) {
+      count.push({
+        date: val.date,
+        qty: val.qty
+      });
+    } else {
+      _.each(val, function(val1) {
+        if (_.isArray(val1)) {
+          return _.each(val1, function(value) {
+            return count.push({
+              date: value.date,
+              qty: value.qty
+            });
+          });
+        } else {
+          return count.push({
+            date: val1.date,
+            qty: val1.qty
+          });
+        }
+      });
+    }
+    return count;
   };
 
   ViewProductHistoryView.prototype.scrollPageTo = function($node) {

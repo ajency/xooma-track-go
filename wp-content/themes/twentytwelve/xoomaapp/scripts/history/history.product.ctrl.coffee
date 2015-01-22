@@ -45,27 +45,55 @@ class ViewProductHistoryView extends Marionette.ItemView
 		arr = 0
 		timezone = App.currentUser.get 'timezone'
 		coll.each (index)->
-			if index.get('meta_value').length != 0
+			if index.get('meta_value').length != 0 && response.name.toUpperCase() != 'X2O'
 				meta_value = index.get('meta_value')
 				meta_id = index.get('meta_value')
 				time = moment(meta_value.date+timezone, "HH:mm Z").format("hA")
 				fromnow = moment(meta_value.date+timezone).fromNow()
 				qty = meta_value.qty
-				if response.name.toUpperCase() == 'X2O'
-					qty = parseInt(meta_value.qty)* 100 + '%'
 				arr++
 				html += '<li class="work"><div class="relative">
 				      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
 				      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""> ('+fromnow+' ) </small></span>
                     <span class="circle"></span>
 				    </div><li>'
+			else
+				i = 0
+				data = ViewProductHistoryView::getCount(index.get('meta_value'))
+				$.each data , (ind,val)->
+					i++
+					time = moment(val.date+timezone, "HH:mm Z").format("hA")
+					fromnow = moment(val.date+timezone).fromNow()
+					qty = val.qty
+					meta_id = parseInt(index.get('meta_id')) + parseInt(i) 
+					arr++
+					html += '<li class="work"><div class="relative">
+					      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
+					      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""> ('+fromnow+' ) </small></span>
+	                    <span class="circle"></span>
+					    </div><li>'
+
+				
+
 
 		if arr == 0
 			html = '<li>No Consumption found for the current date.<li>'
 		$('.viewHistory').html html
 				
 		
-		
+	getCount:(val)=>
+		count = []
+		if!(_.isArray(val)) 
+			count.push date : val.date , qty : val.qty 
+		else
+			_.each val , (val1)->
+				if _.isArray(val1)
+					_.each val1 ,  (value)->
+						count.push date : value.date , qty : value.qty
+				else
+					count.push date : val1.date , qty : val1.qty
+
+		count	
 		
 
 			

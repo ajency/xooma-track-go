@@ -32,7 +32,8 @@ _.extend(Ajency.CurrentUser.prototype, {
     return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
   },
   saveMeasurements: function(measurements) {
-    var _successHandler;
+    var formdata, _successHandler;
+    formdata = $.param(measurements);
     _successHandler = (function(_this) {
       return function(resp) {
         return _this.set('measurements', measurements);
@@ -41,7 +42,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     return $.ajax({
       method: 'POST',
       url: this._getUrl('measurements'),
-      data: measurements,
+      data: formdata,
       success: _successHandler
     });
   },

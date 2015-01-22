@@ -447,12 +447,13 @@ App.HomeOtherProductsCtrl = (function(_super) {
   HomeOtherProductsCtrl.prototype._showView = function(collection) {
     var model, productcollection;
     productcollection = collection.clone();
-    model = productcollection.findWhere({
+    console.log(model = productcollection.findWhere({
       name: 'x2o'
-    });
+    }));
     if (model !== void 0) {
-      if (model.get('name') !== 'x2o') {
-        productcollection.reset(App.useProductColl.toArray());
+      if (model.get('name').toUpperCase() === 'X2O') {
+        console.log(productcollection.remove(model));
+        productcollection.reset(productcollection.toArray());
       }
     }
     console.log(productcollection);

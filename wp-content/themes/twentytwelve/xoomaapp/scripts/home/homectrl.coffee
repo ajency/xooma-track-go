@@ -420,10 +420,11 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.findWhere({name:'x2o'})  
+		console.log model = productcollection.findWhere({name:'x2o'})  
 		if model != undefined
-			if model.get('name') != 'x2o' 
-				productcollection.reset App.useProductColl.toArray()
+			if model.get('name').toUpperCase() == 'X2O' 
+				console.log productcollection.remove model
+				productcollection.reset productcollection.toArray()
 		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
