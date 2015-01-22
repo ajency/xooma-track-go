@@ -92,8 +92,8 @@ class HomeLayoutView extends Marionette.LayoutView
 		);
 
 	generateGraph:->
-		dates = App.graph.get 'dates'
-		param = App.graph.get 'param'
+		console.log dates = App.graph.get 'dates'
+		console.log param = App.graph.get 'param'
 		lineChartData = 
 			labels : dates,
 			datasets : [
@@ -249,7 +249,24 @@ class HomeX2OViewChild extends Marionette.ItemView
 
 class HomeX2OView extends Marionette.CompositeView
 
-	template : '<ul class="list-inline text-center row row-line x2oList">
+	template : '<div class="row">
+			<div class="col-md-4 col-xs-4"></div>
+			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
+			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				  <div class="fill-bottle">        
+					<div class="glass">
+							<span class="liquid" style="height: 100%"></span>
+					 </div>
+				  </div>
+					<div id="canvas-holder">
+						<canvas id="chart-area" width="500" height="500"/>
+					</div>
+			
+			</div>
+		</div><ul class="list-inline text-center row row-line x2oList">
 			  </ul>'
 
 	childView : HomeX2OViewChild
@@ -273,11 +290,11 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 	_showView:(collection)=>
 		productcollection = collection.clone()
 		model = productcollection.findWhere({name:'x2o'}) 
-		console.log model.get('name')
-		if model.get('name') == 'x2o'
-			console.log modelColl = new Backbone.Collection model
-			@show new HomeX2OView
-						collection : modelColl
+		if model != undefined
+			if model.get('name') == 'x2o'
+				console.log modelColl = new Backbone.Collection model
+				@show new HomeX2OView
+							collection : modelColl
 
 class ProductChildView extends Marionette.ItemView
 
@@ -404,8 +421,9 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 	_showView:(collection)=>
 		productcollection = collection.clone()
 		model = productcollection.findWhere({name:'x2o'})  
-		if model.get('name') != 'x2o'
-			productcollection.reset App.useProductColl.toArray()
+		if model != undefined
+			if model.get('name') != 'x2o' 
+				productcollection.reset App.useProductColl.toArray()
 		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection

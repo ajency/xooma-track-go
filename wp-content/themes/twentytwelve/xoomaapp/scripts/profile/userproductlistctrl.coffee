@@ -10,6 +10,9 @@ class ProductChildView extends Marionette.ItemView
 		update 	: '.update'
 		remove   : '.remove'
 
+	initialize:->
+		 @$el.prop("id", 'cart'+@model.get("id"))
+
 	events:
 		'click .remove':(e)->
 			e.preventDefault()
@@ -27,6 +30,7 @@ class ProductChildView extends Marionette.ItemView
 		App.currentUser.set 'products' , products
 		console.log App.useProductColl.remove parseInt(response)
 		console.log App.useProductColl
+		$('#cart'+response).hide()
 		
 
 
@@ -169,6 +173,9 @@ class UserProductListView extends Marionette.CompositeView
 		'click .add':(e)->
     		console.log "aaaaaaaaaa"
     		App.navigate '#/products' , true   
+
+    
+
 
 	
 

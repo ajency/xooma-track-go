@@ -1308,11 +1308,16 @@ $start = microtime(true);
 
 		$temp_arr = array();
 
-		$begin = new DateTime($start_dt);
-		$end = new DateTime($end_dt);
+		$start_datetime = date("Y-m-d 00:00:00", strtotime($start_dt));
+		$end_datetime = date("Y-m-d 23:59:59", strtotime($end_dt));
+		$begin = new DateTime($start_datetime);
+		$end = new DateTime($end_datetime);
+		
 
 		$daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
 
+
+		
 		foreach($daterange as $date){
 
 				$date = $date->format('Y-m-d');
@@ -1322,6 +1327,7 @@ $start = microtime(true);
 
 							);
 		}
+		
 		$sqlquery = $wpdb->get_results("SELECT * , DATE(`date`) as datefield from $table where `date` BETWEEN 
 			'".$start_dt."' and '".$end_dt."' and user_id=".$user_id);
 
@@ -1483,6 +1489,22 @@ function generate_graph($graph,$pre_date,$next_date)
 						$record = $value['weight'];
 						
 				}
+				else if($value['weight'] == "" && $count == count($graph) && $next_date['param']=="")	
+				{
+						array_push($track, $key);
+						
+						$cnt = count($track) ;
+						$total = intval($record) ;
+						$divide = $total/ $cnt;
+						$divide = round($divide, 2);
+						$minus = $total ; 
+						for ($i= 0   ; $i <= count($track) - 1 ; $i++) { 
+								$minus = intval($minus) - intval($divide);
+								$graph[$track[$i]]['weight'] = $total;
+						}
+						$record = $value['weight'];
+						
+				}
 				else
 				{
 							array_push($track, $key);
@@ -1496,6 +1518,7 @@ function generate_graph($graph,$pre_date,$next_date)
 		
 		$dates = array();
 		$param = array();
+		
 		foreach ($graph as $key => $value) {
 				if($value['weight'] != ""){
 

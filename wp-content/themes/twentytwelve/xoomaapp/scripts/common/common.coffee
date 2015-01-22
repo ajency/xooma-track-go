@@ -76,13 +76,16 @@ _.extend Ajency.CurrentUser::,
 	getUserProducts : ->
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
-				console.log response = response.response
-				# x2oArray = []
-				# $.each response , (index,value)->
-				# 	x2oArray.push value
-				# App.currentUser.set 'x2o' , x2oArray
+				console.log data = response.response
+				dates = response.graph['dates']
+				param = response.graph['param']
+				App.graph = new Backbone.Model
+				App.currentUser.set 'weight', response.weight
+				App.graph.set 'dates' , dates
+				App.graph.set 'param' , param
+				App.graph.set 'reg_date' , response.reg_date
 				products = []
-				$.each response , (ind,val)->
+				$.each data , (ind,val)->
 					products.push parseInt(val.id)
 					App.useProductColl.add val
 				@set 'products', products

@@ -461,24 +461,7 @@
 
 <script id="home-template" type="text/template">
 		<div class="container"> </br></br></br>
-		<div class="row">
-			<div class="col-md-4 col-xs-4"></div>
-			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
-			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				  <div class="fill-bottle">        
-					<div class="glass">
-							<span class="liquid" style="height: 100%"></span>
-					 </div>
-				  </div>
-					<div id="canvas-holder">
-						<canvas id="chart-area" width="500" height="500"/>
-					</div>
-			
-			</div>
-		</div>
+		
 	 <div class="row">
 			<div class="col-md-3"> 
 			</div>
