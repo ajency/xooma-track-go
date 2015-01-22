@@ -329,7 +329,12 @@
 		<div id="measuremnt" class="section">
 
 				<div class="container">
+				<div class="alert alert-warning" role="alert">
+				  <i class="fa fa-bullhorn"></i> Click here to update the measurements 
+				</div>
 				<div class="aj-response-message"></div>
+
+
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">
