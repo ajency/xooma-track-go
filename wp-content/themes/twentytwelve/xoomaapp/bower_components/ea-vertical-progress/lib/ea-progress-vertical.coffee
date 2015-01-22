@@ -1,5 +1,24 @@
 ( ($)->
 	root = @
+	
+	animateBottle = (direction='fill', limit=100 )->
+		if (direction is 'fill' and @progress >= limit) or (direction is 'empty' and @progress <= limit)
+			clearInterval @animateInterval
+		else
+			if direction is 'fill'
+				@progress += @change
+			else if direction is 'empty'
+				@progress -= @change
+			setProgressUI.call @
+
+	setProgressUI = ->
+		empty = 100 - @progress
+		full = @progress
+		
+		@parent.find('.ea-empty').css 'height', empty+'%'
+		@parent.find('.ea-full').css 'height', full+'%'
+
+
 
 	class EAProgressVertical 
 		change : 0.1
@@ -17,13 +36,13 @@
 			delay = time*@change/100
 			@delay = if delay >= 0.05 then delay else 0.05
 			@type = if type in ['fill','empty'] then type else 'fill' 
-			@setProgressUI()
+			setProgressUI.call @
 
 
 		startProgress : ->
 			limit = if @type is 'fill' then 100 else 0
 			clearInterval @animateInterval
-			@animateInterval = setInterval @animateBottle, @delay , @type , limit
+			@animateInterval = setInterval animateBottle.bind(@), @delay ,  @type , limit
 
 		stopProgress : (returnBreak=false)->
 			clearInterval @animateInterval
@@ -53,42 +72,25 @@
 
 			if not slow 
 				@progress = progress
-				@setProgressUI()
+				setProgressUI.call @
 
 
 			else if progress > @progress
 				clearInterval @animateInterval
-				@animateInterval = setInterval @animateBottle, @delay , 'fill' , progress
+				@animateInterval = setInterval animateBottle.bind(@), @delay , 'fill' , progress, @
 
 			else
 				clearInterval @animateInterval
-				@animateInterval = setInterval @animateBottle, @delay , 'empty' , progress
+				@animateInterval = setInterval animateBottle.bind(@), @delay , 'empty' , progress, @
 
 			return progress
 
 
 
-
-
+	
+	
 			
-		animateBottle : (direction='fill',limit=100)=>
-			if (direction is 'fill' and @progress >= limit) or (direction is 'empty' and @progress <= limit)
-				clearInterval @animateInterval
-			else
-				if direction is 'fill'
-					@progress += @change
-				else if direction is 'empty'
-					@progress -= @change
-				@setProgressUI()
-
-
-		setProgressUI : ->
-			empty = 100 - @progress
-			full = @progress
-			
-			@parent.find('.ea-empty').css 'height', empty+'%'
-			@parent.find('.ea-full').css 'height', full+'%'
-
+		
 	root.EAProgressVertical = EAProgressVertical
 
 ).call @,jQuery
