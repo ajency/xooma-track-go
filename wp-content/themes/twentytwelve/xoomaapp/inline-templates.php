@@ -647,11 +647,11 @@
 				<div class="form-group">
 				 <label for="inputEmail2" class="col-sm-6 col-xs-7  control-label">Recommended Number of Bottles</label>
 				 <div class="col-sm-6 col-xs-5">
-					<p class="form-control-static"><b>2</b></p>
+					<p class="form-control-static"><b>{{x2o}}</b></p>
 				</div>
 				 </div>
 					<h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
-					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{x2o}}" data-rangeslider>
+					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{total}}" data-rangeslider>
 		  <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
 
 		   </div>
@@ -808,7 +808,7 @@
 	  <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
 	  <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
 
-		 <a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>
+		 <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
 		  <button type="button" class="btn btn-link cancel">Cancel</button>	
 
 	</div>

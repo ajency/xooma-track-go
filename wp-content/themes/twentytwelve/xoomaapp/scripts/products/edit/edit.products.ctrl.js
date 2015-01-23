@@ -283,7 +283,7 @@ EditProductsView = (function(_super) {
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
-      data.x2o = qty.length;
+      data.total = qty.length;
       data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
@@ -336,7 +336,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, product, products, reminder_flag;
+    var container, product, products, reminder_flag, weightbmi;
     this.checkMode();
     $('.js__timepicker').pickatime();
     this.ui.rangeSliders.each((function(_this) {
@@ -371,6 +371,8 @@ EditProductsView = (function(_super) {
     } else {
       $('.schedule_data').hide();
       $('.anytime').hide();
+      weightbmi = this.get_weight_bmi(this.model.get('bmi'));
+      $('.servings_per_day option[value="' + weightbmi + '"]').prop("selected", true);
     }
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');

@@ -51,9 +51,9 @@
 
 
                 // The picker prototype
-                P = Picker.prototype = {
+                P = Pickers.prototype = {
 
-                    constructor: Picker,
+                    constructor: Pickers,
 
                     $node: $ELEMENT,
 
@@ -872,7 +872,7 @@
 
                 // Otherwise, return the created month tag
                 var monthTag = 'month' + ( next ? 'Next' : 'Prev' )
-                return createNode( STRING_DIV,Â SETTINGS[ monthTag ],Â CLASSES[ monthTag ],Â 'data-nav=' + ( next || -1 )Â )
+                return createNode( STRING_DIV,SETTINGS[ monthTag ],CLASSES[ monthTag ],'data-nav=' + ( next || -1 ))
             } //createMonthNav
 
 

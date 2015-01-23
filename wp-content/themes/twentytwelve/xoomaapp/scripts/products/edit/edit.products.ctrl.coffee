@@ -255,7 +255,7 @@ class EditProductsView extends Marionette.ItemView
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
-			data.x2o = qty.length
+			data.total = qty.length
 			data.reminder = reminders[0].time
 		frequecy = @model.get 'frequency_value'
 		if parseInt(frequecy) == 1 
@@ -331,7 +331,8 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('.schedule_data').hide()
 			$('.anytime').hide()
-			
+			weightbmi = @get_weight_bmi(@model.get('bmi'))
+			$('.servings_per_day option[value="'+weightbmi+'"]').prop("selected",true);
 
 		
 		
