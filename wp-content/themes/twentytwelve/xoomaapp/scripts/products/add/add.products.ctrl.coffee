@@ -12,7 +12,7 @@ class ProductChildView extends Marionette.ItemView
 							<div class="cbp-vm-details">
 								{{description}}
 							</div>
-						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/products/{{id}}/edit">Add Product</a>'
+						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/product/{{id}}/edit">Add Product</a>'
 
 
 	ui :
