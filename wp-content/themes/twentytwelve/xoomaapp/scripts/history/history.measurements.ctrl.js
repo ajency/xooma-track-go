@@ -65,7 +65,7 @@ MeasurementHistoryView = (function(_super) {
 
   MeasurementHistoryView.prototype.successHandler = function(response, status, xhr) {
     if (xhr.status === 200) {
-      return this.showData();
+      return this.showData(response);
     } else {
       return this.showErrorMsg();
     }

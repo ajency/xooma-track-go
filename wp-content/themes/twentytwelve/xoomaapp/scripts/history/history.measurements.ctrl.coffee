@@ -43,7 +43,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 
 	successHandler:(response,status,xhr)=>
 		if xhr.status == 200
-			@showData()
+			@showData(response)
 		else
 			@showErrorMsg()
 			
