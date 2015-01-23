@@ -109,6 +109,10 @@
 		</div>
 		<div class="clearfix"></div>
 		
+
+    <div id="loader"></div> 
+
+
 		<div ui-region style="margin-top:60px">
 		
 		</div>
@@ -157,7 +161,7 @@
    <div class="form-group"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group"  onclick="location.href='#home'">
+   <div class="form-group"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
   </div>
 
@@ -225,7 +229,7 @@
 
 				<div class="container">
 
-						<div class="aj-response-message alert alert-success"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+						<div class="aj-response-message hidden"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
 						<form class="form-horizontal update_user_details" role="form">
 
 
@@ -282,6 +286,7 @@
 												<div class="form-group">
 														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
+
 																<input class="form-control" type="text" name="profile[birth_date]" required />
 														</div>
 												</div>
@@ -316,9 +321,9 @@
 		<div id="measuremnt" class="section">
 
 				<div class="container">
-				<div class="alert alert-warning alert-msg" role="alert">
+				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Click here to update the measurements 
-				<button type="button" class="btn btn-primary pull-right"><i class="fa fa-calendar"></i> Update Calender</button>
+				<button type="button" class="btn btn-primary pull-right update"><i class="fa fa-calendar"></i> Update</button>
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
@@ -454,24 +459,7 @@
 
 <script id="home-template" type="text/template">
 		<div class="container"> </br></br></br>
-		<div class="row">
-			<div class="col-md-4 col-xs-4"></div>
-			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
-			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				  <div class="fill-bottle">        
-					<div class="glass">
-							<span class="liquid" style="height: 100%"></span>
-					 </div>
-				  </div>
-					<div id="canvas-holder">
-						<canvas id="chart-area" width="500" height="500"/>
-					</div>
-			
-			</div>
-		</div>
+		
 	 <div class="row">
 			<div class="col-md-3"> 
 			</div>
@@ -983,19 +971,28 @@
 </script>
 
 <script id="view-history-template" type="text/template">
-<div class="container"> </br></br>
+<div class="row">
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
+              <form class="form-horizontal ">
 
-<div>
-<ul class="viewHistory" >
-
-
-
-</ul>
-</div>
-
-<a href="#/profile/my-products" class="btn btn-primary btn-lg center-block" >Cancel</a>	
-
-</div>
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
+                    <br/>
+                    <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
+               </form>
+              <ul id='timeline' class="viewHistory">
+              
+              </ul>
+            </div>
+            <div class="col-md-2">
+         </div>
+        </div>
 
 </script>
 

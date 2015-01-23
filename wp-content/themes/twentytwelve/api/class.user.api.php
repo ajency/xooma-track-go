@@ -568,6 +568,7 @@ class User_API
             'pid'           => $pid,
             'meta_id'       => $meta_id,
             'date'          => $date,
+            'qty'           => $qty,
             'meta_value'    => array(
                 'date'      => $start,
                 'qty'       => $qty
@@ -608,15 +609,28 @@ class User_API
 
         $response = get_occurrence_date($pid,$id,$date);
 
+        
+
+
+        
+
+
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
             $response->set_status(404);
         }
         else
         {
+            $product = new ProductList();
+
+            $term = $product->get_products($pid);
+
+            $response = array('id'=>$pid,'name' => $term[0]['name'], 'response' => $response);
+            
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
             $response = new WP_JSON_Response( $response );
             }
+
             $response->set_status( 200 );
 
         }

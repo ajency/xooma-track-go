@@ -33,6 +33,8 @@ class ViewInventoryView extends Marionette.CompositeView
 
 	childView : InventoryChildView
 
+	
+
 	childViewContainer : 'ul.viewInventory'
 
 class App.ViewInventoryCtrl extends Ajency.RegionController

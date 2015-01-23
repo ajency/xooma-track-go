@@ -73,6 +73,7 @@ class User
 
 		    //update user meta for the user
         $user_meta_value = maybe_serialize($args);
+       
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 

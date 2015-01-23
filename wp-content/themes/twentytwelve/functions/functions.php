@@ -84,6 +84,17 @@ function save_anytime_product_details($id,$data){
 
 				store_stock_data($args);
 
+				$args = array(
+
+						'user_id'     => $id,
+						'product_id'  => $data['id'],
+						'type'        => 'consumption',
+						'amount'      =>  0,
+						'consumption_type'  => ''
+
+
+					);
+				store_stock_data($args);
 			 //stroring trasaction to keeptrack of quantity
 
 				//store schedule
@@ -234,6 +245,17 @@ function update_anytime_product_details($id,$pid,$data){
 
 
 					);
+				$args = array(
+
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'consumption',
+						'amount'      =>  0,
+						'consumption_type'  => ''
+
+
+					);
+				store_stock_data($args);
 			if($data['subtract'] !=0) 
 			store_stock_data($args_del);
 			 //stroring trasaction to keeptrack of quantity
@@ -473,6 +495,17 @@ function update_schedule_product_details($id,$pid,$data){
 					);
 
 
+				store_stock_data($args);
+				$args = array(
+
+						'user_id'     => $id,
+						'product_id'  => $pid,
+						'type'        => 'consumption',
+						'amount'      =>  0,
+						'consumption_type'  => ''
+
+
+					);
 				store_stock_data($args);
 
 				$args_del = array(
@@ -746,6 +779,7 @@ function check_workflow($user_model){
 
 	//workflow plugin code
 		global $aj_workflow;
+		$user = new User();
 		$args = array(
 				'name'    => 'login',
 
@@ -767,9 +801,13 @@ function check_workflow($user_model){
 
 		$products = get_user_products($user_model->ID);
 
+		$user_data = $user->get_user_details($user_model->ID);
+
 		$user_model->state = $state;
 
 		$user_model->products = $products;
+
+		$user_model->timezone = $user_data['timezone'];
 
 		
 
@@ -836,9 +874,11 @@ function get_occurrence_date($product_id,$user_id="",$date=""){
 			}
 			else
 			{
-				$new_date = date('Y-m-d',strtotime($date));
-				$start_datetime = date('$new_date 00:00:00');
-				$end_datetime = date('$new_date 23:59:59');
+
+
+		
+				$start_datetime = date("Y-m-d 00:00:00", strtotime($date));
+				$end_datetime = date("Y-m-d 23:59:59", strtotime($date));
 			}
 
 			$occurrences = \ajency\ScheduleReminder\Occurrence::
@@ -1199,6 +1239,8 @@ function store_consumption_details($args){
 					$occurrences = \ajency\ScheduleReminder\Occurrence::
 					_insert_occurrence($occurrence_data); 
 
+					update_consumption($object_id,$args['qty']);
+
 					$meta_id = $occurrences;
 				}
 				else
@@ -1237,6 +1279,7 @@ function store_consumption_details($args){
 					$occurrences = \ajency\ScheduleReminder\Occurrence::
 					_update_occurrence($occurrence_data);
 
+					update_consumption($object_id,$args['qty']);
 					$meta_id = $args['meta_id'];
 				}
 
@@ -1265,20 +1308,34 @@ $start = microtime(true);
 
 		$temp_arr = array();
 
-		$begin = new DateTime($start_dt);
-		$end = new DateTime($end_dt);
+		$start_datetime = date("Y-m-d 00:00:00", strtotime($start_dt));
+		$end_datetime = date("Y-m-d 23:59:59", strtotime($end_dt));
+		$begin = new DateTime($start_datetime);
+		$end = new DateTime($end_datetime);
+		
 
 		$daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
 
+
+		
 		foreach($daterange as $date){
 
-				$date = $date->format('Y-m-d');
+			$date = $date->format('Y-m-d');
 		   	$graph_arr[] = array(
 									'date'		=> $date,
 									'weight'	=> ''
 
 							);
 		}
+
+		if(count($graph_arr)==1)
+		{
+			$graph_arr[] = array(
+									'date'		=> date('Y-m-d'),
+									'weight'	=> ''
+
+							);
+		}		
 		$sqlquery = $wpdb->get_results("SELECT * , DATE(`date`) as datefield from $table where `date` BETWEEN 
 			'".$start_dt."' and '".$end_dt."' and user_id=".$user_id);
 
@@ -1440,6 +1497,22 @@ function generate_graph($graph,$pre_date,$next_date)
 						$record = $value['weight'];
 						
 				}
+				else if($value['weight'] == "" && $count == count($graph) && $next_date['param']=="")	
+				{
+						array_push($track, $key);
+						
+						$cnt = count($track) ;
+						$total = intval($record) ;
+						$divide = $total/ $cnt;
+						$divide = round($divide, 2);
+						$minus = $total ; 
+						for ($i= 0   ; $i <= count($track) - 1 ; $i++) { 
+								$minus = intval($minus) - intval($divide);
+								$graph[$track[$i]]['weight'] = $total;
+						}
+						$record = $value['weight'];
+						
+				}
 				else
 				{
 							array_push($track, $key);
@@ -1453,6 +1526,7 @@ function generate_graph($graph,$pre_date,$next_date)
 		
 		$dates = array();
 		$param = array();
+		
 		foreach ($graph as $key => $value) {
 				if($value['weight'] != ""){
 
@@ -1516,5 +1590,18 @@ function generate_bmi($start_date,$end_date,$id,$param){
     				'et_height' => $end_data['height'],
     				'st_date'   => $start_date,
     				'et_date'   => $end_date);
+
+}
+
+function update_consumption($object_id,$qty){
+
+	global $wpdb;
+
+ 	$transactions = $wpdb->prefix . "transactions";
+
+ 	$qty = intval($qty);
+
+ 	$sql = $wpdb->query("UPDATE $transactions SET amount= amount + ".$qty." where 
+ 		object_id=".$object_id." and type='consumption'");
 
 }

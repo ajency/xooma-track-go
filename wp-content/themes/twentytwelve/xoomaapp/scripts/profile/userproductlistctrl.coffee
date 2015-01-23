@@ -10,6 +10,9 @@ class ProductChildView extends Marionette.ItemView
 		update 	: '.update'
 		remove   : '.remove'
 
+	initialize:->
+		 @$el.prop("id", 'cart'+@model.get("id"))
+
 	events:
 		'click .remove':(e)->
 			e.preventDefault()
@@ -20,6 +23,16 @@ class ProductChildView extends Marionette.ItemView
 					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 					success: @successHandler
 					error :@erroraHandler
+
+	successHandler:(response, status, xhr)=>
+		products = App.currentUser.get 'products'
+		products = _.without(products,parseInt(response))
+		App.currentUser.set 'products' , products
+		console.log App.useProductColl.remove parseInt(response)
+		console.log App.useProductColl
+		$('#cart'+response).hide()
+		
+
 
 	template  : '
           <div class="panel-body ">
@@ -160,6 +173,9 @@ class UserProductListView extends Marionette.CompositeView
 		'click .add':(e)->
     		console.log "aaaaaaaaaa"
     		App.navigate '#/products' , true   
+
+    
+
 
 	
 
