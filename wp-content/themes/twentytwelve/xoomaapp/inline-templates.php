@@ -651,7 +651,7 @@
 				</div>
 				 </div>
 					<h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
-					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{total}}" data-rangeslider>
+					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{default}}" data-rangeslider>
 		  <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
 
 		   </div>
@@ -771,7 +771,7 @@
   <div class="form-group">
 	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Available with me</label>
 	<div class="col-sm-6 col-xs-5">
-	  <p class="form-control-static"><span class="available">{{total}} </span>&nbsp;{{product_type_name}}</p>
+	  <p class="form-control-static"><span class="available">{{total}} </span>&nbsp;{{product_type_name}}(s)</p>
 	  <input type="hidden" name="available" id="available" value="{{total}}" /> 
 	</div>
   </div>
