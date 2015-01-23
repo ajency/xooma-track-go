@@ -46,7 +46,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		if xhr.status is 404
 			$('.alert').remove()
 			@ui.responseMessage.removeClass ' hidden'
-			@ui.responseMessage.addClass ' alert-error'
+			@ui.responseMessage.addClass 'alert alert-error'
 			@ui.responseMessage.text "Data couldn't be saved due to some error!"
 			$('html, body').animate({
 							scrollTop: 0
@@ -55,7 +55,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if state == '/home'
 				$('.alert').remove()
 				@ui.responseMessage.removeClass ' hidden'
-				@ui.responseMessage.addClass ' alert-success'
+				@ui.responseMessage.addClass 'alert alert-success'
 				@ui.responseMessage.text "Profile Personal Information successfully updated!"
 			else
 				App.currentUser.set 'state' , '/profile/measurements'
@@ -65,7 +65,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	errorHandler:(error)=>
 		$('.alert').remove()
 		@ui.responseMessage.removeClass ' hidden'
-		@ui.responseMessage.addClass ' alert-error'
+		@ui.responseMessage.addClass 'alert alert-error'
 		@ui.responseMessage.text "Data couldn't be saved due to some error!"
 		$('html, body').animate({
 							scrollTop: 0
