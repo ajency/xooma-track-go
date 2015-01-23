@@ -203,6 +203,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.js__timepicker').each (ind,val)->
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
+				val.value = ""
 
 		$('.js__timepicker').pickatime()
 
@@ -251,12 +252,12 @@ class EditProductsView extends Marionette.ItemView
 		product = parseInt @model.get('id')
 		weightbmi = @get_weight_bmi(@model.get('bmi'))
 		data.x2o = Math.ceil(weightbmi)	
-		data.default = Math.ceil(weightbmi)
+		data.defaultbmi = Math.ceil(weightbmi)
 		products = App.currentUser.get 'products'
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
-			data.total = qty.length
+			console.log data.defaultbmi = qty.length
 			data.reminder = reminders[0].time
 		frequecy = @model.get 'frequency_value'
 		if parseInt(frequecy) == 1 
@@ -332,9 +333,14 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('.schedule_data').hide()
 			$('.anytime').hide()
-			weightbmi = @get_weight_bmi(@model.get('bmi'))
-			weight = Math.ceil(weightbmi)
+			if @model.get('bmi') != undefined
+				weightbmi = @get_weight_bmi(@model.get('bmi'))
+				weight = Math.ceil(weightbmi)
+			else
+				qty = @model.get 'qty'
+				weight = qty.length
 			$('.servings_per_day option[value="'+weight+'"]').prop("selected",true);
+			@showReminders()
 
 		
 		

@@ -224,7 +224,8 @@ EditProductsView = (function(_super) {
       $('.reminder_div').append(html1);
       $('.js__timepicker').each(function(ind, val) {
         val.name = 'reminder_time' + ind;
-        return val.id = 'reminder_time' + ind;
+        val.id = 'reminder_time' + ind;
+        return val.value = "";
       });
     }
     return $('.js__timepicker').pickatime();
@@ -279,12 +280,12 @@ EditProductsView = (function(_super) {
     product = parseInt(this.model.get('id'));
     weightbmi = this.get_weight_bmi(this.model.get('bmi'));
     data.x2o = Math.ceil(weightbmi);
-    data["default"] = Math.ceil(weightbmi);
+    data.defaultbmi = Math.ceil(weightbmi);
     products = App.currentUser.get('products');
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
-      data.total = qty.length;
+      console.log(data.defaultbmi = qty.length);
       data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
@@ -337,7 +338,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, product, products, reminder_flag, weight, weightbmi;
+    var container, product, products, qty, reminder_flag, weight, weightbmi;
     this.checkMode();
     $('.js__timepicker').pickatime();
     this.ui.rangeSliders.each((function(_this) {
@@ -372,9 +373,15 @@ EditProductsView = (function(_super) {
     } else {
       $('.schedule_data').hide();
       $('.anytime').hide();
-      weightbmi = this.get_weight_bmi(this.model.get('bmi'));
-      weight = Math.ceil(weightbmi);
+      if (this.model.get('bmi') !== void 0) {
+        weightbmi = this.get_weight_bmi(this.model.get('bmi'));
+        weight = Math.ceil(weightbmi);
+      } else {
+        qty = this.model.get('qty');
+        weight = qty.length;
+      }
       $('.servings_per_day option[value="' + weight + '"]').prop("selected", true);
+      this.showReminders();
     }
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
