@@ -22,6 +22,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	initialize:->
 		$(document).on('keyup', _.bind(@keyup, @));
+		$(document).on('keypress', _.bind(@keydown, @));
 
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
@@ -47,18 +48,19 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			
 
 
-		
-
-		
-	keyup:(e)->
-		console.log e.target.id
-		console.log @measurements[e.target.id] = $('#'+e.target.id).val()
+	keydown:(e)->
 		if  e.charCode == 46
 			console.log inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
 				return  false
 		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 ||	e.charCode == 44 
 	
+
+
+		
+	keyup:(e)->
+		@measurements[e.target.id] = $('#'+e.target.id).val()
+		
 
 	onShow:->
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele

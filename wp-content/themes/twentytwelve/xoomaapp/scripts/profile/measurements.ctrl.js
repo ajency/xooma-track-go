@@ -35,7 +35,8 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.initialize = function() {
-    return $(document).on('keyup', _.bind(this.keyup, this));
+    $(document).on('keyup', _.bind(this.keyup, this));
+    return $(document).on('keypress', _.bind(this.keydown, this));
   };
 
   ProfileMeasurementsView.prototype.events = {
@@ -65,10 +66,8 @@ ProfileMeasurementsView = (function(_super) {
     }
   };
 
-  ProfileMeasurementsView.prototype.keyup = function(e) {
+  ProfileMeasurementsView.prototype.keydown = function(e) {
     var inputVal;
-    console.log(e.target.id);
-    console.log(this.measurements[e.target.id] = $('#' + e.target.id).val());
     if (e.charCode === 46) {
       console.log(inputVal = $(e.target).val().split('.').length);
       if (parseInt(inputVal) >= 2) {
@@ -76,6 +75,10 @@ ProfileMeasurementsView = (function(_super) {
       }
     }
     return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 44;
+  };
+
+  ProfileMeasurementsView.prototype.keyup = function(e) {
+    return this.measurements[e.target.id] = $('#' + e.target.id).val();
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
