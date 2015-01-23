@@ -279,6 +279,7 @@ EditProductsView = (function(_super) {
     product = parseInt(this.model.get('id'));
     weightbmi = this.get_weight_bmi(this.model.get('bmi'));
     data.x2o = Math.ceil(weightbmi);
+    data.total = Math.ceil(weightbmi);
     products = App.currentUser.get('products');
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');

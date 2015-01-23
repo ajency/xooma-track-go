@@ -251,6 +251,7 @@ class EditProductsView extends Marionette.ItemView
 		product = parseInt @model.get('id')
 		weightbmi = @get_weight_bmi(@model.get('bmi'))
 		data.x2o = Math.ceil(weightbmi)	
+		data.total = Math.ceil(weightbmi)
 		products = App.currentUser.get 'products'
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
