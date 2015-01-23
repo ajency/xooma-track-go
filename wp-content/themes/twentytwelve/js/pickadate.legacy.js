@@ -43,11 +43,11 @@
          * The picker constructor that accepts the
          * jQuery element and the merged settings
          */
-        Picker = function( $ELEMENT, SETTINGS ) {
+        Pickers = function( $ELEMENT, SETTINGS ) {
 
             var
                 // Pseudo picker constructor
-                Picker = function() {},
+                Pickers = function() {},
 
 
                 // The picker prototype

@@ -53,10 +53,7 @@ ProfilePersonalInfoView = (function(_super) {
       selectYears: 70
     });
     birth_date = this.model.get('profile').birth_date;
-    picker = this.ui.dateElement.pickadate('picker');
-    return picker.set('select', birth_date, {
-      format: 'yyyy-mm-dd'
-    });
+    return picker = this.ui.dateElement.pickadate('picker');
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {

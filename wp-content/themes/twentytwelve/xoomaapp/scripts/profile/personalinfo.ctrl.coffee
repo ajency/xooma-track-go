@@ -32,7 +32,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			)
 		birth_date = @model.get('profile').birth_date
 		picker = @ui.dateElement.pickadate('picker')
-		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
+		#picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
 		
 
 	#to initialize validate plugin
