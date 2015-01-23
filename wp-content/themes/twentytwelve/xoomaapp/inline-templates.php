@@ -123,13 +123,13 @@
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
+												<li class="tag"><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
 														PERSONAL INFO</a>
 												</li>
-												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
+												<li class="tag"><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
 														MEASUREMENT</a>
 												</li>
-												<li><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
+												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
 														MYPRODUCTS</a>
 												</li>
 										</ul>
@@ -217,7 +217,7 @@
 				<div class="col-md-6">
 				<img src="<?php echo get_template_directory_uri(); ?>/images/noaccess.jpg" class="center-block"/>
 				<h4 class="text-center" > Please login to view this page</h4>
-				<button type="submit" class="btn btn-primary aj-submit-button center-block">Click here to login</button>
+				<a class="btn btn-primary aj-submit-button center-block" href="#/login">Click here to login</a>
 				</div>
 				<div class="col-md-3"></div>
 			</div> {{/if}} {{#if not_defined}}
@@ -487,12 +487,8 @@
 		  <div class="panel-body">
 			<h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
-						<li><a href="#">View</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Delete</a></li>
-					  </ul>
+						<li><a href="#" class="history">Measurements History</a></li>
+						</ul>
 			  </h5>
 <form id="generate_graph" method="POST"  role="form">
 
@@ -637,7 +633,7 @@
 			<form id="edit_product" class="form-horizontal" role="form" method="POST">
 			<input type="hidden" name="frequency_type" value="{{frequency_value}}" />
 			<div class="col-md-6 col-xs-12">
-				<!--<b>Chosse the consumtion of {{name}}</b>
+				<!--<b>Choose the consumption of {{name}}</b>
 				<div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
 				  <div class="btn-group" role="group">
 					<button type="button" {{anytime}}  class="btn btn-default {{anytimeclass}}">Any Time</button>
@@ -686,7 +682,7 @@
   <div class="qty_per_servings_div">
   <div class="qtyper">
   <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">QTY. Per Serving</label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Quantity Per Serving</label>
 	<div class="col-sm-6 col-xs-5">
 	  <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
 		  <option value="1">1</option>
@@ -712,7 +708,7 @@
 	</div>
   
   <div class="form-group">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>QTY. Per Serving</b></label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>Quantity Per Serving</b></label>
    <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
  </div>
  <div class="form-group">
@@ -1004,7 +1000,31 @@
         </div>
 
 </script>
+<script id="measurement-history-template" type="text/template">
+<div class="row">
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
+              <form class="form-horizontal ">
 
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
+                    <br/>
+                    <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
+               </form>
+              <ul id='timeline' class="viewHistory">
+              
+              </ul>
+            </div>
+            <div class="col-md-2">
+         </div>
+        </div>
+
+</script>
 <script id="asperbmi-template" type="text/template">
 <div class="container"> </br></br>
 <div class="aj-response-message"></div>
@@ -1015,10 +1035,7 @@
 		</div>
  <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
 		<div class="row">
-			<div>
-				<span>Bonus:</span>
-				<span class="bonus">{{bonus}}</span>
-			</div>
+			
 			<div class="col-md-4 col-xs-3"> 
 			</div>
 			<div class="col-md-4 col-xs-6">

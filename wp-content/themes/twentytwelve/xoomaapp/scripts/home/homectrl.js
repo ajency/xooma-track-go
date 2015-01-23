@@ -27,10 +27,16 @@ HomeLayoutView = (function(_super) {
     end_date: '#end_date',
     generate: 'input[name="generate"]',
     form: '#generate_graph',
-    param: 'input[name="param"]'
+    param: 'input[name="param"]',
+    history: '.history'
   };
 
   HomeLayoutView.prototype.events = {
+    'click @ui.history': function(e) {
+      e.preventDefault();
+      console.log("Aaaaaa");
+      return App.navigate('#/measurements/' + App.currentUser.get('ID') + '/history', true);
+    },
     'change @ui.time_period': function(e) {
       var date, id, picker, picker1, previous, reg_date, today;
       id = $(e.target).val();
@@ -193,7 +199,7 @@ HomeX2OViewChild = (function(_super) {
       var date, expected, occurrence;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
-      if (occurrence === true) {
+      if (occurrence === true && expected === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
       }
@@ -207,7 +213,7 @@ HomeX2OViewChild = (function(_super) {
       data.bonus = bonusArr;
       return data.occurr = occurrenceArr.length;
     });
-    data.remianing = parseInt(this.model.get('qty').length) - parseInt(occurrenceArr.length);
+    data.remianing = occurrenceArr.length;
     data.qty = this.model.get('qty').length;
     return data;
   };
@@ -220,7 +226,7 @@ HomeX2OViewChild = (function(_super) {
       var date, expected, occurrence;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
-      if (occurrence === true) {
+      if (occurrence === true && expected === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
       }
@@ -353,7 +359,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#">View</a></li> <li><a href="#">History</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a href="#/products/{{id}}/consume"><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#shecule}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 class="anytime">{{whendata}}</h6> </div> {{/shecule}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a href="#/products/{{id}}/consume"><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#shecule}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 class="anytime">{{whendata}}</h6> </div> {{/shecule}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'

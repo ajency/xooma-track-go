@@ -18,7 +18,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 		product = Marionette.getOption( @, 'id' )
 		@loadData(product)
 		$( '#picker_inline_fixed' ).pickadate
-			formatSubmit: 'yyyy-mm-dd'	
+			max : new Date()
 			onOpen:->
 				scrollPageTo( @$node )
 			,

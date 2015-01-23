@@ -37,7 +37,7 @@ class ProfileCtrlView extends Marionette.LayoutView
 
 	handleMenu : (evt, state, args)->
 		url = '#'+App.currentUser.get 'state'
-		console.log computed_url = '#'+window.location.hash.split('#')[1]
+		computed_url = '#'+window.location.hash.split('#')[1]
 		if url == computed_url
 			@$('a[href="'+url+'"]').parent().addClass 'selected'
 			@$('a[href="'+url+'"]').parent().unbind()
@@ -47,6 +47,10 @@ class ProfileCtrlView extends Marionette.LayoutView
 			@$('a[href="'+url+'"]').parent().prevAll().unbind()
 			@$('a[href="'+url+'"]').parent().prevAll().find('a').css(cursor:'pointer')
 			@$('a[href="'+url+'"]').parent().prevAll().removeClass 'selected'
+			@$('a[href="'+url+'"]').parent().prevAll().addClass 'done'
+		else if url == '#/home'
+			@$('.tag').addClass 'done'
+		
 		else
 			@$('a[href="'+computed_url+'"]').parent().addClass 'selected'
 		

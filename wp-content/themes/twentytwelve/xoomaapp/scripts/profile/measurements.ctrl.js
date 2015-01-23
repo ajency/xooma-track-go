@@ -44,12 +44,13 @@ ProfileMeasurementsView = (function(_super) {
     },
     'click @ui.update': function(e) {
       var date;
-      date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
+      console.log(new Date());
+      console.log(date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD'));
       return this.ui.update.pickadate({
         formatSubmit: 'yyyy-mm-dd',
         hiddenName: true,
         max: new Date(),
-        min: date,
+        min: new Date(date),
         onClose: (function(_this) {
           return function() {
             var $input, picker, selected;

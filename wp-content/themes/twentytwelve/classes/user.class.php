@@ -157,9 +157,10 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date=""){
+  public function get_user_measurement_details($id,$date){
 
         global $wpdb;
+       
         $measurements_table = $wpdb->prefix . "measurements";
        
         if($date == ""){
@@ -168,7 +169,7 @@ class User
         else
         {
             
-            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date=".$date );
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date='".$date."'" );
 
         }
         
@@ -312,7 +313,7 @@ class User
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
-            
+           
         
             $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($val[0]['id'], 'product_type', true)." and type='product_type'");
                     
@@ -367,7 +368,7 @@ class User
                 'total'         =>  $val[0]['total'],
                 'reminder'      => $reminder,
                 'settings'      => $settings_data->no_of_days,
-                'type'          => $val[0]['time_set'],
+                'type'          => $val[0]['frequency'],
                 'timezone'      => $response['timezone']
 
 

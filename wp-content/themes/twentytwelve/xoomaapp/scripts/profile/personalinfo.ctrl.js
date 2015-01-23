@@ -67,7 +67,7 @@ ProfilePersonalInfoView = (function(_super) {
       $('.alert').remove();
       this.ui.responseMessage.removeClass(' hidden');
       this.ui.responseMessage.addClass(' alert-error');
-      this.ui.responseMessage.text("Something went wrong");
+      this.ui.responseMessage.text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
@@ -76,7 +76,7 @@ ProfilePersonalInfoView = (function(_super) {
         $('.alert').remove();
         this.ui.responseMessage.removeClass(' hidden');
         this.ui.responseMessage.addClass(' alert-success');
-        return this.ui.responseMessage.text("profile successfully updated");
+        return this.ui.responseMessage.text("Profile Personal Information successfully updated!");
       } else {
         App.currentUser.set('state', '/profile/measurements');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -88,7 +88,7 @@ ProfilePersonalInfoView = (function(_super) {
     $('.alert').remove();
     this.ui.responseMessage.removeClass(' hidden');
     this.ui.responseMessage.addClass(' alert-error');
-    this.ui.responseMessage.text("Data couldn't be saved due to some error.");
+    this.ui.responseMessage.text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');

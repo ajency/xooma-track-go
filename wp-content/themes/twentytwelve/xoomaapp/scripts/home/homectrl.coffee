@@ -13,8 +13,14 @@ class HomeLayoutView extends Marionette.LayoutView
 		generate 	 : 'input[name="generate"]'
 		form 		: '#generate_graph'
 		param 		: 'input[name="param"]'
+		history 	: '.history'
 
 	events:
+		'click @ui.history':(e)->
+			e.preventDefault()
+			console.log "Aaaaaa"
+			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true
+
 		'change @ui.time_period':(e)->
 			id = $(e.target).val()
 			date =  moment().subtract(id, 'days')
@@ -158,7 +164,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
-			if occurrence == true
+			if occurrence == true && expected == true
 				date = val.occurrence
 				occurrenceArr.push date
 				
@@ -171,7 +177,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				data.time = moment(recent).format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
-		data.remianing = parseInt(@model.get('qty').length) - parseInt(occurrenceArr.length)
+		data.remianing = occurrenceArr.length
 		data.qty = @model.get('qty').length
 		data
 
@@ -181,7 +187,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
-			if occurrence == true
+			if occurrence == true && expected == true
 				date = val.occurrence
 				occurrenceArr.push date
 			if occurrence == true && expected == false
@@ -303,8 +309,7 @@ class ProductChildView extends Marionette.ItemView
 	template  : '<div class="panel-body">
 			<h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
-						<li><a href="#">View</a></li>
-						<li><a href="#">History</a></li>
+						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
 						
 					  </ul>

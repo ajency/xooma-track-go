@@ -80,6 +80,11 @@ class User_API
             
         );
 
+         //measurements history
+        $routes['/measurements/(?P<id>\d+)/history'] = array(
+            array( array( $this, 'xooma_get_user_measurement_history'), WP_JSON_Server::READABLE),
+            
+        );
        
 
 
@@ -666,6 +671,30 @@ class User_API
 
 
 
+    }
+
+    public function xooma_get_user_measurement_history($id)
+    {
+        $date = $_REQUEST['date'];
+
+        global $user;
+
+        $response = $user->get_user_measurement_details($id,$date);
+
+        if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
     }
 
     

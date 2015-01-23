@@ -27,12 +27,13 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
 		'click @ui.update':(e)->
-			date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
+			console.log new Date()
+			console.log date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 			@ui.update.pickadate(
 				formatSubmit: 'yyyy-mm-dd'
 				hiddenName: true
 				max: new Date()
-				min : date
+				min : new Date(date)
 				onClose:=>
 					$input = @ui.update.pickadate()
 					picker = $input.pickadate('picker')
