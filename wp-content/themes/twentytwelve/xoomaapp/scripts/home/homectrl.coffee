@@ -133,9 +133,12 @@ class App.HomeCtrl extends Ajency.RegionController
 		if App.useProductColl.length == 0
 			App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
 		else
-			@_showView(App.useProductColl)
+			@show new HomeLayoutView
 
 	_showView:(collection)=>
+		response = collection.response
+		App.useProductColl.reset response
+		console.log App.useProductColl
 		@show new HomeLayoutView
 
 class HomeX2OViewChild extends Marionette.ItemView

@@ -166,11 +166,15 @@ App.HomeCtrl = (function(_super) {
     if (App.useProductColl.length === 0) {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     } else {
-      return this._showView(App.useProductColl);
+      return this.show(new HomeLayoutView);
     }
   };
 
   HomeCtrl.prototype._showView = function(collection) {
+    var response;
+    response = collection.response;
+    App.useProductColl.reset(response);
+    console.log(App.useProductColl);
     return this.show(new HomeLayoutView);
   };
 

@@ -109,6 +109,8 @@ _.extend Ajency.CurrentUser::,
 			if xhr.status is 200
 				$.each data, (index,value)->
 					App.useProductColl.add value
+
+			
 						
 
 		$.ajax
