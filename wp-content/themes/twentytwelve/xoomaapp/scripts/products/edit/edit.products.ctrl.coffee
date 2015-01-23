@@ -24,7 +24,11 @@ class EditProductsView extends Marionette.ItemView
 		'keypress @ui.subtract':(e)->
 			e.charCode >= 48 && e.charCode <= 57 ||	e.charCode == 44 
 
-		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+		'change @ui.rangeSliders' : (e)-> 
+			$('.servings_per_day').val $(e.target).val()
+			console.log $('.servings_per_day').val()
+			@valueOutput e.currentTarget
+			@showReminders()
 
 		'click @ui.cancel':(e)->
 			App.navigate '#/profile/my-products', true
