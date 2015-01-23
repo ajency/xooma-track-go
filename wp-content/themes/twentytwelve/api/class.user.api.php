@@ -153,7 +153,7 @@ class User_API
         global $user;
        
         //print_r($_POST);
-        $date  = $_REQUEST['date_field'];
+        $date  = $_REQUEST['date'];
 
 
         $response = $user->update_user_measurement_details($id,$_POST,$date);
