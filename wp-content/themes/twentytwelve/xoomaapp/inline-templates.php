@@ -581,8 +581,8 @@
 					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
 						 <h4 class="text-center pull-left"> Add Products</h4>
 					<div class="cbp-vm-options">
-						<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid">Grid View</a>
-						<a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list">List View</a>
+						<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid">Grid View</a>
+						<a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list">List View</a>
 					</div>
 					<ul class="products-list">
 						
@@ -595,7 +595,7 @@
 				  <div class="row">
 					<div class="col-sm-12">
 			
-<a type="button" href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
+<a href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
 							</div>
 			</div>
 			  

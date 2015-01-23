@@ -63,7 +63,7 @@ AddProductsView = (function(_super) {
   AddProductsView.prototype.emptyView = NoProductsChildView;
 
   AddProductsView.prototype.events = {
-    'click a': function(e) {
+    'click .grid': function(e) {
       return e.preventDefault();
     }
   };

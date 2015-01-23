@@ -41,7 +41,7 @@ class AddProductsView extends Marionette.CompositeView
 	emptyView : NoProductsChildView
 
 	events:
-    	'click a':(e)->
+    	'click .grid':(e)->
     		e.preventDefault()
 
     onShow:->
