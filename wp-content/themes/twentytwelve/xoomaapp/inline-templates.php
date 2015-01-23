@@ -109,19 +109,6 @@
 		</div>
 		<div class="clearfix"></div>
 		
-		 <nav id="menu">
-		<ul>
-			<li><a  class="link" href="#/home">Home</a>
-			</li>
-			<li><a  class="link" href="#/profile/personal-info">Profile</a>
-			</li>
-			<li><a  class="link" href="#/profile/measurements">Measurements</a>
-			</li>
-			<li><a  class="link" href="#/profile/my-products">My Products</a>
-			</li>
-		   
-		</ul>
-	</nav>
 		<div ui-region style="margin-top:60px">
 		
 		</div>
@@ -367,6 +354,7 @@
 												</div>
 												</br>
 												</br>
+
 										</div>
 
 										<div class="col-sm-6 imageMap">
@@ -451,11 +439,12 @@
    
 
 		   <img id="body" src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
+										<small>Click on the blinking red spot to enter the measurement of selected part of the body in inches.</small>
 										</div>
 										
 								</div>
 								<div class="row">
-												<div class="col-sm-12">
+												<div class="col-sm-12"><br>
 														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
 												</div>
 										</div>
@@ -801,7 +790,7 @@
 	  </div>
   </div>
   </div>
-<div class="form-group first-grp">
+<div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set remainder</label>
 	<div class="col-sm-6 col-xs-5 ">
 	 <div class="btn-group" role="group" aria-label="...">
