@@ -123,13 +123,13 @@
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
+												<li class="tag"><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
 														PERSONAL INFO</a>
 												</li>
-												<li><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
+												<li class="tag"><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
 														MEASUREMENT</a>
 												</li>
-												<li><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
+												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
 														MYPRODUCTS</a>
 												</li>
 										</ul>
@@ -487,12 +487,8 @@
 		  <div class="panel-body">
 			<h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
-						<li><a href="#">View</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Delete</a></li>
-					  </ul>
+						<li><a href="#" class="history">Measurements History</a></li>
+						</ul>
 			  </h5>
 <form id="generate_graph" method="POST"  role="form">
 
@@ -1039,10 +1035,7 @@
 		</div>
  <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
 		<div class="row">
-			<div>
-				<span>Bonus:</span>
-				<span class="bonus">{{bonus}}</span>
-			</div>
+			
 			<div class="col-md-4 col-xs-3"> 
 			</div>
 			<div class="col-md-4 col-xs-6">

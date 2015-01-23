@@ -33,6 +33,7 @@ ViewProductHistoryView = (function(_super) {
     product = Marionette.getOption(this, 'id');
     this.loadData(product);
     return $('#picker_inline_fixed').pickadate({
+      max: new Date(),
       onOpen: function() {
         return scrollPageTo(this.$node);
       },

@@ -18,6 +18,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 		product = Marionette.getOption( @, 'id' )
 		@loadData(product)
 		$( '#picker_inline_fixed' ).pickadate
+			max : new Date()
 			onOpen:->
 				scrollPageTo( @$node )
 			,
