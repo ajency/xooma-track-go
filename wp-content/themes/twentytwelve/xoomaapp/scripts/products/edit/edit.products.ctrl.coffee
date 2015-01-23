@@ -417,15 +417,15 @@ class EditProductsView extends Marionette.ItemView
 			$('#check').val(1)
 			$.each qty , (ind,val)->
 				$('#qty_per_servings'+ind+' option[value="'+val.qty+'"]').prop("selected",true)
-
+				
 
 
 
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-			$.each reminders , (ind,val)->
-				console.log val.time
-				$('#reminder_time'+ind).val val.time
+		$.each reminders , (ind,val)->
+			console.log val.time
+			$('#reminder_time'+ind).val val.time
 		
 			
 
@@ -454,7 +454,6 @@ class App.EditProductsCtrl extends Ajency.RegionController
 
 
 	_showView:(productModel)->
-		console.log productModel
 		@show new EditProductsView
 					model : productModel
 

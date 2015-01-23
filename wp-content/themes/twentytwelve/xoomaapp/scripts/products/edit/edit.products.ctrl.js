@@ -455,16 +455,16 @@ EditProductsView = (function(_super) {
       $(this.ui.servings_diff).prop('checked', true);
       $(this.ui.servings_per_day).trigger("change");
       $('#check').val(1);
-      return $.each(qty, function(ind, val) {
+      $.each(qty, function(ind, val) {
         return $('#qty_per_servings' + ind + ' option[value="' + val.qty + '"]').prop("selected", true);
       });
     } else {
       $('#qty_per_servings0 option[value="' + qty[0].qty + '"]').prop("selected", true);
-      return $.each(reminders, function(ind, val) {
-        console.log(val.time);
-        return $('#reminder_time' + ind).val(val.time);
-      });
     }
+    return $.each(reminders, function(ind, val) {
+      console.log(val.time);
+      return $('#reminder_time' + ind).val(val.time);
+    });
   };
 
   return EditProductsView;
@@ -504,7 +504,6 @@ App.EditProductsCtrl = (function(_super) {
   };
 
   EditProductsCtrl.prototype._showView = function(productModel) {
-    console.log(productModel);
     return this.show(new EditProductsView({
       model: productModel
     }));
