@@ -221,7 +221,16 @@
 				</div>
 				<div class="col-md-3"></div>
 			</div> {{/if}} {{#if not_defined}}
-		<h1>This view is not configured. Please contact administrator</h1> {{/if}}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<h1 class="text-center" style="font-size: 260px;"><i class="fa fa-user"></i></h1>
+				<h4 class="text-center" >This view is not configured. Please contact administrator</h4>
+		
+				</div>
+				<div class="col-md-3"></div>
+			</div>  {{/if}}
 </script>
 <script id="profile-personal-info-template" type="text/template">
 
