@@ -43,7 +43,7 @@ ProfilePersonalInfoView = (function(_super) {
     });
   };
 
-  ProfilePersonalInfoView.prototype.onRender = function() {
+  ProfilePersonalInfoView.prototype.onShow = function() {
     var birth_date, picker;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     this.ui.dateElement.pickadate({
@@ -53,7 +53,10 @@ ProfilePersonalInfoView = (function(_super) {
       selectYears: 70
     });
     birth_date = this.model.get('profile').birth_date;
-    return picker = this.ui.dateElement.pickadate('picker');
+    picker = this.ui.dateElement.pickadate('picker');
+    return picker.set('select', birth_date, {
+      format: 'yyyy-mm-dd'
+    });
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {

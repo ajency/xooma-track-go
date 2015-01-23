@@ -81,8 +81,8 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
 
-<script src=" http://www.jqueryscript.net/demo/Lightweight-jQuery-Date-Input-Picker/source/pickadate.legacy.js"></script>
-
+<!-- <script src=" http://www.jqueryscript.net/demo/Lightweight-jQuery-Date-Input-Picker/source/pickadate.legacy.js"></script>
+ -->
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
