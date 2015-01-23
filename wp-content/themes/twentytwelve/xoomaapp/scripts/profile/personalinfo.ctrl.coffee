@@ -53,7 +53,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			if state == '/home'
 				$('.alert').remove()
 				@ui.responseMessage.addClass('alert alert-success').text("Profile Personal Information successfully updated!")
-				
+
 				
 			else
 				App.currentUser.set 'state' , '/profile/measurements'
@@ -70,6 +70,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
+
 		App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>

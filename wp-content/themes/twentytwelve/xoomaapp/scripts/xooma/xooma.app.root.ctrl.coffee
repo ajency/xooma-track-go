@@ -30,12 +30,10 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 	showLoader:->
 		$( document ).ajaxStart  ()->
-		  console.log "suru"
 		  $('#loader').addClass "loader"
 
 	hideLoader:->
 		$( document ).ajaxComplete  ()->
-		  console.log "surustop"
 		  $('#loader').removeClass "loader"
 	
 

@@ -62,6 +62,16 @@ AddProductsView = (function(_super) {
 
   AddProductsView.prototype.emptyView = NoProductsChildView;
 
+  AddProductsView.prototype.events = {
+    'click a': function(e) {
+      return e.preventDefault();
+    }
+  };
+
+  AddProductsView.prototype.onShow = function() {
+    return $.getScript(_SITEURL + "/html/html/assets/js/cbpViewModeSwitch.js", function(item) {});
+  };
+
   return AddProductsView;
 
 })(Marionette.CompositeView);

@@ -551,10 +551,10 @@
 			  <div class="row">
 				  <div class="col-md-2"></div>
 				  <div class="col-md-8">
-			   <button type="button" class="btn btn-primary btn-lg center-block add"><i class="fa fa-plus-circle"></i> Add Products</button>
+			   <a href="#/products" class="btn btn-primary btn-lg center-block add"><i class="fa fa-plus-circle"></i> Add Products</a>
 			   <br>
 	<div class="userproducts"></div>
-	 <button type="button" class="btn btn-primary btn-lg pull-left add"><i class="fa fa-plus-circle"></i> Add Products</button>
+	 <a href="#/products" class="btn btn-primary btn-lg pull-left add"><i class="fa fa-plus-circle"></i> Add Products</a>
 	 <button type="button" class="btn btn-primary btn-lg pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
 
 				  </div>

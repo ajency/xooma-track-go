@@ -22,6 +22,9 @@ class ProductChildView extends Marionette.ItemView
     	@$el.prop("id", 'product'+@model.get("id"))
 
    
+
+
+   
 		
 
 	
@@ -36,6 +39,16 @@ class AddProductsView extends Marionette.CompositeView
 	childView : ProductChildView
 	childViewContainer : 'ul.products-list'
 	emptyView : NoProductsChildView
+
+	events:
+    	'click a':(e)->
+    		e.preventDefault()
+
+    onShow:->
+	    $.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
+	        )
+
+    
 
 	
 		
