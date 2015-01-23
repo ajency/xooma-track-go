@@ -105,7 +105,7 @@ class User
 
             $date = date('Y-m-d');
         }
-        unset($args['date_field']);
+        unset($args['date']);
         $user_meta_value = maybe_serialize($args);
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
 
