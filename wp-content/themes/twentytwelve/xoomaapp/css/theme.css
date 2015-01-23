@@ -7302,6 +7302,10 @@ packet_expected_class {
 .sub-header ul li.selected i {
   color: #3099ea;
 }
+.sub-header ul li.done a,
+.sub-header ul li.done i {
+  color: #5cb85c;
+}
 /* -------------------------------------
  * timeline
  * ------------------------------------- */
