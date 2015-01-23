@@ -42,22 +42,33 @@ class AsperbmiView extends Marionette.ItemView
 
 
 	saveHandler:(response,status,xhr)=>
-		console.log response
-		occurResponse = _.map response.occurrence, (occurrence)->
-			occurrence.meta_id = parseInt occurrence.meta_id
-			occurrence
-		@model.set 'occurrence' , occurResponse
-		console.log @$el.find('#meta_id').val response.meta_id		
-		tempColl = new Backbone.Collection occurResponse
-		model = tempColl.findWhere
-			meta_id : parseInt response.meta_id
+		if xhr.status == 201
+			console.log response
+			occurResponse = _.map response.occurrence, (occurrence)->
+				occurrence.meta_id = parseInt occurrence.meta_id
+				occurrence
+			@model.set 'occurrence' , occurResponse
+			@$el.find('#meta_id').val response.meta_id		
+			tempColl = new Backbone.Collection occurResponse
+			model = tempColl.findWhere
+				meta_id : parseInt response.meta_id
 
-		cnt = @getCount model.get 'meta_value'
-		@originalBottleRemaining = @bottleRemaining
-		if parseInt(cnt) is 1
-			cnt = 0
-		$('.bottlecnt').text cnt
-		# @generate(response.occurrence)
+			cnt = @getCount model.get 'meta_value'
+			@originalBottleRemaining = @bottleRemaining
+			if parseInt(cnt) is 1
+				cnt = 0
+			$('.bottlecnt').text cnt
+		else
+			@showErrorMsg()
+
+	erroraHandler:(response,status,xhr)=>
+		@showErrorMsg()
+
+	showErrorMsg:->
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved!")
+	
+		
 
 	getCount:(val)->
 		count = 0
@@ -90,8 +101,6 @@ class AsperbmiView extends Marionette.ItemView
 			bonus = 0
 			count1 = 0
 				
-			# console.log @model.get('occurrence').length
-			# console.log @model.get('servings')
 			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
 			$('.bonus').text bonus
 			_.each occur , (val)=>
@@ -120,7 +129,7 @@ class AsperbmiView extends Marionette.ItemView
 			@bottleRemaining = 100
 			@bottle = new EAProgressVertical(@$el.find('.bottle'),@bottleRemaining,'empty',10000,[25,50,75])
 
-	update_occurrences:(data)->
+	update_occurrences:(data)=>
 			$('#add').hide()
 			$('#meta_id').val parseInt data.meta_id
 			count = 0
@@ -137,7 +146,6 @@ class AsperbmiView extends Marionette.ItemView
 
 	stopProgress : =>
 		progress = @bottle.stopProgress(true)
-		console.log progress
 		@bottle.setProgress(progress)
 		@bottleRemaining = progress
 
@@ -161,6 +169,5 @@ class App.AsperbmiCtrl extends Ajency.RegionController
 		@_showView(productModel[0])
 
 	_showView:(productModel)->
-		console.log productModel
 		@show new AsperbmiView
 					model : productModel

@@ -49,6 +49,7 @@ App.ViewInventoryCtrl = (function(_super) {
   __extends(ViewInventoryCtrl, _super);
 
   function ViewInventoryCtrl() {
+    this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     return ViewInventoryCtrl.__super__.constructor.apply(this, arguments);
   }
@@ -68,7 +69,7 @@ App.ViewInventoryCtrl = (function(_super) {
 
   ViewInventoryCtrl.prototype._showView = function(model) {
     var product;
-    console.log(product = model.get('id'));
+    product = model.get('id');
     return $.ajax({
       method: 'GET',
       url: "" + _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
@@ -79,10 +80,20 @@ App.ViewInventoryCtrl = (function(_super) {
 
   ViewInventoryCtrl.prototype.successHandler = function(response, status, xhr) {
     var coll;
-    coll = new Backbone.Collection(response);
-    return this.show(new ViewInventoryView({
-      collection: coll
-    }));
+    if (xhr.status === 200) {
+      coll = new Backbone.Collection(response);
+      return this.show(new ViewInventoryView({
+        collection: coll
+      }));
+    } else {
+      $('.alert').remove();
+      return $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
+    }
+  };
+
+  ViewInventoryCtrl.prototype.errorHandler = function(response, status, xhr) {
+    $('.alert').remove();
+    return $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
   };
 
   return ViewInventoryCtrl;

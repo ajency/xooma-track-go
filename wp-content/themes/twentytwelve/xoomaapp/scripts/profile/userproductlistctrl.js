@@ -8,6 +8,7 @@ ProductChildView = (function(_super) {
   __extends(ProductChildView, _super);
 
   function ProductChildView() {
+    this.erroraHandler = __bind(this.erroraHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     return ProductChildView.__super__.constructor.apply(this, arguments);
   }
@@ -20,12 +21,15 @@ ProductChildView = (function(_super) {
     avail: '.avail',
     add: '.add',
     update: '.update',
-    remove: '.remove'
+    remove: '.remove',
+    responseMessage: '.aj-response-message'
   };
 
   ProductChildView.prototype.initialize = function() {
     return this.$el.prop("id", 'cart' + this.model.get("id"));
   };
+
+  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
 
   ProductChildView.prototype.events = {
     'click .remove': function(e) {
@@ -44,15 +48,22 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.successHandler = function(response, status, xhr) {
     var products;
-    products = App.currentUser.get('products');
-    products = _.without(products, parseInt(response));
-    App.currentUser.set('products', products);
-    console.log(App.useProductColl.remove(parseInt(response)));
-    console.log(App.useProductColl);
-    return $('#cart' + response).hide();
+    if (xhr.status === 200) {
+      products = App.currentUser.get('products');
+      products = _.without(products, parseInt(response));
+      App.currentUser.set('products', products);
+      App.useProductColl.remove(parseInt(response));
+      return $('#cart' + response).hide();
+    } else {
+      $('.alert').remove();
+      return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
+    }
   };
 
-  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/products/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
+  ProductChildView.prototype.erroraHandler = function(response, status, xhr) {
+    $('.alert').remove();
+    return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
+  };
 
   ProductChildView.prototype.onShow = function() {
     var product, products;
@@ -141,6 +152,7 @@ UserProductListView = (function(_super) {
   __extends(UserProductListView, _super);
 
   function UserProductListView() {
+    this._errorHandler = __bind(this._errorHandler, this);
     this._successHandler = __bind(this._successHandler, this);
     return UserProductListView.__super__.constructor.apply(this, arguments);
   }
@@ -163,12 +175,9 @@ UserProductListView = (function(_super) {
       return $.ajax({
         method: 'POST',
         url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
-        success: this._successHandler
+        success: this._successHandler,
+        error: this._errorHandler
       });
-    },
-    'click .add': function(e) {
-      console.log("aaaaaaaaaa");
-      return App.navigate('#/products', true);
     }
   };
 
@@ -180,11 +189,16 @@ UserProductListView = (function(_super) {
 
   UserProductListView.prototype._successHandler = function(response, status, xhr) {
     if (xhr.status === 201) {
-      console.log(response);
       return App.navigate('#/home', true);
     } else {
-      return this.ui.responseMessage.text("Something went wrong");
+      $('.alert').remove();
+      return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
     }
+  };
+
+  UserProductListView.prototype._errorHandler = function(response, status, xhr) {
+    $('.alert').remove();
+    return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
   };
 
   return UserProductListView;
@@ -206,7 +220,7 @@ App.UserProductListCtrl = (function(_super) {
   UserProductListCtrl.prototype._showView = function(collection) {
     var productcollection;
     collection = collection.response;
-    console.log(App.UserProductsColl = new Backbone.Collection(collection));
+    App.UserProductsColl = new Backbone.Collection(collection);
     productcollection = new Backbone.Collection(collection);
     return this.show(new UserProductListView({
       collection: productcollection

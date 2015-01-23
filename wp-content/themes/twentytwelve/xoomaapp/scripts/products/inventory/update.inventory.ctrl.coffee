@@ -57,7 +57,6 @@ class EditInventoryView extends Marionette.ItemView
 				
 		'change @ui.rangeSliders' : (e)-> 
 			@valueOutput e.currentTarget
-			console.log $('#subtract').val()
 			if $('#subtract').val() == 'adjust'
 				@adjustValue()
 			else
@@ -78,8 +77,8 @@ class EditInventoryView extends Marionette.ItemView
 			total = @model.get 'total'
 			@ui.ntotal.text total
 			containers = parseInt(available)/parseInt(total)
-			console.log contacount = Math.ceil containers
-			console.log count = parseInt($(e.target).val()) + parseInt(contacount)
+			contacount = Math.ceil containers
+			count = parseInt($(e.target).val()) + parseInt(contacount)
 			@ui.ncon.text $(e.target).val()
 			equalto = parseInt($(e.target).val()) * parseInt(total)
 			@ui.nequalto.text equalto
@@ -114,15 +113,6 @@ class EditInventoryView extends Marionette.ItemView
 					error : @errorSave
 			
 
-		'click @ui.view':(e)->
-			e.preventDefault()
-			product = @model.get('id')
-			$.ajax
-					method : 'GET'
-					url : "#{_SITEURL}/wp-json/inventory/#{App.currentUser.get('ID')}/products/#{product}"
-					success : @successHandler
-					error : @errorHandler
-
 	serializeData:->
 		data = super()
 		data.producttype = @model.get('product_type')
@@ -134,7 +124,6 @@ class EditInventoryView extends Marionette.ItemView
 		available = @model.get 'available'
 		total = @model.get 'total'
 		@ui.navail.text available
-		console.log @ui.rangeSliders.val()
 		if parseInt(@ui.rangeSliders.val()) == 0
 			@ui.save.hide()
 		if @ui.rangeSliders.val() < 0 
@@ -156,7 +145,6 @@ class EditInventoryView extends Marionette.ItemView
 	onShow:->
 		@ui.save.hide()
 		$('#subtract').val 'record'
-		console.log $('#subtract').val()
 		$('#record').addClass 'btn-primary'
 		@ui.rangeSliders.each (index, ele)=>
 			@valueOutput ele
@@ -166,12 +154,13 @@ class EditInventoryView extends Marionette.ItemView
 		available = @model.get 'available'
 		total = @model.get 'total'
 		containers = parseInt(available)/parseInt(total)
-		console.log contacount = Math.ceil containers
+		contacount = Math.ceil containers
 		@ui.container_label.text contacount
 
 	successSave:(response,status,xhr)=>
 		if xhr.status == 201
-			App.navigate '#/profile/my-products', true
+			$('.alert').remove()
+			@ui.responseMessage.addClass('alert alert-success').text("Inventory updated!")
 		else
 			@errorMsg()
 
@@ -179,10 +168,8 @@ class EditInventoryView extends Marionette.ItemView
 		@errorMsg()
 
 	errorMsg:->
-		@ui.responseMessage.text "Details could not be saved"
-		$('html, body').animate({
-			scrollTop: 0
-			}, 'slow')
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!")
 
 	
 		
@@ -193,8 +180,7 @@ class App.EditInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		productId  = @getParams()
 		products = []
-		console.log App.UserProductsColl
-		console.log productModel = App.UserProductsColl.where({id:parseInt(productId[0])})
+		productModel = App.UserProductsColl.where({id:parseInt(productId[0])})
 		@show new EditInventoryView
 				model : productModel[0]	
 					

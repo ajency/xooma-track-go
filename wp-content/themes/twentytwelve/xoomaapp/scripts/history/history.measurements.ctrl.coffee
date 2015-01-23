@@ -8,6 +8,9 @@ class MeasurementHistoryView extends Marionette.ItemView
 
 	template : '#measurement-history-template'
 
+	ui :
+		responseMessage : '.aj-response-message'
+
 	events:
 		'click #show':->
 			product = Marionette.getOption( @, 'id' )
@@ -39,10 +42,21 @@ class MeasurementHistoryView extends Marionette.ItemView
 
 
 	successHandler:(response,status,xhr)=>
+		if xhr.status == 200
+			@showData()
+		else
+			@showErrorMsg()
+			
+	errorHandler:(response,status,xhr)=>
+		@showErrorMsg()
+
+	showErrorMsg:->
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
+		
+	showData:(response)->
 		if response.length != 0
 			coll = response.response
-			$.each coll , (index,val)->
-				
 			html = ""
 			html += '<li><span>Height : </span>'+coll.height+ 'inches'
 			html += '<li><span>Weight : </span>'+coll.weight+ 'lb'
@@ -58,8 +72,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 			html = '<li><span>No data available.Please go to settings and update your Progress Chart.</span></li>'
 
 		$('.viewHistory').html html
-		
-		
+
 				
 		
 		

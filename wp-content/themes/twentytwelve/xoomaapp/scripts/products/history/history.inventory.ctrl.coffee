@@ -45,7 +45,7 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 		@_showView(productModel[0])
 
 	_showView:(model)->
-		console.log product = model.get('id')
+		product = model.get('id')
 		
 		$.ajax
 			method : 'GET'
@@ -54,7 +54,15 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 			error : @errorHandler	
 
 	successHandler:(response,status,xhr)=>
-		coll = new Backbone.Collection response
-		@show new ViewInventoryView
-				collection : coll	
-					
+		if xhr.status == 200
+			coll = new Backbone.Collection response
+			@show new ViewInventoryView
+					collection : coll
+		else
+			$('.alert').remove()
+			$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
+			
+	errorHandler:(response,status,xhr)=>	
+		$('.alert').remove()
+		$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
+		

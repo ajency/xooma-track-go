@@ -9,37 +9,17 @@ class ProductChildView extends Marionette.ItemView
 		add		: '.add'
 		update 	: '.update'
 		remove   : '.remove'
+		responseMessage : '.aj-response-message'
 
 	initialize:->
 		 @$el.prop("id", 'cart'+@model.get("id"))
-
-	events:
-		'click .remove':(e)->
-			e.preventDefault()
-			product = parseInt @model.get('id')
-			products = App.currentUser.get 'products'
-			$.ajax
-					method : 'DELETE'
-					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
-					success: @successHandler
-					error :@erroraHandler
-
-	successHandler:(response, status, xhr)=>
-		products = App.currentUser.get 'products'
-		products = _.without(products,parseInt(response))
-		App.currentUser.set 'products' , products
-		console.log App.useProductColl.remove parseInt(response)
-		console.log App.useProductColl
-		$('#cart'+response).hide()
-		
-
 
 	template  : '
           <div class="panel-body ">
             <h5 class="bold margin-none mid-title "> {{name}}
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
-                        <li class="add hidden"><a href="#/products/{{id}}/edit">Edit product</a></li>
+                        <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li>
                         <li class="divider"></li>
@@ -74,6 +54,36 @@ class ProductChildView extends Marionette.ItemView
           <i id="bell" class="fa fa-bell-slash no-remiander"></i> 
            {{reminder}}
           </div>' 
+
+	events:
+		'click .remove':(e)->
+			e.preventDefault()
+			product = parseInt @model.get('id')
+			products = App.currentUser.get 'products'
+			$.ajax
+					method : 'DELETE'
+					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					success: @successHandler
+					error :@erroraHandler
+
+	successHandler:(response, status, xhr)=>
+		if xhr.status == 200
+			products = App.currentUser.get 'products'
+			products = _.without(products,parseInt(response))
+			App.currentUser.set 'products' , products
+			App.useProductColl.remove parseInt(response)
+			$('#cart'+response).hide()
+		else
+			$('.alert').remove()
+			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
+
+		
+
+	erroraHandler:(response, status, xhr)=>
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
+
+	
 
                             
 
@@ -155,10 +165,6 @@ class UserProductListView extends Marionette.CompositeView
 
 	childViewContainer : '.userproducts'
 
-	
-
-	
-
 	ui :
 		saveProducts : '.save_products'
 		responseMessage : '.aj-response-message'
@@ -169,26 +175,24 @@ class UserProductListView extends Marionette.CompositeView
 				method : 'POST'
 				url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 				success: @_successHandler
+				error: @_errorHandler
 
-		'click .add':(e)->
-    		console.log "aaaaaaaaaa"
-    		App.navigate '#/products' , true   
-
-    
-
-
-	
-
+		
 	onShow:->
 		if App.currentUser.get('state') == '/home'
 			@ui.saveProducts.hide()
 
 	_successHandler:(response, status, xhr)=>
 		if xhr.status == 201
-			console.log response
 			App.navigate '#/home' , true
 		else
-			@ui.responseMessage.text "Something went wrong"
+			$('.alert').remove()
+			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
+
+
+	_errorHandler:(response, status, xhr)=>
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 
 
 
@@ -205,7 +209,7 @@ class App.UserProductListCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		collection = collection.response
-		console.log App.UserProductsColl = new Backbone.Collection collection
+		App.UserProductsColl = new Backbone.Collection collection
 		productcollection = new Backbone.Collection collection
 		@show new UserProductListView
 							collection : productcollection

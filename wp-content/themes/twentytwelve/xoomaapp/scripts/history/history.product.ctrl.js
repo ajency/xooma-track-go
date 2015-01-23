@@ -14,11 +14,16 @@ ViewProductHistoryView = (function(_super) {
 
   function ViewProductHistoryView() {
     this.getCount = __bind(this.getCount, this);
+    this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     return ViewProductHistoryView.__super__.constructor.apply(this, arguments);
   }
 
   ViewProductHistoryView.prototype.template = '#view-history-template';
+
+  ViewProductHistoryView.prototype.ui = {
+    responseMessage: '.aj-response-message'
+  };
 
   ViewProductHistoryView.prototype.events = {
     'click #show': function() {
@@ -60,8 +65,25 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.successHandler = function(response, status, xhr) {
+    if (xhr.status === 200) {
+      return this.showData(response);
+    } else {
+      return this.showErrorMsg();
+    }
+  };
+
+  ViewProductHistoryView.prototype.errorHandler = function(response, status, xhr) {
+    return this.showErrorMsg();
+  };
+
+  ViewProductHistoryView.prototype.showErrorMsg = function() {
+    $('.alert').remove();
+    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+  };
+
+  ViewProductHistoryView.prototype.showData = function(response) {
     var arr, coll, html, timezone;
-    console.log(coll = new Backbone.Collection(response.response));
+    coll = new Backbone.Collection(response.response);
     $('.name').text(response.name.toUpperCase());
     html = "";
     arr = 0;

@@ -8,6 +8,9 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 	template : '#view-history-template'
 
+	ui :
+		responseMessage : '.aj-response-message'
+
 	events:
 		'click #show':->
 			product = Marionette.getOption( @, 'id' )
@@ -39,7 +42,21 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 
 	successHandler:(response,status,xhr)=>
-		console.log coll = new Backbone.Collection response.response
+		if xhr.status == 200
+			@showData(response)
+		else
+			@showErrorMsg()
+			
+
+	errorHandler:(response,status,xhr)=>
+		@showErrorMsg()
+
+	showErrorMsg:->
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
+
+	showData:(response)->
+		coll = new Backbone.Collection response.response
 		$('.name').text response.name.toUpperCase()
 		html = ""
 		arr = 0

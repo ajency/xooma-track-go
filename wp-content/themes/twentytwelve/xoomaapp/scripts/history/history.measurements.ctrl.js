@@ -13,11 +13,16 @@ MeasurementHistoryView = (function(_super) {
   __extends(MeasurementHistoryView, _super);
 
   function MeasurementHistoryView() {
+    this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     return MeasurementHistoryView.__super__.constructor.apply(this, arguments);
   }
 
   MeasurementHistoryView.prototype.template = '#measurement-history-template';
+
+  MeasurementHistoryView.prototype.ui = {
+    responseMessage: '.aj-response-message'
+  };
 
   MeasurementHistoryView.prototype.events = {
     'click #show': function() {
@@ -59,10 +64,26 @@ MeasurementHistoryView = (function(_super) {
   };
 
   MeasurementHistoryView.prototype.successHandler = function(response, status, xhr) {
+    if (xhr.status === 200) {
+      return this.showData();
+    } else {
+      return this.showErrorMsg();
+    }
+  };
+
+  MeasurementHistoryView.prototype.errorHandler = function(response, status, xhr) {
+    return this.showErrorMsg();
+  };
+
+  MeasurementHistoryView.prototype.showErrorMsg = function() {
+    $('.alert').remove();
+    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+  };
+
+  MeasurementHistoryView.prototype.showData = function(response) {
     var coll, html;
     if (response.length !== 0) {
       coll = response.response;
-      $.each(coll, function(index, val) {});
       html = "";
       html += '<li><span>Height : </span>' + coll.height + 'inches';
       html += '<li><span>Weight : </span>' + coll.weight + 'lb';

@@ -4,15 +4,18 @@ var EditProductsView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+App.state('EditProducts', {
+  url: '/product/:id/edit',
+  parent: 'xooma'
+});
+
 EditProductsView = (function(_super) {
   __extends(EditProductsView, _super);
 
   function EditProductsView() {
     this.valueOutput = __bind(this.valueOutput, this);
-    this.erroraHandler = __bind(this.erroraHandler, this);
+    this.errorSave = __bind(this.errorSave, this);
     this.successSave = __bind(this.successSave, this);
-    this.erroraHandler = __bind(this.erroraHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
     return EditProductsView.__super__.constructor.apply(this, arguments);
   }
 
@@ -85,7 +88,8 @@ EditProductsView = (function(_super) {
           error: this.errorSave
         });
       } else {
-        this.ui.responseMessage.text("Value entered shoule be less than available count");
+        $('.alert').remove();
+        this.ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!");
         return $('html, body').animate({
           scrollTop: 0
         }, 'slow');
@@ -231,24 +235,6 @@ EditProductsView = (function(_super) {
     return $('.js__timepicker').pickatime();
   };
 
-  EditProductsView.prototype.successHandler = function(response, status, xhr) {
-    var products, updatedProducts;
-    if (xhr.status === 200) {
-      products = App.currentUser.get('products');
-      response = parseInt(response);
-      console.log(updatedProducts = _.without(products, response));
-      console.log(App.currentUser.set('products', _.uniq(updatedProducts)));
-    }
-    return App.navigate('#/profile/my-products', true);
-  };
-
-  EditProductsView.prototype.erroraHandler = function(response, status, xhr) {
-    this.ui.responseMessage.text("Something went wrong");
-    return $('html, body').animate({
-      scrollTop: 0
-    }, 'slow');
-  };
-
   EditProductsView.prototype.successSave = function(response, status, xhr) {
     var products;
     if (xhr.status === 201) {
@@ -267,8 +253,9 @@ EditProductsView = (function(_super) {
     }
   };
 
-  EditProductsView.prototype.erroraHandler = function(response, status, xhr) {
-    this.ui.responseMessage.text("Could not delete the prodcut");
+  EditProductsView.prototype.errorSave = function(response, status, xhr) {
+    $('.alert').remove();
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -320,15 +307,12 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.get_weight_bmi = function(bmi) {
     var actual, weight;
-    console.log(bmi);
     weight = App.currentUser.get('weight');
     actual = 1;
     if (bmi !== void 0) {
       $.each(bmi, function(index, value) {
         var bmi_val;
         bmi_val = value['range'].split('<');
-        console.log(bmi_val[0]);
-        console.log(bmi_val[1]);
         if (parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])) {
           return actual = value['quantity'];
         }
@@ -471,31 +455,27 @@ EditProductsView = (function(_super) {
       $(this.ui.servings_diff).prop('checked', true);
       $(this.ui.servings_per_day).trigger("change");
       $('#check').val(1);
-      $.each(qty, function(ind, val) {
+      return $.each(qty, function(ind, val) {
         return $('#qty_per_servings' + ind + ' option[value="' + val.qty + '"]').prop("selected", true);
       });
     } else {
       $('#qty_per_servings0 option[value="' + qty[0].qty + '"]').prop("selected", true);
+      return $.each(reminders, function(ind, val) {
+        console.log(val.time);
+        return $('#reminder_time' + ind).val(val.time);
+      });
     }
-    return $.each(reminders, function(ind, val) {
-      console.log(val.time);
-      return $('#reminder_time' + ind).val(val.time);
-    });
   };
 
   return EditProductsView;
 
 })(Marionette.ItemView);
 
-App.state('EditProducts', {
-  url: '/products/:id/edit',
-  parent: 'xooma'
-});
-
 App.EditProductsCtrl = (function(_super) {
   __extends(EditProductsCtrl, _super);
 
   function EditProductsCtrl() {
+    this.erroraHandler = __bind(this.erroraHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     return EditProductsCtrl.__super__.constructor.apply(this, arguments);
   }
@@ -508,7 +488,7 @@ App.EditProductsCtrl = (function(_super) {
     productId = this.getParams();
     console.log(product = parseInt(productId[0]));
     console.log(products = App.currentUser.get('products'));
-    if ($.inArray(product, products) > -1) {
+    if ($.inArray(product, products) > -1 || App.productCollection.length === 0) {
       return $.ajax({
         method: 'GET',
         url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
@@ -532,11 +512,21 @@ App.EditProductsCtrl = (function(_super) {
 
   EditProductsCtrl.prototype.successHandler = function(response, status, xhr) {
     var model, pid;
-    pid = App.productCollection.where({
-      id: response.id
-    });
-    model = new Backbone.Model(response);
-    return this._showView(model);
+    if (xhr.status === 200) {
+      pid = App.productCollection.where({
+        id: response.id
+      });
+      model = new Backbone.Model(response);
+      return this._showView(model);
+    } else {
+      $('.alert').remove();
+      return $('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!");
+    }
+  };
+
+  EditProductsCtrl.prototype.erroraHandler = function(response, status, xhr) {
+    $('.alert').remove();
+    return $('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!");
   };
 
   return EditProductsCtrl;

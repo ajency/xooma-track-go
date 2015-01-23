@@ -238,7 +238,7 @@
 
 				<div class="container">
 
-						<div class="aj-response-message hidden"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+						<div class="aj-response-message"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
 						<form class="form-horizontal update_user_details" role="form">
 
 
@@ -468,7 +468,7 @@
 
 <script id="home-template" type="text/template">
 		<div class="container"> </br></br></br>
-		
+		<div class="aj-response-message"> 
 	 <div class="row">
 			<div class="col-md-3"> 
 			</div>
@@ -547,6 +547,7 @@
 				<h4 class="text-center"> List Of xooma products</h4>
 	
 		<div class="container">
+		<div class="aj-response-message"> 
 			  <div class="row">
 				  <div class="col-md-2"></div>
 				  <div class="col-md-8">
@@ -574,6 +575,7 @@
 	 
 	
 		<div class="container">
+		<div class="aj-response-message"> 
 			  <div class="row">
 				  <div class="col-md-12">
 					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
@@ -840,6 +842,7 @@
 <br>
 <br>
 <div class="container">
+
 <div class="row">
 	<div class="col-sm-2"></div>
 	<div class="col-sm-8">
@@ -962,7 +965,7 @@
 <br>
 
 <div class="container"> 
-
+<div class="aj-response-message"> 
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
 <ul id='timeline' class="viewInventory">
@@ -977,6 +980,7 @@
 
 <script id="view-history-template" type="text/template">
 <div class="row">
+<div class="aj-response-message"> 
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
@@ -1002,6 +1006,7 @@
 </script>
 <script id="measurement-history-template" type="text/template">
 <div class="row">
+<div class="aj-response-message"> 
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">

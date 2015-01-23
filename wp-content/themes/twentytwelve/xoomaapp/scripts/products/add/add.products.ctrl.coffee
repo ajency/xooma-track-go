@@ -21,16 +21,7 @@ class ProductChildView extends Marionette.ItemView
     initialize:->
     	@$el.prop("id", 'product'+@model.get("id"))
 
-    # events:
-    # 	'click @ui.addProduct':(e)->
-    # 		e.preventDefault()
-    # 		id = e.target.id
-    		# App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
-
-    successHandler:(response, status, xhr)=>
-    	console.log status
-    	if xhr.status == 201
-    		$('#product'+response).hide()
+   
 		
 
 	
@@ -46,17 +37,14 @@ class AddProductsView extends Marionette.CompositeView
 	childViewContainer : 'ul.products-list'
 	emptyView : NoProductsChildView
 
-	onShow:->
-		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
-			console.log "loaded"
-			)
+	
 		
 
 
 class App.AddProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		if App.productCollection.length is 0
-			App.productCollection.fetch().done @_showProducts
+			App.productCollection.fetch().done(@_showProducts).fail(@errorHandler)
 		else
 			@_showProducts()
 
@@ -65,8 +53,10 @@ class App.AddProductsCtrl extends Ajency.RegionController
 		collectionArr = App.productCollection.where({active_value:'1'})
 		App.productCollection.reset collectionArr
 		filteredCollection = App.productCollection.clone()
-		
-			
-		c = filteredCollection.remove userProducts
 		@show new AddProductsView
 						collection : filteredCollection
+
+	errorHandler:=>
+		$('.alert').remove()
+		$('.aj-response-message').addClass('alert alert-danger').text("Products could not be loaded!")
+		

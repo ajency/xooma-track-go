@@ -28,8 +28,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
 		'click @ui.update':(e)->
-			console.log new Date()
-			console.log date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
+			date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 			@ui.update.pickadate(
 				formatSubmit: 'yyyy-mm-dd'
 				hiddenName: true
@@ -75,31 +74,36 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onFormSubmit : (_formData)=>
-		console.log @measurements['weight'] = $('#weight').val()
+		@measurements['weight'] = $('#weight').val()
 		@measurements['height'] = $('#height').val()
 		@measurements['date'] = $('#date_field').val()
-		console.log formdata = @measurements
+		formdata = @measurements
 		@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
 	    
 
 	successHandler : (response, status,xhr)=>
 		if xhr.status is 404
-			@ui.responseMessage.text "Something went wrong"
+			$('.alert').remove()
+			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 		else
 			state = App.currentUser.get 'state'
 			if state == '/home'
-				@ui.responseMessage.text "profile successfully updated"
+				$('.alert').remove()
+				@ui.responseMessage.addClass('alert alert-success').text("Measurements data successfully updated!")
+			
 			else
 				App.currentUser.set 'state' , '/profile/my-products'
 				App.navigate '#'+App.currentUser.get('state') , true
 			
 
 	errorHandler : (error)=>
-		@ui.responseMessage.text "Something went wrong"
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
+			
 		$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')

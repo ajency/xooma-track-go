@@ -1,4 +1,7 @@
-
+App.state 'EditProducts',
+					url : '/product/:id/edit'
+					parent : 'xooma'
+	
 class EditProductsView extends Marionette.ItemView
 
 	template : '#edit-product-template'
@@ -65,7 +68,8 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				@ui.responseMessage.text "Value entered shoule be less than available count"
+				$('.alert').remove()
+				@ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!")
 				$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -212,21 +216,6 @@ class EditProductsView extends Marionette.ItemView
 	
 
 
-	successHandler:(response,status,xhr)=>
-		if xhr.status == 200
-			products = App.currentUser.get 'products'
-			response = parseInt response
-			console.log updatedProducts = _.without products , response
-			console.log App.currentUser.set 'products' , _.uniq updatedProducts
-			
-		App.navigate '#/profile/my-products', true
-
-	erroraHandler :(response,status,xhr)=>
-		@ui.responseMessage.text "Something went wrong"
-		$('html, body').animate({
-						scrollTop: 0
-						}, 'slow')
-
 	successSave: (response,status,xhr)=>
 		if xhr.status is 201
 				response = parseInt response
@@ -240,8 +229,9 @@ class EditProductsView extends Marionette.ItemView
 		else
 			App.navigate '#/products', true
 
-	erroraHandler :(response,status,xhr)=>
-		@ui.responseMessage.text "Could not delete the prodcut"
+	errorSave :(response,status,xhr)=>
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 						scrollTop: 0
 						}, 'slow')
@@ -289,14 +279,11 @@ class EditProductsView extends Marionette.ItemView
 		data
 
 	get_weight_bmi:(bmi)->
-		console.log bmi
 		weight = App.currentUser.get('weight')
 		actual = 1
 		if bmi != undefined	
 			$.each bmi , (index,value)->
 				bmi_val  = value['range'].split('<')
-				console.log bmi_val[0]
-				console.log bmi_val[1]
 				if parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])
 					actual = value['quantity'];
 		actual
@@ -436,17 +423,14 @@ class EditProductsView extends Marionette.ItemView
 
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-		$.each reminders , (ind,val)->
+			$.each reminders , (ind,val)->
 				console.log val.time
 				$('#reminder_time'+ind).val val.time
 		
 			
 
 			
-App.state 'EditProducts',
-					url : '/products/:id/edit'
-					parent : 'xooma'
-	
+
 		
 	
 
@@ -457,7 +441,7 @@ class App.EditProductsCtrl extends Ajency.RegionController
 		console.log product = parseInt productId[0]
 		console.log products = App.currentUser.get 'products'
 		
-		if $.inArray( product, products ) > -1
+		if $.inArray( product, products ) > -1 || App.productCollection.length == 0
 			$.ajax
 				method : 'GET'
 				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
@@ -476,10 +460,18 @@ class App.EditProductsCtrl extends Ajency.RegionController
 
 
 	successHandler:(response,status,xhr)=>
-		pid = App.productCollection.where({id:response.id})
-		model = new Backbone.Model response
-		@_showView(model)
+		if xhr.status == 200
+			pid = App.productCollection.where({id:response.id})
+			model = new Backbone.Model response
+			@_showView(model)
+		else
+			$('.alert').remove()
+			$('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!")
+		
 
-
+	erroraHandler:(response,status,xhr)=>
+		$('.alert').remove()
+		$('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!")
+		
 
 	

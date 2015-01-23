@@ -45,8 +45,7 @@ ProfileMeasurementsView = (function(_super) {
     },
     'click @ui.update': function(e) {
       var date;
-      console.log(new Date());
-      console.log(date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD'));
+      date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
       return this.ui.update.pickadate({
         formatSubmit: 'yyyy-mm-dd',
         hiddenName: true,
@@ -109,24 +108,26 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
     var formdata;
-    console.log(this.measurements['weight'] = $('#weight').val());
+    this.measurements['weight'] = $('#weight').val();
     this.measurements['height'] = $('#height').val();
     this.measurements['date'] = $('#date_field').val();
-    console.log(formdata = this.measurements);
+    formdata = this.measurements;
     return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
     var state;
     if (xhr.status === 404) {
-      this.ui.responseMessage.text("Something went wrong");
+      $('.alert').remove();
+      this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
       state = App.currentUser.get('state');
       if (state === '/home') {
-        return this.ui.responseMessage.text("profile successfully updated");
+        $('.alert').remove();
+        return this.ui.responseMessage.addClass('alert alert-success').text("Measurements data successfully updated!");
       } else {
         App.currentUser.set('state', '/profile/my-products');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -135,7 +136,8 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
-    this.ui.responseMessage.text("Something went wrong");
+    $('.alert').remove();
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');

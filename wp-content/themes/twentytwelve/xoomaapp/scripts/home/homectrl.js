@@ -8,6 +8,7 @@ HomeLayoutView = (function(_super) {
   __extends(HomeLayoutView, _super);
 
   function HomeLayoutView() {
+    this._errorHandler = __bind(this._errorHandler, this);
     this._successHandler = __bind(this._successHandler, this);
     this.onFormSubmit = __bind(this.onFormSubmit, this);
     return HomeLayoutView.__super__.constructor.apply(this, arguments);
@@ -28,7 +29,8 @@ HomeLayoutView = (function(_super) {
     generate: 'input[name="generate"]',
     form: '#generate_graph',
     param: 'input[name="param"]',
-    history: '.history'
+    history: '.history',
+    responseMessage: '.aj-response-message'
   };
 
   HomeLayoutView.prototype.events = {
@@ -66,7 +68,8 @@ HomeLayoutView = (function(_super) {
       method: 'GET',
       data: _formData,
       url: "" + APIURL + "/graphs/" + (App.currentUser.get('ID')),
-      success: this._successHandler
+      success: this._successHandler,
+      error: this._errorHandler
     });
   };
 
@@ -79,7 +82,18 @@ HomeLayoutView = (function(_super) {
       return this.generateGraph();
     } else if (dates === false && xhr.status === 200) {
       return this.generateBMIGraph(response);
+    } else {
+      return this.showErrorMsg();
     }
+  };
+
+  HomeLayoutView.prototype._errorHandler = function(response, status, xhr) {
+    return this.showErrorMsg();
+  };
+
+  HomeLayoutView.prototype.showErrorMsg = function() {
+    $('.alert').remove();
+    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
   };
 
   HomeLayoutView.prototype.onShow = function() {
@@ -157,6 +171,7 @@ App.HomeCtrl = (function(_super) {
   __extends(HomeCtrl, _super);
 
   function HomeCtrl() {
+    this.errorHandler = __bind(this.errorHandler, this);
     this._showView = __bind(this._showView, this);
     return HomeCtrl.__super__.constructor.apply(this, arguments);
   }
@@ -176,6 +191,11 @@ App.HomeCtrl = (function(_super) {
     App.useProductColl.reset(response);
     console.log(App.useProductColl);
     return this.show(new HomeLayoutView);
+  };
+
+  HomeCtrl.prototype.errorHandler = function() {
+    $('.alert').remove();
+    return $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!");
   };
 
   return HomeCtrl;
@@ -250,10 +270,9 @@ HomeX2OViewChild = (function(_super) {
 
   HomeX2OViewChild.prototype.get_occurrence = function(data) {
     var arr, expected, meta_value, occurrence, value;
-    console.log(data);
-    console.log(occurrence = _.has(data, "occurrence"));
-    console.log(expected = _.has(data, "expected"));
-    console.log(meta_value = _.has(data, "meta_value"));
+    occurrence = _.has(data, "occurrence");
+    expected = _.has(data, "expected");
+    meta_value = _.has(data, "meta_value");
     value = 0;
     arr = [];
     $.each(meta_value, function(index, value) {
@@ -330,7 +349,6 @@ App.HomeX2OCtrl = (function(_super) {
   }
 
   HomeX2OCtrl.prototype.initialize = function() {
-    console.log(App.useProductColl);
     return this._showView(App.useProductColl);
   };
 
@@ -342,7 +360,7 @@ App.HomeX2OCtrl = (function(_super) {
     });
     if (model !== void 0) {
       if (model.get('name') === 'x2o') {
-        console.log(modelColl = new Backbone.Collection(model));
+        modelColl = new Backbone.Collection(model);
         return this.show(new HomeX2OView({
           collection: modelColl
         }));
@@ -401,7 +419,6 @@ ProductChildView = (function(_super) {
     whenar = ['', 'Morning Before meal', 'Morning After meal', 'Night Before Meal', 'Night After Meal'];
     $.each(this.model.get('qty'), function(ind, val) {
       var occu_data;
-      console.log(occurrenceArr[ind]);
       occu_data = occurrenceArr.length;
       if (occurrenceArr[ind] === "" || occurrenceArr[ind] === void 0) {
         occu_data = 0;
@@ -450,23 +467,21 @@ App.HomeOtherProductsCtrl = (function(_super) {
   }
 
   HomeOtherProductsCtrl.prototype.initialize = function() {
-    console.log(App.useProductColl);
     return this._showView(App.useProductColl);
   };
 
   HomeOtherProductsCtrl.prototype._showView = function(collection) {
     var model, productcollection;
     productcollection = collection.clone();
-    console.log(model = productcollection.findWhere({
+    model = productcollection.findWhere({
       name: 'x2o'
-    }));
+    });
     if (model !== void 0) {
       if (model.get('name').toUpperCase() === 'X2O') {
-        console.log(productcollection.remove(model));
+        productcollection.remove(model);
         productcollection.reset(productcollection.toArray());
       }
     }
-    console.log(productcollection);
     return this.show(new HomeOtherProductsView({
       collection: productcollection
     }));

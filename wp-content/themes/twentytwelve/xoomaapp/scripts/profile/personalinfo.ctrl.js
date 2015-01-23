@@ -68,18 +68,14 @@ ProfilePersonalInfoView = (function(_super) {
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
       $('.alert').remove();
-      this.ui.responseMessage.removeClass(' hidden');
-      this.ui.responseMessage.addClass('alert alert-error');
-      this.ui.responseMessage.text("Data couldn't be saved due to some error!");
+      this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
       if (state === '/home') {
         $('.alert').remove();
-        this.ui.responseMessage.removeClass(' hidden');
-        this.ui.responseMessage.addClass('alert alert-success');
-        return this.ui.responseMessage.text("Profile Personal Information successfully updated!");
+        return this.ui.responseMessage.addClass('alert alert-success').text("Profile Personal Information successfully updated!");
       } else {
         App.currentUser.set('state', '/profile/measurements');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -89,9 +85,7 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
     $('.alert').remove();
-    this.ui.responseMessage.removeClass(' hidden');
-    this.ui.responseMessage.addClass('alert alert-error');
-    this.ui.responseMessage.text("Data couldn't be saved due to some error!");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');

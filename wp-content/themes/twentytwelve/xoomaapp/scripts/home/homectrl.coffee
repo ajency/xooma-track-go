@@ -14,6 +14,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		form 		: '#generate_graph'
 		param 		: 'input[name="param"]'
 		history 	: '.history'
+		responseMessage : '.aj-response-message'
 
 	events:
 		'click @ui.history':(e)->
@@ -42,6 +43,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			data : _formData
 			url : "#{APIURL}/graphs/#{App.currentUser.get('ID')}"
 			success: @_successHandler
+			error: @_errorHandler
 
 	_successHandler: (response, status,xhr)=>
 		dates = _.has(response, "dates")
@@ -52,6 +54,15 @@ class HomeLayoutView extends Marionette.LayoutView
 
 		else if dates == false && xhr.status == 200
 			@generateBMIGraph(response)
+		else
+			@showErrorMsg()
+
+	_errorHandler: (response, status,xhr)=>
+		@showErrorMsg()
+
+	showErrorMsg:->
+		$('.alert').remove()
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
 
 		
 
@@ -131,7 +142,7 @@ class App.HomeCtrl extends Ajency.RegionController
 	initialize:->
 		console.log App.useProductColl
 		if App.useProductColl.length == 0
-			App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
 			@show new HomeLayoutView
 
@@ -140,6 +151,11 @@ class App.HomeCtrl extends Ajency.RegionController
 		App.useProductColl.reset response
 		console.log App.useProductColl
 		@show new HomeLayoutView
+
+	errorHandler:=>
+		$('.alert').remove()
+		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!")
+	
 
 class HomeX2OViewChild extends Marionette.ItemView
 
@@ -212,10 +228,9 @@ class HomeX2OViewChild extends Marionette.ItemView
 		
 		
 	get_occurrence:(data)->
-		console.log data
-		console.log occurrence = _.has(data, "occurrence")
-		console.log expected = _.has(data, "expected")
-		console.log meta_value = _.has(data, "meta_value")
+		occurrence = _.has(data, "occurrence")
+		expected = _.has(data, "expected")
+		meta_value = _.has(data, "meta_value")
 		value = 0
 		arr = []
 		$.each meta_value , (index,value)->
@@ -293,7 +308,6 @@ class HomeX2OView extends Marionette.CompositeView
 class App.HomeX2OCtrl extends Ajency.RegionController
 
 	initialize:->
-		console.log App.useProductColl
 		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
@@ -301,7 +315,7 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 		model = productcollection.findWhere({name:'x2o'}) 
 		if model != undefined
 			if model.get('name') == 'x2o'
-				console.log modelColl = new Backbone.Collection model
+				modelColl = new Backbone.Collection model
 				@show new HomeX2OView
 							collection : modelColl
 
@@ -379,7 +393,6 @@ class ProductChildView extends Marionette.ItemView
 		shecule = []
 		whenar = ['','Morning Before meal' , 'Morning After meal', 'Night Before Meal' , 'Night After Meal']
 		$.each @model.get('qty'), (ind,val)->
-			console.log occurrenceArr[ind]
 			occu_data = occurrenceArr.length
 			if occurrenceArr[ind] == "" || occurrenceArr[ind] == undefined
 				occu_data = 0
@@ -423,17 +436,15 @@ class HomeOtherProductsView extends Marionette.CompositeView
 class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	initialize:->
-		console.log App.useProductColl
 		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		console.log model = productcollection.findWhere({name:'x2o'})  
+		model = productcollection.findWhere({name:'x2o'})  
 		if model != undefined
 			if model.get('name').toUpperCase() == 'X2O' 
-				console.log productcollection.remove model
+				productcollection.remove model
 				productcollection.reset productcollection.toArray()
-		console.log productcollection
 		@show new HomeOtherProductsView
 					collection : productcollection
 		
