@@ -82,7 +82,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
 
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/js/pickadate.legacy.js"></script>
+<script src=" http://www.jqueryscript.net/demo/Lightweight-jQuery-Date-Input-Picker/source/pickadate.legacy.js"></script>
 
 <!-- endbuild -->
 
@@ -117,7 +117,7 @@ var App  = new Marionette.Application()
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/consumption/scheduled/products.schedule.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/history/history.product.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/settings/settings.ctrl.js"></script>
-
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/history/history.measurements.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <!-- endbuild -->
 

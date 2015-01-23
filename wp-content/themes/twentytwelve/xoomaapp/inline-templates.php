@@ -1005,7 +1005,31 @@
         </div>
 
 </script>
+<script id="measurement-history-template" type="text/template">
+<div class="row">
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
+              <form class="form-horizontal ">
 
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
+                    <br/>
+                    <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
+               </form>
+              <ul id='timeline' class="viewHistory">
+              
+              </ul>
+            </div>
+            <div class="col-md-2">
+         </div>
+        </div>
+
+</script>
 <script id="asperbmi-template" type="text/template">
 <div class="container"> </br></br>
 <div class="aj-response-message"></div>

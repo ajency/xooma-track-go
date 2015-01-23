@@ -157,9 +157,10 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date=""){
+  public function get_user_measurement_details($id,$date){
 
         global $wpdb;
+       
         $measurements_table = $wpdb->prefix . "measurements";
        
         if($date == ""){
@@ -168,7 +169,7 @@ class User
         else
         {
             
-            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date=".$date );
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date='".$date."'" );
 
         }
         
