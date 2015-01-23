@@ -250,7 +250,7 @@ class EditProductsView extends Marionette.ItemView
 		data = super()
 		product = parseInt @model.get('id')
 		weightbmi = @get_weight_bmi(@model.get('bmi'))
-		data.x2o = weightbmi	
+		data.x2o = Math.ceil(weightbmi)	
 		products = App.currentUser.get 'products'
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
@@ -332,7 +332,8 @@ class EditProductsView extends Marionette.ItemView
 			$('.schedule_data').hide()
 			$('.anytime').hide()
 			weightbmi = @get_weight_bmi(@model.get('bmi'))
-			$('.servings_per_day option[value="'+weightbmi+'"]').prop("selected",true);
+			weight = Math.ceil(weightbmi)
+			$('.servings_per_day option[value="'+weight+'"]').prop("selected",true);
 
 		
 		

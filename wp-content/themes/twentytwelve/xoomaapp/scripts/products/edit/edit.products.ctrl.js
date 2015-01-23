@@ -278,7 +278,7 @@ EditProductsView = (function(_super) {
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
     weightbmi = this.get_weight_bmi(this.model.get('bmi'));
-    data.x2o = weightbmi;
+    data.x2o = Math.ceil(weightbmi);
     products = App.currentUser.get('products');
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
@@ -336,7 +336,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, product, products, reminder_flag, weightbmi;
+    var container, product, products, reminder_flag, weight, weightbmi;
     this.checkMode();
     $('.js__timepicker').pickatime();
     this.ui.rangeSliders.each((function(_this) {
@@ -372,7 +372,8 @@ EditProductsView = (function(_super) {
       $('.schedule_data').hide();
       $('.anytime').hide();
       weightbmi = this.get_weight_bmi(this.model.get('bmi'));
-      $('.servings_per_day option[value="' + weightbmi + '"]').prop("selected", true);
+      weight = Math.ceil(weightbmi);
+      $('.servings_per_day option[value="' + weight + '"]').prop("selected", true);
     }
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
