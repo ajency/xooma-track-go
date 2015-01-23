@@ -217,7 +217,7 @@
 				<div class="col-md-6">
 				<img src="<?php echo get_template_directory_uri(); ?>/images/noaccess.jpg" class="center-block"/>
 				<h4 class="text-center" > Please login to view this page</h4>
-				<button type="submit" class="btn btn-primary aj-submit-button center-block">Click here to login</button>
+				<a class="btn btn-primary aj-submit-button center-block" href="#/login">Click here to login</a>
 				</div>
 				<div class="col-md-3"></div>
 			</div> {{/if}} {{#if not_defined}}
@@ -633,7 +633,7 @@
 			<form id="edit_product" class="form-horizontal" role="form" method="POST">
 			<input type="hidden" name="frequency_type" value="{{frequency_value}}" />
 			<div class="col-md-6 col-xs-12">
-				<!--<b>Chosse the consumtion of {{name}}</b>
+				<!--<b>Choose the consumption of {{name}}</b>
 				<div class=" m-t-10 btn-group btn-group-justified" role="group" aria-label="...">
 				  <div class="btn-group" role="group">
 					<button type="button" {{anytime}}  class="btn btn-default {{anytimeclass}}">Any Time</button>
@@ -682,7 +682,7 @@
   <div class="qty_per_servings_div">
   <div class="qtyper">
   <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">QTY. Per Serving</label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Quantity Per Serving</label>
 	<div class="col-sm-6 col-xs-5">
 	  <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
 		  <option value="1">1</option>
@@ -708,7 +708,7 @@
 	</div>
   
   <div class="form-group">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>QTY. Per Serving</b></label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>Quantity Per Serving</b></label>
    <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
  </div>
  <div class="form-group">

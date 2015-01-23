@@ -41,6 +41,8 @@ class MeasurementHistoryView extends Marionette.ItemView
 	successHandler:(response,status,xhr)=>
 		if response.length != 0
 			coll = response.response
+			$.each coll , (index,val)->
+				
 			html = ""
 			html += '<li><span>Height : </span>'+coll.height+ 'inches'
 			html += '<li><span>Weight : </span>'+coll.weight+ 'lb'

@@ -62,6 +62,7 @@ MeasurementHistoryView = (function(_super) {
     var coll, html;
     if (response.length !== 0) {
       coll = response.response;
+      $.each(coll, function(index, val) {});
       html = "";
       html += '<li><span>Height : </span>' + coll.height + 'inches';
       html += '<li><span>Weight : </span>' + coll.weight + 'lb';
