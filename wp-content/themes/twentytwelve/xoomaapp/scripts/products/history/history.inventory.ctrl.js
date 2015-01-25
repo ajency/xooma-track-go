@@ -59,6 +59,7 @@ App.ViewInventoryCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
     productModel = App.UserProductsColl.where({

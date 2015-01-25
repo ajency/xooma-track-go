@@ -463,12 +463,14 @@ class User
         $product_main_table = $wpdb->prefix . "product_main";
 
         $product_meta_table = $wpdb->prefix . "product_meta";
-
+        $response = array();
+        
         $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
-
+        if($sql_query)
+        {
         $sub_query = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='qty_per_servings' and main_id = ".$sql_query->id);
-
         $servings = array();
+        
         foreach ($sub_query as $key => $value) {
            
             $data  = maybe_unserialize($value->value);
@@ -551,5 +553,12 @@ class User
 
         return $response;
     }
+
+
+else
+{
+    return $response;
+}
    
+}
 }

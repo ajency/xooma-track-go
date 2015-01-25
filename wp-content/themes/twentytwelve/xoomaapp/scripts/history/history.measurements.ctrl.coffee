@@ -94,6 +94,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 
 class App.ViewMeasurementHistoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
 		@_showView(productId[0])

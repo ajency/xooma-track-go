@@ -162,6 +162,7 @@ App.UserMeasurementCtrl = (function(_super) {
 
   UserMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
+    this.show(this.parent().parent().getLLoadingView());
     xhr = this._get_measurement_details();
     return xhr.done(this._showView).fail(this.errorHandler);
   };
@@ -197,7 +198,11 @@ App.UserMeasurementCtrl = (function(_super) {
   };
 
   UserMeasurementCtrl.prototype.successHandler = function(response, status) {
-    return App.currentUser.set('measurements', response.response);
+    var deferred;
+    App.currentUser.set('measurements', response.response);
+    deferred = Marionette.Deferred();
+    deferred.resolve(true);
+    return deferred.promise();
   };
 
   return UserMeasurementCtrl;

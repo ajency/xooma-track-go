@@ -115,8 +115,11 @@ class ProfileMeasurementsView extends Marionette.ItemView
 class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
+		@show @parent().parent().getLLoadingView()
 		xhr = @_get_measurement_details()
 		xhr.done(@_showView).fail @errorHandler
+
+	
 
 	_showView :=>
 		@show new ProfileMeasurementsView
@@ -139,3 +142,6 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	successHandler : (response, status)=>
 		App.currentUser.set 'measurements', response.response
+		deferred = Marionette.Deferred()
+		deferred.resolve(true)
+		deferred.promise()

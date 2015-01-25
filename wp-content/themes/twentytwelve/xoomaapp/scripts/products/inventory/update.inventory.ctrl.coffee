@@ -178,6 +178,7 @@ class EditInventoryView extends Marionette.ItemView
 
 class App.EditInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
 		productModel = App.UserProductsColl.where({id:parseInt(productId[0])})

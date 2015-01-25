@@ -154,6 +154,7 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		product = parseInt productId[0]
 		products = []

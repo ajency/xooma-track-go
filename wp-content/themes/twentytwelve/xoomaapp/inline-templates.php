@@ -83,7 +83,9 @@
 		<div class="topheader">
 				<nav class="navbar " role="navigation">
 						<div class="container">
+
 								<div class="row">
+
 										<div class="col-sm-3 col-xs-5">
 												<div class="navbar-header">
 														<a href="#">
@@ -107,6 +109,7 @@
 						</div>
 				</nav>
 		</div>
+
 		<div class="clearfix"></div>
 		
 
@@ -554,7 +557,7 @@
 			   <a href="#/products" class="btn btn-primary btn-lg center-block add"><i class="fa fa-plus-circle"></i> Add Products</a>
 			   <br>
 	<div class="userproducts"></div>
-	 <a href="#/products" class="btn btn-primary btn-lg pull-left add"><i class="fa fa-plus-circle"></i> Add Products</a>
+	 <a href="#/products" class="btn btn-primary btn-lg pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
 	 <button type="button" class="btn btn-primary btn-lg pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
 
 				  </div>
@@ -800,7 +803,7 @@
 <div class="form-group reminder_data">
 	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
 	<div class="col-sm-6 col-xs-5 ">
-	 <input name="reminder_time0" id="reminder_time0" class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}" placeholder="Try me&hellip;">
+	 <input name="reminder_time0" id="reminder_time0" disabled class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}" placeholder="Try me&hellip;">
 	</div>
   </div>
   </div>

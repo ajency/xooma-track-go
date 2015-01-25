@@ -205,6 +205,7 @@ App.AsperbmiCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     product = parseInt(productId[0]);
     products = [];

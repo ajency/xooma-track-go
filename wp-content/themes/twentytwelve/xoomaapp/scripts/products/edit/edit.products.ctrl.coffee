@@ -54,11 +54,15 @@ class EditProductsView extends Marionette.ItemView
 
 		'click .save':(e)->
 			e.preventDefault()
+			console.log check = @checkreminder()
+			if check == false
+				console.log "aaaaaaa"
+				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
+				return 
 			sub = @ui.subtract.val()
 			if sub == ""
 				sub = 0
-				@ui.subtract.val(0)
-			if parseInt($('#available').val()) >=  parseInt(sub)
+			if parseInt($('#available').val()) >=  parseInt(sub) 
 				data = @ui.form.serialize()
 				product = @model.get('id')
 				$.ajax
@@ -68,7 +72,6 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				$('.alert').remove()
 				@ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!")
 				$('html, body').animate({
 							scrollTop: 0
@@ -154,6 +157,15 @@ class EditProductsView extends Marionette.ItemView
 			$('#available').val cnt
 			$('.available').text cnt
 
+	checkreminder:->
+		console.log servings = $('.servings_per_day').val()
+		i = 0
+		while i < servings
+			if $('#reminder_time'+i).val() == "" && parseInt($('#reminder').val()) == 1
+				return false
+			i++
+		
+
 	loadCheckedData:()->
 		if $(@ui.servings_diff).prop('checked') == true 
 				$(@ui.servings_diff).prop 'disabled' , false
@@ -185,6 +197,7 @@ class EditProductsView extends Marionette.ItemView
 	showReminders:()->
 		if parseInt($('#reminder').val()) == 1
 				$(@ui.servings_diff).prop 'disabled' , false
+				$('#reminder_time0').removeAttr 'disabled'
 				console.log servings = $('.servings_per_day').val()
 				html1 = ""
 				i = 1
@@ -200,8 +213,10 @@ class EditProductsView extends Marionette.ItemView
 					val.id = 'reminder_time'+ind
 				
 		else
+			$('#reminder_time0').attr 'disabled' , true			
+			
 			html1 = '<div class="reminder">'+$('.reminder').first().html()+'</div>'
-						
+			$('#reminder_time0').attr 'disabled' , true			
 			$('.reminder_div').text ""
 			$('.reminder_div').append html1
 			$('.js__timepicker').each (ind,val)->
@@ -229,8 +244,8 @@ class EditProductsView extends Marionette.ItemView
 		else
 			App.navigate '#/products', true
 
+
 	errorSave :(response,status,xhr)=>
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 						scrollTop: 0
@@ -260,13 +275,7 @@ class EditProductsView extends Marionette.ItemView
 			data.schedule = ''
 			data.anytimeclass = ''
 			data.scheduleclass = 'btn-primary'
-			if @model.get('time_set') == 'Once'
-				data.once = 'btn-primary'
-				data.twice = ''
-			else
-				data.once = ''
-				data.twice = 'btn-primary'
-		reminder_flag = @model.get('reminder_flag')
+			reminder_flag = @model.get('reminder_flag')
 		if reminder_flag == undefined || parseInt(reminder_flag) == 0 || reminder_flag == 'true'
 			data.default = 'btn-success'
 			data.success = ''
@@ -437,6 +446,7 @@ class EditProductsView extends Marionette.ItemView
 
 class App.EditProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		console.log product = parseInt productId[0]
 		console.log products = App.currentUser.get 'products'
@@ -464,13 +474,9 @@ class App.EditProductsCtrl extends Ajency.RegionController
 			model = new Backbone.Model response
 			@_showView(model)
 		else
-			$('.alert').remove()
-			$('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!")
-		
+			@region =  new Marionette.Region el : '#edit-product-template'
+			new Ajency.NothingFoundCtrl region : @region
 
 	erroraHandler:(response,status,xhr)=>
-		$('.alert').remove()
-		$('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!")
-		
-
-	
+		@region =  new Marionette.Region el : '#404-template'
+		new Ajency.HTTPRequestCtrl region : @region

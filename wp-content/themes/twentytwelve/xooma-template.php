@@ -116,6 +116,7 @@ var App  = new Marionette.Application()
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/history/history.product.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/settings/settings.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/history/history.measurements.ctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/loading/loading.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <!-- endbuild -->
 

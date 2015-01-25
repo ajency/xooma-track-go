@@ -71,6 +71,8 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 
+		@show @parent().parent().getLLoadingView()
+
 		App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
@@ -78,5 +80,8 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 							model : userModel
 
 	errorHandler : (error)->
-		@region =  new Marionette.Region el : '#nofound-template'
+		@region =  new Marionette.Region el : '#404-template'
 		new Ajency.HTTPRequestCtrl region : @region
+
+	
+		

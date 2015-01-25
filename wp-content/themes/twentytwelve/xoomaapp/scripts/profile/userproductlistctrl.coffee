@@ -72,7 +72,17 @@ class ProductChildView extends Marionette.ItemView
 			products = _.without(products,parseInt(response))
 			App.currentUser.set 'products' , products
 			App.useProductColl.remove parseInt(response)
-			$('#cart'+response).hide()
+			listview = new UserProductListView
+							collection : App.useProductColl
+
+			$('#xoomaproduct').html(listview.render().el)
+			
+
+			console.log App.useProductColl.length
+			if parseInt(App.useProductColl.length) == 0
+				$('.add1').hide()
+				$('.save_products').hide()
+			
 		else
 			$('.alert').remove()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
@@ -87,10 +97,11 @@ class ProductChildView extends Marionette.ItemView
 
                             
 
-	onShow:->
+	onRender:->
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		if $.inArray( product, products ) > -1
+		console.log $.inArray( product, products )
+		if parseInt($.inArray( product, products )) > -1
 			@ui.avail.removeClass 'hidden'
 			@ui.add.removeClass 'hidden'
 			@ui.update.removeClass 'hidden'
@@ -153,7 +164,9 @@ class ProductChildView extends Marionette.ItemView
 		data.servingsleft = parseInt servingsleft
 		data
 		
-			
+class EmptyView extends Marionette.ItemView	
+
+	template : '<div class="alert alert-danger">Go ahead and add your first product rigt away!</div>'		
 
 class UserProductListView extends Marionette.CompositeView
 
@@ -163,11 +176,14 @@ class UserProductListView extends Marionette.CompositeView
 
 	childView : ProductChildView
 
+	emptyView : EmptyView
+
 	childViewContainer : '.userproducts'
 
 	ui :
 		saveProducts : '.save_products'
 		responseMessage : '.aj-response-message'
+		add1			: '.add1'
 
 	events : 
 		'click @ui.saveProducts':(e)->
@@ -178,9 +194,13 @@ class UserProductListView extends Marionette.CompositeView
 				error: @_errorHandler
 
 		
-	onShow:->
+	onRender:->
 		if App.currentUser.get('state') == '/home'
 			@ui.saveProducts.hide()
+		if parseInt(App.useProductColl.length) == 0
+				@ui.add1.hide()
+				
+			
 
 	_successHandler:(response, status, xhr)=>
 		if xhr.status == 201
@@ -204,6 +224,7 @@ class UserProductListView extends Marionette.CompositeView
 class App.UserProductListCtrl extends Ajency.RegionController
 
 	initialize:->
+		@show @parent().parent().getLLoadingView()
 		App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
 
 
@@ -214,7 +235,6 @@ class App.UserProductListCtrl extends Ajency.RegionController
 		@show new UserProductListView
 							collection : productcollection
 		
-
-
+	
 	
 

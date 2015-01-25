@@ -158,6 +158,7 @@ class AsperbmiView extends Marionette.ItemView
 		
 class App.AsperbmiCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		product = parseInt productId[0]
 		products = []

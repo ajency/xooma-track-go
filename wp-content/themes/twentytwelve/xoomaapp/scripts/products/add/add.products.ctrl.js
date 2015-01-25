@@ -89,6 +89,7 @@ App.AddProductsCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     if (App.productCollection.length === 0) {
       return App.productCollection.fetch().done(this._showProducts).fail(this.errorHandler);
     } else {

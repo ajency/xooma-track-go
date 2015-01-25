@@ -124,6 +124,7 @@ App.ViewMeasurementHistoryCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
     return this._showView(productId[0]);

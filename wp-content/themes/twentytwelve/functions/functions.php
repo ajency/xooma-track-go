@@ -824,7 +824,7 @@ function get_user_products($id){
 
 		$product_main_table = $wpdb->prefix . "product_main";
 
-		$results = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id);
+		$results = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
 
 		$product_arr = array();
 		foreach ($results as $key => $value) {

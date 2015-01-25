@@ -129,6 +129,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 class App.ViewProductHistoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
 		@_showView(productId[0])

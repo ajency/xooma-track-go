@@ -70,12 +70,17 @@ EditProductsView = (function(_super) {
       return this.showReminders();
     },
     'click .save': function(e) {
-      var data, product, sub;
+      var check, data, product, sub;
       e.preventDefault();
+      console.log(check = this.checkreminder());
+      if (check === false) {
+        console.log("aaaaaaa");
+        this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
+        return;
+      }
       sub = this.ui.subtract.val();
       if (sub === "") {
         sub = 0;
-        this.ui.subtract.val(0);
       }
       if (parseInt($('#available').val()) >= parseInt(sub)) {
         data = this.ui.form.serialize();
@@ -88,7 +93,6 @@ EditProductsView = (function(_super) {
           error: this.errorSave
         });
       } else {
-        $('.alert').remove();
         this.ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!");
         return $('html, body').animate({
           scrollTop: 0
@@ -174,6 +178,18 @@ EditProductsView = (function(_super) {
     }
   };
 
+  EditProductsView.prototype.checkreminder = function() {
+    var i, servings;
+    console.log(servings = $('.servings_per_day').val());
+    i = 0;
+    while (i < servings) {
+      if ($('#reminder_time' + i).val() === "" && parseInt($('#reminder').val()) === 1) {
+        return false;
+      }
+      i++;
+    }
+  };
+
   EditProductsView.prototype.loadCheckedData = function() {
     var html, i, servings;
     if ($(this.ui.servings_diff).prop('checked') === true) {
@@ -209,6 +225,7 @@ EditProductsView = (function(_super) {
     var html1, i, servings;
     if (parseInt($('#reminder').val()) === 1) {
       $(this.ui.servings_diff).prop('disabled', false);
+      $('#reminder_time0').removeAttr('disabled');
       console.log(servings = $('.servings_per_day').val());
       html1 = "";
       i = 1;
@@ -223,7 +240,9 @@ EditProductsView = (function(_super) {
         return val.id = 'reminder_time' + ind;
       });
     } else {
+      $('#reminder_time0').attr('disabled', true);
       html1 = '<div class="reminder">' + $('.reminder').first().html() + '</div>';
+      $('#reminder_time0').attr('disabled', true);
       $('.reminder_div').text("");
       $('.reminder_div').append(html1);
       $('.js__timepicker').each(function(ind, val) {
@@ -254,7 +273,6 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.errorSave = function(response, status, xhr) {
-    $('.alert').remove();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
@@ -286,15 +304,8 @@ EditProductsView = (function(_super) {
       data.schedule = '';
       data.anytimeclass = '';
       data.scheduleclass = 'btn-primary';
-      if (this.model.get('time_set') === 'Once') {
-        data.once = 'btn-primary';
-        data.twice = '';
-      } else {
-        data.once = '';
-        data.twice = 'btn-primary';
-      }
+      reminder_flag = this.model.get('reminder_flag');
     }
-    reminder_flag = this.model.get('reminder_flag');
     if (reminder_flag === void 0 || parseInt(reminder_flag) === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
@@ -485,6 +496,7 @@ App.EditProductsCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     console.log(product = parseInt(productId[0]));
     console.log(products = App.currentUser.get('products'));
@@ -518,14 +530,22 @@ App.EditProductsCtrl = (function(_super) {
       model = new Backbone.Model(response);
       return this._showView(model);
     } else {
-      $('.alert').remove();
-      return $('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!");
+      this.region = new Marionette.Region({
+        el: '#edit-product-template'
+      });
+      return new Ajency.NothingFoundCtrl({
+        region: this.region
+      });
     }
   };
 
   EditProductsCtrl.prototype.erroraHandler = function(response, status, xhr) {
-    $('.alert').remove();
-    return $('.aj-response-message').addClass('alert alert-danger').text("Product could not be loaded!");
+    this.region = new Marionette.Region({
+      el: '#404-template'
+    });
+    return new Ajency.HTTPRequestCtrl({
+      region: this.region
+    });
   };
 
   return EditProductsCtrl;

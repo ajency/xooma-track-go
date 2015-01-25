@@ -104,6 +104,7 @@ App.UserPersonalInfoCtrl = (function(_super) {
   }
 
   UserPersonalInfoCtrl.prototype.initialize = function(options) {
+    this.show(this.parent().parent().getLLoadingView());
     return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
   };
 
@@ -115,7 +116,7 @@ App.UserPersonalInfoCtrl = (function(_super) {
 
   UserPersonalInfoCtrl.prototype.errorHandler = function(error) {
     this.region = new Marionette.Region({
-      el: '#nofound-template'
+      el: '#404-template'
     });
     return new Ajency.HTTPRequestCtrl({
       region: this.region

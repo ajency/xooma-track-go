@@ -56,6 +56,7 @@ class AddProductsView extends Marionette.CompositeView
 
 class App.AddProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		if App.productCollection.length is 0
 			App.productCollection.fetch().done(@_showProducts).fail(@errorHandler)
 		else
