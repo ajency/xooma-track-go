@@ -134,7 +134,7 @@
 												</li>
 												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
 
-														MY PRODUCTS</a>
+														<span class="hidden-xs">MY PRODUCTS</span></a>
 
 														
 
@@ -148,27 +148,28 @@
 		<div ui-region></div>
 </script>
 <script id="settings-template" type="text/template">
-		<div class="container"> </br></br></br>
-		
+		<div class="container"> 
 		  <div class="row">
 		 <div class="col-md-2">
 		 </div>
 			<div class="col-md-8 col-xs-12">
 			  
 			  <form class="form-horizontal m-t-30">
-  <div class="form-group "  onclick="location.href='#profile/my-products'">
+  <div class="form-group link"  onclick="location.href='#profile/my-products'">
 	<label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
   </div>
-	<div class="form-group"  onclick="location.href='#products'">
+	<div class="form-group link"  onclick="location.href='#products'">
 	<label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
   </div>
+
    <div class="form-group"  onclick="location.href='#profile/personal-info'">
 	<label  class="col-sm-12 col-xs-12  control-label">Personal Info</label>
+
   </div>
-   <div class="form-group"  onclick="location.href='#profile/measurements'">
+   <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group"  onclick="location.href='#profile/measurements'">
+   <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
   </div>
 
@@ -190,7 +191,7 @@
    </div>
 	</div>
   </div> 
-	 <div class="form-group"  onclick="location.href='unit_01.htm'">
+	 <div class="form-group link"  onclick="location.href='unit_01.htm'">
 	<label  class="col-sm-12 col-xs-12  control-label">About Xooma</label>
   </div>
 
@@ -323,7 +324,7 @@
 
 												<div class="row">
 														<div class="col-sm-12">
-																<button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
+																<button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 														</div>
 												</div>
 
@@ -466,7 +467,7 @@
 								</div>
 								<div class="row">
 												<div class="col-sm-12"><br>
-														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
+														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 												</div>
 										</div>
 				</div>
@@ -626,6 +627,16 @@
 
 
 <script id="edit-product-template" type="text/template">
+	<div class="sub-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>Edit Product</b>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container"> </br></br>
 	<div class="aj-response-message"></div>
 		<h3 class="bold">{{name}}</h3>
@@ -707,7 +718,9 @@
 
   </div>
   </div> 
-  <div class="schedule_data">
+
+  <div class="schedule_data ">
+  <div class="form-group ">
   <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
 	<div class="col-sm-6 col-xs-6 ">
 	 <div class="btn-group" role="group" aria-label="...">
@@ -716,8 +729,8 @@
 	  
 	</div>
 	</div>
-  
-  <div class="form-group">
+  	</div>
+  <div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>Quantity Per Serving</b></label>
    <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
  </div>
@@ -793,7 +806,7 @@
 	  </div>
   </div>
   </div>
-<div class="form-group ">
+<div class="form-group first-grp">
 	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set remainder</label>
 	<div class="col-sm-6 col-xs-5 ">
 	 <div class="btn-group" role="group" aria-label="...">
@@ -815,11 +828,11 @@
   </div>
   <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-	  <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+	  <button type="submit" class="btn btn-primary aj-submit-button save" name="save"><i class="fa fa-check"></i> Save</button>
 	  <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
 
 		 <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
-		  <button type="button" class="btn btn-link cancel">Cancel</button>	
+		  <button type="button" class="btn btn-link cancel"><i class="fa fa-times"></i> Cancel</button>	
 
 	</div>
   </div>
@@ -947,7 +960,7 @@
 					<input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
 						  <input type="hidden" name="total" value="{{total}}" / >
 						  
-					  <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+					  <button type="submit" class="btn btn-primary aj-submit-button save" name="save"><i class="fa fa-check"></i> Save</button>
 					  <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
 
 					</div>
@@ -980,7 +993,8 @@
 </ul>
 </div>
 </div>
-<a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
+<hr>
+<a href="#/profile/my-products" class="btn btn-primary pull-right" ><i class="fa fa-times"></i> Cancel</a>	
 
 </div>
 
@@ -1098,7 +1112,7 @@
 	  </div>
 	  <div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="button" id="submit" class="btn btn-primary">Save changes</button>
+		<button type="button" id="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save changes</button>
 	  </div>
 	</div>
   </div>
@@ -1142,7 +1156,7 @@
 	  </div>
 	  <div class="modal-footer">
 		<button type="button"  class="btn btn-default cancel" data-dismiss="modal">Close</button>
-		<button type="button" id="intake" class="btn btn-primary intake">Save changes</button>
+		<button type="button" id="intake" class="btn btn-primary intake"> <i class="fa fa-check"></i> Save changes</button>
 	  </div>
 	</div>
   </div>
