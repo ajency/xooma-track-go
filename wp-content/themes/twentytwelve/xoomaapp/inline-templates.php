@@ -155,19 +155,19 @@
 			<div class="col-md-8 col-xs-12">
 			  
 			  <form class="form-horizontal m-t-30">
-  <div class="form-group "  onclick="location.href='#profile/my-products'">
+  <div class="form-group link"  onclick="location.href='#profile/my-products'">
 	<label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
   </div>
-	<div class="form-group"  onclick="location.href='#products'">
+	<div class="form-group link"  onclick="location.href='#products'">
 	<label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
   </div>
-   <div class="form-group"  onclick="location.href='#profile/personal-info'">
+   <div class="form-group link"  onclick="location.href='#profile/personal-info'">
 	<label  class="col-sm-12 col-xs-12  control-label">Profile</label>
   </div>
-   <div class="form-group"  onclick="location.href='#profile/measurements'">
+   <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group"  onclick="location.href='#profile/measurements'">
+   <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
   </div>
 
@@ -189,7 +189,7 @@
    </div>
 	</div>
   </div> 
-	 <div class="form-group"  onclick="location.href='unit_01.htm'">
+	 <div class="form-group link"  onclick="location.href='unit_01.htm'">
 	<label  class="col-sm-12 col-xs-12  control-label">About Xooma</label>
   </div>
 
@@ -991,6 +991,7 @@
 </ul>
 </div>
 </div>
+<hr>
 <a href="#/profile/my-products" class="btn btn-primary pull-right" ><i class="fa fa-times"></i> Cancel</a>	
 
 </div>

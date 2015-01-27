@@ -6364,6 +6364,9 @@ html,
 body {
   height: 100%;
 }
+.link {
+  cursor: pointer;
+}
 body > .container {
   padding: 0;
 }
@@ -7323,7 +7326,7 @@ packet_expected_class {
   line-height: 20px;
   position: absolute;
   color: #3099ea;
-  margin-top: -7px;
+  margin-top: 1px;
   left: 0px;
 }
 .circle {
@@ -10047,7 +10050,6 @@ packet_expected_class {
 /* Main container */
 .cbp-vm-switcher {
   padding: 20px;
-  border: 3px solid #47a3da;
 }
 /* options/select wrapper with switch anchors */
 .cbp-vm-options {
@@ -10098,11 +10100,16 @@ packet_expected_class {
 .cbp-vm-image {
   display: block;
   margin: 0 auto;
+  height: 160px;
+  overflow: hidden;
 }
 .cbp-vm-image img {
   display: inline-block;
   max-width: 100%;
   border: none;
+}
+.cbp-vm-view-list .cbp-vm-image {
+  height: auto;
 }
 .cbp-vm-title {
   margin: 0;
@@ -10404,7 +10411,7 @@ textarea.form-control {
   top: 0;
 }
 output {
-  font-size: 4rem !important;
+  font-size: 3rem !important;
   font-weight: 600;
   margin-top: -33px;
   display: inline-block !important;
@@ -10475,7 +10482,7 @@ input[type="range"] {
   position: relative !important;
 }
 .bold-sum {
-  font-size: 4rem !important;
+  font-size: 3rem !important;
   font-weight: 600;
   margin: 0px;
   display: inline-block !important;
