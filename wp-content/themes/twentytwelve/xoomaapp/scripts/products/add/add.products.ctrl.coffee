@@ -65,7 +65,10 @@ class App.AddProductsCtrl extends Ajency.RegionController
 	_showProducts : =>
 		userProducts = App.currentUser.get 'products'
 		collectionArr = App.productCollection.where({active_value:'1'})
-		App.productCollection.reset collectionArr
+		$.each collectionArr , (ind,val)->
+			if $.inArray(val.get('id'),userProducts)
+				temp.push val
+		App.productCollection.reset temp
 		filteredCollection = App.productCollection.clone()
 		@show new AddProductsView
 						collection : filteredCollection

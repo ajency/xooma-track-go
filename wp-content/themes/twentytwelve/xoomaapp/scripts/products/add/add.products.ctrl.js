@@ -102,7 +102,12 @@ App.AddProductsCtrl = (function(_super) {
     collectionArr = App.productCollection.where({
       active_value: '1'
     });
-    App.productCollection.reset(collectionArr);
+    $.each(collectionArr, function(ind, val) {
+      if ($.inArray(val.get('id'), userProducts)) {
+        return temp.push(val);
+      }
+    });
+    App.productCollection.reset(temp);
     filteredCollection = App.productCollection.clone();
     return this.show(new AddProductsView({
       collection: filteredCollection
