@@ -75,7 +75,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 				fromnow = moment(meta_value.date+timezone).fromNow()
 				qty = meta_value.qty
 				arr++
-				html += '<li class="work"><div class="relative">
+				html += '<li class="work'+meta_id+'"><div class="relative">
 				      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
 				      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""> ('+fromnow+' ) </small></span>
                     <span class="circle"></span>

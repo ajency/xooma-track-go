@@ -97,7 +97,7 @@ ViewProductHistoryView = (function(_super) {
         fromnow = moment(meta_value.date + timezone).fromNow();
         qty = meta_value.qty;
         arr++;
-        return html += '<li class="work"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
+        return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
       } else {
         i = 0;
         data = ViewProductHistoryView.prototype.getCount(index.get('meta_value'));
