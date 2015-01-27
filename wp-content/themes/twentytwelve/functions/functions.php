@@ -1158,65 +1158,67 @@ function get_history_user_product($id,$product_id){
 				$sql =  $wpdb->get_results("SELECT *,DATE(occurrence) as datefield from $table_name where DATE(occurrence)='".$value."' and schedule_id=".$schedule);
 
 				$qty = 0;
-				foreach ($sql as $key => $val) {
+				// foreach ($sql as $key => $val) {
 
-					$object = (object)$val->meta_value;
-				 	$total = count((array)$object);
-					$qty = 0;
-					if($total == 2)
-					{
-							$data = maybe_unserialize($val->meta_value);
-							$qty += intval($data['qty']);
-					}
-					else
-					{
-							$data = maybe_unserialize($val->meta_value);
+				// 	$object = (object)$val->meta_value;
+				//  	$total = count((array)$object);
+				// 	$qty = 0;
+				// 	if($total == 2)
+				// 	{
+				// 			$data = maybe_unserialize($val->meta_value);
+				// 			$qty = intval($qty) +  intval($data['qty']);
+				// 	}
+				// 	else
+				// 	{
+				// 			$data = maybe_unserialize($val->meta_value);
 							
 					
-							foreach ($data  as $value) {
+				// 			foreach ($data   as $key=> $value) {
 
 								
 
-								if(is_array($value))
-								{
-									foreach ($value  as $val) {
+				// 				if(is_array($value))
+				// 				{
+				// 					foreach ($value   as $key=> $val) {
+
+				// 						$object1 = (object)$val;
+				// 						echo $total = count((array)$object1);
+
+				// 						if($total > 2)
+				// 						{
+				// 							print_r($val);
+				// 							foreach ($val  as $key=>$val1) {
+											
+										
+				// 							$qty = intval($qty) +  intval($val1['qty']);
+
+				// 							}
+				// 						}
+				// 						else
+				// 						{
+				// 							$qty = intval($qty) + intval($val->qty);
+				// 						}
+										
 
 										
 
-										if(is_array($val))
-										{
-											foreach ($val  as $val1) {
-												
-										
-											$qty += intval($val1['qty']);
 
-											}
-										}
-										else
-										{
-											$qty += intval($val['qty']);
-										}
-										
-
-										
-
-
-									}
-								}
-								else
-								{
-									$qty += intval($value['qty']);
-								}
+				// 					}
+				// 				}
+				// 				else
+				// 				{
+				// 					$qty = intval($qty) +  intval($value['qty']);
+				// 				}
 									
 									
-							}
+				// 			}
 
-					}
+				// 	}
 
 					
 
 
-				}
+				// }
 				$i++;
 			 	$sales_data = $sales->sales == null ? 0 : $sales->sales;
 				$transaction[] = array(
