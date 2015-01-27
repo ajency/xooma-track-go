@@ -1186,7 +1186,7 @@ function get_history_user_product($id,$product_id){
 										if(is_array($val))
 										{
 											foreach ($val  as $val1) {
-												print_r($val1);
+												
 										
 											$qty += intval($val1['qty']);
 

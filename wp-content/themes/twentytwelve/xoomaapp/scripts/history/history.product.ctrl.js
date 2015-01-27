@@ -127,7 +127,9 @@ ViewProductHistoryView = (function(_super) {
         qty: val.qty
       });
     } else {
-      _.each(val, function(val1) {
+      console.log(val);
+      $.each(val, function(ind, val1) {
+        console.log(val1);
         if (_.isArray(val1)) {
           return _.each(val1, function(value) {
             return count.push({
