@@ -90,7 +90,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 					qty = val.qty
 					meta_id = parseInt(index.get('meta_id')) + parseInt(i) 
 					arr++
-					html += '<li class="work"><div class="relative">
+					html += '<li class="work'+meta_id+'"><div class="relative">
 					      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
 					      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""> ('+fromnow+' ) </small></span>
 	                    <span class="circle"></span>

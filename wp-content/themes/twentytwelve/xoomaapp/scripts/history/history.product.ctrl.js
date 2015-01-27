@@ -108,7 +108,7 @@ ViewProductHistoryView = (function(_super) {
           qty = val.qty;
           meta_id = parseInt(index.get('meta_id')) + parseInt(i);
           arr++;
-          return html += '<li class="work"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
+          return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
         });
       }
     });
