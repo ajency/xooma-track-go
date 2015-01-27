@@ -58,6 +58,10 @@ class AsperbmiView extends Marionette.ItemView
 			if parseInt(cnt) is 1
 				cnt = 0
 			$('.bottlecnt').text cnt
+			@ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!")
+			$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
 		else
 			@showErrorMsg()
 
@@ -101,7 +105,6 @@ class AsperbmiView extends Marionette.ItemView
 			occur = data
 			bonus = 0
 			count1 = 0
-				
 			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
 			$('.bonus').text bonus
 			_.each occur , (val)=>
@@ -120,7 +123,7 @@ class AsperbmiView extends Marionette.ItemView
 				else
 					@create_occurrences()
 					return false
-			if(parseInt(@model.get('occurrence').length)) == parseInt count1
+			if(parseInt(@model.get('occurrence').length) == parseInt count1)
 				@create_occurrences()
 				
 	create_occurrences:()=>

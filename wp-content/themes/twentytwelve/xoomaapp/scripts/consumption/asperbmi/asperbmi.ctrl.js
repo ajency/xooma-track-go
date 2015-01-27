@@ -77,7 +77,11 @@ AsperbmiView = (function(_super) {
       if (parseInt(cnt) === 1) {
         cnt = 0;
       }
-      return $('.bottlecnt').text(cnt);
+      $('.bottlecnt').text(cnt);
+      this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     } else {
       return this.showErrorMsg();
     }
@@ -154,7 +158,7 @@ AsperbmiView = (function(_super) {
         }
       };
     })(this));
-    if ((parseInt(this.model.get('occurrence').length)) === parseInt(count1)) {
+    if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
       return this.create_occurrences();
     }
   };
