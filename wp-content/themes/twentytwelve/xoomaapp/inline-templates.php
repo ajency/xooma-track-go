@@ -322,7 +322,7 @@
 
 												<div class="row">
 														<div class="col-sm-12">
-																<button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
+																<button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 														</div>
 												</div>
 
@@ -465,7 +465,7 @@
 								</div>
 								<div class="row">
 												<div class="col-sm-12"><br>
-														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button">Save</button>
+														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 												</div>
 										</div>
 				</div>
@@ -826,11 +826,11 @@
   </div>
   <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-	  <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+	  <button type="submit" class="btn btn-primary aj-submit-button save" name="save"><i class="fa fa-check"></i> Save</button>
 	  <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
 
 		 <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
-		  <button type="button" class="btn btn-link cancel">Cancel</button>	
+		  <button type="button" class="btn btn-link cancel"><i class="fa fa-times"></i> Cancel</button>	
 
 	</div>
   </div>
@@ -958,7 +958,7 @@
 					<input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
 						  <input type="hidden" name="total" value="{{total}}" / >
 						  
-					  <button type="submit" class="btn btn-primary aj-submit-button save" name="save">Save</button>
+					  <button type="submit" class="btn btn-primary aj-submit-button save" name="save"><i class="fa fa-check"></i> Save</button>
 					  <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
 
 					</div>
@@ -991,7 +991,7 @@
 </ul>
 </div>
 </div>
-<a href="#/profile/my-products" class="btn btn-primary pull-right" >Cancel</a>	
+<a href="#/profile/my-products" class="btn btn-primary pull-right" ><i class="fa fa-times"></i> Cancel</a>	
 
 </div>
 
@@ -1117,7 +1117,7 @@
 	  </div>
 	  <div class="modal-footer">
 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="button" id="submit" class="btn btn-primary">Save changes</button>
+		<button type="button" id="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save changes</button>
 	  </div>
 	</div>
   </div>
@@ -1161,7 +1161,7 @@
 	  </div>
 	  <div class="modal-footer">
 		<button type="button"  class="btn btn-default cancel" data-dismiss="modal">Close</button>
-		<button type="button" id="intake" class="btn btn-primary intake">Save changes</button>
+		<button type="button" id="intake" class="btn btn-primary intake"> <i class="fa fa-check"></i> Save changes</button>
 	  </div>
 	</div>
   </div>
