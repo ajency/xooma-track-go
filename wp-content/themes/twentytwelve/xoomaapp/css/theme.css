@@ -6497,8 +6497,17 @@ body > .container {
 .dotted-line li i {
   font-size: 40px;
 }
-.dotted-line li:nth-child(3) {
+.dotted-line li:nth-child(2) {
   border: 0px !important;
+}
+.no-dotted li {
+  border-right: 0px!important;
+}
+.no-dotted li i {
+  font-size: 1.2em;
+  display: block !important;
+  color: #ccc;
+  padding: 10px 40px;
 }
 /*** Error Ui ***/
 .parsley-errors-list {
@@ -6512,6 +6521,9 @@ text {
 }
 .mid-title {
   position: relative;
+}
+.mid-title span {
+  font-size: 0.6em;
 }
 .element-animation {
   animation: animationFrames ease-in 2s;
@@ -6764,6 +6776,12 @@ img {
   border: 0;
 }
 /** Capsule-Caplets product-type **/
+.cap {
+  background: url(../images/capsule.png) no-repeat;
+  width: 31px;
+  height: 41px;
+  display: inline-block;
+}
 .sprite-1 {
   background: url(../images/sprite-type.png) no-repeat;
   width: 18px;

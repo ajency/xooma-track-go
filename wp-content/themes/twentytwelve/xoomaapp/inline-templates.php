@@ -161,10 +161,8 @@
 	<div class="form-group link"  onclick="location.href='#products'">
 	<label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
   </div>
-
-   <div class="form-group"  onclick="location.href='#profile/personal-info'">
-	<label  class="col-sm-12 col-xs-12  control-label">Personal Info</label>
-
+   <div class="form-group link"  onclick="location.href='#profile/personal-info'">
+	<label  class="col-sm-12 col-xs-12  control-label">Profile</label>
   </div>
    <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
@@ -304,7 +302,7 @@
 														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 
-																<input class="form-control" type="text" id="birth_date" name="profile[birth_date]" required />
+																<input class="form-control" type="text" name="profile[birth_date]" required />
 														</div>
 												</div>
 												<div class="form-group">
@@ -340,7 +338,7 @@
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
-				<input type="text"  id="update">
+				<button type="button" class="btn btn-primary pull-right update"><i class="fa fa-calendar"></i> Update</button>
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
@@ -476,22 +474,130 @@
 
 <script id="home-template" type="text/template">
 		<div class="container"> </br></br></br>
-		<div class="aj-response-message"> 
+					<div class="aj-response-message"> </div>
 	 <div class="row">
-			<div class="col-md-3"> 
-			</div>
-		 <div class="col-md-6"> 
-		 <div ui-region="x2o">
+				<div class="col-md-2"> 
+				</div>
+				 <div class="col-md-8"> 
+					 <div ui-region="x2o">
 			  
-			</div>
-		   <br>   
-	   <div ui-region="other-products">
+					</div>
+		  			 <br>   
+	   				<div ui-region="other-products">
 	   
-		 </div>         
+					 </div> 
+					  <div class="panel panel-default">
+				          <div class="panel-body">
+				            <h5 class=" margin-none  mid-title">Focus Up <span>( 3 Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+				                <ul class="dropdown-menu pull-right" role="menu">
+								    <li><a href="#">View</a></li>
+								    <li><a href="#">Another action</a></li>
+								    <li><a href="#">Something else here</a></li>
+								    <li class="divider"></li>
+								    <li><a href="#">Delete</a></li>
+								 </ul>
+				 			 </h5>
+				                 <ul class="list-inline text-center row dotted-line m-t-20">
+				                      <li class="col-md-8 col-xs-8"> 
+				                   		 <ul class="list-inline text-center no-dotted row">
+				                   		 	<li class="col-md-4 col-xs-4">
+				                   		 	 <a ><img src="<?php echo get_template_directory_uri();?>/images/btn_03.png" width="70px"></a>
+				                       		  <h6 class="text-center margin-none">Tap to take capsule</h6>
+				                        		<h6 class="text-center text-primary">9:00 am</h6>
+				                   		 	</li>
+				                   		 	<li class="col-md-4 col-xs-4">
+				                   		 	  <i class="fa fa-clock-o center-block"></i>
+					                   		 	 <a >
+					                   		 	 	<div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 </a>
+				                       		
+				                        		<h6 class="text-center text-primary">12:00 pm</h6>
+				                   		 	</li>
+				                   		 	<li class="col-md-4 col-xs-4">
+				                   		 	  <i class="fa fa-clock-o center-block"></i>
+					                   		 	 <a >
+					               				    <div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 </a>
+				                       		
+				                        		<h6 class="text-center text-primary">14:00 pm</h6>
+				                   		 	</li>
 
-		</div>
-	</div>
-	<div class="panel panel-default">
+				                   		 </ul>	
+				                   		
+				                      </li>
+				                       
+				                        <li class="col-md-4 col-xs-4">
+				                            <h5 class="text-center">Status</h5>
+				                                <i class="fa fa-smile-o"></i>  
+				                            <h6 class="text-center margin-none">Complete the last one</h6>
+				                        </li>
+				                    </ul>
+				          </div>
+				          <div class="panel-footer"><i id="bell" class="fa fa-bell-o element-animation"></i> Hey John ! You forgot to take pills at 9:00 pm</div>
+				</div>
+  
+					 <br>
+					 <div class="panel panel-default">
+				          <div class="panel-body">
+				            <h5 class=" margin-none  mid-title">Focus Up <span>( 3 Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+				                <ul class="dropdown-menu pull-right" role="menu">
+								    <li><a href="#">View</a></li>
+								    <li><a href="#">Another action</a></li>
+								    <li><a href="#">Something else here</a></li>
+								    <li class="divider"></li>
+								    <li><a href="#">Delete</a></li>
+								 </ul>
+				 			 </h5>
+				                 <ul class="list-inline text-center row dotted-line m-t-20">
+				                      <li class="col-md-8 col-xs-8"> 
+				                   		 <ul class="list-inline text-center no-dotted row">
+				                   		 	
+				                   		 	<li class="col-md-4 col-xs-4">
+				                   		 	  <i class="fa fa-check center-block"></i>
+					                   		 	 <a >
+					                   		 	 	<div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 </a>
+				                       		
+				                        		<h6 class="text-center text-primary">12:00 pm</h6>
+				                   		 	</li>
+				                   		 	<li class="col-md-4 col-xs-4">
+				                   		 	 <a ><img src="<?php echo get_template_directory_uri();?>/images/btn_03.png" width="70px"></a>
+				                       		  <h6 class="text-center margin-none">Tap to take capsule</h6>
+				                        		<h6 class="text-center text-primary">9:00 am</h6>
+				                   		 	</li>
+				                   		 	<li class="col-md-4 col-xs-4">
+				                   		 	  <i class="fa fa-clock-o center-block"></i>
+					                   		 	 <a >
+					               				    <div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 	<div class="cap"></div>
+					                   		 	 </a>
+				                       		
+				                        		<h6 class="text-center text-primary">14:00 pm</h6>
+				                   		 	</li>
+
+				                   		 </ul>	
+				                   		
+				                      </li>
+				                       
+				                        <li class="col-md-4 col-xs-4">
+				                            <h5 class="text-center">Status</h5>
+				                                <i class="fa fa-smile-o"></i>  
+				                            <h6 class="text-center margin-none">Complete the last one</h6>
+				                        </li>
+				                    </ul>
+				          </div>
+				          <div class="panel-footer"><i id="bell" class="fa fa-bell-o element-animation"></i> Hey John ! You forgot to take pills at 9:00 pm</div>
+				</div>
+					
+					 <br>
+					 <div class="panel panel-default">
 		  <div class="panel-body">
 			<h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
@@ -536,7 +642,7 @@
 								</select>
 						</li>
 					</ul>
-					<br/>
+					</br>
 					<button type="button" name="generate" class="aj-submit-button" >Generate</button>
 	<div class="clearfix"></div><br>
 	<div style="width:100%">
@@ -545,7 +651,13 @@
 			</div>
 		</div>
 		  </div>
-</div>
+</div>        
+
+				</div>
+				<div class="col-md-2"> 
+				</div>
+	</div>
+	
 </script>
 
 
@@ -553,7 +665,7 @@
 <script id="produts-template" type="h-template">
 
 <div id="xoomaproduct" class="section">
-				<h4 class="text-center"> List of Xooma products</h4>
+				<h4 class="text-center"> List Of xooma products</h4>
 	
 		<div class="container">
 		<div class="aj-response-message"> 
@@ -905,7 +1017,7 @@
 			</label>
 			<div class="col-sm-6 col-xs-5">
 				<select class="form-control" name="containers" id="containers">
-				<option value="0">Please select</option>
+				<option value="0"></option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -993,7 +1105,6 @@
 </ul>
 </div>
 </div>
-<hr>
 <a href="#/profile/my-products" class="btn btn-primary pull-right" ><i class="fa fa-times"></i> Cancel</a>	
 
 </div>
@@ -1009,7 +1120,11 @@
               <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
               <form class="form-horizontal ">
 
-                    <div id="picker_inline_fixed"></div>
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>
@@ -1028,10 +1143,14 @@
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
-              <h3 class="text-center "><span class="name"></span><small> Progress History</small></h3>
+              <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
               <form class="form-horizontal ">
 
-                    <div id="picker_inline_fixed"></div>
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>
