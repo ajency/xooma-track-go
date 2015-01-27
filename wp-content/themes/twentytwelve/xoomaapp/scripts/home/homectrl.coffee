@@ -1,3 +1,12 @@
+App.state 'home',
+				url : '/home'
+				parent : 'xooma'
+				sections : 
+					'x2o' : 
+						ctrl : 'HomeX2OCtrl'
+					'other-products' : 
+						ctrl : 'HomeOtherProductsCtrl'
+
 class HomeLayoutView extends Marionette.LayoutView
 
 	template : '#home-template'
@@ -319,7 +328,7 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.findWhere({name:'X2O'}) 
+		console.log model = productcollection.findWhere({name:'X2O'}) 
 		if model != undefined
 			if model.get('name').toUpperCase() == 'X2O'
 				modelColl = new Backbone.Collection model

@@ -16,6 +16,7 @@ ViewProductHistoryView = (function(_super) {
     this.getCount = __bind(this.getCount, this);
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
+    this.loadData = __bind(this.loadData, this);
     return ViewProductHistoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -37,21 +38,18 @@ ViewProductHistoryView = (function(_super) {
     var product;
     product = Marionette.getOption(this, 'id');
     this.loadData(product);
-    return $('#picker_inline_fixed').pickadate({
-      max: new Date(),
-      onOpen: function() {
-        return scrollPageTo(this.$node);
-      },
-      onClose: function() {
-        return $('body').css('overflow', '');
-      }
+    return $('#picker_inline_fixed').datepicker({
+      inline: true,
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true
     });
   };
 
   ViewProductHistoryView.prototype.loadData = function(id) {
     var date, product;
     console.log(product = id);
-    date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
+    console.log(date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD"));
     if ($('#picker_inline_fixed').val() === "") {
       date = moment().format("YYYY-MM-DD");
     }

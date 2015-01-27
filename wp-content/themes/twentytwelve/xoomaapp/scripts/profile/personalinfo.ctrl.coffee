@@ -22,22 +22,31 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 
-	onShow:->
-		$('#profile').parent().removeClass 'done'
-		$('#profile').parent().addClass 'selected'
-		$('#profile').parent().siblings().removeClass 'selected'
-		$('#profile').parent().prevAll().addClass 'done'
-		
+	onRender:->
+		$('#birth_date').datepicker({
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+		    maxDate: new Date()
+			     
+			   
+		    
+		});
+		state = App.currentUser.get 'state'
+		if state == '/home'
+			$('.measurements_update').removeClass 'hidden'
+			$('#profile').parent().removeClass 'done'
+			$('#profile').parent().addClass 'selected'
+			$('#profile').parent().siblings().removeClass 'selected'
+			$('#profile').parent().nextAll().addClass 'done'
+
+
 		Backbone.Syphon.deserialize @, @model.toJSON()
-		@ui.dateElement.pickadate(
-			formatSubmit: 'yyyy-mm-dd'
-			hiddenName: true
-			max: new Date()
-			selectYears: 70
-			)
-		birth_date = @model.get('profile').birth_date
-		picker = @ui.dateElement.pickadate('picker')
-		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
+		
+		    
+		
+
+
 		
 
 	#to initialize validate plugin

@@ -20,13 +20,15 @@ class MeasurementHistoryView extends Marionette.ItemView
 	onShow:->
 		product = Marionette.getOption( @, 'id' )
 		@loadData(product)
-		$( '#picker_inline_fixed' ).pickadate
-			max : new Date()
-			onOpen:->
-				scrollPageTo( @$node )
-			,
-			onClose:->
-				$( 'body' ).css( 'overflow', '' )
+		$('#picker_inline_fixed').datepicker({
+		    inline: true,
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+			     
+			   
+		    
+		});
 
 	loadData:(id)->
 			console.log product = id

@@ -163,7 +163,7 @@
 	<label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
   </div>
    <div class="form-group"  onclick="location.href='#profile/personal-info'">
-	<label  class="col-sm-12 col-xs-12  control-label">Profile</label>
+	<label  class="col-sm-12 col-xs-12  control-label">Personal Info</label>
   </div>
    <div class="form-group"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
@@ -303,7 +303,7 @@
 														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 
-																<input class="form-control" type="text" name="profile[birth_date]" required />
+																<input class="form-control" type="text" id="birth_date" name="profile[birth_date]" required />
 														</div>
 												</div>
 												<div class="form-group">
@@ -339,7 +339,7 @@
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
-				<button type="button" class="btn btn-primary pull-right update"><i class="fa fa-calendar"></i> Update</button>
+				<input type="text"  id="update">
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
@@ -552,7 +552,7 @@
 <script id="produts-template" type="h-template">
 
 <div id="xoomaproduct" class="section">
-				<h4 class="text-center"> List Of xooma products</h4>
+				<h4 class="text-center"> List of Xooma products</h4>
 	
 		<div class="container">
 		<div class="aj-response-message"> 
@@ -892,7 +892,7 @@
 			</label>
 			<div class="col-sm-6 col-xs-5">
 				<select class="form-control" name="containers" id="containers">
-				<option value="0"></option>
+				<option value="0">Please select</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -995,11 +995,7 @@
               <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
               <form class="form-horizontal ">
 
-                    <section class="holder" id="inline_fixed">
-                      <fieldset class="picker-holder--inline-fixed">
-                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
-                      </fieldset>
-                    </section>
+                    <div id="picker_inline_fixed"></div>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>
@@ -1018,14 +1014,10 @@
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
-              <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
+              <h3 class="text-center "><span class="name"></span><small> Progress History</small></h3>
               <form class="form-horizontal ">
 
-                    <section class="holder" id="inline_fixed">
-                      <fieldset class="picker-holder--inline-fixed">
-                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
-                      </fieldset>
-                    </section>
+                    <div id="picker_inline_fixed"></div>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>

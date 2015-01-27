@@ -4,6 +4,19 @@ var HomeLayoutView, HomeOtherProductsView, HomeX2OView, HomeX2OViewChild, Produc
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+App.state('home', {
+  url: '/home',
+  parent: 'xooma',
+  sections: {
+    'x2o': {
+      ctrl: 'HomeX2OCtrl'
+    },
+    'other-products': {
+      ctrl: 'HomeOtherProductsCtrl'
+    }
+  }
+});
+
 HomeLayoutView = (function(_super) {
   __extends(HomeLayoutView, _super);
 
@@ -364,9 +377,9 @@ App.HomeX2OCtrl = (function(_super) {
   HomeX2OCtrl.prototype._showView = function(collection) {
     var model, modelColl, productcollection;
     productcollection = collection.clone();
-    model = productcollection.findWhere({
+    console.log(model = productcollection.findWhere({
       name: 'X2O'
-    });
+    }));
     if (model !== void 0) {
       if (model.get('name').toUpperCase() === 'X2O') {
         modelColl = new Backbone.Collection(model);

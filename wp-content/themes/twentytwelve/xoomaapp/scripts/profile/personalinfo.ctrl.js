@@ -43,24 +43,23 @@ ProfilePersonalInfoView = (function(_super) {
     });
   };
 
-  ProfilePersonalInfoView.prototype.onShow = function() {
-    var birth_date, picker;
-    $('#profile').parent().removeClass('done');
-    $('#profile').parent().addClass('selected');
-    $('#profile').parent().siblings().removeClass('selected');
-    $('#profile').parent().prevAll().addClass('done');
-    Backbone.Syphon.deserialize(this, this.model.toJSON());
-    this.ui.dateElement.pickadate({
-      formatSubmit: 'yyyy-mm-dd',
-      hiddenName: true,
-      max: new Date(),
-      selectYears: 70
+  ProfilePersonalInfoView.prototype.onRender = function() {
+    var state;
+    $('#birth_date').datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true,
+      maxDate: new Date()
     });
-    birth_date = this.model.get('profile').birth_date;
-    picker = this.ui.dateElement.pickadate('picker');
-    return picker.set('select', birth_date, {
-      format: 'yyyy-mm-dd'
-    });
+    state = App.currentUser.get('state');
+    if (state === '/home') {
+      $('.measurements_update').removeClass('hidden');
+      $('#profile').parent().removeClass('done');
+      $('#profile').parent().addClass('selected');
+      $('#profile').parent().siblings().removeClass('selected');
+      $('#profile').parent().nextAll().addClass('done');
+    }
+    return Backbone.Syphon.deserialize(this, this.model.toJSON());
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {

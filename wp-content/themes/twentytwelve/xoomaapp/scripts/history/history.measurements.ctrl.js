@@ -36,14 +36,11 @@ MeasurementHistoryView = (function(_super) {
     var product;
     product = Marionette.getOption(this, 'id');
     this.loadData(product);
-    return $('#picker_inline_fixed').pickadate({
-      max: new Date(),
-      onOpen: function() {
-        return scrollPageTo(this.$node);
-      },
-      onClose: function() {
-        return $('body').css('overflow', '');
-      }
+    return $('#picker_inline_fixed').datepicker({
+      inline: true,
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true
     });
   };
 

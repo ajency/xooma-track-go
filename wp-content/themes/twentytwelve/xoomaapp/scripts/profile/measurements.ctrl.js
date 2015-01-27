@@ -42,26 +42,6 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.events = {
     'change @ui.rangeSliders': function(e) {
       return this.valueOutput(e.currentTarget);
-    },
-    'click @ui.update': function(e) {
-      var date;
-      date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
-      return this.ui.update.pickadate({
-        formatSubmit: 'yyyy-mm-dd',
-        hiddenName: true,
-        max: new Date(),
-        min: new Date(date),
-        onClose: (function(_this) {
-          return function() {
-            var $input, picker, selected;
-            $input = _this.ui.update.pickadate();
-            picker = $input.pickadate('picker');
-            selected = picker.get();
-            date = moment(selected).format('YYYY-MM-DD');
-            return $('#date_field').val(date);
-          };
-        })(this)
-      });
     }
   };
 
@@ -81,11 +61,18 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var state;
-    $('#measurement').parent().removeClass('done');
-    $('#measurement').parent().addClass('selected');
-    $('#measurement').parent().siblings().removeClass('selected');
-    $('#measurement').parent().prevAll().addClass('done');
+    var date, state;
+    date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
+    $('#update').datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true,
+      maxDate: new Date(),
+      minDate: new Date(date),
+      onSelect: function(dateText, inst) {
+        return $('#date_field').val(dateText);
+      }
+    });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
         return _this.valueOutput(ele);
@@ -106,7 +93,12 @@ ProfileMeasurementsView = (function(_super) {
     };
     state = App.currentUser.get('state');
     if (state === '/home') {
-      return $('.measurements_update').removeClass('hidden');
+      $('.measurements_update').removeClass('hidden');
+      $('#measurement').parent().removeClass('done');
+      $('#measurement').parent().addClass('selected');
+      $('#measurement').parent().siblings().removeClass('selected');
+      $('#measurement').parent().prevAll().addClass('done');
+      return $('#measurement').parent().nextAll().addClass('done');
     }
   };
 

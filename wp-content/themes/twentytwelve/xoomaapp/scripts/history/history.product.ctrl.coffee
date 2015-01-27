@@ -15,22 +15,26 @@ class ViewProductHistoryView extends Marionette.ItemView
 		'click #show':->
 			product = Marionette.getOption( @, 'id' )
 			@loadData(product)
+		
+
 
 
 	onShow:->
 		product = Marionette.getOption( @, 'id' )
 		@loadData(product)
-		$( '#picker_inline_fixed' ).pickadate
-			max : new Date()
-			onOpen:->
-				scrollPageTo( @$node )
-			,
-			onClose:->
-				$( 'body' ).css( 'overflow', '' )
+		$('#picker_inline_fixed').datepicker({
+		    inline: true,
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+			     
+			   
+		    
+		});
 
-	loadData:(id)->
+	loadData:(id)=>
 			console.log product = id
-			date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
+			console.log date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
 			if $('#picker_inline_fixed').val() == ""
 				date = moment().format("YYYY-MM-DD")
 			$.ajax

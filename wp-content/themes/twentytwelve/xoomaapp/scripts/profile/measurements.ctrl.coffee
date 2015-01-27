@@ -27,26 +27,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
-		'click @ui.update':(e)->
-			date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
-			@ui.update.pickadate(
-				formatSubmit: 'yyyy-mm-dd'
-				hiddenName: true
-				max: new Date()
-				min : new Date(date)
-				onClose:=>
-					$input = @ui.update.pickadate()
-					picker = $input.pickadate('picker')
-					selected =  picker.get()
-					date = moment(selected).format('YYYY-MM-DD')
-					$('#date_field').val date
-
-				
-			)
-
-			
-
-
 	keydown:(e)->
 		if  e.charCode == 46
 			console.log inputVal = $(e.target).val().split('.').length
@@ -62,11 +42,21 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onShow:->
-		$('#measurement').parent().removeClass 'done'
-		$('#measurement').parent().addClass 'selected'
-		$('#measurement').parent().siblings().removeClass 'selected'
-		$('#measurement').parent().prevAll().addClass 'done'
-		
+		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
+		$('#update').datepicker(
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+		    maxDate: new Date()
+		    minDate : new Date(date)
+		    onSelect: (dateText, inst)->
+		    	$('#date_field').val dateText
+
+
+		     
+		   
+	    
+		)
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
@@ -74,6 +64,12 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'
+			$('#measurement').parent().removeClass 'done'
+			$('#measurement').parent().addClass 'selected'
+			$('#measurement').parent().siblings().removeClass 'selected'
+			$('#measurement').parent().prevAll().addClass 'done'
+			$('#measurement').parent().nextAll().addClass 'done'
+		
 		
 		
 		

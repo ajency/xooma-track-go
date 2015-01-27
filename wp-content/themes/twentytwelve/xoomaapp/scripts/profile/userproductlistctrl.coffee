@@ -199,12 +199,13 @@ class UserProductListView extends Marionette.CompositeView
 
 		
 	onRender:->
-		$('#product').parent().removeClass 'done'
-		$('#product').parent().addClass 'selected'
-		$('#product').parent().siblings().removeClass 'selected'
-		$('#product').parent().prevAll().addClass 'done'
 		if App.currentUser.get('state') == '/home'
 			@ui.saveProducts.hide()
+			$('#product').parent().removeClass 'done'
+			$('#product').parent().addClass 'selected'
+			$('#product').parent().siblings().removeClass 'selected'
+			$('#product').parent().prevAll().addClass 'done'
+		
 		if parseInt(App.useProductColl.length) == 0
 				@ui.add1.hide()
 				

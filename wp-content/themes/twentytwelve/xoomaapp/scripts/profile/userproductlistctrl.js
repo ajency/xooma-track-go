@@ -212,12 +212,12 @@ UserProductListView = (function(_super) {
   };
 
   UserProductListView.prototype.onRender = function() {
-    $('#product').parent().removeClass('done');
-    $('#product').parent().addClass('selected');
-    $('#product').parent().siblings().removeClass('selected');
-    $('#product').parent().prevAll().addClass('done');
     if (App.currentUser.get('state') === '/home') {
       this.ui.saveProducts.hide();
+      $('#product').parent().removeClass('done');
+      $('#product').parent().addClass('selected');
+      $('#product').parent().siblings().removeClass('selected');
+      $('#product').parent().prevAll().addClass('done');
     }
     if (parseInt(App.useProductColl.length) === 0) {
       return this.ui.add1.hide();
