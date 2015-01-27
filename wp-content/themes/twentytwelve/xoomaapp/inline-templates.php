@@ -127,13 +127,17 @@
 								<div class="col-sm-12">
 										<ul class="list-inline">
 												<li class="tag"><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
-														PERSONAL INFO</a>
+														<span class="hidden-xs"> PERSONAL INFO</span></a>
 												</li>
 												<li class="tag"><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
-														MEASUREMENT</a>
+														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
 												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
+
 														MY PRODUCTS</a>
+
+														
+
 												</li>
 										</ul>
 								</div>
@@ -611,11 +615,11 @@
 
 </script>
 <script id="current-user-template" type="text/template">
-<div data-placement="bottom" data-toggle="popover" title="{{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
+<div data-placement="bottom" data-toggle="popover" title="Welcome to xooma {{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
 				<div class="hidden popover-content">
 					<div class="text-center">
 						<img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-						<button class="btn btn-small logout-button" >Logout</button>
+						<a class="btn btn-small logout-button" >Logout</a>
 					</div>
 				</div>
 </script>

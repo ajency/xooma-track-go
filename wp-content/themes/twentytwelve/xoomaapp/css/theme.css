@@ -924,9 +924,7 @@ img {
 }
 .img-responsive,
 .thumbnail > img,
-.thumbnail a > img,
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.thumbnail a > img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -7028,9 +7026,7 @@ packet_expected_class {
 }
 .img-responsive,
 .thumbnail > img,
-.thumbnail a > img,
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.thumbnail a > img {
   width: 100%;
 }
 /* Bottle consuptimon */
@@ -10360,6 +10356,14 @@ textarea.form-control {
 .rd-gender .parsley-errors-list {
   position: absolute;
   bottom: -17px;
+}
+@media (max-width: 768px) {
+  .rd-gender {
+    width: 100%;
+  }
+  .rd-gender .parsley-errors-list {
+    bottom: -67px;
+  }
 }
 .rd-visual.male::before {
   background: url(../images/male.png) no-repeat;

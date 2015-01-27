@@ -97,13 +97,14 @@ App.AddProductsCtrl = (function(_super) {
   };
 
   AddProductsCtrl.prototype._showProducts = function() {
-    var collectionArr, filteredCollection, userProducts;
+    var collectionArr, filteredCollection, temp, userProducts;
     userProducts = App.currentUser.get('products');
     collectionArr = App.productCollection.where({
       active_value: '1'
     });
+    temp = [];
     $.each(collectionArr, function(ind, val) {
-      if ($.inArray(val.get('id'), userProducts)) {
+      if ($.inArray(parseInt(val.get('id')), userProducts) === -1) {
         return temp.push(val);
       }
     });
