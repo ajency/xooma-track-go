@@ -10357,6 +10357,14 @@ textarea.form-control {
   position: absolute;
   bottom: -17px;
 }
+@media (max-width: 768px) {
+  .rd-gender {
+    width: 100%;
+  }
+  .rd-gender .parsley-errors-list {
+    bottom: -67px;
+  }
+}
 .rd-visual.male::before {
   background: url(../images/male.png) no-repeat;
 }

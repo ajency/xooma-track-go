@@ -124,13 +124,13 @@
 								<div class="col-sm-12">
 										<ul class="list-inline">
 												<li class="tag"><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
-														PERSONAL INFO</a>
+														<span class="hidden-xs"> PERSONAL INFO</span></a>
 												</li>
 												<li class="tag"><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
-														MEASUREMENT</a>
+														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
 												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
-														MYPRODUCTS</a>
+														<span class="hidden-xs">MY PRODUCTS</span></a>
 												</li>
 										</ul>
 								</div>
