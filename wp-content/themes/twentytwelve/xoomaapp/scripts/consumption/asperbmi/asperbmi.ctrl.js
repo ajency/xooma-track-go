@@ -88,8 +88,10 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.showErrorMsg = function() {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved!");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   AsperbmiView.prototype.getCount = function(val) {

@@ -164,7 +164,7 @@ class User
         $measurements_table = $wpdb->prefix . "measurements";
        
         if($date == ""){
-            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) DESC LIMIT 1" );
        }
         else
         {

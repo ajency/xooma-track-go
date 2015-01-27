@@ -29,7 +29,7 @@ ProductChildView = (function(_super) {
     return this.$el.prop("id", 'cart' + this.model.get("id"));
   };
 
-  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
+  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/product/{{id}}/history">Product history</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
 
   ProductChildView.prototype.events = {
     'click .remove': function(e) {
@@ -63,14 +63,18 @@ ProductChildView = (function(_super) {
         return $('.save_products').hide();
       }
     } else {
-      $('.alert').remove();
-      return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
+      this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     }
   };
 
   ProductChildView.prototype.erroraHandler = function(response, status, xhr) {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   ProductChildView.prototype.onRender = function() {
@@ -87,7 +91,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var available, contacount, containers, data, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalservings, type;
+    var available, contacount, containers, data, name, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalservings, type;
     data = ProductChildView.__super__.serializeData.call(this);
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
@@ -95,6 +99,7 @@ ProductChildView = (function(_super) {
     settings = parseInt(this.model.get('settings')) * parseInt(qty.length);
     reminder = this.model.get('reminder');
     type = this.model.get('type');
+    name = this.model.get('name');
     timezone = this.model.get('timezone');
     servings = [];
     reminderArr = [];
@@ -104,7 +109,7 @@ ProductChildView = (function(_super) {
       servingsqty = [];
       while (i < value.qty) {
         newClass = product_type + '_default_class';
-        if (type === 'asperbmi') {
+        if (name.toUpperCase() === 'X2O') {
           newClass = 'x2o_default_class';
         }
         servingsqty.push({
@@ -207,6 +212,10 @@ UserProductListView = (function(_super) {
   };
 
   UserProductListView.prototype.onRender = function() {
+    $('#product').parent().removeClass('done');
+    $('#product').parent().addClass('selected');
+    $('#product').parent().siblings().removeClass('selected');
+    $('#product').parent().prevAll().addClass('done');
     if (App.currentUser.get('state') === '/home') {
       this.ui.saveProducts.hide();
     }
@@ -217,16 +226,21 @@ UserProductListView = (function(_super) {
 
   UserProductListView.prototype._successHandler = function(response, status, xhr) {
     if (xhr.status === 201) {
+      App.currentUser.set('state', '/home');
       return App.navigate('#/home', true);
     } else {
-      $('.alert').remove();
-      return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
+      this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     }
   };
 
   UserProductListView.prototype._errorHandler = function(response, status, xhr) {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   return UserProductListView;

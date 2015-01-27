@@ -23,6 +23,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 
 	onShow:->
+		$('#profile').parent().removeClass 'done'
+		$('#profile').parent().addClass 'selected'
+		$('#profile').parent().siblings().removeClass 'selected'
+		$('#profile').parent().prevAll().addClass 'done'
+		
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		@ui.dateElement.pickadate(
 			formatSubmit: 'yyyy-mm-dd'
@@ -44,16 +49,16 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	successHandler:(response, status,xhr)=>
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
-			$('.alert').remove()
 			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 		else
 			if state == '/home'
-				$('.alert').remove()
-				@ui.responseMessage.addClass('alert alert-success').text("Profile Personal Information successfully updated!")
-
+				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 				
 			else
 				App.currentUser.set 'state' , '/profile/measurements'
@@ -61,7 +66,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	errorHandler:(error)=>
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 							scrollTop: 0

@@ -45,6 +45,10 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.onShow = function() {
     var birth_date, picker;
+    $('#profile').parent().removeClass('done');
+    $('#profile').parent().addClass('selected');
+    $('#profile').parent().siblings().removeClass('selected');
+    $('#profile').parent().prevAll().addClass('done');
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     this.ui.dateElement.pickadate({
       formatSubmit: 'yyyy-mm-dd',
@@ -67,15 +71,16 @@ ProfilePersonalInfoView = (function(_super) {
     var state;
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
-      $('.alert').remove();
       this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
       if (state === '/home') {
-        $('.alert').remove();
-        return this.ui.responseMessage.addClass('alert alert-success').text("Profile Personal Information successfully updated!");
+        this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
+        return $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
       } else {
         App.currentUser.set('state', '/profile/measurements');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -84,7 +89,6 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
-    $('.alert').remove();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0

@@ -77,8 +77,10 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.showErrorMsg = function() {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   ViewProductHistoryView.prototype.showData = function(response) {

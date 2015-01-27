@@ -20,8 +20,9 @@ class ProductChildView extends Marionette.ItemView
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
+                        <li class="update hidden"><a href="#/product/{{id}}/history">Product history</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
-                        <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li>
+                        <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li>
                         <li class="divider"></li>
                         <li><a href="#" class="remove hidden">Remove the product</a></li>
                       </ul>
@@ -84,15 +85,17 @@ class ProductChildView extends Marionette.ItemView
 				$('.save_products').hide()
 			
 		else
-			$('.alert').remove()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
-
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 		
 
 	erroraHandler:(response, status, xhr)=>
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
-
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 	
 
                             
@@ -115,6 +118,7 @@ class ProductChildView extends Marionette.ItemView
 		settings = parseInt(@model.get 'settings') * parseInt(qty.length)
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
+		name = @model.get('name')
 		timezone = @model.get('timezone')
 		servings = []
 		reminderArr = []
@@ -124,7 +128,7 @@ class ProductChildView extends Marionette.ItemView
 			servingsqty = []
 			while(i < value.qty)
 				newClass = product_type+'_default_class'
-				if type == 'asperbmi'
+				if  name.toUpperCase() == 'X2O'
 					newClass = 'x2o_default_class'
 				servingsqty.push classname : newClass
 				i++
@@ -195,6 +199,10 @@ class UserProductListView extends Marionette.CompositeView
 
 		
 	onRender:->
+		$('#product').parent().removeClass 'done'
+		$('#product').parent().addClass 'selected'
+		$('#product').parent().siblings().removeClass 'selected'
+		$('#product').parent().prevAll().addClass 'done'
 		if App.currentUser.get('state') == '/home'
 			@ui.saveProducts.hide()
 		if parseInt(App.useProductColl.length) == 0
@@ -204,15 +212,20 @@ class UserProductListView extends Marionette.CompositeView
 
 	_successHandler:(response, status, xhr)=>
 		if xhr.status == 201
+			App.currentUser.set 'state' , '/home'
 			App.navigate '#/home' , true
 		else
-			$('.alert').remove()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 
 	_errorHandler:(response, status, xhr)=>
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 
 

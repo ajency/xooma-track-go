@@ -33,7 +33,7 @@ XoomaAppRootView = (function(_super) {
 
   XoomaAppRootView.prototype.onShow = function() {
     var state;
-    state = App.currentUser.get('state');
+    console.log(state = App.currentUser.get('state'));
     if (state !== '/home') {
       this.ui.link.hide();
     } else {

@@ -74,8 +74,10 @@ EditProductsView = (function(_super) {
       e.preventDefault();
       console.log(check = this.checkreminder());
       if (check === false) {
-        console.log("aaaaaaa");
         this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
         return;
       }
       sub = this.ui.subtract.val();

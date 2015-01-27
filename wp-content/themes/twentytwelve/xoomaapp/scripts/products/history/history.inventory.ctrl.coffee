@@ -60,10 +60,13 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 			@show new ViewInventoryView
 					collection : coll
 		else
-			$('.alert').remove()
 			$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
-			
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+
 	errorHandler:(response,status,xhr)=>	
-		$('.alert').remove()
 		$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
-		
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')

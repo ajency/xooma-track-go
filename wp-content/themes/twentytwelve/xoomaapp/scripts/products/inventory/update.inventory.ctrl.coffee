@@ -159,8 +159,10 @@ class EditInventoryView extends Marionette.ItemView
 
 	successSave:(response,status,xhr)=>
 		if xhr.status == 201
-			$('.alert').remove()
 			@ui.responseMessage.addClass('alert alert-success').text("Inventory updated!")
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 		else
 			@errorMsg()
 
@@ -168,9 +170,10 @@ class EditInventoryView extends Marionette.ItemView
 		@errorMsg()
 
 	errorMsg:->
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!")
-
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 	
 		
 		

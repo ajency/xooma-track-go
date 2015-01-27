@@ -188,8 +188,10 @@ EditInventoryView = (function(_super) {
 
   EditInventoryView.prototype.successSave = function(response, status, xhr) {
     if (xhr.status === 201) {
-      $('.alert').remove();
-      return this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
+      this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     } else {
       return this.errorMsg();
     }
@@ -200,8 +202,10 @@ EditInventoryView = (function(_super) {
   };
 
   EditInventoryView.prototype.errorMsg = function() {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   return EditInventoryView;

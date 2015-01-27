@@ -62,6 +62,11 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onShow:->
+		$('#measurement').parent().removeClass 'done'
+		$('#measurement').parent().addClass 'selected'
+		$('#measurement').parent().siblings().removeClass 'selected'
+		$('#measurement').parent().prevAll().addClass 'done'
+		
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
@@ -84,7 +89,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	successHandler : (response, status,xhr)=>
 		if xhr.status is 404
-			$('.alert').remove()
 			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
@@ -92,16 +96,16 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		else
 			state = App.currentUser.get 'state'
 			if state == '/home'
-				$('.alert').remove()
-				@ui.responseMessage.addClass('alert alert-success').text("Measurements data successfully updated!")
-			
+				@ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 			else
 				App.currentUser.set 'state' , '/profile/my-products'
 				App.navigate '#'+App.currentUser.get('state') , true
 			
 
 	errorHandler : (error)=>
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			
 		$('html, body').animate({

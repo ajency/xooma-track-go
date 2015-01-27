@@ -76,25 +76,36 @@ MeasurementHistoryView = (function(_super) {
   };
 
   MeasurementHistoryView.prototype.showErrorMsg = function() {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   MeasurementHistoryView.prototype.showData = function(response) {
-    var coll, html;
+    var classarr, coll, html;
     if (response.length !== 0) {
       coll = response.response;
+      classarr = [];
+      $.each(coll, function(ind, val) {
+        console.log(classarr[ind] = "");
+        if (coll[ind] === "") {
+          coll[ind] = 'No data available';
+          return console.log(classarr[ind] = 'hidden');
+        }
+      });
+      console.log(classarr);
       html = "";
-      html += '<li><span>Height : </span>' + coll.height + 'inches';
-      html += '<li><span>Weight : </span>' + coll.weight + 'lb';
-      html += '<li><span>Neck : </span>' + coll.neck + 'lb';
-      html += '<li><span>Chest : </span>' + coll.chest + 'inches';
-      html += '<li><span>Arm : </span>' + coll.arm + 'inches';
-      html += '<li><span>Abdomen : </span>' + coll.abdomen + 'inches';
-      html += '<li><span>Waist : </span>' + coll.waist + 'inches';
-      html += '<li><span>Hips : </span>' + coll.hips + 'inches';
-      html += '<li><span>Thigh : </span>' + coll.thigh + 'inches';
-      html += '<li><span>MidCalf : </span>' + coll.midcalf + 'inches';
+      html += '<li><span>Height : </span>' + coll.height + '<span class="' + classarr['height'] + '"> inches</span>';
+      html += '<li><span>Weight : </span>' + coll.weight + '<span class="' + classarr['weight'] + '"> lb</span></span>';
+      html += '<li><span>Neck : </span>' + coll.neck + '<span class="' + classarr['neck'] + '"> lb</span>';
+      html += '<li><span>Chest : </span>' + coll.chest + '<span class="' + classarr['chest'] + '"> inches</span>';
+      html += '<li><span>Arm : </span>' + coll.arm + '<span class="' + classarr['arm'] + '"> inches</span>';
+      html += '<li><span>Abdomen : </span>' + coll.abdomen + '<span class="' + classarr['abdomen'] + '"> inches</span>';
+      html += '<li><span>Waist : </span>' + coll.waist + '<span class="' + classarr['waist'] + '"> inches</span>';
+      html += '<li><span>Hips : </span>' + coll.hips + '<span class="' + classarr['hips'] + '"> inches</span>';
+      html += '<li><span>Thigh : </span>' + coll.thigh + '<span class="' + classarr['thigh'] + '"> inches</span>';
+      html += '<li><span>MidCalf : </span>' + coll.midcalf + '<span class="' + classarr['midcalf'] + '"> inches</span>';
     } else {
       html = '<li><span>No data available.Please go to settings and update your Progress Chart.</span></li>';
     }

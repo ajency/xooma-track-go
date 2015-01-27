@@ -87,14 +87,18 @@ App.ViewInventoryCtrl = (function(_super) {
         collection: coll
       }));
     } else {
-      $('.alert').remove();
-      return $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
+      $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     }
   };
 
   ViewInventoryCtrl.prototype.errorHandler = function(response, status, xhr) {
-    $('.alert').remove();
-    return $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
+    $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   return ViewInventoryCtrl;

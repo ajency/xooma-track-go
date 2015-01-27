@@ -30,14 +30,18 @@ HomeLayoutView = (function(_super) {
     form: '#generate_graph',
     param: 'input[name="param"]',
     history: '.history',
+    update: '.update',
     responseMessage: '.aj-response-message'
   };
 
   HomeLayoutView.prototype.events = {
     'click @ui.history': function(e) {
       e.preventDefault();
-      console.log("Aaaaaa");
       return App.navigate('#/measurements/' + App.currentUser.get('ID') + '/history', true);
+    },
+    'click @ui.update': function(e) {
+      e.preventDefault();
+      return App.navigate('#/profile/measurements', true);
     },
     'change @ui.time_period': function(e) {
       var date, id, picker, picker1, previous, reg_date, today;
@@ -92,8 +96,10 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.showErrorMsg = function() {
-    $('.alert').remove();
-    return this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   HomeLayoutView.prototype.onShow = function() {
@@ -195,8 +201,10 @@ App.HomeCtrl = (function(_super) {
   };
 
   HomeCtrl.prototype.errorHandler = function() {
-    $('.alert').remove();
-    return $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!");
+    $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   return HomeCtrl;

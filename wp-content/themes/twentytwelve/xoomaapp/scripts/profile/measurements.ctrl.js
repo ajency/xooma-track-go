@@ -82,6 +82,10 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.onShow = function() {
     var state;
+    $('#measurement').parent().removeClass('done');
+    $('#measurement').parent().addClass('selected');
+    $('#measurement').parent().siblings().removeClass('selected');
+    $('#measurement').parent().prevAll().addClass('done');
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
         return _this.valueOutput(ele);
@@ -118,7 +122,6 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
     var state;
     if (xhr.status === 404) {
-      $('.alert').remove();
       this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
@@ -126,8 +129,10 @@ ProfileMeasurementsView = (function(_super) {
     } else {
       state = App.currentUser.get('state');
       if (state === '/home') {
-        $('.alert').remove();
-        return this.ui.responseMessage.addClass('alert alert-success').text("Measurements data successfully updated!");
+        this.ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!");
+        return $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
       } else {
         App.currentUser.set('state', '/profile/my-products');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -136,7 +141,6 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
-    $('.alert').remove();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0

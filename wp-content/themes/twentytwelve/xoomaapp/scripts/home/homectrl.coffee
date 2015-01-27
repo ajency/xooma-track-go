@@ -14,13 +14,17 @@ class HomeLayoutView extends Marionette.LayoutView
 		form 		: '#generate_graph'
 		param 		: 'input[name="param"]'
 		history 	: '.history'
+		update 	: '.update'
 		responseMessage : '.aj-response-message'
 
 	events:
 		'click @ui.history':(e)->
 			e.preventDefault()
-			console.log "Aaaaaa"
 			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true
+
+		'click @ui.update':(e)->
+			e.preventDefault()
+			App.navigate '#/profile/measurements' , true
 
 		'change @ui.time_period':(e)->
 			id = $(e.target).val()
@@ -61,9 +65,10 @@ class HomeLayoutView extends Marionette.LayoutView
 		@showErrorMsg()
 
 	showErrorMsg:->
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
-
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 		
 
 
@@ -154,9 +159,10 @@ class App.HomeCtrl extends Ajency.RegionController
 		@show new HomeLayoutView
 
 	errorHandler:=>
-		$('.alert').remove()
 		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!")
-	
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 class HomeX2OViewChild extends Marionette.ItemView
 

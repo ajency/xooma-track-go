@@ -80,7 +80,6 @@ App.AddProductsCtrl = (function(_super) {
   __extends(AddProductsCtrl, _super);
 
   function AddProductsCtrl() {
-    this.errorHandler = __bind(this.errorHandler, this);
     this._showProducts = __bind(this._showProducts, this);
     return AddProductsCtrl.__super__.constructor.apply(this, arguments);
   }
@@ -108,11 +107,6 @@ App.AddProductsCtrl = (function(_super) {
     return this.show(new AddProductsView({
       collection: filteredCollection
     }));
-  };
-
-  AddProductsCtrl.prototype.errorHandler = function() {
-    $('.alert').remove();
-    return $('.aj-response-message').addClass('alert alert-danger').text("Products could not be loaded!");
   };
 
   return AddProductsCtrl;

@@ -15,7 +15,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 	
 	onShow : ->
-		state = App.currentUser.get 'state'
+		console.log state = App.currentUser.get 'state'
 		if state != '/home'
 			@ui.link.hide()
 		else
@@ -34,4 +34,3 @@ class App.XoomaCtrl extends Ajency.RegionController
 	getLLoadingView:->
 		new Loading
 
-	

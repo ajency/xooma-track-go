@@ -133,7 +133,7 @@
 														MEASUREMENT</a>
 												</li>
 												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
-														MYPRODUCTS</a>
+														MY PRODUCTS</a>
 												</li>
 										</ul>
 								</div>
@@ -255,7 +255,7 @@
 
 
 												<div class="form-group">
-														<label for="text1" class=" col-sm-3 control-label">xooma id  <span class="requiredField text-danger"> * </span></label>
+														<label for="text1" class=" col-sm-3 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
 														<div class="col-sm-9">
 																<input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
 														</div>
@@ -303,7 +303,7 @@
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text8" class=" col-sm-3 control-label">Time Zone</label>
+														<label for="text8" class=" col-sm-3 control-label">Time zone</label>
 														<div class="col-sm-9">
 																<select class="form-control" name="profile[timezone]">
 																		<option value="UTC-05:00">Eastern Time Zone (UTC-05:00)</option>
@@ -334,7 +334,7 @@
 
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
-				  <i class="fa fa-bullhorn"></i> Click here to update the measurements 
+				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
 				<button type="button" class="btn btn-primary pull-right update"><i class="fa fa-calendar"></i> Update</button>
 				<div class="clearfix"></div>
 				</div>
@@ -381,7 +381,7 @@
 		   </a>
 		<div style="display:none;">
 			<div id="demo2_tip">
-				<b>Neck</b><br />
+				<b>Neck(inches)</b><br />
 		   <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" />
 			</div>
 		</div>
@@ -391,7 +391,7 @@
 		  </a>
 		<div style="display:none;">
 			<div id="demo3_tip">
-				<b>Chest</b><br />
+				<b>Chest(inches)</b><br />
 		   <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}" />
 			</div>
 		</div>
@@ -400,7 +400,7 @@
 		   </a>
 		   <div style="display:none;">
 			<div id="demo4_tip">
-				<b>Arm</b><br />
+				<b>Arm(inches)</b><br />
 		   <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
 			</div>
 		</div>
@@ -409,7 +409,7 @@
 		   </a>
 		<div style="display:none;">
 			<div id="demo5_tip">
-				<b>Abdomen</b><br />
+				<b>Abdomen(inches)</b><br />
 		   <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
 			</div>
 		</div>
@@ -418,7 +418,7 @@
 		   </a>
 		 <div style="display:none;">
 			<div id="demo6_tip">
-				<b>Waist</b><br />
+				<b>Waist(inches)</b><br />
 		   <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
 			</div>
 		</div>
@@ -428,7 +428,7 @@
 		   </a>
 						  <div style="display:none;">
 			<div id="demo7_tip">
-				<b>Hips</b><br />
+				<b>Hips(inches)</b><br />
 		   <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
 			</div>
 		</div>  
@@ -437,7 +437,7 @@
 		   </a>
 						  <div style="display:none;">
 			<div id="demo8_tip">
-				<b>Thigh</b><br />
+				<b>Thigh(inches)</b><br />
 		   <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
 			</div>
 		</div>  
@@ -447,7 +447,7 @@
 
 						 <div style="display:none;">
 			<div id="demo9_tip">
-				<b>Midcalf</b><br />
+				<b>Midcalf(inches)</b><br />
 		   <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
 			</div>
 		</div> 
@@ -490,6 +490,7 @@
 		  <div class="panel-body">
 			<h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
+						<li><a href="#" class="update">Update Measurements</a></li>
 						<li><a href="#" class="history">Measurements History</a></li>
 						</ul>
 			  </h5>
@@ -803,7 +804,7 @@
 <div class="form-group reminder_data">
 	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
 	<div class="col-sm-6 col-xs-5 ">
-	 <input name="reminder_time0" id="reminder_time0" disabled class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}" placeholder="Try me&hellip;">
+	 <input name="reminder_time0" id="reminder_time0" disabled class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}">
 	</div>
   </div>
   </div>

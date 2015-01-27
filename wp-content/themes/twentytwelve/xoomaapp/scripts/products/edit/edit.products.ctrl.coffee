@@ -56,8 +56,10 @@ class EditProductsView extends Marionette.ItemView
 			e.preventDefault()
 			console.log check = @checkreminder()
 			if check == false
-				console.log "aaaaaaa"
 				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 				return 
 			sub = @ui.subtract.val()
 			if sub == ""

@@ -52,8 +52,10 @@ class ViewProductHistoryView extends Marionette.ItemView
 		@showErrorMsg()
 
 	showErrorMsg:->
-		$('.alert').remove()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 	showData:(response)->
 		coll = new Backbone.Collection response.response

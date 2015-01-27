@@ -70,7 +70,5 @@ class App.AddProductsCtrl extends Ajency.RegionController
 		@show new AddProductsView
 						collection : filteredCollection
 
-	errorHandler:=>
-		$('.alert').remove()
-		$('.aj-response-message').addClass('alert alert-danger').text("Products could not be loaded!")
+	
 		
