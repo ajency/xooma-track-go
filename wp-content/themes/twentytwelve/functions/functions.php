@@ -1161,8 +1161,7 @@ function get_history_user_product($id,$product_id){
 				foreach ($sql as $key => $val) {
 
 					$object = (object)$val->meta_value;
-				 
-					$total = count((array)$object);
+				 	$total = count((array)$object);
 					$qty = 0;
 					if($total == 2)
 					{
@@ -1171,9 +1170,45 @@ function get_history_user_product($id,$product_id){
 					}
 					else
 					{
-							foreach ($object  as $value) {
-									
+							$data = maybe_unserialize($val->meta_value);
+							
+					
+							foreach ($data  as $value) {
+
+								
+
+								if(is_array($value))
+								{
+									foreach ($value  as $val) {
+
+										
+
+										if(is_array($val))
+										{
+											foreach ($val  as $val1) {
+												print_r($val1);
+										
+											$qty += intval($val1['qty']);
+
+											}
+										}
+										else
+										{
+											$qty += intval($val['qty']);
+										}
+										
+
+										
+
+
+									}
+								}
+								else
+								{
 									$qty += intval($value['qty']);
+								}
+									
+									
 							}
 
 					}
