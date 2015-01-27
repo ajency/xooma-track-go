@@ -365,10 +365,10 @@ App.HomeX2OCtrl = (function(_super) {
     var model, modelColl, productcollection;
     productcollection = collection.clone();
     model = productcollection.findWhere({
-      name: 'x2o'
+      name: 'X2O'
     });
     if (model !== void 0) {
-      if (model.get('name') === 'x2o') {
+      if (model.get('name').toUpperCase() === 'X2O') {
         modelColl = new Backbone.Collection(model);
         return this.show(new HomeX2OView({
           collection: modelColl
@@ -483,7 +483,7 @@ App.HomeOtherProductsCtrl = (function(_super) {
     var model, productcollection;
     productcollection = collection.clone();
     model = productcollection.findWhere({
-      name: 'x2o'
+      name: 'X2O'
     });
     if (model !== void 0) {
       if (model.get('name').toUpperCase() === 'X2O') {

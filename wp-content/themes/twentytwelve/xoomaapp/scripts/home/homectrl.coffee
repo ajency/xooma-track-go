@@ -319,9 +319,9 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.findWhere({name:'x2o'}) 
+		model = productcollection.findWhere({name:'X2O'}) 
 		if model != undefined
-			if model.get('name') == 'x2o'
+			if model.get('name').toUpperCase() == 'X2O'
 				modelColl = new Backbone.Collection model
 				@show new HomeX2OView
 							collection : modelColl
@@ -447,7 +447,7 @@ class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.findWhere({name:'x2o'})  
+		model = productcollection.findWhere({name:'X2O'})  
 		if model != undefined
 			if model.get('name').toUpperCase() == 'X2O' 
 				productcollection.remove model
