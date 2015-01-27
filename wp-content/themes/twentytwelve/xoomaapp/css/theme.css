@@ -6682,7 +6682,7 @@ div#mcttCloseButton {
   width: 14px;
   height: 14px;
   position: absolute;
-  background-image: url(../../images/closeBtn.gif);
+  background-image: url(../../assets/images/closeBtn.gif);
   cursor: pointer;
   overflow: hidden;
   top: 12px;
@@ -10503,7 +10503,7 @@ input.cmn-toggle-round-flat + label {
   padding: 2px;
   width: 80px;
   height: 35px;
-  background-color: #dddddd;
+  background-color: #B0B0B0;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   -ms-border-radius: 60px;
@@ -10541,7 +10541,7 @@ input.cmn-toggle-round-flat + label:after {
   left: 4px;
   bottom: 4px;
   width: 30px;
-  background-color: #dddddd;
+  background-color: #B0B0B0;
   -webkit-border-radius: 52px;
   -moz-border-radius: 52px;
   -ms-border-radius: 52px;

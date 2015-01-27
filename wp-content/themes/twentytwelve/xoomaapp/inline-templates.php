@@ -134,7 +134,7 @@
 												</li>
 												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
 
-														MY PRODUCTS</a>
+														<span class="hidden-xs">MY PRODUCTS</span></a>
 
 														
 
@@ -148,8 +148,7 @@
 		<div ui-region></div>
 </script>
 <script id="settings-template" type="text/template">
-		<div class="container"> </br></br></br>
-		
+		<div class="container"> 
 		  <div class="row">
 		 <div class="col-md-2">
 		 </div>
@@ -626,6 +625,16 @@
 
 
 <script id="edit-product-template" type="text/template">
+	<div class="sub-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>Edit Product</b>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container"> </br></br>
 	<div class="aj-response-message"></div>
 		<h3 class="bold">{{name}}</h3>
@@ -707,7 +716,9 @@
 
   </div>
   </div> 
-  <div class="schedule_data">
+
+  <div class="schedule_data ">
+  <div class="form-group ">
   <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
 	<div class="col-sm-6 col-xs-6 ">
 	 <div class="btn-group" role="group" aria-label="...">
@@ -716,8 +727,8 @@
 	  
 	</div>
 	</div>
-  
-  <div class="form-group">
+  	</div>
+  <div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>Quantity Per Serving</b></label>
    <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
  </div>
@@ -793,7 +804,7 @@
 	  </div>
   </div>
   </div>
-<div class="form-group ">
+<div class="form-group first-grp">
 	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set remainder</label>
 	<div class="col-sm-6 col-xs-5 ">
 	 <div class="btn-group" role="group" aria-label="...">
