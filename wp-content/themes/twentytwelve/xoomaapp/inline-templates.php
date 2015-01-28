@@ -340,7 +340,7 @@
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
-				<input type="text"  id="update">
+				<input type="text"  id="update" class="line-datepicker" placeholder="&#xf073;">
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
@@ -466,7 +466,7 @@
 										
 								</div>
 								<div class="row">
-												<div class="col-sm-12"><br>
+												<div class="col-sm-12"><hr>
 														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 												</div>
 										</div>
@@ -992,13 +992,13 @@
 </script>
 
 <script id="view-history-template" type="text/template">
+<div class="container">
 <div class="row">
-<div class="aj-response-message"> 
-         <div class="col-md-2">
-         </div>
+<div class="aj-response-message"> </div>
+         <div class="col-md-2"> </div>
             <div class="col-md-8 col-xs-12">
               <h3 class="text-center "><span class="name"></span><small> ( History )</small></h3>
-              <form class="form-horizontal ">
+              <form class="form-horizontal history-calender">
 
                     <div id="picker_inline_fixed"></div>
                     <br/>
@@ -1008,10 +1008,9 @@
               
               </ul>
             </div>
-            <div class="col-md-2">
-         </div>
-        </div>
-
+            <div class="col-md-2"> </div>
+</div>
+</div>
 </script>
 <script id="measurement-history-template" type="text/template">
 <div class="row">
@@ -1020,7 +1019,7 @@
          </div>
             <div class="col-md-8 col-xs-12">
               <h3 class="text-center "><span class="name"></span><small> Progress History</small></h3>
-              <form class="form-horizontal ">
+              <form class="form-horizontal history-calender ">
 
                     <div id="picker_inline_fixed"></div>
                     <br/>
