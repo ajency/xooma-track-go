@@ -140,7 +140,8 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getHomeProducts: function() {
-    var _successHandler;
+    var deferred, _successHandler;
+    deferred = Marionette.Deferred();
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param;
@@ -153,17 +154,19 @@ _.extend(Ajency.CurrentUser.prototype, {
         App.graph.set('param', param);
         App.graph.set('reg_date', response.reg_date);
         if (xhr.status === 200) {
-          return $.each(data, function(index, value) {
+          $.each(data, function(index, value) {
             return App.useProductColl.add(value);
           });
+          return deferred.resolve(response);
         }
       };
     })(this);
-    return $.ajax({
+    $.ajax({
       method: 'GET',
       url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
       success: _successHandler
     });
+    return deferred.promise();
   }
 });
 

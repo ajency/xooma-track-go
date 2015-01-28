@@ -853,7 +853,7 @@ function login_response($user_id){
 }
 
 
-function get_occurrence_date($product_id,$user_id="",$date=""){
+function get_occurrence_date($product_id,$user_id,$date){
 
 	if($user_id ==""){
 		$user_id = get_current_user_id();
@@ -1156,75 +1156,57 @@ function get_history_user_product($id,$product_id){
 			 	$sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
 							where object_id=".$object_id." and type='remove' and consumption_type='sales' and DATE(`datetime`)='".$value."'");
 				$sql =  $wpdb->get_results("SELECT *,DATE(occurrence) as datefield from $table_name where DATE(occurrence)='".$value."' and schedule_id=".$schedule);
-
+				
 				$qty = 0;
-				// foreach ($sql as $key => $val) {
+				foreach ($sql as $key => $val) {
 
-				// 	$object = (object)$val->meta_value;
-				//  	$total = count((array)$object);
-				// 	$qty = 0;
-				// 	if($total == 2)
-				// 	{
-				// 			$data = maybe_unserialize($val->meta_value);
-				// 			$qty = intval($qty) +  intval($data['qty']);
-				// 	}
-				// 	else
-				// 	{
-				// 			$data = maybe_unserialize($val->meta_value);
+						$data = maybe_unserialize($val->meta_value);
+
+						foreach ($data as $key => $key_value) {
 							
-					
-				// 			foreach ($data   as $key=> $value) {
-
+							if(isset($key_value[$key]))
+							{
 								
+								foreach ($key_value as $key => $val1) {
 
-				// 				if(is_array($value))
-				// 				{
-				// 					foreach ($value   as $key=> $val) {
-
-				// 						$object1 = (object)$val;
-				// 						echo $total = count((array)$object1);
-
-				// 						if($total > 2)
-				// 						{
-				// 							print_r($val);
-				// 							foreach ($val  as $key=>$val1) {
-											
+									if(isset($val1[$key]))
+									{
+										foreach ($val1 as $key => $val2) {
+											$qty = floatval($qty) + floatval($val2['qty']);
+										}
+									}
+									else
+									{
 										
-				// 							$qty = intval($qty) +  intval($val1['qty']);
+										$qty = floatval($qty) + floatval($val1['qty']);
+									}
+								}
+							}
+							else
+							{
+								$qty = floatval($qty) + floatval($key_value['qty']);
+							}
+						}
+							
+						
+			
+					
 
-				// 							}
-				// 						}
-				// 						else
-				// 						{
-				// 							$qty = intval($qty) + intval($val->qty);
-				// 						}
-										
+					
 
-										
-
-
-				// 					}
-				// 				}
-				// 				else
-				// 				{
-				// 					$qty = intval($qty) +  intval($value['qty']);
-				// 				}
-									
-									
-				// 			}
-
-				// 	}
+					
 
 					
 
 
-				// }
+				}
 				$i++;
 			 	$sales_data = $sales->sales == null ? 0 : $sales->sales;
+			 	$stock_data = $stock->stock == null ? 0 : $stock->stock;
 				$transaction[] = array(
 							'id'			=> $i,
 							'date'          =>  $value, 
-							'stock'         =>  $stock->stock,
+							'stock'         =>  $stock_data,
 							'sales'         =>  $sales_data,
 							'consumption'   => $qty,
 							'product_type'	=> $term[0]['product_type_name']
