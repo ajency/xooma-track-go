@@ -677,8 +677,7 @@
 		  <option value="1">1</option>
 		  <option value="2">2</option>
 		  <option value="3">3</option>
-		  <option value="4">4</option>
-		  <option value="5">5</option>
+		  
 		</select>
 	</div>
   </div>
@@ -702,7 +701,7 @@
 		  <option value="2">2</option>
 		  <option value="3">3</option>
 		  <option value="4">4</option>
-		  <option value="5">5</option>
+		  
 		</select> <label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>
 	</div>
   </div>
@@ -734,7 +733,7 @@
 		  <option value="2">2 capsule</option>
 		  <option value="3">3 capsule</option>
 		  <option value="4">4 capsule</option>
-		  <option value="5">5 capsule</option>
+		  
 		</select>
 	</div>
 		<div class="col-sm-6 col-xs-5 ">
@@ -755,7 +754,6 @@
 		  <option value="2">2 capsule</option>
 		  <option value="3">3 capsule</option>
 		  <option value="4">4 capsule</option>
-		  <option value="5">5 capsule</option>
 		</select>
 	</div>
 		<div class="col-sm-6 col-xs-5 ">
