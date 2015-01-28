@@ -476,7 +476,7 @@
 
 <script id="home-template" type="text/template">
 		<div class="container"> </br></br></br>
-		<div class="aj-response-message"> 
+		<div class="aj-response-message"> </div>
 	 <div class="row">
 			<div class="col-md-3"> 
 			</div>
@@ -517,16 +517,12 @@
 	</select>
   </div>
 
-					  <ul class="list-inline  dotted-line m-t-20">
-						<li class="col-md-4  col-xs-4"> 
-							  <label for="exampleInputFile">Start Day</label>
-								  <input type="text" aj-field-required="true" class="form-control" id="start_date" name="start_date" >
-						</li>
-						<li class="col-md-4  col-xs-4">
-							 <label for="exampleInputFile">End Day</label>
-								<input type="text" aj-field-required="true" class="form-control" id="end_date" name="end_date">
-						</li>
-						<li class="col-md-4  col-xs-4">
+					
+						<div class="m-t-30">
+								  <input type="hidden" id="start_date" name="start_date" >
+								<input type="hidden"  id="end_date" name="end_date">
+						
+						
 						   <label for="exampleInputFile">Weekly</label>
 								<select class="form-control time_period ">
 								  <option value="">--Select--</option>
@@ -534,8 +530,8 @@
 								  <option value="30">Last 30 days</option>
 								  <option value="all">All time</option>
 								</select>
-						</li>
-					</ul>
+					  </div>
+				
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button" >Generate</button>
 	<div class="clearfix"></div><br>
@@ -677,8 +673,7 @@
 		  <option value="1">1</option>
 		  <option value="2">2</option>
 		  <option value="3">3</option>
-		  <option value="4">4</option>
-		  <option value="5">5</option>
+		  
 		</select>
 	</div>
   </div>
@@ -702,7 +697,7 @@
 		  <option value="2">2</option>
 		  <option value="3">3</option>
 		  <option value="4">4</option>
-		  <option value="5">5</option>
+		  
 		</select> <label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>
 	</div>
   </div>
@@ -734,7 +729,7 @@
 		  <option value="2">2 capsule</option>
 		  <option value="3">3 capsule</option>
 		  <option value="4">4 capsule</option>
-		  <option value="5">5 capsule</option>
+		  
 		</select>
 	</div>
 		<div class="col-sm-6 col-xs-5 ">
@@ -755,7 +750,6 @@
 		  <option value="2">2 capsule</option>
 		  <option value="3">3 capsule</option>
 		  <option value="4">4 capsule</option>
-		  <option value="5">5 capsule</option>
 		</select>
 	</div>
 		<div class="col-sm-6 col-xs-5 ">
@@ -1014,7 +1008,7 @@
 </script>
 <script id="measurement-history-template" type="text/template">
 <div class="row">
-<div class="aj-response-message"> 
+<div class="aj-response-message"> </div>
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
@@ -1025,7 +1019,7 @@
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>
-              <ul id='timeline' class="viewHistory">
+              <ul id='timeline' class="viewHistory ">
               
               </ul>
             </div>

@@ -239,7 +239,11 @@ class App.UserProductListCtrl extends Ajency.RegionController
 
 	initialize:->
 		@show @parent().parent().getLLoadingView()
-		App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		if App.useProductColl.length == 0
+			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		else
+			@show new UserProductListView
+						collection : App.useProductColl
 
 
 	_showView:(collection)=>

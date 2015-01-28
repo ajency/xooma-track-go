@@ -35,6 +35,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 			date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
 			if $('#picker_inline_fixed').val() == ""
 				date = moment().format("YYYY-MM-DD")
+			$('.viewHistory').html '<li>Loading data....</li>'
 			$.ajax
 				method : 'GET'
 				data : 'date='+date
@@ -81,7 +82,6 @@ class MeasurementHistoryView extends Marionette.ItemView
 			html += '<li><span>MidCalf : </span>'+coll.midcalf+ '<span class="'+classarr['midcalf']+'"> inches</span>'
 		else
 			html = '<li><span>No data available.Please go to settings and update your Progress Chart.</span></li>'
-
 		$('.viewHistory').html html
 
 				

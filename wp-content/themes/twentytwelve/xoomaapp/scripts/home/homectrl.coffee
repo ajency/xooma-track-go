@@ -40,15 +40,14 @@ class HomeLayoutView extends Marionette.LayoutView
 			date =  moment().subtract(id, 'days')
 			previous = date.format('YYYY-MM-DD')
 			today = moment().format('YYYY-MM-DD')
-			picker = @ui.start_date.pickadate('picker')
-			picker.set('select', previous, { format: 'yyyy-mm-dd' })
+			@ui.start_date.val previous
+			
 			
 			if id == 'all'
 				reg_date = App.graph.get 'reg_date'
-				picker = @ui.start_date.pickadate('picker')
-				picker.set('select', reg_date, { format: 'yyyy-mm-dd' })
-			picker1 = @ui.end_date.pickadate('picker')
-			picker1.set('select', today, { format: 'yyyy-mm-dd' })
+				@ui.start_date.val reg_date
+			@ui.end_date.val today
+			
 
 	onFormSubmit: (_formData)=>
 		$.ajax
@@ -82,15 +81,21 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		if parseInt(App.useProductColl.length) == 0
+			@ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!")
+			$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
+
 		@generateGraph()
-		@ui.start_date.pickadate(
-			formatSubmit: 'yyyy-mm-dd'
-			hiddenName: true
-			)
-		@ui.end_date.pickadate(
-			formatSubmit: 'yyyy-mm-dd'
-			hiddenName: true
-			)
+		# @ui.start_date.pickadate(
+		# 	formatSubmit: 'yyyy-mm-dd'
+		# 	hiddenName: true
+		# 	)
+		# @ui.end_date.pickadate(
+		# 	formatSubmit: 'yyyy-mm-dd'
+		# 	hiddenName: true
+		# 	)
 
 	generateBMIGraph:(response)->
 		dates = [response['st_date'],response['et_date']]
@@ -170,6 +175,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		response = collection.response
 		App.useProductColl.reset response
 		console.log App.useProductColl
+
 		@show new HomeLayoutView
 
 	errorHandler:=>
@@ -178,9 +184,27 @@ class App.HomeCtrl extends Ajency.RegionController
 							scrollTop: 0
 							}, 'slow')
 
-class HomeX2OViewChild extends Marionette.ItemView
+class HomeX2OView extends Marionette.ItemView
 
-	template : '<a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> 
+	template : '<div class="row">
+			<div class="col-md-4 col-xs-4"></div>
+			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
+			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				  <div class="fill-bottle">        
+					<div class="glass">
+							<span class="liquid" style="height: 100%"></span>
+					 </div>
+				  </div>
+					<div id="canvas-holder">
+						<canvas id="chart-area" width="500" height="500"/>
+					</div>
+			
+			</div>
+		</div><ul class="list-inline text-center row row-line x2oList">
+			 <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> 
 					<h5 class="text-center">Bonus</h5>
 					<h4 class="text-center bold  text-primary" >{{bonus}}</h4>
 				</li>
@@ -191,7 +215,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Last Consume</h5>
 					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
-				</li></a>'
+				</li></a> </ul>'
 
 	serializeData:->
 		data = super()
@@ -277,7 +301,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 	drawBottle:(data)->
 		doughnutData = []
 		$.each data, (ind,val)->
-			occurrence = HomeX2OViewChild::get_occurrence(val)
+			occurrence = HomeX2OView::get_occurrence(val)
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0
 				occurrence['value'] = 1
@@ -292,35 +316,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 	
 
 
-class HomeX2OView extends Marionette.CompositeView
 
-	template : '<div class="row">
-			<div class="col-md-4 col-xs-4"></div>
-			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
-			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				  <div class="fill-bottle">        
-					<div class="glass">
-							<span class="liquid" style="height: 100%"></span>
-					 </div>
-				  </div>
-					<div id="canvas-holder">
-						<canvas id="chart-area" width="500" height="500"/>
-					</div>
-			
-			</div>
-		</div><ul class="list-inline text-center row row-line x2oList">
-			  </ul>'
-
-	childView : HomeX2OViewChild
-
-	ui : 
-		chartArea   : '#chart-area'
-		liquid		: '.liquid'
-
-	childViewContainer : 'ul.x2oList'
 
 
 
@@ -336,9 +332,9 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 		console.log model = productcollection.findWhere({name:'X2O'}) 
 		if model != undefined
 			if model.get('name').toUpperCase() == 'X2O'
-				modelColl = new Backbone.Collection model
+				modelColl = model
 				@show new HomeX2OView
-							collection : modelColl
+							model : modelColl
 
 class ProductChildView extends Marionette.ItemView
 

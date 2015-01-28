@@ -257,7 +257,13 @@ App.UserProductListCtrl = (function(_super) {
 
   UserProductListCtrl.prototype.initialize = function() {
     this.show(this.parent().parent().getLLoadingView());
-    return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+    if (App.useProductColl.length === 0) {
+      return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+    } else {
+      return this.show(new UserProductListView({
+        collection: App.useProductColl
+      }));
+    }
   };
 
   UserProductListCtrl.prototype._showView = function(collection) {
