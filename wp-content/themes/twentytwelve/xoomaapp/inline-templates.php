@@ -1009,7 +1009,7 @@
 </script>
 <script id="measurement-history-template" type="text/template">
 <div class="row">
-<div class="aj-response-message"> 
+<div class="aj-response-message"> </div>
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
@@ -1020,7 +1020,7 @@
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
                </form>
-              <ul id='timeline' class="viewHistory">
+              <ul id='timeline' class="viewHistory ">
               
               </ul>
             </div>

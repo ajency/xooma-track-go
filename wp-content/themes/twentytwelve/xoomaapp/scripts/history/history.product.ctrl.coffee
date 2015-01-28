@@ -37,6 +37,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 			console.log date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
 			if $('#picker_inline_fixed').val() == ""
 				date = moment().format("YYYY-MM-DD")
+			$('.viewHistory').html '<li>Loading data....</li>'
 			$.ajax
 				method : 'GET'
 				data : 'date='+date

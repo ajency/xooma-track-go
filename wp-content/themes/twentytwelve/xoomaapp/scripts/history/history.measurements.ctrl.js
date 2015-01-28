@@ -51,6 +51,7 @@ MeasurementHistoryView = (function(_super) {
     if ($('#picker_inline_fixed').val() === "") {
       date = moment().format("YYYY-MM-DD");
     }
+    $('.viewHistory').html('<li>Loading data....</li>');
     return $.ajax({
       method: 'GET',
       data: 'date=' + date,
