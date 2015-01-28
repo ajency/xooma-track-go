@@ -139,13 +139,13 @@ AsperbmiView = (function(_super) {
     count1 = 0;
     bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings'));
     $('.bonus').text(bonus);
-    _.each(occur, (function(_this) {
-      return function(val) {
+    $.each(occur, (function(_this) {
+      return function(ind, val) {
         var count, expected, meta_id, occurrence;
         occurrence = _.has(val, "occurrence");
         expected = _.has(val, "expected");
         meta_id = val.meta_id;
-        count = _this.getCount(val.meta_value);
+        console.log(count = _this.getCount(val.meta_value));
         if (occurrence === true && (expected === true || expected === false) && count === 1) {
           count1++;
           return true;
@@ -158,6 +158,8 @@ AsperbmiView = (function(_super) {
         }
       };
     })(this));
+    console.log(this.model.get('occurrence').length);
+    console.log(count1);
     if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
       return this.create_occurrences();
     }
