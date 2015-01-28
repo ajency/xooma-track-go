@@ -1160,11 +1160,18 @@ function get_history_user_product($id,$product_id){
 				$qty = 0;
 				foreach ($sql as $key => $val) {
 
-						$data = maybe_unserialize($val->meta_value);
 
+						$data = maybe_unserialize($val->meta_value);
 						
 
-						foreach ($data as $key => $key_value) {
+						
+						if(!isset($data[0]))
+						{
+							$qty = floatval($qty) + floatval($data['qty']);
+						}
+						else
+						{
+							foreach ($data as $key => $key_value) {
 
 							
 							
@@ -1188,14 +1195,23 @@ function get_history_user_product($id,$product_id){
 							}
 							else
 							{
+								
 								if(is_array($key_value))
 								{
 
-								$qty = floatval($qty) + floatval($key_value['qty']);
+									$qty = floatval($qty) + floatval($key_value['qty']);
+								}
+								else
+								{
+									$res = maybe_unserialize($val->meta_value);
+									
+									$qty = floatval($qty) + floatval($res['qty']);
 								}
 								
 							}
 						}
+						}
+						
 							
 						
 			
@@ -1209,7 +1225,7 @@ function get_history_user_product($id,$product_id){
 
 
 				}
-				
+
 				$i++;
 			 	$sales_data = $sales->sales == null ? 0 : $sales->sales;
 			 	$stock_data = $stock->stock == null ? 0 : $stock->stock;
