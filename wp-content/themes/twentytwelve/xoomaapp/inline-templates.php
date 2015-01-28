@@ -478,19 +478,18 @@
 		<div class="container"> </br></br></br>
 		<div class="aj-response-message"> </div>
 	 <div class="row">
-			<div class="col-md-3"> 
+			<div class="col-md-2"> 
 			</div>
-		 <div class="col-md-6"> 
-		 <div ui-region="x2o">
-			  
-			</div>
+		 <div class="col-md-8"> 
+				 <div ui-region="x2o">
+					  
+					</div>
 		   <br>   
-	   <div ui-region="other-products">
-	   
-		 </div>         
+			   <div ui-region="other-products">
+			   
+				 </div>         
 
-		</div>
-	</div>
+	
 	<div class="panel panel-default">
 		  <div class="panel-body">
 			<h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
@@ -498,24 +497,24 @@
 						<li><a href="#" class="update">Update Measurements</a></li>
 						<li><a href="#" class="history">Measurements History</a></li>
 						</ul>
-			  </h5>
-<form id="generate_graph" method="POST"  role="form">
+									  </h5>
+						<form id="generate_graph" method="POST"  role="form">
 
-  <div class="m-t-30">
-	<label for="exampleInputFile">Select</label>
-	<select class="form-control" aj-field-required="true" name="param">
-	  <option value="weight">Weight</option>
-	  <option value="neck">Neck</option>
-	  <option value="chest">Chest</option>
-	  <option value="arm">Arm</option>
-	  <option value="abdomen">Abdomen</option>
-	  <option value="waist">Waist</option>
-	  <option value="hips">Hips</option>
-	  <option value="thigh">Thigh</option>
-	  <option value="bmi">BMI</option>
-	 
-	</select>
-  </div>
+						  <div class="m-t-30">
+							<label for="exampleInputFile">Select</label>
+							<select class="form-control" aj-field-required="true" name="param">
+							  <option value="weight">Weight</option>
+							  <option value="neck">Neck</option>
+							  <option value="chest">Chest</option>
+							  <option value="arm">Arm</option>
+							  <option value="abdomen">Abdomen</option>
+							  <option value="waist">Waist</option>
+							  <option value="hips">Hips</option>
+							  <option value="thigh">Thigh</option>
+							  <option value="bmi">BMI</option>
+							 
+							</select>
+						  </div>
 
 					
 						<div class="m-t-30">
@@ -535,12 +534,18 @@
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button" >Generate</button>
 	<div class="clearfix"></div><br>
-	<div style="width:100%">
-			<div>
-				<canvas id="canvas" height="450" width="600"></canvas>
+				<div style="width:100%">
+								<div>
+									<canvas id="canvas" height="450" width="600"></canvas>
+								</div>
+					</div>
+		  	
+		  	</div>
+
+		  	<div class="col-md-2"> 
 			</div>
 		</div>
-		  </div>
+
 </div>
 </script>
 
@@ -1007,6 +1012,7 @@
 </div>
 </script>
 <script id="measurement-history-template" type="text/template">
+<div class="container">
 <div class="row">
 <div class="aj-response-message"> </div>
          <div class="col-md-2">
@@ -1026,7 +1032,7 @@
             <div class="col-md-2">
          </div>
         </div>
-
+      </div>
 </script>
 <script id="asperbmi-template" type="text/template">
 <div class="container"> </br></br>
