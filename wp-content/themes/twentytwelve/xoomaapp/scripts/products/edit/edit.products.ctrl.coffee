@@ -234,12 +234,14 @@ class EditProductsView extends Marionette.ItemView
 
 	successSave: (response,status,xhr)=>
 		if xhr.status is 201
-				response = parseInt response
+				product = parseInt response.response[0].id
 				products = App.currentUser.get 'products'
 				if typeof products == 'undefined'
 					products = []
-				products = _.union products, [response]
+				products = _.union products, [product]
 				App.currentUser.set 'products', _.uniq products
+				model = new UserProductModel response.response[0]
+				App.useProductColl.add model
 		if document.activeElement.name == "save"
 			App.navigate '#/profile/my-products', true
 		else

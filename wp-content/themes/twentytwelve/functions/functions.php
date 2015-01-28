@@ -109,9 +109,10 @@ function save_anytime_product_details($id,$data){
 			//store schedule
 
 				
+				$user = new User();
+				$product = $user->get_user_home_products($id,$data['id']);
+				return $product;
 				
-
-				return $data['id'];
 		}
 		else{
 				new WP_Error( 'json_user_product_details_not_added', __( 'User Product details not added.' ));
@@ -374,8 +375,9 @@ function update_anytime_product_details($id,$pid,$data){
 
 
 		if($main){
-
-				return $pid;
+				$user = new User();
+				$product = $user->get_user_home_products($id,$pid);
+				return $product;
 
 		}
 		else{
@@ -632,8 +634,9 @@ function update_schedule_product_details($id,$pid,$data){
 
 
 		if($main){
-
-				return $pid;
+				$user = new User();
+				$product = $user->get_user_home_products($id,$pid);
+				return $product;
 
 		}
 		else{

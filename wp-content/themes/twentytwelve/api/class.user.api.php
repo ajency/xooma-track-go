@@ -380,7 +380,7 @@ class User_API
 
         global $user;
 
-        $response = $user->get_user_home_products($id);
+        $response = $user->get_user_home_products($id,$pid="");
 
         if(count($response) == 0){
             $response = new WP_JSON_Response( $response );

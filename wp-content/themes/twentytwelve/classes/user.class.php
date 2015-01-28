@@ -286,7 +286,7 @@ class User
 
 
 
-    public function get_user_home_products($id){
+    public function get_user_home_products($id,$pid){
 
         global $wpdb;
 
@@ -302,9 +302,16 @@ class User
 
         $product_meta_table = $wpdb->prefix . "product_meta";
 
-
-        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
-
+        if($pid == "")
+        {
+           $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
+ 
+        }
+        else
+        {
+            $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
+        }
+        
         $sub = array();
         $pr_main = array();
        
