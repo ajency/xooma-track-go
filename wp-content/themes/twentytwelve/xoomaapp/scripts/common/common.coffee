@@ -97,6 +97,7 @@ _.extend Ajency.CurrentUser::,
 			success: _successHandler
 
 	getHomeProducts : ->
+		deferred = Marionette.Deferred()
 		_successHandler = (response, status, xhr)=>
 			data = response.response
 			dates = response.graph['dates']
@@ -109,6 +110,7 @@ _.extend Ajency.CurrentUser::,
 			if xhr.status is 200
 				$.each data, (index,value)->
 					App.useProductColl.add value
+				deferred.resolve response
 
 			
 						
@@ -120,7 +122,7 @@ _.extend Ajency.CurrentUser::,
 
 
 	
-				
+		deferred.promise()		
 
 
 

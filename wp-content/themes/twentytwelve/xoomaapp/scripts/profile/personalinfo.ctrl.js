@@ -121,6 +121,7 @@ App.UserPersonalInfoCtrl = (function(_super) {
   __extends(UserPersonalInfoCtrl, _super);
 
   function UserPersonalInfoCtrl() {
+    this.errorHandler = __bind(this.errorHandler, this);
     this._showView = __bind(this._showView, this);
     return UserPersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }

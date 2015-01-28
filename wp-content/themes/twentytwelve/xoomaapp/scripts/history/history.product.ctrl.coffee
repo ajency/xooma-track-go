@@ -105,16 +105,23 @@ class ViewProductHistoryView extends Marionette.ItemView
 				
 		
 	getCount:(val)=>
+		console.log val
 		count = []
-		if!(_.isArray(val)) 
-			count.push date : val.date , qty : val.qty 
+		if! _.isArray(val)
+			count.push date : val.date , qty : val.qty
 		else
-			_.each val , (val1)->
-				if _.isArray(val1)
-					_.each val1 ,  (value)->
-						count.push date : value.date , qty : value.qty
+			$.each val , (ind,val1)->
+				console.log val1
+				if!(_.isArray(val1)) 
+					count.push date : val1.date , qty : val1.qty 
 				else
-					count.push date : val1.date , qty : val1.qty
+					$.each val1, (ind,val2)->
+						console.log val2
+						if _.isArray(val2)
+							$.each val2 ,  (ind,val3)->
+								count.push date : val3.date , qty : val3.qty
+						else
+							count.push date : val2.date , qty : val2.qty
 
 		count	
 		

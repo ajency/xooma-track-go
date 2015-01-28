@@ -107,12 +107,12 @@ class AsperbmiView extends Marionette.ItemView
 			count1 = 0
 			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
 			$('.bonus').text bonus
-			_.each occur , (val)=>
+			$.each occur , (ind,val)=>
 				occurrence = _.has(val, "occurrence")
 				expected = _.has(val, "expected")
 				meta_id = val.meta_id
 				# console.log val.meta_value
-				count = @getCount(val.meta_value)
+				console.log count = @getCount(val.meta_value)
 				
 				if occurrence == true && (expected == true || expected == false) && count ==  1
 					count1++
@@ -123,6 +123,8 @@ class AsperbmiView extends Marionette.ItemView
 				else
 					@create_occurrences()
 					return false
+			console.log @model.get('occurrence').length
+			console.log count1
 			if(parseInt(@model.get('occurrence').length) == parseInt count1)
 				@create_occurrences()
 				

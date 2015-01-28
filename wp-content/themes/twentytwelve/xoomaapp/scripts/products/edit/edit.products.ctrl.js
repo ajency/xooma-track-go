@@ -105,7 +105,6 @@ EditProductsView = (function(_super) {
       $(this.ui.schedule).removeClass('btn-primary');
       $(e.target).addClass('btn-primary');
       $('#timeset').val($(e.target).attr('data-time'));
-      console.log($('#timeset').val());
       if ($(e.target).attr('data-time') === 'Once') {
         $('.second').hide();
       } else {

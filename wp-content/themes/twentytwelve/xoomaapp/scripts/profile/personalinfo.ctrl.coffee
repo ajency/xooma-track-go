@@ -112,7 +112,7 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 		@show new ProfilePersonalInfoView
 							model : userModel
 
-	errorHandler : (error)->
+	errorHandler : (error)=>
 		@region =  new Marionette.Region el : '#404-template'
 		new Ajency.HTTPRequestCtrl region : @region
 

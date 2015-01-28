@@ -768,6 +768,9 @@ add_action( 'user_register', 'send_emails', 10, 1 );
 
 function send_emails($user_id){
 
+	$user_notis = update_user_meta($user_id,'notification',1);
+	$user_emails = update_user_meta($user_id,'emails',0);
+		
 	send_notifications_to_admin($user_id);
 	send_notifications_to_user($user_id);
 	
@@ -798,7 +801,6 @@ function check_workflow($user_model){
 
 		//call workflow function
 		//workflow plugin code
-
 		$products = get_user_products($user_model->ID);
 
 		$user_data = $user->get_user_details($user_model->ID);
@@ -808,6 +810,10 @@ function check_workflow($user_model){
 		$user_model->products = $products;
 
 		$user_model->timezone = $user_data['timezone'];
+
+		$user_model->notification = get_user_meta($user_model->ID,'notification',true);
+
+		$user_model->emails = get_user_meta($user_model->ID,'emails',true);
 
 		
 
@@ -853,7 +859,7 @@ function login_response($user_id){
 }
 
 
-function get_occurrence_date($product_id,$user_id="",$date=""){
+function get_occurrence_date($product_id,$user_id,$date){
 
 	if($user_id ==""){
 		$user_id = get_current_user_id();
@@ -1156,73 +1162,83 @@ function get_history_user_product($id,$product_id){
 			 	$sales = $wpdb->get_row("SELECT sum(amount) as sales from $transactions
 							where object_id=".$object_id." and type='remove' and consumption_type='sales' and DATE(`datetime`)='".$value."'");
 				$sql =  $wpdb->get_results("SELECT *,DATE(occurrence) as datefield from $table_name where DATE(occurrence)='".$value."' and schedule_id=".$schedule);
-
+				
 				$qty = 0;
 				foreach ($sql as $key => $val) {
 
-					$object = (object)$val->meta_value;
-				 	$total = count((array)$object);
-					$qty = 0;
-					if($total == 2)
-					{
-							$data = maybe_unserialize($val->meta_value);
-							$qty += intval($data['qty']);
-					}
-					else
-					{
-							$data = maybe_unserialize($val->meta_value);
+
+						$data = maybe_unserialize($val->meta_value);
+						
+
+						
+						if(!isset($data[0]))
+						{
+							$qty = floatval($qty) + floatval($data['qty']);
+						}
+						else
+						{
+							foreach ($data as $key => $key_value) {
+
 							
-					
-							foreach ($data  as $value) {
-
+							
+							if(isset($key_value[$key]))
+							{
 								
+								foreach ($key_value as $key => $val1) {
 
-								if(is_array($value))
-								{
-									foreach ($value  as $val) {
-
-										
-
-										if(is_array($val))
-										{
-											foreach ($val  as $val1) {
-												print_r($val1);
-										
-											$qty += intval($val1['qty']);
-
-											}
+									if(isset($val1[$key]))
+									{
+										foreach ($val1 as $key => $val2) {
+											$qty = floatval($qty) + floatval($val2['qty']);
 										}
-										else
-										{
-											$qty += intval($val['qty']);
-										}
-										
-
-										
-
-
 									}
+									else
+									{
+										
+										$qty = floatval($qty) + floatval($val1['qty']);
+									}
+								}
+							}
+							else
+							{
+								
+								if(is_array($key_value))
+								{
+
+									$qty = floatval($qty) + floatval($key_value['qty']);
 								}
 								else
 								{
-									$qty += intval($value['qty']);
+									$res = maybe_unserialize($val->meta_value);
+									
+									$qty = floatval($qty) + floatval($res['qty']);
 								}
-									
-									
+								
 							}
+						}
+						}
+						
+							
+						
+			
+					
 
-					}
+					
+
+					
 
 					
 
 
 				}
+
 				$i++;
 			 	$sales_data = $sales->sales == null ? 0 : $sales->sales;
+			 	$stock_data = $stock->stock == null ? 0 : $stock->stock;
 				$transaction[] = array(
 							'id'			=> $i,
 							'date'          =>  $value, 
-							'stock'         =>  $stock->stock,
+							'stock'         =>  $stock_data,
 							'sales'         =>  $sales_data,
 							'consumption'   => $qty,
 							'product_type'	=> $term[0]['product_type_name']
@@ -1656,5 +1672,35 @@ function update_consumption($object_id,$qty){
 
  	$sql = $wpdb->query("UPDATE $transactions SET amount= amount + ".$qty." where 
  		object_id=".$object_id." and type='consumption'");
+
+}
+
+function store_notification($id,$notification)
+{
+	$user_details = update_user_meta($id,'notification',$notification);
+
+	if($user_details)
+	{
+		return array('notification'=>$notification);
+	}
+	else
+	{
+		return new WP_Error( 'json_notification_not_updated', __( 'Notification not updated.' ));
+	}
+
+}
+
+function store_emails($id,$emails)
+{
+	$user_details = update_user_meta($id,'emails',$emails);
+
+	if($user_details)
+	{
+		return array('emails'=>$emails);
+	}
+	else
+	{
+		return new WP_Error( 'json_emails_not_updated', __( 'Email not updated.' ));
+	}
 
 }

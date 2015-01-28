@@ -120,25 +120,37 @@ ViewProductHistoryView = (function(_super) {
 
   ViewProductHistoryView.prototype.getCount = function(val) {
     var count;
+    console.log(val);
     count = [];
-    if (!(_.isArray(val))) {
+    if (!_.isArray(val)) {
       count.push({
         date: val.date,
         qty: val.qty
       });
     } else {
-      _.each(val, function(val1) {
-        if (_.isArray(val1)) {
-          return _.each(val1, function(value) {
-            return count.push({
-              date: value.date,
-              qty: value.qty
-            });
-          });
-        } else {
+      $.each(val, function(ind, val1) {
+        console.log(val1);
+        if (!(_.isArray(val1))) {
           return count.push({
             date: val1.date,
             qty: val1.qty
+          });
+        } else {
+          return $.each(val1, function(ind, val2) {
+            console.log(val2);
+            if (_.isArray(val2)) {
+              return $.each(val2, function(ind, val3) {
+                return count.push({
+                  date: val3.date,
+                  qty: val3.qty
+                });
+              });
+            } else {
+              return count.push({
+                date: val2.date,
+                qty: val2.qty
+              });
+            }
           });
         }
       });

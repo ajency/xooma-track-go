@@ -154,7 +154,10 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		@show @parent().getLLoadingView()
+
+
+		
+			
 		console.log App.useProductColl
 		if App.useProductColl.length == 0
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
@@ -162,6 +165,8 @@ class App.HomeCtrl extends Ajency.RegionController
 			@show new HomeLayoutView
 
 	_showView:(collection)=>
+		@show @parent().getLLoadingView()
+		console.log collection
 		response = collection.response
 		App.useProductColl.reset response
 		console.log App.useProductColl

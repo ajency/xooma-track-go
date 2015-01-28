@@ -196,7 +196,6 @@ App.HomeCtrl = (function(_super) {
   }
 
   HomeCtrl.prototype.initialize = function() {
-    this.show(this.parent().getLLoadingView());
     console.log(App.useProductColl);
     if (App.useProductColl.length === 0) {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
@@ -207,6 +206,8 @@ App.HomeCtrl = (function(_super) {
 
   HomeCtrl.prototype._showView = function(collection) {
     var response;
+    this.show(this.parent().getLLoadingView());
+    console.log(collection);
     response = collection.response;
     App.useProductColl.reset(response);
     console.log(App.useProductColl);

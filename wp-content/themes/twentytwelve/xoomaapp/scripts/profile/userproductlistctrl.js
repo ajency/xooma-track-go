@@ -219,7 +219,7 @@ UserProductListView = (function(_super) {
       $('#product').parent().siblings().removeClass('selected');
       $('#product').parent().prevAll().addClass('done');
     }
-    if (parseInt(App.useProductColl.length) === 0) {
+    if (parseInt(App.useProductColl.length) === 0 || parseInt(App.useProductColl.length) < 10) {
       return this.ui.add1.hide();
     }
   };
