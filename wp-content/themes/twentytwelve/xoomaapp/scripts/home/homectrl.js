@@ -371,59 +371,81 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline text-center row dotted-line m-t-20 userProductList"> <li class="col-md-4  col-xs-4"> <a href="#/products/{{id}}/consume"><img src="assets/images/btn_03.png" width="100px"></a> <h6 class="text-center margin-none">Tap to consume</h6> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Daily Target</h5> <div class="row"> {{#shecule}} <div class="col-md-6  col-xs-6"> <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4> <h6 class="anytime">{{whendata}}</h6> </div> {{/shecule}} </div> </li> <li class="col-md-4  col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <div id="owl-example{{id}}" class="owl-carousel"> {{#no_servings}} <div class="item "> <i class="fa fa-clock-o center-block status"></i> {{#servings}} {{{newClass}}} {{/servings}} <h6 class="text-center text-primary">12:00 pm</h6> </div> {{/no_servings}} </div> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, data, occurrenceArr, recent, shecule, whenar;
+    var bonusArr, count, data, no_servings, occurrenceArr, product_type, qty, recent, temp;
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
     data.time = recent;
     data.bonus = 0;
     occurrenceArr = [];
+    no_servings = [];
     bonusArr = 0;
+    qty = this.model.get('qty');
+    product_type = this.model.get('product_type');
+    product_type = product_type.toLowerCase();
+    temp = [];
     $.each(this.model.get('occurrence'), function(ind, val) {
-      var date, expected, occurrence;
+      if (qty[ind] !== void 0) {
+        return temp.push(val);
+      }
+    });
+    count = 0;
+    console.log(temp);
+    $.each(temp, function(ind, val) {
+      var expected, html, i, newClass, occurrence, servings;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
-        date = val.occurrence;
-        occurrenceArr.push(date);
+        newClass = product_type + '_occurred_class';
+        html = '<div class="cap ' + newClass + '"></div>';
+      } else if (occurrence === false && expected === true && count === 0) {
+        count++;
+        html = '<a><img src="assets/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary">9:00 am</h6>';
+      } else if (occurrence === false && expected === true && count > 0) {
+        newClass = product_type + '_expected_class';
+        html = '<div class="cap ' + newClass + '"></div>';
       }
-      if (occurrence === true && expected === false) {
-        bonusArr++;
+      i = 0;
+      console.log(html);
+      servings = [];
+      if (count === 1) {
+        servings.push({
+          newClass: html
+        });
+      } else {
+        while (i < qty[ind].qty) {
+          servings.push({
+            newClass: html
+          });
+          i++;
+        }
       }
-      if (occurrenceArr.length !== 0) {
-        recent = _.last(occurrenceArr);
-        data.time = moment(recent).format("ddd, hA");
-        data.occur = occurrenceArr.length;
-      }
-      data.bonus = bonusArr;
-      return data.occurrArr = occurrenceArr;
-    });
-    shecule = [];
-    whenar = ['', 'Morning Before meal', 'Morning After meal', 'Night Before Meal', 'Night After Meal'];
-    $.each(this.model.get('qty'), function(ind, val) {
-      var occu_data;
-      occu_data = occurrenceArr.length;
-      if (occurrenceArr[ind] === "" || occurrenceArr[ind] === void 0) {
-        occu_data = 0;
-      }
-      return shecule.push({
-        qty: val.qty,
-        occ: occu_data,
-        whendata: whenar[val.when]
+      no_servings.push({
+        servings: servings,
+        schedule: val.schedule_id,
+        meta_id: val.meta_id,
+        qty: qty[ind].qty
       });
+      console.log(servings);
+      data.no_servings = no_servings;
+      return data.serving_size = temp.length;
     });
-    data.shecule = shecule;
     return data;
   };
 
   ProductChildView.prototype.onShow = function() {
+    $("#owl-example" + this.model.get('id')).owlCarousel({
+      autoWidth: true
+    }, {
+      itemsScaleUp: true
+    });
     if (this.model.get('type') === 'Anytime') {
       return this.ui.anytime.hide();
     }

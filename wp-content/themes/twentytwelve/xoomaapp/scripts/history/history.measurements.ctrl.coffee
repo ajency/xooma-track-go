@@ -70,16 +70,16 @@ class MeasurementHistoryView extends Marionette.ItemView
 					console.log classarr[ind] = 'hidden'
 			console.log classarr
 			html = ""
-			html += '<li><span>Height : </span>'+coll.height+ '<span class="'+classarr['height']+'"> inches</span>'
-			html += '<li><span>Weight : </span>'+coll.weight+ '<span class="'+classarr['weight']+'"> lb</span></span>'
-			html += '<li><span>Neck : </span>'+coll.neck+ '<span class="'+classarr['neck']+'"> lb</span>'
-			html += '<li><span>Chest : </span>'+coll.chest+ '<span class="'+classarr['chest']+'"> inches</span>'
-			html += '<li><span>Arm : </span>'+coll.arm+ '<span class="'+classarr['arm']+'"> inches</span>'
-			html += '<li><span>Abdomen : </span>'+coll.abdomen+ '<span class="'+classarr['abdomen']+'"> inches</span>'
-			html += '<li><span>Waist : </span>'+coll.waist+ '<span class="'+classarr['waist']+'"> inches</span>'
-			html += '<li><span>Hips : </span>'+coll.hips+ '<span class="'+classarr['hips']+'"> inches</span>'
-			html += '<li><span>Thigh : </span>'+coll.thigh+ '<span class="'+classarr['thigh']+'"> inches</span>'
-			html += '<li><span>MidCalf : </span>'+coll.midcalf+ '<span class="'+classarr['midcalf']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Height : </span>'+coll.height+ '<span class="'+classarr['height']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Weight : </span>'+coll.weight+ '<span class="'+classarr['weight']+'"> lb</span></span>'
+			html += '<li><span class="circle"></span><span>Neck : </span>'+coll.neck+ '<span class="'+classarr['neck']+'"> lb</span>'
+			html += '<li><span class="circle"></span><span>Chest : </span>'+coll.chest+ '<span class="'+classarr['chest']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Arm : </span>'+coll.arm+ '<span class="'+classarr['arm']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Abdomen : </span>'+coll.abdomen+ '<span class="'+classarr['abdomen']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Waist : </span>'+coll.waist+ '<span class="'+classarr['waist']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Hips : </span>'+coll.hips+ '<span class="'+classarr['hips']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Thigh : </span>'+coll.thigh+ '<span class="'+classarr['thigh']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>MidCalf : </span>'+coll.midcalf+ '<span class="'+classarr['midcalf']+'"> inches</span>'
 		else
 			html = '<li><span>No data available.Please go to settings and update your Progress Chart.</span></li>'
 		$('.viewHistory').html html
