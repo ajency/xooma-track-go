@@ -206,7 +206,7 @@ class UserProductListView extends Marionette.CompositeView
 			$('#product').parent().siblings().removeClass 'selected'
 			$('#product').parent().prevAll().addClass 'done'
 		
-		if parseInt(App.useProductColl.length) == 0
+		if parseInt(App.useProductColl.length) == 0 || parseInt(App.useProductColl.length) < 10
 				@ui.add1.hide()
 				
 			

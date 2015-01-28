@@ -768,6 +768,9 @@ add_action( 'user_register', 'send_emails', 10, 1 );
 
 function send_emails($user_id){
 
+	$user_notis = update_user_meta($user_id,'notification',1);
+	$user_emails = update_user_meta($user_id,'emails',0);
+		
 	send_notifications_to_admin($user_id);
 	send_notifications_to_user($user_id);
 	
@@ -798,7 +801,6 @@ function check_workflow($user_model){
 
 		//call workflow function
 		//workflow plugin code
-
 		$products = get_user_products($user_model->ID);
 
 		$user_data = $user->get_user_details($user_model->ID);
@@ -808,6 +810,10 @@ function check_workflow($user_model){
 		$user_model->products = $products;
 
 		$user_model->timezone = $user_data['timezone'];
+
+		$user_model->notification = get_user_meta($user_model->ID,'notification',true);
+
+		$user_model->emails = get_user_meta($user_model->ID,'emails',true);
 
 		
 
@@ -1666,5 +1672,35 @@ function update_consumption($object_id,$qty){
 
  	$sql = $wpdb->query("UPDATE $transactions SET amount= amount + ".$qty." where 
  		object_id=".$object_id." and type='consumption'");
+
+}
+
+function store_notification($id,$notification)
+{
+	$user_details = update_user_meta($id,'notification',$notification);
+
+	if($user_details)
+	{
+		return array('notification'=>$notification);
+	}
+	else
+	{
+		return new WP_Error( 'json_notification_not_updated', __( 'Notification not updated.' ));
+	}
+
+}
+
+function store_emails($id,$emails)
+{
+	$user_details = update_user_meta($id,'emails',$emails);
+
+	if($user_details)
+	{
+		return array('emails'=>$emails);
+	}
+	else
+	{
+		return new WP_Error( 'json_emails_not_updated', __( 'Email not updated.' ));
+	}
 
 }

@@ -148,6 +148,7 @@
 </script>
 <script id="settings-template" type="text/template">
 		<div class="container"> 
+		<div class="aj-response-message"> </div>
 		  <div class="row">
 		 <div class="col-md-2">
 		 </div>
@@ -176,8 +177,8 @@
 	<label class="col-sm-8 col-xs-8  control-label">Notification</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">
-			<input id="cmn-toggle-5" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
-			<label for="cmn-toggle-5"></label>
+			<input id="notification" value=""  name="notification" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+			<label for="notification"></label>
    </div>
 	</div>
   </div> 
@@ -185,8 +186,8 @@
 	<label  class="col-sm-8 col-xs-8 control-label">Email Alerts</label>
 	<div class="col-sm-4 col-xs-4 ">
  <div class="switch">
-			<input id="cmn-toggle-6" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
-			<label for="cmn-toggle-6"></label>
+			<input id="emails" name="emails" value="" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+			<label for="emails"></label>
    </div>
 	</div>
   </div> 
