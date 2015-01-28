@@ -476,7 +476,7 @@
 
 <script id="home-template" type="text/template">
 		<div class="container"> </br></br></br>
-		<div class="aj-response-message"> 
+		<div class="aj-response-message"> </div>
 	 <div class="row">
 			<div class="col-md-3"> 
 			</div>
@@ -517,16 +517,12 @@
 	</select>
   </div>
 
-					  <ul class="list-inline  dotted-line m-t-20">
-						<li class="col-md-4  col-xs-4"> 
-							  <label for="exampleInputFile">Start Day</label>
-								  <input type="text" aj-field-required="true" class="form-control" id="start_date" name="start_date" >
-						</li>
-						<li class="col-md-4  col-xs-4">
-							 <label for="exampleInputFile">End Day</label>
-								<input type="text" aj-field-required="true" class="form-control" id="end_date" name="end_date">
-						</li>
-						<li class="col-md-4  col-xs-4">
+					
+						<div class="m-t-30">
+								  <input type="hidden" id="start_date" name="start_date" >
+								<input type="hidden"  id="end_date" name="end_date">
+						
+						
 						   <label for="exampleInputFile">Weekly</label>
 								<select class="form-control time_period ">
 								  <option value="">--Select--</option>
@@ -534,8 +530,8 @@
 								  <option value="30">Last 30 days</option>
 								  <option value="all">All time</option>
 								</select>
-						</li>
-					</ul>
+					  </div>
+				
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button" >Generate</button>
 	<div class="clearfix"></div><br>
