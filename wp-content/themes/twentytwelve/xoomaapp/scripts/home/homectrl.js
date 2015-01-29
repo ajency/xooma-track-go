@@ -148,8 +148,8 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param;
-    console.log(dates = App.graph.get('dates'));
-    console.log(param = App.graph.get('param'));
+    dates = App.graph.get('dates');
+    param = App.graph.get('param');
     lineChartData = {
       labels: dates,
       datasets: [
@@ -185,7 +185,6 @@ App.HomeCtrl = (function(_super) {
   }
 
   HomeCtrl.prototype.initialize = function() {
-    console.log(App.useProductColl);
     if (App.useProductColl.length === 0) {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     } else {
@@ -196,10 +195,8 @@ App.HomeCtrl = (function(_super) {
   HomeCtrl.prototype._showView = function(collection) {
     var response;
     this.show(this.parent().getLLoadingView());
-    console.log(collection);
     response = collection.response;
     App.useProductColl.reset(response);
-    console.log(App.useProductColl);
     return this.show(new HomeLayoutView);
   };
 
@@ -222,6 +219,10 @@ HomeX2OView = (function(_super) {
   }
 
   HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="col-md-12"> <div class="fill-bottle"> <div class="glass"> <span class="liquid" style="height: 100%"></span> </div> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></a> </ul></div></div>';
+
+  HomeX2OView.prototype.ui = {
+    liquid: '.liquid'
+  };
 
   HomeX2OView.prototype.serializeData = function() {
     var bonusArr, data, occurrenceArr, recent;
@@ -274,34 +275,58 @@ HomeX2OView = (function(_super) {
     target = this.model.get('qty1');
     doughnutData = this.drawBottle(this.model.get('occurrence'));
     ctx = document.getElementById("chart-area").getContext("2d");
-    return window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
+    window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
       responsive: true,
-      percentageInnerCutout: 80
+      percentageInnerCutout: 80,
+      animateRotate: false
+    });
+    return this.ui.liquid.each(function(e) {
+      return $(e.target).data("origHeight", $(e.target).height()).height(0).animate({
+        height: $(this).data("origHeight")
+      }, 3000);
     });
   };
 
+  HomeX2OView.prototype.getCount = function(val) {
+    var count;
+    count = 0;
+    if (!(_.isArray(val))) {
+      count += parseFloat(val.qty);
+    } else {
+      _.each(val, function(val1) {
+        if (_.isArray(val1)) {
+          return _.each(val1, function(value) {
+            return count += parseFloat(value.qty);
+          });
+        } else {
+          return count += parseFloat(val1.qty);
+        }
+      });
+    }
+    return count;
+  };
+
   HomeX2OView.prototype.get_occurrence = function(data) {
-    var arr, expected, meta_value, occurrence, value;
+    var arr, expected, meta_value, occurrence, qty, value;
     occurrence = _.has(data, "occurrence");
     expected = _.has(data, "expected");
-    meta_value = _.has(data, "meta_value");
+    meta_value = data.meta_value;
     value = 0;
     arr = [];
-    $.each(meta_value, function(index, value) {
-      return value += parseInt(value.qty);
-    });
+    qty = 0;
+    qty = HomeX2OView.prototype.getCount(data.meta_value);
     if (occurrence === true && expected === true) {
       arr['color'] = "#6bbfff";
       arr['highlight'] = "#50abf1";
-      arr['value'] = value;
+      arr['value'] = qty;
     } else if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
       arr['highlight'] = "#cdcdcd";
-      arr['value'] = value;
+      arr['value'] = qty;
     } else if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
       arr['highlight'] = "#cdcdcd";
-      arr['value'] = value;
+      arr['value'] = qty;
     }
     return arr;
   };
@@ -345,9 +370,9 @@ App.HomeX2OCtrl = (function(_super) {
   HomeX2OCtrl.prototype._showView = function(collection) {
     var model, modelColl, productcollection;
     productcollection = collection.clone();
-    console.log(model = productcollection.findWhere({
+    model = productcollection.findWhere({
       name: 'X2O'
-    }));
+    });
     if (model !== void 0) {
       if (model.get('name').toUpperCase() === 'X2O') {
         modelColl = model;
@@ -372,7 +397,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <div id="owl-example{{id}}" class="owl-carousel"> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> {{#no_servings}} <div class="item "> <i class="fa fa-clock-o center-block status"></i> {{{servings}}} </div> {{/no_servings}} </div> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -398,7 +423,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.saveHandler = function(response, status, xhr) {
-    var home, model, productcollection;
+    var home, model, productcollection, region;
     this.model.set('occurrence', response.occurrence);
     productcollection = App.useProductColl.clone();
     model = productcollection.findWhere({
@@ -413,7 +438,10 @@ ProductChildView = (function(_super) {
     home = new HomeOtherProductsView({
       collection: productcollection
     });
-    return $('#otherproducts').html(home.render().el);
+    region = new Marionette.Region({
+      el: '#otherproducts'
+    });
+    return region.show(home);
   };
 
   ProductChildView.prototype.serializeData = function() {
@@ -442,7 +470,6 @@ ProductChildView = (function(_super) {
       var expected, occurrence, response;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
-      console.log(model);
       if (occurrence === true && expected === true) {
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
       } else if (occurrence === false && expected === true) {
@@ -463,27 +490,28 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, html, i, meta_id, newClass, product_type, qty, reminders, schedule_id, temp;
+    var classname, html, i, increment, meta_id, newClass, product_type, qty, reminders, schedule_id, temp, tempcnt, time;
     temp = [];
     i = 0;
     html = "";
     product_type = model.get('product_type');
+    product_type = product_type.toLowerCase();
     qty = model.get('qty');
     reminders = model.get('reminder');
-    classname = "";
-    console.log(reminders[key].time);
-    if (parseInt(reminders.length) === 0) {
-      classname = 'hidden';
+    classname = "hidden";
+    time = "";
+    tempcnt = 0;
+    increment = parseInt(key) + 1;
+    if (parseInt(reminders.length) !== 0) {
+      classname = '';
+      time = reminders[key].time;
     }
     newClass = product_type + '_expected_class';
     if (parseInt(count) === 0) {
-      html += '<a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + reminders[key].time + '</h6>';
+      html += '<li><a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
     } else {
-      while (i < qty[key].qty) {
-        html += '<div class="cap ' + newClass + '"></div>';
-        i++;
-      }
-      html += '<h6 class="text-center text-primary ' + classname + '">' + reminders[key].time + '</h6>';
+      html += '<li><a > <h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3> </a>';
+      html += '<i class="fa fa-clock-o center-block status"></i> <h6 class="text-center text-primary">Serving ' + increment + '</h6></li>';
     }
     qty = qty[key].qty;
     $('#qty' + model.get('id')).val(qty);
@@ -499,19 +527,18 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.occurredfunc = function(val, key, model) {
-    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp;
+    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp, time, timezone;
     temp = [];
     i = 0;
-    console.log(val);
+    timezone = App.currentUser.get('timezone');
+    time = moment(val.occurrence + timezone, "HH:mm Z").format("hA");
     product_type = model.get('product_type');
+    product_type = product_type.toLowerCase();
     qty = model.get('qty');
     html = "";
     newClass = product_type + '_occurred_class';
-    while (i < qty[key].qty) {
-      html += '<div class="cap ' + newClass + '"></div>';
-      i++;
-    }
-    html += '<h6 class="text-center text-primary">12:00 pm</h6>';
+    html += '<li><a ><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3></a>';
+    html += '<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">' + time + '</h6></li>';
     qty = qty[key].qty;
     schedule_id = val.schedule_id;
     meta_id = 0;
@@ -522,14 +549,6 @@ ProductChildView = (function(_super) {
       meta_id: meta_id
     });
     return temp;
-  };
-
-  ProductChildView.prototype.onShow = function() {
-    return $("#owl-example" + this.model.get('id')).owlCarousel({
-      autoWidth: true
-    }, {
-      itemsScaleUp: true
-    });
   };
 
   return ProductChildView;

@@ -128,8 +128,8 @@ class HomeLayoutView extends Marionette.LayoutView
 		);
 
 	generateGraph:->
-		console.log dates = App.graph.get 'dates'
-		console.log param = App.graph.get 'param'
+		dates = App.graph.get 'dates'
+		param = App.graph.get 'param'
 		lineChartData = 
 			labels : dates,
 			datasets : [
@@ -161,9 +161,6 @@ class App.HomeCtrl extends Ajency.RegionController
 	initialize:->
 
 
-		
-			
-		console.log App.useProductColl
 		if App.useProductColl.length == 0
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
@@ -171,10 +168,9 @@ class App.HomeCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		@show @parent().getLLoadingView()
-		console.log collection
 		response = collection.response
 		App.useProductColl.reset response
-		console.log App.useProductColl
+		
 
 		@show new HomeLayoutView
 
@@ -225,6 +221,8 @@ class HomeX2OView extends Marionette.ItemView
 					<h5 class="text-center">Last consumed at</h5>
 					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
 				</li></a> </ul></div></div>'
+	ui :
+		liquid : '.liquid'
 
 	serializeData:->
 		data = super()
@@ -277,32 +275,54 @@ class HomeX2OView extends Marionette.ItemView
 		window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, 
 			responsive : true,  
 			percentageInnerCutout : 80 
+			animateRotate : false
 		)
-		
+		@ui.liquid.each (e)->
+			$(e.target)
+				.data("origHeight", $(e.target).height())
+				.height(0)
+				.animate(
+						height: $(this).data("origHeight")
+					, 3000)
+
+
+	getCount:(val)->
+		count = 0
+		if!(_.isArray(val)) 
+			count += parseFloat val.qty
+		else
+			_.each val , (val1)->
+				if _.isArray(val1)
+					_.each val1 ,  (value)->
+						count += parseFloat value.qty
+				else
+					count += parseFloat val1.qty
+
+		count	
 		
 		
 	get_occurrence:(data)->
 		occurrence = _.has(data, "occurrence")
 		expected = _.has(data, "expected")
-		meta_value = _.has(data, "meta_value")
+		meta_value = data.meta_value
 		value = 0
 		arr = []
-		$.each meta_value , (index,value)->
-			value += parseInt value.qty
+		qty = 0
+		qty = HomeX2OView::getCount(data.meta_value)
 		
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
 			arr['highlight'] =  "#50abf1"
-			arr['value'] = value
+			arr['value'] = qty
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = value
+			arr['value'] = qty
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = value
+			arr['value'] = qty
 
 		arr
 
@@ -338,7 +358,7 @@ class App.HomeX2OCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		console.log model = productcollection.findWhere({name:'X2O'}) 
+		model = productcollection.findWhere({name:'X2O'}) 
 		if model != undefined
 			if model.get('name').toUpperCase() == 'X2O'
 				modelColl = model
@@ -357,15 +377,16 @@ class ProductChildView extends Marionette.ItemView
 						
 					  </ul>
 			  </h5>
-			  <ul class="list-inline dotted-line  text-center row m-t-20">
-								  <li class="col-md-8 col-xs-8"> 
-							 <div id="owl-example{{id}}" class="owl-carousel">
-							 <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" />
+			  <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" />
 							<input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" />
 					
-					{{#no_servings}}
-					<div class="item ">
-				   <i class="fa fa-clock-o center-block status"></i>
+
+			  <ul class="list-inline dotted-line  text-center row m-t-20">
+								  <li class="col-md-8 col-xs-8"> 
+							 <ul class="list-inline no-dotted">
+							 					{{#no_servings}}
+					
+				 
 									  
 										{{{servings}}}
 										
@@ -373,7 +394,7 @@ class ProductChildView extends Marionette.ItemView
 									 
 									  
 										
-					</div>
+				
 					{{/no_servings}}
 					
 
@@ -381,7 +402,7 @@ class ProductChildView extends Marionette.ItemView
 
 					
  
-   </div>                            
+</ul>                          
 								  </li>
 								   
 									<li class="col-md-4 col-xs-4">
@@ -416,6 +437,7 @@ class ProductChildView extends Marionette.ItemView
 
 	saveHandler:(response,status,xhr)=>
 		@model.set 'occurrence' , response.occurrence
+		#App.useProductColl.set @model
 		productcollection = App.useProductColl.clone()
 		model = productcollection.findWhere({name:'X2O'})  
 		if model != undefined
@@ -424,7 +446,9 @@ class ProductChildView extends Marionette.ItemView
 				productcollection.reset productcollection.toArray()
 		home = new HomeOtherProductsView
 					collection : productcollection
-		$('#otherproducts').html(home.render().el)
+		region =  new Marionette.Region el : '#otherproducts'
+		region.show home
+		#$('#otherproducts').html(home.render().el)
 		
 
 
@@ -450,7 +474,6 @@ class ProductChildView extends Marionette.ItemView
 		$.each temp , (ind,val)->
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
-			console.log model
 			if occurrence == true && expected == true
 				reponse = ProductChildView::occurredfunc(val,ind,model)
 				
@@ -470,22 +493,28 @@ class ProductChildView extends Marionette.ItemView
 		i = 0
 		html = ""
 		product_type = model.get 'product_type'
+		product_type = product_type.toLowerCase()
 		qty = model.get 'qty'
 		reminders = model.get 'reminder'
-		classname = ""
-		console.log reminders[key].time
-		if parseInt(reminders.length) == 0
-			classname = 'hidden'
+		classname = "hidden"
+		time = ""
+		tempcnt = 0
+		increment = parseInt(key) + 1
+		if parseInt(reminders.length) != 0
+			classname = ''
+			time = reminders[key].time
+
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
-			html += '<a href="#" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
+			html += '<li><a href="#" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
 					<h6 class="text-center margin-none">Tap to take </h6>
-					<h6 class="text-center text-primary '+classname+'">'+reminders[key].time+'</h6>'
+					<h6 class="text-center text-primary '+classname+'">'+time+'</h6></li>'
 		else
-			while(i < qty[key].qty)
-				html += '<div class="cap '+newClass+'"></div>'
-				i++
-			html +=	'<h6 class="text-center text-primary '+classname+'">'++'</h6>'
+			html += '<li><a >
+                  <h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
+               </a>'
+			html +=	'<i class="fa fa-clock-o center-block status"></i>
+                     <h6 class="text-center text-primary">Serving '+increment+'</h6></li>'
 		qty  = qty[key].qty
 		$('#qty'+model.get('id')).val qty
 		
@@ -497,15 +526,15 @@ class ProductChildView extends Marionette.ItemView
 	occurredfunc:(val,key,model)->
 		temp = []
 		i = 0
-		console.log val
+		timezone = App.currentUser.get 'timezone'
+		time = moment(val.occurrence+timezone, "HH:mm Z").format("hA")
 		product_type = model.get 'product_type'
+		product_type = product_type.toLowerCase() 
 		qty = model.get 'qty'
 		html = ""
 		newClass = product_type+'_occurred_class'
-		while(i < qty[key].qty)
-				html += '<div class="cap '+newClass+'"></div>'
-				i++
-		html +=	'<h6 class="text-center text-primary">12:00 pm</h6>'
+		html += '<li><a ><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3></a>'
+		html +=	'<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">'+time+'</h6></li>'
 		qty  = qty[key].qty
 		schedule_id = val.schedule_id
 		meta_id = 0
@@ -513,12 +542,9 @@ class ProductChildView extends Marionette.ItemView
 		temp
 
 
-	onShow:->
-		$("#owl-example"+@model.get('id')).owlCarousel(
-			autoWidth : true,
-			 itemsScaleUp:true
-		   
-		)
+	
+
+
 
 		
 
@@ -538,6 +564,7 @@ class HomeOtherProductsView extends Marionette.CompositeView
 class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	initialize:->
+
 		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
