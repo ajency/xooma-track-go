@@ -22,42 +22,57 @@
 	</div>
 	<div class="container">
 			<div class="row">
-					<div class="col-sm-12">
+			<div class="col-sm-3">
+			</div>
+					<div class="col-sm-6">
 							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 									<br>
 									<br>
-
+<br>
 									<ol class="carousel-indicators">
 										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+										<li data-target="#carousel-example-generic" data-slide-to="4"></li>
 									</ol>
 									<div class="carousel-inner" role="listbox">
 										<div class="item active">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive">
 											<div class="carousel-caption text-center">
-													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal X2O water consumption</p>
+													<h5>Easy and intuitive way to keep track of your Xooma products intake.</h5>
+													
+											</div>
+										</div>
+											<div class="item ">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  >
+											<div class="carousel-caption text-center">
+													<h5>App offers timely notification and email reminders making sure you never miss a dose!</h5>
 											</div>
 										</div>
 										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" >
 											<div class="carousel-caption text-center">
-													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal X2O water consumption</p>
+													<h5>Measure your fitness with Progress chart</h5>
 											</div>
 										</div>
 										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block">
-											<div class="carousel-caption text-center">
-													<h3>Xooma Track & Go</h3>
-													<p>Has been desiged to help you track your personal X2O water consumption</p>
+											<img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" >
+											<div class="carousel-caption text-center "  >
+													<h5>Know when your stock is running out and order in time</h5>
+											</div>
+										</div>
+										<div class="item ">
+											<img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  >
+											<div class="carousel-caption text-center"  >
+													<h5>One screen where download to app link (ios and android ) available</h5>
 											</div>
 										</div>
 									</div>
 
 							</div>
-
+<div class="col-sm-3">
+			</div>
 							<!-- Login Button  -->
 					</div>
 			</div>
@@ -478,19 +493,21 @@
 		<div class="container"> </br></br></br>
 		<div class="aj-response-message"> </div>
 	 <div class="row">
-			<div class="col-md-3"> 
+			<div class="col-md-2"> 
 			</div>
-		 <div class="col-md-6"> 
-		 <div ui-region="x2o">
-			  
-			</div>
+		 <div class="col-md-8"> 
+				 <div ui-region="x2o">
+					  
+					</div>
 		   <br>   
+
 	   <div ui-region="other-products" id="otherproducts">
 	   
 		 </div>         
 
-		</div>
-	</div>
+
+
+	
 	<div class="panel panel-default">
 		  <div class="panel-body">
 			<h5 class="bold margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
@@ -498,24 +515,24 @@
 						<li><a href="#" class="update">Update Measurements</a></li>
 						<li><a href="#" class="history">Measurements History</a></li>
 						</ul>
-			  </h5>
-<form id="generate_graph" method="POST"  role="form">
+									  </h5>
+						<form id="generate_graph" method="POST"  role="form">
 
-  <div class="m-t-30">
-	<label for="exampleInputFile">Select</label>
-	<select class="form-control" aj-field-required="true" name="param">
-	  <option value="weight">Weight</option>
-	  <option value="neck">Neck</option>
-	  <option value="chest">Chest</option>
-	  <option value="arm">Arm</option>
-	  <option value="abdomen">Abdomen</option>
-	  <option value="waist">Waist</option>
-	  <option value="hips">Hips</option>
-	  <option value="thigh">Thigh</option>
-	  <option value="bmi">BMI</option>
-	 
-	</select>
-  </div>
+						  <div class="m-t-30">
+							<label for="exampleInputFile">Select</label>
+							<select class="form-control" aj-field-required="true" name="param">
+							  <option value="weight">Weight</option>
+							  <option value="neck">Neck</option>
+							  <option value="chest">Chest</option>
+							  <option value="arm">Arm</option>
+							  <option value="abdomen">Abdomen</option>
+							  <option value="waist">Waist</option>
+							  <option value="hips">Hips</option>
+							  <option value="thigh">Thigh</option>
+							  <option value="bmi">BMI</option>
+							 
+							</select>
+						  </div>
 
 					
 						<div class="m-t-30">
@@ -535,12 +552,18 @@
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button" >Generate</button>
 	<div class="clearfix"></div><br>
-	<div style="width:100%">
-			<div>
-				<canvas id="canvas" height="450" width="600"></canvas>
+				<div style="width:100%">
+								<div>
+									<canvas id="canvas" height="450" width="600"></canvas>
+								</div>
+					</div>
+		  	
+		  	</div>
+
+		  	<div class="col-md-2"> 
 			</div>
 		</div>
-		  </div>
+
 </div>
 </script>
 
@@ -1007,6 +1030,7 @@
 </div>
 </script>
 <script id="measurement-history-template" type="text/template">
+<div class="container">
 <div class="row">
 <div class="aj-response-message"> </div>
          <div class="col-md-2">
@@ -1026,7 +1050,7 @@
             <div class="col-md-2">
          </div>
         </div>
-
+      </div>
 </script>
 <script id="asperbmi-template" type="text/template">
 <div class="container"> </br></br>
