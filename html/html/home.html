@@ -411,6 +411,16 @@
 
       </script> 
       <script type="text/javascript">
+          $(function() {
+        $(".liquid").each(function() {
+          $(this)
+            .data("origHeight", $(this).height())
+            .height(0)
+            .animate({
+              height: $(this).data("origHeight")
+            }, 3000);
+        });
+      });
       $(function() {
           $('nav#menu').mmenu();
       });
@@ -481,7 +491,7 @@
   			window.onload = function(){
             
   				var ctx = document.getElementById("chart-area").getContext("2d");
-  				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true,   percentageInnerCutout : 80 });
+  				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true,   percentageInnerCutout : 80 ,  animateRotate : false});
                   	var ctdx = document.getElementById("canvas").getContext("2d");
   		window.myLine = new Chart(ctdx).Line(lineChartData, {
   			responsive: true
@@ -489,16 +499,7 @@
   			};
 
 
-  	$(function() {
-  			$(".liquid").each(function() {
-  				$(this)
-  					.data("origHeight", $(this).height())
-  					.height(0)
-  					.animate({
-  						height: $(this).data("origHeight")
-  					}, 3000);
-  			});
-  		});
+
       </script>
 
 

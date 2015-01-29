@@ -7453,7 +7453,7 @@ input.fire-check:checked ~ section .tn-box:nth-child(3) .tn-progress {
   display: block;
   margin: auto;
   position: relative;
-  top: 85px;
+  top: 65px;
 }
 .glass {
   height: 150px;
