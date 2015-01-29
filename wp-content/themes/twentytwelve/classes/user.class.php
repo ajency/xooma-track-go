@@ -94,7 +94,7 @@ class User
         return true;
 	}
 
-  public function update_user_measurement_details($id,$args,$date=""){
+  public function update_user_measurement_details($id,$args,$date){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
@@ -107,6 +107,7 @@ class User
         }
         unset($args['date']);
         $user_meta_value = maybe_serialize($args);
+       
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
 
         if(count($sql_query) == 0 && $sql_query == null)
@@ -116,7 +117,7 @@ class User
                 $measurements_table,
                 array(
                   'user_id' => $id,
-                  'date' => date('Y-m-d'),
+                  'date' => $date,
                   'value' => $user_meta_value
                 ),
                 array(
