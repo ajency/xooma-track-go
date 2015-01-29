@@ -220,6 +220,10 @@ HomeX2OView = (function(_super) {
 
   HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="col-md-12"> <div class="fill-bottle"> <div class="glass"> <span class="liquid" style="height: 100%"></span> </div> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></a> </ul></div></div>';
 
+  HomeX2OView.prototype.ui = {
+    liquid: '.liquid'
+  };
+
   HomeX2OView.prototype.serializeData = function() {
     var bonusArr, data, occurrenceArr, recent;
     data = HomeX2OView.__super__.serializeData.call(this);
@@ -271,9 +275,15 @@ HomeX2OView = (function(_super) {
     target = this.model.get('qty1');
     doughnutData = this.drawBottle(this.model.get('occurrence'));
     ctx = document.getElementById("chart-area").getContext("2d");
-    return window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
+    window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {
       responsive: true,
-      percentageInnerCutout: 80
+      percentageInnerCutout: 80,
+      animateRotate: false
+    });
+    return this.ui.liquid.each(function(e) {
+      return $(e.target).data("origHeight", $(e.target).height()).height(0).animate({
+        height: $(this).data("origHeight")
+      }, 3000);
     });
   };
 
@@ -387,7 +397,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <div id="owl-example{{id}}" class="owl-carousel"> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> {{#no_servings}} <div class="item "> <i class="fa fa-clock-o center-block status"></i> {{{servings}}} </div> {{/no_servings}} </div> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -480,7 +490,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, html, i, meta_id, newClass, product_type, qty, reminders, schedule_id, temp, time;
+    var classname, html, i, increment, meta_id, newClass, product_type, qty, reminders, schedule_id, temp, tempcnt, time;
     temp = [];
     i = 0;
     html = "";
@@ -490,19 +500,18 @@ ProductChildView = (function(_super) {
     reminders = model.get('reminder');
     classname = "hidden";
     time = "";
+    tempcnt = 0;
+    increment = parseInt(key) + 1;
     if (parseInt(reminders.length) !== 0) {
       classname = '';
       time = reminders[key].time;
     }
     newClass = product_type + '_expected_class';
     if (parseInt(count) === 0) {
-      html += '<a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6>';
+      html += '<li><a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
     } else {
-      while (i < qty[key].qty) {
-        html += '<div class="cap ' + newClass + '"></div>';
-        i++;
-      }
-      html += '<h6 class="text-center text-primary ' + classname + '">' + time + '</h6>';
+      html += '<li><a > <h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3> </a>';
+      html += '<i class="fa fa-clock-o center-block status"></i> <h6 class="text-center text-primary">Serving ' + increment + '</h6></li>';
     }
     qty = qty[key].qty;
     $('#qty' + model.get('id')).val(qty);
@@ -528,11 +537,8 @@ ProductChildView = (function(_super) {
     qty = model.get('qty');
     html = "";
     newClass = product_type + '_occurred_class';
-    while (i < qty[key].qty) {
-      html += '<div class="cap ' + newClass + '"></div>';
-      i++;
-    }
-    html += '<h6 class="text-center text-primary">' + time + '</h6>';
+    html += '<li><a ><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3></a>';
+    html += '<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">' + time + '</h6></li>';
     qty = qty[key].qty;
     schedule_id = val.schedule_id;
     meta_id = 0;
@@ -543,13 +549,6 @@ ProductChildView = (function(_super) {
       meta_id: meta_id
     });
     return temp;
-  };
-
-  ProductChildView.prototype.onShow = function() {
-    return $("#owl-example" + this.model.get('id')).owlCarousel({
-      autoWidth: true,
-      itemsScaleUp: true
-    });
   };
 
   return ProductChildView;
