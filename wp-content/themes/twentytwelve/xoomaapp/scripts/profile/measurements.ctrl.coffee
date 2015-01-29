@@ -29,7 +29,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	keydown:(e)->
 		if  e.charCode == 46
-			console.log inputVal = $(e.target).val().split('.').length
+			inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
 				return  false
 		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 ||	e.charCode == 44 
@@ -42,6 +42,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onShow:->
+		$('#update').val moment().format('YYYY-MM-DD')
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 		    dateFormat : 'yy-mm-dd'

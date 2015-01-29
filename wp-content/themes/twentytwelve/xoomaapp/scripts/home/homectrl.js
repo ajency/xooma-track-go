@@ -293,13 +293,19 @@ HomeX2OView = (function(_super) {
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
     } else {
-      _.each(val, function(val1) {
-        if (_.isArray(val1)) {
-          return _.each(val1, function(value) {
-            return count += parseFloat(value.qty);
-          });
-        } else {
+      $.each(val, function(ind, val1) {
+        if (!(_.isArray(val1))) {
           return count += parseFloat(val1.qty);
+        } else {
+          return $.each(val1, function(ind, val2) {
+            if (_.isArray(val2)) {
+              return $.each(val2, function(ind, value) {
+                return count += parseFloat(value.qty);
+              });
+            } else {
+              return count += parseFloat(val2.qty);
+            }
+          });
         }
       });
     }

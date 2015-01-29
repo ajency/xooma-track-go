@@ -538,7 +538,7 @@
 								<input type="hidden"  id="end_date" name="end_date">
 						
 						
-						   <label for="exampleInputFile">Weekly</label>
+						   <label for="exampleInputFile">Select</label>
 								<select class="form-control time_period ">
 								  <option value="">--Select--</option>
 								  <option value="7">Last 7 days</option>
@@ -1009,7 +1009,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-				   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
+				   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
 				</div>
 			</div>
 		</div>

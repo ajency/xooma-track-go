@@ -291,14 +291,20 @@ class HomeX2OView extends Marionette.ItemView
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
 		else
-			_.each val , (val1)->
-				if _.isArray(val1)
-					_.each val1 ,  (value)->
-						count += parseFloat value.qty
-				else
+			$.each val , (ind,val1)->
+				if!(_.isArray(val1)) 
 					count += parseFloat val1.qty
+				else
+					$.each val1 , (ind,val2)->
+						if _.isArray(val2)
+							$.each val2 ,  (ind,value)->
+								count += parseFloat value.qty
+						else
+							count += parseFloat val2.qty
 
 		count	
+
+	
 		
 		
 	get_occurrence:(data)->

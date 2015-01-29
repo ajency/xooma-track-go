@@ -29,7 +29,6 @@ class EditProductsView extends Marionette.ItemView
 
 		'change @ui.rangeSliders' : (e)-> 
 			$('.servings_per_day').val $(e.target).val()
-			console.log $('.servings_per_day').val()
 			@valueOutput e.currentTarget
 			@showReminders()
 
@@ -47,14 +46,13 @@ class EditProductsView extends Marionette.ItemView
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
 			#$( @ui.servings_per_day ).trigger( "change" )
-			console.log @model.get('frequency_value')
 			if parseInt(@model.get('frequency_value')) == 2
 				@selectSchdule(@model)
 			@showReminders()
 
 		'click .save':(e)->
 			e.preventDefault()
-			console.log check = @checkreminder()
+			check = @checkreminder()
 			if check == false
 				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
 				$('html, body').animate({
@@ -159,7 +157,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.available').text cnt
 
 	checkreminder:->
-		console.log servings = $('.servings_per_day').val()
+		servings = $('.servings_per_day').val()
 		i = 0
 		while i < servings
 			if $('#reminder_time'+i).val() == "" && parseInt($('#reminder').val()) == 1
@@ -181,25 +179,23 @@ class EditProductsView extends Marionette.ItemView
 				$('.qty_per_servings_div').text ""
 				$('.qty_per_servings_div').append html
 				$('.qty_per_servings').each (ind,val)->
-					console.log val.name = 'qty_per_servings'+ind
+					val.name = 'qty_per_servings'+ind
 					val.id = 'qty_per_servings'+ind
 				@showReminders()
 
 	selectSchdule:(model)->
-		console.log $('#timeset').val()
 		if $('#timeset').val() == 'Once'
 			$('.servings_per_day option[value="1"]').prop("selected",true)
 
 		else
 			$('.servings_per_day option[value="2"]').prop("selected",true)
-			console.log $('.servings_per_day').val()
-
+			
 
 	showReminders:()->
 		if parseInt($('#reminder').val()) == 1
 				$(@ui.servings_diff).prop 'disabled' , false
 				$('#reminder_time0').removeAttr 'disabled'
-				console.log servings = $('.servings_per_day').val()
+				servings = $('.servings_per_day').val()
 				html1 = ""
 				i = 1
 				while(i <= servings)
@@ -266,7 +262,7 @@ class EditProductsView extends Marionette.ItemView
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
-			console.log data.defaultbmi = qty.length
+			data.defaultbmi = qty.length
 			data.reminder = reminders[0].time
 		frequecy = @model.get 'frequency_value'
 		if parseInt(frequecy) == 1 
@@ -437,7 +433,6 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$.each reminders , (ind,val)->
-			console.log val.time
 			$('#reminder_time'+ind).val val.time
 		
 			
@@ -452,8 +447,8 @@ class App.EditProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
 		productId  = @getParams()
-		console.log product = parseInt productId[0]
-		console.log products = App.currentUser.get 'products'
+		product = parseInt productId[0]
+		products = App.currentUser.get 'products'
 		
 		if $.inArray( product, products ) > -1 || App.productCollection.length == 0
 			$.ajax

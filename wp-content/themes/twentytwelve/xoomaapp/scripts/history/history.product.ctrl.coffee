@@ -33,8 +33,8 @@ class ViewProductHistoryView extends Marionette.ItemView
 		});
 
 	loadData:(id)=>
-			console.log product = id
-			console.log date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
+			product = id
+			date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
 			if $('#picker_inline_fixed').val() == ""
 				date = moment().format("YYYY-MM-DD")
 			$('.viewHistory').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
@@ -70,11 +70,11 @@ class ViewProductHistoryView extends Marionette.ItemView
 		timezone = App.currentUser.get 'timezone'
 		coll.each (index)->
 			if index.get('meta_value').length != 0 && response.name.toUpperCase() != 'X2O'
-				console.log meta_value = index.get('meta_value')
+				meta_value = index.get('meta_value')
 				meta_id = index.get('meta_value')
 				time = moment(meta_value.date+timezone, "HH:mm Z").format("hA")
 				fromnow = moment(meta_value.date+timezone).fromNow()
-				console.log qty = meta_value.qty
+				qty = meta_value.qty
 				arr++
 				html += '<li class="work'+meta_id+'"><div class="relative">
 				      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
@@ -106,18 +106,15 @@ class ViewProductHistoryView extends Marionette.ItemView
 				
 		
 	getCount:(val)=>
-		console.log val
 		count = []
 		if! _.isArray(val)
 			count.push date : val.date , qty : val.qty
 		else
 			$.each val , (ind,val1)->
-				console.log val1
 				if!(_.isArray(val1)) 
 					count.push date : val1.date , qty : val1.qty 
 				else
 					$.each val1, (ind,val2)->
-						console.log val2
 						if _.isArray(val2)
 							$.each val2 ,  (ind,val3)->
 								count.push date : val3.date , qty : val3.qty

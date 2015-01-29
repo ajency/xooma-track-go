@@ -29,7 +29,7 @@ ProductChildView = (function(_super) {
     return this.$el.prop("id", 'cart' + this.model.get("id"));
   };
 
-  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/product/{{id}}/history">Product history</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
+  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class="bold margin-none mid-title "> {{name}} <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   m-t-20"> <li class="col-md-7 col-xs-7"> <div class="row"> {{#servings}} <div class="col-md-6 text-left"> {{#serving}} <div class="{{classname}}"></div> {{/serving}} </div> {{/servings}} </div> </li> <li class="col-md-1 col-xs-1"> <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4> </li> <li class="col-md-4  col-xs-4 text-center"> <span clas="servings_text">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2> <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </li> </ul> </div> <div class="panel-footer"> <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
 
   ProductChildView.prototype.events = {
     'click .remove': function(e) {
@@ -47,7 +47,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.successHandler = function(response, status, xhr) {
-    var listview, products;
+    var listview, products, region;
     if (xhr.status === 200) {
       products = App.currentUser.get('products');
       products = _.without(products, parseInt(response));
@@ -56,8 +56,10 @@ ProductChildView = (function(_super) {
       listview = new UserProductListView({
         collection: App.useProductColl
       });
-      $('#xoomaproduct').html(listview.render().el);
-      console.log(App.useProductColl.length);
+      region = new Marionette.Region({
+        el: '#xoomaproduct'
+      });
+      region.show(listview);
       if (parseInt(App.useProductColl.length) === 0) {
         $('.add1').hide();
         return $('.save_products').hide();
@@ -77,11 +79,15 @@ ProductChildView = (function(_super) {
     }, 'slow');
   };
 
-  ProductChildView.prototype.onRender = function() {
-    var product, products;
+  ProductChildView.prototype.onShow = function() {
+    var product, products, reminder;
+    reminder = this.model.get('reminder');
+    if (reminder.length !== 0) {
+      $('#bell' + this.model.get('id')).removeClass('fa-bell-slash no-remiander');
+      $('#bell' + this.model.get('id')).addClass('fa-bell-o element-animation');
+    }
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
-    console.log($.inArray(product, products));
     if (parseInt($.inArray(product, products)) > -1) {
       this.ui.avail.removeClass('hidden');
       this.ui.add.removeClass('hidden');

@@ -43,7 +43,6 @@ class AsperbmiView extends Marionette.ItemView
 
 	saveHandler:(response,status,xhr)=>
 		if xhr.status == 201
-			console.log response
 			occurResponse = _.map response.occurrence, (occurrence)->
 				occurrence.meta_id = parseInt occurrence.meta_id
 				occurrence
@@ -80,13 +79,16 @@ class AsperbmiView extends Marionette.ItemView
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
 		else
-			_.each val , (val1)->
-				console.log val1
-				if _.isArray(val1)
-					_.each val1 ,  (value)->
-						count += parseFloat value.qty
-				else
+			$.each val , (ind,val1)->
+				if!(_.isArray(val1)) 
 					count += parseFloat val1.qty
+				else
+					$.each val1 , (ind,val2)->
+						if _.isArray(val2)
+							$.each val2 ,  (ind,value)->
+								count += parseFloat value.qty
+						else
+							count += parseFloat val2.qty
 
 		count
 
@@ -112,7 +114,7 @@ class AsperbmiView extends Marionette.ItemView
 				expected = _.has(val, "expected")
 				meta_id = val.meta_id
 				# console.log val.meta_value
-				console.log count = @getCount(val.meta_value)
+				count = @getCount(val.meta_value)
 				
 				if occurrence == true && (expected == true || expected == false) && count ==  1
 					count1++
@@ -123,8 +125,6 @@ class AsperbmiView extends Marionette.ItemView
 				else
 					@create_occurrences()
 					return false
-			console.log @model.get('occurrence').length
-			console.log count1
 			if(parseInt(@model.get('occurrence').length) == parseInt count1)
 				@create_occurrences()
 				

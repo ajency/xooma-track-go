@@ -20,7 +20,6 @@ class ProductChildView extends Marionette.ItemView
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
-                        <li class="update hidden"><a href="#/product/{{id}}/history">Product history</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li>
                         <li class="divider"></li>
@@ -52,7 +51,7 @@ class ProductChildView extends Marionette.ItemView
                     </ul>
                 </div>
                 <div class="panel-footer">
-          <i id="bell" class="fa fa-bell-slash no-remiander"></i> 
+          <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> 
            {{reminder}}
           </div>' 
 
@@ -75,11 +74,11 @@ class ProductChildView extends Marionette.ItemView
 			App.useProductColl.remove parseInt(response)
 			listview = new UserProductListView
 							collection : App.useProductColl
-
-			$('#xoomaproduct').html(listview.render().el)
+			region =  new Marionette.Region el : '#xoomaproduct'
+			region.show listview
+			
 			
 
-			console.log App.useProductColl.length
 			if parseInt(App.useProductColl.length) == 0
 				$('.add1').hide()
 				$('.save_products').hide()
@@ -100,10 +99,13 @@ class ProductChildView extends Marionette.ItemView
 
                             
 
-	onRender:->
+	onShow:->
+		reminder = @model.get('reminder')
+		if reminder.length != 0
+			$('#bell'+@model.get('id')).removeClass 'fa-bell-slash no-remiander'
+			$('#bell'+@model.get('id')).addClass 'fa-bell-o element-animation'
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		console.log $.inArray( product, products )
 		if parseInt($.inArray( product, products )) > -1
 			@ui.avail.removeClass 'hidden'
 			@ui.add.removeClass 'hidden'
