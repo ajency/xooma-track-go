@@ -206,7 +206,7 @@
    </div>
 	</div>
   </div> 
-	 <div class="form-group link"  onclick="location.href='unit_01.htm'">
+	 <div class="form-group link"  onclick="location.href='http://xooma.com/'">
 	<label  class="col-sm-12 col-xs-12  control-label">About Xooma</label>
   </div>
 
@@ -490,7 +490,7 @@
 </script>
 
 <script id="home-template" type="text/template">
-		<div class="container"> </br></br></br>
+		<div class="container"> </br>
 		<div class="aj-response-message"> </div>
 	 <div class="row">
 			<div class="col-md-2"> 
@@ -1007,6 +1007,17 @@
 </script>
 
 <script id="view-history-template" type="text/template">
+<div class="sub-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
+				</div>
+			</div>
+		</div>
+	</div>
+<br>
+<br>
 <div class="container">
 <div class="row">
 <div class="aj-response-message"> </div>
@@ -1028,6 +1039,17 @@
 </div>
 </script>
 <script id="measurement-history-template" type="text/template">
+<div class="sub-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>Progress History</b>
+				</div>
+			</div>
+		</div>
+	</div>
+<br>
+<br>
 <div class="container">
 <div class="row">
 <div class="aj-response-message"> </div>
@@ -1051,13 +1073,21 @@
       </div>
 </script>
 <script id="asperbmi-template" type="text/template">
-<div class="container"> </br></br>
+<div class="sub-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>Bottle Consumption</b>
+				</div>
+			</div>
+		</div>
+	</div>
+<br>
+<br>
+<div class="container">	
 <div class="aj-response-message"></div>
   <div class="row">
-			<div class="col-md-12 col-xs-12"><h5 class="text-center"><i class="fa fa-calendar"></i> {{day}} {{today}}</h5></div>
-		   
-			
-		</div>
+		
  <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
 		<div class="row">
 			
@@ -1095,14 +1125,14 @@
 		</div>
 		
 	   <div class="row m-t-20">
-	   		<div class="col-sm-4"></div>
-			<div class="col-sm-4">
+	   		<div class="col-sm-5"></div>
+			<div class="col-sm-2">
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
               	<button class="reset-progress btn btn-success  " type="button"> <i class="fa fa-refresh"></i> Reset</button>
 			</div>
-			<div class="col-sm-4"></div>
+			<div class="col-sm-5"></div>
 		</div>
   </div>
 	

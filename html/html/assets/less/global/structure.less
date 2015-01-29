@@ -140,12 +140,41 @@ body{
           font-size:1.2em;
           display:block !important;
           color: #ccc;
-          padding: 10px 40px;
-        }
+         }
         }
      li:nth-child(2) { 
             border:0px !important;
         }
+}
+.no-dotted{
+ li{border:0px !important;width: 32%;
+    a{
+      color:#ccc;
+      text-decoration:none;
+    }
+  } 
+  /* one item */
+li:first-child:nth-last-child(1) {
+  width: 100%;
+}
+
+/* two items */
+li:first-child:nth-last-child(2),
+li:first-child:nth-last-child(2) ~ li {
+  width: 49%;
+}
+
+/* three items */
+li:first-child:nth-last-child(3),
+li:first-child:nth-last-child(3) ~ li {
+  width: 32.3333%;
+}
+
+/* four items */
+li:first-child:nth-last-child(4),
+li:first-child:nth-last-child(4) ~ li {
+  width: 25%;
+}
 }
 
 /*** Error Ui ***/
@@ -389,10 +418,11 @@ img {
 /** Capsule-Caplets product-type **/
 .cap{
      background:url(../images/capsule.png)no-repeat;
-      width: 27px;
+      width: 36px;
       height: 42px;
       display: inline-block;
       background-size: 100%;
+      margin-right:3px;
 }
 
 

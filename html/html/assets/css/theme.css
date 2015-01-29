@@ -6504,10 +6504,38 @@ body > .container {
   font-size: 1.2em;
   display: block !important;
   color: #ccc;
-  padding: 10px 40px;
 }
 .dotted-line li:nth-child(2) {
   border: 0px !important;
+}
+.no-dotted {
+  /* one item */
+  /* two items */
+  /* three items */
+  /* four items */
+}
+.no-dotted li {
+  border: 0px !important;
+  width: 32%;
+}
+.no-dotted li a {
+  color: #ccc;
+  text-decoration: none;
+}
+.no-dotted li:first-child:nth-last-child(1) {
+  width: 100%;
+}
+.no-dotted li:first-child:nth-last-child(2),
+.no-dotted li:first-child:nth-last-child(2) ~ li {
+  width: 49%;
+}
+.no-dotted li:first-child:nth-last-child(3),
+.no-dotted li:first-child:nth-last-child(3) ~ li {
+  width: 32.3333%;
+}
+.no-dotted li:first-child:nth-last-child(4),
+.no-dotted li:first-child:nth-last-child(4) ~ li {
+  width: 25%;
 }
 /*** Error Ui ***/
 .parsley-errors-list {
@@ -6778,10 +6806,11 @@ img {
 /** Capsule-Caplets product-type **/
 .cap {
   background: url(../images/capsule.png) no-repeat;
-  width: 27px;
+  width: 36px;
   height: 42px;
   display: inline-block;
   background-size: 100%;
+  margin-right: 3px;
 }
 .sprite-1 {
   background: url(../images/sprite-type.png) no-repeat;
