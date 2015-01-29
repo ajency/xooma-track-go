@@ -69,8 +69,8 @@ class App.AddProductsCtrl extends Ajency.RegionController
 		$.each collectionArr , (ind,val)->
 			if $.inArray(parseInt(val.get('id')),userProducts) == -1
 				temp.push val
-		App.productCollection.reset temp
 		filteredCollection = App.productCollection.clone()
+		filteredCollection.reset temp
 		@show new AddProductsView
 						collection : filteredCollection
 

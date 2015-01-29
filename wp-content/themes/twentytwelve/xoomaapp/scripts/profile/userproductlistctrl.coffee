@@ -137,7 +137,7 @@ class ProductChildView extends Marionette.ItemView
 			servings.push serving : servingsqty   
 
 		$.each reminder , (ind,val)->
-			time  = moment(val.time+timezone, "HH:mm Z").format("hA")
+			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
 		
 			reminderArr.push time
 

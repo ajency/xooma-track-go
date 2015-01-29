@@ -129,7 +129,7 @@ ProductChildView = (function(_super) {
     });
     $.each(reminder, function(ind, val) {
       var time;
-      time = moment(val.time + timezone, "HH:mm Z").format("hA");
+      time = moment(val.time + timezone, "HH:mm Z").format("h:ss A");
       return reminderArr.push(time);
     });
     remind = reminderArr.join(',');

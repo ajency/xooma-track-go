@@ -148,7 +148,10 @@ class EditProductsView extends Marionette.ItemView
 				@showReminders()
 				
 			@loadCheckedData()
-			$('.js__timepicker').pickatime()
+			$('.js__timepicker').pickatime(
+				interval : 15
+
+				)
 
 
 		'change .no_of_container':(e)->
@@ -221,7 +224,10 @@ class EditProductsView extends Marionette.ItemView
 				val.id = 'reminder_time'+ind
 				val.value = ""
 
-		$('.js__timepicker').pickatime()
+		$('.js__timepicker').pickatime(
+			interval : 15
+
+			)
 
 
 
@@ -230,14 +236,14 @@ class EditProductsView extends Marionette.ItemView
 
 	successSave: (response,status,xhr)=>
 		if xhr.status is 201
-				product = parseInt response.response[0].id
+				product = parseInt response[0].id
 				products = App.currentUser.get 'products'
 				if typeof products == 'undefined'
 					products = []
 				products = _.union products, [product]
 				App.currentUser.set 'products', _.uniq products
 				model = new UserProductModel 
-				model.set response.response[0]
+				model.set response[0]
 				App.useProductColl.add model , {merge: true}
 		if document.activeElement.name == "save"
 			App.navigate '#/profile/my-products', true
@@ -302,9 +308,10 @@ class EditProductsView extends Marionette.ItemView
 
 	onShow:->
 		@checkMode()
-		$('.js__timepicker').pickatime()
-		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
-		@ui.rangeSliders.rangeslider polyfill: false
+		$('.js__timepicker').pickatime(
+			interval: 15
+
+			)
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
@@ -327,6 +334,9 @@ class EditProductsView extends Marionette.ItemView
 			@showReminders()
 			@showScheduleData(@model)
 		else
+			@ui.rangeSliders.each (index, ele)=> @valueOutput ele
+			@ui.rangeSliders.rangeslider polyfill: false
+		
 			$('.schedule_data').hide()
 			$('.anytime').hide()
 			if @model.get('bmi') != undefined
@@ -388,20 +398,21 @@ class EditProductsView extends Marionette.ItemView
 			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 			
 	showEditScheduleData:(model)->
+		timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
-		reminder = reminders[0].time
-		$('#reminder_time0').val reminder
+		time  = moment(reminders[0].time+timezone, "HH:mm Z").format("h:ss A")
+		$('#reminder_time0').val time
 		if @model.get('time_set') == 'Once'
 			$('.second').hide()
 			
 		else
 			$('.qty1 option[value="'+qty[1].qty+'"]').prop("selected",true)
 			$('.when1 option[value="'+qty[1].when+'"]').prop("selected",true)
-			reminder = reminders[1].time
-			$('#reminder_time1').val reminder
+			time  = moment(reminders[1].time+timezone, "HH:mm Z").format("h:ss A")
+			$('#reminder_time1').val time
 			
 
 		
@@ -418,6 +429,7 @@ class EditProductsView extends Marionette.ItemView
 			
 
 	showServings:(model)->
+		timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		if parseInt(model.get('check')) == 1
@@ -433,7 +445,8 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$.each reminders , (ind,val)->
-			$('#reminder_time'+ind).val val.time
+			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+			$('#reminder_time'+ind).val time
 		
 			
 

@@ -7,6 +7,8 @@ function save_anytime_product_details($id,$data){
 
 		global $wpdb;
 
+		global $user;
+
 		$product_main_table = $wpdb->prefix . "product_main";
 
 		$product_meta_table = $wpdb->prefix . "product_meta";
@@ -109,9 +111,8 @@ function save_anytime_product_details($id,$data){
 			//store schedule
 
 				
-				$user = new User();
 				$product = $user->get_user_home_products($id,$data['id']);
-				return $product;
+				return $product['response'];
 				
 		}
 		else{
@@ -126,6 +127,8 @@ function save_anytime_product_details($id,$data){
 function update_anytime_product_details($id,$pid,$data){
 
 		global $wpdb;
+
+		global $user;
 
 		$product_main_table = $wpdb->prefix . "product_main";
 
@@ -375,9 +378,8 @@ function update_anytime_product_details($id,$pid,$data){
 
 
 		if($main){
-				$user = new User();
 				$product = $user->get_user_home_products($id,$pid);
-				return $product;
+				return $product['response'];
 
 		}
 		else{
@@ -396,6 +398,8 @@ function update_anytime_product_details($id,$pid,$data){
 function update_schedule_product_details($id,$pid,$data){
 
 		global $wpdb;
+
+		global $user;
 
 		$product_main_table = $wpdb->prefix . "product_main";
 
@@ -634,9 +638,8 @@ function update_schedule_product_details($id,$pid,$data){
 
 
 		if($main){
-				$user = new User();
 				$product = $user->get_user_home_products($id,$pid);
-				return $product;
+				return $product['response'];
 
 		}
 		else{

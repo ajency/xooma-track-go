@@ -167,7 +167,9 @@ EditProductsView = (function(_super) {
         this.showReminders();
       }
       this.loadCheckedData();
-      return $('.js__timepicker').pickatime();
+      return $('.js__timepicker').pickatime({
+        interval: 15
+      });
     },
     'change .no_of_container': function(e) {
       var cnt;
@@ -248,13 +250,15 @@ EditProductsView = (function(_super) {
         return val.value = "";
       });
     }
-    return $('.js__timepicker').pickatime();
+    return $('.js__timepicker').pickatime({
+      interval: 15
+    });
   };
 
   EditProductsView.prototype.successSave = function(response, status, xhr) {
     var model, product, products;
     if (xhr.status === 201) {
-      product = parseInt(response.response[0].id);
+      product = parseInt(response[0].id);
       products = App.currentUser.get('products');
       if (typeof products === 'undefined') {
         products = [];
@@ -262,7 +266,7 @@ EditProductsView = (function(_super) {
       products = _.union(products, [product]);
       App.currentUser.set('products', _.uniq(products));
       model = new UserProductModel;
-      model.set(response.response[0]);
+      model.set(response[0]);
       App.useProductColl.add(model, {
         merge: true
       });
@@ -337,14 +341,8 @@ EditProductsView = (function(_super) {
   EditProductsView.prototype.onShow = function() {
     var container, product, products, qty, reminder_flag, weight, weightbmi;
     this.checkMode();
-    $('.js__timepicker').pickatime();
-    this.ui.rangeSliders.each((function(_this) {
-      return function(index, ele) {
-        return _this.valueOutput(ele);
-      };
-    })(this));
-    this.ui.rangeSliders.rangeslider({
-      polyfill: false
+    $('.js__timepicker').pickatime({
+      interval: 15
     });
     $('#timeset').val(this.model.get('time_set'));
     container = this.model.get('no_of_container');
@@ -368,6 +366,14 @@ EditProductsView = (function(_super) {
       this.showReminders();
       this.showScheduleData(this.model);
     } else {
+      this.ui.rangeSliders.each((function(_this) {
+        return function(index, ele) {
+          return _this.valueOutput(ele);
+        };
+      })(this));
+      this.ui.rangeSliders.rangeslider({
+        polyfill: false
+      });
       $('.schedule_data').hide();
       $('.anytime').hide();
       if (this.model.get('bmi') !== void 0) {
@@ -431,20 +437,21 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showEditScheduleData = function(model) {
-    var qty, reminder, reminders;
+    var qty, reminders, time, timezone;
+    timezone = App.currentUser.get('timezone');
     qty = model.get('qty');
     reminders = model.get('reminders');
     $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
     $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
-    reminder = reminders[0].time;
-    $('#reminder_time0').val(reminder);
+    time = moment(reminders[0].time + timezone, "HH:mm Z").format("h:ss A");
+    $('#reminder_time0').val(time);
     if (this.model.get('time_set') === 'Once') {
       return $('.second').hide();
     } else {
       $('.qty1 option[value="' + qty[1].qty + '"]').prop("selected", true);
       $('.when1 option[value="' + qty[1].when + '"]').prop("selected", true);
-      reminder = reminders[1].time;
-      return $('#reminder_time1').val(reminder);
+      time = moment(reminders[1].time + timezone, "HH:mm Z").format("h:ss A");
+      return $('#reminder_time1').val(time);
     }
   };
 
@@ -461,7 +468,8 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showServings = function(model) {
-    var qty, reminders;
+    var qty, reminders, timezone;
+    timezone = App.currentUser.get('timezone');
     qty = model.get('qty');
     reminders = model.get('reminders');
     if (parseInt(model.get('check')) === 1) {
@@ -475,7 +483,9 @@ EditProductsView = (function(_super) {
       $('#qty_per_servings0 option[value="' + qty[0].qty + '"]').prop("selected", true);
     }
     return $.each(reminders, function(ind, val) {
-      return $('#reminder_time' + ind).val(val.time);
+      var time;
+      time = moment(val.time + timezone, "HH:mm Z").format("h:ss A");
+      return $('#reminder_time' + ind).val(time);
     });
   };
 

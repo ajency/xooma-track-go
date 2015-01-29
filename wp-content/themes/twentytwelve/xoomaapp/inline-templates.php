@@ -370,7 +370,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7">
-																<h4 class="text-left"> <output></output><small>Inches</small></h4>
+																<h4 class="text-left"> <output></output><small> Ft/inches</small></h4>
 														</div>
 														<input type="range" min="4" max="9" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
 												</div>
@@ -381,7 +381,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7 ">
-																<h4 class="text-left"> <output></output><small>pounds</small></h4>
+																<h4 class="text-left"> <output></output><small> pounds</small></h4>
 														</div>
 
 														<input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
@@ -805,7 +805,7 @@
   </div>
 
    <div class="form-group">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Make adjustments</label>
 	 <div class="col-sm-6 col-xs-5">
 	  <input type="text" name="subtract" aj-field-type="number" value="" class="form-control"/>
 	  </div>

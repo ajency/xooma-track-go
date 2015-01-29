@@ -95,7 +95,7 @@ MeasurementHistoryView = (function(_super) {
       html = "";
       html += '<li><span class="circle"></span><span>Height : </span>' + coll.height + '<span class="' + classarr['height'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Weight : </span>' + coll.weight + '<span class="' + classarr['weight'] + '"> lb</span></span>';
-      html += '<li><span class="circle"></span><span>Neck : </span>' + coll.neck + '<span class="' + classarr['neck'] + '"> lb</span>';
+      html += '<li><span class="circle"></span><span>Neck : </span>' + coll.neck + '<span class="' + classarr['neck'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Chest : </span>' + coll.chest + '<span class="' + classarr['chest'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Arm : </span>' + coll.arm + '<span class="' + classarr['arm'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Abdomen : </span>' + coll.abdomen + '<span class="' + classarr['abdomen'] + '"> inches</span>';
