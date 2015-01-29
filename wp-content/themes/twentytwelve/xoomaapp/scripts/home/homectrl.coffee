@@ -160,7 +160,6 @@ class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
 
-
 		if App.useProductColl.length == 0
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
@@ -175,7 +174,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		@show new HomeLayoutView
 
 	errorHandler:=>
-		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!")
+		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')

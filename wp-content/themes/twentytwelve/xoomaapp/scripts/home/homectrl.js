@@ -201,7 +201,7 @@ App.HomeCtrl = (function(_super) {
   };
 
   HomeCtrl.prototype.errorHandler = function() {
-    $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!");
+    $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');

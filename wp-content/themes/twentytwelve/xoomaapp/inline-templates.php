@@ -700,7 +700,7 @@
   <div class="form-group">
 	<div class="checkbox">
 	<label class=" control-label">
-	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set diffrent quantity per serving
+	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set different quantity per serving
 	<input type="hidden" name="check" id="check" value="0" /></label>
 	<input type="hidden" name="timeset" id="timeset" value=""  >
   </div> 
@@ -784,7 +784,7 @@
   </div>
   <div class="noofcontainer">
   <div class="form-group">
-	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
+	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Number of 
 	container</label>
 	<div class="col-sm-6 col-xs-5 ">
 	  <select class="form-control no_of_container" name="no_of_container">
