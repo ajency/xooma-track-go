@@ -7701,7 +7701,7 @@ input.fire-check:checked ~ section .tn-box:nth-child(3) .tn-progress {
   padding: 8px;
   position: fixed;
   width: 100%;
-  top: 60px;
+  top: 68px;
   z-index: 9;
 }
 .sub-header ul {
