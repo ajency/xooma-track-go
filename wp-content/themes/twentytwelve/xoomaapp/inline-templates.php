@@ -578,7 +578,7 @@
 			  <div class="row">
 				  <div class="col-md-2"></div>
 				  <div class="col-md-8">
-			   <a href="#/products" class="btn btn-primary btn-lg center-block add"><i class="fa fa-plus-circle"></i> Add Products</a>
+			   <a href="#/products" class="btn btn-primary center-block add" style="width:180px"><i class="fa fa-plus-circle"></i> Add Products</a>
 			   <br>
 	<div class="userproducts"></div>
 	 <a href="#/products" class="btn btn-primary btn-lg pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
@@ -594,10 +594,8 @@
 
 
 <script id="add-product-template" type="h-template">
-	<div id="listproduct" class="section">
-	 
-	
-		<div class="container">
+	<div id="listproduct" >
+<div class="container">
 		<div class="aj-response-message"> 
 			  <div class="row">
 				  <div class="col-md-12">
@@ -617,7 +615,7 @@
 				  </div><br/>
 				  <div class="row">
 					<div class="col-sm-12">
-			
+			<hr>
 <a href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
 							</div>
 			</div>
@@ -811,7 +809,7 @@
    <div class="form-group">
 	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
 	 <div class="col-sm-6 col-xs-5">
-	  <input type="text" name="subtract" aj-field-type="number" value="" />
+	  <input type="text" name="subtract" aj-field-type="number" value="" class="form-control"/>
 	  </div>
   </div>
   </div>
