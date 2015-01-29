@@ -299,7 +299,7 @@ HomeX2OView = (function(_super) {
       arr['highlight'] = "#cdcdcd";
       arr['value'] = value;
     } else if (occurrence === true && expected === false) {
-      arr['color'] = "#e3e3e3";
+      arr['color'] = "ffaa06";
       arr['highlight'] = "#cdcdcd";
       arr['value'] = value;
     }
