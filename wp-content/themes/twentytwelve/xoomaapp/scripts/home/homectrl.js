@@ -366,19 +366,58 @@ ProductChildView = (function(_super) {
   __extends(ProductChildView, _super);
 
   function ProductChildView() {
+    this.saveHandler = __bind(this.saveHandler, this);
     return ProductChildView.__super__.constructor.apply(this, arguments);
   }
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <div id="owl-example{{id}}" class="owl-carousel"> {{#no_servings}} <div class="item "> <i class="fa fa-clock-o center-block status"></i> {{#servings}} {{{newClass}}} {{/servings}} <h6 class="text-center text-primary">12:00 pm</h6> </div> {{/no_servings}} </div> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <div id="owl-example{{id}}" class="owl-carousel"> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> {{#no_servings}} <div class="item "> <i class="fa fa-clock-o center-block status"></i> {{{servings}}} </div> {{/no_servings}} </div> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
   };
 
+  ProductChildView.prototype.events = {
+    'click #original': function(e) {
+      var date, meta_id, product, qty;
+      e.preventDefault();
+      $('#meta_id' + this.model.get('id')).val(0);
+      meta_id = $('#meta_id' + this.model.get('id')).val();
+      qty = $('#qty' + this.model.get('id')).val();
+      product = this.model.get('id');
+      date = moment().format('YYYY-MM-DD');
+      return $.ajax({
+        method: 'POST',
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
+        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        success: this.saveHandler,
+        error: this.erroraHandler
+      });
+    }
+  };
+
+  ProductChildView.prototype.saveHandler = function(response, status, xhr) {
+    var home, model, productcollection;
+    this.model.set('occurrence', response.occurrence);
+    productcollection = App.useProductColl.clone();
+    model = productcollection.findWhere({
+      name: 'X2O'
+    });
+    if (model !== void 0) {
+      if (model.get('name').toUpperCase() === 'X2O') {
+        productcollection.remove(model);
+        productcollection.reset(productcollection.toArray());
+      }
+    }
+    home = new HomeOtherProductsView({
+      collection: productcollection
+    });
+    return $('#otherproducts').html(home.render().el);
+  };
+
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, count, data, no_servings, occurrenceArr, product_type, qty, recent, temp;
+    var bonusArr, count, data, model, no_servings, occurrenceArr, product_type, qty, recent, reponse, temp;
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
@@ -396,59 +435,90 @@ ProductChildView = (function(_super) {
         return temp.push(val);
       }
     });
+    reponse = "";
     count = 0;
-    console.log(temp);
+    model = this.model;
     $.each(temp, function(ind, val) {
-      var expected, html, i, newClass, occurrence, servings;
+      var expected, occurrence, response;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
+      console.log(model);
       if (occurrence === true && expected === true) {
-        newClass = product_type + '_occurred_class';
-        html = '<div class="cap ' + newClass + '"></div>';
-      } else if (occurrence === false && expected === true && count === 0) {
+        reponse = ProductChildView.prototype.occurredfunc(val, ind, qty, product_type);
+      } else if (occurrence === false && expected === true) {
+        reponse = ProductChildView.prototype.expectedfunc(val, ind, qty, count, product_type, model);
         count++;
-        html = '<a><img src="assets/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary">9:00 am</h6>';
-      } else if (occurrence === false && expected === true && count > 0) {
-        newClass = product_type + '_expected_class';
-        html = '<div class="cap ' + newClass + '"></div>';
       }
-      i = 0;
-      console.log(html);
-      servings = [];
-      if (count === 1) {
-        servings.push({
-          newClass: html
-        });
-      } else {
-        while (i < qty[ind].qty) {
-          servings.push({
-            newClass: html
-          });
-          i++;
-        }
-      }
+      response = reponse[0];
       no_servings.push({
-        servings: servings,
-        schedule: val.schedule_id,
-        meta_id: val.meta_id,
-        qty: qty[ind].qty
+        servings: response.html,
+        schedule: response.schedule_id,
+        meta_id: response.meta_id,
+        qty: response.qty
       });
-      console.log(servings);
       data.no_servings = no_servings;
       return data.serving_size = temp.length;
     });
     return data;
   };
 
+  ProductChildView.prototype.expectedfunc = function(val, key, qty, count, product_type, model) {
+    var html, i, meta_id, newClass, schedule_id, temp;
+    temp = [];
+    i = 0;
+    html = "";
+    newClass = product_type + '_expected_class';
+    if (parseInt(count) === 0) {
+      html += '<a href="#" id="original"><img src="assets/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary">9:00 am</h6>';
+    } else {
+      while (i < qty[key].qty) {
+        html += '<div class="cap ' + newClass + '"></div>';
+        i++;
+      }
+      html += '<h6 class="text-center text-primary">12:00 pm</h6>';
+    }
+    qty = qty[key].qty;
+    $('#qty' + model.get('id')).val(qty);
+    schedule_id = val.schedule_id;
+    meta_id = 0;
+    temp.push({
+      html: html,
+      schedule_id: schedule_id,
+      qty: qty,
+      meta_id: meta_id
+    });
+    return temp;
+  };
+
+  ProductChildView.prototype.occurredfunc = function(val, key, qty, product_type) {
+    var html, i, meta_id, newClass, schedule_id, temp;
+    temp = [];
+    i = 0;
+    html = "";
+    newClass = product_type + '_occurred_class';
+    while (i < qty[key].qty) {
+      html += '<div class="cap ' + newClass + '"></div>';
+      i++;
+    }
+    html += '<h6 class="text-center text-primary">12:00 pm</h6>';
+    qty = qty[key].qty;
+    schedule_id = val.schedule_id;
+    meta_id = 0;
+    temp.push({
+      html: html,
+      schedule_id: schedule_id,
+      qty: qty,
+      meta_id: meta_id
+    });
+    return temp;
+  };
+
   ProductChildView.prototype.onShow = function() {
-    $("#owl-example" + this.model.get('id')).owlCarousel({
+    return $("#owl-example" + this.model.get('id')).owlCarousel({
       autoWidth: true
     }, {
       itemsScaleUp: true
     });
-    if (this.model.get('type') === 'Anytime') {
-      return this.ui.anytime.hide();
-    }
   };
 
   return ProductChildView;

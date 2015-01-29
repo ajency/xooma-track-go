@@ -349,37 +349,38 @@ class ProductChildView extends Marionette.ItemView
 					  </ul>
 			  </h5>
 			  <ul class="list-inline dotted-line  text-center row m-t-20">
-                                  <li class="col-md-8 col-xs-8"> 
-                             <div id="owl-example{{id}}" class="owl-carousel">
+								  <li class="col-md-8 col-xs-8"> 
+							 <div id="owl-example{{id}}" class="owl-carousel">
+							 <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" />
+							<input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" />
+					
+					{{#no_servings}}
+					<div class="item ">
+				   <i class="fa fa-clock-o center-block status"></i>
+									  
+										{{{servings}}}
+										
+										
+									 
+									  
+										
+					</div>
+					{{/no_servings}}
+					
 
-                    
-                    {{#no_servings}}
-                    <div class="item ">
-                   <i class="fa fa-clock-o center-block status"></i>
-                                      
-                                        {{#servings}}
-                                        {{{newClass}}}
-                                       	{{/servings}}
-                                     
-                                      
-                                        <h6 class="text-center text-primary">12:00 pm</h6>
-                    </div>
-                    {{/no_servings}}
-                    
+				  
 
-                  
-
-                    
+					
  
    </div>                            
-                                  </li>
-                                   
-                                    <li class="col-md-4 col-xs-4">
-                                        <h5 class="text-center">Status</h5>
-                                            <i class="fa fa-smile-o"></i>  
-                                        <h6 class="text-center margin-none">Complete the last one</h6>
-                                    </li>
-                                </ul>
+								  </li>
+								   
+									<li class="col-md-4 col-xs-4">
+										<h5 class="text-center">Status</h5>
+											<i class="fa fa-smile-o"></i>  
+										<h6 class="text-center margin-none">Complete the last one</h6>
+									</li>
+								</ul>
 			  
 			  </div>
 		 
@@ -388,6 +389,34 @@ class ProductChildView extends Marionette.ItemView
 
 	ui :
 		anytime     : '.anytime'
+
+	events :
+		'click #original':(e)->
+			e.preventDefault()
+			$('#meta_id'+@model.get('id')).val 0
+			meta_id = $('#meta_id'+@model.get('id')).val()
+			qty = $('#qty'+@model.get('id')).val()
+			product = @model.get('id')
+			date = moment().format('YYYY-MM-DD')
+			$.ajax
+					method : 'POST'
+					data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
+					url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+					success: @saveHandler
+					error :@erroraHandler
+
+	saveHandler:(response,status,xhr)=>
+		@model.set 'occurrence' , response.occurrence
+		productcollection = App.useProductColl.clone()
+		model = productcollection.findWhere({name:'X2O'})  
+		if model != undefined
+			if model.get('name').toUpperCase() == 'X2O' 
+				productcollection.remove model
+				productcollection.reset productcollection.toArray()
+		home = new HomeOtherProductsView
+					collection : productcollection
+		$('#otherproducts').html(home.render().el)
+		
 
 
 	serializeData:->
@@ -406,67 +435,75 @@ class ProductChildView extends Marionette.ItemView
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
+		reponse = ""
 		count = 0
-		console.log temp
+		model = @model
 		$.each temp , (ind,val)->
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
+			console.log model
 			if occurrence == true && expected == true
-				newClass = product_type+'_occurred_class'
-				html = '<div class="cap '+newClass+'"></div>'
+				reponse = ProductChildView::occurredfunc(val,ind,qty,product_type)
 				
-			else if occurrence == false && expected == true && count == 0
+				
+			else if occurrence == false && expected == true 
+				reponse = ProductChildView::expectedfunc(val,ind,qty,count,product_type,model)
 				count++
-				html  = '<a><img src="assets/images/btn_03.png" width="70px"></a>
-                                        <h6 class="text-center margin-none">Tap to take </h6>
-                                        <h6 class="text-center text-primary">9:00 am</h6>'
 				
-				
-			else if occurrence == false && expected == true && count > 0
-				newClass = product_type+'_expected_class'
-				html = '<div class="cap '+newClass+'"></div>'
-				
-				
-
-			i = 0
-			console.log html
-			servings = []
-
-			
-			if count == 1
-				servings.push newClass : html 
-			else
-				while(i < qty[ind].qty)
-					servings.push newClass : html 
-					i++
-			no_servings.push servings : servings , schedule : val.schedule_id , meta_id : val.meta_id ,qty : qty[ind].qty
-			console.log servings
+			response = reponse[0]
+			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
 			data.no_servings =  no_servings
 			data.serving_size = temp.length
 		data
 
+	expectedfunc:(val,key,qty,count,product_type,model)->
+		temp = []
+		i = 0
+		html = ""
+		newClass = product_type+'_expected_class'
+		if parseInt(count) == 0
+			html += '<a href="#" id="original"><img src="assets/images/btn_03.png" width="70px"></a>
+					<h6 class="text-center margin-none">Tap to take </h6>
+					<h6 class="text-center text-primary">9:00 am</h6>'
+		else
+			while(i < qty[key].qty)
+				html += '<div class="cap '+newClass+'"></div>'
+				i++
+			html +=	'<h6 class="text-center text-primary">12:00 pm</h6>'
+		qty  = qty[key].qty
+		$('#qty'+model.get('id')).val qty
+		
+		schedule_id = val.schedule_id
+		meta_id = 0
+		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
+		temp
+	
+	occurredfunc:(val,key,qty,product_type)->
+		temp = []
+		i = 0
+		html = ""
+		newClass = product_type+'_occurred_class'
+		while(i < qty[key].qty)
+				html += '<div class="cap '+newClass+'"></div>'
+				i++
+		html +=	'<h6 class="text-center text-primary">12:00 pm</h6>'
+		qty  = qty[key].qty
+		schedule_id = val.schedule_id
+		meta_id = 0
+		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
+		temp
+
+
 	onShow:->
 		$("#owl-example"+@model.get('id')).owlCarousel(
-            autoWidth : true,
-             itemsScaleUp:true
-           
-        )
-		if @model.get('type') == 'Anytime'
-			@ui.anytime.hide()
+			autoWidth : true,
+			 itemsScaleUp:true
+		   
+		)
+
+		
 
 
-
-# class HomeViewChildView extends Marionette.CompositeView
-
-# 	template : '<div></div>'
-
-# 	childView : ProductChildView
-
-	
-
-# 	initialize:->
-# 		products = @model.get 'products'
-# 		@collection = new Backbone.Collection products
 
 
 class HomeOtherProductsView extends Marionette.CompositeView

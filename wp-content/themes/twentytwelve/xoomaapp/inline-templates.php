@@ -485,7 +485,7 @@
 			  
 			</div>
 		   <br>   
-	   <div ui-region="other-products">
+	   <div ui-region="other-products" id="otherproducts">
 	   
 		 </div>         
 
