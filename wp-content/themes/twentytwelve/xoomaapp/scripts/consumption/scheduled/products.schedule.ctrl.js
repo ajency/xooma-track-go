@@ -64,15 +64,16 @@ ScheduleView = (function(_super) {
       return ScheduleView.prototype.create_occurrences(first);
     },
     'click .intake': function(e) {
-      var data, meta_id, product, qty;
+      var data, date, meta_id, product, qty;
       e.preventDefault();
       meta_id = $('#meta_id').val();
       qty = $('#qty').val();
       console.log(data = $('#schduleid').val());
       product = this.model.get('id');
+      date = moment().format("YYYY-MM-DD");
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=2015-12-11',
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
@@ -102,7 +103,8 @@ ScheduleView = (function(_super) {
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
     this.model.set('occurrence', response.occurrence);
     this.ui.responseMessage.text("Servings are updated!!!!");
-    return $('#mydataModal').addClass("hidden");
+    $('#mydataModal').addClass("hidden");
+    return $('#xoomaproduct').html(listview.render().el);
   };
 
   ScheduleView.prototype.serializeData = function() {
@@ -185,9 +187,11 @@ App.ScheduleCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     product = parseInt(productId[0]);
     products = [];
+    console.log(App.useProductColl);
     App.useProductColl.each(function(val) {
       return products.push(val);
     });

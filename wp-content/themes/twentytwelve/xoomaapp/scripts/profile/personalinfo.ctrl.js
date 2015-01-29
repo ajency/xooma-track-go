@@ -42,24 +42,43 @@ ProfilePersonalInfoView = (function(_super) {
     });
   };
 
-  ProfilePersonalInfoView.prototype.onShow = function() {
-    return _.enableDeviceBackNavigation();
+  ProfilePersonalInfoView.prototype.onRender = function() {
+    var state;
+    Backbone.Syphon.deserialize(this, this.model.toJSON());
+    $('#birth_date').datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true,
+      maxDate: new Date()
+    });
+    state = App.currentUser.get('state');
+    if (state === '/home') {
+      $('.measurements_update').removeClass('hidden');
+      $('#profile').parent().removeClass('done');
+      $('#profile').parent().addClass('selected');
+      $('#profile').parent().siblings().removeClass('selected');
+      return $('#profile').parent().nextAll().addClass('done');
+    }
   };
 
-  ProfilePersonalInfoView.prototype.onRender = function() {
-    var birth_date, picker;
+  ProfilePersonalInfoView.prototype.onShow = function() {
+    var state;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
-    this.ui.dateElement.pickadate({
-      formatSubmit: 'yyyy-mm-dd',
-      hiddenName: true,
-      max: new Date(),
-      selectYears: 70
+    $('#birth_date').datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true,
+      maxDate: new Date()
     });
-    birth_date = this.model.get('profile').birth_date;
-    picker = this.ui.dateElement.pickadate('picker');
-    return picker.set('select', birth_date, {
-      format: 'yyyy-mm-dd'
-    });
+    state = App.currentUser.get('state');
+    if (state === '/home') {
+      $('.measurements_update').removeClass('hidden');
+      $('#profile').parent().removeClass('done');
+      $('#profile').parent().addClass('selected');
+      $('#profile').parent().siblings().removeClass('selected');
+      $('#profile').parent().nextAll().addClass('done');
+    }
+    return _.enableDeviceBackNavigation();
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
@@ -70,13 +89,16 @@ ProfilePersonalInfoView = (function(_super) {
     var state;
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
-      this.ui.responseMessage.text("Something went wrong");
+      this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
       if (state === '/home') {
-        return this.ui.responseMessage.text("profile successfully updated");
+        this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
+        return $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
       } else {
         App.currentUser.set('state', '/profile/measurements');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -85,7 +107,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
-    this.ui.responseMessage.text("Data couldn't be saved due to some error.");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -99,12 +121,14 @@ App.UserPersonalInfoCtrl = (function(_super) {
   __extends(UserPersonalInfoCtrl, _super);
 
   function UserPersonalInfoCtrl() {
+    this.errorHandler = __bind(this.errorHandler, this);
     this._showView = __bind(this._showView, this);
     return UserPersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }
 
   UserPersonalInfoCtrl.prototype.initialize = function(options) {
     if (_.isDeviceOnline()) {
+      this.show(this.parent().parent().getLLoadingView());
       return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
     } else {
       return window.plugins.toast.showLongBottom("Please check your internet connection.");
@@ -119,7 +143,7 @@ App.UserPersonalInfoCtrl = (function(_super) {
 
   UserPersonalInfoCtrl.prototype.errorHandler = function(error) {
     this.region = new Marionette.Region({
-      el: '#nofound-template'
+      el: '#404-template'
     });
     return new Ajency.HTTPRequestCtrl({
       region: this.region

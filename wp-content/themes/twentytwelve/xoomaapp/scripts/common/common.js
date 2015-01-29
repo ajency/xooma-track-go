@@ -31,7 +31,8 @@ _.extend(Ajency.CurrentUser.prototype, {
     return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
   },
   saveMeasurements: function(measurements) {
-    var _successHandler;
+    var formdata, _successHandler;
+    formdata = $.param(measurements);
     _successHandler = (function(_this) {
       return function(resp) {
         return _this.set('measurements', measurements);
@@ -40,7 +41,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     return $.ajax({
       method: 'POST',
       url: this._getUrl('measurements'),
-      data: measurements,
+      data: formdata,
       success: _successHandler
     });
   },
@@ -112,12 +113,20 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
-        var products;
+        var data, dates, param, products;
         if (xhr.status === 200) {
-          console.log(response = response.response);
+          console.log(data = response.response);
+          dates = response.graph['dates'];
+          param = response.graph['param'];
+          App.graph = new Backbone.Model;
+          App.currentUser.set('weight', response.weight);
+          App.graph.set('dates', dates);
+          App.graph.set('param', param);
+          App.graph.set('reg_date', response.reg_date);
           products = [];
-          $.each(response, function(ind, val) {
-            return products.push(parseInt(val.id));
+          $.each(data, function(ind, val) {
+            products.push(parseInt(val.id));
+            return App.useProductColl.add(val);
           });
           return _this.set('products', products);
         }
@@ -130,11 +139,11 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getHomeProducts: function() {
-    var _successHandler;
+    var deferred, _successHandler;
+    deferred = Marionette.Deferred();
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param;
-        App.useProductColl = new Backbone.Collection;
         data = response.response;
         dates = response.graph['dates'];
         param = response.graph['param'];
@@ -144,17 +153,19 @@ _.extend(Ajency.CurrentUser.prototype, {
         App.graph.set('param', param);
         App.graph.set('reg_date', response.reg_date);
         if (xhr.status === 200) {
-          return $.each(data, function(index, value) {
+          $.each(data, function(index, value) {
             return App.useProductColl.add(value);
           });
+          return deferred.resolve(response);
         }
       };
     })(this);
-    return $.ajax({
+    $.ajax({
       method: 'GET',
       url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
       success: _successHandler
     });
+    return deferred.promise();
   }
 });
 
@@ -165,7 +176,7 @@ Ajency.HTTPRequestFailView = (function(_super) {
     return HTTPRequestFailView.__super__.constructor.apply(this, arguments);
   }
 
-  HTTPRequestFailView.prototype.template = 'Requested page not  Found';
+  HTTPRequestFailView.prototype.template = 'Requested page not Found';
 
   return HTTPRequestFailView;
 

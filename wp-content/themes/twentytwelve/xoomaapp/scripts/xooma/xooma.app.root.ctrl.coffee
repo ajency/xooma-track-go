@@ -13,14 +13,9 @@ class XoomaAppRootView extends Marionette.LayoutView
 			e.preventDefault()
 
 
-	initialize:->
-		@showLoader()
-		@hideLoader()
-
 	
-		
 	onShow : ->
-		state = App.currentUser.get 'state'
+		console.log state = App.currentUser.get 'state'
 		if state != '/home'
 			@ui.link.hide()
 		else
@@ -28,17 +23,14 @@ class XoomaAppRootView extends Marionette.LayoutView
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
 
-	showLoader:->
-		$( document ).ajaxStart  ()->
-		  console.log "suru"
-		  $('#loader').addClass "loader"
-
-	hideLoader:->
-		$( document ).ajaxComplete  ()->
-		  console.log "surustop"
-		  $('#loader').removeClass "loader"
+	
 	
 
 class App.XoomaCtrl extends Ajency.RegionController
 	initialize: (options)->
 		@show new XoomaAppRootView
+
+
+	getLLoadingView:->
+		new Loading
+

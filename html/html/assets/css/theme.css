@@ -930,6 +930,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  width: 100%;
 }
 .img-rounded {
   border-radius: 0;
@@ -6366,12 +6367,59 @@ html,
 body {
   height: 100%;
 }
+.link {
+  cursor: pointer;
+}
 body > .container {
   padding: 0;
+}
+.button-center {
+  display: table;
+  margin: 0 auto;
 }
 .content-wrapper {
   background: #ffffff;
   padding: 15px;
+}
+.loader {
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #3099ea;
+  background-image: url(http://samherbert.net/svg-loaders/svg-loaders/puff.svg);
+  background-size: 80px;
+  z-index: 999999;
+  background-repeat: no-repeat;
+  background-position: 50% 46%;
+  position: fixed;
+  animation: fadeOut 0.5s 1;
+  -webkit-animation: fadeOut 0.5s 1;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+  -webkit-animation-delay: 1s;
+  /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-30px);
+  }
+  100% .loader {
+    display: none !important;
+  }
 }
 .footer {
   background: #cccccc;
@@ -6452,8 +6500,42 @@ body > .container {
 .dotted-line li i {
   font-size: 40px;
 }
-.dotted-line li:nth-child(3) {
+.dotted-line li i.status {
+  font-size: 1.2em;
+  display: block !important;
+  color: #ccc;
+}
+.dotted-line li:nth-child(2) {
   border: 0px !important;
+}
+.no-dotted {
+  /* one item */
+  /* two items */
+  /* three items */
+  /* four items */
+}
+.no-dotted li {
+  border: 0px !important;
+  width: 32%;
+}
+.no-dotted li a {
+  color: #ccc;
+  text-decoration: none;
+}
+.no-dotted li:first-child:nth-last-child(1) {
+  width: 100%;
+}
+.no-dotted li:first-child:nth-last-child(2),
+.no-dotted li:first-child:nth-last-child(2) ~ li {
+  width: 49%;
+}
+.no-dotted li:first-child:nth-last-child(3),
+.no-dotted li:first-child:nth-last-child(3) ~ li {
+  width: 32.3333%;
+}
+.no-dotted li:first-child:nth-last-child(4),
+.no-dotted li:first-child:nth-last-child(4) ~ li {
+  width: 25%;
 }
 /*** Error Ui ***/
 .parsley-errors-list {
@@ -6467,6 +6549,9 @@ text {
 }
 .mid-title {
   position: relative;
+}
+.mid-title span {
+  font-size: 0.6em;
 }
 .element-animation {
   animation: animationFrames ease-in 2s;
@@ -6605,84 +6690,6 @@ text {
   right: 7px;
   top: 8px;
 }
-/** Bottle Ui ***/
-.bottle {
-  background: #ddd;
-  width: 160px;
-  border-radius: 30px 30px 6px 6px;
-  height: 300px;
-  padding: 6px;
-  box-shadow: 3px 3px 3px #efefef;
-  margin: auto;
-}
-.bottle:hover {
-  background: #eee;
-  box-shadow: 2px  2px 2px #efefef;
-}
-.water-bottle {
-  position: relative;
-}
-.cap {
-  background: #ddd;
-  margin: auto;
-  width: 60px;
-  border-radius: 8px 8px 10px  12px;
-  height: 35px;
-  border-top: 1px solid #ddd;
-  border-bottom: 2px dotted #efefef;
-}
-.cap-top {
-  background: #ededed;
-  height: 6px;
-  border-radius: 10px 10px 0 0;
-}
-.cap-seal {
-  margin-top: 20px;
-  background: #ccc;
-  height: 6px;
-  border-radius: 0 0 10px 10px;
-}
-.water {
-  -webkit-transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -o-transition: all 1s ease-out;
-  transition: all 1s ease-out;
-  width: 150px;
-}
-.level-25 {
-  background: #3099ea;
-  width: 100%;
-  height: 25%;
-}
-.level-50 {
-  background: #3099ea;
-  width: 100%;
-  height: 25%;
-}
-.level-75 {
-  background: #3099ea;
-  width: 100%;
-  height: 25%;
-}
-.level-100 {
-  background: #3099ea;
-  width: 100%;
-  height: 25%;
-  border-top-left-radius: :20px;
-  -webkit-border-top-left-radius: 20px;
-  -moz-border-top-left-radius: 20px;
-  border-border-top-right-radius: 20px;
-  -webkit-border-top-right-radius: 20px;
-  -moz-border-top-right-radius: 20px;
-}
-@media (max-width: 768px) {
-  .bottle {
-    width: 135px !important;
-  }
-  .bottle .water {
-    width: 125px;
-  }
-}
 /*Tooltip component by www.menucool.com */
 /*For tooltip target element that has set class="tooltip" */
 .tooltip {
@@ -6797,8 +6804,16 @@ img {
   border: 0;
 }
 /** Capsule-Caplets product-type **/
+.cap {
+  background: url(../images/capsule.png) no-repeat;
+  width: 36px;
+  height: 42px;
+  display: inline-block;
+  background-size: 100%;
+  margin-right: 3px;
+}
 .sprite-1 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 18px;
   height: 34px;
   display: inline-block;
@@ -6806,7 +6821,7 @@ img {
 .capsule_default_class,
 caplet_default_class,
 softgels_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 18px;
   height: 34px;
   display: inline-block;
@@ -6815,7 +6830,7 @@ softgels_default_class {
 .capsule_bonus_class,
 caplet_bonus_class,
 softgels_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 18px;
   height: 34px;
   display: inline-block;
@@ -6824,7 +6839,7 @@ softgels_bonus_class {
 .capsule_occurred_class,
 caplet_occurred_class,
 softgels_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 18px;
   height: 34px;
   display: inline-block;
@@ -6833,7 +6848,7 @@ softgels_occurred_class {
 .capsule_expected_class,
 caplet_expected_class,
 softgels_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 18px;
   height: 34px;
   display: inline-block;
@@ -6841,14 +6856,14 @@ softgels_expected_class {
 }
 /** packet-sachet product-type **/
 .sprite-2 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
 }
 .sachet_default_class,
 packet_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
@@ -6856,7 +6871,7 @@ packet_default_class {
 }
 .sachet_bonus_class,
 packet_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
@@ -6864,7 +6879,7 @@ packet_bonus_class {
 }
 .sachet_occurred_class,
 packet_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
@@ -6872,7 +6887,7 @@ packet_occurred_class {
 }
 .sachet_expected_class,
 packet_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
@@ -6880,34 +6895,34 @@ packet_expected_class {
 }
 /** Cream product-type **/
 .sprite-3 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
 }
 .cream_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
   background-position: -10px -64px;
 }
 .cream_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
   background-position: -118px -64px;
 }
 .cream_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
   background-position: -82px -64px;
 }
 .cream_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 38px;
   display: inline-block;
@@ -6915,34 +6930,34 @@ packet_expected_class {
 }
 /** tsp product-type **/
 .sprite-4 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 27px;
   display: inline-block;
 }
 .tsp_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 27px;
   display: inline-block;
   background-position: -10px -181px;
 }
 .tsp_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 27px;
   display: inline-block;
   background-position: -118px -181px;
 }
 .tsp_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 27px;
   display: inline-block;
   background-position: -82px -181px;
 }
 .tsp_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 27px;
   display: inline-block;
@@ -6951,34 +6966,34 @@ packet_expected_class {
 /**  tsp-product-type **/
 /** scoop product-type **/
 .sprite-5 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 47px;
   display: inline-block;
 }
 .scoop_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 47px;
   display: inline-block;
   background-position: -10px -113px;
 }
 .scoop_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 47px;
   display: inline-block;
   background-position: -118px -113px;
 }
 .scoop_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 47px;
   display: inline-block;
   background-position: -82px -113px;
 }
 .scoop_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 47px;
   display: inline-block;
@@ -6987,34 +7002,34 @@ packet_expected_class {
 /**  scoop-product-type **/
 /** stickpack product-type **/
 .sprite-6 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 44px;
   display: inline-block;
 }
 .stickpack_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 44px;
   display: inline-block;
   background-position: -10px -225px;
 }
 .stickpack_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 44px;
   display: inline-block;
   background-position: -118px -225px;
 }
 .stickpack_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 44px;
   display: inline-block;
   background-position: -82px -225px;
 }
 .stickpack_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 44px;
   display: inline-block;
@@ -7023,34 +7038,34 @@ packet_expected_class {
 /**  scoop-product-type **/
 /** bottle product-type **/
 .sprite-7 {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 71px;
   display: inline-block;
 }
 .x2o_default_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 71px;
   display: inline-block;
   background-position: -10px -286px;
 }
 .x2o_bonus_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 71px;
   display: inline-block;
   background-position: -118px -286px;
 }
 .x2o_occurred_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 71px;
   display: inline-block;
   background-position: -82px -286px;
 }
 .x2o_expected_class {
-  background: url(../../assets/images/sprite-type.png) no-repeat;
+  background: url(../images/sprite-type.png) no-repeat;
   width: 25px;
   height: 71px;
   display: inline-block;
@@ -7059,6 +7074,422 @@ packet_expected_class {
 /**  scoop-product-type **/
 .no-remiander {
   font-size: 1.4em !important;
+}
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  width: 100%;
+}
+/* Bottle consuptimon */
+.water-marker {
+  position: absolute;
+  z-index: 1060;
+  color: #ccc;
+  left: -3%;
+}
+.water-25 {
+  bottom: 16%;
+}
+.water-50 {
+  bottom: 35%;
+}
+.water-75 {
+  bottom: 54%;
+}
+.water-100 {
+  bottom: 73%;
+}
+.bottle-bg {
+  width: 218px;
+  display: block;
+  margin: auto;
+  position: relative;
+  height: 381px;
+}
+.bottle {
+  height: 381px;
+  width: 218px;
+  position: absolute;
+  background-image: url('../images/bottle-ui.png');
+  /* Beer Glass */
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.bottle .ea-empty {
+  background: #ddd;
+  z-index: -1;
+  position: absolute;
+  width: 218px;
+}
+.bottle .ea-full {
+  background: #9ad41e;
+  z-index: -1;
+  position: absolute;
+  width: 218px;
+  bottom: 0;
+}
+.alert-msg {
+  line-height: 40px;
+}
+.measurements_update .update {
+  color: #ffffff;
+  background-color: #3099ea !important;
+  border-color: #198ee8!important;
+}
+.tn-box {
+  width: 360px;
+  position: relative;
+  margin: 0 auto 20px auto;
+  padding: 25px 15px;
+  text-align: left;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  cursor: default;
+  display: none;
+}
+.tn-box p {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+  padding: 0 10px 0 60px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+.tn-box p:before {
+  text-align: center;
+  border: 3px solid #ffffff;
+  margin-top: -17px;
+  top: 50%;
+  left: 20px;
+  width: 30px;
+  content: 'i';
+  font-size: 30px;
+  color: #ffffff;
+  position: absolute;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.tn-progress {
+  width: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  bottom: 5px;
+  left: 2%;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05), 0 -1px 0 rgba(255, 255, 255, 0.6);
+}
+/* Colors */
+.tn-box-color-1 {
+  background: #ffe691;
+  border: 1px solid #f6db7b;
+}
+.tn-box-color-1 p {
+  color: #7d5912;
+}
+.tn-box-color-2 {
+  background: #99ffb1;
+  border: 1px solid #7ce294;
+}
+.tn-box-color-2 p {
+  color: #2d8241;
+}
+.tn-box-color-3 {
+  background: #dd9aff;
+  border: 1px solid #b367db;
+}
+.tn-box-color-3 p {
+  color: #69288b;
+}
+/* Fire the animations */
+input.fire-check:checked ~ section .tn-box {
+  display: block;
+  -webkit-animation: fadeOut 5s linear forwards;
+  -moz-animation: fadeOut 5s linear forwards;
+  -o-animation: fadeOut 5s linear forwards;
+  -ms-animation: fadeOut 5s linear forwards;
+  animation: fadeOut 5s linear forwards;
+}
+input.fire-check:checked ~ section .tn-box .tn-progress {
+  -webkit-animation: runProgress 4s linear forwards 0.5s;
+  -moz-animation: runProgress 4s linear forwards 0.5s;
+  -o-animation: runProgress 4s linear forwards 0.5s;
+  -ms-animation: runProgress 4s linear forwards 0.5s;
+  animation: runProgress 4s linear forwards 0.5s;
+}
+/* If you use JavaScript you could add a class instead: */
+.tn-box.tn-box-active {
+  display: block;
+  -webkit-animation: fadeOut 5s linear forwards;
+  -moz-animation: fadeOut 5s linear forwards;
+  -o-animation: fadeOut 5s linear forwards;
+  -ms-animation: fadeOut 5s linear forwards;
+  animation: fadeOut 5s linear forwards;
+}
+.tn-box.tn-box-active .tn-progress {
+  -webkit-animation: runProgress 4s linear forwards 0.5s;
+  -moz-animation: runProgress 4s linear forwards 0.5s;
+  -o-animation: runProgress 4s linear forwards 0.5s;
+  -ms-animation: runProgress 4s linear forwards 0.5s;
+  animation: runProgress 4s linear forwards 0.5s;
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+  }
+  99% {
+    opacity: 0;
+    -webkit-transform: translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    -moz-transform: translateY(0px);
+  }
+  99% {
+    opacity: 0;
+    -moz-transform: translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    -o-transform: translateY(0px);
+  }
+  99% {
+    opacity: 0;
+    -o-transform: translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    -ms-transform: translateY(0px);
+  }
+  99% {
+    opacity: 0;
+    -ms-transform: translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  99% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes runProgress {
+  0% {
+    width: 0%;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    width: 96%;
+    background: #ffffff;
+  }
+}
+@-moz-keyframes runProgress {
+  0% {
+    width: 0%;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    width: 96%;
+    background: #ffffff;
+  }
+}
+@-o-keyframes runProgress {
+  0% {
+    width: 0%;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    width: 96%;
+    background: #ffffff;
+  }
+}
+@-ms-keyframes runProgress {
+  0% {
+    width: 0%;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    width: 96%;
+    background: #ffffff;
+  }
+}
+@keyframes runProgress {
+  0% {
+    width: 0%;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    width: 96%;
+    background: #ffffff;
+  }
+}
+/* Let's add some different durations for the demo */
+input.fire-check:checked ~ section .tn-box:nth-child(2) {
+  -webkit-animation-duration: 6s;
+  -moz-animation-duration: 6s;
+  -o-animation-duration: 6s;
+  -ms-animation-duration: 6s;
+  animation-duration: 6s;
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -o-animation-delay: 0.2s;
+  -ms-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+input.fire-check:checked ~ section .tn-box:nth-child(2) .tn-progress {
+  -webkit-animation-duration: 5s;
+  -moz-animation-duration: 5s;
+  -o-animation-duration: 5s;
+  -ms-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-delay: 0.7s;
+  -moz-animation-delay: 0.7s;
+  -o-animation-delay: 0.7s;
+  -ms-animation-delay: 0.7s;
+  animation-delay: 0.7s;
+}
+input.fire-check:checked ~ section .tn-box:nth-child(3) {
+  -webkit-animation-duration: 9s;
+  -moz-animation-duration: 9s;
+  -o-animation-duration: 9s;
+  -ms-animation-duration: 9s;
+  animation-duration: 9s;
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  -o-animation-delay: 0.4s;
+  -ms-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+input.fire-check:checked ~ section .tn-box:nth-child(3) .tn-progress {
+  -webkit-animation-duration: 7.5s;
+  -moz-animation-duration: 7.5s;
+  -o-animation-duration: 7.5s;
+  -ms-animation-duration: 7.5s;
+  animation-duration: 7.5s;
+  -webkit-animation-delay: 0.9s;
+  -moz-animation-delay: 0.9s;
+  -o-animation-delay: 0.9s;
+  -ms-animation-delay: 0.9s;
+  animation-delay: 0.9s;
+}
+/* Last example pauses on hover (causes problems in WebKit browsers) */
+.tn-box.tn-box-hoverpause:hover,
+.tn-box.tn-box-hoverpause:hover .tn-progress {
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -o-animation-play-state: paused;
+  -ms-animation-play-state: paused;
+  animation-play-state: paused;
+}
+/** Bottle **/
+#canvas-holder {
+  width: 30%;
+  margin: auto;
+}
+.fill-bottle {
+  width: 150px;
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 65px;
+}
+.glass {
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  background-image: url('../images/fill-bottle.png');
+  /* Beer Glass */
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.liquid {
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  background: #9ad41e;
+  /* Beer Liquid Pattern */
+  /* Remove the bottom two lines to stop animation */
+  -webkit-animation: move 50s linear infinite;
+  -moz-animation: move 50s linear infinite;
+}
+@-webkit-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 2212px 0px;
+  }
+}
+@-moz-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 2212px 0px;
+  }
 }
 /* Top - Header */
 .topheader {
@@ -7269,6 +7700,142 @@ packet_expected_class {
 .sub-header ul li.selected i {
   color: #3099ea;
 }
+/* -------------------------------------
+ * timeline
+ * ------------------------------------- */
+#timeline {
+  list-style: none;
+  margin: 40px 0 30px 0px;
+  padding-left: 30px;
+  border-left: 2px solid #ccc;
+}
+#timeline li {
+  margin: 40px 0;
+  position: relative;
+}
+#timeline p {
+  margin: 0 0 15px;
+}
+.date {
+  font-size: 0.95em;
+  line-height: 20px;
+  position: absolute;
+  color: #3099ea;
+  margin-top: -7px;
+  left: 0;
+}
+.circle {
+  margin-top: -10px;
+  top: 12%;
+  left: -36px;
+  width: 10px;
+  height: 10px;
+  background: #999999;
+  border: 1px solid #ffffff;
+  display: block;
+  position: absolute;
+}
+.content {
+  max-height: 20px;
+  padding: 40px 20px 10px;
+  border-color: transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 0.5em;
+  position: relative;
+  width: 60%;
+}
+.content p {
+  max-height: 0;
+  color: transparent;
+  text-align: justify;
+  word-break: break-word;
+  hyphens: auto;
+  overflow: hidden;
+}
+.labels {
+  font-size: 1.3em;
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  top: 20px;
+  transition: transform 0.2s linear;
+}
+.radio {
+  display: none;
+}
+.radio:checked + .relative label {
+  cursor: auto;
+  transform: translateX(19px) translateY(15px);
+}
+.radio:checked ~ .content {
+  max-height: 180px;
+  border-color: #eee9dc;
+  margin-right: 20px;
+  transform: translateY(27px);
+  transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
+}
+.radio:checked ~ .content p {
+  max-height: 200px;
+  color: #6B6B6B;
+  text-align: left;
+  transition: color 0.3s linear 0.3s;
+}
+/* -------------------------------------
+ * mobile phones (vertical version only)
+ * -------------------------------------
+@media screen and (max-width: 767px) {
+  #timeline {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+  }
+  #timeline li {
+    margin: 50px 0;
+  }
+
+  label {
+    width: 85%;
+    font-size: 1.1em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    transform: translateX(18px);
+  }
+
+  .content {
+    padding-top: 45px;
+    border-color: #eee9dc;
+  }
+  .content:before, .content:after {
+    border: solid transparent;
+    bottom: 100%;
+  }
+  .content:before {
+    border-bottom-color: inherit;
+    border-width: 17px;
+    top: -16px;
+    left: 50px;
+    margin-left: -17px;
+  }
+  .content:after {
+    border-bottom-color: #48b379;
+    border-width: 20px;
+    top: -20px;
+    left: 50px;
+    margin-left: -20px;
+  }
+  .content p {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+
+  .circle, .date {
+    display: none;
+  }
+}
+ */
 /* Site Elements */
 @font-face {
   font-family: 'Open Sans';
@@ -8985,602 +9552,340 @@ packet_expected_class {
 .fa-meanpath:before {
   content: "\f20c";
 }
-/* ==========================================================================
-   $BASE-DATE-PICKER
-   ========================================================================== */
-/**
- * The picker box.
- */
-.picker__box {
-  padding: 0 1em;
-}
-/**
- * The header containing the month and year stuff.
- */
-.picker__header {
-  text-align: center;
-  position: relative;
-  margin-top: .75em;
-}
-/**
- * The month and year labels.
- */
-.picker__month,
-.picker__year {
-  font-weight: 500;
-  display: inline-block;
-  margin-left: .25em;
-  margin-right: .25em;
-  font-size: .8em;
-}
-.picker__year {
-  color: #999999;
-  font-size: .8em;
-  font-style: italic;
-}
-/**
- * The month and year selectors.
- */
-.picker__select--month,
-.picker__select--year {
-  border: 1px solid #b7b7b7;
-  height: 2em;
-  padding: .5em;
-  margin-left: .25em;
-  margin-right: .25em;
-}
-@media (min-width: 24.5em) {
-  .picker__select--month,
-  .picker__select--year {
-    margin-top: -0.5em;
-  }
-}
-.picker__select--month {
-  width: 35%;
-}
-.picker__select--year {
-  width: 29.5%;
-}
-.picker__select--month:focus,
-.picker__select--year:focus {
-  border-color: #0089ec;
-}
-.picker__button--today {
-  display: none !important;
-}
-/**
- * The month navigation buttons.
- */
-.picker__nav--prev,
-.picker__nav--next {
-  position: absolute;
-  padding: .5em 1.25em;
-  width: 1em;
-  height: 1em;
-  box-sizing: content-box;
-  top: -0.25em;
-}
-@media (min-width: 24.5em) {
-  .picker__nav--prev,
-  .picker__nav--next {
-    top: -0.33em;
-  }
-}
-.picker__nav--prev {
-  left: -1em;
-  padding-right: 1.25em;
-}
-@media (min-width: 24.5em) {
-  .picker__nav--prev {
-    padding-right: 1.5em;
-  }
-}
-.picker__nav--next {
-  right: -1em;
-  padding-left: 1.25em;
-}
-@media (min-width: 24.5em) {
-  .picker__nav--next {
-    padding-left: 1.5em;
-  }
-}
-.picker__nav--prev:before,
-.picker__nav--next:before {
-  content: " ";
-  border-top: .5em solid transparent;
-  border-bottom: .5em solid transparent;
-  border-right: 0.75em solid #000000;
-  width: 0;
-  height: 0;
-  display: block;
-  margin: 0 auto;
-}
-.picker__nav--next:before {
-  border-right: 0;
-  border-left: 0.75em solid #000000;
-}
-.picker__nav--prev:hover,
-.picker__nav--next:hover {
-  cursor: pointer;
-  color: #000000;
-  background: #b1dcfb;
-}
-.picker__nav--disabled,
-.picker__nav--disabled:hover,
-.picker__nav--disabled:before,
-.picker__nav--disabled:before:hover {
-  cursor: default;
-  background: none;
-  border-right-color: #f5f5f5;
-  border-left-color: #f5f5f5;
-}
-/**
- * The calendar table of dates
- */
-.picker__table {
-  text-align: center;
-  border-collapse: collapse;
-  border-spacing: 0;
-  table-layout: fixed;
-  font-size: inherit;
-  width: 100%;
-  margin-top: .75em;
-  margin-bottom: .5em;
-}
-@media (min-height: 33.875em) {
-  .picker__table {
-    margin-bottom: .75em;
-  }
-}
-.picker__table td {
-  margin: 0;
-  padding: 0;
-}
-/**
- * The weekday labels
- */
-.picker__weekday {
-  width: 14.285714286%;
-  font-size: .75em;
-  padding-bottom: .25em;
-  color: #999999;
-  font-weight: 500;
-  /* Increase the spacing a tad */
-}
-@media (min-height: 33.875em) {
-  .picker__weekday {
-    padding-bottom: .5em;
-  }
-}
-/**
- * The days on the calendar
- */
-.picker__day {
-  padding: .3125em 0;
-  font-weight: 200;
-  border: 1px solid transparent;
-}
-.picker__day--today {
-  position: relative;
-}
-.picker__day--today:before {
-  content: " ";
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 0;
-  height: 0;
-  border-top: 0.5em solid #0059bc;
-  border-left: .5em solid transparent;
-}
-.picker__day--disabled:before {
-  border-top-color: #aaaaaa;
-}
-.picker__day--outfocus {
-  color: #dddddd;
-}
-.picker__day--infocus:hover,
-.picker__day--outfocus:hover {
-  cursor: pointer;
-  color: #000000;
-  background: #b1dcfb;
-}
-.picker__day--highlighted {
-  border-color: #0089ec;
-}
-.picker__day--highlighted:hover,
-.picker--focused .picker__day--highlighted {
-  cursor: pointer;
-  color: #000000;
-  background: #b1dcfb;
-}
-.picker__day--selected,
-.picker__day--selected:hover,
-.picker--focused .picker__day--selected {
-  background: #0089ec;
-  color: #ffffff;
-}
-.picker__day--disabled,
-.picker__day--disabled:hover,
-.picker--focused .picker__day--disabled {
-  background: #f5f5f5;
-  border-color: #f5f5f5;
-  color: #dddddd;
-  cursor: default;
-}
-.picker__day--highlighted.picker__day--disabled,
-.picker__day--highlighted.picker__day--disabled:hover {
-  background: #bbbbbb;
-}
-/**
- * The footer containing the "today", "clear", and "close" buttons.
- */
-.picker__footer {
-  text-align: center;
-}
-.picker__button--today,
-.picker__button--clear,
-.picker__button--close {
-  border: 1px solid #ffffff;
-  background: #ffffff;
-  font-size: .8em;
-  padding: .66em 0;
-  font-weight: bold;
-  width: 33%;
-  display: inline-block;
-  vertical-align: bottom;
-}
-.picker__button--today:hover,
-.picker__button--clear:hover,
-.picker__button--close:hover {
-  cursor: pointer;
-  color: #000000;
-  background: #b1dcfb;
-  border-bottom-color: #b1dcfb;
-}
-.picker__button--today:focus,
-.picker__button--clear:focus,
-.picker__button--close:focus {
-  background: #b1dcfb;
-  border-color: #0089ec;
-  outline: none;
-}
-.picker__button--today:before,
-.picker__button--clear:before,
-.picker__button--close:before {
-  position: relative;
-  display: inline-block;
-  height: 0;
-}
-.picker__button--today:before,
-.picker__button--clear:before {
-  content: " ";
-  margin-right: .45em;
-}
-.picker__button--today:before {
-  top: -0.05em;
-  width: 0;
-  border-top: 0.66em solid #0059bc;
-  border-left: .66em solid transparent;
-}
-.picker__button--clear:before {
-  top: -0.25em;
-  width: .66em;
-  border-top: 3px solid #ee2200;
-}
-.picker__button--close:before {
-  content: "\D7";
-  top: -0.1em;
-  vertical-align: top;
-  font-size: 1.1em;
-  margin-right: .35em;
-  color: #777777;
-}
-.picker__button--today[disabled],
-.picker__button--today[disabled]:hover {
-  background: #f5f5f5;
-  border-color: #f5f5f5;
-  color: #dddddd;
-  cursor: default;
-}
-.picker__button--today[disabled]:before {
-  border-top-color: #aaaaaa;
-}
-/* ==========================================================================
-   $DEFAULT-DATE-PICKER
-   ========================================================================== */
-/* ==========================================================================
-   $BASE-PICKER
-   ========================================================================== */
-/**
- * Note: the root picker element should *NOT* be styled more than what’s here.
- */
-.picker {
-  font-size: 16px;
-  text-align: left;
-  line-height: 1.2;
-  color: #000000;
-  position: absolute;
-  z-index: 10000;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-/**
- * The picker input element.
- */
-.picker__input {
-  cursor: default;
-}
-/**
- * When the picker is opened, the input element is “activated”.
- */
-.picker__input.picker__input--active {
-  border-color: #0089ec;
-}
-/**
- * The holder is the only “scrollable” top-level container element.
- */
-.picker__holder {
-  width: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
 /*!
- * Default mobile-first, responsive styling for pickadate.js
- * Demo: http://amsul.github.io/pickadate.js
+ * Datetimepicker for Bootstrap 3
+//! version : 4.0.0
+ * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
-/**
- * Note: the root picker element should *NOT* be styled more than what’s here.
- */
-/**
- * Make the holder and frame fullscreen.
- */
-.picker__holder,
-.picker__frame {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 100%;
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  margin: 2px 0;
+  padding: 4px;
+  width: 19em;
 }
-/**
- * The holder should overlay the entire screen.
- */
-.picker__holder {
-  position: fixed;
-  -webkit-transition: background 0.15s ease-out, top 0s 0.15s;
-  -moz-transition: background 0.15s ease-out, top 0s 0.15s;
-  transition: background 0.15s ease-out, top 0s 0.15s;
-  -webkit-backface-visibility: hidden;
+@media (min-width: 768px) {
+  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+    width: 38em;
+  }
 }
-/**
- * The frame that bounds the box contents of the picker.
- */
-.picker__frame {
+@media (min-width: 992px) {
+  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+    width: 38em;
+  }
+}
+@media (min-width: 1200px) {
+  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+    width: 38em;
+  }
+}
+.bootstrap-datetimepicker-widget.dropdown-menu:before,
+.bootstrap-datetimepicker-widget.dropdown-menu:after {
+  content: '';
+  display: inline-block;
   position: absolute;
-  margin: 0 auto;
-  min-width: 256px;
-  max-width: 666px;
-  width: 100%;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  opacity: 0;
-  -webkit-transition: all 0.15s ease-out;
-  -moz-transition: all 0.15s ease-out;
-  transition: all 0.15s ease-out;
 }
-@media (min-height: 33.875em) {
-  .picker__frame {
-    overflow: visible;
-    top: auto;
-    bottom: -100%;
-    max-height: 80%;
-  }
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:before {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  top: -7px;
+  left: 7px;
 }
-@media (min-height: 40.125em) {
-  .picker__frame {
-    margin-bottom: 7.5%;
-  }
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:after {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid white;
+  top: -6px;
+  left: 8px;
 }
-/**
- * The wrapper sets the stage to vertically align the box contents.
- */
-.picker__wrap {
-  display: table;
-  width: 100%;
-  height: 100%;
+.bootstrap-datetimepicker-widget.dropdown-menu.top:before {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #ccc;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  bottom: -7px;
+  left: 6px;
 }
-@media (min-height: 33.875em) {
-  .picker__wrap {
-    display: block;
-  }
+.bootstrap-datetimepicker-widget.dropdown-menu.top:after {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid white;
+  bottom: -6px;
+  left: 7px;
 }
-/**
- * The box contains all the picker contents.
- */
-.picker__box {
-  background: #ffffff;
-  display: table-cell;
-  vertical-align: middle;
+.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:before {
+  left: auto;
+  right: 6px;
 }
-@media (min-height: 26.5em) {
-  .picker__box {
-    font-size: 1.25em;
-  }
+.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:after {
+  left: auto;
+  right: 7px;
 }
-@media (min-height: 33.875em) {
-  .picker__box {
-    display: block;
-    font-size: 1.33em;
-    border: 1px solid #777777;
-    border-top-color: #898989;
-    border-bottom-width: 0;
-    -webkit-border-radius: 5px 5px 0 0;
-    -moz-border-radius: 5px 5px 0 0;
-    border-radius: 5px 5px 0 0;
-    -webkit-box-shadow: 0 12px 36px 16px rgba(0, 0, 0, 0.24);
-    -moz-box-shadow: 0 12px 36px 16px rgba(0, 0, 0, 0.24);
-    box-shadow: 0 12px 36px 16px rgba(0, 0, 0, 0.24);
-  }
-}
-@media (min-height: 40.125em) {
-  .picker__box {
-    font-size: 1.5em;
-    border-bottom-width: 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-  }
-}
-/**
- * When the picker opens...
- */
-.picker--opened .picker__holder {
-  top: 0;
-  background: transparent;
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#1E000000,endColorstr=#1E000000)";
-  zoom: 1;
-  background: rgba(0, 0, 0, 0.32);
-  -webkit-transition: background 0.15s ease-out;
-  -moz-transition: background 0.15s ease-out;
-  transition: background 0.15s ease-out;
-}
-.picker--opened .picker__frame {
-  top: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  filter: alpha(opacity=100);
-  -moz-opacity: 1;
-  opacity: 1;
-}
-@media (min-height: 33.875em) {
-  .picker--opened .picker__frame {
-    top: auto;
-    bottom: 0;
-  }
-}
-/**
- * For `large` screens, transform into an inline picker.
- */
-.picker__list {
-  list-style: none;
-  padding: 0.75em 0 4.2em;
+.bootstrap-datetimepicker-widget .list-unstyled {
   margin: 0;
 }
-/**
- * The times on the clock.
- */
-.picker__list-item {
-  border-bottom: 1px solid #dddddd;
-  border-top: 1px solid #dddddd;
-  margin-bottom: -1px;
-  position: relative;
-  background: #ffffff;
-  padding: .75em 1.25em;
+.bootstrap-datetimepicker-widget a[data-action] {
+  padding: 6px 0;
 }
-@media (min-height: 46.75em) {
-  .picker__list-item {
-    padding: .5em 1em;
-  }
+.bootstrap-datetimepicker-widget a[data-action]:active {
+  box-shadow: none;
 }
-/* Hovered time */
-.picker__list-item:hover {
-  cursor: pointer;
-  color: #000000;
-  background: #b1dcfb;
-  border-color: #0089ec;
-  z-index: 10;
-}
-/* Highlighted and hovered/focused time */
-.picker__list-item--highlighted {
-  border-color: #0089ec;
-  z-index: 10;
-}
-.picker__list-item--highlighted:hover,
-.picker--focused .picker__list-item--highlighted {
-  cursor: pointer;
-  color: #000000;
-  background: #b1dcfb;
-}
-/* Selected and hovered/focused time */
-.picker__list-item--selected,
-.picker__list-item--selected:hover,
-.picker--focused .picker__list-item--selected {
-  background: #0089ec;
-  color: #ffffff;
-  z-index: 10;
-}
-/* Disabled time */
-.picker__list-item--disabled,
-.picker__list-item--disabled:hover,
-.picker--focused .picker__list-item--disabled {
-  background: #f5f5f5;
-  border-color: #f5f5f5;
-  color: #dddddd;
-  cursor: default;
-  border-color: #dddddd;
-  z-index: auto;
-}
-/**
- * The clear button
- */
-.picker--time .picker__button--clear {
-  display: block;
-  width: 80%;
-  margin: 1em auto 0;
-  padding: 1em 1.25em;
-  background: none;
-  border: 0;
-  font-weight: 500;
-  font-size: .67em;
-  text-align: center;
-  text-transform: uppercase;
-  color: #666;
-}
-.picker--time .picker__button--clear:hover,
-.picker--time .picker__button--clear:focus {
-  color: #000000;
-  background: #b1dcfb;
-  background: #ee2200;
-  border-color: #ee2200;
-  cursor: pointer;
-  color: #ffffff;
-  outline: none;
-}
-.picker--time .picker__button--clear:before {
-  top: -0.25em;
-  color: #666;
-  font-size: 1.25em;
+.bootstrap-datetimepicker-widget .timepicker-hour,
+.bootstrap-datetimepicker-widget .timepicker-minute,
+.bootstrap-datetimepicker-widget .timepicker-second {
+  width: 54px;
   font-weight: bold;
+  font-size: 1.2em;
+  margin: 0;
 }
-.picker--time .picker__button--clear:hover:before,
-.picker--time .picker__button--clear:focus:before {
-  color: #ffffff;
-  border-color: #ffffff;
+.bootstrap-datetimepicker-widget button[data-action] {
+  padding: 6px;
 }
-/* ==========================================================================
-   $DEFAULT-TIME-PICKER
-   ========================================================================== */
-/**
- * The frame the bounds the time picker.
- */
-.picker--time .picker__frame {
-  min-width: 256px;
-  max-width: 320px;
-}
-/**
- * The picker box.
- */
-.picker--time .picker__box {
-  font-size: 1em;
-  background: #f2f2f2;
+.bootstrap-datetimepicker-widget .btn[data-action="incrementHours"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
   padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Increment Hours";
 }
-@media (min-height: 40.125em) {
-  .picker--time .picker__box {
-    margin-bottom: 5em;
-  }
+.bootstrap-datetimepicker-widget .btn[data-action="incrementMinutes"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Increment Minutes";
+}
+.bootstrap-datetimepicker-widget .btn[data-action="decrementHours"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Decrement Hours";
+}
+.bootstrap-datetimepicker-widget .btn[data-action="decrementMinutes"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Decrement Minutes";
+}
+.bootstrap-datetimepicker-widget .btn[data-action="showHours"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Show Hours";
+}
+.bootstrap-datetimepicker-widget .btn[data-action="showMinutes"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Show Minutes";
+}
+.bootstrap-datetimepicker-widget .btn[data-action="togglePeriod"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Toggle AM/PM";
+}
+.bootstrap-datetimepicker-widget .picker-switch {
+  text-align: center;
+}
+.bootstrap-datetimepicker-widget .picker-switch::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Toggle Date and Time Screens";
+}
+.bootstrap-datetimepicker-widget .picker-switch td {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+  line-height: inherit;
+}
+.bootstrap-datetimepicker-widget .picker-switch td span {
+  line-height: 2.5;
+  height: 2.5em;
+  width: 100%;
+}
+.bootstrap-datetimepicker-widget table {
+  width: 100%;
+  margin: 0;
+}
+.bootstrap-datetimepicker-widget td,
+.bootstrap-datetimepicker-widget th {
+  text-align: center;
+  border-radius: 0;
+}
+.bootstrap-datetimepicker-widget th {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+}
+.bootstrap-datetimepicker-widget th.picker-switch {
+  width: 145px;
+}
+.bootstrap-datetimepicker-widget th.disabled,
+.bootstrap-datetimepicker-widget th.disabled:hover {
+  background: none;
+  color: #cccccc;
+  cursor: not-allowed;
+}
+.bootstrap-datetimepicker-widget th.prev::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Previous Month";
+}
+.bootstrap-datetimepicker-widget th.next::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Next Month";
+}
+.bootstrap-datetimepicker-widget thead tr:first-child th {
+  cursor: pointer;
+}
+.bootstrap-datetimepicker-widget thead tr:first-child th:hover {
+  background: #e6e6e6;
+}
+.bootstrap-datetimepicker-widget td {
+  height: 54px;
+  line-height: 54px;
+  width: 54px;
+}
+.bootstrap-datetimepicker-widget td.cw {
+  font-size: .8em;
+  height: 20px;
+  line-height: 20px;
+  color: #cccccc;
+}
+.bootstrap-datetimepicker-widget td.day {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+}
+.bootstrap-datetimepicker-widget td.day:hover,
+.bootstrap-datetimepicker-widget td.hour:hover,
+.bootstrap-datetimepicker-widget td.minute:hover,
+.bootstrap-datetimepicker-widget td.second:hover {
+  background: #e6e6e6;
+  cursor: pointer;
+}
+.bootstrap-datetimepicker-widget td.old,
+.bootstrap-datetimepicker-widget td.new {
+  color: #cccccc;
+}
+.bootstrap-datetimepicker-widget td.today {
+  position: relative;
+}
+.bootstrap-datetimepicker-widget td.today:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-bottom: 7px solid #3099ea;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+}
+.bootstrap-datetimepicker-widget td.active,
+.bootstrap-datetimepicker-widget td.active:hover {
+  background-color: #3099ea;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.bootstrap-datetimepicker-widget td.active.today:before {
+  border-bottom-color: #fff;
+}
+.bootstrap-datetimepicker-widget td.disabled,
+.bootstrap-datetimepicker-widget td.disabled:hover {
+  background: none;
+  color: #cccccc;
+  cursor: not-allowed;
+}
+.bootstrap-datetimepicker-widget td span {
+  display: inline-block;
+  width: 54px;
+  height: 54px;
+  line-height: 54px;
+  margin: 2px 1.5px;
+  cursor: pointer;
+  border-radius: 0;
+}
+.bootstrap-datetimepicker-widget td span:hover {
+  background: #e6e6e6;
+}
+.bootstrap-datetimepicker-widget td span.active {
+  background-color: #3099ea;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.bootstrap-datetimepicker-widget td span.old {
+  color: #cccccc;
+}
+.bootstrap-datetimepicker-widget td span.disabled,
+.bootstrap-datetimepicker-widget td span.disabled:hover {
+  background: none;
+  color: #cccccc;
+  cursor: not-allowed;
+}
+.bootstrap-datetimepicker-widget.usetwentyfour td.hour {
+  height: 27px;
+  line-height: 27px;
+}
+.input-group.date .input-group-addon {
+  cursor: pointer;
+}
+.date {
+  position: relative !important;
+  margin-top: 0px !important;
 }
 .main,
 .container > header {
@@ -9841,6 +10146,85 @@ packet_expected_class {
   .cbp-vm-view-grid ul li {
     width: 100%;
   }
+}
+/* 
+ * 	Core Owl Carousel CSS File
+ *	v1.3.3
+ */
+/* clearfix */
+.owl-carousel .owl-wrapper:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+/* display none until init */
+.owl-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  -ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper {
+  display: none;
+  position: relative;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+  -webkit-transition: height 500ms ease-in-out;
+  -moz-transition: height 500ms ease-in-out;
+  -ms-transition: height 500ms ease-in-out;
+  -o-transition: height 500ms ease-in-out;
+  transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+  float: left;
+}
+.owl-controls .owl-page,
+.owl-controls .owl-buttons div {
+  cursor: pointer;
+}
+.owl-controls {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* mouse grab icon */
+.grabbing {
+  cursor: url(grabbing.png) 8 8, move;
+}
+/* fix */
+.owl-carousel .owl-wrapper,
+.owl-carousel .owl-item {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+}
+/* Demo Slides */
+#owl-example .item {
+  text-align: center;
+}
+#owl-example .item h3 {
+  font-size: 28px;
+  font-weight: 300;
+  margin: 25px 0 0;
+}
+#owl-example .item h4 {
+  margin: 5px 0 0;
+  font-size: 18px;
 }
 .form-control {
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;

@@ -3,15 +3,18 @@ var EditProductsView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+App.state('EditProducts', {
+  url: '/product/:id/edit',
+  parent: 'xooma'
+});
+
 EditProductsView = (function(_super) {
   __extends(EditProductsView, _super);
 
   function EditProductsView() {
     this.valueOutput = __bind(this.valueOutput, this);
-    this.erroraHandler = __bind(this.erroraHandler, this);
+    this.errorSave = __bind(this.errorSave, this);
     this.successSave = __bind(this.successSave, this);
-    this.erroraHandler = __bind(this.erroraHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
     return EditProductsView.__super__.constructor.apply(this, arguments);
   }
 
@@ -39,7 +42,10 @@ EditProductsView = (function(_super) {
       return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 44;
     },
     'change @ui.rangeSliders': function(e) {
-      return this.valueOutput(e.currentTarget);
+      $('.servings_per_day').val($(e.target).val());
+      console.log($('.servings_per_day').val());
+      this.valueOutput(e.currentTarget);
+      return this.showReminders();
     },
     'click @ui.cancel': function(e) {
       return App.navigate('#/profile/my-products', true);
@@ -56,7 +62,6 @@ EditProductsView = (function(_super) {
         val.name = 'reminder_time' + ind;
         return val.id = 'reminder_time' + ind;
       });
-      $(this.ui.servings_per_day).trigger("change");
       console.log(this.model.get('frequency_value'));
       if (parseInt(this.model.get('frequency_value')) === 2) {
         this.selectSchdule(this.model);
@@ -64,12 +69,19 @@ EditProductsView = (function(_super) {
       return this.showReminders();
     },
     'click .save': function(e) {
-      var data, product, sub;
+      var check, data, product, sub;
       e.preventDefault();
+      console.log(check = this.checkreminder());
+      if (check === false) {
+        this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return;
+      }
       sub = this.ui.subtract.val();
       if (sub === "") {
         sub = 0;
-        this.ui.subtract.val(0);
       }
       if (parseInt($('#available').val()) >= parseInt(sub)) {
         data = this.ui.form.serialize();
@@ -82,7 +94,7 @@ EditProductsView = (function(_super) {
           error: this.errorSave
         });
       } else {
-        this.ui.responseMessage.text("Value entered shoule be less than available count");
+        this.ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!");
         return $('html, body').animate({
           scrollTop: 0
         }, 'slow');
@@ -92,7 +104,6 @@ EditProductsView = (function(_super) {
       $(this.ui.schedule).removeClass('btn-primary');
       $(e.target).addClass('btn-primary');
       $('#timeset').val($(e.target).attr('data-time'));
-      console.log($('#timeset').val());
       if ($(e.target).attr('data-time') === 'Once') {
         $('.second').hide();
       } else {
@@ -167,6 +178,18 @@ EditProductsView = (function(_super) {
     }
   };
 
+  EditProductsView.prototype.checkreminder = function() {
+    var i, servings;
+    console.log(servings = $('.servings_per_day').val());
+    i = 0;
+    while (i < servings) {
+      if ($('#reminder_time' + i).val() === "" && parseInt($('#reminder').val()) === 1) {
+        return false;
+      }
+      i++;
+    }
+  };
+
   EditProductsView.prototype.loadCheckedData = function() {
     var html, i, servings;
     if ($(this.ui.servings_diff).prop('checked') === true) {
@@ -202,6 +225,7 @@ EditProductsView = (function(_super) {
     var html1, i, servings;
     if (parseInt($('#reminder').val()) === 1) {
       $(this.ui.servings_diff).prop('disabled', false);
+      $('#reminder_time0').removeAttr('disabled');
       console.log(servings = $('.servings_per_day').val());
       html1 = "";
       i = 1;
@@ -216,45 +240,35 @@ EditProductsView = (function(_super) {
         return val.id = 'reminder_time' + ind;
       });
     } else {
+      $('#reminder_time0').attr('disabled', true);
       html1 = '<div class="reminder">' + $('.reminder').first().html() + '</div>';
+      $('#reminder_time0').attr('disabled', true);
       $('.reminder_div').text("");
       $('.reminder_div').append(html1);
       $('.js__timepicker').each(function(ind, val) {
         val.name = 'reminder_time' + ind;
-        return val.id = 'reminder_time' + ind;
+        val.id = 'reminder_time' + ind;
+        return val.value = "";
       });
     }
     return $('.js__timepicker').pickatime();
   };
 
-  EditProductsView.prototype.successHandler = function(response, status, xhr) {
-    var products, updatedProducts;
-    if (xhr.status === 200) {
-      products = App.currentUser.get('products');
-      response = parseInt(response);
-      console.log(updatedProducts = _.without(products, response));
-      console.log(App.currentUser.set('products', _.uniq(updatedProducts)));
-    }
-    return App.navigate('#/profile/my-products', true);
-  };
-
-  EditProductsView.prototype.erroraHandler = function(response, status, xhr) {
-    this.ui.responseMessage.text("Something went wrong");
-    return $('html, body').animate({
-      scrollTop: 0
-    }, 'slow');
-  };
-
   EditProductsView.prototype.successSave = function(response, status, xhr) {
-    var products;
+    var model, product, products;
     if (xhr.status === 201) {
-      response = parseInt(response);
+      product = parseInt(response.response[0].id);
       products = App.currentUser.get('products');
       if (typeof products === 'undefined') {
         products = [];
       }
-      products = _.union(products, [response]);
+      products = _.union(products, [product]);
       App.currentUser.set('products', _.uniq(products));
+      model = new UserProductModel;
+      model.set(response.response[0]);
+      App.useProductColl.add(model, {
+        merge: true
+      });
     }
     if (document.activeElement.name === "save") {
       return App.navigate('#/profile/my-products', true);
@@ -263,8 +277,8 @@ EditProductsView = (function(_super) {
     }
   };
 
-  EditProductsView.prototype.erroraHandler = function(response, status, xhr) {
-    this.ui.responseMessage.text("Could not delete the prodcut");
+  EditProductsView.prototype.errorSave = function(response, status, xhr) {
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -275,12 +289,13 @@ EditProductsView = (function(_super) {
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
     weightbmi = this.get_weight_bmi(this.model.get('bmi'));
-    data.x2o = weightbmi;
+    data.x2o = Math.ceil(weightbmi);
+    data.defaultbmi = Math.ceil(weightbmi);
     products = App.currentUser.get('products');
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
-      data.x2o = qty.length;
+      console.log(data.defaultbmi = qty.length);
       data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
@@ -294,15 +309,8 @@ EditProductsView = (function(_super) {
       data.schedule = '';
       data.anytimeclass = '';
       data.scheduleclass = 'btn-primary';
-      if (this.model.get('time_set') === 'Once') {
-        data.once = 'btn-primary';
-        data.twice = '';
-      } else {
-        data.once = '';
-        data.twice = 'btn-primary';
-      }
+      reminder_flag = this.model.get('reminder_flag');
     }
-    reminder_flag = this.model.get('reminder_flag');
     if (reminder_flag === void 0 || parseInt(reminder_flag) === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
@@ -315,15 +323,12 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.get_weight_bmi = function(bmi) {
     var actual, weight;
-    console.log(bmi);
     weight = App.currentUser.get('weight');
     actual = 1;
     if (bmi !== void 0) {
       $.each(bmi, function(index, value) {
         var bmi_val;
         bmi_val = value['range'].split('<');
-        console.log(bmi_val[0]);
-        console.log(bmi_val[1]);
         if (parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])) {
           return actual = value['quantity'];
         }
@@ -333,7 +338,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.onShow = function() {
-    var container, product, products, reminder_flag;
+    var container, product, products, qty, reminder_flag, weight, weightbmi;
     this.checkMode();
     $('.js__timepicker').pickatime();
     this.ui.rangeSliders.each((function(_this) {
@@ -368,6 +373,15 @@ EditProductsView = (function(_super) {
     } else {
       $('.schedule_data').hide();
       $('.anytime').hide();
+      if (this.model.get('bmi') !== void 0) {
+        weightbmi = this.get_weight_bmi(this.model.get('bmi'));
+        weight = Math.ceil(weightbmi);
+      } else {
+        qty = this.model.get('qty');
+        weight = qty.length;
+      }
+      $('.servings_per_day option[value="' + weight + '"]').prop("selected", true);
+      this.showReminders();
     }
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
@@ -473,15 +487,11 @@ EditProductsView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.state('EditProducts', {
-  url: '/products/:id/edit',
-  parent: 'xooma'
-});
-
 App.EditProductsCtrl = (function(_super) {
   __extends(EditProductsCtrl, _super);
 
   function EditProductsCtrl() {
+    this.erroraHandler = __bind(this.erroraHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     return EditProductsCtrl.__super__.constructor.apply(this, arguments);
   }
@@ -491,10 +501,11 @@ App.EditProductsCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     console.log(product = parseInt(productId[0]));
     console.log(products = App.currentUser.get('products'));
-    if ($.inArray(product, products) > -1) {
+    if ($.inArray(product, products) > -1 || App.productCollection.length === 0) {
       return $.ajax({
         method: 'GET',
         url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
@@ -510,7 +521,6 @@ App.EditProductsCtrl = (function(_super) {
   };
 
   EditProductsCtrl.prototype._showView = function(productModel) {
-    console.log(productModel);
     return this.show(new EditProductsView({
       model: productModel
     }));
@@ -518,11 +528,29 @@ App.EditProductsCtrl = (function(_super) {
 
   EditProductsCtrl.prototype.successHandler = function(response, status, xhr) {
     var model, pid;
-    pid = App.productCollection.where({
-      id: response.id
+    if (xhr.status === 200) {
+      pid = App.productCollection.where({
+        id: response.id
+      });
+      model = new Backbone.Model(response);
+      return this._showView(model);
+    } else {
+      this.region = new Marionette.Region({
+        el: '#edit-product-template'
+      });
+      return new Ajency.NothingFoundCtrl({
+        region: this.region
+      });
+    }
+  };
+
+  EditProductsCtrl.prototype.erroraHandler = function(response, status, xhr) {
+    this.region = new Marionette.Region({
+      el: '#404-template'
     });
-    model = new Backbone.Model(response);
-    return this._showView(model);
+    return new Ajency.HTTPRequestCtrl({
+      region: this.region
+    });
   };
 
   return EditProductsCtrl;

@@ -69,7 +69,6 @@ EditInventoryView = (function(_super) {
     },
     'change @ui.rangeSliders': function(e) {
       this.valueOutput(e.currentTarget);
-      console.log($('#subtract').val());
       if ($('#subtract').val() === 'adjust') {
         return this.adjustValue();
       } else {
@@ -93,8 +92,8 @@ EditInventoryView = (function(_super) {
       total = this.model.get('total');
       this.ui.ntotal.text(total);
       containers = parseInt(available) / parseInt(total);
-      console.log(contacount = Math.ceil(containers));
-      console.log(count = parseInt($(e.target).val()) + parseInt(contacount));
+      contacount = Math.ceil(containers);
+      count = parseInt($(e.target).val()) + parseInt(contacount);
       this.ui.ncon.text($(e.target).val());
       equalto = parseInt($(e.target).val()) * parseInt(total);
       this.ui.nequalto.text(equalto);
@@ -127,17 +126,6 @@ EditInventoryView = (function(_super) {
         success: this.successSave,
         error: this.errorSave
       });
-    },
-    'click @ui.view': function(e) {
-      var product;
-      e.preventDefault();
-      product = this.model.get('id');
-      return $.ajax({
-        method: 'GET',
-        url: "" + _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
-        success: this.successHandler,
-        error: this.errorHandler
-      });
     }
   };
 
@@ -154,7 +142,6 @@ EditInventoryView = (function(_super) {
     available = this.model.get('available');
     total = this.model.get('total');
     this.ui.navail.text(available);
-    console.log(this.ui.rangeSliders.val());
     if (parseInt(this.ui.rangeSliders.val()) === 0) {
       this.ui.save.hide();
     }
@@ -180,7 +167,6 @@ EditInventoryView = (function(_super) {
     var available, contacount, containers, total;
     this.ui.save.hide();
     $('#subtract').val('record');
-    console.log($('#subtract').val());
     $('#record').addClass('btn-primary');
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
@@ -195,13 +181,16 @@ EditInventoryView = (function(_super) {
     available = this.model.get('available');
     total = this.model.get('total');
     containers = parseInt(available) / parseInt(total);
-    console.log(contacount = Math.ceil(containers));
+    contacount = Math.ceil(containers);
     return this.ui.container_label.text(contacount);
   };
 
   EditInventoryView.prototype.successSave = function(response, status, xhr) {
     if (xhr.status === 201) {
-      return App.navigate('#/profile/my-products', true);
+      this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     } else {
       return this.errorMsg();
     }
@@ -212,7 +201,7 @@ EditInventoryView = (function(_super) {
   };
 
   EditInventoryView.prototype.errorMsg = function() {
-    this.ui.responseMessage.text("Details could not be saved");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -234,12 +223,12 @@ App.EditInventoryCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
-    console.log(App.UserProductsColl);
-    console.log(productModel = App.UserProductsColl.where({
+    productModel = App.useProductColl.where({
       id: parseInt(productId[0])
-    }));
+    });
     return this.show(new EditInventoryView({
       model: productModel[0]
     }));

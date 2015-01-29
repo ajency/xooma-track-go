@@ -1,3 +1,12 @@
+App.state 'home',
+				url : '/home'
+				parent : 'xooma'
+				sections : 
+					'x2o' : 
+						ctrl : 'HomeX2OCtrl'
+					'other-products' : 
+						ctrl : 'HomeOtherProductsCtrl'
+
 class HomeLayoutView extends Marionette.LayoutView
 
 	template : '#home-template'
@@ -13,22 +22,32 @@ class HomeLayoutView extends Marionette.LayoutView
 		generate 	 : 'input[name="generate"]'
 		form 		: '#generate_graph'
 		param 		: 'input[name="param"]'
+		history 	: '.history'
+		update 	: '.update'
+		responseMessage : '.aj-response-message'
 
 	events:
+		'click @ui.history':(e)->
+			e.preventDefault()
+			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true
+
+		'click @ui.update':(e)->
+			e.preventDefault()
+			App.navigate '#/profile/measurements' , true
+
 		'change @ui.time_period':(e)->
 			id = $(e.target).val()
 			date =  moment().subtract(id, 'days')
 			previous = date.format('YYYY-MM-DD')
 			today = moment().format('YYYY-MM-DD')
-			picker = @ui.start_date.pickadate('picker')
-			picker.set('select', previous, { format: 'yyyy-mm-dd' })
+			@ui.start_date.val previous
+			
 			
 			if id == 'all'
 				reg_date = App.graph.get 'reg_date'
-				picker = @ui.start_date.pickadate('picker')
-				picker.set('select', reg_date, { format: 'yyyy-mm-dd' })
-			picker1 = @ui.end_date.pickadate('picker')
-			picker1.set('select', today, { format: 'yyyy-mm-dd' })
+				@ui.start_date.val reg_date
+			@ui.end_date.val today
+			
 
 	onFormSubmit: (_formData)=>
 		$.ajax
@@ -36,6 +55,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			data : _formData
 			url : "#{APIURL}/graphs/#{App.currentUser.get('ID')}"
 			success: @_successHandler
+			error: @_errorHandler
 
 	_successHandler: (response, status,xhr)=>
 		dates = _.has(response, "dates")
@@ -46,20 +66,36 @@ class HomeLayoutView extends Marionette.LayoutView
 
 		else if dates == false && xhr.status == 200
 			@generateBMIGraph(response)
+		else
+			@showErrorMsg()
 
+	_errorHandler: (response, status,xhr)=>
+		@showErrorMsg()
+
+	showErrorMsg:->
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 		
 
 
 	onShow:->
+		if parseInt(App.useProductColl.length) == 0
+			@ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!")
+			$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
+
 		@generateGraph()
-		@ui.start_date.pickadate(
-			formatSubmit: 'yyyy-mm-dd'
-			hiddenName: true
-			)
-		@ui.end_date.pickadate(
-			formatSubmit: 'yyyy-mm-dd'
-			hiddenName: true
-			)
+		# @ui.start_date.pickadate(
+		# 	formatSubmit: 'yyyy-mm-dd'
+		# 	hiddenName: true
+		# 	)
+		# @ui.end_date.pickadate(
+		# 	formatSubmit: 'yyyy-mm-dd'
+		# 	hiddenName: true
+		# 	)
 
 	generateBMIGraph:(response)->
 		dates = [response['st_date'],response['et_date']]
@@ -123,25 +159,70 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getHomeProducts().done(@_showView).fail @errorHandler
+
+
+		if App.useProductColl.length == 0
+			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
+		else
+			@show new HomeLayoutView
 
 	_showView:(collection)=>
+		@show @parent().getLLoadingView()
+		response = collection.response
+		App.useProductColl.reset response
+		
+
 		@show new HomeLayoutView
 
-class HomeX2OViewChild extends Marionette.ItemView
+	errorHandler:=>
+		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
-	template : '<a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> 
-					<h5 class="text-center">Bonus</h5>
-					<h4 class="text-center bold  text-primary" >{{bonus}}</h4>
-				</li>
-				<li class="col-md-4 col-xs-4">
+class HomeX2OView extends Marionette.ItemView
+
+	template : '<div class="row">
+			<div class="col-md-4 col-xs-4"></div>
+			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
+			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+					 <ul class="dropdown-menu pull-right" role="menu">
+						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
+						
+						
+					  </ul>
+			  </h5>
+		<div class="row">
+			<div class="col-md-12">
+				  <div class="fill-bottle">        
+					<div class="glass">
+							<span class="liquid" style="height: 100%"></span>
+					 </div>
+				  </div>
+					<div id="canvas-holder">
+						<canvas id="chart-area" width="500" height="500"/>
+					</div>
+			
+			</div>
+		</div><ul class="list-inline text-center row row-line x2oList">
+			 <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> 
 					<h5 class="text-center">Daily Target</h5>
-						<h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty}}</sup></h4>
+					<h4 class="text-center bold  text-primary" >{{qty}}</h4>
 				</li>
 				<li class="col-md-4 col-xs-4">
-					<h5 class="text-center">Last Consume</h5>
+					<h5 class="text-center">Consumed</h5>
+						<h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4>
+				</li>
+				<li class="col-md-4 col-xs-4">
+					<h5 class="text-center">Last consumed at</h5>
 					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
-				</li></a>'
+				</li></a> </ul></div></div>'
+	ui :
+		liquid : '.liquid'
 
 	serializeData:->
 		data = super()
@@ -154,7 +235,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
-			if occurrence == true
+			if occurrence == true && expected == true
 				date = val.occurrence
 				occurrenceArr.push date
 				
@@ -167,7 +248,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 				data.time = moment(recent).format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
-		data.remianing = parseInt(@model.get('qty').length) - parseInt(occurrenceArr.length)
+		data.remianing = occurrenceArr.length
 		data.qty = @model.get('qty').length
 		data
 
@@ -177,7 +258,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
-			if occurrence == true
+			if occurrence == true && expected == true
 				date = val.occurrence
 				occurrenceArr.push date
 			if occurrence == true && expected == false
@@ -194,33 +275,54 @@ class HomeX2OViewChild extends Marionette.ItemView
 		window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, 
 			responsive : true,  
 			percentageInnerCutout : 80 
+			animateRotate : false
 		)
-		
+		@ui.liquid.each (e)->
+			$(e.target)
+				.data("origHeight", $(e.target).height())
+				.height(0)
+				.animate(
+						height: $(this).data("origHeight")
+					, 3000)
+
+
+	getCount:(val)->
+		count = 0
+		if!(_.isArray(val)) 
+			count += parseFloat val.qty
+		else
+			_.each val , (val1)->
+				if _.isArray(val1)
+					_.each val1 ,  (value)->
+						count += parseFloat value.qty
+				else
+					count += parseFloat val1.qty
+
+		count	
 		
 		
 	get_occurrence:(data)->
-		console.log data
-		console.log occurrence = _.has(data, "occurrence")
-		console.log expected = _.has(data, "expected")
-		console.log meta_value = _.has(data, "meta_value")
+		occurrence = _.has(data, "occurrence")
+		expected = _.has(data, "expected")
+		meta_value = data.meta_value
 		value = 0
 		arr = []
-		$.each meta_value , (index,value)->
-			value += parseInt value.qty
+		qty = 0
+		qty = HomeX2OView::getCount(data.meta_value)
 		
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
 			arr['highlight'] =  "#50abf1"
-			arr['value'] = value
+			arr['value'] = qty
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = value
+			arr['value'] = qty
 		else if occurrence == true && expected == false
-			arr['color'] = "#e3e3e3"
+			arr['color'] = "#ffaa06"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = value
+			arr['value'] = qty
 
 		arr
 
@@ -228,7 +330,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 	drawBottle:(data)->
 		doughnutData = []
 		$.each data, (ind,val)->
-			occurrence = HomeX2OViewChild::get_occurrence(val)
+			occurrence = HomeX2OView::get_occurrence(val)
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0
 				occurrence['value'] = 1
@@ -243,18 +345,7 @@ class HomeX2OViewChild extends Marionette.ItemView
 	
 
 
-class HomeX2OView extends Marionette.CompositeView
 
-	template : '<ul class="list-inline text-center row row-line x2oList">
-			  </ul>'
-
-	childView : HomeX2OViewChild
-
-	ui : 
-		chartArea   : '#chart-area'
-		liquid		: '.liquid'
-
-	childViewContainer : 'ul.x2oList'
 
 
 
@@ -263,54 +354,64 @@ class HomeX2OView extends Marionette.CompositeView
 class App.HomeX2OCtrl extends Ajency.RegionController
 
 	initialize:->
-		console.log App.useProductColl
 		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.findWhere({name:'x2o'}) 
-		console.log model.get('name')
-		if model.get('name') == 'x2o'
-			console.log modelColl = new Backbone.Collection model
-			@show new HomeX2OView
-						collection : modelColl
+		model = productcollection.findWhere({name:'X2O'}) 
+		if model != undefined
+			if model.get('name').toUpperCase() == 'X2O'
+				modelColl = model
+				@show new HomeX2OView
+							model : modelColl
 
 class ProductChildView extends Marionette.ItemView
 
 	className : 'panel panel-default'
 
 	template  : '<div class="panel-body">
-			<h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+			<h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
-						<li><a href="#">View</a></li>
-						<li><a href="#">History</a></li>
+						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
 						
 					  </ul>
 			  </h5>
+			  <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" />
+							<input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" />
+					
 
-			  <ul class="list-inline text-center row dotted-line m-t-20 userProductList">
-			  	<li class="col-md-4  col-xs-4"> 
-							<a href="#/products/{{id}}/consume"><img src="assets/images/btn_03.png" width="100px"></a>
-							<h6 class="text-center margin-none">Tap to consume</h6>
-						</li>
-						<li class="col-md-4  col-xs-4">
-							<h5 class="text-center">Daily Target</h5>
-								<div class="row">
-									{{#shecule}}
-									<div class="col-md-6  col-xs-6">
-										 <h4 class="text-center bold text-primary margin-none" >{{occ}}<sup class="text-muted">/ {{qty}}</sup></h4>
-										<h6 class="anytime">{{whendata}}</h6>
-									</div>
-									  {{/shecule}}
-								</div>
-						</li>
-						<li class="col-md-4  col-xs-4">
-							<h5 class="text-center">Status</h5>
-								<i class="fa fa-smile-o"></i>  
-							<h6 class="text-center margin-none">Complete the last one</h6>
-						</li>
-				</ul>
+			  <ul class="list-inline dotted-line  text-center row m-t-20">
+								  <li class="col-md-8 col-xs-8"> 
+							 <ul class="list-inline no-dotted">
+							 					{{#no_servings}}
+					
+				 
+									  
+										{{{servings}}}
+										
+										
+									 
+									  
+										
+				
+					{{/no_servings}}
+					
+
+				  
+
+					
+ 
+</ul>                          
+								  </li>
+								   
+									<li class="col-md-4 col-xs-4">
+										<h5 class="text-center">Status</h5>
+											<i class="fa fa-smile-o"></i>  
+										<h6 class="text-center margin-none">Complete the last one</h6>
+									</li>
+								</ul>
+			  
 			  </div>
 		 
 
@@ -318,6 +419,37 @@ class ProductChildView extends Marionette.ItemView
 
 	ui :
 		anytime     : '.anytime'
+
+	events :
+		'click #original':(e)->
+			e.preventDefault()
+			$('#meta_id'+@model.get('id')).val 0
+			meta_id = $('#meta_id'+@model.get('id')).val()
+			qty = $('#qty'+@model.get('id')).val()
+			product = @model.get('id')
+			date = moment().format('YYYY-MM-DD')
+			$.ajax
+					method : 'POST'
+					data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
+					url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+					success: @saveHandler
+					error :@erroraHandler
+
+	saveHandler:(response,status,xhr)=>
+		@model.set 'occurrence' , response.occurrence
+		#App.useProductColl.set @model
+		productcollection = App.useProductColl.clone()
+		model = productcollection.findWhere({name:'X2O'})  
+		if model != undefined
+			if model.get('name').toUpperCase() == 'X2O' 
+				productcollection.remove model
+				productcollection.reset productcollection.toArray()
+		home = new HomeOtherProductsView
+					collection : productcollection
+		region =  new Marionette.Region el : '#otherproducts'
+		region.show home
+		#$('#otherproducts').html(home.render().el)
+		
 
 
 	serializeData:->
@@ -327,58 +459,96 @@ class ProductChildView extends Marionette.ItemView
 		data.time = recent
 		data.bonus = 0
 		occurrenceArr = []
+		no_servings  = []
 		bonusArr = 0
-			
-		$.each @model.get('occurrence'), (ind,val)->
-			occurrence = _.has(val, "occurrence");
-			expected = _.has(val, "expected");
+		qty = @model.get 'qty'	
+		product_type = @model.get('product_type')
+		product_type = product_type.toLowerCase()
+		temp = []
+		$.each @model.get('occurrence') , (ind,val)->
+			if qty[ind] != undefined
+				temp.push val
+		reponse = ""
+		count = 0
+		model = @model
+		$.each temp , (ind,val)->
+			occurrence = _.has(val, "occurrence")
+			expected = _.has(val, "expected")
 			if occurrence == true && expected == true
-				date = val.occurrence
-				occurrenceArr.push date
+				reponse = ProductChildView::occurredfunc(val,ind,model)
 				
 				
-			if occurrence == true && expected == false
-				bonusArr++
-			
-			if occurrenceArr.length != 0 
-				recent = _.last occurrenceArr
-				data.time = moment(recent).format("ddd, hA")
-				data.occur =  occurrenceArr.length
-
-			data.bonus = bonusArr
-			data.occurrArr = occurrenceArr
-		shecule = []
-		whenar = ['','Morning Before meal' , 'Morning After meal', 'Night Before Meal' , 'Night After Meal']
-		$.each @model.get('qty'), (ind,val)->
-			console.log occurrenceArr[ind]
-			occu_data = occurrenceArr.length
-			if occurrenceArr[ind] == "" || occurrenceArr[ind] == undefined
-				occu_data = 0
-			shecule.push
-				qty : val.qty
-				occ : occu_data
-				whendata : whenar[val.when]
-
-		data.shecule = shecule
+			else if occurrence == false && expected == true 
+				reponse = ProductChildView::expectedfunc(val,ind,count,model)
+				count++
+				
+			response = reponse[0]
+			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
+			data.no_servings =  no_servings
+			data.serving_size = temp.length
 		data
 
-	onShow:->
-		if @model.get('type') == 'Anytime'
-			@ui.anytime.hide()
+	expectedfunc:(val,key,count,model)->
+		temp = []
+		i = 0
+		html = ""
+		product_type = model.get 'product_type'
+		product_type = product_type.toLowerCase()
+		qty = model.get 'qty'
+		reminders = model.get 'reminder'
+		classname = "hidden"
+		time = ""
+		tempcnt = 0
+		increment = parseInt(key) + 1
+		if parseInt(reminders.length) != 0
+			classname = ''
+			time = reminders[key].time
 
+		newClass = product_type+'_expected_class'
+		if parseInt(count) == 0
+			html += '<li><a href="#" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
+					<h6 class="text-center margin-none">Tap to take </h6>
+					<h6 class="text-center text-primary '+classname+'">'+time+'</h6></li>'
+		else
+			html += '<li><a >
+                  <h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
+               </a>'
+			html +=	'<i class="fa fa-clock-o center-block status"></i>
+                     <h6 class="text-center text-primary">Serving '+increment+'</h6></li>'
+		qty  = qty[key].qty
+		$('#qty'+model.get('id')).val qty
+		
+		schedule_id = val.schedule_id
+		meta_id = 0
+		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
+		temp
+	
+	occurredfunc:(val,key,model)->
+		temp = []
+		i = 0
+		timezone = App.currentUser.get 'timezone'
+		time = moment(val.occurrence+timezone, "HH:mm Z").format("hA")
+		product_type = model.get 'product_type'
+		product_type = product_type.toLowerCase() 
+		qty = model.get 'qty'
+		html = ""
+		newClass = product_type+'_occurred_class'
+		html += '<li><a ><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3></a>'
+		html +=	'<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">'+time+'</h6></li>'
+		qty  = qty[key].qty
+		schedule_id = val.schedule_id
+		meta_id = 0
+		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
+		temp
 
-
-# class HomeViewChildView extends Marionette.CompositeView
-
-# 	template : '<div></div>'
-
-# 	childView : ProductChildView
 
 	
 
-# 	initialize:->
-# 		products = @model.get 'products'
-# 		@collection = new Backbone.Collection products
+
+
+		
+
+
 
 
 class HomeOtherProductsView extends Marionette.CompositeView
@@ -394,15 +564,16 @@ class HomeOtherProductsView extends Marionette.CompositeView
 class App.HomeOtherProductsCtrl extends Ajency.RegionController
 
 	initialize:->
-		console.log App.useProductColl
+
 		@_showView(App.useProductColl)
 
 	_showView:(collection)=>
 		productcollection = collection.clone()
-		model = productcollection.findWhere({name:'x2o'})  
-		if model.get('name') != 'x2o'
-			productcollection.reset App.useProductColl.toArray()
-		console.log productcollection
+		model = productcollection.findWhere({name:'X2O'})  
+		if model != undefined
+			if model.get('name').toUpperCase() == 'X2O' 
+				productcollection.remove model
+				productcollection.reset productcollection.toArray()
 		@show new HomeOtherProductsView
 					collection : productcollection
 		

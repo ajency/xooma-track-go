@@ -73,6 +73,7 @@ class User
 
 		    //update user meta for the user
         $user_meta_value = maybe_serialize($args);
+       
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
 
@@ -93,7 +94,7 @@ class User
         return true;
 	}
 
-  public function update_user_measurement_details($id,$args,$date=""){
+  public function update_user_measurement_details($id,$args,$date){
 
         global $wpdb;
         $measurements_table = $wpdb->prefix . "measurements";
@@ -104,8 +105,9 @@ class User
 
             $date = date('Y-m-d');
         }
-        unset($args['date_field']);
+        unset($args['date']);
         $user_meta_value = maybe_serialize($args);
+       
         $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where `date`='".$date."' and user_id=".$id."" );
 
         if(count($sql_query) == 0 && $sql_query == null)
@@ -115,7 +117,7 @@ class User
                 $measurements_table,
                 array(
                   'user_id' => $id,
-                  'date' => date('Y-m-d'),
+                  'date' => $date,
                   'value' => $user_meta_value
                 ),
                 array(
@@ -156,18 +158,19 @@ class User
   }
 
 
-  public function get_user_measurement_details($id,$date=""){
+  public function get_user_measurement_details($id,$date){
 
         global $wpdb;
+       
         $measurements_table = $wpdb->prefix . "measurements";
        
         if($date == ""){
-            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) DESC LIMIT 1" );
        }
         else
         {
             
-            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date=".$date );
+            $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." and date='".$date."'" );
 
         }
         
@@ -284,7 +287,7 @@ class User
 
 
 
-    public function get_user_home_products($id){
+    public function get_user_home_products($id,$pid){
 
         global $wpdb;
 
@@ -300,9 +303,16 @@ class User
 
         $product_meta_table = $wpdb->prefix . "product_meta";
 
-
-        $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
-
+        if($pid == "")
+        {
+           $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and deleted_flag=0");
+ 
+        }
+        else
+        {
+            $sql_query = $wpdb->get_results("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
+        }
+        
         $sub = array();
         $pr_main = array();
        
@@ -311,7 +321,7 @@ class User
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
-            
+           
         
             $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($val[0]['id'], 'product_type', true)." and type='product_type'");
                     
@@ -366,7 +376,7 @@ class User
                 'total'         =>  $val[0]['total'],
                 'reminder'      => $reminder,
                 'settings'      => $settings_data->no_of_days,
-                'type'          => $val[0]['time_set'],
+                'type'          => $val[0]['frequency'],
                 'timezone'      => $response['timezone']
 
 
@@ -461,12 +471,14 @@ class User
         $product_main_table = $wpdb->prefix . "product_main";
 
         $product_meta_table = $wpdb->prefix . "product_meta";
-
+        $response = array();
+        
         $sql_query = $wpdb->get_row("SELECT * FROM $product_main_table WHERE user_id = ".$id." and product_id=".$pid." and deleted_flag=0");
-
+        if($sql_query)
+        {
         $sub_query = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='qty_per_servings' and main_id = ".$sql_query->id);
-
         $servings = array();
+        
         foreach ($sub_query as $key => $value) {
            
             $data  = maybe_unserialize($value->value);
@@ -549,5 +561,12 @@ class User
 
         return $response;
     }
+
+
+else
+{
+    return $response;
+}
    
+}
 }

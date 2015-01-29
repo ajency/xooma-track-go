@@ -23,7 +23,8 @@ ProfileMeasurementsView = (function(_super) {
     rangeSliders: '[data-rangeslider]',
     responseMessage: '.aj-response-message',
     link: '.link',
-    inpt_el: '.inpt_el'
+    inpt_el: '.inpt_el',
+    update: '.update'
   };
 
   ProfileMeasurementsView.prototype.behaviors = {
@@ -33,7 +34,8 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.initialize = function() {
-    return $(document).on('keyup', _.bind(this.keyup, this));
+    $(document).on('keyup', _.bind(this.keyup, this));
+    return $(document).on('keypress', _.bind(this.keydown, this));
   };
 
   ProfileMeasurementsView.prototype.events = {
@@ -42,10 +44,8 @@ ProfileMeasurementsView = (function(_super) {
     }
   };
 
-  ProfileMeasurementsView.prototype.keyup = function(e) {
+  ProfileMeasurementsView.prototype.keydown = function(e) {
     var inputVal;
-    console.log(e.target.id);
-    console.log(this.measurements[e.target.id] = $('#' + e.target.id).val());
     if (e.charCode === 46) {
       console.log(inputVal = $(e.target).val().split('.').length);
       if (parseInt(inputVal) >= 2) {
@@ -55,7 +55,23 @@ ProfileMeasurementsView = (function(_super) {
     return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 44;
   };
 
+  ProfileMeasurementsView.prototype.keyup = function(e) {
+    return this.measurements[e.target.id] = $('#' + e.target.id).val();
+  };
+
   ProfileMeasurementsView.prototype.onShow = function() {
+    var date, state;
+    date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
+    $('#update').datepicker({
+      dateFormat: 'yy-mm-dd',
+      changeYear: true,
+      changeMonth: true,
+      maxDate: new Date(),
+      minDate: new Date(date),
+      onSelect: function(dateText, inst) {
+        return $('#date_field').val(dateText);
+      }
+    });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
         return _this.valueOutput(ele);
@@ -74,30 +90,41 @@ ProfileMeasurementsView = (function(_super) {
       'thigh': '',
       'hips': ''
     };
-    console.log(this.view);
+    state = App.currentUser.get('state');
+    if (state === '/home') {
+      $('.measurements_update').removeClass('hidden');
+      $('#measurement').parent().removeClass('done');
+      $('#measurement').parent().addClass('selected');
+      $('#measurement').parent().siblings().removeClass('selected');
+      $('#measurement').parent().prevAll().addClass('done');
+      $('#measurement').parent().nextAll().addClass('done');
+    }
     return this.cordovaDeviceEvents();
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
     var formdata;
-    console.log(this.measurements['weight'] = $('#weight').val());
+    this.measurements['weight'] = $('#weight').val();
     this.measurements['height'] = $('#height').val();
-    this.measurements['date_field'] = $('#date_field').val();
-    console.log(formdata = $.param(this.measurements));
+    this.measurements['date'] = $('#date_field').val();
+    formdata = this.measurements;
     return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
     var state;
     if (xhr.status === 404) {
-      this.ui.responseMessage.text("Something went wrong");
+      this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
       state = App.currentUser.get('state');
       if (state === '/home') {
-        return this.ui.responseMessage.text("profile successfully updated");
+        this.ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!");
+        return $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
       } else {
         App.currentUser.set('state', '/profile/my-products');
         return App.navigate('#' + App.currentUser.get('state'), true);
@@ -106,7 +133,7 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
-    this.ui.responseMessage.text("Something went wrong");
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -145,8 +172,9 @@ App.UserMeasurementCtrl = (function(_super) {
   UserMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
     if (_.isDeviceOnline()) {
+      this.show(this.parent().parent().getLLoadingView());
       xhr = this._get_measurement_details();
-      return xhr.done(this._showView).fail(this._showView);
+      return xhr.done(this._showView).fail(this.errorHandler);
     } else {
       return window.plugins.toast.showLongBottom("Please check your internet connection.");
     }
@@ -183,7 +211,11 @@ App.UserMeasurementCtrl = (function(_super) {
   };
 
   UserMeasurementCtrl.prototype.successHandler = function(response, status) {
-    return App.currentUser.set('measurements', response.response);
+    var deferred;
+    App.currentUser.set('measurements', response.response);
+    deferred = Marionette.Deferred();
+    deferred.resolve(true);
+    return deferred.promise();
   };
 
   return UserMeasurementCtrl;

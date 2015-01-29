@@ -31,12 +31,17 @@ class ProfileCtrlView extends Marionette.LayoutView
 		@listenTo App, 'state:transition:complete', @handleMenu
 
 	preventClick : (evt)->
+		console.log evt.target.id
+		@$('#'+evt.target.id).parent().removeClass 'done'
 		@$('#'+evt.target.id).parent().addClass 'selected'
 		@$('#'+evt.target.id).parent().siblings().removeClass 'selected'
+
+	onShow:->
+		@handleMenu
 		# evt.preventDefault()
 
 	handleMenu : (evt, state, args)->
-		url = '#'+App.currentUser.get 'state'
+		console.log url = '#'+App.currentUser.get 'state'
 		console.log computed_url = '#'+window.location.hash.split('#')[1]
 		if url == computed_url
 			@$('a[href="'+url+'"]').parent().addClass 'selected'
@@ -47,6 +52,14 @@ class ProfileCtrlView extends Marionette.LayoutView
 			@$('a[href="'+url+'"]').parent().prevAll().unbind()
 			@$('a[href="'+url+'"]').parent().prevAll().find('a').css(cursor:'pointer')
 			@$('a[href="'+url+'"]').parent().prevAll().removeClass 'selected'
+			@$('a[href="'+url+'"]').parent().prevAll().addClass 'done'
+		else if url == '#/home' && url != computed_url
+			console.log $('a[href="'+computed_url+'"]')
+			$('a[href="'+computed_url+'"]').parent().addClass 'selected'
+			$('a[href="'+computed_url+'"]').parent().prevAll().addClass 'done'
+			$('a[href="'+computed_url+'"]').parent().nextAll().addClass 'done'
+			# $('.tag').addClass 'done'
+		
 		else
 			@$('a[href="'+computed_url+'"]').parent().addClass 'selected'
 		
@@ -63,3 +76,5 @@ class ProfileCtrlView extends Marionette.LayoutView
 class App.ProfileCtrl extends Marionette.RegionController
 	initialize: (options)->
 		@show new ProfileCtrlView
+
+	

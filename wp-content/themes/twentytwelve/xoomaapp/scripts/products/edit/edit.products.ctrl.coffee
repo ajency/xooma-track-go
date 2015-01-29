@@ -1,4 +1,7 @@
-
+App.state 'EditProducts',
+					url : '/product/:id/edit'
+					parent : 'xooma'
+	
 class EditProductsView extends Marionette.ItemView
 
 	template : '#edit-product-template'
@@ -24,7 +27,11 @@ class EditProductsView extends Marionette.ItemView
 		'keypress @ui.subtract':(e)->
 			e.charCode >= 48 && e.charCode <= 57 ||	e.charCode == 44 
 
-		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+		'change @ui.rangeSliders' : (e)-> 
+			$('.servings_per_day').val $(e.target).val()
+			console.log $('.servings_per_day').val()
+			@valueOutput e.currentTarget
+			@showReminders()
 
 		'click @ui.cancel':(e)->
 			App.navigate '#/profile/my-products', true
@@ -39,7 +46,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.js__timepicker').each (ind,val)->
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
-			$( @ui.servings_per_day ).trigger( "change" )
+			#$( @ui.servings_per_day ).trigger( "change" )
 			console.log @model.get('frequency_value')
 			if parseInt(@model.get('frequency_value')) == 2
 				@selectSchdule(@model)
@@ -47,11 +54,17 @@ class EditProductsView extends Marionette.ItemView
 
 		'click .save':(e)->
 			e.preventDefault()
+			console.log check = @checkreminder()
+			if check == false
+				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+				return 
 			sub = @ui.subtract.val()
 			if sub == ""
 				sub = 0
-				@ui.subtract.val(0)
-			if parseInt($('#available').val()) >=  parseInt(sub)
+			if parseInt($('#available').val()) >=  parseInt(sub) 
 				data = @ui.form.serialize()
 				product = @model.get('id')
 				$.ajax
@@ -61,7 +74,7 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				@ui.responseMessage.text "Value entered shoule be less than available count"
+				@ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!")
 				$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -73,7 +86,6 @@ class EditProductsView extends Marionette.ItemView
 			$(@ui.schedule).removeClass 'btn-primary'
 			$(e.target).addClass 'btn-primary'
 			$('#timeset').val $(e.target).attr('data-time')
-			console.log $('#timeset').val()
 			if $(e.target).attr('data-time') == 'Once'
 				$('.second').hide()
 			else
@@ -146,6 +158,15 @@ class EditProductsView extends Marionette.ItemView
 			$('#available').val cnt
 			$('.available').text cnt
 
+	checkreminder:->
+		console.log servings = $('.servings_per_day').val()
+		i = 0
+		while i < servings
+			if $('#reminder_time'+i).val() == "" && parseInt($('#reminder').val()) == 1
+				return false
+			i++
+		
+
 	loadCheckedData:()->
 		if $(@ui.servings_diff).prop('checked') == true 
 				$(@ui.servings_diff).prop 'disabled' , false
@@ -177,6 +198,7 @@ class EditProductsView extends Marionette.ItemView
 	showReminders:()->
 		if parseInt($('#reminder').val()) == 1
 				$(@ui.servings_diff).prop 'disabled' , false
+				$('#reminder_time0').removeAttr 'disabled'
 				console.log servings = $('.servings_per_day').val()
 				html1 = ""
 				i = 1
@@ -192,13 +214,16 @@ class EditProductsView extends Marionette.ItemView
 					val.id = 'reminder_time'+ind
 				
 		else
+			$('#reminder_time0').attr 'disabled' , true			
+			
 			html1 = '<div class="reminder">'+$('.reminder').first().html()+'</div>'
-						
+			$('#reminder_time0').attr 'disabled' , true			
 			$('.reminder_div').text ""
 			$('.reminder_div').append html1
 			$('.js__timepicker').each (ind,val)->
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
+				val.value = ""
 
 		$('.js__timepicker').pickatime()
 
@@ -207,36 +232,25 @@ class EditProductsView extends Marionette.ItemView
 	
 
 
-	successHandler:(response,status,xhr)=>
-		if xhr.status == 200
-			products = App.currentUser.get 'products'
-			response = parseInt response
-			console.log updatedProducts = _.without products , response
-			console.log App.currentUser.set 'products' , _.uniq updatedProducts
-			
-		App.navigate '#/profile/my-products', true
-
-	erroraHandler :(response,status,xhr)=>
-		@ui.responseMessage.text "Something went wrong"
-		$('html, body').animate({
-						scrollTop: 0
-						}, 'slow')
-
 	successSave: (response,status,xhr)=>
 		if xhr.status is 201
-				response = parseInt response
+				product = parseInt response.response[0].id
 				products = App.currentUser.get 'products'
 				if typeof products == 'undefined'
 					products = []
-				products = _.union products, [response]
+				products = _.union products, [product]
 				App.currentUser.set 'products', _.uniq products
+				model = new UserProductModel 
+				model.set response.response[0]
+				App.useProductColl.add model , {merge: true}
 		if document.activeElement.name == "save"
 			App.navigate '#/profile/my-products', true
 		else
 			App.navigate '#/products', true
 
-	erroraHandler :(response,status,xhr)=>
-		@ui.responseMessage.text "Could not delete the prodcut"
+
+	errorSave :(response,status,xhr)=>
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 						scrollTop: 0
 						}, 'slow')
@@ -246,12 +260,13 @@ class EditProductsView extends Marionette.ItemView
 		data = super()
 		product = parseInt @model.get('id')
 		weightbmi = @get_weight_bmi(@model.get('bmi'))
-		data.x2o = weightbmi	
+		data.x2o = Math.ceil(weightbmi)	
+		data.defaultbmi = Math.ceil(weightbmi)
 		products = App.currentUser.get 'products'
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
-			data.x2o = qty.length
+			console.log data.defaultbmi = qty.length
 			data.reminder = reminders[0].time
 		frequecy = @model.get 'frequency_value'
 		if parseInt(frequecy) == 1 
@@ -264,13 +279,7 @@ class EditProductsView extends Marionette.ItemView
 			data.schedule = ''
 			data.anytimeclass = ''
 			data.scheduleclass = 'btn-primary'
-			if @model.get('time_set') == 'Once'
-				data.once = 'btn-primary'
-				data.twice = ''
-			else
-				data.once = ''
-				data.twice = 'btn-primary'
-		reminder_flag = @model.get('reminder_flag')
+			reminder_flag = @model.get('reminder_flag')
 		if reminder_flag == undefined || parseInt(reminder_flag) == 0 || reminder_flag == 'true'
 			data.default = 'btn-success'
 			data.success = ''
@@ -283,14 +292,11 @@ class EditProductsView extends Marionette.ItemView
 		data
 
 	get_weight_bmi:(bmi)->
-		console.log bmi
 		weight = App.currentUser.get('weight')
 		actual = 1
 		if bmi != undefined	
 			$.each bmi , (index,value)->
 				bmi_val  = value['range'].split('<')
-				console.log bmi_val[0]
-				console.log bmi_val[1]
 				if parseInt(bmi_val[0]) <= parseInt(weight) && parseInt(weight) <= parseInt(bmi_val[1])
 					actual = value['quantity'];
 		actual
@@ -327,7 +333,14 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('.schedule_data').hide()
 			$('.anytime').hide()
-			
+			if @model.get('bmi') != undefined
+				weightbmi = @get_weight_bmi(@model.get('bmi'))
+				weight = Math.ceil(weightbmi)
+			else
+				qty = @model.get 'qty'
+				weight = qty.length
+			$('.servings_per_day option[value="'+weight+'"]').prop("selected",true);
+			@showReminders()
 
 		
 		
@@ -417,34 +430,32 @@ class EditProductsView extends Marionette.ItemView
 			$('#check').val(1)
 			$.each qty , (ind,val)->
 				$('#qty_per_servings'+ind+' option[value="'+val.qty+'"]').prop("selected",true)
-
+				
 
 
 
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$.each reminders , (ind,val)->
-				console.log val.time
-				$('#reminder_time'+ind).val val.time
+			console.log val.time
+			$('#reminder_time'+ind).val val.time
 		
 			
 
 			
-App.state 'EditProducts',
-					url : '/products/:id/edit'
-					parent : 'xooma'
-	
+
 		
 	
 
 
 class App.EditProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		console.log product = parseInt productId[0]
 		console.log products = App.currentUser.get 'products'
 		
-		if $.inArray( product, products ) > -1
+		if $.inArray( product, products ) > -1 || App.productCollection.length == 0
 			$.ajax
 				method : 'GET'
 				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
@@ -457,16 +468,19 @@ class App.EditProductsCtrl extends Ajency.RegionController
 
 
 	_showView:(productModel)->
-		console.log productModel
 		@show new EditProductsView
 					model : productModel
 
 
 	successHandler:(response,status,xhr)=>
-		pid = App.productCollection.where({id:response.id})
-		model = new Backbone.Model response
-		@_showView(model)
+		if xhr.status == 200
+			pid = App.productCollection.where({id:response.id})
+			model = new Backbone.Model response
+			@_showView(model)
+		else
+			@region =  new Marionette.Region el : '#edit-product-template'
+			new Ajency.NothingFoundCtrl region : @region
 
-
-
-	
+	erroraHandler:(response,status,xhr)=>
+		@region =  new Marionette.Region el : '#404-template'
+		new Ajency.HTTPRequestCtrl region : @region

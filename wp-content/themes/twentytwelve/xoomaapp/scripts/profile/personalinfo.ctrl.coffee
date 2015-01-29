@@ -19,22 +19,58 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				App.currentUser.getFacebookPicture()
 
 	
+		
+	onRender:->
+		Backbone.Syphon.deserialize @, @model.toJSON()
+		$('#birth_date').datepicker({
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+		    maxDate: new Date()
+			     
+			   
+		    
+		});
+		state = App.currentUser.get 'state'
+		if state == '/home'
+			$('.measurements_update').removeClass 'hidden'
+			$('#profile').parent().removeClass 'done'
+			$('#profile').parent().addClass 'selected'
+			$('#profile').parent().siblings().removeClass 'selected'
+			$('#profile').parent().nextAll().addClass 'done'
+
+
+
 	onShow:->
+		Backbone.Syphon.deserialize @, @model.toJSON()
+		$('#birth_date').datepicker({
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+		    maxDate: new Date()
+			     
+			   
+		    
+		});
+		state = App.currentUser.get 'state'
+		if state == '/home'
+			$('.measurements_update').removeClass 'hidden'
+			$('#profile').parent().removeClass 'done'
+			$('#profile').parent().addClass 'selected'
+			$('#profile').parent().siblings().removeClass 'selected'
+			$('#profile').parent().nextAll().addClass 'done'
+
+
 		#Device
 		_.enableDeviceBackNavigation()
 
 
-	onRender:->
-		Backbone.Syphon.deserialize @, @model.toJSON()
-		@ui.dateElement.pickadate(
-			formatSubmit: 'yyyy-mm-dd'
-			hiddenName: true
-			max: new Date()
-			selectYears: 70
-			)
-		birth_date = @model.get('profile').birth_date
-		picker = @ui.dateElement.pickadate('picker')
-		picker.set('select', birth_date, { format: 'yyyy-mm-dd' })
+		
+		
+		    
+		
+
+
 		
 
 	#to initialize validate plugin
@@ -46,20 +82,24 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	successHandler:(response, status,xhr)=>
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
-			@ui.responseMessage.text "Something went wrong"
+			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 		else
 			if state == '/home'
-				@ui.responseMessage.text "profile successfully updated"
+				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+				
 			else
 				App.currentUser.set 'state' , '/profile/measurements'
 				App.navigate '#'+App.currentUser.get('state') , true
 		
 
 	errorHandler:(error)=>
-		@ui.responseMessage.text "Data couldn't be saved due to some error."
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -69,15 +109,19 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 	initialize: (options)->
 		#Device
 		if _.isDeviceOnline()
+			@show @parent().parent().getLLoadingView()
 			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 		else
 			window.plugins.toast.showLongBottom("Please check your internet connection.")
-			
+		
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView
 							model : userModel
 
-	errorHandler : (error)->
-		@region =  new Marionette.Region el : '#nofound-template'
+	errorHandler : (error)=>
+		@region =  new Marionette.Region el : '#404-template'
 		new Ajency.HTTPRequestCtrl region : @region
+
+	
+		

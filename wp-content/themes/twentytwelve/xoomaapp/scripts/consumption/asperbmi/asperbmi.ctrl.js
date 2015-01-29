@@ -12,6 +12,11 @@ AsperbmiView = (function(_super) {
   __extends(AsperbmiView, _super);
 
   function AsperbmiView() {
+    this.stopProgress = __bind(this.stopProgress, this);
+    this.startProgress = __bind(this.startProgress, this);
+    this.update_occurrences = __bind(this.update_occurrences, this);
+    this.create_occurrences = __bind(this.create_occurrences, this);
+    this.erroraHandler = __bind(this.erroraHandler, this);
     this.saveHandler = __bind(this.saveHandler, this);
     return AsperbmiView.__super__.constructor.apply(this, arguments);
   }
@@ -23,50 +28,73 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.events = {
-    'click #ssconfirm': function(e) {
-      var count, meta_id, product, qty;
+    'click #confirm': function(e) {
+      var date, meta_id, product, qty;
       e.preventDefault();
-      console.log(count = $('#confirm').attr('data-count', count));
-      if (parseInt(count) === 0) {
-        this.ui.responseMessage.text("Consumption not updated!!!!");
-        return false;
+      meta_id = this.$el.find('#meta_id').val();
+      qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
+      if (qty === 0) {
+        return;
       }
-      meta_id = $('#meta_id').val();
-      qty = $('#percentage').val();
       product = this.model.get('id');
+      date = moment().format('YYYY-MM-DD');
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty,
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
-    }
+    },
+    'click .reset-progress': function() {
+      this.bottleRemaining = this.originalBottleRemaining;
+      return this.bottle.setProgress(this.bottleRemaining);
+    },
+    'touchstart .bottle': 'startProgress',
+    'mousedown .bottle': 'startProgress',
+    'touchend .bottle': 'stopProgress',
+    'mouseup .bottle': 'stopProgress',
+    'mouseout .bottle': 'stopProgress'
   };
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
-    var cnt, cntColl, model, temp, tempColl;
-    $('#percentage').val(0);
-    console.log(response);
-    this.model.set('occurrence', response.occurrence);
-    console.log($('#meta_id').val(response.meta_id));
-    cntColl = new Backbone.Collection(response.occurrence);
-    temp = cntColl.filter(function(model) {
-      var meta_id;
-      meta_id = model.get('meta_id');
-      model.set('meta_id', parseInt(meta_id));
-      return model;
-    });
-    console.log(tempColl = new Backbone.Collection(temp));
-    console.log(model = tempColl.findWhere({
-      meta_id: parseInt(response.meta_id)
-    }));
-    cnt = this.getCount(model.get('meta_value'));
-    if (parseInt(cnt) === 1) {
-      cnt = 0;
+    var cnt, model, occurResponse, tempColl;
+    if (xhr.status === 201) {
+      console.log(response);
+      occurResponse = _.map(response.occurrence, function(occurrence) {
+        occurrence.meta_id = parseInt(occurrence.meta_id);
+        return occurrence;
+      });
+      this.model.set('occurrence', occurResponse);
+      this.$el.find('#meta_id').val(response.meta_id);
+      tempColl = new Backbone.Collection(occurResponse);
+      model = tempColl.findWhere({
+        meta_id: parseInt(response.meta_id)
+      });
+      cnt = this.getCount(model.get('meta_value'));
+      this.originalBottleRemaining = this.bottleRemaining;
+      if (parseInt(cnt) === 1) {
+        cnt = 0;
+      }
+      $('.bottlecnt').text(cnt);
+      this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    } else {
+      return this.showErrorMsg();
     }
-    $('.bottlecnt').text(cnt);
-    return this.generate(response.occurrence);
+  };
+
+  AsperbmiView.prototype.erroraHandler = function(response, status, xhr) {
+    return this.showErrorMsg();
+  };
+
+  AsperbmiView.prototype.showErrorMsg = function() {
+    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   AsperbmiView.prototype.getCount = function(val) {
@@ -75,10 +103,10 @@ AsperbmiView = (function(_super) {
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
     } else {
-      $.each(val, function(ind, val1) {
+      _.each(val, function(val1) {
         console.log(val1);
         if (_.isArray(val1)) {
-          return $.each(val1, function(item, value) {
+          return _.each(val1, function(value) {
             return count += parseFloat(value.qty);
           });
         } else {
@@ -95,7 +123,7 @@ AsperbmiView = (function(_super) {
     arr1 = [];
     count = 0;
     data.day = moment().format("dddd");
-    console.log(data.today = moment().format("MMMM Do YYYY"));
+    data.today = moment().format("MMMM Do YYYY");
     return data;
   };
 
@@ -105,51 +133,67 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.generate = function(data) {
     var bonus, count1, occur;
-    console.log(occur = data);
+    occur = data;
     bonus = 0;
     count1 = 0;
-    console.log(this.model.get('occurrence').length);
-    console.log(this.model.get('servings'));
     bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings'));
     $('.bonus').text(bonus);
-    $.each(occur, function(ind, val) {
-      var count, expected, meta_id, occurrence;
-      console.log(occurrence = _.has(val, "occurrence"));
-      console.log(expected = _.has(val, "expected"));
-      meta_id = val.meta_id;
-      console.log(val.meta_value);
-      count = AsperbmiView.prototype.getCount(val.meta_value);
-      if (occurrence === true && (expected === true || expected === false) && count === 1) {
-        count1++;
-        return true;
-      } else if (occurrence === true && (expected === true || expected === false) && count !== 1) {
-        console.log(count);
-        AsperbmiView.prototype.update_occurrences(val);
-        return false;
-      } else {
-        AsperbmiView.prototype.create_occurrences();
-        return false;
-      }
-    });
-    if ((parseInt(this.model.get('occurrence').length)) === parseInt(count1)) {
-      return AsperbmiView.prototype.create_occurrences();
+    $.each(occur, (function(_this) {
+      return function(ind, val) {
+        var count, expected, meta_id, occurrence;
+        occurrence = _.has(val, "occurrence");
+        expected = _.has(val, "expected");
+        meta_id = val.meta_id;
+        console.log(count = _this.getCount(val.meta_value));
+        if (occurrence === true && (expected === true || expected === false) && count === 1) {
+          count1++;
+          return true;
+        } else if (occurrence === true && (expected === true || expected === false) && count !== 1) {
+          _this.update_occurrences(val);
+          return false;
+        } else {
+          _this.create_occurrences();
+          return false;
+        }
+      };
+    })(this));
+    console.log(this.model.get('occurrence').length);
+    console.log(count1);
+    if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
+      return this.create_occurrences();
     }
   };
 
   AsperbmiView.prototype.create_occurrences = function() {
     $('#meta_id').val(0);
-    return $('.bottlecnt').text(0);
+    $('.bottlecnt').text(0);
+    this.originalBottleRemaining = 100;
+    this.bottleRemaining = 100;
+    return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
   };
 
   AsperbmiView.prototype.update_occurrences = function(data) {
-    var confirm, count, meta_value;
+    var count, meta_value;
     $('#add').hide();
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
-    confirm = parseFloat(count) / 0.25;
-    return $('.bottlecnt').text(count);
+    $('.bottlecnt').text(count);
+    this.bottleRemaining = 100 - 100 * count;
+    this.originalBottleRemaining = this.bottleRemaining;
+    return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
+  };
+
+  AsperbmiView.prototype.startProgress = function() {
+    return this.bottle.startProgress();
+  };
+
+  AsperbmiView.prototype.stopProgress = function() {
+    var progress;
+    progress = this.bottle.stopProgress(true);
+    this.bottle.setProgress(progress);
+    return this.bottleRemaining = progress;
   };
 
   return AsperbmiView;
@@ -168,6 +212,7 @@ App.AsperbmiCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     product = parseInt(productId[0]);
     products = [];
@@ -182,7 +227,6 @@ App.AsperbmiCtrl = (function(_super) {
   };
 
   AsperbmiCtrl.prototype._showView = function(productModel) {
-    console.log(productModel);
     return this.show(new AsperbmiView({
       model: productModel
     }));

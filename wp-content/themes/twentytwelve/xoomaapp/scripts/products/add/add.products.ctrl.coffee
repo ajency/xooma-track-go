@@ -12,7 +12,7 @@ class ProductChildView extends Marionette.ItemView
 							<div class="cbp-vm-details">
 								{{description}}
 							</div>
-						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/products/{{id}}/edit">Add Product</a>'
+						<a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/product/{{id}}/edit">Add Product</a>'
 
 
 	ui :
@@ -21,16 +21,10 @@ class ProductChildView extends Marionette.ItemView
     initialize:->
     	@$el.prop("id", 'product'+@model.get("id"))
 
-    # events:
-    # 	'click @ui.addProduct':(e)->
-    # 		e.preventDefault()
-    # 		id = e.target.id
-    		# App.currentUser.addProduct(id).done(@successHandler).fail @errorHandler
+   
 
-    successHandler:(response, status, xhr)=>
-    	console.log status
-    	if xhr.status == 201
-    		$('#product'+response).hide()
+
+   
 		
 
 	
@@ -46,27 +40,39 @@ class AddProductsView extends Marionette.CompositeView
 	childViewContainer : 'ul.products-list'
 	emptyView : NoProductsChildView
 
-	onShow:->
-		$.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
-			console.log "loaded"
-			)
+	events:
+    	'click .grid':(e)->
+    		e.preventDefault()
+
+    onShow:->
+	    $.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
+	        )
+
+    
+
+	
 		
 
 
 class App.AddProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		if App.productCollection.length is 0
-			App.productCollection.fetch().done @_showProducts
+			App.productCollection.fetch().done(@_showProducts).fail(@errorHandler)
 		else
 			@_showProducts()
 
 	_showProducts : =>
 		userProducts = App.currentUser.get 'products'
 		collectionArr = App.productCollection.where({active_value:'1'})
-		App.productCollection.reset collectionArr
+		temp = []
+		$.each collectionArr , (ind,val)->
+			if $.inArray(parseInt(val.get('id')),userProducts) == -1
+				temp.push val
+		App.productCollection.reset temp
 		filteredCollection = App.productCollection.clone()
-		
-			
-		c = filteredCollection.remove userProducts
 		@show new AddProductsView
 						collection : filteredCollection
+
+	
+		

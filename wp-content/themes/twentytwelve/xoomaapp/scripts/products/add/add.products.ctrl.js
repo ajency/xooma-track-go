@@ -1,7 +1,7 @@
 var AddProductsView, NoProductsChildView, ProductChildView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 App.state('AddProducts', {
   url: '/products',
@@ -12,13 +12,12 @@ ProductChildView = (function(_super) {
   __extends(ProductChildView, _super);
 
   function ProductChildView() {
-    this.successHandler = __bind(this.successHandler, this);
     return ProductChildView.__super__.constructor.apply(this, arguments);
   }
 
   ProductChildView.prototype.tagName = 'li';
 
-  ProductChildView.prototype.template = '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a> <h3 class="cbp-vm-title">{{name}}</h3> <div class="cbp-vm-details"> {{description}} </div> <a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/products/{{id}}/edit">Add Product</a>';
+  ProductChildView.prototype.template = '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a> <h3 class="cbp-vm-title">{{name}}</h3> <div class="cbp-vm-details"> {{description}} </div> <a id="{{id}}"  class="cbp-vm-icon cbp-vm-add add-product" href="#/product/{{id}}/edit">Add Product</a>';
 
   ProductChildView.prototype.ui = {
     addProduct: '.add-product'
@@ -26,13 +25,6 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.initialize = function() {
     return this.$el.prop("id", 'product' + this.model.get("id"));
-  };
-
-  ProductChildView.prototype.successHandler = function(response, status, xhr) {
-    console.log(status);
-    if (xhr.status === 201) {
-      return $('#product' + response).hide();
-    }
   };
 
   return ProductChildView;
@@ -69,10 +61,14 @@ AddProductsView = (function(_super) {
 
   AddProductsView.prototype.emptyView = NoProductsChildView;
 
+  AddProductsView.prototype.events = {
+    'click .grid': function(e) {
+      return e.preventDefault();
+    }
+  };
+
   AddProductsView.prototype.onShow = function() {
-    return $.getScript(_SITEURL + "/html/html/assets/js/cbpViewModeSwitch.js", function(item) {
-      return console.log("loaded");
-    });
+    return $.getScript(_SITEURL + "/html/html/assets/js/cbpViewModeSwitch.js", function(item) {});
   };
 
   return AddProductsView;
@@ -91,22 +87,28 @@ App.AddProductsCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     if (App.productCollection.length === 0) {
-      return App.productCollection.fetch().done(this._showProducts);
+      return App.productCollection.fetch().done(this._showProducts).fail(this.errorHandler);
     } else {
       return this._showProducts();
     }
   };
 
   AddProductsCtrl.prototype._showProducts = function() {
-    var c, collectionArr, filteredCollection, userProducts;
+    var collectionArr, filteredCollection, temp, userProducts;
     userProducts = App.currentUser.get('products');
     collectionArr = App.productCollection.where({
       active_value: '1'
     });
-    App.productCollection.reset(collectionArr);
+    temp = [];
+    $.each(collectionArr, function(ind, val) {
+      if ($.inArray(parseInt(val.get('id')), userProducts) === -1) {
+        return temp.push(val);
+      }
+    });
+    App.productCollection.reset(temp);
     filteredCollection = App.productCollection.clone();
-    c = filteredCollection.remove(userProducts);
     return this.show(new AddProductsView({
       collection: filteredCollection
     }));

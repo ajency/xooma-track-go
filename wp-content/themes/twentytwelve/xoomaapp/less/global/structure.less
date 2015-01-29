@@ -1,9 +1,11 @@
 
 html, body{
-	height: 100%;
+    height: 100%;
     
 }
-
+.link{
+  cursor:pointer;
+}
 body{
       
 //    background-image: radial-gradient(circle farthest-corner at center, lighten(@yellow, 40%) 0%, @yellow 80%);
@@ -134,11 +136,47 @@ body{
         i{
             font-size: 40px;
         }
+        i.status{
+          font-size:1.2em;
+          display:block !important;
+          color: #ccc;
+         }
         }
-     li:nth-child(3) { 
+     li:nth-child(2) { 
             border:0px !important;
         }
 }
+.no-dotted{
+ li{border:0px !important;width: 32%;
+    a{
+      color:#ccc;
+      text-decoration:none;
+    }
+  } 
+  /* one item */
+li:first-child:nth-last-child(1) {
+  width: 100%;
+}
+
+/* two items */
+li:first-child:nth-last-child(2),
+li:first-child:nth-last-child(2) ~ li {
+  width: 49%;
+}
+
+/* three items */
+li:first-child:nth-last-child(3),
+li:first-child:nth-last-child(3) ~ li {
+  width: 32.3333%;
+}
+
+/* four items */
+li:first-child:nth-last-child(4),
+li:first-child:nth-last-child(4) ~ li {
+  width: 25%;
+}
+}
+
 /*** Error Ui ***/
 .parsley-errors-list{
     list-style-type: none;
@@ -154,6 +192,9 @@ display:none !important;
 
 .mid-title{
     position: relative;
+    span{
+      font-size:0.6em;
+    }
 }
 .element-animation{
   animation: animationFrames ease-in 2s;
@@ -247,53 +288,14 @@ display:none !important;
 
 /** Bottle **/
   
-      	#canvas-holder{
-				width:30%;
-            margin: auto;
-			}
-      .fill-bottle{
-          width: 150px;
-        display: block;
-        margin: auto;
-        position: relative;
-        top: 85px;
-      }
-    .glass { 
-			height: 150px;
-            width: 150px;
-            position: absolute;
-			background-image: url('../images/fill-bottle.png'); /* Beer Glass */
-			background-repeat: no-repeat;
-            background-size: 100%;
-		}
-		.liquid {
-			z-index:-1;
-			position:absolute;
-			bottom:0;
-			width: 150px;
-			background:#9ad41e; /* Beer Liquid Pattern */
-			/* Remove the bottom two lines to stop animation */
-			-webkit-animation: move 50s linear infinite;
-			-moz-animation: move 50s linear infinite;
-		}
-		
-		@-webkit-keyframes move {
-		    0% {
-		       background-position: 0 0;
-		    }
-		    100% {
-		       background-position: 2212px 0px;
-		    }
-		}
-		
-		@-moz-keyframes move {
-		    0% {
-		       background-position: 0 0;
-		    }
-		    100% {
-		       background-position: 2212px 0px;
-		    }
-		}
+        #canvas-holder{
+                width:40%;
+                margin: auto;
+                @media (max-width: @screen-sm-min) {
+                 width:80%!important;
+                }
+            }
+
 .popover-content {
     .close{
         position: absolute;
@@ -302,49 +304,6 @@ display:none !important;
     }
 }
 
-
-/** Bottle Ui ***/
-.bottle { background: #ddd; width:160px;border-radius:30px 30px 6px 6px; height:300px; padding:6px;box-shadow: 3px 3px 3px #efefef;margin: auto;}
-.bottle:hover { background: #eee;box-shadow: 2px  2px 2px #efefef;}
-.water-bottle{ position: relative;}
-
-.cap { background: #ddd; margin:auto;width:60px;border-radius:8px 8px 10px  12px; height:35px;border-top:1px solid #ddd; border-bottom:2px dotted #efefef;}
-.cap-top { background:#ededed; height:6px; border-radius:10px 10px 0 0; }
-.cap-seal { margin-top:20px;background:#ccc; height:6px; border-radius: 0 0 10px 10px; }
-.water{  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;
-    width: 150px;
-}
-.water-full { background: #81BAE7 ;height:290px; z-index:1;border-radius:28px 28px 10px 10px;position: absolute;
-bottom: 5px;  -webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-medium { background: #81BAE7 ;height:180px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-low { background: #81BAE7 ;height:80px; z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-.water-empty { background: #81BAE7 ;height:15px;z-index:1;position: absolute;
-bottom: 5px;-webkit-transition: all 1s ease-out;
-    -moz-transition: all 1s ease-out;
-    -o-transition: all 1s ease-out;
-    transition: all 1s ease-out;}
-@media (max-width: @screen-sm-min) {
-    .bottle{
-        width: 135px !important;
-        .water{
-            width:125px;
-        }
-    }
-}
 
 /*Tooltip component by www.menucool.com */
 
@@ -418,6 +377,14 @@ img {
 }
 
 /** Capsule-Caplets product-type **/
+.cap{
+     background:url(../images/capsule.png)no-repeat;
+     width: 31px;
+     height: 41px;
+     display: inline-block;
+}
+
+
 .sprite-1{
      background:url(../images/sprite-type.png)no-repeat;
      width: 18px;
@@ -596,3 +563,105 @@ img {
 .img-responsive{
   width:100%;
 }
+
+/* Bottle consuptimon */
+.water-marker{
+  position: absolute;
+  color:#ccc;
+  left: -3%;
+}
+.water-25{
+    bottom:16%;
+}
+.water-50{
+    bottom:35%;
+}
+.water-75{
+    bottom:54%;
+}
+.water-100{
+    bottom:73%;
+}
+      .bottle-bg{
+               width: 218px;
+              display: block;
+              margin: auto;
+              position: relative;
+              height: 381px;
+      }
+    .bottle { 
+            height: 381px;
+            width: 218px;
+            position: absolute;
+            background-image:url('../images/bottle-ui.png'); /* Beer Glass */
+            background-repeat: no-repeat;
+            background-size: 100%;
+            .ea-empty{
+                background : #ddd;
+                z-index:-1;
+                position:absolute;
+                width:218px;
+                
+
+            }
+            .ea-full{
+                background : @green;
+               z-index:-1;
+               position:absolute;
+                width:218px;
+                bottom:0;
+      }
+}
+.alert-msg{
+  line-height: 40px;
+}
+.measurements_update .update {
+  color: #ffffff;
+  background-color: #3099ea !important;
+  border-color: #198ee8!important;
+}
+/** Bottle **/
+
+      .fill-bottle{
+          width: 150px;
+        display: block;
+        margin: auto;
+        position: relative;
+        top: 65px;
+      }
+    .glass { 
+            height: 150px;
+            width: 150px;
+            position: absolute;
+            background-image: url('../images/fill-bottle.png'); /* Beer Glass */
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        .liquid {
+            z-index:-1;
+            position:absolute;
+            bottom:0;
+            width: 150px;
+            background:#9ad41e; /* Beer Liquid Pattern */
+            /* Remove the bottom two lines to stop animation */
+            -webkit-animation: move 50s linear infinite;
+            -moz-animation: move 50s linear infinite;
+        }
+        
+        @-webkit-keyframes move {
+            0% {
+               background-position: 0 0;
+            }
+            100% {
+               background-position: 2212px 0px;
+            }
+        }
+        
+        @-moz-keyframes move {
+            0% {
+               background-position: 0 0;
+            }
+            100% {
+               background-position: 2212px 0px;
+            }
+        }

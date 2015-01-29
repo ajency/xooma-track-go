@@ -80,6 +80,22 @@ class User_API
             
         );
 
+         //measurements history
+        $routes['/measurements/(?P<id>\d+)/history'] = array(
+            array( array( $this, 'xooma_get_user_measurement_history'), WP_JSON_Server::READABLE),
+            
+        );
+
+         //notification update
+        $routes['/notifications/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_store_notification'), WP_JSON_Server::CREATABLE),
+            
+        );
+         //email update
+        $routes['/emails/(?P<id>\d+)'] = array(
+            array( array( $this, 'xooma_store_emails'), WP_JSON_Server::CREATABLE),
+            
+        );
        
 
 
@@ -148,7 +164,7 @@ class User_API
         global $user;
        
         //print_r($_POST);
-        $date  = $_REQUEST['date_field'];
+        $date  = $_REQUEST['date'];
 
 
         $response = $user->update_user_measurement_details($id,$_POST,$date);
@@ -364,7 +380,7 @@ class User_API
 
         global $user;
 
-        $response = $user->get_user_home_products($id);
+        $response = $user->get_user_home_products($id,$pid="");
 
         if(count($response) == 0){
             $response = new WP_JSON_Response( $response );
@@ -568,6 +584,7 @@ class User_API
             'pid'           => $pid,
             'meta_id'       => $meta_id,
             'date'          => $date,
+            'qty'           => $qty,
             'meta_value'    => array(
                 'date'      => $start,
                 'qty'       => $qty
@@ -608,15 +625,28 @@ class User_API
 
         $response = get_occurrence_date($pid,$id,$date);
 
+        
+
+
+        
+
+
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
             $response->set_status(404);
         }
         else
         {
+            $product = new ProductList();
+
+            $term = $product->get_products($pid);
+
+            $response = array('id'=>$pid,'name' => $term[0]['name'], 'response' => $response);
+            
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
             $response = new WP_JSON_Response( $response );
             }
+
             $response->set_status( 200 );
 
         }
@@ -652,6 +682,74 @@ class User_API
 
 
 
+    }
+
+    public function xooma_get_user_measurement_history($id)
+    {
+        $date = $_REQUEST['date'];
+
+        global $user;
+
+        $response = $user->get_user_measurement_details($id,$date);
+
+        if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+
+        }
+
+        return $response;
+    }
+
+    public function xooma_store_notification($id)
+    {
+        $notification = $_REQUEST['notification'];
+
+        $response = store_notification($id,$notification);
+
+        if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+        return $response;
+    }
+
+    public function xooma_store_emails($id)
+    {
+        $emails = $_REQUEST['emails'];
+
+        $response = store_emails($id,$emails);
+
+        if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+            $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 201 );
+
+        }
+
+        return $response;
     }
 
     

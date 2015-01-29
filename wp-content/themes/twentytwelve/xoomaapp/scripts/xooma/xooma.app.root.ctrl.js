@@ -30,14 +30,9 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
-  XoomaAppRootView.prototype.initialize = function() {
-    this.showLoader();
-    return this.hideLoader();
-  };
-
   XoomaAppRootView.prototype.onShow = function() {
     var state;
-    state = App.currentUser.get('state');
+    console.log(state = App.currentUser.get('state'));
     if (state !== '/home') {
       this.ui.link.hide();
     } else {
@@ -46,20 +41,6 @@ XoomaAppRootView = (function(_super) {
     return this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser
     }));
-  };
-
-  XoomaAppRootView.prototype.showLoader = function() {
-    return $(document).ajaxStart(function() {
-      console.log("suru");
-      return $('#loader').addClass("loader");
-    });
-  };
-
-  XoomaAppRootView.prototype.hideLoader = function() {
-    return $(document).ajaxComplete(function() {
-      console.log("surustop");
-      return $('#loader').removeClass("loader");
-    });
   };
 
   return XoomaAppRootView;
@@ -75,6 +56,10 @@ App.XoomaCtrl = (function(_super) {
 
   XoomaCtrl.prototype.initialize = function(options) {
     return this.show(new XoomaAppRootView);
+  };
+
+  XoomaCtrl.prototype.getLLoadingView = function() {
+    return new Loading;
   };
 
   return XoomaCtrl;

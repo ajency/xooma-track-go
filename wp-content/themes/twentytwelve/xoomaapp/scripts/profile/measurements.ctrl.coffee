@@ -13,6 +13,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		responseMessage : '.aj-response-message'
 		link : '.link'
 		inpt_el   : '.inpt_el'
+		update : '.update'
 		
 
 	behaviors :
@@ -21,16 +22,12 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	initialize:->
 		$(document).on('keyup', _.bind(@keyup, @));
+		$(document).on('keypress', _.bind(@keydown, @));
 
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
-		
-
-		
-	keyup:(e)->
-		console.log e.target.id
-		console.log @measurements[e.target.id] = $('#'+e.target.id).val()
+	keydown:(e)->
 		if  e.charCode == 46
 			console.log inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
@@ -38,43 +35,79 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 ||	e.charCode == 44 
 	
 
+
+		
+	keyup:(e)->
+		@measurements[e.target.id] = $('#'+e.target.id).val()
+		
+
 	onShow:->
+		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
+		$('#update').datepicker(
+		    dateFormat : 'yy-mm-dd'
+		    changeYear: true,
+		    changeMonth: true,
+		    maxDate: new Date()
+		    minDate : new Date(date)
+		    onSelect: (dateText, inst)->
+		    	$('#date_field').val dateText
+
+
+		     
+		   
+	    
+		)
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
-		console.log @view
+		
+		state = App.currentUser.get 'state'
+		if state == '/home'
+			$('.measurements_update').removeClass 'hidden'
+			$('#measurement').parent().removeClass 'done'
+			$('#measurement').parent().addClass 'selected'
+			$('#measurement').parent().siblings().removeClass 'selected'
+			$('#measurement').parent().prevAll().addClass 'done'
+			$('#measurement').parent().nextAll().addClass 'done'
+
 
 		#Device
 		@cordovaDeviceEvents()
 		
 		
+		
+		
 
 	onFormSubmit : (_formData)=>
-		console.log @measurements['weight'] = $('#weight').val()
+		@measurements['weight'] = $('#weight').val()
 		@measurements['height'] = $('#height').val()
-		@measurements['date_field'] = $('#date_field').val()
-		console.log formdata = $.param @measurements
+		@measurements['date'] = $('#date_field').val()
+		formdata = @measurements
 		@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
 	    
 
 	successHandler : (response, status,xhr)=>
 		if xhr.status is 404
-			@ui.responseMessage.text "Something went wrong"
+			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 		else
 			state = App.currentUser.get 'state'
 			if state == '/home'
-				@ui.responseMessage.text "profile successfully updated"
+				@ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 			else
 				App.currentUser.set 'state' , '/profile/my-products'
 				App.navigate '#'+App.currentUser.get('state') , true
 			
 
 	errorHandler : (error)=>
-		@ui.responseMessage.text "Something went wrong"
+		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
+			
 		$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -102,11 +135,12 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 	initialize: (options)->
 		#Device
 		if _.isDeviceOnline()
+			@show @parent().parent().getLLoadingView()
 			xhr = @_get_measurement_details()
-			xhr.done(@_showView).fail @_showView
-			# xhr.done(@_showView).fail @errorHandler
+			xhr.done(@_showView).fail @errorHandler
 		else 
 			window.plugins.toast.showLongBottom("Please check your internet connection.")
+	
 
 	_showView :=>
 		@show new ProfileMeasurementsView
@@ -129,3 +163,6 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	successHandler : (response, status)=>
 		App.currentUser.set 'measurements', response.response
+		deferred = Marionette.Deferred()
+		deferred.resolve(true)
+		deferred.promise()

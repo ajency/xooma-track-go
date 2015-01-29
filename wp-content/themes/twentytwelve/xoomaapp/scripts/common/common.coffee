@@ -14,14 +14,14 @@ _.extend Ajency.CurrentUser::,
 		"#{APIURL}/users/#{App.currentUser.get('ID')}/#{property}"
 
 	saveMeasurements : (measurements)->
-
+		formdata = $.param measurements
 		_successHandler = (resp)=>
 			@set 'measurements', measurements
 
 		$.ajax
 			method : 'POST'
 			url : @_getUrl 'measurements'
-			data : measurements
+			data : formdata
 			success: _successHandler
 
 	getProfile : ()->
@@ -76,14 +76,18 @@ _.extend Ajency.CurrentUser::,
 	getUserProducts : ->
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
-				console.log response = response.response
-				# x2oArray = []
-				# $.each response , (index,value)->
-				# 	x2oArray.push value
-				# App.currentUser.set 'x2o' , x2oArray
+				console.log data = response.response
+				dates = response.graph['dates']
+				param = response.graph['param']
+				App.graph = new Backbone.Model
+				App.currentUser.set 'weight', response.weight
+				App.graph.set 'dates' , dates
+				App.graph.set 'param' , param
+				App.graph.set 'reg_date' , response.reg_date
 				products = []
-				$.each response , (ind,val)->
+				$.each data , (ind,val)->
 					products.push parseInt(val.id)
+					App.useProductColl.add val
 				@set 'products', products
 
 
@@ -93,8 +97,8 @@ _.extend Ajency.CurrentUser::,
 			success: _successHandler
 
 	getHomeProducts : ->
+		deferred = Marionette.Deferred()
 		_successHandler = (response, status, xhr)=>
-			App.useProductColl = new Backbone.Collection
 			data = response.response
 			dates = response.graph['dates']
 			param = response.graph['param']
@@ -106,6 +110,9 @@ _.extend Ajency.CurrentUser::,
 			if xhr.status is 200
 				$.each data, (index,value)->
 					App.useProductColl.add value
+				deferred.resolve response
+
+			
 						
 
 		$.ajax
@@ -115,12 +122,13 @@ _.extend Ajency.CurrentUser::,
 
 
 	
-				
+		deferred.promise()		
 
 
 
 class Ajency.HTTPRequestFailView extends Marionette.ItemView
-	template : 'Requested page not  Found'
+	
+	template : 'Requested page not Found'
 
 
 class Ajency.HTTPRequestCtrl extends Marionette.RegionController

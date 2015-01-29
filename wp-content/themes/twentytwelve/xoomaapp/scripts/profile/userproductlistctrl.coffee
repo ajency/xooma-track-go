@@ -9,26 +9,20 @@ class ProductChildView extends Marionette.ItemView
 		add		: '.add'
 		update 	: '.update'
 		remove   : '.remove'
+		responseMessage : '.aj-response-message'
 
-	events:
-		'click .remove':(e)->
-			e.preventDefault()
-			product = parseInt @model.get('id')
-			products = App.currentUser.get 'products'
-			$.ajax
-					method : 'DELETE'
-					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
-					success: @successHandler
-					error :@erroraHandler
+	initialize:->
+		 @$el.prop("id", 'cart'+@model.get("id"))
 
 	template  : '
           <div class="panel-body ">
             <h5 class="bold margin-none mid-title "> {{name}}
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
-                        <li class="add hidden"><a href="#/products/{{id}}/edit">Edit product</a></li>
+                        <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
+                        <li class="update hidden"><a href="#/product/{{id}}/history">Product history</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
-                        <li class="update hidden"><a href="#/inventory/{{id}}/view">View History</a></li>
+                        <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li>
                         <li class="divider"></li>
                         <li><a href="#" class="remove hidden">Remove the product</a></li>
                       </ul>
@@ -62,12 +56,55 @@ class ProductChildView extends Marionette.ItemView
            {{reminder}}
           </div>' 
 
+	events:
+		'click .remove':(e)->
+			e.preventDefault()
+			product = parseInt @model.get('id')
+			products = App.currentUser.get 'products'
+			$.ajax
+					method : 'DELETE'
+					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					success: @successHandler
+					error :@erroraHandler
+
+	successHandler:(response, status, xhr)=>
+		if xhr.status == 200
+			products = App.currentUser.get 'products'
+			products = _.without(products,parseInt(response))
+			App.currentUser.set 'products' , products
+			App.useProductColl.remove parseInt(response)
+			listview = new UserProductListView
+							collection : App.useProductColl
+
+			$('#xoomaproduct').html(listview.render().el)
+			
+
+			console.log App.useProductColl.length
+			if parseInt(App.useProductColl.length) == 0
+				$('.add1').hide()
+				$('.save_products').hide()
+			
+		else
+			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+		
+
+	erroraHandler:(response, status, xhr)=>
+		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+	
+
                             
 
-	onShow:->
+	onRender:->
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		if $.inArray( product, products ) > -1
+		console.log $.inArray( product, products )
+		if parseInt($.inArray( product, products )) > -1
 			@ui.avail.removeClass 'hidden'
 			@ui.add.removeClass 'hidden'
 			@ui.update.removeClass 'hidden'
@@ -81,6 +118,7 @@ class ProductChildView extends Marionette.ItemView
 		settings = parseInt(@model.get 'settings') * parseInt(qty.length)
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
+		name = @model.get('name')
 		timezone = @model.get('timezone')
 		servings = []
 		reminderArr = []
@@ -90,7 +128,7 @@ class ProductChildView extends Marionette.ItemView
 			servingsqty = []
 			while(i < value.qty)
 				newClass = product_type+'_default_class'
-				if type == 'asperbmi'
+				if  name.toUpperCase() == 'X2O'
 					newClass = 'x2o_default_class'
 				servingsqty.push classname : newClass
 				i++
@@ -130,7 +168,9 @@ class ProductChildView extends Marionette.ItemView
 		data.servingsleft = parseInt servingsleft
 		data
 		
-			
+class EmptyView extends Marionette.ItemView	
+
+	template : '<div class="alert alert-danger">Go ahead and add your first product rigt away!</div>'		
 
 class UserProductListView extends Marionette.CompositeView
 
@@ -140,15 +180,14 @@ class UserProductListView extends Marionette.CompositeView
 
 	childView : ProductChildView
 
+	emptyView : EmptyView
+
 	childViewContainer : '.userproducts'
-
-	
-
-	
 
 	ui :
 		saveProducts : '.save_products'
 		responseMessage : '.aj-response-message'
+		add1			: '.add1'
 
 	events : 
 		'click @ui.saveProducts':(e)->
@@ -156,23 +195,38 @@ class UserProductListView extends Marionette.CompositeView
 				method : 'POST'
 				url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 				success: @_successHandler
+				error: @_errorHandler
 
-		'click .add':(e)->
-    		console.log "aaaaaaaaaa"
-    		App.navigate '#/products' , true   
-
-	
-
-	onShow:->
+		
+	onRender:->
 		if App.currentUser.get('state') == '/home'
 			@ui.saveProducts.hide()
+			$('#product').parent().removeClass 'done'
+			$('#product').parent().addClass 'selected'
+			$('#product').parent().siblings().removeClass 'selected'
+			$('#product').parent().prevAll().addClass 'done'
+		
+		if parseInt(App.useProductColl.length) == 0 || parseInt(App.useProductColl.length) < 10
+				@ui.add1.hide()
+				
+			
 
 	_successHandler:(response, status, xhr)=>
 		if xhr.status == 201
-			console.log response
+			App.currentUser.set 'state' , '/home'
 			App.navigate '#/home' , true
 		else
-			@ui.responseMessage.text "Something went wrong"
+			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+
+
+	_errorHandler:(response, status, xhr)=>
+		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
 
 
 
@@ -184,17 +238,20 @@ class UserProductListView extends Marionette.CompositeView
 class App.UserProductListCtrl extends Ajency.RegionController
 
 	initialize:->
-		App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		@show @parent().parent().getLLoadingView()
+		if App.useProductColl.length == 0
+			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		else
+			@show new UserProductListView
+						collection : App.useProductColl
 
 
 	_showView:(collection)=>
 		collection = collection.response
-		console.log App.UserProductsColl = new Backbone.Collection collection
 		productcollection = new Backbone.Collection collection
 		@show new UserProductListView
 							collection : productcollection
 		
-
-
+	
 	
 

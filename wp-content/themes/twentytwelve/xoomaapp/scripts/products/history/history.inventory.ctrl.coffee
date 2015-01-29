@@ -33,17 +33,20 @@ class ViewInventoryView extends Marionette.CompositeView
 
 	childView : InventoryChildView
 
+	
+
 	childViewContainer : 'ul.viewInventory'
 
 class App.ViewInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
-		productModel = App.UserProductsColl.where({id:parseInt(productId[0])})
+		productModel = App.useProductColl.where({id:parseInt(productId[0])})
 		@_showView(productModel[0])
 
 	_showView:(model)->
-		console.log product = model.get('id')
+		product = model.get('id')
 		
 		$.ajax
 			method : 'GET'
@@ -52,7 +55,18 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 			error : @errorHandler	
 
 	successHandler:(response,status,xhr)=>
-		coll = new Backbone.Collection response
-		@show new ViewInventoryView
-				collection : coll	
-					
+		if xhr.status == 200
+			coll = new Backbone.Collection response
+			@show new ViewInventoryView
+					collection : coll
+		else
+			$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
+			$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+
+	errorHandler:(response,status,xhr)=>	
+		$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
+		$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')

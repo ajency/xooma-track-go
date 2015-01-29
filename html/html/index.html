@@ -71,7 +71,7 @@
 
     <!--Section 1-->
        
-<!-- 
+
     <div id="personalinfo" class="section">
         <div class="container">
             <img src="assets/images/profile.jpg" alt="..." class="img-circle center-block" width="150px" height="150px">
@@ -123,7 +123,11 @@
                         <div class="form-group">
                             <label for="text7" class=" col-sm-3 control-label">Birth date</label>
                             <div class="col-sm-9">
-                              <input class="fieldset__input js__datepicker form-control" type="text" placeholder="Try me&hellip;">
+                            <div class='input-group date' id='datetimepicker5'>
+                                <input type='text' class="form-control" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
                             </div>
                       </div>  
                        <div class="form-group">
@@ -144,7 +148,7 @@
         </div>
     </div>
 
--->
+
     <!--Section 2-->
 <!--
     <div id="measuremnt" class="section">
@@ -263,7 +267,7 @@
 
 -->
     <!--Section 3-->
-
+<!--
     <div id="xoomaproduct" class="section">
                 <h4 class="text-center"> List Of xooma products</h4>
     
@@ -737,10 +741,9 @@
      <script type="text/javascript" src="assets/js/tooltip.js"></script>
 
     <!-- Date Picker -->
-    <script src="assets/js/datepicker/picker.js"></script>
-    <script src="assets/js/datepicker/picker.date.js"></script>
-    <script src="assets/js/datepicker/picker.time.js"></script>
-    <script src="assets/js/datepicker/demo.js"></script>
+   
+     <script type="text/javascript" src="assets/js/bootstrap-datepicker/moment-with-locales.js" ></script>
+    <script type="text/javascript" src="assets/js/bootstrap-datepicker/bootstrap-datetimepicker.js" ></script>
         <script src="assets/js/classie.js"></script>
 		<script src="assets/js/cbpViewModeSwitch.js"></script>
  
@@ -829,6 +832,18 @@
         });
     });
     </script>
+     <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker5').datetimepicker({
+                    defaultDate: "11/1/1966",
+                    disabledDates: [
+                        moment("12/25/2013"),
+                        new Date(2013, 11 - 1, 21),
+                        "11/22/2013 00:53"
+                    ]
+                });
+            });
+        </script>
 </body>
 
 </html>

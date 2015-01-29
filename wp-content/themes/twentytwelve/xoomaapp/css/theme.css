@@ -924,9 +924,7 @@ img {
 }
 .img-responsive,
 .thumbnail > img,
-.thumbnail a > img,
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.thumbnail a > img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -6366,6 +6364,9 @@ html,
 body {
   height: 100%;
 }
+.link {
+  cursor: pointer;
+}
 body > .container {
   padding: 0;
 }
@@ -6496,8 +6497,42 @@ body > .container {
 .dotted-line li i {
   font-size: 40px;
 }
-.dotted-line li:nth-child(3) {
+.dotted-line li i.status {
+  font-size: 1.2em;
+  display: block !important;
+  color: #ccc;
+}
+.dotted-line li:nth-child(2) {
   border: 0px !important;
+}
+.no-dotted {
+  /* one item */
+  /* two items */
+  /* three items */
+  /* four items */
+}
+.no-dotted li {
+  border: 0px !important;
+  width: 32%;
+}
+.no-dotted li a {
+  color: #ccc;
+  text-decoration: none;
+}
+.no-dotted li:first-child:nth-last-child(1) {
+  width: 100%;
+}
+.no-dotted li:first-child:nth-last-child(2),
+.no-dotted li:first-child:nth-last-child(2) ~ li {
+  width: 49%;
+}
+.no-dotted li:first-child:nth-last-child(3),
+.no-dotted li:first-child:nth-last-child(3) ~ li {
+  width: 32.3333%;
+}
+.no-dotted li:first-child:nth-last-child(4),
+.no-dotted li:first-child:nth-last-child(4) ~ li {
+  width: 25%;
 }
 /*** Error Ui ***/
 .parsley-errors-list {
@@ -6511,6 +6546,9 @@ text {
 }
 .mid-title {
   position: relative;
+}
+.mid-title span {
+  font-size: 0.6em;
 }
 .element-animation {
   animation: animationFrames ease-in 2s;
@@ -6598,153 +6636,18 @@ text {
 }
 /** Bottle **/
 #canvas-holder {
-  width: 30%;
+  width: 40%;
   margin: auto;
 }
-.fill-bottle {
-  width: 150px;
-  display: block;
-  margin: auto;
-  position: relative;
-  top: 85px;
-}
-.glass {
-  height: 150px;
-  width: 150px;
-  position: absolute;
-  background-image: url('../images/fill-bottle.png');
-  /* Beer Glass */
-  background-repeat: no-repeat;
-  background-size: 100%;
-}
-.liquid {
-  z-index: -1;
-  position: absolute;
-  bottom: 0;
-  width: 150px;
-  background: #9ad41e;
-  /* Beer Liquid Pattern */
-  /* Remove the bottom two lines to stop animation */
-  -webkit-animation: move 50s linear infinite;
-  -moz-animation: move 50s linear infinite;
-}
-@-webkit-keyframes move {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 2212px 0px;
-  }
-}
-@-moz-keyframes move {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 2212px 0px;
+@media (max-width: 768px) {
+  #canvas-holder {
+    width: 80%!important;
   }
 }
 .popover-content .close {
   position: absolute;
   right: 7px;
   top: 8px;
-}
-/** Bottle Ui ***/
-.bottle {
-  background: #ddd;
-  width: 160px;
-  border-radius: 30px 30px 6px 6px;
-  height: 300px;
-  padding: 6px;
-  box-shadow: 3px 3px 3px #efefef;
-  margin: auto;
-}
-.bottle:hover {
-  background: #eee;
-  box-shadow: 2px  2px 2px #efefef;
-}
-.water-bottle {
-  position: relative;
-}
-.cap {
-  background: #ddd;
-  margin: auto;
-  width: 60px;
-  border-radius: 8px 8px 10px  12px;
-  height: 35px;
-  border-top: 1px solid #ddd;
-  border-bottom: 2px dotted #efefef;
-}
-.cap-top {
-  background: #ededed;
-  height: 6px;
-  border-radius: 10px 10px 0 0;
-}
-.cap-seal {
-  margin-top: 20px;
-  background: #ccc;
-  height: 6px;
-  border-radius: 0 0 10px 10px;
-}
-.water {
-  -webkit-transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -o-transition: all 1s ease-out;
-  transition: all 1s ease-out;
-  width: 150px;
-}
-.water-full {
-  background: #81BAE7 ;
-  height: 290px;
-  z-index: 1;
-  border-radius: 28px 28px 10px 10px;
-  position: absolute;
-  bottom: 5px;
-  -webkit-transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -o-transition: all 1s ease-out;
-  transition: all 1s ease-out;
-}
-.water-medium {
-  background: #81BAE7 ;
-  height: 180px;
-  z-index: 1;
-  position: absolute;
-  bottom: 5px;
-  -webkit-transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -o-transition: all 1s ease-out;
-  transition: all 1s ease-out;
-}
-.water-low {
-  background: #81BAE7 ;
-  height: 80px;
-  z-index: 1;
-  position: absolute;
-  bottom: 5px;
-  -webkit-transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -o-transition: all 1s ease-out;
-  transition: all 1s ease-out;
-}
-.water-empty {
-  background: #81BAE7 ;
-  height: 15px;
-  z-index: 1;
-  position: absolute;
-  bottom: 5px;
-  -webkit-transition: all 1s ease-out;
-  -moz-transition: all 1s ease-out;
-  -o-transition: all 1s ease-out;
-  transition: all 1s ease-out;
-}
-@media (max-width: 768px) {
-  .bottle {
-    width: 135px !important;
-  }
-  .bottle .water {
-    width: 125px;
-  }
 }
 /*Tooltip component by www.menucool.com */
 /*For tooltip target element that has set class="tooltip" */
@@ -6860,6 +6763,12 @@ img {
   border: 0;
 }
 /** Capsule-Caplets product-type **/
+.cap {
+  background: url(../images/capsule.png) no-repeat;
+  width: 31px;
+  height: 41px;
+  display: inline-block;
+}
 .sprite-1 {
   background: url(../images/sprite-type.png) no-repeat;
   width: 18px;
@@ -7125,10 +7034,107 @@ packet_expected_class {
 }
 .img-responsive,
 .thumbnail > img,
-.thumbnail a > img,
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.thumbnail a > img {
   width: 100%;
+}
+/* Bottle consuptimon */
+.water-marker {
+  position: absolute;
+  color: #ccc;
+  left: -3%;
+}
+.water-25 {
+  bottom: 16%;
+}
+.water-50 {
+  bottom: 35%;
+}
+.water-75 {
+  bottom: 54%;
+}
+.water-100 {
+  bottom: 73%;
+}
+.bottle-bg {
+  width: 218px;
+  display: block;
+  margin: auto;
+  position: relative;
+  height: 381px;
+}
+.bottle {
+  height: 381px;
+  width: 218px;
+  position: absolute;
+  background-image: url('../images/bottle-ui.png');
+  /* Beer Glass */
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.bottle .ea-empty {
+  background: #ddd;
+  z-index: -1;
+  position: absolute;
+  width: 218px;
+}
+.bottle .ea-full {
+  background: #9ad41e;
+  z-index: -1;
+  position: absolute;
+  width: 218px;
+  bottom: 0;
+}
+.alert-msg {
+  line-height: 40px;
+}
+.measurements_update .update {
+  color: #ffffff;
+  background-color: #3099ea !important;
+  border-color: #198ee8!important;
+}
+/** Bottle **/
+.fill-bottle {
+  width: 150px;
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 65px;
+}
+.glass {
+  height: 150px;
+  width: 150px;
+  position: absolute;
+  background-image: url('../images/fill-bottle.png');
+  /* Beer Glass */
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.liquid {
+  z-index: -1;
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  background: #9ad41e;
+  /* Beer Liquid Pattern */
+  /* Remove the bottom two lines to stop animation */
+  -webkit-animation: move 50s linear infinite;
+  -moz-animation: move 50s linear infinite;
+}
+@-webkit-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 2212px 0px;
+  }
+}
+@-moz-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 2212px 0px;
+  }
 }
 /* Top - Header */
 .topheader {
@@ -7320,7 +7326,7 @@ packet_expected_class {
   padding: 8px;
   position: fixed;
   width: 100%;
-  top: 60px;
+  top: 68px;
   z-index: 9;
 }
 .sub-header ul {
@@ -7343,6 +7349,10 @@ packet_expected_class {
 .sub-header ul li.selected i {
   color: #3099ea;
 }
+.sub-header ul li.done a,
+.sub-header ul li.done i {
+  color: #5cb85c;
+}
 /* -------------------------------------
  * timeline
  * ------------------------------------- */
@@ -7364,7 +7374,8 @@ packet_expected_class {
   line-height: 20px;
   position: absolute;
   color: #3099ea;
-  margin-top: -7px;
+  margin-top: 1px;
+  left: 0px;
 }
 .circle {
   margin-top: -10px;
@@ -7478,6 +7489,13 @@ packet_expected_class {
   }
 }
  */
+#timeline.viewHistory .labels {
+  position: relative !important;
+  top: 9px;
+}
+#timeline.viewHistory .date {
+  margin-top: -11px;
+}
 /* Site Elements */
 @font-face {
   font-family: 'Open Sans';
@@ -9792,6 +9810,298 @@ packet_expected_class {
     margin-bottom: 5em;
   }
 }
+/**
+     * The picker holder
+     */
+.picker-holder--inline-fixed .pickadate__holder {
+  /* The base font-size */
+  font-size: 16px;
+  line-height: 1.2;
+  color: #000;
+}
+/**
+     * The frame that bounds the calendar
+     */
+.picker-holder--inline-fixed .pickadate__frame {
+  position: relative;
+  min-width: 256px;
+  top: .5em;
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+/**
+     * The calendar itself
+     */
+.picker-holder--inline-fixed .pickadate__calendar {
+  color: #000;
+  background: #fff;
+  padding: 1em;
+  font-size: 1em;
+  /* Add the borders */
+  border: 1px solid #ccc;
+}
+/**
+     * The calendar table of dates
+     */
+.picker-holder--inline-fixed .pickadate__table {
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: inherit;
+  width: 100%;
+  margin-top: .75em;
+}
+/* Remove browser stylings on a table cell */
+.picker-holder--inline-fixed .pickadate__table td {
+  margin: 0;
+  padding: 0;
+}
+/**
+     * The header containing the month and year tags/selectors
+     */
+.picker-holder--inline-fixed .pickadate__header {
+  text-align: center;
+  position: relative;
+}
+.picker-holder--inline-fixed .pickadate__nav--prev,
+.picker-holder--inline-fixed .pickadate__nav--next {
+  position: absolute;
+  top: -0.1em;
+  padding: .5em;
+  margin: -0.5em;
+  text-align: center;
+  min-width: 24px;
+  line-height: 26px;
+}
+.picker-holder--inline-fixed .pickadate__nav--prev {
+  left: 0;
+}
+.picker-holder--inline-fixed .pickadate__nav--next {
+  right: 0;
+}
+.picker-holder--inline-fixed .pickadate__month,
+.picker-holder--inline-fixed .pickadate__year {
+  font-weight: 500;
+  display: inline-block;
+}
+.picker-holder--inline-fixed .pickadate__year {
+  color: #999;
+  font-size: .8em;
+  font-style: italic;
+  margin-left: .5em;
+}
+.picker-holder--inline-fixed .pickadate__select--month,
+.picker-holder--inline-fixed .pickadate__select--year {
+  font-size: .8em;
+  border: 1px solid #ccc;
+  height: 2.5em;
+  margin-top: -0.5em;
+}
+.picker-holder--inline-fixed .pickadate__select--month {
+  width: 35%;
+}
+.picker-holder--inline-fixed .pickadate__select--year {
+  width: 22.5%;
+  margin-left: .5em;
+}
+.picker-holder--inline-fixed .pickadate__select--month:focus,
+.picker-holder--inline-fixed .pickadate__select--year:focus {
+  border-color: #0089ec;
+}
+/**
+     * The weekday labels
+     */
+.picker-holder--inline-fixed .pickadate__weekday {
+  width: 14.285714286%;
+  /* 100/7 */
+  font-size: .75em;
+  padding-bottom: .5em;
+  color: #999;
+  font-weight: 500;
+  text-align: center;
+}
+/**
+     * The days on the calendar
+     */
+.picker-holder--inline-fixed .pickadate__day {
+  padding: .33em 0 .25em;
+  font-weight: 100;
+  border: 1px solid #fff;
+  margin-bottom: 1px;
+}
+/**
+     * The various states of a day
+     */
+.picker-holder--inline-fixed .pickadate__day--today {
+  color: #0089ec;
+  position: relative;
+}
+.picker-holder--inline-fixed .pickadate__day--today:before {
+  content: " ";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-top: .5em solid #0059bc;
+  border-left: .5em solid transparent;
+}
+.picker-holder--inline-fixed .pickadate__day--selected,
+.picker-holder--inline-fixed .pickadate__day--selected:hover {
+  border-color: #0089ec;
+}
+.picker-holder--inline-fixed .pickadate__day--highlighted {
+  background: #fff;
+}
+.picker-holder--inline-fixed .pickadate__day--disabled:before {
+  border-top-color: #aaa;
+}
+.picker-holder--inline-fixed .pickadate__day--outfocus {
+  color: #ddd;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+  -moz-opacity: .75;
+  opacity: .75;
+}
+/**
+     * The footer containing the "today" and "clear" buttons
+     */
+.picker-holder--inline-fixed .pickadate__footer {
+  text-align: center;
+  margin: 0.5em 0 -0.5em;
+}
+.picker-holder--inline-fixed .pickadate__button--today,
+.picker-holder--inline-fixed .pickadate__button--clear {
+  border: 1px solid #fff;
+  background: #fff;
+  font-size: .8em;
+  padding: .66em 0;
+  margin: 0 2.5%;
+  font-weight: bold;
+  width: 40%;
+  display: none;
+}
+.picker-holder--inline-fixed .pickadate__button--today:before,
+.picker-holder--inline-fixed .pickadate__button--clear:before {
+  position: relative;
+  display: inline-block;
+  height: 0;
+}
+.picker-holder--inline-fixed .pickadate__button--today:before {
+  content: " ";
+  margin-right: .45em;
+  top: -0.05em;
+  width: 0;
+  border-top: .66em solid #0089ec;
+  border-left: .66em solid transparent;
+}
+.picker-holder--inline-fixed .pickadate__button--clear:before {
+  content: "×";
+  margin-right: .35em;
+  top: -0.1em;
+  color: #e20;
+  vertical-align: top;
+  font-size: 1.1em;
+}
+.picker-holder--inline-fixed .pickadate__button--today:focus,
+.picker-holder--inline-fixed .pickadate__button--clear:focus {
+  background: #b1dcfb;
+  border-color: #0089ec;
+  outline: none;
+}
+/**
+     * The hover effect on any buttons
+     */
+.picker-holder--inline-fixed .pickadate__day--infocus:hover,
+.picker-holder--inline-fixed .pickadate__day--outfocus:hover,
+.picker-holder--inline-fixed .pickadate__nav--prev:hover,
+.picker-holder--inline-fixed .pickadate__nav--next:hover,
+.picker-holder--inline-fixed .pickadate__button--today:hover,
+.picker-holder--inline-fixed .pickadate__button--clear:hover {
+  cursor: pointer;
+  color: #000;
+  background: #b1dcfb;
+}
+.picker-holder--inline-fixed .pickadate__day--disabled,
+.picker-holder--inline-fixed .pickadate__day--disabled:hover {
+  background: #f5f5f5;
+  border-color: #f5f5f5;
+  color: #ddd;
+  cursor: default;
+}
+.picker-holder--inline-fixed .pickadate__day--highlighted:hover,
+.picker-holder--inline-fixed .pickadate__holder--focused .pickadate__day--highlighted {
+  background: #0089ec;
+  color: #fff;
+}
+/* 
+ * 	Core Owl Carousel CSS File
+ *	v1.3.3
+ */
+/* clearfix */
+.owl-carousel .owl-wrapper:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+/* display none until init */
+.owl-carousel {
+  display: none;
+  position: relative;
+  width: 100%;
+  -ms-touch-action: pan-y;
+}
+.owl-carousel .owl-wrapper {
+  display: none;
+  position: relative;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+}
+.owl-carousel .owl-wrapper-outer {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.owl-carousel .owl-wrapper-outer.autoHeight {
+  -webkit-transition: height 500ms ease-in-out;
+  -moz-transition: height 500ms ease-in-out;
+  -ms-transition: height 500ms ease-in-out;
+  -o-transition: height 500ms ease-in-out;
+  transition: height 500ms ease-in-out;
+}
+.owl-carousel .owl-item {
+  float: left;
+}
+.owl-controls .owl-page,
+.owl-controls .owl-buttons div {
+  cursor: pointer;
+}
+.owl-controls {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* mouse grab icon */
+.grabbing {
+  cursor: url(grabbing.png) 8 8, move;
+}
+/* fix */
+.owl-carousel .owl-wrapper,
+.owl-carousel .owl-item {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+}
 .main,
 .container > header {
   width: 90%;
@@ -9861,7 +10171,6 @@ packet_expected_class {
 /* Main container */
 .cbp-vm-switcher {
   padding: 20px;
-  border: 3px solid #47a3da;
 }
 /* options/select wrapper with switch anchors */
 .cbp-vm-options {
@@ -9912,11 +10221,16 @@ packet_expected_class {
 .cbp-vm-image {
   display: block;
   margin: 0 auto;
+  height: 160px;
+  overflow: hidden;
 }
 .cbp-vm-image img {
   display: inline-block;
   max-width: 100%;
   border: none;
+}
+.cbp-vm-view-list .cbp-vm-image {
+  height: auto;
 }
 .cbp-vm-title {
   margin: 0;
@@ -10171,6 +10485,14 @@ textarea.form-control {
   position: absolute;
   bottom: -17px;
 }
+@media (max-width: 768px) {
+  .rd-gender {
+    width: 100%;
+  }
+  .rd-gender .parsley-errors-list {
+    bottom: -67px;
+  }
+}
 .rd-visual.male::before {
   background: url(../images/male.png) no-repeat;
 }
@@ -10197,6 +10519,9 @@ textarea.form-control {
 .rangeslider {
   position: relative;
 }
+.range-inventory .rangeslider {
+  width: 100% !important;
+}
 .rangeslider--disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   opacity: 0.4;
@@ -10207,7 +10532,7 @@ textarea.form-control {
   top: 0;
 }
 output {
-  font-size: 5rem !important;
+  font-size: 3rem !important;
   font-weight: 600;
   margin-top: -33px;
   display: inline-block !important;
@@ -10278,7 +10603,7 @@ input[type="range"] {
   position: relative !important;
 }
 .bold-sum {
-  font-size: 4rem !important;
+  font-size: 3rem !important;
   font-weight: 600;
   margin: 0px;
   display: inline-block !important;
@@ -10306,7 +10631,7 @@ input.cmn-toggle-round-flat + label {
   padding: 2px;
   width: 80px;
   height: 35px;
-  background-color: #dddddd;
+  background-color: #B0B0B0;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
   -ms-border-radius: 60px;
@@ -10344,7 +10669,7 @@ input.cmn-toggle-round-flat + label:after {
   left: 4px;
   bottom: 4px;
   width: 30px;
-  background-color: #dddddd;
+  background-color: #B0B0B0;
   -webkit-border-radius: 52px;
   -moz-border-radius: 52px;
   -ms-border-radius: 52px;
@@ -10366,6 +10691,50 @@ input.cmn-toggle-round-flat:checked + label:after {
   position: absolute;
   margin-left: -9999px;
   visibility: hidden;
+}
+/** History Calender **/
+.history-calender .ui-datepicker {
+  width: 100% !important;
+  border-radius: 0px !important;
+}
+.history-calender .ui-datepicker .ui-corner-all {
+  border-radius: 0px !important;
+}
+.history-calender .ui-datepicker select.ui-datepicker-month,
+.history-calender .ui-datepicker select.ui-datepicker-year {
+  border-radius: 0px!important;
+  height: 39px!important;
+}
+.history-calender .ui-datepicker .ui-datepicker-prev,
+.history-calender .ui-datepicker .ui-datepicker-next {
+  height: 2.8em;
+}
+.history-calender .ui-datepicker .ui-state-highlight,
+.history-calender .ui-datepicker .ui-widget-content .ui-state-highlight,
+.history-calender .ui-datepicker .ui-widget-header .ui-state-highlight {
+  border: 1px solid #A1C1FC;
+  background: #3099ea;
+  color: #FFFFFF;
+}
+.history-calender .ui-datepicker td {
+  height: 5em !important;
+}
+.history-calender .ui-datepicker td a {
+  height: 5em !important;
+  text-align: center;
+  line-height: 4.3em;
+}
+.line-datepicker {
+  border: 0px;
+  background: none;
+  border-bottom: 1px solid #D2BD69;
+  height: 35px;
+  outline: none;
+  margin-left: 10px;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
 }
 h1.special,
 h2.special,

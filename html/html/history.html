@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Xooma Setting</title>
+
+    <link href="assets/css/theme.css" rel="stylesheet">
+
+</head>
+
+<body class="gradient">
+
+    <!-- Left  Menu -->
+
+    <!--TopHeader-->
+    <div class="topheader">
+        <nav class="navbar " role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-7">
+                        <div class="navbar-header">
+                            <a href="#">
+                                <img alt="Brand" src="assets/images/logo.png" class="img-responsive" width="200px">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-xs-5">
+                        <a href="#menu">
+                            <i class="fa fa-cog pull-right lg-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!--TopHeader-->
+   
+    <div class="container"> </br></br></br>
+        
+          <div class="row">
+         <div class="col-md-2">
+         </div>
+            <div class="col-md-8 col-xs-12">
+              <h3 class="text-center"> X20 <small> ( History )</small></h3>
+              <form class="form-horizontal ">
+
+                    <section class="holder" id="inline_fixed">
+                      <fieldset class="picker-holder--inline-fixed">
+                          <input id="picker_inline_fixed" type="text" class="hidden-sm hidden-lg hidden-md hidden-xs">
+                      </fieldset>
+                    </section>
+               </form>
+              <ul id='timeline'>
+                <li class='work'>
+                  <div class="relative">
+                    <label for='work1' class="m-t-20">25% CONSUMED </label>
+                    <span class='date'><i class="fa fa-clock-o"></i> 9:50 AM <small class="">( 1 hour ago ) </small></span>
+                    <span class='circle'></span>
+                  </div>
+                 
+                </li>
+                  <li class='work'>
+                  <div class="relative">
+                    <label for='work2' class="m-t-20">50% CONSUMED</label>
+                    <span class='date'><i class="fa fa-clock-o"></i> 12:50 PM <small>( 2 hour ago )</small></span>
+                    <span class='circle'></span>
+                  </div>
+                
+                </li>
+                 <li class='work'>
+                  <div class="relative">
+                    <label for='work3' class="m-t-20">75% CONSUMED</label>
+                    <span class='date'><i class="fa fa-clock-o"></i> 14:50 PM <small>( 3 hour ago ) </small></span>
+                    <span class='circle'></span>
+                  </div>
+                
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-2">
+         </div>
+        </div>
+      
+    </div>    
+    
+
+    
+
+   
+
+
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.mmenu.min.all.js"></script>
+    <!-- Date Picker -->
+    <script src="assets/js/datepicker/picker.js"></script>
+    <script src="assets/js/datepicker/picker.date.js"></script>
+    <script src="assets/js/datepicker/picker.time.js"></script>
+    <script src="assets/js/datepicker/demo.js"></script>
+      <script src=" http://www.jqueryscript.net/demo/Lightweight-jQuery-Date-Input-Picker/source/pickadate.legacy.js"></script>
+   <script src="assets/js/chart.js"></script>
+  <script type="text/javascript" src="assets/js/rangeslider.min.js"></script>
+    <!-- Mobile menu & popover -->
+        
+    <script type="text/javascript">
+    $(function() {
+        $('nav#menu').mmenu();
+    });
+
+
+        
+        $('.btn-primary').click(function() {
+    var $this = $('.water');
+ 
+    if ($this.hasClass('water-empty')) {
+        $this.removeClass('water-empty ').addClass('water-low');
+    } else if ($this.hasClass('water-low')) {
+        $this.removeClass('water-low ').addClass('water-medium');
+    }else if ($this.hasClass('water-medium')) {
+        $this.removeClass('water-medium').addClass('water-full');
+    }else {
+        $this.addClass('water-empty');
+    }
+});
+    </script>
+
+    
+    <script type="text/javascript">
+        $( '#picker_default' ).pickadate()
+        $( '#picker_classic' ).pickadate({
+            onOpen: function() {
+                scrollPageTo( this.$node )
+            },
+
+            /**
+             * This is just for demo purposes. You should change
+             * the styling for `.pickadate__active` in your stylesheet
+             * to handle the "scrollability" of the page.
+             */
+            onClose: initialBodyState
+        })
+        $( '#picker_inline' ).pickadate({
+            onOpen: function() {
+                scrollPageTo( this.$node )
+            },
+
+            /**
+             * This is just for demo purposes. You should change
+             * the styling for `.pickadate__active` in your stylesheet
+             * to handle the "scrollability" of the page.
+             */
+            onClose: initialBodyState
+        })
+        $( '#picker_inline_fixed' ).pickadate({
+            onOpen: function() {
+                scrollPageTo( this.$node )
+            },
+
+            /**
+             * This is just for demo purposes. You should change
+             * the styling for `.pickadate__active` in your stylesheet
+             * to handle the "scrollability" of the page.
+             */
+            onClose: initialBodyState
+        })
+
+        function scrollPageTo( $node ) {
+            $( 'html, body' ).animate({
+                scrollTop: ~~$node.offset().top - 60
+            }, 150)
+
+            /**
+             * This is just for demo purposes. You should change
+             * the styling for `.pickadate__active` in your stylesheet
+             * to handle the "scrollability" of the page.
+             */
+            $( 'body' ).css( 'overflow', 'auto' )
+        }
+
+        /**
+         * This is just for demo purposes. You should change
+         * the styling for `.pickadate__active` in your stylesheet
+         * to handle the "scrollability" of the page.
+         */
+        function initialBodyState() {
+            $( 'body' ).css( 'overflow', '' )
+        }
+    </script>
+</body>
+
+</html>

@@ -53,9 +53,10 @@ class ScheduleView extends Marionette.ItemView
 				qty = $('#qty').val()
 				console.log data = $('#schduleid').val()
 				product = @model.get('id')
+				date = moment().format("YYYY-MM-DD")
 				$.ajax
 						method : 'POST'
-						data : 'meta_id='+meta_id+'&qty='+qty+'&date=2015-12-11'
+						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
@@ -86,6 +87,7 @@ class ScheduleView extends Marionette.ItemView
 		@model.set 'occurrence' , response.occurrence
 		@ui.responseMessage.text "Servings are updated!!!!"
 		$('#mydataModal').addClass "hidden"
+		$('#xoomaproduct').html(listview.render().el)
 
 
 
@@ -153,9 +155,11 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		product = parseInt productId[0]
 		products = []
+		console.log App.useProductColl
 		App.useProductColl.each (val)->
 			products.push val
 		
