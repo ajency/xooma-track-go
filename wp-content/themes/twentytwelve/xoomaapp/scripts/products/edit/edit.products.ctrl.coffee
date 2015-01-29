@@ -241,7 +241,7 @@ class EditProductsView extends Marionette.ItemView
 				products = _.union products, [product]
 				App.currentUser.set 'products', _.uniq products
 				model = new UserProductModel response.response[0]
-				App.useProductColl.add model
+				App.useProductColl.set model
 		if document.activeElement.name == "save"
 			App.navigate '#/profile/my-products', true
 		else

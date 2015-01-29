@@ -191,6 +191,15 @@ class HomeX2OView extends Marionette.ItemView
 			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
 			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
 		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+					 <ul class="dropdown-menu pull-right" role="menu">
+						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
+						
+						
+					  </ul>
+			  </h5>
 		<div class="row">
 			<div class="col-md-12">
 				  <div class="fill-bottle">        
@@ -205,17 +214,17 @@ class HomeX2OView extends Marionette.ItemView
 			</div>
 		</div><ul class="list-inline text-center row row-line x2oList">
 			 <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> 
-					<h5 class="text-center">Bonus</h5>
-					<h4 class="text-center bold  text-primary" >{{bonus}}</h4>
-				</li>
-				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Daily Target</h5>
-						<h4 class="text-center bold text-primary margin-none" >{{remianing}}<sup class="text-muted">/ {{qty}}</sup></h4>
+					<h4 class="text-center bold  text-primary" >{{qty}}</h4>
 				</li>
 				<li class="col-md-4 col-xs-4">
-					<h5 class="text-center">Last Consume</h5>
+					<h5 class="text-center">Consumed</h5>
+						<h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4>
+				</li>
+				<li class="col-md-4 col-xs-4">
+					<h5 class="text-center">Last consumed at</h5>
 					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
-				</li></a> </ul>'
+				</li></a> </ul></div></div>'
 
 	serializeData:->
 		data = super()
@@ -443,11 +452,11 @@ class ProductChildView extends Marionette.ItemView
 			expected = _.has(val, "expected")
 			console.log model
 			if occurrence == true && expected == true
-				reponse = ProductChildView::occurredfunc(val,ind,qty,product_type)
+				reponse = ProductChildView::occurredfunc(val,ind,model)
 				
 				
 			else if occurrence == false && expected == true 
-				reponse = ProductChildView::expectedfunc(val,ind,qty,count,product_type,model)
+				reponse = ProductChildView::expectedfunc(val,ind,count,model)
 				count++
 				
 			response = reponse[0]
@@ -456,20 +465,27 @@ class ProductChildView extends Marionette.ItemView
 			data.serving_size = temp.length
 		data
 
-	expectedfunc:(val,key,qty,count,product_type,model)->
+	expectedfunc:(val,key,count,model)->
 		temp = []
 		i = 0
 		html = ""
+		product_type = model.get 'product_type'
+		qty = model.get 'qty'
+		reminders = model.get 'reminder'
+		classname = ""
+		console.log reminders[key].time
+		if parseInt(reminders.length) == 0
+			classname = 'hidden'
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
 			html += '<a href="#" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
 					<h6 class="text-center margin-none">Tap to take </h6>
-					<h6 class="text-center text-primary">9:00 am</h6>'
+					<h6 class="text-center text-primary '+classname+'">'+reminders[key].time+'</h6>'
 		else
 			while(i < qty[key].qty)
 				html += '<div class="cap '+newClass+'"></div>'
 				i++
-			html +=	'<h6 class="text-center text-primary">12:00 pm</h6>'
+			html +=	'<h6 class="text-center text-primary '+classname+'">'++'</h6>'
 		qty  = qty[key].qty
 		$('#qty'+model.get('id')).val qty
 		
@@ -478,9 +494,12 @@ class ProductChildView extends Marionette.ItemView
 		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
 		temp
 	
-	occurredfunc:(val,key,qty,product_type)->
+	occurredfunc:(val,key,model)->
 		temp = []
 		i = 0
+		console.log val
+		product_type = model.get 'product_type'
+		qty = model.get 'qty'
 		html = ""
 		newClass = product_type+'_occurred_class'
 		while(i < qty[key].qty)
