@@ -462,7 +462,7 @@ class ProductChildView extends Marionette.ItemView
 		html = ""
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
-			html += '<a href="#" id="original"><img src="assets/images/btn_03.png" width="70px"></a>
+			html += '<a href="#" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
 					<h6 class="text-center margin-none">Tap to take </h6>
 					<h6 class="text-center text-primary">9:00 am</h6>'
 		else
