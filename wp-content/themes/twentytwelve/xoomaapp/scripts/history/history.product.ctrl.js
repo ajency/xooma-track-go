@@ -92,11 +92,11 @@ ViewProductHistoryView = (function(_super) {
     coll.each(function(index) {
       var data, fromnow, i, meta_id, meta_value, qty, time;
       if (index.get('meta_value').length !== 0 && response.name.toUpperCase() !== 'X2O') {
-        meta_value = index.get('meta_value');
+        console.log(meta_value = index.get('meta_value'));
         meta_id = index.get('meta_value');
         time = moment(meta_value.date + timezone, "HH:mm Z").format("hA");
         fromnow = moment(meta_value.date + timezone).fromNow();
-        qty = meta_value.qty;
+        console.log(qty = meta_value.qty);
         arr++;
         return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
       } else {

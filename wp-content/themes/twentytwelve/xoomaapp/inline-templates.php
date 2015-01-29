@@ -184,12 +184,10 @@
    <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group link"  onclick="location.href='#profile/measurements'">
-	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
-  </div>
+  
 
   <div class="form-group">
-	<label class="col-sm-8 col-xs-8  control-label">Notification</label>
+	<label class="col-sm-8 col-xs-8  control-label">Notifications</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">
 			<input id="notification" value=""  name="notification" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
