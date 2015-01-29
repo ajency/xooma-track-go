@@ -148,8 +148,8 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param;
-    console.log(dates = App.graph.get('dates'));
-    console.log(param = App.graph.get('param'));
+    dates = App.graph.get('dates');
+    param = App.graph.get('param');
     lineChartData = {
       labels: dates,
       datasets: [
@@ -185,7 +185,6 @@ App.HomeCtrl = (function(_super) {
   }
 
   HomeCtrl.prototype.initialize = function() {
-    console.log(App.useProductColl);
     if (App.useProductColl.length === 0) {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     } else {
@@ -196,10 +195,8 @@ App.HomeCtrl = (function(_super) {
   HomeCtrl.prototype._showView = function(collection) {
     var response;
     this.show(this.parent().getLLoadingView());
-    console.log(collection);
     response = collection.response;
     App.useProductColl.reset(response);
-    console.log(App.useProductColl);
     return this.show(new HomeLayoutView);
   };
 
@@ -280,28 +277,46 @@ HomeX2OView = (function(_super) {
     });
   };
 
+  HomeX2OView.prototype.getCount = function(val) {
+    var count;
+    count = 0;
+    if (!(_.isArray(val))) {
+      count += parseFloat(val.qty);
+    } else {
+      _.each(val, function(val1) {
+        if (_.isArray(val1)) {
+          return _.each(val1, function(value) {
+            return count += parseFloat(value.qty);
+          });
+        } else {
+          return count += parseFloat(val1.qty);
+        }
+      });
+    }
+    return count;
+  };
+
   HomeX2OView.prototype.get_occurrence = function(data) {
-    var arr, expected, meta_value, occurrence, value;
+    var arr, expected, meta_value, occurrence, qty, value;
     occurrence = _.has(data, "occurrence");
     expected = _.has(data, "expected");
-    meta_value = _.has(data, "meta_value");
+    meta_value = data.meta_value;
     value = 0;
     arr = [];
-    $.each(meta_value, function(index, value) {
-      return value += parseInt(value.qty);
-    });
+    qty = 0;
+    qty = HomeX2OView.prototype.getCount(data.meta_value);
     if (occurrence === true && expected === true) {
       arr['color'] = "#6bbfff";
       arr['highlight'] = "#50abf1";
-      arr['value'] = value;
+      arr['value'] = qty;
     } else if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
       arr['highlight'] = "#cdcdcd";
-      arr['value'] = value;
+      arr['value'] = qty;
     } else if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
       arr['highlight'] = "#cdcdcd";
-      arr['value'] = value;
+      arr['value'] = qty;
     }
     return arr;
   };
@@ -345,9 +360,9 @@ App.HomeX2OCtrl = (function(_super) {
   HomeX2OCtrl.prototype._showView = function(collection) {
     var model, modelColl, productcollection;
     productcollection = collection.clone();
-    console.log(model = productcollection.findWhere({
+    model = productcollection.findWhere({
       name: 'X2O'
-    }));
+    });
     if (model !== void 0) {
       if (model.get('name').toUpperCase() === 'X2O') {
         modelColl = model;
@@ -398,7 +413,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.saveHandler = function(response, status, xhr) {
-    var home, model, productcollection;
+    var home, model, productcollection, region;
     this.model.set('occurrence', response.occurrence);
     productcollection = App.useProductColl.clone();
     model = productcollection.findWhere({
@@ -413,7 +428,10 @@ ProductChildView = (function(_super) {
     home = new HomeOtherProductsView({
       collection: productcollection
     });
-    return $('#otherproducts').html(home.render().el);
+    region = new Marionette.Region({
+      el: '#otherproducts'
+    });
+    return region.show(home);
   };
 
   ProductChildView.prototype.serializeData = function() {
@@ -442,7 +460,6 @@ ProductChildView = (function(_super) {
       var expected, occurrence, response;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
-      console.log(model);
       if (occurrence === true && expected === true) {
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
       } else if (occurrence === false && expected === true) {
@@ -463,27 +480,29 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, html, i, meta_id, newClass, product_type, qty, reminders, schedule_id, temp;
+    var classname, html, i, meta_id, newClass, product_type, qty, reminders, schedule_id, temp, time;
     temp = [];
     i = 0;
     html = "";
     product_type = model.get('product_type');
+    product_type = product_type.toLowerCase();
     qty = model.get('qty');
     reminders = model.get('reminder');
-    classname = "";
-    console.log(reminders[key].time);
-    if (parseInt(reminders.length) === 0) {
-      classname = 'hidden';
+    classname = "hidden";
+    time = "";
+    if (parseInt(reminders.length) !== 0) {
+      classname = '';
+      time = reminders[key].time;
     }
     newClass = product_type + '_expected_class';
     if (parseInt(count) === 0) {
-      html += '<a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + reminders[key].time + '</h6>';
+      html += '<a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6>';
     } else {
       while (i < qty[key].qty) {
         html += '<div class="cap ' + newClass + '"></div>';
         i++;
       }
-      html += '<h6 class="text-center text-primary ' + classname + '">' + reminders[key].time + '</h6>';
+      html += '<h6 class="text-center text-primary ' + classname + '">' + time + '</h6>';
     }
     qty = qty[key].qty;
     $('#qty' + model.get('id')).val(qty);
@@ -499,11 +518,13 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.occurredfunc = function(val, key, model) {
-    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp;
+    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp, time, timezone;
     temp = [];
     i = 0;
-    console.log(val);
+    timezone = App.currentUser.get('timezone');
+    time = moment(val.occurrence + timezone, "HH:mm Z").format("hA");
     product_type = model.get('product_type');
+    product_type = product_type.toLowerCase();
     qty = model.get('qty');
     html = "";
     newClass = product_type + '_occurred_class';
@@ -511,7 +532,7 @@ ProductChildView = (function(_super) {
       html += '<div class="cap ' + newClass + '"></div>';
       i++;
     }
-    html += '<h6 class="text-center text-primary">12:00 pm</h6>';
+    html += '<h6 class="text-center text-primary">' + time + '</h6>';
     qty = qty[key].qty;
     schedule_id = val.schedule_id;
     meta_id = 0;
@@ -526,8 +547,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.onShow = function() {
     return $("#owl-example" + this.model.get('id')).owlCarousel({
-      autoWidth: true
-    }, {
+      autoWidth: true,
       itemsScaleUp: true
     });
   };
