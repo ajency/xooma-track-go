@@ -62,7 +62,7 @@ class EditProductsView extends Marionette.ItemView
 			sub = @ui.subtract.val()
 			if sub == ""
 				sub = 0
-			if parseInt($('#available').val()) >=  parseInt(sub) 
+			if parseInt($('#available').val()) >  parseInt(sub) 
 				data = @ui.form.serialize()
 				product = @model.get('id')
 				$.ajax
@@ -72,7 +72,7 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				@ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!")
+				@ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!")
 				$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')

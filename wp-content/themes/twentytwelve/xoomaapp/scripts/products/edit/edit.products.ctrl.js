@@ -82,7 +82,7 @@ EditProductsView = (function(_super) {
       if (sub === "") {
         sub = 0;
       }
-      if (parseInt($('#available').val()) >= parseInt(sub)) {
+      if (parseInt($('#available').val()) > parseInt(sub)) {
         data = this.ui.form.serialize();
         product = this.model.get('id');
         return $.ajax({
@@ -93,7 +93,7 @@ EditProductsView = (function(_super) {
           error: this.errorSave
         });
       } else {
-        this.ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!");
+        this.ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!");
         return $('html, body').animate({
           scrollTop: 0
         }, 'slow');
