@@ -87,6 +87,7 @@ class ScheduleView extends Marionette.ItemView
 		@model.set 'occurrence' , response.occurrence
 		@ui.responseMessage.text "Servings are updated!!!!"
 		$('#mydataModal').addClass "hidden"
+		$('#xoomaproduct').html(listview.render().el)
 
 
 

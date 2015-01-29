@@ -500,9 +500,12 @@
 					  
 					</div>
 		   <br>   
-			   <div ui-region="other-products">
-			   
-				 </div>         
+
+	   <div ui-region="other-products" id="otherproducts">
+	   
+		 </div>         
+
+
 
 	
 	<div class="panel panel-default">
