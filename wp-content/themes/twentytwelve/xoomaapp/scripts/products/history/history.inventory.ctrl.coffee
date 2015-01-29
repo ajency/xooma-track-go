@@ -42,7 +42,7 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
-		productModel = App.UserProductsColl.where({id:parseInt(productId[0])})
+		productModel = App.useProductColl.where({id:parseInt(productId[0])})
 		@_showView(productModel[0])
 
 	_showView:(model)->

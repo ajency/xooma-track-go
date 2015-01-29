@@ -291,7 +291,7 @@ class HomeX2OView extends Marionette.ItemView
 			arr['highlight'] =  "#cdcdcd"
 			arr['value'] = value
 		else if occurrence == true && expected == false
-			arr['color'] = "ffaa06"
+			arr['color'] = "#ffaa06"
 			arr['highlight'] =  "#cdcdcd"
 			arr['value'] = value
 

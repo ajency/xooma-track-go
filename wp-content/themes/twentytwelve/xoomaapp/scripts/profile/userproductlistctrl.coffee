@@ -248,7 +248,6 @@ class App.UserProductListCtrl extends Ajency.RegionController
 
 	_showView:(collection)=>
 		collection = collection.response
-		App.UserProductsColl = new Backbone.Collection collection
 		productcollection = new Backbone.Collection collection
 		@show new UserProductListView
 							collection : productcollection

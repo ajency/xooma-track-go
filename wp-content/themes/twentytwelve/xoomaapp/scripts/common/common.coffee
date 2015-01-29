@@ -133,6 +133,5 @@ class Ajency.HTTPRequestFailView extends Marionette.ItemView
 
 class Ajency.HTTPRequestCtrl extends Marionette.RegionController
 	initialize: (options)->
-		console.log "aaaaaaaaaaaaaaaa"
 		@show new Ajency.HTTPRequestFailView
 

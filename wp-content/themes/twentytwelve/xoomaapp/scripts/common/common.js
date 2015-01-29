@@ -191,7 +191,6 @@ Ajency.HTTPRequestCtrl = (function(_super) {
   }
 
   HTTPRequestCtrl.prototype.initialize = function(options) {
-    console.log("aaaaaaaaaaaaaaaa");
     return this.show(new Ajency.HTTPRequestFailView);
   };
 

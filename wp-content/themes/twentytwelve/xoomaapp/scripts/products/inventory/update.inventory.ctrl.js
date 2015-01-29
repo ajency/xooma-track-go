@@ -227,7 +227,7 @@ App.EditInventoryCtrl = (function(_super) {
     this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
-    productModel = App.UserProductsColl.where({
+    productModel = App.useProductColl.where({
       id: parseInt(productId[0])
     });
     return this.show(new EditInventoryView({
