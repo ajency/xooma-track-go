@@ -177,16 +177,14 @@
 	<label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
   </div>
 
-   <div class="form-group"  onclick="location.href='#profile/personal-info'">
+   <div class="form-group link"  onclick="location.href='#profile/personal-info'">
 	<label  class="col-sm-12 col-xs-12  control-label">Personal Info</label>
 
   </div>
    <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group link"  onclick="location.href='#profile/measurements'">
-	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
-  </div>
+   
 
   <div class="form-group">
 	<label class="col-sm-8 col-xs-8  control-label">Notification</label>
@@ -355,7 +353,7 @@
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
-				<input type="text"  id="update" class="line-datepicker" placeholder="&#xf073;">
+				<input type="text"  id="update" class="line-datepicker " placeholder="&#xf073;">
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
