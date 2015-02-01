@@ -17,6 +17,7 @@ body{
         padding: 0;
     }
 }
+
 .button-center{
     display: table;
     margin: 0 auto;
@@ -68,6 +69,13 @@ body{
 .margin-none{
     margin: 0px !important;
 }
+    @media (max-width: @screen-sm-min) {
+        .xs-t-10{
+  margin-top: 10px;
+    }
+  
+ }
+
 .m-t-10{
     margin-top: 10px;
 }
@@ -655,3 +663,7 @@ img {
                background-position: 2212px 0px;
             }
         }
+  .panel-body i.dropdown-toggle{
+    width: 50px;
+    text-align: right;
+ }

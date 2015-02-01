@@ -418,11 +418,18 @@ visibility: hidden;
           }
       td{
         height:5em !important;
+   @media (max-width: @screen-sm-min) {
+        height:auto !important;
+ }
         a{
           height:5em !important;
           text-align:center;
           line-height: 4.3em;
           background:none ;
+             @media (max-width: @screen-sm-min) {
+        height:auto !important;
+        line-height: inherit;
+ }
         }
 
       }

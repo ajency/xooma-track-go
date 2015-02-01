@@ -6429,6 +6429,11 @@ body > .container {
 .margin-none {
   margin: 0px !important;
 }
+@media (max-width: 768px) {
+  .xs-t-10 {
+    margin-top: 10px;
+  }
+}
 .m-t-10 {
   margin-top: 10px;
 }
@@ -7162,6 +7167,10 @@ packet_expected_class {
     background-position: 2212px 0px;
   }
 }
+.panel-body i.dropdown-toggle {
+  width: 50px;
+  text-align: right;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
@@ -7346,6 +7355,17 @@ packet_expected_class {
 .user-data .popover img {
   display: none;
 }
+@media (max-width: 768px) {
+  .navbar {
+    margin-bottom: 0px;
+  }
+  .tp-img-align {
+    margin-top: 8px;
+  }
+  .alert-msg {
+    line-height: 29px;
+  }
+}
 /* Sub - Header */
 .sub-header {
   background: #e6e6e6;
@@ -7354,6 +7374,11 @@ packet_expected_class {
   width: 100%;
   top: 68px;
   z-index: 9;
+}
+@media (max-width: 768px) {
+  .sub-header {
+    top: 62px;
+  }
 }
 .sub-header ul {
   display: block;
@@ -7369,6 +7394,7 @@ packet_expected_class {
 @media (max-width: 768px) {
   .sub-header ul li a {
     padding: 0px 20px !important;
+    font-size: 2em;
   }
 }
 .sub-header ul li.selected a,
@@ -10198,6 +10224,11 @@ packet_expected_class {
 .cbp-vm-switcher {
   padding: 20px;
 }
+@media (max-width: 768px) {
+  .cbp-vm-switcher {
+    padding: 20px 0px;
+  }
+}
 /* options/select wrapper with switch anchors */
 .cbp-vm-options {
   text-align: right;
@@ -10249,6 +10280,11 @@ packet_expected_class {
   margin: 0 auto;
   height: 160px;
   overflow: hidden;
+}
+@media (max-width: 768px) {
+  .cbp-vm-image {
+    height: 135px;
+  }
 }
 .cbp-vm-image img {
   display: inline-block;
@@ -10317,6 +10353,11 @@ packet_expected_class {
 }
 .cbp-vm-view-grid .cbp-vm-title {
   font-size: 2em;
+}
+@media (max-width: 768px) {
+  .cbp-vm-view-grid .cbp-vm-title {
+    font-size: 1.2em;
+  }
 }
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
@@ -10395,7 +10436,9 @@ packet_expected_class {
 }
 @media screen and (max-width: 40.125em) {
   .cbp-vm-view-grid ul li {
-    width: 100%;
+    width: 50%;
+    padding: 9px;
+    min-height: 330px;
   }
 }
 .form-control {
@@ -10749,11 +10792,22 @@ input.cmn-toggle-round-flat:checked + label:after {
 .history-calender .ui-datepicker td {
   height: 5em !important;
 }
+@media (max-width: 768px) {
+  .history-calender .ui-datepicker td {
+    height: auto !important;
+  }
+}
 .history-calender .ui-datepicker td a {
   height: 5em !important;
   text-align: center;
   line-height: 4.3em;
   background: none ;
+}
+@media (max-width: 768px) {
+  .history-calender .ui-datepicker td a {
+    height: auto !important;
+    line-height: inherit;
+  }
 }
 .line-datepicker {
   border: 0px;
