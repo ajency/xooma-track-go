@@ -60,7 +60,10 @@ class ScheduleView extends Marionette.ItemView
 				product = @model.get('id')
 				date = $('#date').val()
 				console.log t = $('#consume_time').val()
-				console.log time  = moment(t).format("HH:mm:ss")
+				time  = moment(t).format("HH:mm:ss")
+				if t == ""
+					time  = moment().format("HH:mm:ss")
+				
 				$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
@@ -98,6 +101,9 @@ class ScheduleView extends Marionette.ItemView
 		$('#date').val date
 		$('.js__timepicker').pickatime(
 			interval: 15
+			onSet : (context)->
+
+				$('.now').text $('#consume_time').val()
 			
 
 			 
@@ -117,7 +123,6 @@ class ScheduleView extends Marionette.ItemView
 		data.day = moment().format("dddd")
 		data.today = moment().format("MMMM Do YYYY")
 		qty = @model.get 'qty'
-		data.time  = moment().format("HH:mm:ss")
 		
 		occurr = @model.get('occurrence')
 		product_type = @model.get('product_type')
@@ -139,8 +144,7 @@ class ScheduleView extends Marionette.ItemView
 				data.qty = qty[ind].qty
 				return false
 				
-		data.original = product_type+'_expected_class'
-		data.bonus = bonus
+		data.product_type = product_type
 		data
 
 

@@ -1184,10 +1184,10 @@
             <div class="col-md-6 col-xs-12">
                 <h2 class="text-center"> <div class="{{classname}}"></div>{{name}}</h2>
                  <h6 class="text-center text-muted">{{serving}}</h6>
-                 <h5 class="text-center text-muted m-t-30">How many tablets did you have ?</h5>
+                 <h5 class="text-center text-muted m-t-30">How many {{product_type}}(s) did you have ?</h5>
                    <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-30"><input type="text" value="{{time}}" id="consume_time" name="consume_time" class="fa fa-clock-o text-primary fieldset__input js__timepicker" /><span class="now">Now</span></h5>
+                 <h5 class="text-center m-t-30"><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o text-primary fieldset__input js__timepicker" /><span class="now">Now</span></h5>
             </div>
             <div class="col-md-3">
          
