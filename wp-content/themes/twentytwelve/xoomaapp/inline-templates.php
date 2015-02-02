@@ -1186,8 +1186,8 @@
                  <h6 class="text-center text-muted">{{serving}}</h6>
                  <h5 class="text-center text-muted m-t-30">How many tablets did you have ?</h5>
                    <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
-                    <input class="pull-left" type="range" min="1" max="9" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-30"><input type="text" value="" name="consume_time" class="fa fa-clock-o text-primary fieldset__input js__timepicker" /><span class="now">Now</span></h5>
+                    <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
+                 <h5 class="text-center m-t-30"><input type="text" value="{{time}}" id="consume_time" name="consume_time" class="fa fa-clock-o text-primary fieldset__input js__timepicker" /><span class="now">Now</span></h5>
             </div>
             <div class="col-md-3">
          
@@ -1198,7 +1198,7 @@
       <div class="col-sm-3 col-xs-6">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
-        <input type="hidden" name="time" id="time" value="{{time}}" / >
+        
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > Confirm </button>
                 <button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
       </div>

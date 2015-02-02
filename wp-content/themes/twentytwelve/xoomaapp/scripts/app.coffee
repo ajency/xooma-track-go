@@ -28,7 +28,7 @@ jQuery(document).ready ($)->
 
 	App.currentUser.on 'user:logged:out', ->
 		App.navigate '/login', true
-		userData = {}
+		`userData = {}`
 
 
 	App.state 'settings',

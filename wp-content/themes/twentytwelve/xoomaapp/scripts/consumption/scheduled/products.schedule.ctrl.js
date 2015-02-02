@@ -79,7 +79,7 @@ ScheduleView = (function(_super) {
       data = $('#schduleid').val();
       product = this.model.get('id');
       date = $('#date').val();
-      t = this.ui.consume_time.val();
+      console.log(t = this.ui.consume_time.val());
       console.log(time = moment(t).format("HH:mm:ss"));
       return $.ajax({
         method: 'POST',
@@ -107,10 +107,7 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
-    this.model.set('occurrence', response.occurrence);
-    this.ui.responseMessage.text("Servings are updated!!!!");
-    $('#mydataModal').addClass("hidden");
-    return $('#xoomaproduct').html(listview.render().el);
+    return this.model.set('occurrence', response.occurrence);
   };
 
   ScheduleView.prototype.onShow = function() {

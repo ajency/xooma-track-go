@@ -59,7 +59,7 @@ class ScheduleView extends Marionette.ItemView
 				data = $('#schduleid').val()
 				product = @model.get('id')
 				date = $('#date').val()
-				t = @ui.consume_time.val()
+				console.log t = @ui.consume_time.val()
 				console.log time  = moment(t).format("HH:mm:ss")
 				$.ajax
 						method : 'POST'
@@ -90,9 +90,8 @@ class ScheduleView extends Marionette.ItemView
 
 	saveHandler:(response,status,xhr)=>
 		@model.set 'occurrence' , response.occurrence
-		@ui.responseMessage.text "Servings are updated!!!!"
-		$('#mydataModal').addClass "hidden"
-		$('#xoomaproduct').html(listview.render().el)
+		
+		
 
 	onShow:->
 		date  = Marionette.getOption( @, 'date')

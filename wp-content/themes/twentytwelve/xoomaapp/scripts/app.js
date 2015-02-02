@@ -26,7 +26,6 @@ jQuery(document).ready(function($) {
     return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
-    var userData;
     App.navigate('/login', true);
     return userData = {};
   });

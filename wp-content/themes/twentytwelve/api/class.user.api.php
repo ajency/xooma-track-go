@@ -582,14 +582,15 @@ class User_API
         $date = $_REQUEST['date'];
         $time = $_REQUEST['time'];
         $today = date("Y-m-d", strtotime($date));
-        $time = date("Y-m-d", strtotime($time));
-        echo $start = date("$today $time");
+        $time1 = date("Y-m-d", strtotime($time));
+        $start = date("$today $time1");
         $args = array(
 
             'id'            => $id,
             'pid'           => $pid,
             'meta_id'       => $meta_id,
             'date'          => $date,
+            'time'          => $time,
             'qty'           => $qty,
             'meta_value'    => array(
                 'date'      => $start,
