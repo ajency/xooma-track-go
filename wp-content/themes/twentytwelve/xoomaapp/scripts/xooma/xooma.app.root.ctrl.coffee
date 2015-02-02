@@ -4,6 +4,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 	ui :
 		ul : '.list-inline'
 		link : '.link'
+		logolink : '.logo_link'
 	behaviors :
 		ActiveLink :
 			behaviorClass : Ajency.ActiveLinkBehavior
@@ -11,6 +12,11 @@ class XoomaAppRootView extends Marionette.LayoutView
 	events:
 		'click a.linkhref':(e)->
 			e.preventDefault()
+
+		'click @ui.logolink':(e)->
+			e.preventDefault()
+			computed_url = '#'+window.location.hash.split('#')[1]
+			App.navigate computed_url ,  true
 
 
 	

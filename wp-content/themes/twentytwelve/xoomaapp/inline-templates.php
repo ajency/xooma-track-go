@@ -102,8 +102,8 @@
 
 										<div class="col-sm-3 col-xs-6">
 												<div class="navbar-header">
-														<a href="#">
-																<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-responsive tp-img-align" width="200px">
+														<a href="#" >
+																<img alt="Brand"  src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-responsive tp-img-align logo_link" width="200px">
 															</a>
 												</div>
 										</div>
