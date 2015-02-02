@@ -24,8 +24,6 @@ document.addEventListener "deviceready", ->
 	
 	App.currentUser.on 'user:auth:success', ->
 		# App.trigger 'fb:status:connected'
-
-		console.log 'USER AUTH'
 		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 

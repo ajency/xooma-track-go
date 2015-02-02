@@ -10,6 +10,7 @@ ParseCloud = {
     this.getInstallationId().then(function(installationId) {
       return Parse.Cloud.run('registerXoomaUser', {
         'userId': userData.ID,
+        'userEmail': userData.user_email,
         'installationId': installationId
       }, {
         success: function(result) {

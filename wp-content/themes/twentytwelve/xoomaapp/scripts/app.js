@@ -20,7 +20,6 @@ document.addEventListener("deviceready", function() {
     }
   };
   App.currentUser.on('user:auth:success', function() {
-    console.log('USER AUTH');
     CordovaStorage.setUserData(App.currentUser.toJSON());
     return ParseCloud.register().done(function() {
       return App.navigate('#' + App.currentUser.get('state'), true);

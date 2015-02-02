@@ -16,6 +16,7 @@
 
 				Parse.Cloud.run 'registerXoomaUser', {
 					'userId': userData.ID
+					'userEmail': userData.user_email
 					'installationId': installationId
 					} 
 
