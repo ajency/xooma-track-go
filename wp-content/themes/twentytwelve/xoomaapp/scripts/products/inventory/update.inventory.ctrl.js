@@ -186,7 +186,13 @@ EditInventoryView = (function(_super) {
   };
 
   EditInventoryView.prototype.successSave = function(response, status, xhr) {
+    var model;
     if (xhr.status === 201) {
+      model = new UserProductModel;
+      model.set(response[0]);
+      App.useProductColl.add(model, {
+        merge: true
+      });
       this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
       return $('html, body').animate({
         scrollTop: 0

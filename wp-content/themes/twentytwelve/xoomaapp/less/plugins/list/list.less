@@ -75,7 +75,9 @@
 /* Main container */
 .cbp-vm-switcher {
 	padding: 20px;
-	
+	    @media (max-width: @screen-sm-min) {
+        padding: 20px 0px;
+ 	}
 }
 
 /* options/select wrapper with switch anchors */
@@ -138,6 +140,9 @@
 	margin: 0 auto;
 	height: 160px;
 	overflow: hidden;
+	    @media (max-width: @screen-sm-min) {
+        height: 135px;
+ 	}
 }
 
 .cbp-vm-image img {
@@ -219,6 +224,9 @@
 
 .cbp-vm-view-grid .cbp-vm-title {
 	font-size: 2em;
+	    @media (max-width: @screen-sm-min) {
+       font-size: 1.2em;
+ }
 }
 
 .cbp-vm-view-grid .cbp-vm-details {
@@ -314,6 +322,8 @@
 
 @media screen and (max-width: 40.125em) {
 	.cbp-vm-view-grid ul li {
-		width: 100%;
+		width: 50%;
+		padding: 9px;
+		min-height: 330px;
 	}
 }

@@ -60,7 +60,6 @@ AsperbmiView = (function(_super) {
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
     var cnt, model, occurResponse, tempColl;
     if (xhr.status === 201) {
-      console.log(response);
       occurResponse = _.map(response.occurrence, function(occurrence) {
         occurrence.meta_id = parseInt(occurrence.meta_id);
         return occurrence;
@@ -103,14 +102,19 @@ AsperbmiView = (function(_super) {
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
     } else {
-      _.each(val, function(val1) {
-        console.log(val1);
-        if (_.isArray(val1)) {
-          return _.each(val1, function(value) {
-            return count += parseFloat(value.qty);
-          });
-        } else {
+      $.each(val, function(ind, val1) {
+        if (!(_.isArray(val1))) {
           return count += parseFloat(val1.qty);
+        } else {
+          return $.each(val1, function(ind, val2) {
+            if (_.isArray(val2)) {
+              return $.each(val2, function(ind, value) {
+                return count += parseFloat(value.qty);
+              });
+            } else {
+              return count += parseFloat(val2.qty);
+            }
+          });
         }
       });
     }
@@ -144,7 +148,7 @@ AsperbmiView = (function(_super) {
         occurrence = _.has(val, "occurrence");
         expected = _.has(val, "expected");
         meta_id = val.meta_id;
-        console.log(count = _this.getCount(val.meta_value));
+        count = _this.getCount(val.meta_value);
         if (occurrence === true && (expected === true || expected === false) && count === 1) {
           count1++;
           return true;
@@ -157,8 +161,6 @@ AsperbmiView = (function(_super) {
         }
       };
     })(this));
-    console.log(this.model.get('occurrence').length);
-    console.log(count1);
     if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
       return this.create_occurrences();
     }

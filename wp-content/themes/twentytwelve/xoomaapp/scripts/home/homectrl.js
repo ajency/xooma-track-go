@@ -43,10 +43,18 @@ HomeLayoutView = (function(_super) {
     param: 'input[name="param"]',
     history: '.history',
     update: '.update',
-    responseMessage: '.aj-response-message'
+    responseMessage: '.aj-response-message',
+    param: '#param'
   };
 
   HomeLayoutView.prototype.events = {
+    'change @ui.param': function(e) {
+      if ($(e.target).val() === 'bmi') {
+        return this.ui.time_period.hide();
+      } else {
+        return this.ui.time_period.show();
+      }
+    },
     'click @ui.history': function(e) {
       e.preventDefault();
       return App.navigate('#/measurements/' + App.currentUser.get('ID') + '/history', true);
@@ -200,7 +208,7 @@ App.HomeCtrl = (function(_super) {
   };
 
   HomeCtrl.prototype.errorHandler = function() {
-    $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!");
+    $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
@@ -217,7 +225,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="col-md-12"> <div class="fill-bottle"> <div class="glass"> <span class="liquid" style="height: 100%"></span> </div> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></a> </ul></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="col-md-12"> <div class="fill-bottle"> <div class="glass"> <span class="liquid" style="height: 100%"></span> </div> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <a href="#/products/{{id}}/bmi" ><li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></a> </ul></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -292,13 +300,19 @@ HomeX2OView = (function(_super) {
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
     } else {
-      _.each(val, function(val1) {
-        if (_.isArray(val1)) {
-          return _.each(val1, function(value) {
-            return count += parseFloat(value.qty);
-          });
-        } else {
+      $.each(val, function(ind, val1) {
+        if (!(_.isArray(val1))) {
           return count += parseFloat(val1.qty);
+        } else {
+          return $.each(val1, function(ind, val2) {
+            if (_.isArray(val2)) {
+              return $.each(val2, function(ind, value) {
+                return count += parseFloat(value.qty);
+              });
+            } else {
+              return count += parseFloat(val2.qty);
+            }
+          });
         }
       });
     }
@@ -396,7 +410,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'

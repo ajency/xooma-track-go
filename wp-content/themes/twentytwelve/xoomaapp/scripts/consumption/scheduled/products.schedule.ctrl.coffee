@@ -19,8 +19,8 @@ class ScheduleView extends Marionette.ItemView
 	events:
 		'click @ui.servings':(e)->
 			e.preventDefault()
-			console.log meta_id  = $(e.target).parent().attr 'data-value'
-			console.log qty  = $(e.target).parent().attr 'data-qty'
+			meta_id  = $(e.target).parent().attr 'data-value'
+			qty  = $(e.target).parent().attr 'data-qty'
 			if meta_id != ""
 				$('#intake').removeClass "intake"
 				$('#intake').addClass "update"
@@ -51,7 +51,7 @@ class ScheduleView extends Marionette.ItemView
 				e.preventDefault()
 				meta_id = $('#meta_id').val()
 				qty = $('#qty').val()
-				console.log data = $('#schduleid').val()
+				data = $('#schduleid').val()
 				product = @model.get('id')
 				date = moment().format("YYYY-MM-DD")
 				$.ajax
@@ -73,7 +73,7 @@ class ScheduleView extends Marionette.ItemView
 			e.preventDefault()
 			meta_id = $('#meta_id').val()
 			qty = $('#qty').val()
-			console.log data = $('#schduleid').val()
+			data = $('#schduleid').val()
 			product = @model.get('id')
 			$.ajax
 					method : 'POST'
@@ -137,7 +137,6 @@ class ScheduleView extends Marionette.ItemView
 
 
 	create_occurrences:(val)->
-		console.log val.qty
 		$('#meta_id').val 0
 		$('#qty').val val.qty
 
@@ -159,7 +158,6 @@ class App.ScheduleCtrl extends Ajency.RegionController
 		productId  = @getParams()
 		product = parseInt productId[0]
 		products = []
-		console.log App.useProductColl
 		App.useProductColl.each (val)->
 			products.push val
 		
@@ -174,6 +172,5 @@ class App.ScheduleCtrl extends Ajency.RegionController
 		
 
 	_showView:(productModel)->
-		console.log productModel
 		@show new ScheduleView
 					model : productModel

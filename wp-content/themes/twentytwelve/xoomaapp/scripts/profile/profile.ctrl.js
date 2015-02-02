@@ -48,7 +48,6 @@ ProfileCtrlView = (function(_super) {
   };
 
   ProfileCtrlView.prototype.preventClick = function(evt) {
-    console.log(evt.target.id);
     this.$('#' + evt.target.id).parent().removeClass('done');
     this.$('#' + evt.target.id).parent().addClass('selected');
     return this.$('#' + evt.target.id).parent().siblings().removeClass('selected');
@@ -60,8 +59,8 @@ ProfileCtrlView = (function(_super) {
 
   ProfileCtrlView.prototype.handleMenu = function(evt, state, args) {
     var computed_url, url;
-    console.log(url = '#' + App.currentUser.get('state'));
-    console.log(computed_url = '#' + window.location.hash.split('#')[1]);
+    url = '#' + App.currentUser.get('state');
+    computed_url = '#' + window.location.hash.split('#')[1];
     if (url === computed_url) {
       this.$('a[href="' + url + '"]').parent().addClass('selected');
       this.$('a[href="' + url + '"]').parent().unbind();
@@ -79,7 +78,6 @@ ProfileCtrlView = (function(_super) {
       this.$('a[href="' + url + '"]').parent().prevAll().removeClass('selected');
       return this.$('a[href="' + url + '"]').parent().prevAll().addClass('done');
     } else if (url === '#/home' && url !== computed_url) {
-      console.log($('a[href="' + computed_url + '"]'));
       $('a[href="' + computed_url + '"]').parent().addClass('selected');
       $('a[href="' + computed_url + '"]').parent().prevAll().addClass('done');
       return $('a[href="' + computed_url + '"]').parent().nextAll().addClass('done');

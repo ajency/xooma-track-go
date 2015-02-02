@@ -47,8 +47,8 @@ ViewProductHistoryView = (function(_super) {
 
   ViewProductHistoryView.prototype.loadData = function(id) {
     var date, product;
-    console.log(product = id);
-    console.log(date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD"));
+    product = id;
+    date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
     if ($('#picker_inline_fixed').val() === "") {
       date = moment().format("YYYY-MM-DD");
     }
@@ -120,7 +120,6 @@ ViewProductHistoryView = (function(_super) {
 
   ViewProductHistoryView.prototype.getCount = function(val) {
     var count;
-    console.log(val);
     count = [];
     if (!_.isArray(val)) {
       count.push({
@@ -129,7 +128,6 @@ ViewProductHistoryView = (function(_super) {
       });
     } else {
       $.each(val, function(ind, val1) {
-        console.log(val1);
         if (!(_.isArray(val1))) {
           return count.push({
             date: val1.date,
@@ -137,7 +135,6 @@ ViewProductHistoryView = (function(_super) {
           });
         } else {
           return $.each(val1, function(ind, val2) {
-            console.log(val2);
             if (_.isArray(val2)) {
               return $.each(val2, function(ind, val3) {
                 return count.push({

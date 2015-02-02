@@ -115,7 +115,7 @@ _.extend(Ajency.CurrentUser.prototype, {
       return function(response, status, xhr) {
         var data, dates, param, products;
         if (xhr.status === 200) {
-          console.log(data = response.response);
+          data = response.response;
           dates = response.graph['dates'];
           param = response.graph['param'];
           App.graph = new Backbone.Model;

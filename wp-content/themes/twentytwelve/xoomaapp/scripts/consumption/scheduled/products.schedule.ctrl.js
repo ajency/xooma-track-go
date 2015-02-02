@@ -33,8 +33,8 @@ ScheduleView = (function(_super) {
     'click @ui.servings': function(e) {
       var meta_id, qty;
       e.preventDefault();
-      console.log(meta_id = $(e.target).parent().attr('data-value'));
-      console.log(qty = $(e.target).parent().attr('data-qty'));
+      meta_id = $(e.target).parent().attr('data-value');
+      qty = $(e.target).parent().attr('data-qty');
       if (meta_id !== "") {
         $('#intake').removeClass("intake");
         $('#intake').addClass("update");
@@ -68,7 +68,7 @@ ScheduleView = (function(_super) {
       e.preventDefault();
       meta_id = $('#meta_id').val();
       qty = $('#qty').val();
-      console.log(data = $('#schduleid').val());
+      data = $('#schduleid').val();
       product = this.model.get('id');
       date = moment().format("YYYY-MM-DD");
       return $.ajax({
@@ -88,7 +88,7 @@ ScheduleView = (function(_super) {
       e.preventDefault();
       meta_id = $('#meta_id').val();
       qty = $('#qty').val();
-      console.log(data = $('#schduleid').val());
+      data = $('#schduleid').val();
       product = this.model.get('id');
       return $.ajax({
         method: 'POST',
@@ -157,7 +157,6 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.create_occurrences = function(val) {
-    console.log(val.qty);
     $('#meta_id').val(0);
     return $('#qty').val(val.qty);
   };
@@ -191,7 +190,6 @@ App.ScheduleCtrl = (function(_super) {
     productId = this.getParams();
     product = parseInt(productId[0]);
     products = [];
-    console.log(App.useProductColl);
     App.useProductColl.each(function(val) {
       return products.push(val);
     });
@@ -209,7 +207,6 @@ App.ScheduleCtrl = (function(_super) {
   };
 
   ScheduleCtrl.prototype._showView = function(productModel) {
-    console.log(productModel);
     return this.show(new ScheduleView({
       model: productModel
     }));

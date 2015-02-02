@@ -3,14 +3,14 @@
 		<nav class="navbar " role="navigation">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-3 col-xs-5">
+					<div class="col-sm-3 col-xs-6">
 						<div class="navbar-header">
 							<a href="#">
-								<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="img-reponsive" width="200px">
+								<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="tp-img-align img-responsive" width="200px">
 							</a>
 						</div>
 					</div>
-					<div class="col-sm-9 col-xs-7">
+					<div class="col-sm-9 col-xs-6">
 					<!--    <a href="#menu">
 							<h5><i class="fa fa-cog pull-right "></i></h5>
 						</a>-->
@@ -100,14 +100,14 @@
 
 								<div class="row">
 
-										<div class="col-sm-3 col-xs-5">
+										<div class="col-sm-3 col-xs-6">
 												<div class="navbar-header">
 														<a href="#">
-																<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-reponsive" width="200px">
+																<img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class="img-responsive tp-img-align" width="200px">
 															</a>
 												</div>
 										</div>
-										<div class="col-sm-9 col-xs-7">
+										<div class="col-sm-9 col-xs-6">
 											<div ui-region="currentUser" class="pull-right user-data">
 
 											</div>
@@ -177,19 +177,17 @@
 	<label  class="col-sm-12 col-xs-12  control-label">List of Xooma Products</label>
   </div>
 
-   <div class="form-group"  onclick="location.href='#profile/personal-info'">
+   <div class="form-group link"  onclick="location.href='#profile/personal-info'">
 	<label  class="col-sm-12 col-xs-12  control-label">Personal Info</label>
 
   </div>
    <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   <div class="form-group link"  onclick="location.href='#profile/measurements'">
-	<label  class="col-sm-12 col-xs-12  control-label">Progress chart</label>
-  </div>
+
 
   <div class="form-group">
-	<label class="col-sm-8 col-xs-8  control-label">Notification</label>
+	<label class="col-sm-8 col-xs-8  control-label">Notifications</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">
 			<input id="notification" value=""  name="notification" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
@@ -265,7 +263,7 @@
 						<form class="form-horizontal update_user_details" role="form">
 
 
-								<img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture" width="150px" height="150px">
+								<img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs" width="150px" height="150px">
 
 								
 								<p class="text-center">Let us know something about you.</p>
@@ -275,32 +273,32 @@
 
 
 												<div class="form-group">
-														<label for="text1" class=" col-sm-3 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
-														<div class="col-sm-9">
+														<label for="text1" class=" col-sm-3 col-xs-4 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
+														<div class="col-sm-9 col-xs-8">
 																<input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text2" class=" col-sm-3 control-label">Name</label>
-														<div class="col-sm-9">
+														<label for="text2" class=" col-sm-3 col-xs-4 control-label">Name</label>
+														<div class="col-sm-9  col-xs-8">
 																<input type="text"  readonly class="form-control" name="display_name">
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text3" class="col-sm-3 control-label">Email</label>
-														<div class="col-sm-9">
+														<label for="text3" class="col-sm-3 col-xs-4 control-label">Email</label>
+														<div class="col-sm-9 col-xs-8">
 																<input type="text" readonly class="form-control" name="user_email">
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text4" class="col-sm-3 control-label">Phone</label>
-														<div class="col-sm-9">
+														<label for="text4" class="col-sm-3 col-xs-4  control-label">Phone</label>
+														<div class="col-sm-9 col-xs-8">
 																<input type="text" aj-field-type="number" class="form-control" name="profile[phone_no]">
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text5" class=" col-sm-3 control-label">Gender  <span class="requiredField text-danger"> * </span></label>
-														<div class="col-sm-9">
+														<label for="text5" class=" col-sm-3 col-xs-4  control-label">Gender  <span class="requiredField text-danger"> * </span></label>
+														<div class="col-sm-9 col-xs-8">
 																<div class="rd-gender">
 																		<label class="wrap pull-left">
 																				<input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="male" />
@@ -316,15 +314,15 @@
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text7" class=" col-sm-3 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
-														<div class="col-sm-9">
+														<label for="text7" class=" col-sm-3 col-xs-4  control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
+														<div class="col-sm-9 col-xs-8">
 
 																<input class="form-control" type="text" id="birth_date" name="profile[birth_date]" required />
 														</div>
 												</div>
 												<div class="form-group">
-														<label for="text8" class=" col-sm-3 control-label">Time zone</label>
-														<div class="col-sm-9">
+														<label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
+														<div class="col-sm-9 col-xs-8">
 																<select class="form-control" name="profile[timezone]">
 																		<option value="UTC-05:00">Eastern Time Zone (UTC-05:00)</option>
 																		<option value="UTC-06:00">Central Time Zone (UTC-06:00)</option>
@@ -355,7 +353,7 @@
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
 				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
-				<input type="text"  id="update" class="line-datepicker" placeholder="&#xf073;">
+				<input type="text"  id="update" class="line-datepicker " placeholder="&#xf073;">
 				<div class="clearfix"></div>
 				</div>
 				<div class="aj-response-message"></div>
@@ -372,7 +370,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7">
-																<h4 class="text-left"> <output></output><small>Inches</small></h4>
+																<h4 class="text-left"> <output></output><small> Ft/inches</small></h4>
 														</div>
 														<input type="range" min="4" max="9" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
 												</div>
@@ -383,7 +381,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7 ">
-																<h4 class="text-left"> <output></output><small>pounds</small></h4>
+																<h4 class="text-left"> <output></output><small> pounds</small></h4>
 														</div>
 
 														<input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
@@ -520,7 +518,7 @@
 
 						  <div class="m-t-30">
 							<label for="exampleInputFile">Select</label>
-							<select class="form-control" aj-field-required="true" name="param">
+							<select class="form-control" aj-field-required="true" id="param" name="param">
 							  <option value="weight">Weight</option>
 							  <option value="neck">Neck</option>
 							  <option value="chest">Chest</option>
@@ -540,7 +538,7 @@
 								<input type="hidden"  id="end_date" name="end_date">
 						
 						
-						   <label for="exampleInputFile">Weekly</label>
+						   <label for="exampleInputFile " class="time_period">Select</label>
 								<select class="form-control time_period ">
 								  <option value="">--Select--</option>
 								  <option value="7">Last 7 days</option>
@@ -612,7 +610,7 @@
 			</div>
 				  
 				  
-				  </div><br/>
+				  </div>
 				  <div class="row">
 					<div class="col-sm-12">
 			<hr>
@@ -659,6 +657,7 @@
 						<img name="image" src="{{image}}" class="img-responsive"/>
 					</div>
 				</div>
+				<br>
 			</div>
 			<form id="edit_product" class="form-horizontal" role="form" method="POST">
 			<input type="hidden" name="frequency_type" value="{{frequency_value}}" />
@@ -675,21 +674,22 @@
 
 				<div class="asperbmi">
 				<div class="form-group">
-				 <label for="inputEmail2" class="col-sm-6 col-xs-7  control-label">Recommended Number of Bottles</label>
-				 <div class="col-sm-6 col-xs-5">
+				 <label for="inputEmail2" class="col-sm-6 col-xs-5  control-label">Recommended Number of Bottles</label>
+				 <div class="col-sm-6 col-xs-7">
 					<p class="form-control-static"><b>{{x2o}}</b></p>
 				</div>
 				 </div>
+				 <div class="form-group">
 					<h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
 					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
 		  <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
-
+  </div>
 		   </div>
 			  
 			  <div class="anytime">
 			  <div class="form-group">
-	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Serving per day</label>
-	<div class="col-sm-6 col-xs-5 ">
+	<label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Serving per day</label>
+	<div class="col-sm-6 col-xs-7 ">
 	  <select class="form-control servings_per_day " name="servings_per_day">
 		  <option value="1">1</option>
 		  <option value="2">2</option>
@@ -702,7 +702,7 @@
   <div class="form-group">
 	<div class="checkbox">
 	<label class=" control-label">
-	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set diffrent quantity per serving
+	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set different quantity per serving
 	<input type="hidden" name="check" id="check" value="0" /></label>
 	<input type="hidden" name="timeset" id="timeset" value=""  >
   </div> 
@@ -711,8 +711,8 @@
   <div class="qty_per_servings_div">
   <div class="qtyper">
   <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Quantity Per Serving</label>
-	<div class="col-sm-6 col-xs-5">
+	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Quantity Per Serving</label>
+	<div class="col-sm-6 col-xs-7">
 	  <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
 		  <option value="1">1</option>
 		  <option value="2">2</option>
@@ -732,19 +732,19 @@
   <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
 	<div class="col-sm-6 col-xs-6 ">
 	 <div class="btn-group" role="group" aria-label="...">
-	  <button type="button" data-time="Once" class="btn btn-default schedule {{once}}">  Once</button>
-	  <button type="button" data-time="Twice" class="btn btn-default schedule {{twice}}"> Twice</button>
+	  <button type="button" data-time="Once"  class="btn schedule {{once}}">  Once</button>
+	  <button type="button" data-time="Twice"   class="btn schedule {{twice}}"> Twice</button>
 	  
 	</div>
 	</div>
   	</div>
   <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label"><b>Quantity Per Serving</b></label>
-   <label for="inputPassword3" class="control-label col-sm-6  col-xs-5 "><B>When</B> </label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label"><b>Quantity Per Serving</b></label>
+   <label for="inputPassword3" class="control-label col-sm-6  col-xs-7 "><B>When</B> </label>
  </div>
  <div class="form-group">
-	<label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving1</label>
-	<div class="col-sm-4 col-xs-4 ">
+	<label for="inputEmail3" class="col-sm-2 col-xs-4 control-label">Serving1</label>
+	<div class="col-sm-4 col-xs-8 ">
 	  <select class="form-control qty0" name="qty_per_servings0">
 		  <option value="1">1 capsule</option>
 		  <option value="2">2 capsule</option>
@@ -753,7 +753,7 @@
 		  
 		</select>
 	</div>
-		<div class="col-sm-6 col-xs-5 ">
+		<div class="col-sm-6 col-xs-8 xs-t-10 pull-right">
 	  <select class="form-control when0" name="when0">
 		  <option value="1">Morning Before meal</option>
 		  <option value="2">Morning After meal</option>
@@ -764,8 +764,8 @@
   </div>
   <div class="second">
   <div class="form-group">
-	<label for="inputEmail3" class="col-sm-2 col-xs-2  control-label">Serving2</label>
-	<div class="col-sm-4 col-xs-4 ">
+	<label for="inputEmail3" class="col-sm-2 col-xs-4  control-label">Serving2</label>
+	<div class="col-sm-4 col-xs-8">
 	  <select class="form-control qty1" name="qty_per_servings1">
 		  <option value="1">1 capsule</option>
 		  <option value="2">2 capsule</option>
@@ -773,7 +773,7 @@
 		  <option value="4">4 capsule</option>
 		</select>
 	</div>
-		<div class="col-sm-6 col-xs-5 ">
+		<div class="col-sm-6 col-xs-8 xs-t-10 pull-right ">
 	  <select class="form-control when1" name="when1">
 		  <option value="1">Morning Before meal</option>
 		  <option value="2">Morning After meal</option>
@@ -786,9 +786,11 @@
   </div>
   <div class="noofcontainer">
   <div class="form-group">
-	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">No. of 
+
+	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Number of 
+
 	container</label>
-	<div class="col-sm-6 col-xs-5 ">
+	<div class="col-sm-6 col-xs-7">
 	  <select class="form-control no_of_container" name="no_of_container">
 		  <option value="1">1</option>
 		  <option value="2">2</option>
@@ -799,23 +801,25 @@
 	</div>
   </div>
   <div class="form-group">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Available with me</label>
-	<div class="col-sm-6 col-xs-5">
+	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Available with me</label>
+	<div class="col-sm-6 col-xs-7">
 	  <p class="form-control-static"><span class="available">{{total}} </span>&nbsp;{{product_type_name}}(s)</p>
 	  <input type="hidden" name="available" id="available" value="{{total}}" /> 
 	</div>
   </div>
 
    <div class="form-group">
-	<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">Samples given to the prospective customer</label>
-	 <div class="col-sm-6 col-xs-5">
+
+	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Samples given to the prospective customer</label>
+	 <div class="col-sm-6 col-xs-7">
+
 	  <input type="text" name="subtract" aj-field-type="number" value="" class="form-control"/>
 	  </div>
   </div>
   </div>
-<div class="form-group first-grp">
-	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Set remainder</label>
-	<div class="col-sm-6 col-xs-5 ">
+<div class="form-group ">
+	<label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Set remainder</label>
+	<div class="col-sm-6 col-xs-7 ">
 	 <div class="btn-group" role="group" aria-label="...">
 	  <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
 	  <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
@@ -826,8 +830,8 @@
   <div class="reminder_div">
   <div class="reminder">
 <div class="form-group reminder_data">
-	<label for="inputPassword3" class="col-sm-6 col-xs-7  control-label">Remind me at</label>
-	<div class="col-sm-6 col-xs-5 ">
+	<label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
+	<div class="col-sm-6 col-xs-7 ">
 	 <input name="reminder_time0" id="reminder_time0" disabled class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}">
 	</div>
   </div>
@@ -1011,7 +1015,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-				   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
+				   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
 				</div>
 			</div>
 		</div>
@@ -1087,7 +1091,8 @@
 <div class="container">	
 <div class="aj-response-message"></div>
   <div class="row">
-		
+  <br>
+		<small class="text-center center-block">Swipe down the bottle to consume</small>	
  <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
 		<div class="row">
 			
@@ -1130,7 +1135,7 @@
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
-              	<button class="reset-progress btn btn-success  " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+              	<button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
 			</div>
 			<div class="col-sm-5"></div>
 		</div>

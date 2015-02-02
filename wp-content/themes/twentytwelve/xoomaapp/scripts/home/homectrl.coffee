@@ -25,8 +25,15 @@ class HomeLayoutView extends Marionette.LayoutView
 		history 	: '.history'
 		update 	: '.update'
 		responseMessage : '.aj-response-message'
+		param 			: '#param'
 
 	events:
+		'change @ui.param':(e)->
+			if $(e.target).val() == 'bmi'
+				@ui.time_period.hide()
+			else 
+				@ui.time_period.show()
+
 		'click @ui.history':(e)->
 			e.preventDefault()
 			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true
@@ -160,7 +167,6 @@ class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
 
-
 		if App.useProductColl.length == 0
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
@@ -175,7 +181,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		@show new HomeLayoutView
 
 	errorHandler:=>
-		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be saved!")
+		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -189,7 +195,7 @@ class HomeX2OView extends Marionette.ItemView
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+				<h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
@@ -291,14 +297,20 @@ class HomeX2OView extends Marionette.ItemView
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
 		else
-			_.each val , (val1)->
-				if _.isArray(val1)
-					_.each val1 ,  (value)->
-						count += parseFloat value.qty
-				else
+			$.each val , (ind,val1)->
+				if!(_.isArray(val1)) 
 					count += parseFloat val1.qty
+				else
+					$.each val1 , (ind,val2)->
+						if _.isArray(val2)
+							$.each val2 ,  (ind,value)->
+								count += parseFloat value.qty
+						else
+							count += parseFloat val2.qty
 
 		count	
+
+	
 		
 		
 	get_occurrence:(data)->
@@ -370,7 +382,7 @@ class ProductChildView extends Marionette.ItemView
 	className : 'panel panel-default'
 
 	template  : '<div class="panel-body">
-			<h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+			<h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
