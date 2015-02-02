@@ -6,6 +6,9 @@
     width: 100%;
     top: 68px;
     z-index:9;
+    @media (max-width: @screen-sm-min) {
+        top: 62px;
+ }
    ul{
       
             display: block;
@@ -19,6 +22,7 @@
                text-decoration:none;
                @media (max-width: @screen-sm-min) {
                         padding: 0px 20px !important;
+                        font-size: 2em;
                 }
             }
             &.selected{
