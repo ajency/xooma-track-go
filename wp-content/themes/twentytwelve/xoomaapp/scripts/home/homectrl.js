@@ -115,6 +115,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
+    App.trigger('cordova:hide:splash:screen');
     if (parseInt(App.useProductColl.length) === 0) {
       this.ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!");
       $('html, body').animate({

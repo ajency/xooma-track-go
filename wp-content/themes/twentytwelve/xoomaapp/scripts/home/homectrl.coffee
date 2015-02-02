@@ -88,6 +88,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		App.trigger 'cordova:hide:splash:screen'
 		if parseInt(App.useProductColl.length) == 0
 			@ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!")
 			$('html, body').animate({

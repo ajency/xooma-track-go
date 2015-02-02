@@ -22,29 +22,33 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
-		$('#birth_date').datepicker({
-		    dateFormat : 'yy-mm-dd'
-		    changeYear: true,
-		    changeMonth: true,
-		    maxDate: new Date()
-			     
-			   
-		    
-		});
+		if !window.isWebView()
+			$('#birth_date').datepicker({
+			    dateFormat : 'yy-mm-dd'
+			    changeYear: true,
+			    changeMonth: true,
+			    maxDate: new Date()
+				     
+				   
+			    
+			});
 
 
 
 	onShow:->
+		App.trigger 'cordova:hide:splash:screen'
 		Backbone.Syphon.deserialize @, @model.toJSON()
-		$('#birth_date').datepicker({
-		    dateFormat : 'yy-mm-dd'
-		    changeYear: true,
-		    changeMonth: true,
-		    maxDate: new Date()
-			     
-			   
-		    
-		});
+
+		if !window.isWebView()
+			$('#birth_date').datepicker({
+			    dateFormat : 'yy-mm-dd'
+			    changeYear: true,
+			    changeMonth: true,
+			    maxDate: new Date()
+				     
+				   
+			    
+			});
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'

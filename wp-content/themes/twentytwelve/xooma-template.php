@@ -91,8 +91,14 @@ window.ParsleyConfig = {
 <!-- endbuild -->
 
 <script type="text/javascript">
-<?php echo  aj_get_global_js_vars(); ?>
+function isWebView(){
+    return !(!window.cordova && !window.PhoneGap && !window.phonegap)
+
+}
+$(window).bind('load',isWebView);
 var App  = new Marionette.Application()
+
+<?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
 
 </script>

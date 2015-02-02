@@ -81,6 +81,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.onShow = function() {
     var product, products, reminder;
+    App.trigger('cordova:hide:splash:screen');
     reminder = this.model.get('reminder');
     if (reminder.length !== 0) {
       $('#bell' + this.model.get('id')).removeClass('fa-bell-slash no-remiander');

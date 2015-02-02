@@ -100,6 +100,7 @@ class ProductChildView extends Marionette.ItemView
                             
 
 	onShow:->
+		App.trigger 'cordova:hide:splash:screen'
 		reminder = @model.get('reminder')
 		if reminder.length != 0
 			$('#bell'+@model.get('id')).removeClass 'fa-bell-slash no-remiander'

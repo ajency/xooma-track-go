@@ -1162,45 +1162,48 @@
 </script>
 
 <script id="schedule-template" type="text/template">
+ <div class="sub-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+           <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b> Consumption Capsule</b>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="container"> </br></br>
+
 <div class="aj-response-message"></div>
 <form id="consume" class="form-horizontal" role="form" method="POST">
-<div><span class="day">{{day}}</span></div>
-<div><span class="today">{{today}}</span></div>
-<div><span>Bonus:</span><span class="bonus">{{bonus}}</span></div>
-{{#no_servings}}
-<a href="#" data-target="#mydataModal" class="servings" data-value="{{meta_id}}" data-qty="{{qty}}">
+ <div class="row">
 
-{{#servings}}
-<div class="{{newClass}}"></div>
-{{/servings}}
-
-{{/no_servings}}
-<br/></a>
-
-<br/>
-<a href="#" data-toggle="modal" class="original {{original}}" ></a>
-
-<input type="hidden" name="schduleid"  id="schduleid" value="{{scheduleid}}" />
-<input type="hidden" name="meta_id"  id="meta_id" value="" />
-
-</div>
-<div class="hidden" id="mydataModal" >
-  <div class="modal-dialog">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-	  </div>
-	  <div class="modal-body">
-		<input type="text" name="qty"  id="qty" value="" />
-	  </div>
-	  <div class="modal-footer">
-		<button type="button"  class="btn btn-default cancel" data-dismiss="modal">Close</button>
-		<button type="button" id="intake" class="btn btn-primary intake"> <i class="fa fa-check"></i> Save changes</button>
-	  </div>
-	</div>
+        <div class="row">
+            <div class="col-md-3 "> 
+           
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <h2 class="text-center"> <div class="{{classname}}"></div>{{name}}</h2>
+                 <h6 class="text-center text-muted">{{serving}}</h6>
+                 <h5 class="text-center text-muted m-t-30">How many tablets did you have ?</h5>
+                   <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
+                    <input class="pull-left" type="range" min="1" max="9" step="1" value="1" data-rangeslider>
+                 <h5 class="text-center m-t-30"> <i class="fa fa-clock-o text-primary"></i> Now</h5>
+            </div>
+            <div class="col-md-3">
+         
+            </div>
+        </div>
+           <div class="row m-t-20">
+        <div class="col-sm-5 col-xs-3"></div>
+      <div class="col-sm-3 col-xs-6">
+        <input type="hidden" name="percentage" id="percentage" value="0" / >
+        <input type="hidden" name="meta_id" id="meta_id" value="" / >
+          <button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
+                <button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+      </div>
+      <div class="col-sm-4 col-xs-3"></div>
+    </div>
   </div>
-</div>
+
 </form>
 </script>

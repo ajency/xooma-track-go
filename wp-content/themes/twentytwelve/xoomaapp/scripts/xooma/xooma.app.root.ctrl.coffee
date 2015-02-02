@@ -18,7 +18,6 @@ class XoomaAppRootView extends Marionette.LayoutView
 			App.navigate computed_url ,  true
 
 
-	
 	onShow:->
 		state = App.currentUser.get 'state'
 		if state != '/home'

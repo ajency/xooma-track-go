@@ -13,6 +13,7 @@ ScheduleView = (function(_super) {
   __extends(ScheduleView, _super);
 
   function ScheduleView() {
+    this.valueOutput = __bind(this.valueOutput, this);
     this.saveHandler = __bind(this.saveHandler, this);
     return ScheduleView.__super__.constructor.apply(this, arguments);
   }
@@ -27,10 +28,14 @@ ScheduleView = (function(_super) {
     servings: '.servings',
     original: '.original',
     responseMessage: '.aj-response-message',
-    cancel: '.cancel'
+    cancel: '.cancel',
+    rangeSliders: '[data-rangeslider]'
   };
 
   ScheduleView.prototype.events = {
+    'change @ui.rangeSliders': function(e) {
+      return this.valueOutput(e.currentTarget);
+    },
     'click @ui.servings': function(e) {
       var meta_id, qty;
       e.preventDefault();
@@ -108,6 +113,22 @@ ScheduleView = (function(_super) {
     return $('#xoomaproduct').html(listview.render().el);
   };
 
+  ScheduleView.prototype.onShow = function() {
+    console.log(this.model);
+    this.ui.rangeSliders.each((function(_this) {
+      return function(index, ele) {
+        return _this.valueOutput(ele);
+      };
+    })(this));
+    return this.ui.rangeSliders.rangeslider({
+      polyfill: false
+    });
+  };
+
+  ScheduleView.prototype.valueOutput = function(element) {
+    return $(element).parent().find("output").html($(element).val());
+  };
+
   ScheduleView.prototype.serializeData = function() {
     var bonus, data, no_servings, occurr, product_type, qty, temp;
     data = ScheduleView.__super__.serializeData.call(this);
@@ -117,6 +138,7 @@ ScheduleView = (function(_super) {
     occurr = this.model.get('occurrence');
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
+    data.classname = product_type + '_default_class';
     no_servings = [];
     temp = [];
     bonus = parseInt(this.model.get('occurrence').length) - parseInt(qty.length);
@@ -207,9 +229,10 @@ App.ScheduleCtrl = (function(_super) {
     return this._showView(model);
   };
 
-  ScheduleCtrl.prototype._showView = function(productModel) {
+  ScheduleCtrl.prototype._showView = function(productModel, date) {
     return this.show(new ScheduleView({
-      model: productModel
+      model: productModel,
+      date: date
     }));
   };
 
