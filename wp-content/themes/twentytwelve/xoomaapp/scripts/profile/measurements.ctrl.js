@@ -61,7 +61,7 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, state;
+    var date, obj, state;
     App.trigger('cordova:hide:splash:screen');
     $('#update').val(moment().format('YYYY-MM-DD'));
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
@@ -93,6 +93,18 @@ ProfileMeasurementsView = (function(_super) {
       'thigh': '',
       'hips': ''
     };
+    console.log(App.currentUser.get('measurements'));
+    if (App.currentUser.get('measurements') !== void 0) {
+      obj = App.currentUser.get('measurements');
+      this.measurements.arm = obj.arm;
+      this.measurements.neck = obj.neck;
+      this.measurements.waist = obj.waist;
+      this.measurements.abdomen = obj.abdomen;
+      this.measurements.midcalf = obj.midcalf;
+      this.measurements.thigh = obj.thigh;
+      this.measurements.hips = obj.hips;
+    }
+    console.log(this.measurements);
     state = App.currentUser.get('state');
     if (state === '/home') {
       $('.measurements_update').removeClass('hidden');

@@ -29,7 +29,9 @@ ScheduleView = (function(_super) {
     original: '.original',
     responseMessage: '.aj-response-message',
     cancel: '.cancel',
-    rangeSliders: '[data-rangeslider]'
+    rangeSliders: '[data-rangeslider]',
+    consume_time: 'input[name="consume_time"]',
+    qty: 'input[name="qty"]'
   };
 
   ScheduleView.prototype.events = {
@@ -70,24 +72,22 @@ ScheduleView = (function(_super) {
       return ScheduleView.prototype.create_occurrences(first);
     },
     'click .intake': function(e) {
-      var data, date, meta_id, product, qty;
+      var data, date, meta_id, product, qty, t, time;
       e.preventDefault();
       meta_id = $('#meta_id').val();
-      qty = $('#qty').val();
+      qty = this.ui.qty.val();
       data = $('#schduleid').val();
       product = this.model.get('id');
-      date = moment().format("YYYY-MM-DD");
+      date = $('#date').val();
+      t = this.ui.consume_time.val();
+      console.log(time = moment(t).format("HH:mm:ss"));
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
-    },
-    'click @ui.cancel': function(e) {
-      $('#qty').val("");
-      return $('#mydataModal').addClass("hidden");
     },
     'click .update': function(e) {
       var data, meta_id, product, qty;
@@ -114,7 +114,12 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.onShow = function() {
-    console.log(this.model);
+    var date;
+    date = Marionette.getOption(this, 'date');
+    $('#date').val(date);
+    $('.js__timepicker').pickatime({
+      interval: 15
+    });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
         return _this.valueOutput(ele);
@@ -131,10 +136,12 @@ ScheduleView = (function(_super) {
 
   ScheduleView.prototype.serializeData = function() {
     var bonus, data, no_servings, occurr, product_type, qty, temp;
+    console.log(this.model);
     data = ScheduleView.__super__.serializeData.call(this);
     data.day = moment().format("dddd");
     data.today = moment().format("MMMM Do YYYY");
     qty = this.model.get('qty');
+    data.time = moment().format("HH:mm:ss");
     occurr = this.model.get('occurrence');
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
@@ -148,31 +155,15 @@ ScheduleView = (function(_super) {
       }
     });
     $.each(temp, function(ind, val) {
-      var expected, i, newClass, occurrence, servings;
+      var expected, occurrence;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
-      if (occurrence === true && expected === true) {
-        newClass = product_type + '_occurred_class';
-      } else if (occurrence === false && expected === true) {
-        newClass = product_type + '_expected_class';
-      } else if (occurrence === true && expected === false) {
-        newClass = product_type + '_bonus_class';
+      if (occurrence === false && expected === true) {
+        console.log(qty[ind].qty);
+        ScheduleView.prototype.create_occurrences(qty[ind].qty);
+        data.qty = qty[ind].qty;
+        return false;
       }
-      i = 0;
-      servings = [];
-      while (i < qty[ind].qty) {
-        servings.push({
-          newClass: newClass
-        });
-        i++;
-      }
-      no_servings.push({
-        servings: servings,
-        schedule: val.schedule_id,
-        meta_id: val.meta_id,
-        qty: qty[ind].qty
-      });
-      return data.no_servings = no_servings;
     });
     data.original = product_type + '_expected_class';
     data.bonus = bonus;
