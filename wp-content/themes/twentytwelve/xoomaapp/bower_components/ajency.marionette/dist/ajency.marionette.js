@@ -711,7 +711,10 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       return facebookConnectPlugin.api('/me', [], (function(_this) {
         return function(user) {
           return facebookConnectPlugin.getAccessToken(function(token) {
-            return _this.trigger('facebook:login:success', user, token);
+            if(user.email!="")
+              return _this.trigger('facebook:login:success', user, token);
+            else
+              return _this.triggerMethod('facebook:login:cancel');
           });
         };
       })(this));

@@ -10386,8 +10386,8 @@ output {
   }
 }
 .rangeslider__handle {
-  background: white;
-  border: 1px solid #ccc;
+  background: #9ad41e;
+  border: 11px solid #ffffff;
   cursor: pointer;
   display: inline-block;
   width: 40px;

@@ -487,11 +487,13 @@ EditProductsView = (function(_super) {
     } else {
       $('#qty_per_servings0 option[value="' + qty[0].qty + '"]').prop("selected", true);
     }
-    return $.each(reminders, function(ind, val) {
-      var time;
-      time = moment(val.time + timezone, "HH:mm Z").format("h:ss A");
-      return $('#reminder_time' + ind).val(time);
-    });
+    if (parseInt(this.model.get('reminder_flag')) !== 0) {
+      return $.each(reminders, function(ind, val) {
+        var time;
+        time = moment(val.time + timezone, "HH:mm Z").format("h:ss A");
+        return $('#reminder_time' + ind).val(time);
+      });
+    }
   };
 
   return EditProductsView;

@@ -43,21 +43,29 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
-    var state;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
-    state = App.currentUser.get('state');
-    if (state === '/home') {
-      $('.measurements_update').removeClass('hidden');
-      $('#profile').parent().removeClass('done');
-      $('#profile').parent().addClass('selected');
-      $('#profile').parent().siblings().removeClass('selected');
-      return $('#profile').parent().nextAll().addClass('done');
+    if (!window.isWebView()) {
+      return $('#birth_date').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: new Date()
+      });
     }
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
+    App.trigger('cordova:hide:splash:screen');
     Backbone.Syphon.deserialize(this, this.model.toJSON());
+    if (!window.isWebView()) {
+      $('#birth_date').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: new Date()
+      });
+    }
     state = App.currentUser.get('state');
     if (state === '/home') {
       $('.measurements_update').removeClass('hidden');

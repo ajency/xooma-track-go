@@ -61,6 +61,7 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.onShow = function() {
     var date, state;
+    App.trigger('cordova:hide:splash:screen');
     $('#update').val(moment().format('YYYY-MM-DD'));
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({

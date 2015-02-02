@@ -14,6 +14,7 @@ document.addEventListener("deviceready", function() {
     }
   });
   App.onBeforeStart = function() {
+    console.log(App.currentUser);
     App.currentUser.set(userData);
     if (!App.currentUser.isLoggedIn()) {
       return App.currentUser.setNotLoggedInCapabilities();
@@ -30,11 +31,13 @@ document.addEventListener("deviceready", function() {
   });
   App.currentUser.on('user:logged:out', function() {
     return ParseCloud.deregister().done(function() {
+      var userData;
       CordovaStorage.clear();
-      return App.navigate('/login', {
+      App.navigate('/login', {
         replace: true,
         trigger: true
       });
+      return userData = {};
     });
   });
   App.state('settings', {
@@ -73,6 +76,9 @@ document.addEventListener("deviceready", function() {
     if (!App.currentUser.hasProfilePicture()) {
       return App.currentUser.getFacebookPicture();
     }
+  });
+  App.on('cordova:hide:splash:screen', function() {
+    return console.log("triggered");
   });
   return App.start();
 }, false);

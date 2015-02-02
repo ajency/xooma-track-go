@@ -448,9 +448,10 @@ class EditProductsView extends Marionette.ItemView
 
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
-		$.each reminders , (ind,val)->
-			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
-			$('#reminder_time'+ind).val time
+		if parseInt(@model.get('reminder_flag')) != 0
+			$.each reminders , (ind,val)->
+				time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+				$('#reminder_time'+ind).val time
 		
 			
 

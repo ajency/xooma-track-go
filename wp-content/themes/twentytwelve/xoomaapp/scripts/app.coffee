@@ -1,6 +1,6 @@
 #start of the Application
 document.addEventListener "deviceready", ->
-
+	
 	App.state 'login'
 
 		.state 'xooma',
@@ -17,21 +17,19 @@ document.addEventListener "deviceready", ->
 			
 
 	App.onBeforeStart = ->
+		console.log App.currentUser
 		App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
-	
 	App.currentUser.on 'user:auth:success', ->
 		# App.trigger 'fb:status:connected'
 		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
-
 		ParseCloud.register()
 		.done ->
 			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
-
 
 	App.currentUser.on 'user:logged:out', ->
 		#Device
@@ -39,6 +37,7 @@ document.addEventListener "deviceready", ->
 		.done ->
 			CordovaStorage.clear() 
 			App.navigate '/login', replace: true, trigger: true
+			userData = {}
 
 
 	App.state 'settings',
@@ -53,6 +52,8 @@ document.addEventListener "deviceready", ->
 						ctrl : 'HomeX2OCtrl'
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
+
+		
 				
 
 	App.addInitializer ->
@@ -68,16 +69,16 @@ document.addEventListener "deviceready", ->
 			else 
 				App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
-				
-
 
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
+	App.on 'cordova:hide:splash:screen', ->
+		console.log "triggered"
+
 
 	App.start()
 
 , false
-
 

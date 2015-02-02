@@ -100,6 +100,7 @@ class ProductChildView extends Marionette.ItemView
                             
 
 	onShow:->
+		App.trigger 'cordova:hide:splash:screen'
 		reminder = @model.get('reminder')
 		if reminder.length != 0
 			$('#bell'+@model.get('id')).removeClass 'fa-bell-slash no-remiander'
@@ -214,9 +215,13 @@ class UserProductListView extends Marionette.CompositeView
 			
 
 	_successHandler:(response, status, xhr)=>
+		console.log xhr.status
 		if xhr.status == 201
 			App.currentUser.set 'state' , '/home'
 			App.navigate '#/home' , true
+			listview = new XoomaAppRootView
+			region =  new Marionette.Region el : '#xoomaapptemplate'
+			region.show listview
 		else
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 			$('html, body').animate({
