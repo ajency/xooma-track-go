@@ -45,12 +45,6 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.onRender = function() {
     var state;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
-    $('#birth_date').datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeYear: true,
-      changeMonth: true,
-      maxDate: new Date()
-    });
     state = App.currentUser.get('state');
     if (state === '/home') {
       $('.measurements_update').removeClass('hidden');
@@ -64,21 +58,14 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
-    $('#birth_date').datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeYear: true,
-      changeMonth: true,
-      maxDate: new Date()
-    });
     state = App.currentUser.get('state');
     if (state === '/home') {
       $('.measurements_update').removeClass('hidden');
       $('#profile').parent().removeClass('done');
       $('#profile').parent().addClass('selected');
       $('#profile').parent().siblings().removeClass('selected');
-      $('#profile').parent().nextAll().addClass('done');
+      return $('#profile').parent().nextAll().addClass('done');
     }
-    return _.enableDeviceBackNavigation();
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {

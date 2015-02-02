@@ -13,30 +13,12 @@ _.mixin
 	isPlatformIOS : ->
 		if device.platform.toLowerCase() is "ios" then true else false
 
+	
+	isWebView : ->
+		!(!window.cordova && !window.PhoneGap && !window.phonegap)
 
+	
 	hideSplashscreen : ->
 		setTimeout ->
 			navigator.splashscreen.hide()
 		, 500
-
-
-	enableDeviceBackNavigation : ->
-
-		onDeviceBackClick = ->
-			currentRoute = App.getCurrentRoute()
-			console.log 'Fired cordova back button event for '+currentRoute
-
-			if currentRoute is 'login' or currentRoute is 'profile/personal-info'
-				navigator.app.exitApp() if navigator.app
-			else 
-				Backbone.history.history.back()
-
-			document.removeEventListener "backbutton", onDeviceBackClick, false
-
-
-		navigator.app.overrideBackbutton(true) if navigator.app
-		document.addEventListener "backbutton", onDeviceBackClick, false
-
-
-	disableDeviceBackNavigation : ->
-		navigator.app.overrideBackbutton(false) if navigator.app

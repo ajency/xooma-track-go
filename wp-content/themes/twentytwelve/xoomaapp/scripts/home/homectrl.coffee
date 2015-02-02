@@ -104,6 +104,9 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	hiddenName: true
 		# 	)
 
+		#Device
+		_.hideSplashscreen()
+
 	generateBMIGraph:(response)->
 		dates = [response['st_date'],response['et_date']]
 

@@ -120,7 +120,8 @@ HomeLayoutView = (function(_super) {
         scrollTop: 0
       }, 'slow');
     }
-    return this.generateGraph();
+    this.generateGraph();
+    return _.hideSplashscreen();
   };
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {

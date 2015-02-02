@@ -6697,7 +6697,7 @@ div#mcttCloseButton {
   width: 14px;
   height: 14px;
   position: absolute;
-  background-image: url(../../images/closeBtn.gif);
+  background-image: url(../images/closeBtn.gif);
   cursor: pointer;
   overflow: hidden;
   top: 12px;

@@ -98,9 +98,8 @@ ProfileMeasurementsView = (function(_super) {
       $('#measurement').parent().addClass('selected');
       $('#measurement').parent().siblings().removeClass('selected');
       $('#measurement').parent().prevAll().addClass('done');
-      $('#measurement').parent().nextAll().addClass('done');
+      return $('#measurement').parent().nextAll().addClass('done');
     }
-    return this.cordovaDeviceEvents();
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
@@ -142,19 +141,6 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.valueOutput = function(element) {
     return $(element).parent().find("output").html($(element).val());
-  };
-
-  ProfileMeasurementsView.prototype.cordovaDeviceEvents = function() {
-    var onDeviceEvent;
-    onDeviceEvent = function() {
-      Backbone.history.history.back();
-      return document.removeEventListener("backbutton", onDeviceEvent, false);
-    };
-    if (navigator.app) {
-      navigator.app.overrideBackbutton(true);
-    }
-    document.addEventListener("backbutton", onDeviceEvent, false);
-    return document.addEventListener("pause", onDeviceEvent, false);
   };
 
   return ProfileMeasurementsView;

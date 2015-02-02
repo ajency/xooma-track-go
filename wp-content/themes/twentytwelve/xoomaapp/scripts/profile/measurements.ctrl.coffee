@@ -70,10 +70,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			$('#measurement').parent().siblings().removeClass 'selected'
 			$('#measurement').parent().prevAll().addClass 'done'
 			$('#measurement').parent().nextAll().addClass 'done'
-
-
-		#Device
-		@cordovaDeviceEvents()
 		
 		
 		
@@ -115,20 +111,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	valueOutput : (element) =>
 		$(element).parent().find("output").html $(element).val()
-
-
-	cordovaDeviceEvents : ->
-
-		onDeviceEvent = ->
-			Backbone.history.history.back()
-			document.removeEventListener "backbutton", onDeviceEvent, false
-
-		# Cordova backbutton event
-		navigator.app.overrideBackbutton(true) if navigator.app
-		document.addEventListener "backbutton", onDeviceEvent, false
-
-		# Cordova pause event
-		document.addEventListener "pause", onDeviceEvent, false
 
 
 class App.UserMeasurementCtrl extends Ajency.RegionController

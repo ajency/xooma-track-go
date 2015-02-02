@@ -22,13 +22,19 @@ document.addEventListener("deviceready", function() {
   App.currentUser.on('user:auth:success', function() {
     CordovaStorage.setUserData(App.currentUser.toJSON());
     return ParseCloud.register().done(function() {
-      return App.navigate('#' + App.currentUser.get('state'), true);
+      return App.navigate('#' + App.currentUser.get('state'), {
+        replace: true,
+        trigger: true
+      });
     });
   });
   App.currentUser.on('user:logged:out', function() {
     return ParseCloud.deregister().done(function() {
       CordovaStorage.clear();
-      return App.navigate('/login', true);
+      return App.navigate('/login', {
+        replace: true,
+        trigger: true
+      });
     });
   });
   App.state('settings', {
@@ -48,16 +54,20 @@ document.addEventListener("deviceready", function() {
   });
   App.addInitializer(function() {
     Backbone.history.start();
-    Push.register().done(function() {
-      console.log('register_GCM_APNS success');
+    return Push.register().done(function() {
       if (!App.currentUser.isLoggedIn()) {
-        App.navigate('/login', true);
+        App.navigate('/login', {
+          replace: true,
+          trigger: true
+        });
+        return _.hideSplashscreen();
       } else {
-        console.log('USER LOGGED IN');
+        return App.navigate('#' + App.currentUser.get('state'), {
+          replace: true,
+          trigger: true
+        });
       }
-      return _.hideSplashscreen();
     });
-    return _.enableDeviceBackNavigation();
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {

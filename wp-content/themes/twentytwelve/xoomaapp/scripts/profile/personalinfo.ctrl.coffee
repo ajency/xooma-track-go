@@ -22,15 +22,15 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 	onRender:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
-		$('#birth_date').datepicker({
-		    dateFormat : 'yy-mm-dd'
-		    changeYear: true,
-		    changeMonth: true,
-		    maxDate: new Date()
+		# $('#birth_date').datepicker({
+		#     dateFormat : 'yy-mm-dd'
+		#     changeYear: true,
+		#     changeMonth: true,
+		#     maxDate: new Date()
 			     
 			   
 		    
-		});
+		# });
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'
@@ -43,15 +43,15 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	onShow:->
 		Backbone.Syphon.deserialize @, @model.toJSON()
-		$('#birth_date').datepicker({
-		    dateFormat : 'yy-mm-dd'
-		    changeYear: true,
-		    changeMonth: true,
-		    maxDate: new Date()
+		# $('#birth_date').datepicker({
+		#     dateFormat : 'yy-mm-dd'
+		#     changeYear: true,
+		#     changeMonth: true,
+		#     maxDate: new Date()
 			     
 			   
 		    
-		});
+		# });
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'
@@ -59,10 +59,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('#profile').parent().addClass 'selected'
 			$('#profile').parent().siblings().removeClass 'selected'
 			$('#profile').parent().nextAll().addClass 'done'
-
-
-		#Device
-		_.enableDeviceBackNavigation()
 
 
 		

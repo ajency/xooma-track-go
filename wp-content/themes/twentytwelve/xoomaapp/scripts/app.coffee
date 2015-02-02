@@ -30,7 +30,7 @@ document.addEventListener "deviceready", ->
 
 		ParseCloud.register()
 		.done ->
-			App.navigate '#'+App.currentUser.get('state'), true
+			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
 
 	App.currentUser.on 'user:logged:out', ->
@@ -38,7 +38,7 @@ document.addEventListener "deviceready", ->
 		ParseCloud.deregister()
 		.done ->
 			CordovaStorage.clear() 
-			App.navigate '/login', true
+			App.navigate '/login', replace: true, trigger: true
 
 
 	App.state 'settings',
@@ -61,16 +61,14 @@ document.addEventListener "deviceready", ->
 		#Device
 		Push.register()
 		.done ->
-			console.log 'register_GCM_APNS success'
 
 			if not App.currentUser.isLoggedIn()
-				App.navigate '/login', true
+				App.navigate '/login', replace: true, trigger: true
+				_.hideSplashscreen()
 			else 
-				console.log 'USER LOGGED IN'
+				App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
-			_.hideSplashscreen()
-		
-		_.enableDeviceBackNavigation()
+				
 
 
 	App.on 'fb:status:connected', ->
