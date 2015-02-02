@@ -679,10 +679,11 @@
 					<p class="form-control-static"><b>{{x2o}}</b></p>
 				</div>
 				 </div>
+				 <div class="form-group">
 					<h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
 					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
 		  <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
-
+  </div>
 		   </div>
 			  
 			  <div class="anytime">
@@ -812,7 +813,7 @@
 	  </div>
   </div>
   </div>
-<div class="form-group first-grp">
+<div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Set remainder</label>
 	<div class="col-sm-6 col-xs-7 ">
 	 <div class="btn-group" role="group" aria-label="...">
@@ -1086,7 +1087,8 @@
 <div class="container">	
 <div class="aj-response-message"></div>
   <div class="row">
-		
+  <br>
+		<small class="text-center center-block">Swipe down the bottle to consume</small>	
  <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
 		<div class="row">
 			
@@ -1129,7 +1131,7 @@
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
-              	<button class="reset-progress btn btn-success  " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+              	<button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
 			</div>
 			<div class="col-sm-5"></div>
 		</div>
