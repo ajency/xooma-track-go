@@ -1,6 +1,6 @@
 #start of the Application
 jQuery(document).ready ($)->
-
+	
 	App.state 'login'
 
 		.state 'xooma',

@@ -1,5 +1,5 @@
 App.state 'Schedule',
-					url : '/products/:id/consume'
+					url : '/products/:id/consume/:date'
 					parent : 'xooma'
 
 class ScheduleView extends Marionette.ItemView
@@ -154,16 +154,16 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		@show @parent().getLLoadingView()
-		productId  = @getParams()
-		product = parseInt productId[0]
+		console.log productId  = @getParams()
+		product = 3
+		date = '2015-02-02'
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:parseInt(productId[0])})
-		@_showView(productModel[0])
+		productModel = productsColl.where({id:parseInt(product)})
+		@_showView(productModel[0],date)
 
 
 	successHandler:(response,status,xhr)=>

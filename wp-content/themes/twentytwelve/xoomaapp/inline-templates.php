@@ -488,7 +488,7 @@
 </script>
 
 <script id="home-template" type="text/template">
-		<div class="container"> </br>
+		<div class="container" id="homeregion"> </br>
 		<div class="aj-response-message"> </div>
 	 <div class="row">
 			<div class="col-md-2"> 

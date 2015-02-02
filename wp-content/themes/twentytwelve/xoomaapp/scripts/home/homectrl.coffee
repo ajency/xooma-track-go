@@ -166,18 +166,23 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-
-		if App.useProductColl.length == 0
+		console.log state = App.currentUser.get 'state'
+		if App.useProductColl.length == 0 && state == '/home'
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
-			@show new HomeLayoutView
+			if state != '/home'
+				new workflow
+			else
+
+
+				@show new HomeLayoutView
 
 	_showView:(collection)=>
 		@show @parent().getLLoadingView()
 		response = collection.response
 		App.useProductColl.reset response
 		
-
+		state = App.currentUser.get 'state'
 		@show new HomeLayoutView
 
 	errorHandler:=>
@@ -432,20 +437,7 @@ class ProductChildView extends Marionette.ItemView
 	ui :
 		anytime     : '.anytime'
 
-	events :
-		'click #original':(e)->
-			e.preventDefault()
-			$('#meta_id'+@model.get('id')).val 0
-			meta_id = $('#meta_id'+@model.get('id')).val()
-			qty = $('#qty'+@model.get('id')).val()
-			product = @model.get('id')
-			date = moment().format('YYYY-MM-DD')
-			$.ajax
-					method : 'POST'
-					data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
-					url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
-					success: @saveHandler
-					error :@erroraHandler
+	
 
 	saveHandler:(response,status,xhr)=>
 		@model.set 'occurrence' , response.occurrence
@@ -512,13 +504,16 @@ class ProductChildView extends Marionette.ItemView
 		time = ""
 		tempcnt = 0
 		increment = parseInt(key) + 1
+		product = model.get('id')
+		date = moment().format('YYYY-MM-DD')
+			
 		if parseInt(reminders.length) != 0
 			classname = ''
 			time = reminders[key].time
 
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
-			html += '<li><a href="#" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
+			html += '<li><a href="#/products/'+product+'/consume/'+date+'" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
 					<h6 class="text-center margin-none">Tap to take </h6>
 					<h6 class="text-center text-primary '+classname+'">'+time+'</h6></li>'
 		else

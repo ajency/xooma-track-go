@@ -1640,7 +1640,10 @@ function get_user_measurement_date($id){
 
    $sql_query = $wpdb->get_row( "SELECT * FROM $measurements_table where user_id=".$id." order by DATE(`date`) ASC LIMIT 1" );
 
-   return $sql_query->date;
+   if(!is_string($sql_query))
+   	return $sql_query->date;
+  else
+  	return false;
 }
 
 function generate_bmi($start_date,$end_date,$id,$param){

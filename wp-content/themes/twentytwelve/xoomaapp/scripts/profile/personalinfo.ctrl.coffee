@@ -31,13 +31,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			   
 		    
 		});
-		state = App.currentUser.get 'state'
-		if state == '/home'
-			$('.measurements_update').removeClass 'hidden'
-			$('#profile').parent().removeClass 'done'
-			$('#profile').parent().addClass 'selected'
-			$('#profile').parent().siblings().removeClass 'selected'
-			$('#profile').parent().nextAll().addClass 'done'
 
 
 

@@ -5,7 +5,7 @@ var ScheduleView,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 App.state('Schedule', {
-  url: '/products/:id/consume',
+  url: '/products/:id/consume/:date',
   parent: 'xooma'
 });
 
@@ -183,22 +183,22 @@ App.ScheduleCtrl = (function(_super) {
   }
 
   ScheduleCtrl.prototype.initialize = function(options) {
-    var product, productId, productModel, products, productsColl;
+    var date, product, productId, productModel, products, productsColl;
     if (options == null) {
       options = {};
     }
-    this.show(this.parent().getLLoadingView());
-    productId = this.getParams();
-    product = parseInt(productId[0]);
+    console.log(productId = this.getParams());
+    product = 3;
+    date = '2015-02-02';
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
     });
     productsColl = new Backbone.Collection(products);
     productModel = productsColl.where({
-      id: parseInt(productId[0])
+      id: parseInt(product)
     });
-    return this._showView(productModel[0]);
+    return this._showView(productModel[0], date);
   };
 
   ScheduleCtrl.prototype.successHandler = function(response, status, xhr) {
