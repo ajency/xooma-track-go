@@ -1,5 +1,4 @@
 class XoomaAppRootView extends Marionette.LayoutView
-	className : 'animated fadeIn'
 	template : '#xooma-app-template'
 	ui :
 		ul : '.list-inline'
@@ -20,7 +19,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
 	
-	onShow : ->
+	onShow:->
 		state = App.currentUser.get 'state'
 		if state != '/home'
 			@ui.link.hide()

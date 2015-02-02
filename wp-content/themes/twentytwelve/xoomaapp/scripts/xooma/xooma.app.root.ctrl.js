@@ -10,8 +10,6 @@ XoomaAppRootView = (function(_super) {
     return XoomaAppRootView.__super__.constructor.apply(this, arguments);
   }
 
-  XoomaAppRootView.prototype.className = 'animated fadeIn';
-
   XoomaAppRootView.prototype.template = '#xooma-app-template';
 
   XoomaAppRootView.prototype.ui = {
