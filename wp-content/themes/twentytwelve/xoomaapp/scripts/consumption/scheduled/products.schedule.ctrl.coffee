@@ -59,7 +59,7 @@ class ScheduleView extends Marionette.ItemView
 				data = $('#schduleid').val()
 				product = @model.get('id')
 				date = $('#date').val()
-				console.log t = @ui.consume_time.val()
+				console.log t = $('#consume_time').val()
 				console.log time  = moment(t).format("HH:mm:ss")
 				$.ajax
 						method : 'POST'

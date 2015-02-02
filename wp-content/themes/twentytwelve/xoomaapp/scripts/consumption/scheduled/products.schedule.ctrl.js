@@ -79,7 +79,7 @@ ScheduleView = (function(_super) {
       data = $('#schduleid').val();
       product = this.model.get('id');
       date = $('#date').val();
-      console.log(t = this.ui.consume_time.val());
+      console.log(t = $('#consume_time').val());
       console.log(time = moment(t).format("HH:mm:ss"));
       return $.ajax({
         method: 'POST',
