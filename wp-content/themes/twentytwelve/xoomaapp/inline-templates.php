@@ -961,12 +961,12 @@
 						  </div>			 
 	</div>-->			
 
-				<div class="form-group">
+				<div class="">
 					<div class="col-sm-12 pull-right">
 					<input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
 						  <input type="hidden" name="total" value="{{total}}" / >
 						  
-					  <button type="submit" class="btn btn-primary aj-submit-button save" name="save"><i class="fa fa-check"></i> Save</button>
+					  <button type="submit" class="btn btn-primary aj-submit-button save pull-right" name="save"><i class="fa fa-check"></i> Save</button>
 					  <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
 
 					</div>
