@@ -25,8 +25,15 @@ class HomeLayoutView extends Marionette.LayoutView
 		history 	: '.history'
 		update 	: '.update'
 		responseMessage : '.aj-response-message'
+		param 			: '#param'
 
 	events:
+		'change @ui.param':(e)->
+			if $(e.target).val() == 'bmi'
+				@ui.time_period.hide()
+			else 
+				@ui.time_period.show()
+
 		'click @ui.history':(e)->
 			e.preventDefault()
 			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true

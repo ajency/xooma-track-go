@@ -82,6 +82,8 @@ EditProductsView = (function(_super) {
       if (sub === "") {
         sub = 0;
       }
+      console.log($('#available').val());
+      console.log(sub);
       if (parseInt($('#available').val()) > parseInt(sub)) {
         data = this.ui.form.serialize();
         product = this.model.get('id');

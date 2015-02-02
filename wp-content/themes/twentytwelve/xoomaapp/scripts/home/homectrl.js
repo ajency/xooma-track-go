@@ -44,10 +44,18 @@ HomeLayoutView = (function(_super) {
     param: 'input[name="param"]',
     history: '.history',
     update: '.update',
-    responseMessage: '.aj-response-message'
+    responseMessage: '.aj-response-message',
+    param: '#param'
   };
 
   HomeLayoutView.prototype.events = {
+    'change @ui.param': function(e) {
+      if ($(e.target).val() === 'bmi') {
+        return this.ui.time_period.hide();
+      } else {
+        return this.ui.time_period.show();
+      }
+    },
     'click @ui.history': function(e) {
       e.preventDefault();
       return App.navigate('#/measurements/' + App.currentUser.get('ID') + '/history', true);

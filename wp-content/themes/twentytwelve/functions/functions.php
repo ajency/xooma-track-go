@@ -371,7 +371,7 @@ function update_anytime_product_details($id,$pid,$data){
 					'time_set'  => $data['servings_per_day']
 
 					);
-				store_add_schedule($schedule);
+				update_schedule($schedule);
 
 			//store schedule
 	}
@@ -630,7 +630,7 @@ function update_schedule_product_details($id,$pid,$data){
 					'time_set'  => $data['servings_per_day']
 
 					);
-				store_add_schedule($schedule);
+				update_schedule($schedule);
 
 			//store schedule
 			 
@@ -960,6 +960,11 @@ function store_reminders($main_id,$servings,$reminder){
 						
 						$id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
+						$schedule = \ajency\ScheduleReminder\Schedule::get($id);
+
+						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+
+		return  $id;
 					 
 
 }
@@ -1058,7 +1063,7 @@ function store_add_schedule($args){
 
 
 
-			update_schedule($args['main_id']);
+			
 
 
 				date_default_timezone_set("UTC");
@@ -1074,10 +1079,18 @@ function store_add_schedule($args){
 				
 				$id = \ajency\ScheduleReminder\Schedule::add($schedule_data);
 
+				$schedule = \ajency\ScheduleReminder\Schedule::get($id);
+				
+				$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+
+	return $id;
+
 				
 
 }
-function update_schedule($main_id){
+function update_schedule($args){
+
+	$main_id = $args['main_id'];
 
 	global $wpdb;
 
@@ -1092,7 +1105,9 @@ function update_schedule($main_id){
 	if( $sqlquery)
 	$query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
 
+	$id = store_add_schedule($args);
 
+	return $id;
 
 }
 function get_stock_count_user($id,$product_id){
@@ -1112,12 +1127,15 @@ function get_stock_count_user($id,$product_id){
 		$del = $wpdb->get_row("SELECT sum(amount) as del from  $transactions where object_id=".$object_id
 			." and type='remove'");
 
+		$conume = $wpdb->get_row("SELECT sum(amount) as conume from  $transactions where object_id=".$object_id
+			." and type='consumption'");
+
 
 
 		$amt = $stock->stock == null ? 0 : $stock->stock;
 		$remove = $del->del == null ? 0 : $del->del;
-
-		$stock_count  = intval($amt) - intval($remove);
+		$conume = $conume->conume == null ? 0 : $conume->conume;
+		$stock_count  = intval($amt) - intval($remove) - intval($conume);
 
 		return $stock_count;
 
@@ -1710,3 +1728,138 @@ function store_emails($id,$emails)
 	}
 
 }
+
+
+function cron_job_reminders($args)
+{
+
+
+	global $wpdb;
+
+	$args = 5;
+	$table = $wpdb->prefix . "product_main";
+
+	$object_type = 'user_product_reminder';
+
+	
+
+	$last_cron = get_option( 'last_cron_job', strtotime(date('Y-m-d H:i:s') ));
+
+
+
+	$start_dt = date('Y-m-d H:i:s', $last_cron);
+
+
+	$current_date = strtotime($start_dt);
+
+	$nextdate = $current_date+(60*$args);
+
+	$end_date = date('Y-m-d H:i:s',$nextdate);
+	
+
+	$occurrences = \ajency\ScheduleReminder\Occurrence::
+					get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id = 0);
+
+	$stock = get_stock_count_user($user->user_id,$user->product_id);
+
+	$push_array = array();
+
+	foreach ($occurrences as $key => $value) {
+
+		$next_occurrence = strtotime($value['next_occurrence']);
+
+		if($next_occurrence < $current_date)
+		{
+			update_occurrence($value);
+		}
+		else if(intval($stock) != 0 && $next_occurrence > $current_date)
+		{
+			$user = $wpdb->get_row("SELECT * from $table where id=".$value['object_id']);
+
+			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
+
+			//build push array 
+
+			$push_array[] = array(
+
+					'user_id' => $user->user_id,
+					'message' => $msg
+				);
+
+			
+			
+		}
+		
+
+	}
+
+	//function call
+	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
+
+}
+
+
+function update_occurrence($schedule){
+
+
+		$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+
+ }
+ 	
+	
+send_message(189,3,'reminder',$time=0);
+
+function send_message($user_id,$product_id,$type,$time=0)
+{
+
+	switch($type){
+
+		case 'reminder':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/reminder.txt';
+		break;
+
+		case 'stock_low':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_low.txt';
+		break;
+
+	}
+
+	$file = file($path);
+
+	
+	$temp = "";
+
+	$msg = "";
+
+	foreach ($file as $key => $value) {
+
+		$arr = array();
+		
+		$temp = explode('=>', $value);
+
+
+		array_push($arr, $temp[0]);
+		array_push($arr, $temp[1]);
+
+		
+
+		if(in_array($product_id, $arr))
+		{
+			$msg = $arr[1];
+			break;
+		}
+
+		
+
+		
+		
+	}
+
+	
+	
+	return $msg;
+	
+	
+}
+
+

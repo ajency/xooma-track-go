@@ -62,6 +62,8 @@ class EditProductsView extends Marionette.ItemView
 			sub = @ui.subtract.val()
 			if sub == ""
 				sub = 0
+			console.log $('#available').val()
+			console.log sub
 			if parseInt($('#available').val()) >  parseInt(sub) 
 				data = @ui.form.serialize()
 				product = @model.get('id')

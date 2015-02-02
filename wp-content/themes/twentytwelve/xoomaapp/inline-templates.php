@@ -518,7 +518,7 @@
 
 						  <div class="m-t-30">
 							<label for="exampleInputFile">Select</label>
-							<select class="form-control" aj-field-required="true" name="param">
+							<select class="form-control" aj-field-required="true" id="param" name="param">
 							  <option value="weight">Weight</option>
 							  <option value="neck">Neck</option>
 							  <option value="chest">Chest</option>
@@ -538,7 +538,7 @@
 								<input type="hidden"  id="end_date" name="end_date">
 						
 						
-						   <label for="exampleInputFile">Select</label>
+						   <label for="exampleInputFile " class="time_period">Select</label>
 								<select class="form-control time_period ">
 								  <option value="">--Select--</option>
 								  <option value="7">Last 7 days</option>
