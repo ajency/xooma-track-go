@@ -732,8 +732,8 @@
   <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
 	<div class="col-sm-6 col-xs-6 ">
 	 <div class="btn-group" role="group" aria-label="...">
-	  <button type="button" data-time="Once" class="btn btn-default schedule {{once}}">  Once</button>
-	  <button type="button" data-time="Twice" class="btn btn-default schedule {{twice}}"> Twice</button>
+	  <button type="button" data-time="Once"  class="btn schedule {{once}}">  Once</button>
+	  <button type="button" data-time="Twice"   class="btn schedule {{twice}}"> Twice</button>
 	  
 	</div>
 	</div>

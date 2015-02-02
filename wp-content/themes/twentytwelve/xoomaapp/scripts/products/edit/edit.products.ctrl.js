@@ -302,18 +302,18 @@ EditProductsView = (function(_super) {
       data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
-    if (parseInt(frequecy) === 1) {
+    if (this.model.get('time_set') === 'Once') {
       data.anytime = '';
       data.schedule = 'disabled';
-      data.anytimeclass = 'btn-primary';
+      data.once = 'btn-primary';
       data.scheduleclass = '';
     } else {
       data.anytime = 'disabled';
       data.schedule = '';
       data.anytimeclass = '';
-      data.scheduleclass = 'btn-primary';
-      reminder_flag = this.model.get('reminder_flag');
+      data.twice = 'btn-primary';
     }
+    reminder_flag = this.model.get('reminder_flag');
     if (reminder_flag === void 0 || parseInt(reminder_flag) === 0 || reminder_flag === 'true') {
       data["default"] = 'btn-success';
       data.success = '';
@@ -446,14 +446,18 @@ EditProductsView = (function(_super) {
     $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
     $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
     time = moment(reminders[0].time + timezone, "HH:mm Z").format("h:ss A");
-    $('#reminder_time0').val(time);
+    if (parseInt(this.model.get('reminder_flag')) !== 0) {
+      $('#reminder_time0').val(time);
+    }
     if (this.model.get('time_set') === 'Once') {
       return $('.second').hide();
     } else {
       $('.qty1 option[value="' + qty[1].qty + '"]').prop("selected", true);
       $('.when1 option[value="' + qty[1].when + '"]').prop("selected", true);
       time = moment(reminders[1].time + timezone, "HH:mm Z").format("h:ss A");
-      return $('#reminder_time1').val(time);
+      if (parseInt(this.model.get('reminder_flag')) !== 0) {
+        return $('#reminder_time1').val(time);
+      }
     }
   };
 

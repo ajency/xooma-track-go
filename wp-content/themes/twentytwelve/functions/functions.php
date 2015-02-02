@@ -1736,7 +1736,7 @@ function cron_job_reminders($args)
 
 	global $wpdb;
 
-	$args = 5;
+	$args = 30;
 	$table = $wpdb->prefix . "product_main";
 
 	$object_type = 'user_product_reminder';
@@ -1752,7 +1752,7 @@ function cron_job_reminders($args)
 
 	$current_date = strtotime($start_dt);
 
-	$nextdate = $current_date+(60*$args);
+	$nextdate = $current_date+(60*300);
 
 	$end_date = date('Y-m-d H:i:s',$nextdate);
 	
@@ -1760,9 +1760,8 @@ function cron_job_reminders($args)
 	$occurrences = \ajency\ScheduleReminder\Occurrence::
 					get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id = 0);
 
-	$stock = get_stock_count_user($user->user_id,$user->product_id);
-
-	$push_array = array();
+	
+	$usersToBeNotified = array();
 
 	foreach ($occurrences as $key => $value) {
 
@@ -1772,28 +1771,47 @@ function cron_job_reminders($args)
 		{
 			update_occurrence($value);
 		}
-		else if(intval($stock) != 0 && $next_occurrence > $current_date)
+		else if( $next_occurrence > $current_date)
 		{
 			$user = $wpdb->get_row("SELECT * from $table where id=".$value['object_id']);
 
+			$stock = get_stock_count_user($user->user_id,$user->product_id);
+
+			$product_name = get_products($user->product_id);
 			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 
 			//build push array 
+			if (intval($stock) != 0)
+			{
+				$usersToBeNotified[] = array(
 
-			$push_array[] = array(
+						'ID' => $user->user_id,
+						'message' => $msg,
+						'product' => $product_name[0]['name']
+					);
 
-					'user_id' => $user->user_id,
-					'message' => $msg
-				);
-
-			
+			}
 			
 		}
 		
 
 	}
 
+	
 	//function call
+	//parse
+		// use Parse\ParseClient;
+		 
+		// ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
+
+
+		// use Parse\ParseCloud;
+
+		
+		// $result = ParseCloud::run('sendPushByUserId', $usersToBeNotified);
+
+
+	//parse
 	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
 
 }
@@ -1807,7 +1825,7 @@ function update_occurrence($schedule){
  }
  	
 	
-send_message(189,3,'reminder',$time=0);
+
 
 function send_message($user_id,$product_id,$type,$time=0)
 {

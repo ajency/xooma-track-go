@@ -195,7 +195,7 @@ class HomeX2OView extends Marionette.ItemView
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h5 class="bold margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+				<h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
@@ -382,7 +382,7 @@ class ProductChildView extends Marionette.ItemView
 	className : 'panel panel-default'
 
 	template  : '<div class="panel-body">
-			<h5 class="bold margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+			<h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
