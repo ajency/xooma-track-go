@@ -81,6 +81,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.onShow = function() {
     var product, products, reminder;
+    App.trigger('cordova:hide:splash:screen');
     reminder = this.model.get('reminder');
     if (reminder.length !== 0) {
       $('#bell' + this.model.get('id')).removeClass('fa-bell-slash no-remiander');
@@ -231,9 +232,16 @@ UserProductListView = (function(_super) {
   };
 
   UserProductListView.prototype._successHandler = function(response, status, xhr) {
+    var listview, region;
+    console.log(xhr.status);
     if (xhr.status === 201) {
       App.currentUser.set('state', '/home');
-      return App.navigate('#/home', true);
+      App.navigate('#/home', true);
+      listview = new XoomaAppRootView;
+      region = new Marionette.Region({
+        el: '#xoomaapptemplate'
+      });
+      return region.show(listview);
     } else {
       this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
       return $('html, body').animate({

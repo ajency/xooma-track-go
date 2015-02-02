@@ -1,5 +1,5 @@
 App.state 'Schedule',
-					url : '/products/:id/consume'
+					url : '/products/:id/consume/:date'
 					parent : 'xooma'
 
 class ScheduleView extends Marionette.ItemView
@@ -15,8 +15,11 @@ class ScheduleView extends Marionette.ItemView
 		original : '.original'
 		responseMessage : '.aj-response-message'
 		cancel  : '.cancel'
+		rangeSliders : '[data-rangeslider]'
 
 	events:
+		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+
 		'click @ui.servings':(e)->
 			e.preventDefault()
 			meta_id  = $(e.target).parent().attr 'data-value'
@@ -89,8 +92,14 @@ class ScheduleView extends Marionette.ItemView
 		$('#mydataModal').addClass "hidden"
 		$('#xoomaproduct').html(listview.render().el)
 
+	onShow:->
+		console.log @model
+		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
+		@ui.rangeSliders.rangeslider polyfill: false
 
 
+	valueOutput : (element) =>
+		$(element).parent().find("output").html $(element).val()
 
 
 	serializeData:->
@@ -101,6 +110,7 @@ class ScheduleView extends Marionette.ItemView
 		occurr = @model.get('occurrence')
 		product_type = @model.get('product_type')
 		product_type = product_type.toLowerCase()
+		data.classname = product_type+'_default_class'
 		no_servings  = []
 		temp = []
 		bonus = parseInt(@model.get('occurrence').length) - parseInt(qty.length)
@@ -154,16 +164,16 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		@show @parent().getLLoadingView()
-		productId  = @getParams()
-		product = parseInt productId[0]
+		console.log productId  = @getParams()
+		product = 3
+		date = '2015-02-02'
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:parseInt(productId[0])})
-		@_showView(productModel[0])
+		productModel = productsColl.where({id:parseInt(product)})
+		@_showView(productModel[0],date)
 
 
 	successHandler:(response,status,xhr)=>
@@ -171,6 +181,7 @@ class App.ScheduleCtrl extends Ajency.RegionController
 		@_showView(model)
 		
 
-	_showView:(productModel)->
+	_showView:(productModel,date)->
 		@show new ScheduleView
 					model : productModel
+					date : date

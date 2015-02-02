@@ -10,13 +10,12 @@ XoomaAppRootView = (function(_super) {
     return XoomaAppRootView.__super__.constructor.apply(this, arguments);
   }
 
-  XoomaAppRootView.prototype.className = 'animated fadeIn';
-
   XoomaAppRootView.prototype.template = '#xooma-app-template';
 
   XoomaAppRootView.prototype.ui = {
     ul: '.list-inline',
-    link: '.link'
+    link: '.link',
+    logolink: '.logo_link'
   };
 
   XoomaAppRootView.prototype.behaviors = {
@@ -28,6 +27,12 @@ XoomaAppRootView = (function(_super) {
   XoomaAppRootView.prototype.events = {
     'click a.linkhref': function(e) {
       return e.preventDefault();
+    },
+    'click @ui.logolink': function(e) {
+      var computed_url;
+      e.preventDefault();
+      computed_url = '#' + window.location.hash.split('#')[1];
+      return App.navigate(computed_url, true);
     }
   };
 

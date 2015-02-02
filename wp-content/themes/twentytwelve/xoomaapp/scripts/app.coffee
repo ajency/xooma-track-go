@@ -1,6 +1,6 @@
 #start of the Application
 jQuery(document).ready ($)->
-
+	
 	App.state 'login'
 
 		.state 'xooma',
@@ -17,6 +17,7 @@ jQuery(document).ready ($)->
 			
 
 	App.onBeforeStart = ->
+		console.log App.currentUser
 		App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
@@ -27,6 +28,8 @@ jQuery(document).ready ($)->
 
 	App.currentUser.on 'user:logged:out', ->
 		App.navigate '/login', true
+		userData = {}
+
 
 	App.state 'settings',
 				url : '/settings'
@@ -52,7 +55,9 @@ jQuery(document).ready ($)->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
-	
+	App.on 'cordova:hide:splash:screen', ->
+		console.log "triggered"
+
 
 	App.start()
 

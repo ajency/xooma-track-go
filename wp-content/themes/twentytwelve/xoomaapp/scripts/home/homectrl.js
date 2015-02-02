@@ -115,6 +115,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
+    App.trigger('cordova:hide:splash:screen');
     if (parseInt(App.useProductColl.length) === 0) {
       this.ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!");
       $('html, body').animate({
@@ -193,18 +194,25 @@ App.HomeCtrl = (function(_super) {
   }
 
   HomeCtrl.prototype.initialize = function() {
-    if (App.useProductColl.length === 0) {
+    var state;
+    console.log(state = App.currentUser.get('state'));
+    if (App.useProductColl.length === 0 && state === '/home') {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     } else {
-      return this.show(new HomeLayoutView);
+      if (state !== '/home') {
+        return new workflow;
+      } else {
+        return this.show(new HomeLayoutView);
+      }
     }
   };
 
   HomeCtrl.prototype._showView = function(collection) {
-    var response;
+    var response, state;
     this.show(this.parent().getLLoadingView());
     response = collection.response;
     App.useProductColl.reset(response);
+    state = App.currentUser.get('state');
     return this.show(new HomeLayoutView);
   };
 
@@ -417,25 +425,6 @@ ProductChildView = (function(_super) {
     anytime: '.anytime'
   };
 
-  ProductChildView.prototype.events = {
-    'click #original': function(e) {
-      var date, meta_id, product, qty;
-      e.preventDefault();
-      $('#meta_id' + this.model.get('id')).val(0);
-      meta_id = $('#meta_id' + this.model.get('id')).val();
-      qty = $('#qty' + this.model.get('id')).val();
-      product = this.model.get('id');
-      date = moment().format('YYYY-MM-DD');
-      return $.ajax({
-        method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
-        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
-        success: this.saveHandler,
-        error: this.erroraHandler
-      });
-    }
-  };
-
   ProductChildView.prototype.saveHandler = function(response, status, xhr) {
     var home, model, productcollection, region;
     this.model.set('occurrence', response.occurrence);
@@ -504,7 +493,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, html, i, increment, meta_id, newClass, product_type, qty, reminders, schedule_id, temp, tempcnt, time;
+    var classname, date, html, i, increment, meta_id, newClass, product, product_type, qty, reminders, schedule_id, temp, tempcnt, time;
     temp = [];
     i = 0;
     html = "";
@@ -516,13 +505,15 @@ ProductChildView = (function(_super) {
     time = "";
     tempcnt = 0;
     increment = parseInt(key) + 1;
+    product = model.get('id');
+    date = moment().format('YYYY-MM-DD');
     if (parseInt(reminders.length) !== 0) {
       classname = '';
       time = reminders[key].time;
     }
     newClass = product_type + '_expected_class';
     if (parseInt(count) === 0) {
-      html += '<li><a href="#" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
+      html += '<li><a href="#/products/' + product + '/consume/' + date + '" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
     } else {
       html += '<li><a > <h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3> </a>';
       html += '<i class="fa fa-clock-o center-block status"></i> <h6 class="text-center text-primary">Serving ' + increment + '</h6></li>';
