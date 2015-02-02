@@ -746,10 +746,10 @@
 	<label for="inputEmail3" class="col-sm-2 col-xs-4 control-label">Serving1</label>
 	<div class="col-sm-4 col-xs-8 ">
 	  <select class="form-control qty0" name="qty_per_servings0">
-		  <option value="1">1 capsule</option>
-		  <option value="2">2 capsule</option>
-		  <option value="3">3 capsule</option>
-		  <option value="4">4 capsule</option>
+		  <option value="1">1</option>
+		  <option value="2">2</option>
+		  <option value="3">3</option>
+		  <option value="4">4</option>
 		  
 		</select>
 	</div>
