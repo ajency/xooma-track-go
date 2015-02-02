@@ -159,6 +159,9 @@ class EditInventoryView extends Marionette.ItemView
 
 	successSave:(response,status,xhr)=>
 		if xhr.status == 201
+			model = new UserProductModel 
+			model.set response[0]
+			App.useProductColl.add model , {merge: true}
 			@ui.responseMessage.addClass('alert alert-success').text("Inventory updated!")
 			$('html, body').animate({
 							scrollTop: 0

@@ -29,7 +29,6 @@ class EditProductsView extends Marionette.ItemView
 
 		'change @ui.rangeSliders' : (e)-> 
 			$('.servings_per_day').val $(e.target).val()
-			console.log $('.servings_per_day').val()
 			@valueOutput e.currentTarget
 			@showReminders()
 
@@ -47,14 +46,13 @@ class EditProductsView extends Marionette.ItemView
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
 			#$( @ui.servings_per_day ).trigger( "change" )
-			console.log @model.get('frequency_value')
 			if parseInt(@model.get('frequency_value')) == 2
 				@selectSchdule(@model)
 			@showReminders()
 
 		'click .save':(e)->
 			e.preventDefault()
-			console.log check = @checkreminder()
+			check = @checkreminder()
 			if check == false
 				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
 				$('html, body').animate({
@@ -64,7 +62,9 @@ class EditProductsView extends Marionette.ItemView
 			sub = @ui.subtract.val()
 			if sub == ""
 				sub = 0
-			if parseInt($('#available').val()) >=  parseInt(sub) 
+			console.log $('#available').val()
+			console.log sub
+			if parseInt($('#available').val()) >  parseInt(sub) 
 				data = @ui.form.serialize()
 				product = @model.get('id')
 				$.ajax
@@ -74,7 +74,7 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				@ui.responseMessage.addClass('alert alert-danger').text("Value entered shoule be less than available count!")
+				@ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!")
 				$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -150,7 +150,10 @@ class EditProductsView extends Marionette.ItemView
 				@showReminders()
 				
 			@loadCheckedData()
-			$('.js__timepicker').pickatime()
+			$('.js__timepicker').pickatime(
+				interval : 15
+
+				)
 
 
 		'change .no_of_container':(e)->
@@ -159,7 +162,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.available').text cnt
 
 	checkreminder:->
-		console.log servings = $('.servings_per_day').val()
+		servings = $('.servings_per_day').val()
 		i = 0
 		while i < servings
 			if $('#reminder_time'+i).val() == "" && parseInt($('#reminder').val()) == 1
@@ -181,25 +184,23 @@ class EditProductsView extends Marionette.ItemView
 				$('.qty_per_servings_div').text ""
 				$('.qty_per_servings_div').append html
 				$('.qty_per_servings').each (ind,val)->
-					console.log val.name = 'qty_per_servings'+ind
+					val.name = 'qty_per_servings'+ind
 					val.id = 'qty_per_servings'+ind
 				@showReminders()
 
 	selectSchdule:(model)->
-		console.log $('#timeset').val()
 		if $('#timeset').val() == 'Once'
 			$('.servings_per_day option[value="1"]').prop("selected",true)
 
 		else
 			$('.servings_per_day option[value="2"]').prop("selected",true)
-			console.log $('.servings_per_day').val()
-
+			
 
 	showReminders:()->
 		if parseInt($('#reminder').val()) == 1
 				$(@ui.servings_diff).prop 'disabled' , false
 				$('#reminder_time0').removeAttr 'disabled'
-				console.log servings = $('.servings_per_day').val()
+				servings = $('.servings_per_day').val()
 				html1 = ""
 				i = 1
 				while(i <= servings)
@@ -225,7 +226,10 @@ class EditProductsView extends Marionette.ItemView
 				val.id = 'reminder_time'+ind
 				val.value = ""
 
-		$('.js__timepicker').pickatime()
+		$('.js__timepicker').pickatime(
+			interval : 15
+
+			)
 
 
 
@@ -234,14 +238,14 @@ class EditProductsView extends Marionette.ItemView
 
 	successSave: (response,status,xhr)=>
 		if xhr.status is 201
-				product = parseInt response.response[0].id
+				product = parseInt response[0].id
 				products = App.currentUser.get 'products'
 				if typeof products == 'undefined'
 					products = []
 				products = _.union products, [product]
 				App.currentUser.set 'products', _.uniq products
 				model = new UserProductModel 
-				model.set response.response[0]
+				model.set response[0]
 				App.useProductColl.add model , {merge: true}
 		if document.activeElement.name == "save"
 			App.navigate '#/profile/my-products', true
@@ -266,20 +270,20 @@ class EditProductsView extends Marionette.ItemView
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
-			console.log data.defaultbmi = qty.length
+			data.defaultbmi = qty.length
 			data.reminder = reminders[0].time
 		frequecy = @model.get 'frequency_value'
-		if parseInt(frequecy) == 1 
+		if @model.get('time_set') == 'Once' 
 			data.anytime = ''
 			data.schedule = 'disabled'
-			data.anytimeclass = 'btn-primary'
+			data.once = 'btn-primary'
 			data.scheduleclass = ''
 		else 
 			data.anytime = 'disabled'
 			data.schedule = ''
 			data.anytimeclass = ''
-			data.scheduleclass = 'btn-primary'
-			reminder_flag = @model.get('reminder_flag')
+			data.twice = 'btn-primary'
+		reminder_flag = @model.get('reminder_flag')
 		if reminder_flag == undefined || parseInt(reminder_flag) == 0 || reminder_flag == 'true'
 			data.default = 'btn-success'
 			data.success = ''
@@ -306,9 +310,10 @@ class EditProductsView extends Marionette.ItemView
 
 	onShow:->
 		@checkMode()
-		$('.js__timepicker').pickatime()
-		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
-		@ui.rangeSliders.rangeslider polyfill: false
+		$('.js__timepicker').pickatime(
+			interval: 15
+
+			)
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
@@ -331,6 +336,9 @@ class EditProductsView extends Marionette.ItemView
 			@showReminders()
 			@showScheduleData(@model)
 		else
+			@ui.rangeSliders.each (index, ele)=> @valueOutput ele
+			@ui.rangeSliders.rangeslider polyfill: false
+		
 			$('.schedule_data').hide()
 			$('.anytime').hide()
 			if @model.get('bmi') != undefined
@@ -392,20 +400,23 @@ class EditProductsView extends Marionette.ItemView
 			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 			
 	showEditScheduleData:(model)->
+		timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
-		reminder = reminders[0].time
-		$('#reminder_time0').val reminder
-		if @model.get('time_set') == 'Once'
+		time  = moment(reminders[0].time+timezone, "HH:mm Z").format("h:ss A")
+		if parseInt(@model.get('reminder_flag')) != 0
+			$('#reminder_time0').val time
+		if @model.get('time_set') == 'Once' 
 			$('.second').hide()
 			
 		else
 			$('.qty1 option[value="'+qty[1].qty+'"]').prop("selected",true)
 			$('.when1 option[value="'+qty[1].when+'"]').prop("selected",true)
-			reminder = reminders[1].time
-			$('#reminder_time1').val reminder
+			time  = moment(reminders[1].time+timezone, "HH:mm Z").format("h:ss A")
+			if parseInt(@model.get('reminder_flag')) != 0
+				$('#reminder_time1').val time
 			
 
 		
@@ -422,6 +433,7 @@ class EditProductsView extends Marionette.ItemView
 			
 
 	showServings:(model)->
+		timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		if parseInt(model.get('check')) == 1
@@ -437,8 +449,8 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$.each reminders , (ind,val)->
-			console.log val.time
-			$('#reminder_time'+ind).val val.time
+			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+			$('#reminder_time'+ind).val time
 		
 			
 
@@ -452,8 +464,8 @@ class App.EditProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
 		productId  = @getParams()
-		console.log product = parseInt productId[0]
-		console.log products = App.currentUser.get 'products'
+		product = parseInt productId[0]
+		products = App.currentUser.get 'products'
 		
 		if $.inArray( product, products ) > -1 || App.productCollection.length == 0
 			$.ajax

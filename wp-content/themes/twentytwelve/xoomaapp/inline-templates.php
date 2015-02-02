@@ -184,10 +184,10 @@
    <div class="form-group link"  onclick="location.href='#profile/measurements'">
 	<label  class="col-sm-12 col-xs-12  control-label">Set your measurements</label>
   </div>
-   
+
 
   <div class="form-group">
-	<label class="col-sm-8 col-xs-8  control-label">Notification</label>
+	<label class="col-sm-8 col-xs-8  control-label">Notifications</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">
 			<input id="notification" value=""  name="notification" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
@@ -370,7 +370,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7">
-																<h4 class="text-left"> <output></output><small>Inches</small></h4>
+																<h4 class="text-left"> <output></output><small> Ft/inches</small></h4>
 														</div>
 														<input type="range" min="4" max="9" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
 												</div>
@@ -381,7 +381,7 @@
 																<img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
 														</div>
 														<div class="col-md-7 ">
-																<h4 class="text-left"> <output></output><small>pounds</small></h4>
+																<h4 class="text-left"> <output></output><small> pounds</small></h4>
 														</div>
 
 														<input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
@@ -518,7 +518,7 @@
 
 						  <div class="m-t-30">
 							<label for="exampleInputFile">Select</label>
-							<select class="form-control" aj-field-required="true" name="param">
+							<select class="form-control" aj-field-required="true" id="param" name="param">
 							  <option value="weight">Weight</option>
 							  <option value="neck">Neck</option>
 							  <option value="chest">Chest</option>
@@ -538,7 +538,7 @@
 								<input type="hidden"  id="end_date" name="end_date">
 						
 						
-						   <label for="exampleInputFile">Weekly</label>
+						   <label for="exampleInputFile " class="time_period">Select</label>
 								<select class="form-control time_period ">
 								  <option value="">--Select--</option>
 								  <option value="7">Last 7 days</option>
@@ -702,7 +702,7 @@
   <div class="form-group">
 	<div class="checkbox">
 	<label class=" control-label">
-	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set diffrent quantity per serving
+	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set different quantity per serving
 	<input type="hidden" name="check" id="check" value="0" /></label>
 	<input type="hidden" name="timeset" id="timeset" value=""  >
   </div> 
@@ -732,8 +732,8 @@
   <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
 	<div class="col-sm-6 col-xs-6 ">
 	 <div class="btn-group" role="group" aria-label="...">
-	  <button type="button" data-time="Once" class="btn btn-default schedule {{once}}">  Once</button>
-	  <button type="button" data-time="Twice" class="btn btn-default schedule {{twice}}"> Twice</button>
+	  <button type="button" data-time="Once"  class="btn schedule {{once}}">  Once</button>
+	  <button type="button" data-time="Twice"   class="btn schedule {{twice}}"> Twice</button>
 	  
 	</div>
 	</div>
@@ -786,7 +786,9 @@
   </div>
   <div class="noofcontainer">
   <div class="form-group">
-	<label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">No. of 
+
+	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Number of 
+
 	container</label>
 	<div class="col-sm-6 col-xs-7">
 	  <select class="form-control no_of_container" name="no_of_container">
@@ -807,8 +809,10 @@
   </div>
 
    <div class="form-group">
+
 	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Samples given to the prospective customer</label>
 	 <div class="col-sm-6 col-xs-7">
+
 	  <input type="text" name="subtract" aj-field-type="number" value="" class="form-control"/>
 	  </div>
   </div>
@@ -1011,7 +1015,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-				   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
+				   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>History</b>
 				</div>
 			</div>
 		</div>

@@ -1431,3 +1431,5 @@ function dba_add_communication_components($defined_comm_components){
 }
 add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 
+//add_action('CRON_SCHEDULE_SEND_REMINDERS', 'update_next_occur', 2, 0);
+add_action('admin_init', 'cron_job_reminders', 2, 1);

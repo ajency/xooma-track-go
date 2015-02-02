@@ -133,12 +133,12 @@ class Schedule{
 
 		$r = new \When\When();
 		
-		$start_time = explode(" ", $schedule->start_dt);
+		$start_time = explode(" ", $schedule['start_dt']);
 		
 		$start_dt = date('Y-m-d '. $start_time[1]);
 		
 		$r->startDate(new \DateTime($start_dt))
-			->rrule($schedule->rrule)
+			->rrule($schedule['rrule'])
 		 	->count(5)
 		  	->generateOccurrences();
 
@@ -146,9 +146,10 @@ class Schedule{
 		
 		foreach ( $r->occurrences as $occurrence) {
 			$occurrences[] = $occurrence->getTimestamp();
+
 		}
 		
-		$previous_occurrence = strtotime($schedule->next_occurrence);
+		$previous_occurrence = strtotime($schedule['next_occurrence']);
 
 		$next_occurrence_timestamp = self::get_next_occurrence($occurrences, $previous_occurrence);
 		
@@ -158,7 +159,7 @@ class Schedule{
 
 		$wpdb->update($table_name, 
 					  array( 'next_occurrence' => $next_occurrence ),
-					  array( 'id' => $schedule->id ));
+					  array( 'id' => $schedule['id'] ));
 		
 		return $next_occurrence;
 	}	
@@ -170,14 +171,18 @@ class Schedule{
 	    
 	    //add the current_occurrence to the array
 	    $occurrences[] = $current_occurrence;
-
+	  
 	    //sort and refind the current_occurrence
 	    sort($occurrences);
 	    $i = array_search($current_occurrence, $occurrences);
-
+	   	
 	    //check if there is a current_occurrence above it
-	    if($i && isset($occurrences[$i+2])) 
-	    	return $occurrences[$i+2];
+	    if($i !== FALSE  && isset($occurrences[$i+2]))
+	    	{
+	    		
+	    		return $occurrences[$i+2];
+	    	} 
+	    	
 
 	    //alternatively you could return the current_occurrence itself here, or below it depending on your requirements
 	    return false;

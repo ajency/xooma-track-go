@@ -46,7 +46,7 @@ MeasurementHistoryView = (function(_super) {
 
   MeasurementHistoryView.prototype.loadData = function(id) {
     var date, product;
-    console.log(product = id);
+    product = id;
     date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
     if ($('#picker_inline_fixed').val() === "") {
       date = moment().format("YYYY-MM-DD");
@@ -86,17 +86,16 @@ MeasurementHistoryView = (function(_super) {
       coll = response.response;
       classarr = [];
       $.each(coll, function(ind, val) {
-        console.log(classarr[ind] = "");
+        classarr[ind] = "";
         if (coll[ind] === "") {
           coll[ind] = 'No data available';
-          return console.log(classarr[ind] = 'hidden');
+          return classarr[ind] = 'hidden';
         }
       });
-      console.log(classarr);
       html = "";
       html += '<li><span class="circle"></span><span>Height : </span>' + coll.height + '<span class="' + classarr['height'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Weight : </span>' + coll.weight + '<span class="' + classarr['weight'] + '"> lb</span></span>';
-      html += '<li><span class="circle"></span><span>Neck : </span>' + coll.neck + '<span class="' + classarr['neck'] + '"> lb</span>';
+      html += '<li><span class="circle"></span><span>Neck : </span>' + coll.neck + '<span class="' + classarr['neck'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Chest : </span>' + coll.chest + '<span class="' + classarr['chest'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Arm : </span>' + coll.arm + '<span class="' + classarr['arm'] + '"> inches</span>';
       html += '<li><span class="circle"></span><span>Abdomen : </span>' + coll.abdomen + '<span class="' + classarr['abdomen'] + '"> inches</span>';

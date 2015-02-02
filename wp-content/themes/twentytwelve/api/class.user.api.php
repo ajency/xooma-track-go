@@ -447,6 +447,8 @@ class User_API
 
     public function xooma_store_inventory($id,$pid){
 
+        global $user;
+
         $slider = $_REQUEST['slider'];
         $containers = $_REQUEST['containers'];
         $total = $_REQUEST['total'];
@@ -515,7 +517,9 @@ class User_API
         else
         {
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
-            $response = new WP_JSON_Response( $response );
+
+            $product = $user->get_user_home_products($id,$pid);
+            $response = new WP_JSON_Response( $product['response'] );
             }
             $response->set_status( 201 );
 

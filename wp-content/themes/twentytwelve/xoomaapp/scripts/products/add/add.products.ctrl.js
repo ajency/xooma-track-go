@@ -108,8 +108,8 @@ App.AddProductsCtrl = (function(_super) {
         return temp.push(val);
       }
     });
-    App.productCollection.reset(temp);
     filteredCollection = App.productCollection.clone();
+    filteredCollection.reset(temp);
     return this.show(new AddProductsView({
       collection: filteredCollection
     }));
