@@ -582,7 +582,7 @@ class User_API
         $date = $_REQUEST['date'];
         $time = $_REQUEST['time'];
         $today = date("Y-m-d", strtotime($date));
-        $time1 = date("Y-m-d", strtotime($time));
+        $time1 = date("H:i:s", strtotime($time));
         $start = date("$today $time1");
         $args = array(
 

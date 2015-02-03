@@ -59,8 +59,9 @@ class ScheduleView extends Marionette.ItemView
 				data = $('#schduleid').val()
 				product = @model.get('id')
 				date = $('#date').val()
-				console.log t = $('#consume_time').val()
-				time  = moment(t).format("HH:mm:ss")
+				t = $('#consume_time').val()
+				date = moment().format('YYYY-MM-DD')
+				time  = moment(t,"HH:mm a").format("HH:mm:ss")
 				if t == ""
 					time  = moment().format("HH:mm:ss")
 				
@@ -168,7 +169,7 @@ class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		console.log productId  = @getParams()
 		product = 3
-		date = '2015-02-02'
+		date = '2015-02-03'
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
