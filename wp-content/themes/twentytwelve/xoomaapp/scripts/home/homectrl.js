@@ -422,7 +422,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status"></h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -451,7 +451,9 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, count, data, model, no_servings, occurrenceArr, product_type, qty, recent, reponse, temp;
+    var bonusArr, consumed, count, data, howmuch, model, no_servings, occurrenceArr, per, product_type, qty, recent, reponse, temp;
+    console.log(status);
+    per = [0.25, 0];
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
@@ -460,6 +462,7 @@ ProductChildView = (function(_super) {
     occurrenceArr = [];
     no_servings = [];
     bonusArr = 0;
+    consumed = 0;
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
@@ -478,6 +481,7 @@ ProductChildView = (function(_super) {
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
+        consumed++;
       } else if (occurrence === false && expected === true) {
         reponse = ProductChildView.prototype.expectedfunc(val, ind, count, model);
         count++;
@@ -492,6 +496,7 @@ ProductChildView = (function(_super) {
       data.no_servings = no_servings;
       return data.serving_size = temp.length;
     });
+    howmuch = parseInt(consumed) / parseInt(temp.length);
     return data;
   };
 

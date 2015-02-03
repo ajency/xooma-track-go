@@ -429,7 +429,7 @@ class ProductChildView extends Marionette.ItemView
 									<li class="col-md-4 col-xs-4">
 										<h5 class="text-center">Status</h5>
 											<i class="fa fa-smile-o"></i>  
-										<h6 class="text-center margin-none">Complete the last one</h6>
+										<h6 class="text-center margin-none status"></h6>
 									</li>
 								</ul>
 			  
@@ -461,6 +461,8 @@ class ProductChildView extends Marionette.ItemView
 
 
 	serializeData:->
+		console.log status
+		per = [0.25,0]
 		data = super()
 		recent = '--'
 		data.occur = 0
@@ -469,6 +471,7 @@ class ProductChildView extends Marionette.ItemView
 		occurrenceArr = []
 		no_servings  = []
 		bonusArr = 0
+		consumed = 0
 		qty = @model.get 'qty'	
 		product_type = @model.get('product_type')
 		product_type = product_type.toLowerCase()
@@ -484,7 +487,7 @@ class ProductChildView extends Marionette.ItemView
 			expected = _.has(val, "expected")
 			if occurrence == true && expected == true
 				reponse = ProductChildView::occurredfunc(val,ind,model)
-				
+				consumed++
 				
 			else if occurrence == false && expected == true 
 				reponse = ProductChildView::expectedfunc(val,ind,count,model)
@@ -494,6 +497,7 @@ class ProductChildView extends Marionette.ItemView
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
 			data.no_servings =  no_servings
 			data.serving_size = temp.length
+		howmuch = parseInt(consumed)/parseInt(temp.length)
 		data
 
 	expectedfunc:(val,key,count,model)->

@@ -1,0 +1,2 @@
+'25_timeslot1' : 'Start your day the healthy way',
+'25_50_timeslot1': 'Cool! Thats a right start'

@@ -101,6 +101,8 @@ var App  = new Marionette.Application()
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
 
+var status = <?php echo json_encode(file_get_contents(get_template_directory_uri().'/xoomaapp/json/php/status.txt')); ?>
+
 </script>
 
  
