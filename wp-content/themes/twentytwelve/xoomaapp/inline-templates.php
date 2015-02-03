@@ -569,7 +569,7 @@
 
 <script id="produts-template" type="h-template">
 <div id="xoomaproduct" class="section">
-				<h4 class="text-center"> List of Xooma products</h4>
+				<h4 class="text-center"> My Xooma products</h4>
 	
 		<div class="container">
 		<div class="aj-response-message"> 

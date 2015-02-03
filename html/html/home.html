@@ -20,10 +20,10 @@
       <![endif]-->
       <style type="text/css">
 
-    #chart-area{
+    /*#chart-area{
       height: auto !important;
       z-index: -1;
-        position:relative;
+        position:relative;*/
     }
    
       </style>
@@ -63,39 +63,33 @@
               <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
               <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
           </div>
-          <div class="row">
-              <div class="col-md-12">
-
-                    <div class="fill-bottle">        
-                        <div class="glass">
-                          <span class="liquid" style="height: 100%"></span>
-                        </div>
-                    </div>
-                  	<div id="canvas-holder">
-                          <canvas id="chart-area" width="500" height="500"/>
-                      </div>
-              
-              </div>
-          </div>
+       
        <div class="row">
               <div class="col-md-2"> 
               </div>
            <div class="col-md-8"> 
-                <ul class="list-inline text-center row row-line">
-                  <li class="col-md-4 col-xs-4"> 
-                      <h5 class="text-center">Bonus</h5>
-                      <h4 class="text-center bold  text-primary" >2 <small class="text-muted">(X20)</small></h4>
-                  </li>
-                  <li class="col-md-4 col-xs-4">
-                      <h5 class="text-center">Target</h5>
-                      <h4 class="text-center bold text-primary" >7 <small class="text-muted">(X20)</small></h4>
-                  </li>
-                  <li class="col-md-4 col-xs-4">
-                      <h5 class="text-center">Last Consume</h5>
-                      <h4 class="text-center bold text-primary" >9.00 <small class="text-muted">pm</small></h4>       
-                  </li>
-              </ul>
-             <br>   
+            <div class="panel panel-default">
+                      <div class="panel-body">
+                        <h5 class=" margin-none  mid-title">Focus Up <span>( 4 Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">View</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Delete</a></li>
+                     </ul>
+                   </h5>
+                 <div class="fill-bottle">        
+                        <div class="glass">
+                          <span class="liquid" style="height: 100%"></span>
+                        </div>
+                    </div>
+                    <div id="canvas-holder">
+                          <canvas id="chart-area" width="500" height="500"/>
+                      </div>
+            </div>
+   </div>
+           <br>     
          
         <div class="panel panel-default">
                       <div class="panel-body">
@@ -457,7 +451,8 @@
   					value: 50,
   					color:"#6bbfff ",
   					highlight: "#50abf1",
-  					label: "Bottle 1"
+  					label: "Bottle 1 ",
+          
   				},
   				{
   					value: 50,
@@ -501,7 +496,7 @@
   			window.onload = function(){
             
   				var ctx = document.getElementById("chart-area").getContext("2d");
-  				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true,   percentageInnerCutout : 80 ,  animateRotate : false});
+  				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true,   percentageInnerCutout : 80 });
                   	var ctdx = document.getElementById("canvas").getContext("2d");
   		window.myLine = new Chart(ctdx).Line(lineChartData, {
   			responsive: true
