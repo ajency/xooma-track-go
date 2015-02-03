@@ -7444,52 +7444,18 @@ input.fire-check:checked ~ section .tn-box:nth-child(3) .tn-progress {
 }
 /** Bottle **/
 #canvas-holder {
-  width: 50%;
+  width: 75%;
   margin: auto;
   background: none;
 }
 .fill-bottle {
-  width: 150px;
   display: block;
   margin: auto;
-  position: relative;
-  top: 102px;
-}
-.glass {
-  height: 150px;
-  width: 150px;
   position: absolute;
-  background-image: url('../images/fill-bottle.png');
-  /* Beer Glass */
-  background-repeat: no-repeat;
-  background-size: 100%;
-}
-.liquid {
-  z-index: -1;
-  position: absolute;
-  bottom: 0;
-  width: 150px;
-  background: #9ad41e;
-  /* Beer Liquid Pattern */
-  /* Remove the bottom two lines to stop animation */
-  -webkit-animation: move 50s linear infinite;
-  -moz-animation: move 50s linear infinite;
-}
-@-webkit-keyframes move {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 2212px 0px;
-  }
-}
-@-moz-keyframes move {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 2212px 0px;
-  }
+  top: 162px;
+  text-align: center;
+  left: 0%;
+  right: 0%;
 }
 /* Top - Header */
 .topheader {
