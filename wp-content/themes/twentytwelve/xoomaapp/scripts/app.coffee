@@ -38,7 +38,7 @@ document.addEventListener "deviceready", ->
 			.then ->
 				CordovaStorage.clear() 
 				App.navigate '/login', replace: true, trigger: true
-				userData = {}
+				`userData = {}`
 
 
 	App.state 'settings',

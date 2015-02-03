@@ -85,6 +85,7 @@
 
 <!-- cordova -->
 <script type="text/javascript" src="scripts/cordova/storage.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/global.js"></script>
 
 
 <script type="text/javascript">
@@ -94,14 +95,10 @@
 	}
 	$(window).bind('load',isWebView);
 
-	userData = CordovaStorage.getUserData();
-	notLoggedInCaps = {"access_login":true,"level_0":true};
-	allSystemCaps = ['access_login',"read","level_0","access_xooma","access_userpersonalinfo","access_profile","access_usermeasurement","access_addproducts","access_userproductlist","edit_occurrence","edit_schedule","access_home","subscriber"]
-	App                   = new Marionette.Application()  
-	App.LoginCtrl         = Ajency.LoginCtrl  
-	App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
-	APIURL                = 'http://www.xooma.ajency.in/wp-json';
-	_SITEURL              = 'http://www.xooma.ajency.in';
+	userData 			  = CordovaStorage.getUserData();
+	App                   = new Marionette.Application();
+	App.LoginCtrl         = Ajency.LoginCtrl;
+	App.NothingFoundCtrl  = Ajency.NothingFoundCtrl;
 	
 </script>
 
@@ -125,12 +122,11 @@
 <script type="text/javascript" src="scripts/history/history.product.ctrl.js"></script>
 <script type="text/javascript" src="scripts/settings/settings.ctrl.js"></script>
 <script type="text/javascript" src="scripts/history/history.measurements.ctrl.js"></script>
-<script type="text/javascript" src="scripts/loading/loading.ctrl.js"></script>\
+<script type="text/javascript" src="scripts/loading/loading.ctrl.js"></script>
 <script type="text/javascript" src="scripts/loading/workflow.ctrl.js"></script>
 
 <!-- cordova -->
 <script type="text/javascript" src="../cordova.js"></script>
-<script type="text/javascript" src="scripts/cordova/lib/global.js"></script>
 <script type="text/javascript" src="scripts/cordova/lib/parse.sdk.min.js"></script>
 <script type="text/javascript" src="scripts/cordova/cordova-app.js"></script>
 <script type="text/javascript" src="scripts/cordova/push-notification-handler.js"></script>

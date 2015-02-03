@@ -33,7 +33,6 @@ document.addEventListener("deviceready", function() {
   App.currentUser.on('user:logged:out', function() {
     return CordovaApp.facebookLogout().then(function() {
       return ParseCloud.deregister().then(function() {
-        var userData;
         CordovaStorage.clear();
         App.navigate('/login', {
           replace: true,
