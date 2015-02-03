@@ -32,4 +32,3 @@
 				defer.resolve error
 
 			defer.promise()
-

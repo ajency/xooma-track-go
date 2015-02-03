@@ -21,6 +21,7 @@ document.addEventListener("deviceready", function() {
     }
   };
   App.currentUser.on('user:auth:success', function() {
+    App.trigger('fb:status:connected');
     CordovaStorage.setUserData(App.currentUser.toJSON());
     return ParseCloud.register().then(function() {
       return App.navigate('#' + App.currentUser.get('state'), {
@@ -67,6 +68,7 @@ document.addEventListener("deviceready", function() {
         });
         return App.trigger('cordova:hide:splash:screen');
       } else {
+        App.trigger('fb:status:connected');
         return App.navigate('#' + App.currentUser.get('state'), {
           replace: true,
           trigger: true

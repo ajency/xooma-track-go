@@ -23,7 +23,8 @@ document.addEventListener "deviceready", ->
 			App.currentUser.setNotLoggedInCapabilities()
 
 	App.currentUser.on 'user:auth:success', ->
-		# App.trigger 'fb:status:connected'
+		App.trigger 'fb:status:connected'
+		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
 		ParseCloud.register()
@@ -66,7 +67,8 @@ document.addEventListener "deviceready", ->
 			if not App.currentUser.isLoggedIn()
 				App.navigate '/login', replace: true, trigger: true
 				App.trigger 'cordova:hide:splash:screen'
-			else 
+			else
+				App.trigger 'fb:status:connected'
 				App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
 

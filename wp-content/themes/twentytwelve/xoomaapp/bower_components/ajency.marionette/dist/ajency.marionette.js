@@ -290,7 +290,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     CurrentUser.prototype.getFacebookPicture = function() {
-      return facebookConnectPlugin.api("/me/picture?width=200", [], this._setProfilePicture);
+      return facebookConnectPlugin.api("/me/picture?width=200&redirect=false", [], this._setProfilePicture);
     };
 
     CurrentUser.prototype._setProfilePicture = function(resp) {
