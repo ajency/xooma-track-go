@@ -126,6 +126,7 @@ class EditInventoryView extends Marionette.ItemView
 		@ui.navail.text available
 		if parseInt(@ui.rangeSliders.val()) == 0
 			@ui.save.hide()
+			console.log eqt = parseInt(available) - parseInt(Math.abs(@ui.rangeSliders.val()))
 		if @ui.rangeSliders.val() < 0 
 			$('.sign').text '-'
 			eqt = parseInt(available) - parseInt(Math.abs(@ui.rangeSliders.val()))

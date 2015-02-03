@@ -22,6 +22,9 @@ class ScheduleView extends Marionette.ItemView
 	events:
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
+		'click .reset' :(e)->
+			
+
 		'click @ui.servings':(e)->
 			e.preventDefault()
 			meta_id  = $(e.target).parent().attr 'data-value'

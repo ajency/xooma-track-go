@@ -271,7 +271,7 @@ class EditProductsView extends Marionette.ItemView
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
 			data.defaultbmi = qty.length
-			data.reminder = reminders[0].time
+			
 		frequecy = @model.get 'frequency_value'
 		if @model.get('time_set') == 'Once' 
 			data.anytime = ''
@@ -349,6 +349,7 @@ class EditProductsView extends Marionette.ItemView
 				weight = qty.length
 			$('.servings_per_day option[value="'+weight+'"]').prop("selected",true);
 			@showReminders()
+			@showAnytimeData(@model)
 
 		
 		

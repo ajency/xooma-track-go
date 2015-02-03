@@ -1200,7 +1200,7 @@
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > Confirm </button>
-                <button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+                <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       </div>
       <div class="col-sm-4 col-xs-3"></div>
     </div>

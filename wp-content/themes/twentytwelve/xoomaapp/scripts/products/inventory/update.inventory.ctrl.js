@@ -145,6 +145,7 @@ EditInventoryView = (function(_super) {
     this.ui.navail.text(available);
     if (parseInt(this.ui.rangeSliders.val()) === 0) {
       this.ui.save.hide();
+      console.log(eqt = parseInt(available) - parseInt(Math.abs(this.ui.rangeSliders.val())));
     }
     if (this.ui.rangeSliders.val() < 0) {
       $('.sign').text('-');

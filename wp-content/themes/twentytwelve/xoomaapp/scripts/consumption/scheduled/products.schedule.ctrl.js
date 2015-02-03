@@ -38,6 +38,7 @@ ScheduleView = (function(_super) {
     'change @ui.rangeSliders': function(e) {
       return this.valueOutput(e.currentTarget);
     },
+    'click .reset': function(e) {},
     'click @ui.servings': function(e) {
       var meta_id, qty;
       e.preventDefault();
