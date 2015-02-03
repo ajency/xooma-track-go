@@ -767,10 +767,10 @@
 	<label for="inputEmail3" class="col-sm-2 col-xs-4  control-label">Serving2</label>
 	<div class="col-sm-4 col-xs-8">
 	  <select class="form-control qty1" name="qty_per_servings1">
-		  <option value="1">1 capsule</option>
-		  <option value="2">2 capsule</option>
-		  <option value="3">3 capsule</option>
-		  <option value="4">4 capsule</option>
+		  <option value="1">1</option>
+		  <option value="2">2</option>
+		  <option value="3">3</option>
+		  <option value="4">4</option>
 		</select>
 	</div>
 		<div class="col-sm-6 col-xs-8 xs-t-10 pull-right ">
@@ -1201,10 +1201,11 @@
         <div class="col-sm-5 col-xs-3"></div>
       <div class="col-sm-3 col-xs-6">
         <input type="hidden" name="date" id="date" value="" / >
+        <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > Confirm </button>
-                <button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+                <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       </div>
       <div class="col-sm-4 col-xs-3"></div>
     </div>

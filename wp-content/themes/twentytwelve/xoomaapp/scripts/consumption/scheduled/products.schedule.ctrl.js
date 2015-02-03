@@ -38,6 +38,14 @@ ScheduleView = (function(_super) {
     'change @ui.rangeSliders': function(e) {
       return this.valueOutput(e.currentTarget);
     },
+    'click .reset': function(e) {
+      var qty;
+      qty = $('#org_qty').val();
+      this.ui.rangeSliders.val(qty);
+      this.ui.rangeSliders.parent().find("output").html(qty);
+      $('#consume_time').val("");
+      return $('.now').text('Now');
+    },
     'click @ui.servings': function(e) {
       var meta_id, qty;
       e.preventDefault();
@@ -111,12 +119,31 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
-    return this.model.set('occurrence', response.occurrence);
+    this.model.set('occurrence', response.occurrence);
+    return App.navigate("#/home", true);
   };
 
   ScheduleView.prototype.onShow = function() {
-    var date;
+    var date, occurr, qty, temp;
     date = Marionette.getOption(this, 'date');
+    occurr = this.model.get('occurrence');
+    temp = [];
+    qty = this.model.get('qty');
+    $.each(occurr, function(ind, val) {
+      if (qty[ind] !== void 0) {
+        return temp.push(val);
+      }
+    });
+    $.each(temp, function(ind, val) {
+      var expected, occurrence;
+      occurrence = _.has(val, "occurrence");
+      expected = _.has(val, "expected");
+      if (occurrence === false && expected === true) {
+        console.log(qty[ind].qty);
+        ScheduleView.prototype.create_occurrences(qty[ind].qty);
+        return false;
+      }
+    });
     $('#date').val(date);
     $('.js__timepicker').pickatime({
       interval: 15,
@@ -139,7 +166,7 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.serializeData = function() {
-    var bonus, data, no_servings, occurr, product_type, qty, temp;
+    var bonus, data, model, no_servings, occurr, product_type, qty, temp, whenarr;
     console.log(this.model);
     data = ScheduleView.__super__.serializeData.call(this);
     data.day = moment().format("dddd");
@@ -157,13 +184,18 @@ ScheduleView = (function(_super) {
         return temp.push(val);
       }
     });
+    model = this.model;
+    whenarr = [0, 'Morning Before meal', 'Morning After meal', 'Night Before meal', 'Night After meal'];
     $.each(temp, function(ind, val) {
       var expected, occurrence;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
       if (occurrence === false && expected === true) {
-        console.log(qty[ind].qty);
-        ScheduleView.prototype.create_occurrences(qty[ind].qty);
+        if (model.get('type') === 'Anytime') {
+          data.serving = 'Serving ' + (parseInt(ind) + 1);
+        } else {
+          data.serving = whenarr[qty[ind].when];
+        }
         data.qty = qty[ind].qty;
         return false;
       }
@@ -174,7 +206,8 @@ ScheduleView = (function(_super) {
 
   ScheduleView.prototype.create_occurrences = function(val) {
     $('#meta_id').val(0);
-    return $('#qty').val(val.qty);
+    $('#org_qty').val(val);
+    return console.log($('#org_qty'));
   };
 
   ScheduleView.prototype.update_occurrences = function(meta_id, qty) {
@@ -203,8 +236,8 @@ App.ScheduleCtrl = (function(_super) {
       options = {};
     }
     console.log(productId = this.getParams());
-    product = 3;
-    date = '2015-02-03';
+    product = 104;
+    date = '2015-02-04';
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);

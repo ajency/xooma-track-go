@@ -1783,7 +1783,7 @@ function cron_job_reminders($args)
 
 			$product_name = get_products($user->product_id);
 			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
-
+			
 			//build push array 
 			if (intval($stock) != 0)
 			{

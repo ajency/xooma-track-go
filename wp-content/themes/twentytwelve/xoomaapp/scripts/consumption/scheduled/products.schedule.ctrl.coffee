@@ -22,6 +22,13 @@ class ScheduleView extends Marionette.ItemView
 	events:
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
+		'click .reset' :(e)->
+			qty  = $('#org_qty').val()
+			@ui.rangeSliders.val qty
+			@ui.rangeSliders.parent().find("output").html qty
+			$('#consume_time').val ""
+			$('.now').text 'Now'
+
 		'click @ui.servings':(e)->
 			e.preventDefault()
 			meta_id  = $(e.target).parent().attr 'data-value'
@@ -94,11 +101,27 @@ class ScheduleView extends Marionette.ItemView
 
 	saveHandler:(response,status,xhr)=>
 		@model.set 'occurrence' , response.occurrence
+		App.navigate "#/home" , true
 		
 		
 
 	onShow:->
 		date  = Marionette.getOption( @, 'date')
+		occurr = @model.get('occurrence')
+		temp = []
+		qty = @model.get 'qty'
+		$.each occurr , (ind,val)->
+			if qty[ind] != undefined
+				temp.push val
+
+		$.each temp , (ind,val)->
+			occurrence = _.has(val, "occurrence")
+			expected = _.has(val, "expected")
+			if occurrence == false && expected == true
+				console.log qty[ind].qty
+				ScheduleView::create_occurrences(qty[ind].qty)
+				return false
+
 		$('#date').val date
 		$('.js__timepicker').pickatime(
 			interval: 15
@@ -135,23 +158,32 @@ class ScheduleView extends Marionette.ItemView
 		$.each occurr , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
-
+		model = @model
+		whenarr = [0 , 'Morning Before meal' , 'Morning After meal' ,'Night Before meal' ,'Night After meal' ]
 		$.each temp , (ind,val)->
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
 			if occurrence == false && expected == true
-				console.log qty[ind].qty
-				ScheduleView::create_occurrences(qty[ind].qty)
+				if model.get('type') == 'Anytime'
+					data.serving = 'Serving ' + (parseInt(ind) + 1)
+				else
+					data.serving = whenarr[qty[ind].when]
 				data.qty = qty[ind].qty
 				return false
+
+				
+
 				
 		data.product_type = product_type
 		data
 
 
+
+
 	create_occurrences:(val)->
 		$('#meta_id').val 0
-		$('#qty').val val.qty
+		$('#org_qty').val val
+		console.log $('#org_qty')
 
 	update_occurrences:(meta_id,qty)->
 		if meta_id == ""
@@ -168,8 +200,8 @@ class ScheduleView extends Marionette.ItemView
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		console.log productId  = @getParams()
-		product = 3
-		date = '2015-02-03'
+		product = 104
+		date = '2015-02-04'
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
