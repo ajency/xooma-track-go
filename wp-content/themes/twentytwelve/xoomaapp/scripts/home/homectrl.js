@@ -496,7 +496,8 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, date, html, i, increment, meta_id, newClass, product, product_type, qty, reminders, schedule_id, temp, tempcnt, time;
+    var classname, date, html, i, increment, meta_id, newClass, product, product_type, qty, reminders, schedule_id, serving_text, temp, tempcnt, time, whenarr;
+    console.log(model);
     temp = [];
     i = 0;
     html = "";
@@ -510,16 +511,23 @@ ProductChildView = (function(_super) {
     increment = parseInt(key) + 1;
     product = model.get('id');
     date = moment().format('YYYY-MM-DD');
+    whenarr = [0, 'Morning Before meal', 'Morning After meal', 'Night Before meal', 'Night After meal'];
+    if (model.get('type') === "Anytime") {
+      serving_text = 'Serving ' + increment;
+    } else {
+      serving_text = whenarr[qty[key].when];
+    }
     if (parseInt(reminders.length) !== 0) {
       classname = '';
       time = reminders[key].time;
+      serving_text = time;
     }
     newClass = product_type + '_expected_class';
     if (parseInt(count) === 0) {
       html += '<li><a href="#/products/' + product + '/consume/' + date + '" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
     } else {
       html += '<li><a > <h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3> </a>';
-      html += '<i class="fa fa-clock-o center-block status"></i> <h6 class="text-center text-primary">Serving ' + increment + '</h6></li>';
+      html += '<i class="fa fa-clock-o center-block status"></i> <h6 class="text-center text-primary">' + serving_text + '</h6></li>';
     }
     qty = qty[key].qty;
     $('#qty' + model.get('id')).val(qty);
@@ -540,15 +548,15 @@ ProductChildView = (function(_super) {
     temp = [];
     i = 0;
     timezone = App.currentUser.get('timezone');
-    time = moment(val.occurrence + timezone, "HH:mm Z").format("hA");
+    time = moment(val.occurrence + timezone, "HH:mm Z").format("h:ss A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
-    qty = model.get('qty');
+    qty = val.meta_value.qty;
     html = "";
     newClass = product_type + '_occurred_class';
-    html += '<li><a ><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3></a>';
+    html += '<li><a ><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty + '</h3></a>';
     html += '<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">' + time + '</h6></li>';
-    qty = qty[key].qty;
+    console.log(qty = val.meta_value.qty);
     schedule_id = val.schedule_id;
     meta_id = val.meta_id;
     temp.push({
