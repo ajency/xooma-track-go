@@ -16,9 +16,18 @@ class ScheduleView extends Marionette.ItemView
 		responseMessage : '.aj-response-message'
 		cancel  : '.cancel'
 		rangeSliders : '[data-rangeslider]'
+		consume_time : 'input[name="consume_time"]'
+		qty : 'input[name="qty"]'
 
 	events:
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
+
+		'click .reset' :(e)->
+			qty  = $('#org_qty').val()
+			@ui.rangeSliders.val qty
+			@ui.rangeSliders.parent().find("output").html qty
+			$('#consume_time').val ""
+			$('.now').text 'Now'
 
 		'click @ui.servings':(e)->
 			e.preventDefault()
@@ -53,21 +62,25 @@ class ScheduleView extends Marionette.ItemView
 		'click .intake':(e)->
 				e.preventDefault()
 				meta_id = $('#meta_id').val()
-				qty = $('#qty').val()
+				qty = @ui.qty.val()
 				data = $('#schduleid').val()
 				product = @model.get('id')
-				date = moment().format("YYYY-MM-DD")
+				date = $('#date').val()
+				t = $('#consume_time').val()
+				date = moment().format('YYYY-MM-DD')
+				time  = moment(t,"HH:mm a").format("HH:mm:ss")
+				if t == ""
+					time  = moment().format("HH:mm:ss")
+				
 				$.ajax
 						method : 'POST'
-						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
+						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
 
 
-		'click @ui.cancel':(e)->
-			$('#qty').val ""
-			$('#mydataModal').addClass "hidden"
+		
 
 		
 			
@@ -88,12 +101,38 @@ class ScheduleView extends Marionette.ItemView
 
 	saveHandler:(response,status,xhr)=>
 		@model.set 'occurrence' , response.occurrence
-		@ui.responseMessage.text "Servings are updated!!!!"
-		$('#mydataModal').addClass "hidden"
-		$('#xoomaproduct').html(listview.render().el)
+		App.navigate "#/home" , true
+		
+		
 
 	onShow:->
-		console.log @model
+		date  = Marionette.getOption( @, 'date')
+		occurr = @model.get('occurrence')
+		temp = []
+		qty = @model.get 'qty'
+		$.each occurr , (ind,val)->
+			if qty[ind] != undefined
+				temp.push val
+
+		$.each temp , (ind,val)->
+			occurrence = _.has(val, "occurrence")
+			expected = _.has(val, "expected")
+			if occurrence == false && expected == true
+				console.log qty[ind].qty
+				ScheduleView::create_occurrences(qty[ind].qty)
+				return false
+
+		$('#date').val date
+		$('.js__timepicker').pickatime(
+			interval: 15
+			onSet : (context)->
+
+				$('.now').text $('#consume_time').val()
+			
+
+			 
+
+		)
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 
@@ -103,10 +142,12 @@ class ScheduleView extends Marionette.ItemView
 
 
 	serializeData:->
+		console.log @model
 		data = super()
 		data.day = moment().format("dddd")
 		data.today = moment().format("MMMM Do YYYY")
 		qty = @model.get 'qty'
+		
 		occurr = @model.get('occurrence')
 		product_type = @model.get('product_type')
 		product_type = product_type.toLowerCase()
@@ -117,38 +158,32 @@ class ScheduleView extends Marionette.ItemView
 		$.each occurr , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
-
+		model = @model
+		whenarr = [0 , 'Morning Before meal' , 'Morning After meal' ,'Night Before meal' ,'Night After meal' ]
 		$.each temp , (ind,val)->
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
-			if occurrence == true && expected == true
-				newClass = product_type+'_occurred_class'
-				
-			else if occurrence == false && expected == true
-				newClass = product_type+'_expected_class'
-				
-			else if occurrence == true && expected == false
-				newClass = product_type+'_bonus_class'
-				
+			if occurrence == false && expected == true
+				if model.get('type') == 'Anytime'
+					data.serving = 'Serving ' + (parseInt(ind) + 1)
+				else
+					data.serving = whenarr[qty[ind].when]
+				data.qty = qty[ind].qty
+				return false
+
 				
 
-			i = 0
-			
-			servings = []
-			while(i < qty[ind].qty)
-					servings.push newClass : newClass 
-					i++
-			no_servings.push servings : servings , schedule : val.schedule_id , meta_id : val.meta_id ,qty : qty[ind].qty
-			data.no_servings =  no_servings
-		
-		data.original = product_type+'_expected_class'
-		data.bonus = bonus
+				
+		data.product_type = product_type
 		data
+
+
 
 
 	create_occurrences:(val)->
 		$('#meta_id').val 0
-		$('#qty').val val.qty
+		$('#org_qty').val val
+		console.log $('#org_qty')
 
 	update_occurrences:(meta_id,qty)->
 		if meta_id == ""
@@ -165,8 +200,8 @@ class ScheduleView extends Marionette.ItemView
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		console.log productId  = @getParams()
-		product = 3
-		date = '2015-02-02'
+		product = 104
+		date = '2015-02-04'
 		products = []
 		App.useProductColl.each (val)->
 			products.push val

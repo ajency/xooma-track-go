@@ -331,16 +331,19 @@ class HomeX2OView extends Marionette.ItemView
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
 			arr['highlight'] =  "#50abf1"
-			arr['value'] = qty
+			arr['value'] = parseInt(qty) * 100
+			arr['label'] = "Consumed at"
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = qty
+			arr['value'] = parseInt(qty) * 100
+			arr['label'] = qty
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = qty
+			arr['value'] = parseInt(qty) * 100
+			arr['label'] = qty
 
 		arr
 
@@ -356,7 +359,7 @@ class HomeX2OView extends Marionette.ItemView
 					value: occurrence['value']
 					color:occurrence['color']
 					highlight:occurrence['highlight']
-					label: "Bottle"+i
+					label: "Bottle "+i
 				
 		doughnutData
 
@@ -494,6 +497,7 @@ class ProductChildView extends Marionette.ItemView
 		data
 
 	expectedfunc:(val,key,count,model)->
+		console.log model
 		temp = []
 		i = 0
 		html = ""
@@ -507,10 +511,17 @@ class ProductChildView extends Marionette.ItemView
 		increment = parseInt(key) + 1
 		product = model.get('id')
 		date = moment().format('YYYY-MM-DD')
-			
+		whenarr = [0 , 'Morning Before meal' , 'Morning After meal' ,'Night Before meal' ,'Night After meal' ]
+		
+		if model.get('type') == "Anytime"
+			serving_text = 'Serving '+increment
+		else
+			serving_text = whenarr[qty[key].when]
+
 		if parseInt(reminders.length) != 0
 			classname = ''
 			time = reminders[key].time
+			serving_text = time
 
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
@@ -522,7 +533,7 @@ class ProductChildView extends Marionette.ItemView
                   <h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
                </a>'
 			html +=	'<i class="fa fa-clock-o center-block status"></i>
-                     <h6 class="text-center text-primary">Serving '+increment+'</h6></li>'
+                     <h6 class="text-center text-primary">'+serving_text+'</h6></li>'
 		qty  = qty[key].qty
 		$('#qty'+model.get('id')).val qty
 		
@@ -532,20 +543,21 @@ class ProductChildView extends Marionette.ItemView
 		temp
 	
 	occurredfunc:(val,key,model)->
+		console.log val
 		temp = []
 		i = 0
 		timezone = App.currentUser.get 'timezone'
-		time = moment(val.occurrence+timezone, "HH:mm Z").format("hA")
+		time = moment(val.occurrence+timezone, "HH:mm Z").format("h:ss A")
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 
-		qty = model.get 'qty'
+		qty = val.meta_value.qty
 		html = ""
 		newClass = product_type+'_occurred_class'
-		html += '<li><a ><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3></a>'
+		html += '<li><a><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty+'</h3></a>'
 		html +=	'<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">'+time+'</h6></li>'
-		qty  = qty[key].qty
+		qty  = val.meta_value.qty
 		schedule_id = val.schedule_id
-		meta_id = 0
+		meta_id = val.meta_id
 		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
 		temp
 

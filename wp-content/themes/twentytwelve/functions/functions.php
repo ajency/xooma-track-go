@@ -1317,7 +1317,8 @@ function store_consumption_details($args){
 
 		
 		$today = date("Y-m-d", strtotime($args['date']));
-		$start = date("$today H:i:s ");
+		$time = date("H:i:s", strtotime($args['time']));
+        $start = date("$today $time");
 		
 		
 		$occurrence_data = array(
@@ -1782,7 +1783,7 @@ function cron_job_reminders($args)
 
 			$product_name = get_products($user->product_id);
 			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
-
+			
 			//build push array 
 			if (intval($stock) != 0)
 			{

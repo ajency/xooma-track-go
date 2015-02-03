@@ -144,10 +144,10 @@
 			tooltipXOffset: 10,
 
 			// String - Template string for single tooltips
-			tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+			tooltipTemplate: "",
 
 			// String - Template string for single tooltips
-			multiTooltipTemplate: "<%= value %>",
+			multiTooltipTemplate: "",
 
 			// String - Colour behind the legend colour block
 			multiTooltipKeyBackground: '#fff',

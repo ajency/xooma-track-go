@@ -569,7 +569,7 @@
 
 <script id="produts-template" type="h-template">
 <div id="xoomaproduct" class="section">
-				<h4 class="text-center"> List of Xooma products</h4>
+				<h4 class="text-center"> My Xooma products</h4>
 	
 		<div class="container">
 		<div class="aj-response-message"> 
@@ -767,10 +767,10 @@
 	<label for="inputEmail3" class="col-sm-2 col-xs-4  control-label">Serving2</label>
 	<div class="col-sm-4 col-xs-8">
 	  <select class="form-control qty1" name="qty_per_servings1">
-		  <option value="1">1 capsule</option>
-		  <option value="2">2 capsule</option>
-		  <option value="3">3 capsule</option>
-		  <option value="4">4 capsule</option>
+		  <option value="1">1</option>
+		  <option value="2">2</option>
+		  <option value="3">3</option>
+		  <option value="4">4</option>
 		</select>
 	</div>
 		<div class="col-sm-6 col-xs-8 xs-t-10 pull-right ">
@@ -1092,8 +1092,9 @@
 <div class="aj-response-message"></div>
   <div class="row">
   <br>
-		<small class="text-center center-block">Swipe down the bottle to consume</small>	
- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
+	
+		<h4 class="text-center">Serving 1<small>(Bonus)</small></h4>
+<!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			
 			<div class="col-md-4 col-xs-3"> 
@@ -1103,6 +1104,7 @@
 				<div class="water-100 water-marker"> 
 					100%<br>
 					Consumed ------------
+
 				</div>
 				<div class="water-75 water-marker"> 
 					75%<br>
@@ -1121,7 +1123,9 @@
 				<div> <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block"/></div>
 				<div class="bottle-bg">
 						<div class="bottle"></div>
+						<div class="bottle-msg">Completed 25% </div>
 				 </div>
+				 	<small class="text-center center-block">Swipe down the bottle to consume</small>	
 			<!--- Bottle UI -->
 			</div>
 
@@ -1134,10 +1138,10 @@
 			<div class="col-sm-2">
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
-			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
-              	<button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  center-block" > Confirm </button>
+              	
 			</div>
-			<div class="col-sm-5"></div>
+			<div class="col-sm-5"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
 		</div>
   </div>
 	
@@ -1184,10 +1188,10 @@
             <div class="col-md-6 col-xs-12">
                 <h2 class="text-center"> <div class="{{classname}}"></div>{{name}}</h2>
                  <h6 class="text-center text-muted">{{serving}}</h6>
-                 <h5 class="text-center text-muted m-t-30">How many tablets did you have ?</h5>
+                 <h5 class="text-center text-muted m-t-30">How many {{product_type}}(s) did you have ?</h5>
                    <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
-                    <input class="pull-left" type="range" min="1" max="9" step="1" value="1" data-rangeslider>
-                 <h5 class="text-center m-t-30"> <i class="fa fa-clock-o text-primary"></i> Now</h5>
+                    <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
+                 <h5 class="text-center m-t-30"><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o text-primary fieldset__input js__timepicker" /><span class="now">Now</span></h5>
             </div>
             <div class="col-md-3">
          
@@ -1196,10 +1200,12 @@
            <div class="row m-t-20">
         <div class="col-sm-5 col-xs-3"></div>
       <div class="col-sm-3 col-xs-6">
-        <input type="hidden" name="percentage" id="percentage" value="0" / >
+        <input type="hidden" name="date" id="date" value="" / >
+        <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
-          <button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
-                <button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+        
+          <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > Confirm </button>
+                <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       </div>
       <div class="col-sm-4 col-xs-3"></div>
     </div>

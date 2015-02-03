@@ -24,7 +24,6 @@ document.addEventListener "deviceready", ->
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
-		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
 		ParseCloud.register()
@@ -83,4 +82,6 @@ document.addEventListener "deviceready", ->
 	App.start()
 
 , false
+
+
 

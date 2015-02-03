@@ -135,6 +135,7 @@ body{
 .row-line{
     li{
         border-left: 1px solid @gray-light;
+
        
         }
      li:first-child { 
@@ -625,7 +626,20 @@ img {
   border-color: #198ee8!important;
 }
 /** Bottle **/
-
+ #chart-area{
+      height: auto !important;
+      z-index: -1;
+        position:relative;
+  }
+ .bottle-msg{
+    text-align: center;
+    position: relative;
+    z-index: 99999;
+    height: 25%;
+    vertical-align: middle;
+    padding: 14px 0px;
+    color:@white;
+} 
       .fill-bottle{
           width: 150px;
         display: block;

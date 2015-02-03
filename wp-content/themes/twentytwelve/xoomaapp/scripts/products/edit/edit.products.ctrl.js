@@ -298,7 +298,6 @@ EditProductsView = (function(_super) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
       data.defaultbmi = qty.length;
-      data.reminder = reminders[0].time;
     }
     frequecy = this.model.get('frequency_value');
     if (this.model.get('time_set') === 'Once') {
@@ -386,6 +385,7 @@ EditProductsView = (function(_super) {
       }
       $('.servings_per_day option[value="' + weight + '"]').prop("selected", true);
       this.showReminders();
+      this.showAnytimeData(this.model);
     }
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');

@@ -42,6 +42,10 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onShow:->
+		
+
+			
+
 		App.trigger 'cordova:hide:splash:screen'
 		$('#update').val moment().format('YYYY-MM-DD')
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
@@ -62,7 +66,17 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
-		
+		console.log App.currentUser.get('measurements')
+		if App.currentUser.get('measurements') != undefined
+			obj = App.currentUser.get('measurements')
+			@measurements.arm = obj.arm
+			@measurements.neck = obj.neck
+			@measurements.waist = obj.waist
+			@measurements.abdomen = obj.abdomen
+			@measurements.midcalf = obj.midcalf
+			@measurements.thigh = obj.thigh
+			@measurements.hips = obj.hips
+		console.log @measurements
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'

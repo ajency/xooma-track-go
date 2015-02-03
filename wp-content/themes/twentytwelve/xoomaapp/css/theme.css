@@ -5098,7 +5098,6 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 23px;
-  background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 0;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -6697,7 +6696,7 @@ div#mcttCloseButton {
   width: 14px;
   height: 14px;
   position: absolute;
-  background-image: url(../images/closeBtn.gif);
+  background-image: url(../../assets/images/closeBtn.gif);
   cursor: pointer;
   overflow: hidden;
   top: 12px;
@@ -7129,6 +7128,20 @@ packet_expected_class {
   border-color: #198ee8!important;
 }
 /** Bottle **/
+#chart-area {
+  height: auto !important;
+  z-index: -1;
+  position: relative;
+}
+.bottle-msg {
+  text-align: center;
+  position: relative;
+  z-index: 99999;
+  height: 25%;
+  vertical-align: middle;
+  padding: 14px 0px;
+  color: #ffffff;
+}
 .fill-bottle {
   width: 150px;
   display: block;
@@ -7518,12 +7531,16 @@ packet_expected_class {
 .radio:checked + .relative label {
   cursor: auto;
   transform: translateX(19px) translateY(15px);
+  -moz-transform: translateX(19px) translateY(15px);
+  -webkit-transform: translateX(19px) translateY(15px);
 }
 .radio:checked ~ .content {
   max-height: 180px;
   border-color: #eee9dc;
   margin-right: 20px;
   transform: translateY(27px);
+  -moz-transform: translateY(27px);
+  -webkit-transform: translateY(27px);
   transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
 }
 .radio:checked ~ .content p {
@@ -10893,7 +10910,7 @@ input.cmn-toggle-round-flat:checked + label:after {
   color: #FFFFFF;
 }
 #ui-datepicker-div.ui-datepicker .ui-state-active {
-  background: #9ad41e;
+  background: #9ad41e !important;
 }
 #ui-datepicker-div.ui-datepicker td a {
   text-align: center;
