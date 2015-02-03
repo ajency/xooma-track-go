@@ -1317,7 +1317,8 @@ function store_consumption_details($args){
 
 		
 		$today = date("Y-m-d", strtotime($args['date']));
-		$start = date("$today H:i:s ");
+		$time = date("H:i:s", strtotime($args['time']));
+        $start = date("$today $time");
 		
 		
 		$occurrence_data = array(
