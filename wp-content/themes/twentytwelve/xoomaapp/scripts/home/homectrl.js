@@ -554,9 +554,9 @@ ProductChildView = (function(_super) {
     qty = val.meta_value.qty;
     html = "";
     newClass = product_type + '_occurred_class';
-    html += '<li><a ><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty + '</h3></a>';
+    html += '<li><a><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty + '</h3></a>';
     html += '<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">' + time + '</h6></li>';
-    console.log(qty = val.meta_value.qty);
+    qty = val.meta_value.qty;
     schedule_id = val.schedule_id;
     meta_id = val.meta_id;
     temp.push({
