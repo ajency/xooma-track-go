@@ -79,13 +79,15 @@
                         <li><a href="#">Delete</a></li>
                      </ul>
                    </h5>
-                 <div class="fill-bottle">        
-                        <div class="glass">
-                          <span class="liquid" style="height: 100%"></span>
-                        </div>
+
+                 <div class="fill-bottle">    
+                  <h6 class="text-center"> Tap to Consume</h6>    
+                        
+                           <h4 class="text-center margin-none"> Fantastic !</h4>    
+                        <h6 class="text-center margin-none"> Complete last one</h6>  
                     </div>
                     <div id="canvas-holder">
-                          <canvas id="chart-area" width="500" height="500"/>
+                          <canvas id="canvas_Doughnut1" width="650" height="440"/>
                       </div>
             </div>
    </div>
@@ -391,8 +393,11 @@
       <script src="assets/js/datepicker/picker.date.js"></script>
       <script src="assets/js/datepicker/picker.time.js"></script>
       <script src="assets/js/datepicker/demo.js"></script>
-     <script src="assets/js/chart.js"></script>
+ 
       <script src="assets/js/owl.carousel.min.js"></script>
+            <SCRIPT src='assets/js/chart.js'></script>
+        <SCRIPT src='assets/js/ChartNew.js'></script>
+      <SCRIPT src='assets/js/stats.js'></script>
 
       <!-- Mobile menu & popover -->
               <script>
@@ -446,67 +451,89 @@
   			]
 
   		}
-  		var doughnutData = [
-  				{
-  					value: 50,
-  					color:"#6bbfff ",
-  					highlight: "#50abf1",
-  					label: "Bottle 1 ",
-          
-  				},
-  				{
-  					value: 50,
-  					color: "#6bbfff",
-  					highlight: "#50abf1",
-  					label: "Bottle 2"
-  				},
-  				{
-  					value: 50,
-  					color: "#6bbfff",
-  					highlight: "#50abf1",
-  					label: "Bottle 3"
-  				},
-  				{
-  					value: 50,
-  					color: "#6bbfff",
-  					highlight: "#50abf1",
-  					label: "Bottle 4"
-  				},
-  				{
-  					value: 50,
-  					color: "#6bbfff",
-  					highlight: "#50abf1",
-  					label: "Bottle 5"
-  				},
-  				{
-  					value: 50,
-  					color: "#e3e3e3",
-  					highlight: "#cdcdcd",
-  					label: "Bottle 3"
-  				},
-  				{
-  					value: 50,
-  					color: "#e3e3e3",
-  					highlight: "#cdcdcd",
-  					label: "Bottle 4"
-  				}
-
-  			];
-
-  			window.onload = function(){
-            
-  				var ctx = document.getElementById("chart-area").getContext("2d");
-  				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true,   percentageInnerCutout : 80 });
-                  	var ctdx = document.getElementById("canvas").getContext("2d");
-  		window.myLine = new Chart(ctdx).Line(lineChartData, {
-  			responsive: true
-  		});
-  			};
 
 
 
       </script>
+      <SCRIPT>
 
+function setColor(area,data,config,i,j,animPct,value)
+{
+  if(value > 35)return("rgba(220,0,0,"+animPct);
+  else return("rgba(0,220,0,"+animPct);
+  
+}
+
+var charJSPersonnalDefaultOptions = { decimalSeparator : "," , thousandSeparator : ".", roundNumber : "none", graphTitleFontSize: 2 };
+
+defCanvasWidth=400;
+defCanvasHeight=200;
+
+var mydata2 = [
+  {
+    value : 30,
+    color: "#6bbfff",
+    title : "Bottle1"
+  },
+  {
+    value : 100,
+    color: "#6bbfff",
+    title : "Bottle2"
+  },
+  {
+    value :100,
+    color: "#6bbfff",
+    title : "Bottle3"
+  },
+  {
+    value : 100,
+    color: "#6bbfff",
+    title : "Bottle4"
+      }
+];
+
+
+var startWithDataset =1;
+var startWithData =1;
+
+var opt1 = {
+      animationStartWithDataset : startWithDataset,
+      animationStartWithData : startWithData,
+      animateRotate : false,
+      animateScale : false,
+      animationByData : false,
+      animationSteps : 50,
+      inGraphDataShow : true,
+      animationEasing: "linear",
+      annotateDisplay : true,
+      spaceBetweenBar : 2,
+      graphTitleFontSize: 18,
+      percentageInnerCutout : 80 ,
+      responsive: true
+
+}
+
+
+
+
+  
+
+
+</SCRIPT>
+    <script>
+
+ 
+   
+   
+
+window.onload = function() {
+
+
+    var myDoughnut = new Chart(document.getElementById("canvas_Doughnut1").getContext("2d")).Doughnut(mydata2,opt1);
+
+  }
+
+    </script>
 
   </body>
 
