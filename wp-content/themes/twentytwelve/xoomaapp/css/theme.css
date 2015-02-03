@@ -7189,7 +7189,8 @@ packet_expected_class {
   width: 50px;
   text-align: right;
 }
-.alert.alert-success {
+.alert.alert-success,
+.alert.alert-danger {
   position: absolute;
   z-index: 6001;
   top: 105px;
@@ -7202,7 +7203,8 @@ packet_expected_class {
   -moz-box-shadow: 0 0 5px black;
   box-shadow: 0 0 5px black;
 }
-.alert.alert-success {
+.alert.alert-success,
+.alert.alert-danger {
   -webkit-transform: translateY(-190px);
   -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
   -moz-transform: translateY(-190px);
@@ -10922,6 +10924,10 @@ input.cmn-toggle-round-flat:checked + label:after {
   border: 0px;
   background: none;
   text-align: center;
+}
+.input-time {
+  border: 0px;
+  width: 100px;
 }
 h1.special,
 h2.special,

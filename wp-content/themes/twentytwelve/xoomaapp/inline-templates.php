@@ -873,12 +873,12 @@
 <br>
 <br>
 <br>
-<div class="container">
-
+<div class="container " >
+	<div class="aj-response-message"></div>
 <div class="row">
 	<div class="col-sm-2"></div>
 	<div class="col-sm-8">
-	<div class="aj-response-message"></div>
+
 	 <form id="inventory" class="form-horizontal" role="form" method="POST">
 	  <div class="form-group">
 		<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">How many containers do I have ?</label>
@@ -1191,7 +1191,7 @@
                  <h5 class="text-center text-muted m-t-30">How many {{product_type}}(s) did you have ?</h5>
                    <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-30"><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o text-primary fieldset__input js__timepicker" /><span class="now">Now</span></h5>
+                 <h5 class="text-center m-t-30"><i class="fa fa-clock-o text-primary"></i> <input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o input-time text-primary fieldset__input js__timepicker" placeholder="Now"/> <!--<span class="now">Now</span>--></h5>
             </div>
             <div class="col-md-3">
          
