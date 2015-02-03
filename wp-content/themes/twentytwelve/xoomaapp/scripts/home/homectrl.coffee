@@ -331,18 +331,18 @@ class HomeX2OView extends Marionette.ItemView
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
 			arr['highlight'] =  "#50abf1"
-			arr['value'] = qty
+			arr['value'] = parseInt(qty) * 100
 			arr['label'] = "Consumed at"
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = qty
+			arr['value'] = parseInt(qty) * 100
 			arr['label'] = qty
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = qty
+			arr['value'] = parseInt(qty) * 100
 			arr['label'] = qty
 
 		arr
@@ -535,6 +535,7 @@ class ProductChildView extends Marionette.ItemView
 		temp
 	
 	occurredfunc:(val,key,model)->
+		console.log val
 		temp = []
 		i = 0
 		timezone = App.currentUser.get 'timezone'
@@ -548,7 +549,7 @@ class ProductChildView extends Marionette.ItemView
 		html +=	'<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">'+time+'</h6></li>'
 		qty  = qty[key].qty
 		schedule_id = val.schedule_id
-		meta_id = 0
+		meta_id = val.meta_id
 		temp.push html : html , schedule_id : schedule_id ,qty : qty , meta_id :meta_id
 		temp
 

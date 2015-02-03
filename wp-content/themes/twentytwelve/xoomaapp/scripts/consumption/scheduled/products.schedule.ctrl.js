@@ -111,7 +111,8 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
-    return this.model.set('occurrence', response.occurrence);
+    this.model.set('occurrence', response.occurrence);
+    return App.navigate("#/home", true);
   };
 
   ScheduleView.prototype.onShow = function() {
@@ -204,7 +205,7 @@ App.ScheduleCtrl = (function(_super) {
     }
     console.log(productId = this.getParams());
     product = 3;
-    date = '2015-02-03';
+    date = '2015-02-04';
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);

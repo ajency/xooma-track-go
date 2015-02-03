@@ -94,6 +94,7 @@ class ScheduleView extends Marionette.ItemView
 
 	saveHandler:(response,status,xhr)=>
 		@model.set 'occurrence' , response.occurrence
+		App.navigate "#/home" , true
 		
 		
 
@@ -169,7 +170,7 @@ class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		console.log productId  = @getParams()
 		product = 3
-		date = '2015-02-03'
+		date = '2015-02-04'
 		products = []
 		App.useProductColl.each (val)->
 			products.push val

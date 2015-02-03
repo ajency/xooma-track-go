@@ -20,9 +20,10 @@ class AsperbmiView extends Marionette.ItemView
 			  return
 			product = @model.get('id')
 			date = moment().format('YYYY-MM-DD')
+			time  = moment().format("HH:mm:ss")
 			$.ajax
 						method : 'POST'
-						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date
+						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
 						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler

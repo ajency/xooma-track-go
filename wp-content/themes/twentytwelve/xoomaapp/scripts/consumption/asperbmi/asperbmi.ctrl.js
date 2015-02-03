@@ -30,7 +30,7 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
-      var date, meta_id, product, qty;
+      var date, meta_id, product, qty, time;
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
@@ -39,9 +39,10 @@ AsperbmiView = (function(_super) {
       }
       product = this.model.get('id');
       date = moment().format('YYYY-MM-DD');
+      time = moment().format("HH:mm:ss");
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date,
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
