@@ -122,7 +122,7 @@ App.UserPersonalInfoCtrl = (function(_super) {
   }
 
   UserPersonalInfoCtrl.prototype.initialize = function(options) {
-    if (_.isDeviceOnline()) {
+    if (CordovaApp.isDeviceOnline()) {
       this.show(this.parent().parent().getLLoadingView());
       return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
     } else {

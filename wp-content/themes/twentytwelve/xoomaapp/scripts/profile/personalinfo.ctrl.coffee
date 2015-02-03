@@ -101,7 +101,7 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		#Device
-		if _.isDeviceOnline()
+		if CordovaApp.isDeviceOnline()
 			@show @parent().parent().getLLoadingView()
 			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 		else

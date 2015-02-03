@@ -118,7 +118,7 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
 		#Device
-		if _.isDeviceOnline()
+		if CordovaApp.isDeviceOnline()
 			@show @parent().parent().getLLoadingView()
 			xhr = @_get_measurement_details()
 			xhr.done(@_showView).fail @errorHandler

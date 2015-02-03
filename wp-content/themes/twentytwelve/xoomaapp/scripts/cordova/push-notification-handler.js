@@ -23,9 +23,9 @@ Push = {
   },
   bindPushNotificationEvents: function() {
     this.pushNotification = window.plugins.pushNotification;
-    if (_.isPlatformAndroid()) {
+    if (CordovaApp.isPlatformAndroid()) {
       return this.bindGCMEventListener();
-    } else if (_.isPlatformIOS()) {
+    } else if (CordovaApp.isPlatformIOS()) {
       return this.bindAPNSEventListener();
     } else {
       return console.log("Unknown Platform");

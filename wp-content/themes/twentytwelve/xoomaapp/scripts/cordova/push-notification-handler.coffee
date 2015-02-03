@@ -31,8 +31,8 @@
 
 			@pushNotification = window.plugins.pushNotification
 
-			if _.isPlatformAndroid() then @bindGCMEventListener()
-			else if _.isPlatformIOS() then @bindAPNSEventListener()
+			if CordovaApp.isPlatformAndroid() then @bindGCMEventListener()
+			else if CordovaApp.isPlatformIOS() then @bindAPNSEventListener()
 			else console.log "Unknown Platform"
 
 

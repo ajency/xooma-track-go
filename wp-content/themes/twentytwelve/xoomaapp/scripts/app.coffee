@@ -24,20 +24,21 @@ document.addEventListener "deviceready", ->
 
 	App.currentUser.on 'user:auth:success', ->
 		# App.trigger 'fb:status:connected'
-		
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
 		ParseCloud.register()
-		.done ->
+		.then ->
 			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
 	App.currentUser.on 'user:logged:out', ->
 		#Device
-		ParseCloud.deregister()
-		.done ->
-			CordovaStorage.clear() 
-			App.navigate '/login', replace: true, trigger: true
-			`userData = {}`
+		CordovaApp.facebookLogout()
+		.then ->
+			ParseCloud.deregister()
+			.then ->
+				CordovaStorage.clear() 
+				App.navigate '/login', replace: true, trigger: true
+				userData = {}
 
 
 	App.state 'settings',
@@ -61,7 +62,7 @@ document.addEventListener "deviceready", ->
 
 		#Device
 		Push.register()
-		.done ->
+		.then ->
 			if not App.currentUser.isLoggedIn()
 				App.navigate '/login', replace: true, trigger: true
 				App.trigger 'cordova:hide:splash:screen'
@@ -74,7 +75,7 @@ document.addEventListener "deviceready", ->
 			App.currentUser.getFacebookPicture()
 
 	App.on 'cordova:hide:splash:screen', ->
-		_.hideSplashscreen() if window.isWebView()
+		CordovaApp.hideSplashscreen() if window.isWebView()
 
 
 	App.start()

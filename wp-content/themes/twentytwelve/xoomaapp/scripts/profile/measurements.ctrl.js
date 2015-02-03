@@ -159,7 +159,7 @@ App.UserMeasurementCtrl = (function(_super) {
 
   UserMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
-    if (_.isDeviceOnline()) {
+    if (CordovaApp.isDeviceOnline()) {
       this.show(this.parent().parent().getLLoadingView());
       xhr = this._get_measurement_details();
       return xhr.done(this._showView).fail(this.errorHandler);

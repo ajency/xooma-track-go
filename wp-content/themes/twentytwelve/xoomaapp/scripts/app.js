@@ -22,7 +22,7 @@ document.addEventListener("deviceready", function() {
   };
   App.currentUser.on('user:auth:success', function() {
     CordovaStorage.setUserData(App.currentUser.toJSON());
-    return ParseCloud.register().done(function() {
+    return ParseCloud.register().then(function() {
       return App.navigate('#' + App.currentUser.get('state'), {
         replace: true,
         trigger: true
@@ -30,13 +30,16 @@ document.addEventListener("deviceready", function() {
     });
   });
   App.currentUser.on('user:logged:out', function() {
-    return ParseCloud.deregister().done(function() {
-      CordovaStorage.clear();
-      App.navigate('/login', {
-        replace: true,
-        trigger: true
+    return CordovaApp.facebookLogout().then(function() {
+      return ParseCloud.deregister().then(function() {
+        var userData;
+        CordovaStorage.clear();
+        App.navigate('/login', {
+          replace: true,
+          trigger: true
+        });
+        return userData = {};
       });
-      return userData = {};
     });
   });
   App.state('settings', {
@@ -56,7 +59,7 @@ document.addEventListener("deviceready", function() {
   });
   App.addInitializer(function() {
     Backbone.history.start();
-    return Push.register().done(function() {
+    return Push.register().then(function() {
       if (!App.currentUser.isLoggedIn()) {
         App.navigate('/login', {
           replace: true,
@@ -78,7 +81,7 @@ document.addEventListener("deviceready", function() {
   });
   App.on('cordova:hide:splash:screen', function() {
     if (window.isWebView()) {
-      return _.hideSplashscreen();
+      return CordovaApp.hideSplashscreen();
     }
   });
   return App.start();
