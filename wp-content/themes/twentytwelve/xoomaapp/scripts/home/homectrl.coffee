@@ -461,8 +461,9 @@ class ProductChildView extends Marionette.ItemView
 
 
 	serializeData:->
-		console.log status
-		per = [0.25,0]
+		console.log status['25_50_timeslot1']
+		per = [25,50,75,1]
+		per1 = ['25_50','50_75']
 		data = super()
 		recent = '--'
 		data.occur = 0
@@ -476,6 +477,7 @@ class ProductChildView extends Marionette.ItemView
 		product_type = @model.get('product_type')
 		product_type = product_type.toLowerCase()
 		temp = []
+		texmsg = ""
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -497,7 +499,15 @@ class ProductChildView extends Marionette.ItemView
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
 			data.no_servings =  no_servings
 			data.serving_size = temp.length
-		howmuch = parseInt(consumed)/parseInt(temp.length)
+		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		$.each per , (ind,val)->
+			if parseInt(val) == parseInt(howmuch)
+				texmsg = status[val+'_timeslot1']
+		$.each per1 , (ind,val)->
+			console.log temp = val.split('_')
+			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
+				texmsg = status[val+'_timeslot1']
+		console.log texmsg
 		data
 
 	expectedfunc:(val,key,count,model)->

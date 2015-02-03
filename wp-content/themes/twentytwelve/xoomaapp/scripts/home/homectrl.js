@@ -451,9 +451,10 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, consumed, count, data, howmuch, model, no_servings, occurrenceArr, per, product_type, qty, recent, reponse, temp;
-    console.log(status);
-    per = [0.25, 0];
+    var bonusArr, consumed, count, data, howmuch, model, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg;
+    console.log(status['25_50_timeslot1']);
+    per = [25, 50, 75, 1];
+    per1 = ['25_50', '50_75'];
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
@@ -467,6 +468,7 @@ ProductChildView = (function(_super) {
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
     temp = [];
+    texmsg = "";
     $.each(this.model.get('occurrence'), function(ind, val) {
       if (qty[ind] !== void 0) {
         return temp.push(val);
@@ -496,7 +498,19 @@ ProductChildView = (function(_super) {
       data.no_servings = no_servings;
       return data.serving_size = temp.length;
     });
-    howmuch = parseInt(consumed) / parseInt(temp.length);
+    console.log(howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100);
+    $.each(per, function(ind, val) {
+      if (parseInt(val) === parseInt(howmuch)) {
+        return texmsg = status[val + '_timeslot1'];
+      }
+    });
+    $.each(per1, function(ind, val) {
+      console.log(temp = val.split('_'));
+      if (parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)) {
+        return texmsg = status[val + '_timeslot1'];
+      }
+    });
+    console.log(texmsg);
     return data;
   };
 
