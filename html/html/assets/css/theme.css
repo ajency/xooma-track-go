@@ -5101,7 +5101,6 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 23px;
-  background-color: #ffffff;
   border: 1px solid transparent;
   border-radius: 0;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -7445,15 +7444,16 @@ input.fire-check:checked ~ section .tn-box:nth-child(3) .tn-progress {
 }
 /** Bottle **/
 #canvas-holder {
-  width: 30%;
+  width: 50%;
   margin: auto;
+  background: none;
 }
 .fill-bottle {
   width: 150px;
   display: block;
   margin: auto;
   position: relative;
-  top: 65px;
+  top: 102px;
 }
 .glass {
   height: 150px;

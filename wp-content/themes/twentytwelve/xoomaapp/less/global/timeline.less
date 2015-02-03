@@ -72,6 +72,8 @@
 .radio:checked + .relative label {
   cursor: auto;
  transform: translateX(19px) translateY(15px);
+ -moz-transform: translateX(19px) translateY(15px);
+ -webkit-transform: translateX(19px) translateY(15px);
 }
 
 .radio:checked ~ .content {
@@ -79,6 +81,8 @@
   border-color: #eee9dc;
   margin-right: 20px;
   transform: translateY(27px);
+  -moz-transform: translateY(27px);
+  -webkit-transform: translateY(27px);
   transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
 }
 .radio:checked ~ .content p {

@@ -569,7 +569,7 @@
 
 <script id="produts-template" type="h-template">
 <div id="xoomaproduct" class="section">
-				<h4 class="text-center"> List of Xooma products</h4>
+				<h4 class="text-center"> My Xooma products</h4>
 	
 		<div class="container">
 		<div class="aj-response-message"> 
@@ -1092,8 +1092,9 @@
 <div class="aj-response-message"></div>
   <div class="row">
   <br>
-		<small class="text-center center-block">Swipe down the bottle to consume</small>	
- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>
+	
+		<h4 class="text-center">Serving 1<small>(Bonus)</small></h4>
+<!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			
 			<div class="col-md-4 col-xs-3"> 
@@ -1103,6 +1104,7 @@
 				<div class="water-100 water-marker"> 
 					100%<br>
 					Consumed ------------
+
 				</div>
 				<div class="water-75 water-marker"> 
 					75%<br>
@@ -1121,7 +1123,9 @@
 				<div> <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block"/></div>
 				<div class="bottle-bg">
 						<div class="bottle"></div>
+						<div class="bottle-msg">Completed 25% </div>
 				 </div>
+				 	<small class="text-center center-block">Swipe down the bottle to consume</small>	
 			<!--- Bottle UI -->
 			</div>
 
@@ -1134,10 +1138,10 @@
 			<div class="col-sm-2">
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
-			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  " > Confirm </button>
-              	<button class="reset-progress btn-link " type="button"> <i class="fa fa-refresh"></i> Reset</button>
+			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  center-block" > Confirm </button>
+              	
 			</div>
-			<div class="col-sm-5"></div>
+			<div class="col-sm-5"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
 		</div>
   </div>
 	
