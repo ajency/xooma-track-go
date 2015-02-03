@@ -31,7 +31,6 @@ document.addEventListener("deviceready", function() {
   });
   App.currentUser.on('user:logged:out', function() {
     return ParseCloud.deregister().done(function() {
-      var userData;
       CordovaStorage.clear();
       App.navigate('/login', {
         replace: true,
@@ -63,7 +62,7 @@ document.addEventListener("deviceready", function() {
           replace: true,
           trigger: true
         });
-        return _.hideSplashscreen();
+        return App.trigger('cordova:hide:splash:screen');
       } else {
         return App.navigate('#' + App.currentUser.get('state'), {
           replace: true,
@@ -78,7 +77,9 @@ document.addEventListener("deviceready", function() {
     }
   });
   App.on('cordova:hide:splash:screen', function() {
-    return console.log("triggered");
+    if (window.isWebView()) {
+      return _.hideSplashscreen();
+    }
   });
   return App.start();
 }, false);

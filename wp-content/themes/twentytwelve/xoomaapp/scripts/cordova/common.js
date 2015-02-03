@@ -20,9 +20,6 @@ _.mixin({
       return false;
     }
   },
-  isWebView: function() {
-    return !(!window.cordova && !window.PhoneGap && !window.phonegap);
-  },
   hideSplashscreen: function() {
     return setTimeout(function() {
       return navigator.splashscreen.hide();

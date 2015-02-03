@@ -88,12 +88,11 @@
 
 
 <script type="text/javascript">
+
 	function isWebView(){
     	return !(!window.cordova && !window.PhoneGap && !window.phonegap)
-
 	}
 	$(window).bind('load',isWebView);
-
 
 	userData = CordovaStorage.getUserData();
 	notLoggedInCaps = {"access_login":true,"level_0":true};
@@ -103,6 +102,7 @@
 	App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 	APIURL                = 'http://www.xooma.ajency.in/wp-json';
 	_SITEURL              = 'http://www.xooma.ajency.in';
+	
 </script>
 
 

@@ -14,10 +14,6 @@ _.mixin
 		if device.platform.toLowerCase() is "ios" then true else false
 
 	
-	isWebView : ->
-		!(!window.cordova && !window.PhoneGap && !window.phonegap)
-
-	
 	hideSplashscreen : ->
 		setTimeout ->
 			navigator.splashscreen.hide()

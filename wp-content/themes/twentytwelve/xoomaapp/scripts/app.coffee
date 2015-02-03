@@ -37,7 +37,7 @@ document.addEventListener "deviceready", ->
 		.done ->
 			CordovaStorage.clear() 
 			App.navigate '/login', replace: true, trigger: true
-			userData = {}
+			`userData = {}`
 
 
 	App.state 'settings',
@@ -62,10 +62,9 @@ document.addEventListener "deviceready", ->
 		#Device
 		Push.register()
 		.done ->
-
 			if not App.currentUser.isLoggedIn()
 				App.navigate '/login', replace: true, trigger: true
-				_.hideSplashscreen()
+				App.trigger 'cordova:hide:splash:screen'
 			else 
 				App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
@@ -75,7 +74,7 @@ document.addEventListener "deviceready", ->
 			App.currentUser.getFacebookPicture()
 
 	App.on 'cordova:hide:splash:screen', ->
-		console.log "triggered"
+		_.hideSplashscreen() if window.isWebView()
 
 
 	App.start()
