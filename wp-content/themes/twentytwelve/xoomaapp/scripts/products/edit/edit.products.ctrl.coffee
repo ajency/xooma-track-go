@@ -273,7 +273,7 @@ class EditProductsView extends Marionette.ItemView
 		if @model.get('time_set') == 'asperbmi' &&  @model.get('qty') != undefined
 			qty = @model.get 'qty'
 			reminders = @model.get 'reminders'
-			data.defaultbmi = qty.qty
+			data.defaultbmi = qty.length
 			
 		frequecy = @model.get 'frequency_value'
 		if @model.get('time_set') == 'Once' 

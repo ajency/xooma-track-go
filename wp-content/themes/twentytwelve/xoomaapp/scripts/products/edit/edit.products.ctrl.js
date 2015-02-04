@@ -301,7 +301,7 @@ EditProductsView = (function(_super) {
     if (this.model.get('time_set') === 'asperbmi' && this.model.get('qty') !== void 0) {
       qty = this.model.get('qty');
       reminders = this.model.get('reminders');
-      data.defaultbmi = qty.qty;
+      data.defaultbmi = qty.length;
     }
     frequecy = this.model.get('frequency_value');
     if (this.model.get('time_set') === 'Once') {
