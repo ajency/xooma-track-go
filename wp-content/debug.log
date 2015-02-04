@@ -5495,3 +5495,405 @@
 [04-Feb-2015 08:06:06 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
 [04-Feb-2015 08:06:06 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
 [04-Feb-2015 08:06:06 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:17:32 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:17:32 UTC] PHP Stack trace:
+[04-Feb-2015 09:17:32 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:17:32 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:17:32 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:17:32 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:17:32 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:17:32 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:17:32 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:17:32 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:17:32 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:17:32 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:17:32 UTC] PHP Stack trace:
+[04-Feb-2015 09:17:32 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:17:32 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:17:32 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:17:32 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:17:32 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:17:32 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:17:32 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:17:32 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:17:32 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:17:32 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:17:32 UTC] PHP Stack trace:
+[04-Feb-2015 09:17:32 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:17:32 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:17:32 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:17:32 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:17:32 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:17:32 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:17:32 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:17:32 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:17:32 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:17:32 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:17:32 UTC] PHP Stack trace:
+[04-Feb-2015 09:17:32 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:17:32 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:17:32 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:17:32 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:17:32 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:17:32 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:17:32 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:17:32 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:17:32 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:17:32 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:17:32 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:24:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:24:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:24:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:24:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:24:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:24:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:24:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:24:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:24:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:24:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:24:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:24:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:24:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:24:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:24:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:24:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:24:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:24:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:24:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:24:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:24:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:01 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:24:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:24:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:24:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:24:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:01 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:24:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:24:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:24:02 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:24:02 UTC] PHP Stack trace:
+[04-Feb-2015 09:24:02 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:24:02 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:24:02 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:24:02 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:24:02 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:24:02 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:24:02 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:24:02 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:25:01 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:25:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:25:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:25:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:25:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:25:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:25:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:25:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:25:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:25:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:25:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:25:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:25:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:25:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:25:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:25:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:25:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:25:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:25:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:25:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:25:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:25:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:25:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:25:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:25:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:25:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:25:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:25:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:25:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:25:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:25:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:25:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:25:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:25:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:25:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:25:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:25:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:25:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:25:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:25:01 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:25:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:25:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:25:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:25:01 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:25:01 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:25:01 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:25:01 UTC] PHP Stack trace:
+[04-Feb-2015 09:25:01 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:25:01 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:25:01 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:25:01 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:25:01 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:25:01 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:25:01 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:25:01 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:27:36 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:27:36 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:27:36 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:27:36 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:27:36 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:27:36 UTC] PHP Stack trace:
+[04-Feb-2015 09:27:36 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:27:36 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:27:36 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:27:36 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:27:36 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:27:36 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:27:36 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:27:36 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:29:26 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:29:26 UTC] PHP Stack trace:
+[04-Feb-2015 09:29:26 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:29:26 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:29:26 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:29:26 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:29:26 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:29:26 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:29:26 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:29:26 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:29:26 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:29:26 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:26 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:26 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:29:26 UTC] PHP Stack trace:
+[04-Feb-2015 09:29:26 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:29:26 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:29:26 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:29:27 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:29:27 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:29:27 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:29:27 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:29:27 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:29:27 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:29:27 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:27 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:27 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:29:27 UTC] PHP Stack trace:
+[04-Feb-2015 09:29:27 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:29:27 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:29:27 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:29:27 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:29:27 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:29:27 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:29:27 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:29:27 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:29:27 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:29:27 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:27 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:27 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:29:27 UTC] PHP Stack trace:
+[04-Feb-2015 09:29:27 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:29:27 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:29:27 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:29:27 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:29:27 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:29:27 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:29:27 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:29:27 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:29:27 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:29:27 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:27 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:29:27 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:29:27 UTC] PHP Stack trace:
+[04-Feb-2015 09:29:27 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:29:27 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:29:27 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:29:28 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:29:28 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:29:28 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:29:28 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:29:28 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:30:57 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:30:57 UTC] PHP Stack trace:
+[04-Feb-2015 09:30:57 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:30:57 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:30:57 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:30:57 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:30:57 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:30:57 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:30:57 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:30:57 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:30:57 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:30:57 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1072
+[04-Feb-2015 09:30:57 UTC] PHP Stack trace:
+[04-Feb-2015 09:30:57 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:30:57 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:30:57 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:30:57 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:30:57 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:30:57 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:30:57 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:30:57 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:30:57 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:30:57 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP Notice:  Undefined variable: testimonial in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:30:57 UTC] PHP Stack trace:
+[04-Feb-2015 09:30:57 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:30:57 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:30:57 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:30:57 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:30:57 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:30:57 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:30:57 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:30:57 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:30:57 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:30:57 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\functions.php on line 1073
+[04-Feb-2015 09:30:57 UTC] PHP Stack trace:
+[04-Feb-2015 09:30:57 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:30:57 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:30:57 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:30:57 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:30:57 UTC] PHP   5. get_header() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:13
+[04-Feb-2015 09:30:57 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:45
+[04-Feb-2015 09:30:57 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:30:57 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501
+[04-Feb-2015 09:30:57 UTC] PHP   9. do_action() C:\wamp\www\xooma\wp-content\themes\twentytwelve\header.php:44
+[04-Feb-2015 09:30:57 UTC] PHP  10. call_user_func_array() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:57 UTC] PHP  11. add_facebook_open_graph_tags() C:\wamp\www\xooma\wp-includes\plugin.php:496
+[04-Feb-2015 09:30:58 UTC] PHP Notice:  Trying to get property of non-object in C:\wamp\www\xooma\wp-content\themes\twentytwelve\footer.php on line 77
+[04-Feb-2015 09:30:58 UTC] PHP Stack trace:
+[04-Feb-2015 09:30:58 UTC] PHP   1. {main}() C:\wamp\www\xooma\index.php:0
+[04-Feb-2015 09:30:58 UTC] PHP   2. require() C:\wamp\www\xooma\index.php:17
+[04-Feb-2015 09:30:58 UTC] PHP   3. require_once() C:\wamp\www\xooma\wp-blog-header.php:16
+[04-Feb-2015 09:30:58 UTC] PHP   4. include() C:\wamp\www\xooma\wp-includes\template-loader.php:74
+[04-Feb-2015 09:30:58 UTC] PHP   5. get_footer() C:\wamp\www\xooma\wp-content\themes\twentytwelve\404.php:51
+[04-Feb-2015 09:30:58 UTC] PHP   6. locate_template() C:\wamp\www\xooma\wp-includes\general-template.php:85
+[04-Feb-2015 09:30:58 UTC] PHP   7. load_template() C:\wamp\www\xooma\wp-includes\template.php:477
+[04-Feb-2015 09:30:58 UTC] PHP   8. require_once() C:\wamp\www\xooma\wp-includes\template.php:501

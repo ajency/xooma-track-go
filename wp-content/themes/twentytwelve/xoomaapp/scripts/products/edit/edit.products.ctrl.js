@@ -43,7 +43,7 @@ EditProductsView = (function(_super) {
       return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 44;
     },
     'change @ui.rangeSliders': function(e) {
-      $('.servings_per_day').val($(e.target).val());
+      $('#servings_per_day_value').val($(e.target).val());
       this.valueOutput(e.currentTarget);
       return this.showReminders();
     },
@@ -228,6 +228,9 @@ EditProductsView = (function(_super) {
       $(this.ui.servings_diff).prop('disabled', false);
       $('#reminder_time0').removeAttr('disabled');
       servings = $('.servings_per_day').val();
+      if ($('#servings_per_day_value').val() !== "") {
+        servings = $('#servings_per_day_value').val();
+      }
       html1 = "";
       i = 1;
       while (i <= servings) {
@@ -291,7 +294,7 @@ EditProductsView = (function(_super) {
     var data, frequecy, product, products, qty, reminder_flag, reminders, weightbmi;
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
-    console.log(weightbmi = this.get_weight_bmi(this.model.get('bmi')));
+    weightbmi = this.get_weight_bmi(this.model.get('bmi'));
     data.x2o = Math.ceil(weightbmi);
     data.defaultbmi = Math.ceil(weightbmi);
     products = App.currentUser.get('products');
@@ -341,6 +344,8 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.onShow = function() {
     var container, product, products, qty, reminder_flag, weight, weightbmi;
+    product = parseInt(this.model.get('id'));
+    products = App.currentUser.get('products');
     this.checkMode();
     $('.js__timepicker').pickatime({
       interval: 15
@@ -378,20 +383,17 @@ EditProductsView = (function(_super) {
       });
       $('.schedule_data').hide();
       $('.anytime').hide();
-      if (this.model.get('bmi') !== void 0) {
-        weightbmi = this.get_weight_bmi(this.model.get('bmi'));
+      if ($.inArray(product, products) === -1) {
+        console.log(weightbmi = this.get_weight_bmi(this.model.get('bmi')));
         weight = Math.ceil(weightbmi);
       } else {
         qty = this.model.get('qty');
         weight = qty.length;
       }
-      $('.servings_per_day option[value="' + weight + '"]').prop("selected", true);
-      console.log($('.servings_per_day').val());
+      console.log($('#servings_per_day_value').val(weight));
       this.showReminders();
       this.showAnytimeData(this.model);
     }
-    product = parseInt(this.model.get('id'));
-    products = App.currentUser.get('products');
     if ($.inArray(product, products) === -1) {
       return $('.remove').hide();
     }

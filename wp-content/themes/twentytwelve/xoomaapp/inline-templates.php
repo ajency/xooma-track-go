@@ -706,6 +706,7 @@
 		  <option value="3">3</option>
 		  
 		</select>
+		<input type="hidden" name="servings_per_day_value" id="servings_per_day_value" value="" />
 	</div>
   </div>
   

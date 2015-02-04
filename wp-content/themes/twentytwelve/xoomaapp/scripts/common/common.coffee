@@ -17,6 +17,7 @@ _.extend Ajency.CurrentUser::,
 		formdata = $.param measurements
 		_successHandler = (resp)=>
 			@set 'measurements', measurements
+			App.currentUser.set 'weight' , measurements.weight
 
 		$.ajax
 			method : 'POST'
