@@ -1377,7 +1377,7 @@ function store_consumption_details($args){
 					$meta_id = $args['meta_id'];
 				}
 
-				$occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
+				$occurrence = get_occurrence_date($args['pid'],$args['id'],$args['date']);
 
 
 

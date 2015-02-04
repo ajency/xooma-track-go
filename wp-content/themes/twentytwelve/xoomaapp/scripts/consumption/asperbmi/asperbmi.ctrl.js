@@ -60,7 +60,7 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
-    var cnt, model, occurResponse, tempColl;
+    var cnt, model, msg, occurResponse, tempColl;
     if (xhr.status === 201) {
       occurResponse = _.map(response.occurrence, function(occurrence) {
         occurrence.meta_id = parseInt(occurrence.meta_id);
@@ -74,8 +74,11 @@ AsperbmiView = (function(_super) {
       });
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
+      msg = this.showMessage(cnt);
+      $('.msg').html(msg);
       if (parseInt(cnt) === 1) {
         cnt = 0;
+        this.create_occurrences();
       }
       $('.bottlecnt').text(cnt);
       this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
@@ -169,24 +172,42 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.create_occurrences = function() {
+    var msg;
     $('#meta_id').val(0);
-    $('.bottlecnt').text(0);
+    $('.bottlecnt').text('No Consumption');
+    msg = this.showMessage(0);
+    $('.msg').text(msg);
     this.originalBottleRemaining = 100;
     this.bottleRemaining = 100;
     return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
   };
 
   AsperbmiView.prototype.update_occurrences = function(data) {
-    var count, meta_value;
+    var count, meta_value, msg;
     $('#add').hide();
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
     $('.bottlecnt').text(count);
+    msg = this.showMessage(count);
+    $('.msg').html(msg);
     this.bottleRemaining = 100 - 100 * count;
     this.originalBottleRemaining = this.bottleRemaining;
     return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
+  };
+
+  AsperbmiView.prototype.showMessage = function(count) {
+    var msg, temp;
+    console.log(count);
+    temp = [0, 0.25, 0.5, 0.75, 1];
+    msg = "";
+    $.each(temp, function(ind, val) {
+      if (parseFloat(count) === parseFloat(val)) {
+        return console.log(msg = Messages[val]);
+      }
+    });
+    return msg;
   };
 
   AsperbmiView.prototype.startProgress = function() {

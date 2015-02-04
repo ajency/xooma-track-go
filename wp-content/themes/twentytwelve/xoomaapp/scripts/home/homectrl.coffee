@@ -403,7 +403,7 @@ class ProductChildView extends Marionette.ItemView
 					
 
 			  <ul class="list-inline dotted-line  text-center row m-t-20">
-								  <li class="col-md-8 col-xs-8"> 
+								  <li class="col-md-8 col-xs-12"> 
 							 <ul class="list-inline no-dotted">
 							 					{{#no_servings}}
 					
@@ -426,10 +426,10 @@ class ProductChildView extends Marionette.ItemView
 </ul>                          
 								  </li>
 								   
-									<li class="col-md-4 col-xs-4">
-										<h5 class="text-center">Status</h5>
+									<li class="col-md-4 col-xs-12 mobile-status">
+										<h5 class="text-center hidden-xs">Status</h5>
 											<i class="fa fa-smile-o"></i>  
-										<h6 class="text-center margin-none status"></h6>
+										<h6 class="text-center margin-none status">{{texmsg}}</h6>
 									</li>
 								</ul>
 			  
@@ -461,9 +461,10 @@ class ProductChildView extends Marionette.ItemView
 
 
 	serializeData:->
-		console.log status['25_50_timeslot1']
-		per = [25,50,75,1]
+		console.log Messages['25_timeslot1']
+		per = [0,25,50,75,100]
 		per1 = ['25_50','50_75']
+		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
 		data = super()
 		recent = '--'
 		data.occur = 0
@@ -478,6 +479,12 @@ class ProductChildView extends Marionette.ItemView
 		product_type = product_type.toLowerCase()
 		temp = []
 		texmsg = ""
+		timeslot = ""
+		time = ""
+		timearray = []
+		timezone = App.currentUser.get 'timezone'
+		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
+		timearray.push moment(tt+timezone, "HH:mm Z").format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -489,6 +496,10 @@ class ProductChildView extends Marionette.ItemView
 			expected = _.has(val, "expected")
 			if occurrence == true && expected == true
 				reponse = ProductChildView::occurredfunc(val,ind,model)
+				
+				
+				
+		
 				consumed++
 				
 			else if occurrence == false && expected == true 
@@ -499,19 +510,30 @@ class ProductChildView extends Marionette.ItemView
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
 			data.no_servings =  no_servings
 			data.serving_size = temp.length
-		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		$.each timearr , (ind,val)->
+			temp = val.split('-')
+			t0 = moment(temp[0], "hA").format('HH:mm:ss')
+			t1 = moment(temp[1], "hA").format('HH:mm:ss')
+			time = _.last timearray
+			d = moment().format('YYYY-MM-DD')
+			time1 = moment(t0+timezone, "HH:mm Z").format("x")
+			time2 = moment(t1+timezone, "HH:mm Z").format("x")
+			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
+				timeslot = Messages[val]
+		
 		$.each per , (ind,val)->
 			if parseInt(val) == parseInt(howmuch)
-				texmsg = status[val+'_timeslot1']
+				texmsg = Messages[val+'_'+timeslot]
 		$.each per1 , (ind,val)->
-			console.log temp = val.split('_')
+			temp = val.split('_')
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
-				texmsg = status[val+'_timeslot1']
-		console.log texmsg
+				texmsg = Messages[val+'_'+timeslot]
+		data.texmsg = texmsg
 		data
 
 	expectedfunc:(val,key,count,model)->
-		console.log model
+		
 		temp = []
 		i = 0
 		html = ""
@@ -564,7 +586,9 @@ class ProductChildView extends Marionette.ItemView
 		time = moment(val.occurrence+timezone, "HH:mm Z").format("h:ss A")
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 
-		qty = val.meta_value.qty
+		console.log qty = val.meta_value.qty
+		if parseInt(qty) == 0
+			time = "Skipped"
 		html = ""
 		newClass = product_type+'_occurred_class'
 		html += '<li><a><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty+'</h3></a>'

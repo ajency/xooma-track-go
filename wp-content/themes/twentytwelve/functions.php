@@ -1452,3 +1452,14 @@ add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 
 add_action('CRON_SCHEDULE_SEND_REMINDERS', 'cron_job_reminders', 2,1);
 //add_action('admin_init', 'cron_job_reminders', 2, 1);
+
+
+
+function load()
+{
+  $data = file_get_contents(get_template_directory_uri().'/xoomaapp/json/php/status.txt');
+  $proper_data = json_decode($data, true);
+
+  return $proper_data;
+
+}
