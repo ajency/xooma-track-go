@@ -550,7 +550,8 @@ class User
             'image'                 => $all_terms[0]['image'],
             'time_set'              => $count,
             'reminders'             => $reminder,
-            'timezone'              => $user_data['timezone']
+            'timezone'              => $user_data['timezone'],
+            'bmi'                   => get_term_meta($all_terms[0]['id'], 'BMI', true)
                 
             
 

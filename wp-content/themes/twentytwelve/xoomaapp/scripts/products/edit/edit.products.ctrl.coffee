@@ -263,7 +263,7 @@ class EditProductsView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		product = parseInt @model.get('id')
-		weightbmi = @get_weight_bmi(@model.get('bmi'))
+		console.log weightbmi = @get_weight_bmi(@model.get('bmi'))
 		data.x2o = Math.ceil(weightbmi)	
 		data.defaultbmi = Math.ceil(weightbmi)
 		products = App.currentUser.get 'products'
@@ -327,6 +327,7 @@ class EditProductsView extends Marionette.ItemView
 				$(@ui.servings_diff).prop 'disabled' , true
 			
 			$( @ui.servings_per_day ).trigger( "change" )
+			@showReminders()
 			@showAnytimeData(@model)
 		else if parseInt(@model.get('frequency_value')) == 2
 			$('.anytime').hide()
@@ -348,6 +349,7 @@ class EditProductsView extends Marionette.ItemView
 				qty = @model.get 'qty'
 				weight = qty.length
 			$('.servings_per_day option[value="'+weight+'"]').prop("selected",true);
+			console.log $('.servings_per_day').val()
 			@showReminders()
 			@showAnytimeData(@model)
 
