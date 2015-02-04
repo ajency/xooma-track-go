@@ -592,7 +592,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
               </h5>
                       <ul class="list-inline   m-t-20">
                         <li class="col-md-7 col-xs-7 dotted-line">
-                                  <ul class="list-inline no-dotted userproducts">
+                                  <ul class="list-inline no-dotted ">
         
                                 <li> <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
                                 
@@ -1159,7 +1159,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
  
 
 	
-		<h5 class="bold text-center">Serving 1 <small>(Bonus)</small></h5>
+		<h5 class="bold text-center"><span class="serving"></span><small class="bonus"></small></h5>
 <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			

@@ -53,13 +53,15 @@ class AsperbmiView extends Marionette.ItemView
 			model = tempColl.findWhere
 				meta_id : parseInt response.meta_id
 
+			index = tempColl.indexOf(model);
+			index = parseInt(index) + 1
 			cnt = @getCount model.get 'meta_value'
 			@originalBottleRemaining = @bottleRemaining
 			msg = @showMessage(cnt)
 			$('.msg').html msg
 			if parseInt(cnt) is 1
 				cnt = 0
-				@create_occurrences()
+				@create_occurrences(index)
 			$('.bottlecnt').text cnt
 			
 			
@@ -113,29 +115,32 @@ class AsperbmiView extends Marionette.ItemView
 			occur = data
 			bonus = 0
 			count1 = 0
-			bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
-			$('.bonus').text bonus
+			console.log @model.get('occurrence').length
+			console.log bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
+			if parseInt(bonus) >= 0
+				$('.bonus').text '(Bonus)'
 			$.each occur , (ind,val)=>
 				occurrence = _.has(val, "occurrence")
 				expected = _.has(val, "expected")
 				meta_id = val.meta_id
-				# console.log val.meta_value
 				count = @getCount(val.meta_value)
 				
 				if occurrence == true && (expected == true || expected == false) && count ==  1
 					count1++
 					return true
 				else if occurrence == true && (expected == true || expected == false) && count !=  1
-					@update_occurrences(val)
+					@update_occurrences(val,ind)
 					return false
 				else
-					@create_occurrences()
+					@create_occurrences(ind)
 					return false
 			if(parseInt(@model.get('occurrence').length) == parseInt count1)
-				@create_occurrences()
+				ind = parseInt(@model.get('occurrence').length)
+				@create_occurrences(ind)
 				
-	create_occurrences:()=>
+	create_occurrences:(ind)=>
 			$('#meta_id').val(0)
+			$('.serving').text 'Serving '+ (parseInt(ind) + 1)
 			$('.bottlecnt').text 'No Consumption'
 			msg = @showMessage(0)
 			$('.msg').text msg
@@ -143,8 +148,9 @@ class AsperbmiView extends Marionette.ItemView
 			@bottleRemaining = 100
 			@bottle = new EAProgressVertical(@$el.find('.bottle'),@bottleRemaining,'empty',10000,[25,50,75])
 
-	update_occurrences:(data)=>
+	update_occurrences:(data,ind)=>
 			$('#add').hide()
+			$('.serving').text 'Serving '+ (parseInt(ind) + 1)
 			$('#meta_id').val parseInt data.meta_id
 			count = 0
 			meta_value = data.meta_value

@@ -29,15 +29,16 @@ class ProductChildView extends Marionette.ItemView
                       <ul class="list-inline   m-t-20">
                       	 <li class="col-md-7 col-xs-7 dotted-line">
                       	 	<ul class="list-inline no-dotted ">
-                        <li class="col-md-7 col-xs-7">
-                        	 <div class="row">
+                        
+                        	
                         	{{#servings}}
+                        	<li>
                         	<h3 class="bold margin-none"><div class="cap {{classname}}"></div>{{qty}}</h3>
                                 
-	
+							 </li>
                         	{{/servings}}	
-                        </div>       
-                        </li>
+                          
+                       
                         </ul>
                         </li>
                         <li class="col-md-1 col-xs-1">
