@@ -578,6 +578,57 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				  <div class="col-md-8">
 			   <a href="#/products" class="btn btn-primary center-block add" style="width:180px"><i class="fa fa-plus-circle"></i> Add Products</a>
 			   <br>
+	
+	<!--<div class="panel panel-default">
+          <div class="panel-body ">
+            <h5 class="bold margin-none mid-title ">Focus Up
+              <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+                     <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Edit product</a></li>
+                        <li><a href="#">Inventory</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Remove the product</a></li>
+                      </ul>
+              </h5>
+                      <ul class="list-inline   m-t-20">
+                        <li class="col-md-7 col-xs-7 dotted-line">
+                                  <ul class="list-inline no-dotted">
+        
+                                <li> <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
+                                
+                                        <h6 class="text-center text-primary">Serving 1</h6>
+                              </li>
+                                 <li>
+
+                                          <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
+                                   
+                                        <h6 class="text-center text-primary">Serving 2</h6>
+                              </li>
+                                <li>
+
+                                          <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
+                                   
+                                        <h6 class="text-center text-primary">Serving 2</h6>
+                              </li>
+                          </ul>      
+                        </li>
+                        <li class="col-md-1 col-xs-1">
+                    <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
+                        </li>
+                        <li class="col-md-4  col-xs-4 text-center">
+                         Servings left
+                          <h2 class="margin-none bold text-danger">3</h2>
+                          10 container (300 sachet)
+                      
+                        </li>
+                    </ul>
+          </div>
+          <div class="panel-footer">
+          <i id="bell" class="fa fa-bell-slash no-remiander"></i> 
+           No Remiander is set
+          </div>
+        </div>-->
+        
 	<div class="userproducts"></div>
 	 <a href="#/products" class="btn btn-primary pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
 	 <button type="button" class="btn btn-primary  pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
