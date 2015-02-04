@@ -9,6 +9,9 @@ html, body{
       cursor:pointer;
     }
 }
+.no-tab{
+  top: 69px !important;
+}
 body{
       
 //    background-image: radial-gradient(circle farthest-corner at center, lighten(@yellow, 40%) 0%, @yellow 80%);
@@ -96,6 +99,9 @@ body{
 }
 .section{
     padding:70px 0px 10px 0px;
+     @media (max-width: @screen-sm-min) {
+             padding:45px 0px 10px 0px;
+            }
 }
 .list-style {
     li{
@@ -155,7 +161,7 @@ body{
          }
         }
      li:nth-child(2) { 
-            border:0px !important;
+            border:0px ;
         }
 }
 .no-dotted{
@@ -572,8 +578,7 @@ img {
 /* Bottle consuptimon */
 .water-marker{
   position: absolute;
-  color:#ccc;
-  left: -3%;
+  z-index: 3;
 }
 .water-25{
     bottom:16%;
@@ -634,7 +639,6 @@ img {
  .bottle-msg{
     text-align: center;
     position: relative;
-    z-index: 99999;
     height: 25%;
     vertical-align: middle;
     padding: 14px 0px;
@@ -689,7 +693,7 @@ img {
  }
    .alert.alert-success, .alert.alert-danger {
         position: absolute;
-        z-index: 6001;
+        z-index: 3;
         top: 105px;
         left: 0;
         right: 0;
@@ -699,6 +703,9 @@ img {
         -webkit-box-shadow: 0 0 5px black;
         -moz-box-shadow:    0 0 5px black;
         box-shadow:         0 0 5px black;
+            @media (max-width: @screen-sm-min) {
+              top: 97px; 
+            }
     }
 
      .alert.alert-success, .alert.alert-danger  {
@@ -718,3 +725,25 @@ img {
         0%, 100% { -moz-transform: translateY(-190px); }
         10%, 90% { -moz-transform: translateY(0px); }
     }
+
+    /* Mobile */
+    @media (max-width: @screen-sm-min) {
+    html body{
+      font-size: 12px !important;
+        .mobile-status{
+          border-top: 1px solid #DBDBDB !important;
+          padding-top: 13px;
+          margin-bottom: -13px;
+          i{
+            font-size: 16px;
+            display: inline-block;
+          }
+          h6{
+           display: inline-block;
+          }
+        }
+.form-horizontal .control-label {
+        padding-bottom: 9px;
+        }
+    }
+}

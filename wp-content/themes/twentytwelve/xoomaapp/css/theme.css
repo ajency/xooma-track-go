@@ -2725,6 +2725,7 @@ select[multiple].form-group-lg .form-control {
   .form-horizontal .control-label {
     text-align: right;
     margin-bottom: 0;
+    padding-bottom: 9px;
     padding-top: 9px;
   }
 }
@@ -6369,6 +6370,9 @@ body {
 .link label {
   cursor: pointer;
 }
+.no-tab {
+  top: 69px !important;
+}
 body > .container {
   padding: 0;
 }
@@ -6454,6 +6458,11 @@ body > .container {
 .section {
   padding: 70px 0px 10px 0px;
 }
+@media (max-width: 768px) {
+  .section {
+    padding: 45px 0px 10px 0px;
+  }
+}
 .list-style li {
   border-bottom: 1px solid #cccccc;
   padding-top: 15px;
@@ -6510,7 +6519,7 @@ body > .container {
   color: #ccc;
 }
 .dotted-line li:nth-child(2) {
-  border: 0px !important;
+  border: 0px ;
 }
 .no-dotted {
   /* one item */
@@ -7075,8 +7084,7 @@ packet_expected_class {
 /* Bottle consuptimon */
 .water-marker {
   position: absolute;
-  color: #ccc;
-  left: -3%;
+  z-index: 3;
 }
 .water-25 {
   bottom: 16%;
@@ -7136,7 +7144,6 @@ packet_expected_class {
 .bottle-msg {
   text-align: center;
   position: relative;
-  z-index: 99999;
   height: 25%;
   vertical-align: middle;
   padding: 14px 0px;
@@ -7192,7 +7199,7 @@ packet_expected_class {
 .alert.alert-success,
 .alert.alert-danger {
   position: absolute;
-  z-index: 6001;
+  z-index: 3;
   top: 105px;
   left: 0;
   right: 0;
@@ -7202,6 +7209,12 @@ packet_expected_class {
   -webkit-box-shadow: 0 0 5px black;
   -moz-box-shadow: 0 0 5px black;
   box-shadow: 0 0 5px black;
+}
+@media (max-width: 768px) {
+  .alert.alert-success,
+  .alert.alert-danger {
+    top: 97px;
+  }
 }
 .alert.alert-success,
 .alert.alert-danger {
@@ -7228,6 +7241,27 @@ packet_expected_class {
   10%,
   90% {
     -moz-transform: translateY(0px);
+  }
+}
+/* Mobile */
+@media (max-width: 768px) {
+  html body {
+    font-size: 12px !important;
+  }
+  html body .mobile-status {
+    border-top: 1px solid #DBDBDB !important;
+    padding-top: 13px;
+    margin-bottom: -13px;
+  }
+  html body .mobile-status i {
+    font-size: 16px;
+    display: inline-block;
+  }
+  html body .mobile-status h6 {
+    display: inline-block;
+  }
+  html body .form-horizontal .control-label {
+    padding-bottom: 9px;
   }
 }
 /* Top - Header */
@@ -7424,7 +7458,12 @@ packet_expected_class {
     width: 130px;
   }
   .alert-msg {
-    line-height: 29px;
+    line-height: 24px;
+  }
+}
+@media (max-width: 768px) {
+  .mobile-container {
+    padding: 0px;
   }
 }
 /* Sub - Header */
@@ -7446,6 +7485,11 @@ packet_expected_class {
   text-align: center;
   line-height: 30px;
   margin: 0px;
+}
+@media (max-width: 768px) {
+  .sub-header ul {
+    line-height: 13px;
+  }
 }
 .sub-header ul li a {
   padding: 0px 40px;
@@ -7510,6 +7554,11 @@ packet_expected_class {
   border-radius: 0.5em;
   position: relative;
   width: 60%;
+}
+@media (max-width: 768px) {
+  .content {
+    width: 100%;
+  }
 }
 .content p {
   max-height: 0;
@@ -10649,6 +10698,13 @@ textarea.form-control {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  top: 6px;
+}
+@media (max-width: 768px) {
+  .rangeslider,
+  .rangeslider__fill {
+    top: 16px;
+  }
 }
 .rangeslider {
   position: relative;
@@ -10675,6 +10731,12 @@ output {
   output {
     font-size: 3rem !important;
     line-height: 2.7em !important;
+  }
+}
+@media (max-width: 768px) {
+  .range-inventory output {
+    font-size: 1.5rem !important;
+    line-height: 1em !important;
   }
 }
 .rangeslider__handle {
@@ -10741,7 +10803,13 @@ input[type="range"] {
   font-weight: 600;
   margin: 0px;
   display: inline-block !important;
-  color: #999999;
+}
+@media (max-width: 768px) {
+  .bold-sum {
+    font-size: 1.5rem !important;
+    float: right;
+    margin: 4px auto;
+  }
 }
 .cmn-toggle {
   position: absolute;
@@ -10831,9 +10899,13 @@ input.cmn-toggle-round-flat:checked + label:after {
   width: 100% !important;
   border-radius: 0px !important;
 }
+.history-calender .ui-datepicker th {
+  font-weight: 100;
+}
 .history-calender .ui-datepicker .ui-corner-all {
   border-radius: 0px !important;
   background: #DFDFDF;
+  border: 0px;
 }
 .history-calender .ui-datepicker select.ui-datepicker-month,
 .history-calender .ui-datepicker select.ui-datepicker-year {
@@ -10951,6 +11023,12 @@ h6.brand {
   }
   h4 {
     font-size: 26px;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 24px;
   }
   .truncate {
     overflow: hidden;

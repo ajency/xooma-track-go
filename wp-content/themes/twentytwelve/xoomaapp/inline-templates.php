@@ -96,7 +96,7 @@
 <script id="xooma-app-template" type="text/template">
 		<div class="topheader" id="xoomaapptemplate">
 				<nav class="navbar " role="navigation">
-						<div class="container">
+						<div class="container mobile-container">
 
 								<div class="row">
 
@@ -163,13 +163,13 @@
 </script>
 <script id="settings-template" type="text/template">
 		<div class="container"> 
-		<div class="aj-response-message"> </div>
+		<div class="aj-response-message no-tab"> </div>
 		  <div class="row">
 		 <div class="col-md-2">
 		 </div>
 			<div class="col-md-8 col-xs-12">
 			  
-			  <form class="form-horizontal m-t-30">
+			  <form class="form-horizontal m-t-20">
   <div class="form-group link"  onclick="location.href='#profile/my-products'">
 	<label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
   </div>
@@ -204,10 +204,11 @@
    </div>
 	</div>
   </div> 
-	 <div class="form-group link"  onclick="location.href='http://xooma.com/'">
-	<label  class="col-sm-12 col-xs-12  control-label">About Xooma</label>
+  <a href="http://xooma.com/" target="_blank" style="color:#787878">
+	 <div class="form-group link"  >
+	<label  class="col-sm-12 col-xs-12  control-label " >About Xooma</label>
   </div>
-
+</a>
 </form>
 			  
 			  
@@ -264,7 +265,7 @@
 
 
 								<img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs" width="150px" height="150px">
-
+								<h5 class="text-center bold">Personal Information</h5>
 								
 								<p class="text-center">Let us know something about you.</p>
 								<br>
@@ -337,7 +338,7 @@
 
 												<div class="row">
 														<div class="col-sm-12">
-																<button type="submit" id="add_user" name="add_user" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
+																<button type="submit" id="add_user" name="add_user" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 														</div>
 												</div>
 
@@ -480,7 +481,7 @@
 								</div>
 								<div class="row">
 												<div class="col-sm-12"><hr>
-														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary btn-lg pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
+														<button type="button" id="save_measure" name="save_measure" class="btn btn-primary  pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
 												</div>
 										</div>
 				</div>
@@ -569,8 +570,7 @@
 
 <script id="produts-template" type="h-template">
 <div id="xoomaproduct" class="section">
-				<h4 class="text-center"> My Xooma products</h4>
-	
+				<h5 class="text-center bold">My Xooma products</h5>
 		<div class="container">
 		<div class="aj-response-message"> 
 			  <div class="row">
@@ -579,8 +579,8 @@
 			   <a href="#/products" class="btn btn-primary center-block add" style="width:180px"><i class="fa fa-plus-circle"></i> Add Products</a>
 			   <br>
 	<div class="userproducts"></div>
-	 <a href="#/products" class="btn btn-primary btn-lg pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
-	 <button type="button" class="btn btn-primary btn-lg pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
+	 <a href="#/products" class="btn btn-primary pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
+	 <button type="button" class="btn btn-primary  pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
 				  </div>
 				  <div class="col-md-2"></div>
 			  </div>
@@ -614,7 +614,7 @@
 				  <div class="row">
 					<div class="col-sm-12">
 			<hr>
-<a href="#/profile/my-products" class="btn btn-primary btn-lg pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
+<a href="#/profile/my-products" class="btn btn-primary  pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
 							</div>
 			</div>
 			  
@@ -676,13 +676,16 @@
 				<div class="form-group">
 				 <label for="inputEmail2" class="col-sm-6 col-xs-5  control-label">Recommended Number of Bottles</label>
 				 <div class="col-sm-6 col-xs-7">
-					<p class="form-control-static"><b>{{x2o}}</b></p>
+			  <b class="bold-sum text-primary">{{x2o}}</b>
 				</div>
 				 </div>
 				 <div class="form-group">
-					<h4 class="text-center margin-none"> <output></output> <small>Bottle(s)</small></h4>
+				  <label for="inputEmail2" class="col-sm-6 col-xs-7  control-label">Please slide to add bottle </label>
+					 	<div class="col-sm-6 col-xs-5 range-inventory">
+				<h3 class=" bold-sum margin-none "> <output class="text-primary"></output> <small>Bottle(s)</small></h3>
+				 <div class="clearfix"></div>
 					<input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
-		  <small ><i class="text-center center-block">Please slide to add bottle </i></small> 
+					</div>
   </div>
 		   </div>
 			  
@@ -818,8 +821,8 @@
   </div>
   </div>
 <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Set remainder</label>
-	<div class="col-sm-6 col-xs-7 ">
+	<label for="inputPassword3" class="col-sm-6 col-xs-7 control-label">Set remainder</label>
+	<div class="col-sm-6 col-xs-5 ">
 	 <div class="btn-group" role="group" aria-label="...">
 	  <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
 	  <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
@@ -839,11 +842,13 @@
   </div>
   <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-	  <button type="submit" class="btn btn-primary aj-submit-button save" name="save"><i class="fa fa-check"></i> Save</button>
+	 <button type="button" class="btn btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button>	
+
+	  <button type="submit" class="btn btn-primary aj-submit-button save pull-right" name="save"><i class="fa fa-check"></i> Save</button>
 	  <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
 
 		 <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
-		  <button type="button" class="btn btn-link cancel"><i class="fa fa-times"></i> Cancel</button>	
+		 
 
 	</div>
   </div>
@@ -881,17 +886,17 @@
 
 	 <form id="inventory" class="form-horizontal" role="form" method="POST">
 	  <div class="form-group">
-		<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">How many containers do I have ?</label>
-		<div class="col-sm-6 col-xs-5">
-		  <p class="form-control-static"><b><div id="container_label"></div></b></p>
+		<label for="inputPassword3" class="col-sm-6  col-xs-8 control-label">How many containers do I have ?</label>
+		<div class="col-sm-6 col-xs-4">
+		  <b id="container_label" class="bold-sum text-primary"></b>
 		</div>
 	  </div>
 		 <div class="form-group">
-		<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">{{producttype}}(s) I have with me
+		<label for="inputPassword3" class="col-sm-6  col-xs-8 control-label">{{producttype}}(s) I have with me
 	   <br> <small><i>Each container has {{total}} {{product_type}}(s)</i></small>
 		</label>
-		<div class="col-sm-6 col-xs-5">
-		  <p class="form-control-static"><b>{{available}}</b></p>
+		<div class="col-sm-6 col-xs-4">
+		  <b class="bold-sum text-primary">{{available}}</b>
 		</div>
 	  </div>	
 	   <div class="form-group">
@@ -911,10 +916,10 @@
 	
 		<div class="form-group record_new">
 	   
-			<label for="inputPassword3" class="col-sm-6  col-xs-7 control-label">
+			<label for="inputPassword3" class="col-sm-6  col-xs-6 control-label">
 			Number of new containers
 			</label>
-			<div class="col-sm-6 col-xs-5">
+			<div class="col-sm-6 col-xs-6">
 				<select class="form-control" name="containers" id="containers">
 				<option value="0">Please select</option>
 				<option value="1">1</option>
@@ -935,7 +940,7 @@
 					Number of {{product_type}}(s) which will be added
 				</label>
 				<div class="col-sm-6 col-xs-5">
-				  <h3 class="bold-sum"><span class="newsum"><span class="ncon"></span> * <span class="ntotal"></span> = <span class="nequalto"></span></span></h3>
+				  <h3 class="bold-sum text-primary"><span class="newsum"><span class="ncon"></span> * <span class="ntotal"></span> = <span class="nequalto"></span></span></h3>
 				</div>
 	  </div>
 	 
@@ -944,16 +949,17 @@
 					Adjust
 				</label>
 				<div class="col-sm-6 col-xs-5 range-inventory">
-				<h3 class="bold-sum  margin-none"> <output></output><small>{{product_type}}(s)</small></h3>
+				<h3 class=" bold-sum margin-none "> <output class="text-primary"></output> <small>{{product_type}}(s)</small></h3>
+				 <div class="clearfix"></div>
 				 <input class="pull-left" type="range" name="slider" id="slider"  min="-20" max="20" disabled step="1" value="0" data-rangeslider>
 				</div>
 	  </div>
 	   <div class="form-group">
-				<label class="col-sm-6  col-xs-7 control-label">
+				<label class="col-sm-6  col-xs-6 control-label">
 					Number of {{product_type}}(s) will be updated to 
 				</label>
-				<div class="col-sm-6 col-xs-5">
-				 <h3 class="bold-sum"><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> - </span> <span class="nsub"></span>  = <span class="eqa"></span></h3>
+				<div class="col-sm-6 col-xs-6">
+				 <h3 class="bold-sum text-primary"><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> - </span> <span class="nsub"></span>  = <span class="eqa"></span></h3>
 				</div>
 	  </div>
 	  
@@ -999,6 +1005,7 @@
 <div class="aj-response-message"> 
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
+<h5 class="text-center bold">Product name</h5>
 <ul id='timeline' class="viewInventory">
 </ul>
 </div>
@@ -1090,33 +1097,29 @@
 <br>
 <div class="container">	
 <div class="aj-response-message"></div>
-  <div class="row">
-  <br>
+ 
+
 	
 		<h4 class="text-center">Serving 1<small>(Bonus)</small></h4>
 <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			
-			<div class="col-md-4 col-xs-3"> 
+			<div class="col-md-4 "> 
 			</div>
-			<div class="col-md-4 col-xs-6">
+			<div class="col-md-4 col-xs-12">
 			
 				<div class="water-100 water-marker"> 
-					100%<br>
-					Consumed ------------
+					100% ---
 
 				</div>
 				<div class="water-75 water-marker"> 
-					75%<br>
-					Consumed ------------
+					75% ---
 				</div>
 				<div class="water-50 water-marker"> 
-					50%<br>
-					Consumed ------------
+					50% ---
 				</div>
 				<div class="water-25 water-marker"> 
-					25%<br>
-					Consumed ------------
+					25% ---
 				</div>
 			<!--- Bottle UI -->
 
@@ -1129,22 +1132,22 @@
 			<!--- Bottle UI -->
 			</div>
 
-			 <div class="col-md-4 col-xs-3">
+			 <div class="col-md-4 ">
 			</div>
 		</div>
 		
 	   <div class="row m-t-20">
-	   		<div class="col-sm-5"></div>
-			<div class="col-sm-2">
+	   		<div class="col-sm-5 col-xs-4"></div>
+			<div class="col-sm-2 col-xs-4">
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  center-block" > Confirm </button>
               	
 			</div>
-			<div class="col-sm-5"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
+			<div class="col-sm-5 col-xs-4"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
 		</div>
   </div>
-	
+	<br>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
 	<div class="modal-content">
@@ -1161,7 +1164,7 @@
 	  </div>
 	</div>
   </div>
-</div>
+
 
 </script>
 
