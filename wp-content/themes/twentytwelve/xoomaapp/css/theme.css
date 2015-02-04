@@ -11048,7 +11048,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 .input-time {
   border: 0px;
-  width: 100px;
+  width: 60px;
 }
 h1.special,
 h2.special,
