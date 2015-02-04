@@ -35,7 +35,8 @@ _.extend(Ajency.CurrentUser.prototype, {
     formdata = $.param(measurements);
     _successHandler = (function(_this) {
       return function(resp) {
-        return _this.set('measurements', measurements);
+        _this.set('measurements', measurements);
+        return App.currentUser.set('weight', measurements.weight);
       };
     })(this);
     return $.ajax({

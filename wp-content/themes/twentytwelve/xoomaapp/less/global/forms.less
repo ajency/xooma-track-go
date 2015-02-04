@@ -206,6 +206,10 @@
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  top: 6px;
+    @media (max-width: @screen-sm-min) {
+           top: 16px;
+          }
 }
 
 .rangeslider {
@@ -234,6 +238,12 @@ output{
              font-size: 3rem !important;
              line-height: 2.7em !important;
           }
+}
+@media (max-width: @screen-sm-min) {
+.range-inventory output{
+  font-size: 1.5rem !important;
+  line-height: 1em !important;
+}
 }
 .rangeslider__handle {
   background: white;
@@ -300,7 +310,11 @@ input[type="range"] {
   font-weight: 600;
   margin: 0px;
   display: inline-block !important;
-  color: #999999;
+  @media (max-width: @screen-sm-min) {
+        font-size: 1.5rem !important;
+        float: right;
+        margin: 4px auto;
+} 
 }
 
 
@@ -397,9 +411,13 @@ visibility: hidden;
   .ui-datepicker {
         width: 100% !important;
         border-radius:0px !important;
+        th{
+          font-weight: 100;
+        }
         .ui-corner-all{
          border-radius:0px !important; 
            background: #DFDFDF;
+           border: 0px;
         }
         select.ui-datepicker-month, select.ui-datepicker-year {
           border-radius: 0px!important;
@@ -483,3 +501,7 @@ visibility: hidden;
       }
   }    
 
+.input-time{
+  border: 0px;
+  width: 60px;
+}

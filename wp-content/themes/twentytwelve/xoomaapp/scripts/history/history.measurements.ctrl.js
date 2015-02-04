@@ -39,7 +39,8 @@ MeasurementHistoryView = (function(_super) {
       inline: true,
       dateFormat: 'yy-mm-dd',
       changeYear: true,
-      changeMonth: true
+      changeMonth: true,
+      maxDate: new Date()
     });
   };
 

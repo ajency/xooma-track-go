@@ -14,6 +14,7 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <!--<![endif]-->
 <head>
+
     <meta charset="<?php bloginfo( 'charset' ); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title( '|', true, 'right' ); ?></title>
@@ -90,6 +91,7 @@ window.ParsleyConfig = {
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
 
+
 <script type="text/javascript">
 function isWebView(){
     return !(!window.cordova && !window.PhoneGap && !window.phonegap)
@@ -101,7 +103,11 @@ var App  = new Marionette.Application()
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
 
+var Messages = <?php echo json_encode(load());?>;
+
 </script>
+
+
 
  
 <!-- build:js(*.js) application.js -->
@@ -130,7 +136,6 @@ var App  = new Marionette.Application()
 <!-- endbuild -->
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/owl.carousel.min.js"></script>
-
     <!-- Frontpage Demo -->
 
 <script type="text/javascript">
@@ -153,8 +158,8 @@ window.ParsleyValidator
  
 </script>
 
-
+<?php wp_footer(); ?>
 </body>
 </html>
 
- <?php wp_footer(); ?>
+ 

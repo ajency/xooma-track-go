@@ -27,17 +27,19 @@ class ProductChildView extends Marionette.ItemView
                       </ul>
               </h5>
                       <ul class="list-inline   m-t-20">
-
-                        <li class="col-md-7 col-xs-7">
-                        	 <div class="row">
+                      	 <li class="col-md-7 col-xs-7 dotted-line">
+                      	 	<ul class="list-inline no-dotted ">
+                        
+                        	
                         	{{#servings}}
-                        	<div class="col-md-6 text-left">
-                        	{{#serving}}
-                        	<div class="{{classname}}"></div>
-                        	{{/serving}}
-                        	</div>	
+                        	<li>
+                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div>{{qty}}</h3>
+                                
+							 </li>
                         	{{/servings}}	
-                        </div>       
+                          
+                       
+                        </ul>
                         </li>
                         <li class="col-md-1 col-xs-1">
                     <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
@@ -126,16 +128,12 @@ class ProductChildView extends Marionette.ItemView
 		servings = []
 		reminderArr = []
 		$.each qty , (index,value)->
-			i = 0
-			
 			servingsqty = []
-			while(i < value.qty)
-				newClass = product_type+'_default_class'
-				if  name.toUpperCase() == 'X2O'
-					newClass = 'x2o_default_class'
-				servingsqty.push classname : newClass
-				i++
-			servings.push serving : servingsqty   
+			newClass = product_type+'_default_class'
+			if  name.toUpperCase() == 'X2O'
+				newClass = 'x2o_default_class'
+				
+			servings.push classname : newClass , qty : value.qty
 
 		$.each reminder , (ind,val)->
 			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")

@@ -109,15 +109,34 @@ require_once (get_template_directory().'/api/class.product.api.php');
 require_once (get_template_directory().'/api/class.user.api.php');
 #load all the apis
 //parse
-// use Parse\ParseClient;
+use Parse\ParseClient;
  
-// ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
+ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
 
 
-// use Parse\ParseCloud;
+use Parse\ParseCloud;
+$usersToBeNotified = array();
+$usersToBeNotified[0] = array(
 
-// $arr = array('userId' => 205);
-// $result = ParseCloud::run('sendPushByUserId', $arr);
+						'ID' => 212 ,
+						'message' => 'hello!!!!!',
+						'product' => 'Berry Balance'
+					);
+$usersToBeNotified[1] = array(
+
+						'ID' => 213 ,
+						'message' => 'hello!!!!!',
+						'product' =>'X2O'
+					);
+
+
+
+
+
+
+
+//$result = ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
 
 
 //parse
@@ -1431,5 +1450,16 @@ function dba_add_communication_components($defined_comm_components){
 }
 add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 
-//add_action('CRON_SCHEDULE_SEND_REMINDERS', 'update_next_occur', 2, 0);
-add_action('admin_init', 'cron_job_reminders', 2, 1);
+add_action('CRON_SCHEDULE_SEND_REMINDERS', 'cron_job_reminders', 2,1);
+//add_action('admin_init', 'cron_job_reminders', 2, 1);
+
+
+
+function load()
+{
+  $data = file_get_contents(get_template_directory_uri().'/xoomaapp/json/php/status.txt');
+  $proper_data = json_decode($data, true);
+
+  return $proper_data;
+
+}

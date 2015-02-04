@@ -85,15 +85,22 @@ class ScheduleView extends Marionette.ItemView
 		
 			
 
-		'click .update':(e)->
+		'click #skip':(e)->
 			e.preventDefault()
 			meta_id = $('#meta_id').val()
-			qty = $('#qty').val()
+			qty = 0
 			data = $('#schduleid').val()
 			product = @model.get('id')
+			date = $('#date').val()
+			t = $('#consume_time').val()
+			date = moment().format('YYYY-MM-DD')
+			time  = moment(t,"HH:mm a").format("HH:mm:ss")
+			if t == ""
+				time  = moment().format("HH:mm:ss")
+			
 			$.ajax
 					method : 'POST'
-					data : 'meta_id='+meta_id+'&qty='+qty
+					data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
 					url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 					success: @saveHandler
 					error :@erroraHandler
@@ -200,7 +207,7 @@ class ScheduleView extends Marionette.ItemView
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		console.log productId  = @getParams()
-		product = 104
+		product = 3
 		date = '2015-02-04'
 		products = []
 		App.useProductColl.each (val)->

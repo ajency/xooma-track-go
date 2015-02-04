@@ -85,11 +85,11 @@ class EditInventoryView extends Marionette.ItemView
 			@ui.navail.text available
 			@ui.nadd.text equalto
 			if @ui.rangeSliders.val() < 0 
-				$('.sign').text '-'
+				$('.sign').text ' - '
 				eqt = parseInt(available) + parseInt(equalto) - parseInt(Math.abs(@ui.rangeSliders.val()))
 			
 			else
-				$('.sign').text '+'
+				$('.sign').text ' + '
 				eqt = parseInt(available) + parseInt(equalto) + parseInt(Math.abs(@ui.rangeSliders.val()))
 			
 			@ui.nsub.text Math.abs(@ui.rangeSliders.val())
@@ -125,15 +125,15 @@ class EditInventoryView extends Marionette.ItemView
 		total = @model.get 'total'
 		@ui.navail.text available
 		if parseInt(@ui.rangeSliders.val()) == 0
-			$('.sign').text '-'
+			$('.sign').text ' - '
 			@ui.save.hide()
 			eqt = parseInt(available) - parseInt(Math.abs(@ui.rangeSliders.val()))
 		if @ui.rangeSliders.val() < 0 
-			$('.sign').text '-'
+			$('.sign').text ' - '
 			eqt = parseInt(available) - parseInt(Math.abs(@ui.rangeSliders.val()))
 			@ui.save.show()
 		else if @ui.rangeSliders.val() > 0
-			$('.sign').text '+'
+			$('.sign').text ' + '
 			eqt = parseInt(available) + parseInt(Math.abs(@ui.rangeSliders.val()))
 			@ui.save.show()
 			

@@ -9,6 +9,13 @@ html, body{
       cursor:pointer;
     }
 }
+.no-tab{
+  top: 69px !important;
+  @media (max-width: @screen-sm-min) {
+    top: 63px !important;
+  }
+
+}
 body{
       
 //    background-image: radial-gradient(circle farthest-corner at center, lighten(@yellow, 40%) 0%, @yellow 80%);
@@ -75,7 +82,9 @@ body{
     }
   
  }
-
+.m-r-10{
+    margin-right: 10px;
+}
 .m-t-10{
     margin-top: 10px;
 }
@@ -96,6 +105,9 @@ body{
 }
 .section{
     padding:70px 0px 10px 0px;
+     @media (max-width: @screen-sm-min) {
+             padding:45px 0px 10px 0px;
+            }
 }
 .list-style {
     li{
@@ -155,11 +167,11 @@ body{
          }
         }
      li:nth-child(2) { 
-            border:0px !important;
+            border:0px ;
         }
 }
 .no-dotted{
- li{border:0px !important;width: 32%;
+ li{border:0px !important;width: 32%;text-align:center;
     a{
       color:#ccc;
       text-decoration:none;
@@ -307,10 +319,10 @@ display:none !important;
 /** Bottle **/
   
         #canvas-holder{
-                width:40%;
+                width:50%;
                 margin: auto;
                 @media (max-width: @screen-sm-min) {
-                 width:80%!important;
+                 width:95%!important;
                 }
             }
 
@@ -545,7 +557,8 @@ img {
 }
 .x2o_default_class{
   .sprite-7;
-  background-position: -10px -286px;
+   background-position: -45px -286px;
+  
 }
 .x2o_bonus_class{
   .sprite-7;
@@ -557,7 +570,8 @@ img {
 }
 .x2o_expected_class{
   .sprite-7;
-   background-position: -45px -286px;
+   background-position: -10px -286px;
+
 }
 /**  scoop-product-type **/
 
@@ -572,17 +586,16 @@ img {
 /* Bottle consuptimon */
 .water-marker{
   position: absolute;
-  color:#ccc;
-  left: -3%;
+  z-index: 3;
 }
 .water-25{
-    bottom:16%;
+    bottom:19%;
 }
 .water-50{
-    bottom:35%;
+    bottom:38%;
 }
 .water-75{
-    bottom:54%;
+    bottom:55%;
 }
 .water-100{
     bottom:73%;
@@ -593,6 +606,10 @@ img {
               margin: auto;
               position: relative;
               height: 381px;
+           @media (max-width: @screen-sm-min) {
+               height: 212px;
+                width: 123px;
+            }
       }
     .bottle { 
             height: 381px;
@@ -601,12 +618,14 @@ img {
             background-image:url('../images/bottle-ui.png'); /* Beer Glass */
             background-repeat: no-repeat;
             background-size: 100%;
-            .ea-empty{
+             .ea-empty{
                 background : #ddd;
                 z-index:-1;
                 position:absolute;
                 width:218px;
-                
+                     @media (max-width: @screen-sm-min) {
+                width: 116px;
+            }
 
             }
             .ea-full{
@@ -615,7 +634,16 @@ img {
                position:absolute;
                 width:218px;
                 bottom:0;
+                @media (max-width: @screen-sm-min) {
+                width: 116px;
+            }
       }
+
+
+           @media (max-width: @screen-sm-min) {
+               height: 212px;
+                width: 123px;
+            }
 }
 .alert-msg{
   line-height: 40px;
@@ -628,24 +656,35 @@ img {
 /** Bottle **/
  #chart-area{
       height: auto !important;
-      z-index: -1;
         position:relative;
   }
  .bottle-msg{
     text-align: center;
     position: relative;
-    z-index: 99999;
     height: 25%;
     vertical-align: middle;
-    padding: 14px 0px;
-    color:@white;
+    padding: 20px 33px;
+    color:#000;
+    z-index: -1;
+              @media (max-width: @screen-sm-min) {
+               padding: 16px 33px;
+      }
 } 
       .fill-bottle{
+         display: block;
+          margin: auto;
+          position: absolute;
+          top: 163px;
+          text-align: center;
+          left: 0%;
+          right: 0%;
           width: 150px;
-        display: block;
-        margin: auto;
-        position: relative;
-        top: 65px;
+          @media (max-width: @screen-sm-min) {
+                 top: 135px;
+                 img{
+                    width:70%;
+                 }
+                }
       }
     .glass { 
             height: 150px;
@@ -687,9 +726,9 @@ img {
     width: 50px;
     text-align: right;
  }
-   .alert.alert-success {
+   .alert.alert-success, .alert.alert-danger {
         position: absolute;
-        z-index: 6001;
+        z-index: 3;
         top: 105px;
         left: 0;
         right: 0;
@@ -699,9 +738,12 @@ img {
         -webkit-box-shadow: 0 0 5px black;
         -moz-box-shadow:    0 0 5px black;
         box-shadow:         0 0 5px black;
+            @media (max-width: @screen-sm-min) {
+              top: 97px; 
+            }
     }
 
-     .alert.alert-success {
+     .alert.alert-success, .alert.alert-danger  {
         -webkit-transform: translateY(-190px);
         -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
         -moz-transform:    translateY(-190px);
@@ -718,3 +760,40 @@ img {
         0%, 100% { -moz-transform: translateY(-190px); }
         10%, 90% { -moz-transform: translateY(0px); }
     }
+
+    /* Mobile */
+@media (max-width: @screen-sm-min) {
+    html body{
+      font-size: 12px !important;
+        .hr-mobile{
+          margin:0px;
+        }
+        .mobile-status{
+          border-top: 1px solid #DBDBDB !important;
+          padding-top: 13px;
+          margin-bottom: -13px;
+          i{
+            font-size: 16px;
+            display: inline-block;
+          }
+          h6{
+           display: inline-block;
+          }
+        }
+        .form-horizontal .control-label {
+        padding-bottom: 9px;
+        }
+        .bottle-cap{
+          width:121px;
+        }
+        .x2oList{
+          margin:0px;
+          h5 {
+            font-size: 11px;
+          }
+          h4 {
+          font-size: 18px;
+          }
+        }
+    }
+}

@@ -4,7 +4,7 @@ var AsperbmiView,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 App.state('Asperbmi', {
-  url: '/products/:id/bmi',
+  url: '/products/:id/bmi/:date',
   parent: 'xooma'
 });
 
@@ -59,7 +59,7 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
-    var cnt, model, occurResponse, tempColl;
+    var cnt, index, model, msg, occurResponse, tempColl;
     if (xhr.status === 201) {
       occurResponse = _.map(response.occurrence, function(occurrence) {
         occurrence.meta_id = parseInt(occurrence.meta_id);
@@ -71,10 +71,15 @@ AsperbmiView = (function(_super) {
       model = tempColl.findWhere({
         meta_id: parseInt(response.meta_id)
       });
+      index = tempColl.indexOf(model);
+      index = parseInt(index) + 1;
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
+      msg = this.showMessage(cnt);
+      $('.msg').html(msg);
       if (parseInt(cnt) === 1) {
         cnt = 0;
+        this.create_occurrences(index);
       }
       $('.bottlecnt').text(cnt);
       this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
@@ -137,12 +142,15 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.generate = function(data) {
-    var bonus, count1, occur;
+    var bonus, count1, ind, occur;
     occur = data;
     bonus = 0;
     count1 = 0;
-    bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings'));
-    $('.bonus').text(bonus);
+    console.log(this.model.get('occurrence').length);
+    console.log(bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings')));
+    if (parseInt(bonus) >= 0) {
+      $('.bonus').text('(Bonus)');
+    }
     $.each(occur, (function(_this) {
       return function(ind, val) {
         var count, expected, meta_id, occurrence;
@@ -154,38 +162,59 @@ AsperbmiView = (function(_super) {
           count1++;
           return true;
         } else if (occurrence === true && (expected === true || expected === false) && count !== 1) {
-          _this.update_occurrences(val);
+          _this.update_occurrences(val, ind);
           return false;
         } else {
-          _this.create_occurrences();
+          _this.create_occurrences(ind);
           return false;
         }
       };
     })(this));
     if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
-      return this.create_occurrences();
+      ind = parseInt(this.model.get('occurrence').length);
+      return this.create_occurrences(ind);
     }
   };
 
-  AsperbmiView.prototype.create_occurrences = function() {
+  AsperbmiView.prototype.create_occurrences = function(ind) {
+    var msg;
     $('#meta_id').val(0);
-    $('.bottlecnt').text(0);
+    $('.serving').text('Serving ' + (parseInt(ind) + 1));
+    $('.bottlecnt').text('No Consumption');
+    msg = this.showMessage(0);
+    $('.msg').text(msg);
     this.originalBottleRemaining = 100;
     this.bottleRemaining = 100;
     return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
   };
 
-  AsperbmiView.prototype.update_occurrences = function(data) {
-    var count, meta_value;
+  AsperbmiView.prototype.update_occurrences = function(data, ind) {
+    var count, meta_value, msg;
     $('#add').hide();
+    $('.serving').text('Serving ' + (parseInt(ind) + 1));
     $('#meta_id').val(parseInt(data.meta_id));
     count = 0;
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
     $('.bottlecnt').text(count);
+    msg = this.showMessage(count);
+    $('.msg').html(msg);
     this.bottleRemaining = 100 - 100 * count;
     this.originalBottleRemaining = this.bottleRemaining;
     return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
+  };
+
+  AsperbmiView.prototype.showMessage = function(count) {
+    var msg, temp;
+    console.log(count);
+    temp = [0, 0.25, 0.5, 0.75, 1];
+    msg = "";
+    $.each(temp, function(ind, val) {
+      if (parseFloat(count) === parseFloat(val)) {
+        return console.log(msg = Messages[val]);
+      }
+    });
+    return msg;
   };
 
   AsperbmiView.prototype.startProgress = function() {

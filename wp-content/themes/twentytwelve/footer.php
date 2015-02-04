@@ -1,3 +1,13 @@
+
+<script>
+    (function(_,e,rr,s){_errs=[s];var c=_.onerror;_.onerror=function(){var a=arguments;_errs.push(a);
+    c&&c.apply(this,a)};var b=function(){var c=e.createElement(rr),b=e.getElementsByTagName(rr)[0];
+    c.src="//beacon.errorception.com/"+s+".js";c.async=!0;b.parentNode.insertBefore(c,b)};
+    _.addEventListener?_.addEventListener("load",b,!1):_.attachEvent("onload",b)})
+    (window,document,"script","54d1a429f0265f6334000a54");
+</script>
+
+
 <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery-1.8.3.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/bootstrap.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/bootstrap-formhelpers-countries.en_US.js"></script>
@@ -542,23 +552,6 @@
 		}
 	});
 </script>
-<?php 
 
-if (!is_development_environment())
-{
-	
-?>
-<script type="text/javascript"><script>
-    (function(_,e,rr,s){_errs=[s];var c=_.onerror;_.onerror=function(){var a=arguments;_errs.push(a);
-    c&&c.apply(this,a)};var b=function(){var c=e.createElement(rr),b=e.getElementsByTagName(rr)[0];
-    c.src="//beacon.errorception.com/"+s+".js";c.async=!0;b.parentNode.insertBefore(c,b)};
-    _.addEventListener?_.addEventListener("load",b,!1):_.attachEvent("onload",b)})
-    (window,document,"script","54ae0539c6b8309b5c0009f9");
-</script>
-<?php 
-
- }
-
-?>
 </body>
 </html>

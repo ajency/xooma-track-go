@@ -28,7 +28,7 @@ class EditProductsView extends Marionette.ItemView
 			e.charCode >= 48 && e.charCode <= 57 ||	e.charCode == 44 
 
 		'change @ui.rangeSliders' : (e)-> 
-			$('.servings_per_day').val $(e.target).val()
+			$('#servings_per_day_value').val $(e.target).val()
 			@valueOutput e.currentTarget
 			@showReminders()
 
@@ -200,7 +200,10 @@ class EditProductsView extends Marionette.ItemView
 		if parseInt($('#reminder').val()) == 1
 				$(@ui.servings_diff).prop 'disabled' , false
 				$('#reminder_time0').removeAttr 'disabled'
+
 				servings = $('.servings_per_day').val()
+				if $('#servings_per_day_value').val() != "" 
+					servings = $('#servings_per_day_value').val()
 				html1 = ""
 				i = 1
 				while(i <= servings)
@@ -309,6 +312,9 @@ class EditProductsView extends Marionette.ItemView
 	
 
 	onShow:->
+		product = parseInt @model.get('id')
+		products = App.currentUser.get 'products'
+		
 		@checkMode()
 		$('.js__timepicker').pickatime(
 			interval: 15
@@ -327,6 +333,7 @@ class EditProductsView extends Marionette.ItemView
 				$(@ui.servings_diff).prop 'disabled' , true
 			
 			$( @ui.servings_per_day ).trigger( "change" )
+			@showReminders()
 			@showAnytimeData(@model)
 		else if parseInt(@model.get('frequency_value')) == 2
 			$('.anytime').hide()
@@ -341,13 +348,13 @@ class EditProductsView extends Marionette.ItemView
 		
 			$('.schedule_data').hide()
 			$('.anytime').hide()
-			if @model.get('bmi') != undefined
-				weightbmi = @get_weight_bmi(@model.get('bmi'))
+			if $.inArray( product, products ) == -1
+				console.log weightbmi = @get_weight_bmi(@model.get('bmi'))
 				weight = Math.ceil(weightbmi)
 			else
 				qty = @model.get 'qty'
 				weight = qty.length
-			$('.servings_per_day option[value="'+weight+'"]').prop("selected",true);
+			console.log $('#servings_per_day_value').val weight
 			@showReminders()
 			@showAnytimeData(@model)
 
@@ -355,8 +362,6 @@ class EditProductsView extends Marionette.ItemView
 		
 		
 
-		product = parseInt @model.get('id')
-		products = App.currentUser.get 'products'
 		if $.inArray( product, products ) == -1
 			$('.remove').hide()
 

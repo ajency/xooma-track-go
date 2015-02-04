@@ -39,7 +39,7 @@ function save_anytime_product_details($id,$data){
 								array(
 									'main_id'                     => $main_id,
 									'key'                         => 'qty_per_servings',
-									'value'                       => serialize(array('qty' =>$qty[0],'when' => 1))
+									'value'                       => serialize(array('qty' =>1,'when' => 1))
 								),
 								array(
 									'%d',
@@ -997,6 +997,7 @@ function add_asperbmi_products($user_id,$weight){
 
 					if($state != '/home' && is_null($object)) 
 					{
+						$actual = 1 ;
 					$time_set = $value['time_set'];
 						if( $time_set == 'asperbmi' ){
 							 
@@ -1006,13 +1007,14 @@ function add_asperbmi_products($user_id,$weight){
 											
 											$original = explode('<', $val['range']);
 
-											$actual = 1 ;
+											
 
 											if(intval($original[0]) <= intval($weight) && intval($weight) <= intval($original[1]) )
 												$actual = $val['quantity'];
 
 										}
 										$value['time_set'] = $actual;
+										
 										save_anytime_product_details($user_id,$value);
 
 						}
@@ -1272,7 +1274,7 @@ function get_history_user_product($id,$product_id){
 			 }
 
 			 
-	 return $transaction;
+	 return array('ID'=>$term[0]['id'], 'response' =>$transaction);
 
 }
 
@@ -1377,7 +1379,7 @@ function store_consumption_details($args){
 					$meta_id = $args['meta_id'];
 				}
 
-				$occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
+				$occurrence = get_occurrence_date($args['pid'],$args['id'],$args['date']);
 
 
 
@@ -1740,7 +1742,7 @@ function cron_job_reminders($args)
 
 	global $wpdb;
 
-	$args = 30;
+	
 	$table = $wpdb->prefix . "product_main";
 
 	$object_type = 'user_product_reminder';
@@ -1756,7 +1758,7 @@ function cron_job_reminders($args)
 
 	$current_date = strtotime($start_dt);
 
-	$nextdate = $current_date+(60*300);
+	$nextdate = $current_date+(60*intval($args));
 
 	$end_date = date('Y-m-d H:i:s',$nextdate);
 	
@@ -1802,20 +1804,21 @@ function cron_job_reminders($args)
 	}
 
 	
-	//function call
-	//parse
-		// use Parse\ParseClient;
+	// function call
+	// // //parse
+	// // 	use Parse\ParseClient;
 		 
-		// ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
+	// // 	ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
 
 
-		// use Parse\ParseCloud;
+	// // 	use Parse\ParseCloud;
 
 		
-		// $result = ParseCloud::run('sendPushByUserId', $usersToBeNotified);
+	//$result = ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
 
-	//parse
+
+	// // //parse
 	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
 
 }
