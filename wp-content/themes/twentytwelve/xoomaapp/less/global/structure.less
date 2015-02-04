@@ -322,7 +322,7 @@ display:none !important;
                 width:50%;
                 margin: auto;
                 @media (max-width: @screen-sm-min) {
-                 width:80%!important;
+                 width:95%!important;
                 }
             }
 
@@ -557,7 +557,8 @@ img {
 }
 .x2o_default_class{
   .sprite-7;
-  background-position: -10px -286px;
+   background-position: -45px -286px;
+  
 }
 .x2o_bonus_class{
   .sprite-7;
@@ -569,7 +570,8 @@ img {
 }
 .x2o_expected_class{
   .sprite-7;
-   background-position: -45px -286px;
+   background-position: -10px -286px;
+
 }
 /**  scoop-product-type **/
 
@@ -654,7 +656,6 @@ img {
 /** Bottle **/
  #chart-area{
       height: auto !important;
-      z-index: -1;
         position:relative;
   }
  .bottle-msg{
@@ -678,6 +679,12 @@ img {
           left: 0%;
           right: 0%;
           width: 150px;
+          @media (max-width: @screen-sm-min) {
+                 top: 135px;
+                 img{
+                    width:70%;
+                 }
+                }
       }
     .glass { 
             height: 150px;
@@ -778,6 +785,9 @@ img {
         }
         .bottle-cap{
           width:121px;
+        }
+        .x2oList{
+          margin:0px;
         }
     }
 }

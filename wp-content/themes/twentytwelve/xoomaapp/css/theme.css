@@ -6671,7 +6671,7 @@ text {
 }
 @media (max-width: 768px) {
   #canvas-holder {
-    width: 80%!important;
+    width: 95%!important;
   }
 }
 .popover-content .close {
@@ -7055,7 +7055,7 @@ packet_expected_class {
   height: 71px;
   display: inline-block;
   margin-right: 3px;
-  background-position: -10px -286px;
+  background-position: -45px -286px;
 }
 .x2o_bonus_class {
   background: url(../images/sprite-type.png) no-repeat;
@@ -7079,7 +7079,7 @@ packet_expected_class {
   height: 71px;
   display: inline-block;
   margin-right: 3px;
-  background-position: -45px -286px;
+  background-position: -10px -286px;
 }
 /**  scoop-product-type **/
 .no-remiander {
@@ -7169,7 +7169,6 @@ packet_expected_class {
 /** Bottle **/
 #chart-area {
   height: auto !important;
-  z-index: -1;
   position: relative;
 }
 .bottle-msg {
@@ -7195,6 +7194,14 @@ packet_expected_class {
   left: 0%;
   right: 0%;
   width: 150px;
+}
+@media (max-width: 768px) {
+  .fill-bottle {
+    top: 135px;
+  }
+  .fill-bottle img {
+    width: 70%;
+  }
 }
 .glass {
   height: 150px;
@@ -7308,6 +7315,9 @@ packet_expected_class {
   }
   html body .bottle-cap {
     width: 121px;
+  }
+  html body .x2oList {
+    margin: 0px;
   }
 }
 /* Top - Header */
