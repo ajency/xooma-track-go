@@ -11,6 +11,10 @@ html, body{
 }
 .no-tab{
   top: 69px !important;
+  @media (max-width: @screen-sm-min) {
+    top: 63px !important;
+  }
+
 }
 body{
       
@@ -78,7 +82,9 @@ body{
     }
   
  }
-
+.m-r-10{
+    margin-right: 10px;
+}
 .m-t-10{
     margin-top: 10px;
 }
@@ -598,6 +604,10 @@ img {
               margin: auto;
               position: relative;
               height: 381px;
+           @media (max-width: @screen-sm-min) {
+               height: 212px;
+                width: 123px;
+            }
       }
     .bottle { 
             height: 381px;
@@ -606,12 +616,14 @@ img {
             background-image:url('../images/bottle-ui.png'); /* Beer Glass */
             background-repeat: no-repeat;
             background-size: 100%;
-            .ea-empty{
+             .ea-empty{
                 background : #ddd;
                 z-index:-1;
                 position:absolute;
                 width:218px;
-                
+                     @media (max-width: @screen-sm-min) {
+                width: 123px;
+            }
 
             }
             .ea-full{
@@ -620,7 +632,16 @@ img {
                position:absolute;
                 width:218px;
                 bottom:0;
+                @media (max-width: @screen-sm-min) {
+                width: 123px;
+            }
       }
+
+
+           @media (max-width: @screen-sm-min) {
+               height: 212px;
+                width: 123px;
+            }
 }
 .alert-msg{
   line-height: 40px;
@@ -643,6 +664,9 @@ img {
     vertical-align: middle;
     padding: 14px 0px;
     color:@white;
+              @media (max-width: @screen-sm-min) {
+                padding: 28px 0px;
+            }
 } 
       .fill-bottle{
           width: 150px;
@@ -727,9 +751,12 @@ img {
     }
 
     /* Mobile */
-    @media (max-width: @screen-sm-min) {
+@media (max-width: @screen-sm-min) {
     html body{
       font-size: 12px !important;
+        .hr-mobile{
+          margin:0px;
+        }
         .mobile-status{
           border-top: 1px solid #DBDBDB !important;
           padding-top: 13px;
@@ -742,8 +769,11 @@ img {
            display: inline-block;
           }
         }
-.form-horizontal .control-label {
+        .form-horizontal .control-label {
         padding-bottom: 9px;
+        }
+        .bottle-cap{
+          width:121px;
         }
     }
 }

@@ -597,12 +597,19 @@
 		<div class="aj-response-message"> 
 			  <div class="row">
 				  <div class="col-md-12">
-					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
-						 <h4 class="text-center pull-left"> Add Products</h4>
-					<div class="cbp-vm-options">
-						<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid">Grid View</a>
-						<a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list">List View</a>
-					</div>
+					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid ">
+					<div class="row m-t-10">
+						<div class="col-sm-6 col-xs-6">
+						 		<h5 class="bold margin-none"> Add Products</h5>
+						 </div>	
+						 	<div class="col-sm-6 col-xs-6">
+								<div class="cbp-vm-options">
+									<a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid">Grid View</a>
+									<a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list">List View</a>
+								</div>
+							</div>
+					</div>	
+					<hr class="hr-mobile">	
 					<ul class="products-list">
 						
 					</ul>
@@ -614,7 +621,7 @@
 				  <div class="row">
 					<div class="col-sm-12">
 			<hr>
-<a href="#/profile/my-products" class="btn btn-primary  pull-right"><i class="fa  fa-chevron-right"></i> Next</a>
+<a href="#/profile/my-products" class="btn btn-primary  pull-right"><i class="fa  fa-chevron-right"></i> Next</a><div class="clearfix"></div><br>
 							</div>
 			</div>
 			  
@@ -691,7 +698,7 @@
 			  
 			  <div class="anytime">
 			  <div class="form-group">
-	<label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Serving per day</label>
+	<label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Serving(s) per day</label>
 	<div class="col-sm-6 col-xs-7 ">
 	  <select class="form-control servings_per_day " name="servings_per_day">
 		  <option value="1">1</option>
@@ -705,7 +712,7 @@
   <div class="form-group">
 	<div class="checkbox">
 	<label class=" control-label">
-	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me set to set different quantity per serving
+	 &nbsp;&nbsp;&nbsp; <input type="checkbox" name="servings_diff" value="0"> Allow me to set different quantity per serving
 	<input type="hidden" name="check" id="check" value="0" /></label>
 	<input type="hidden" name="timeset" id="timeset" value=""  >
   </div> 
@@ -714,7 +721,7 @@
   <div class="qty_per_servings_div">
   <div class="qtyper">
   <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Quantity Per Serving</label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Quantity per serving</label>
 	<div class="col-sm-6 col-xs-7">
 	  <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
 		  <option value="1">1</option>
@@ -722,7 +729,7 @@
 		  <option value="3">3</option>
 		  <option value="4">4</option>
 		  
-		</select> <label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>
+		</select> <!--<label for="inputPassword3" class="control-label"> &nbsp; Capsule</label>-->
 	</div>
   </div>
 	</div>
@@ -732,7 +739,7 @@
 
   <div class="schedule_data ">
   <div class="form-group ">
-  <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving per day</label>
+  <label for="inputEmail3" class="col-sm-6 col-xs-6  control-label">Serving(s) per day</label>
 	<div class="col-sm-6 col-xs-6 ">
 	 <div class="btn-group" role="group" aria-label="...">
 	  <button type="button" data-time="Once"  class="btn schedule {{once}}">  Once</button>
@@ -742,7 +749,7 @@
 	</div>
   	</div>
   <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label"><b>Quantity Per Serving</b></label>
+	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label"><b>Quantity per serving</b></label>
    <label for="inputPassword3" class="control-label col-sm-6  col-xs-7 "><B>When</B> </label>
  </div>
  <div class="form-group">
@@ -790,9 +797,9 @@
   <div class="noofcontainer">
   <div class="form-group">
 
-	<label for="inputEmail3" class="col-sm-6 col-xs-7  control-label">Number of 
+	<label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Number of 
 
-	container</label>
+	container(s)</label>
 	<div class="col-sm-6 col-xs-7">
 	  <select class="form-control no_of_container" name="no_of_container">
 		  <option value="1">1</option>
@@ -821,7 +828,7 @@
   </div>
   </div>
 <div class="form-group ">
-	<label for="inputPassword3" class="col-sm-6 col-xs-7 control-label">Set remainder</label>
+	<label for="inputPassword3" class="col-sm-6 col-xs-7 control-label">Set reminder</label>
 	<div class="col-sm-6 col-xs-5 ">
 	 <div class="btn-group" role="group" aria-label="...">
 	  <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
@@ -844,8 +851,8 @@
 	<div class="col-sm-offset-2 col-sm-10">
 	 <button type="button" class="btn btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button>	
 
-	  <button type="submit" class="btn btn-primary aj-submit-button save pull-right" name="save"><i class="fa fa-check"></i> Save</button>
-	  <button type="submit" class="btn btn-primary aj-submit-button save_another hidden" name="save_another">Save</button>
+	  <button type="submit" class="btn btn-primary aj-submit-button save pull-right m-r-10" name="save"><i class="fa fa-check"></i> Save</button>
+	  <button type="submit" class="btn btn-primary aj-submit-button save_another hidden hidden-xs pull-right m-r-10" name="save_another">Save</button>
 
 		 <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
 		 
@@ -1100,7 +1107,7 @@
  
 
 	
-		<h4 class="text-center">Serving 1<small>(Bonus)</small></h4>
+		<h5 class="bold text-center">Serving 1 <small>(Bonus)</small></h5>
 <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			
@@ -1123,12 +1130,17 @@
 				</div>
 			<!--- Bottle UI -->
 
-				<div> <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block"/></div>
+				<div> <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
 				<div class="bottle-bg">
 						<div class="bottle"></div>
-						<div class="bottle-msg bottlecnt">{{confirm}}</div><span>%</span>
+						<small class="text-center center-block msg bottle-msg "></small>	
+						
 				 </div>
-				 	<small class="text-center center-block msg"></small>	
+
+				 	<small class="text-center center-block">Touch the bottle to consume </small>	
+
+				 	
+
 			<!--- Bottle UI -->
 			</div>
 

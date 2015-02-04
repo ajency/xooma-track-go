@@ -6373,6 +6373,11 @@ body {
 .no-tab {
   top: 69px !important;
 }
+@media (max-width: 768px) {
+  .no-tab {
+    top: 63px !important;
+  }
+}
 body > .container {
   padding: 0;
 }
@@ -6436,6 +6441,9 @@ body > .container {
   .xs-t-10 {
     margin-top: 10px;
   }
+}
+.m-r-10 {
+  margin-right: 10px;
 }
 .m-t-10 {
   margin-top: 10px;
@@ -7105,6 +7113,12 @@ packet_expected_class {
   position: relative;
   height: 381px;
 }
+@media (max-width: 768px) {
+  .bottle-bg {
+    height: 212px;
+    width: 123px;
+  }
+}
 .bottle {
   height: 381px;
   width: 218px;
@@ -7120,12 +7134,28 @@ packet_expected_class {
   position: absolute;
   width: 218px;
 }
+@media (max-width: 768px) {
+  .bottle .ea-empty {
+    width: 123px;
+  }
+}
 .bottle .ea-full {
   background: #9ad41e;
   z-index: -1;
   position: absolute;
   width: 218px;
   bottom: 0;
+}
+@media (max-width: 768px) {
+  .bottle .ea-full {
+    width: 123px;
+  }
+}
+@media (max-width: 768px) {
+  .bottle {
+    height: 212px;
+    width: 123px;
+  }
 }
 .alert-msg {
   line-height: 40px;
@@ -7148,6 +7178,11 @@ packet_expected_class {
   vertical-align: middle;
   padding: 14px 0px;
   color: #ffffff;
+}
+@media (max-width: 768px) {
+  .bottle-msg {
+    padding: 28px 0px;
+  }
 }
 .fill-bottle {
   width: 150px;
@@ -7248,6 +7283,9 @@ packet_expected_class {
   html body {
     font-size: 12px !important;
   }
+  html body .hr-mobile {
+    margin: 0px;
+  }
   html body .mobile-status {
     border-top: 1px solid #DBDBDB !important;
     padding-top: 13px;
@@ -7262,6 +7300,9 @@ packet_expected_class {
   }
   html body .form-horizontal .control-label {
     padding-bottom: 9px;
+  }
+  html body .bottle-cap {
+    width: 121px;
   }
 }
 /* Top - Header */
@@ -10346,13 +10387,11 @@ packet_expected_class {
 /* options/select wrapper with switch anchors */
 .cbp-vm-options {
   text-align: right;
-  padding-bottom: 10px;
-  border-bottom: 3px solid #47a3da;
 }
 .cbp-vm-options a {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   overflow: hidden;
   white-space: nowrap;
   color: #d0d0d0;
@@ -10363,10 +10402,10 @@ packet_expected_class {
   color: #47a3da;
 }
 .cbp-vm-options a:before {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 30px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 20px;
   text-align: center;
   display: inline-block;
 }
@@ -10465,6 +10504,11 @@ packet_expected_class {
   min-height: 420px;
   vertical-align: top;
 }
+@media (max-width: 768px) {
+  .cbp-vm-view-grid ul li {
+    margin: 9px 0 0;
+  }
+}
 .cbp-vm-view-grid .cbp-vm-title {
   font-size: 2em;
 }
@@ -10512,7 +10556,7 @@ packet_expected_class {
   width: 10%;
 }
 .cbp-vm-view-list .cbp-vm-details {
-  width: 50%;
+  width: 58%;
   padding: 0 15px;
   overflow: hidden;
   white-space: normal;
