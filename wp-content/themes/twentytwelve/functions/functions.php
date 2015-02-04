@@ -1014,7 +1014,7 @@ function add_asperbmi_products($user_id,$weight){
 
 										}
 										$value['time_set'] = $actual;
-										print_r($value);
+										
 										save_anytime_product_details($user_id,$value);
 
 						}
