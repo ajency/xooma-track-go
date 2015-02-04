@@ -1133,9 +1133,14 @@
 				<div> <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
 				<div class="bottle-bg">
 						<div class="bottle"></div>
-						<div class="bottle-msg">Completed 25% </div>
+						<small class="text-center center-block msg bottle-msg "></small>	
+						
 				 </div>
+
 				 	<small class="text-center center-block">Touch the bottle to consume </small>	
+
+				 	
+
 			<!--- Bottle UI -->
 			</div>
 
@@ -1215,6 +1220,7 @@
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > Confirm </button>
+           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > Skip </button>
                 <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       </div>
       <div class="col-sm-4 col-xs-3"></div>

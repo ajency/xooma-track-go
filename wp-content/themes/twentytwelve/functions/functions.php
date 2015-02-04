@@ -1377,7 +1377,7 @@ function store_consumption_details($args){
 					$meta_id = $args['meta_id'];
 				}
 
-				$occurrence = get_occurrence_date($args['pid'],$args['id'],$date="");
+				$occurrence = get_occurrence_date($args['pid'],$args['id'],$args['date']);
 
 
 
@@ -1740,7 +1740,7 @@ function cron_job_reminders($args)
 
 	global $wpdb;
 
-	$args = 30;
+	
 	$table = $wpdb->prefix . "product_main";
 
 	$object_type = 'user_product_reminder';
@@ -1756,7 +1756,7 @@ function cron_job_reminders($args)
 
 	$current_date = strtotime($start_dt);
 
-	$nextdate = $current_date+(60*300);
+	$nextdate = $current_date+(60*intval($args));
 
 	$end_date = date('Y-m-d H:i:s',$nextdate);
 	
@@ -1802,20 +1802,21 @@ function cron_job_reminders($args)
 	}
 
 	
-	//function call
-	//parse
-		// use Parse\ParseClient;
+	// function call
+	// // //parse
+	// // 	use Parse\ParseClient;
 		 
-		// ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
+	// // 	ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
 
 
-		// use Parse\ParseCloud;
+	// // 	use Parse\ParseCloud;
 
 		
-		// $result = ParseCloud::run('sendPushByUserId', $usersToBeNotified);
+	//$result = ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
 
-	//parse
+
+	// // //parse
 	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
 
 }

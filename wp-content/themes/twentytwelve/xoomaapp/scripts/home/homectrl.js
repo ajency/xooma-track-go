@@ -422,7 +422,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none">Complete the last one</h6> </li> </ul> </div> </br> ';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-12"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> </br> ';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -451,7 +451,11 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, count, data, model, no_servings, occurrenceArr, product_type, qty, recent, reponse, temp;
+    var bonusArr, consumed, count, data, howmuch, model, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
+    console.log(Messages['25_timeslot1']);
+    per = [0, 25, 50, 75, 100];
+    per1 = ['25_50', '50_75'];
+    timearr = ["2AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-2AM"];
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
@@ -460,10 +464,18 @@ ProductChildView = (function(_super) {
     occurrenceArr = [];
     no_servings = [];
     bonusArr = 0;
+    consumed = 0;
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
     temp = [];
+    texmsg = "";
+    timeslot = "";
+    time = "";
+    timearray = [];
+    timezone = App.currentUser.get('timezone');
+    console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
+    timearray.push(moment(tt + timezone, "HH:mm Z").format("x"));
     $.each(this.model.get('occurrence'), function(ind, val) {
       if (qty[ind] !== void 0) {
         return temp.push(val);
@@ -478,6 +490,7 @@ ProductChildView = (function(_super) {
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
+        consumed++;
       } else if (occurrence === false && expected === true) {
         reponse = ProductChildView.prototype.expectedfunc(val, ind, count, model);
         count++;
@@ -492,12 +505,37 @@ ProductChildView = (function(_super) {
       data.no_servings = no_servings;
       return data.serving_size = temp.length;
     });
+    howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100;
+    $.each(timearr, function(ind, val) {
+      var d, t0, t1, time1, time2;
+      temp = val.split('-');
+      t0 = moment(temp[0], "hA").format('HH:mm:ss');
+      t1 = moment(temp[1], "hA").format('HH:mm:ss');
+      time = _.last(timearray);
+      d = moment().format('YYYY-MM-DD');
+      time1 = moment(t0 + timezone, "HH:mm Z").format("x");
+      time2 = moment(t1 + timezone, "HH:mm Z").format("x");
+      if (parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)) {
+        return timeslot = Messages[val];
+      }
+    });
+    $.each(per, function(ind, val) {
+      if (parseInt(val) === parseInt(howmuch)) {
+        return texmsg = Messages[val + '_' + timeslot];
+      }
+    });
+    $.each(per1, function(ind, val) {
+      temp = val.split('_');
+      if (parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)) {
+        return texmsg = Messages[val + '_' + timeslot];
+      }
+    });
+    data.texmsg = texmsg;
     return data;
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
     var classname, date, html, i, increment, meta_id, newClass, product, product_type, qty, reminders, schedule_id, serving_text, temp, tempcnt, time, whenarr;
-    console.log(model);
     temp = [];
     i = 0;
     html = "";
@@ -551,7 +589,10 @@ ProductChildView = (function(_super) {
     time = moment(val.occurrence + timezone, "HH:mm Z").format("h:ss A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
-    qty = val.meta_value.qty;
+    console.log(qty = val.meta_value.qty);
+    if (parseInt(qty) === 0) {
+      time = "Skipped";
+    }
     html = "";
     newClass = product_type + '_occurred_class';
     html += '<li><a><h3 class="bold"><div class="cap ' + newClass + '"></div>' + qty + '</h3></a>';

@@ -101,16 +101,23 @@ ScheduleView = (function(_super) {
         error: this.erroraHandler
       });
     },
-    'click .update': function(e) {
-      var data, meta_id, product, qty;
+    'click #skip': function(e) {
+      var data, date, meta_id, product, qty, t, time;
       e.preventDefault();
       meta_id = $('#meta_id').val();
-      qty = $('#qty').val();
+      qty = 0;
       data = $('#schduleid').val();
       product = this.model.get('id');
+      date = $('#date').val();
+      t = $('#consume_time').val();
+      date = moment().format('YYYY-MM-DD');
+      time = moment(t, "HH:mm a").format("HH:mm:ss");
+      if (t === "") {
+        time = moment().format("HH:mm:ss");
+      }
       return $.ajax({
         method: 'POST',
-        data: 'meta_id=' + meta_id + '&qty=' + qty,
+        data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
         url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
@@ -236,7 +243,7 @@ App.ScheduleCtrl = (function(_super) {
       options = {};
     }
     console.log(productId = this.getParams());
-    product = 104;
+    product = 3;
     date = '2015-02-04';
     products = [];
     App.useProductColl.each(function(val) {

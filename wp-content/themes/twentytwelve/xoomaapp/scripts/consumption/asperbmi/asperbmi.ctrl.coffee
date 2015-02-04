@@ -55,9 +55,14 @@ class AsperbmiView extends Marionette.ItemView
 
 			cnt = @getCount model.get 'meta_value'
 			@originalBottleRemaining = @bottleRemaining
+			msg = @showMessage(cnt)
+			$('.msg').html msg
 			if parseInt(cnt) is 1
 				cnt = 0
+				@create_occurrences()
 			$('.bottlecnt').text cnt
+			
+			
 			@ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!")
 			$('html, body').animate({
 								scrollTop: 0
@@ -131,7 +136,9 @@ class AsperbmiView extends Marionette.ItemView
 				
 	create_occurrences:()=>
 			$('#meta_id').val(0)
-			$('.bottlecnt').text 0
+			$('.bottlecnt').text 'No Consumption'
+			msg = @showMessage(0)
+			$('.msg').text msg
 			@originalBottleRemaining = 100
 			@bottleRemaining = 100
 			@bottle = new EAProgressVertical(@$el.find('.bottle'),@bottleRemaining,'empty',10000,[25,50,75])
@@ -143,10 +150,24 @@ class AsperbmiView extends Marionette.ItemView
 			meta_value = data.meta_value
 			count = @getCount(data.meta_value)
 			$('.bottlecnt').text count
+			msg = @showMessage(count)
+			$('.msg').html msg
 			@bottleRemaining = 100 - 100*count
 			@originalBottleRemaining = @bottleRemaining 
 			@bottle = new EAProgressVertical(@$el.find('.bottle'),@bottleRemaining,'empty',10000,[25,50,75])
-			
+	
+	showMessage:(count)->
+		console.log count
+		temp = [0,0.25,0.5,0.75,1]
+		msg = ""
+		$.each temp , (ind,val)->
+			if parseFloat(count) == parseFloat(val)
+				console.log msg = Messages[val]
+
+
+		msg
+
+
 
 	startProgress : =>
 		@bottle.startProgress()
