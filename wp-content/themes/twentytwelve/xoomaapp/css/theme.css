@@ -6665,7 +6665,7 @@ text {
 }
 /** Bottle **/
 #canvas-holder {
-  width: 40%;
+  width: 50%;
   margin: auto;
 }
 @media (max-width: 768px) {
@@ -7186,11 +7186,14 @@ packet_expected_class {
   }
 }
 .fill-bottle {
-  width: 150px;
   display: block;
   margin: auto;
-  position: relative;
-  top: 65px;
+  position: absolute;
+  top: 163px;
+  text-align: center;
+  left: 0%;
+  right: 0%;
+  width: 150px;
 }
 .glass {
   height: 150px;
