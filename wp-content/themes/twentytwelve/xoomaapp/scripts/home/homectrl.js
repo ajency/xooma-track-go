@@ -234,7 +234,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi" ><h6 class="text-center"> Tap to Consume</h6></a> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center margin-none texmsg">{{texmsg}}</h6> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center margin-none texmsg">{{texmsg}}</h6> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -306,6 +306,7 @@ HomeX2OView = (function(_super) {
     });
     data.texmsg = texmsg;
     data.remianing = occurrenceArr.length;
+    data.dateval = moment().format('YYYY-MM-DD');
     data.qty = this.model.get('qty').length;
     return data;
   };
@@ -379,15 +380,15 @@ HomeX2OView = (function(_super) {
     if (occurrence === true && expected === true) {
       arr['color'] = "#6bbfff";
       arr['highlight'] = "#50abf1";
-      arr['value'] = parseInt(qty) * 100;
+      arr['value'] = qty;
     } else if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
       arr['highlight'] = "#cdcdcd";
-      arr['value'] = parseInt(qty) * 100;
+      arr['value'] = qty;
     } else if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
       arr['highlight'] = "#cdcdcd";
-      arr['value'] = parseInt(qty) * 100;
+      arr['value'] = qty;
     }
     return arr;
   };

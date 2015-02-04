@@ -1099,6 +1099,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
                     <div id="picker_inline_fixed"></div>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
+                    <a href="" class="btn btn-primary consume">Consume</a>
                </form>
               <ul id='timeline' class="viewHistory">
               
