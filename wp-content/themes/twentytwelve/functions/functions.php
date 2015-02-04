@@ -39,7 +39,7 @@ function save_anytime_product_details($id,$data){
 								array(
 									'main_id'                     => $main_id,
 									'key'                         => 'qty_per_servings',
-									'value'                       => serialize(array('qty' =>$qty[0],'when' => 1))
+									'value'                       => serialize(array('qty' =>1,'when' => 1))
 								),
 								array(
 									'%d',
@@ -1013,6 +1013,7 @@ function add_asperbmi_products($user_id,$weight){
 
 										}
 										$value['time_set'] = $actual;
+										print_r($value);
 										save_anytime_product_details($user_id,$value);
 
 						}
