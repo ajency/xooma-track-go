@@ -41,6 +41,15 @@ ViewInventoryView = (function(_super) {
 
   ViewInventoryView.prototype.childViewContainer = 'ul.viewInventory';
 
+  ViewInventoryView.prototype.onShow = function() {
+    var ID, model;
+    ID = Marionette.getOption(this, 'ID');
+    model = App.useProductColl.findWhere({
+      id: parseInt(ID)
+    });
+    return $('.product_name').text(model.get('name'));
+  };
+
   return ViewInventoryView;
 
 })(Marionette.CompositeView);
@@ -82,9 +91,10 @@ App.ViewInventoryCtrl = (function(_super) {
   ViewInventoryCtrl.prototype.successHandler = function(response, status, xhr) {
     var coll;
     if (xhr.status === 200) {
-      coll = new Backbone.Collection(response);
+      coll = new Backbone.Collection(response.response);
       return this.show(new ViewInventoryView({
-        collection: coll
+        collection: coll,
+        ID: response.ID
       }));
     } else {
       $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");

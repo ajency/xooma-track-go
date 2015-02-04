@@ -380,17 +380,14 @@ HomeX2OView = (function(_super) {
       arr['color'] = "#6bbfff";
       arr['highlight'] = "#50abf1";
       arr['value'] = parseInt(qty) * 100;
-      arr['label'] = "Consumed at";
     } else if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
       arr['highlight'] = "#cdcdcd";
       arr['value'] = parseInt(qty) * 100;
-      arr['label'] = qty;
     } else if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
       arr['highlight'] = "#cdcdcd";
       arr['value'] = parseInt(qty) * 100;
-      arr['label'] = qty;
     }
     return arr;
   };

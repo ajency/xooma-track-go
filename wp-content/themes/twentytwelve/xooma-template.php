@@ -136,8 +136,6 @@ var Messages = <?php echo json_encode(load());?>;
 <!-- endbuild -->
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/owl.carousel.min.js"></script>
-<script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/ChartNew.js"></script>
-<script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/stats.js"></script
     <!-- Frontpage Demo -->
 
 <script type="text/javascript">

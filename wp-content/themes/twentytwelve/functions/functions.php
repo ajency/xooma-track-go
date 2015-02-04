@@ -39,7 +39,7 @@ function save_anytime_product_details($id,$data){
 								array(
 									'main_id'                     => $main_id,
 									'key'                         => 'qty_per_servings',
-									'value'                       => serialize(array('qty' =>$qty[0],'when' => 1))
+									'value'                       => serialize(array('qty' =>1,'when' => 1))
 								),
 								array(
 									'%d',
@@ -997,6 +997,7 @@ function add_asperbmi_products($user_id,$weight){
 
 					if($state != '/home' && is_null($object)) 
 					{
+						$actual = 1 ;
 					$time_set = $value['time_set'];
 						if( $time_set == 'asperbmi' ){
 							 
@@ -1006,13 +1007,14 @@ function add_asperbmi_products($user_id,$weight){
 											
 											$original = explode('<', $val['range']);
 
-											$actual = 1 ;
+											
 
 											if(intval($original[0]) <= intval($weight) && intval($weight) <= intval($original[1]) )
 												$actual = $val['quantity'];
 
 										}
 										$value['time_set'] = $actual;
+										
 										save_anytime_product_details($user_id,$value);
 
 						}
@@ -1272,7 +1274,7 @@ function get_history_user_product($id,$product_id){
 			 }
 
 			 
-	 return $transaction;
+	 return array('ID'=>$term[0]['id'], 'response' =>$transaction);
 
 }
 
