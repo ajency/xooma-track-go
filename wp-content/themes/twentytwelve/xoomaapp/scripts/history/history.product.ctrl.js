@@ -31,6 +31,23 @@ ViewProductHistoryView = (function(_super) {
       var product;
       product = Marionette.getOption(this, 'id');
       return this.loadData(product);
+    },
+    'click .consume': function(e) {
+      var date, model, product;
+      e.preventDefault();
+      console.log(product = Marionette.getOption(this, 'id'));
+      date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
+      if ($('#picker_inline_fixed').val() === "") {
+        date = moment().format("YYYY-MM-DD");
+      }
+      model = App.useProductColl.findWhere({
+        id: parseInt(product)
+      });
+      if (model.get('name').toUpperCase() === 'X2O') {
+        return App.navigate("#products/" + product + '/bmi/' + date, true);
+      } else {
+        return App.navigate("#products/" + product + '/consume/' + date, true);
+      }
     }
   };
 
@@ -42,7 +59,8 @@ ViewProductHistoryView = (function(_super) {
       inline: true,
       dateFormat: 'yy-mm-dd',
       changeYear: true,
-      changeMonth: true
+      changeMonth: true,
+      maxDate: new Date()
     });
   };
 

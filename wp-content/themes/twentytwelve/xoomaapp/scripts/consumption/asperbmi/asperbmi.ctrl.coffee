@@ -1,5 +1,5 @@
 App.state 'Asperbmi',
-					url : '/products/:id/bmi'
+					url : '/products/:id/bmi/:date'
 					parent : 'xooma'
 
 			

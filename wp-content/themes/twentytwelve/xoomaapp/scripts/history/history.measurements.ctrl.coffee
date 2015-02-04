@@ -25,6 +25,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 		    dateFormat : 'yy-mm-dd'
 		    changeYear: true,
 		    changeMonth: true,
+		    maxDate: new Date()
 			     
 			   
 		    

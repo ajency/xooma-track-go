@@ -211,7 +211,7 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				   <a href="#/products/{{id}}/bmi" ><h6 class="text-center"> Tap to Consume</h6></a>    
+				   <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a>    
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
@@ -296,6 +296,7 @@ class HomeX2OView extends Marionette.ItemView
 				texmsg = Messages[val+'_'+timeslot]
 		data.texmsg = texmsg
 		data.remianing = occurrenceArr.length
+		data.dateval = moment().format('YYYY-MM-DD')
 		data.qty = @model.get('qty').length
 		data
 
@@ -366,18 +367,18 @@ class HomeX2OView extends Marionette.ItemView
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
 			arr['highlight'] =  "#50abf1"
-			arr['value'] = parseInt(qty) * 100
+			arr['value'] = qty
 			
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = parseInt(qty) * 100
+			arr['value'] = qty
 			
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
 			arr['highlight'] =  "#cdcdcd"
-			arr['value'] = parseInt(qty) * 100
+			arr['value'] = qty
 			
 
 		arr
@@ -394,7 +395,7 @@ class HomeX2OView extends Marionette.ItemView
 					value: occurrence['value']
 					color:occurrence['color']
 					highlight:occurrence['highlight']
-					label: "Bottle "+i
+					label: "Bottle "+ i
 				
 		doughnutData
 
