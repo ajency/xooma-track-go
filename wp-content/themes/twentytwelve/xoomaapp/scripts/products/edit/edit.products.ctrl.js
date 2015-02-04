@@ -291,7 +291,7 @@ EditProductsView = (function(_super) {
     var data, frequecy, product, products, qty, reminder_flag, reminders, weightbmi;
     data = EditProductsView.__super__.serializeData.call(this);
     product = parseInt(this.model.get('id'));
-    weightbmi = this.get_weight_bmi(this.model.get('bmi'));
+    console.log(weightbmi = this.get_weight_bmi(this.model.get('bmi')));
     data.x2o = Math.ceil(weightbmi);
     data.defaultbmi = Math.ceil(weightbmi);
     products = App.currentUser.get('products');
@@ -358,6 +358,7 @@ EditProductsView = (function(_super) {
         $(this.ui.servings_diff).prop('disabled', true);
       }
       $(this.ui.servings_per_day).trigger("change");
+      this.showReminders();
       this.showAnytimeData(this.model);
     } else if (parseInt(this.model.get('frequency_value')) === 2) {
       $('.anytime').hide();
@@ -385,6 +386,7 @@ EditProductsView = (function(_super) {
         weight = qty.length;
       }
       $('.servings_per_day option[value="' + weight + '"]').prop("selected", true);
+      console.log($('.servings_per_day').val());
       this.showReminders();
       this.showAnytimeData(this.model);
     }
