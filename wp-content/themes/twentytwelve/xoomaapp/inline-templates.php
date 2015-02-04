@@ -262,12 +262,10 @@
 
 						<div class="aj-response-message"> </div>
 						<form class="form-horizontal update_user_details" role="form">
-
-
-								<img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs" width="150px" height="150px">
-								<h5 class="text-center bold">Personal Information</h5>
+<h5 class="text-center bold margin-none">Let us know something about you.</h5>
 								
-								<p class="text-center">Let us know something about you.</p>
+								<p class="text-center">Fill in your details and click on save
+Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs" width="150px" height="150px">
 								<br>
 								<div class="row">
 										<div class="col-sm-offset-3 col-sm-6">
@@ -363,7 +361,7 @@
 						<form id="add_measurements" class="form-horizontal" role="form" method="POST">
 								<div class="row">
 										<div class="col-sm-6">
-												<h5 class="text-center bold">Set your measurements</h5>
+												<h5 class="text-center bold margin-none">Set your measurements</h5>
 												<p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your body needs on a daily basis </p>
 												<div class="row">
 												<input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
@@ -569,8 +567,10 @@
 
 
 <script id="produts-template" type="h-template">
-<div id="xoomaproduct" class="section">
-				<h5 class="text-center bold">My Xooma products</h5>
+<div id="xoomaproduct" class="section"> 
+				<h5 class="text-center bold margin-none">My Xooma products</h5>
+				<p class="text-center">Your xooma products are displayed here once you add them.
+</p>
 		<div class="container">
 		<div class="aj-response-message"> 
 			  <div class="row">

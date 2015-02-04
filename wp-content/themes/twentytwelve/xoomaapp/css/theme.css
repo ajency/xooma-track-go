@@ -7095,13 +7095,13 @@ packet_expected_class {
   z-index: 3;
 }
 .water-25 {
-  bottom: 16%;
+  bottom: 19%;
 }
 .water-50 {
-  bottom: 35%;
+  bottom: 38%;
 }
 .water-75 {
-  bottom: 54%;
+  bottom: 55%;
 }
 .water-100 {
   bottom: 73%;
@@ -7136,7 +7136,7 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .bottle .ea-empty {
-    width: 123px;
+    width: 116px;
   }
 }
 .bottle .ea-full {
@@ -7148,7 +7148,7 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .bottle .ea-full {
-    width: 123px;
+    width: 116px;
   }
 }
 @media (max-width: 768px) {
@@ -7176,12 +7176,13 @@ packet_expected_class {
   position: relative;
   height: 25%;
   vertical-align: middle;
-  padding: 14px 0px;
-  color: #ffffff;
+  padding: 20px 33px;
+  color: #000;
+  z-index: -1;
 }
 @media (max-width: 768px) {
   .bottle-msg {
-    padding: 28px 0px;
+    padding: 16px 33px;
   }
 }
 .fill-bottle {
@@ -11073,6 +11074,9 @@ h6.brand {
   }
   h3 {
     font-size: 24px;
+  }
+  h6 {
+    font-size: 12px;
   }
   .truncate {
     overflow: hidden;
