@@ -83,14 +83,12 @@
 /* options/select wrapper with switch anchors */
 .cbp-vm-options {
 	text-align: right;
-	padding-bottom: 10px;
-	border-bottom: 3px solid #47a3da;
 }
 
 .cbp-vm-options a {
 	display: inline-block;
-	width: 40px;
-	height: 40px;
+	width: 20px;
+	height: 20px;
 	overflow: hidden;
 	white-space: nowrap;
 	color: #d0d0d0;
@@ -103,10 +101,10 @@
 }
 
 .cbp-vm-options a:before {
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	font-size: 30px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 20px;
 	text-align: center;
 	display: inline-block;
 }
@@ -220,6 +218,9 @@
 	display: inline-block;
 	min-height: 420px;
 	vertical-align: top;
+@media (max-width: @screen-sm-min) {
+       	margin: 9px 0 0;
+ }
 }
 
 .cbp-vm-view-grid .cbp-vm-title {
@@ -276,7 +277,7 @@
 }
 
 .cbp-vm-view-list .cbp-vm-details {
-	width: 50%;
+	width: 58%;
 	padding: 0 15px;
 	overflow: hidden;
 	white-space: normal;
