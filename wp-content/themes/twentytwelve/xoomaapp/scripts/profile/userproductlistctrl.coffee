@@ -27,17 +27,18 @@ class ProductChildView extends Marionette.ItemView
                       </ul>
               </h5>
                       <ul class="list-inline   m-t-20">
-
+                      	 <li class="col-md-7 col-xs-7 dotted-line">
+                      	 	<ul class="list-inline no-dotted ">
                         <li class="col-md-7 col-xs-7">
                         	 <div class="row">
                         	{{#servings}}
-                        	<div class="col-md-6 text-left">
-                        	{{#serving}}
-                        	<div class="{{classname}}"></div>
-                        	{{/serving}}
-                        	</div>	
+                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div>{{qty}}</h3>
+                                
+	
                         	{{/servings}}	
                         </div>       
+                        </li>
+                        </ul>
                         </li>
                         <li class="col-md-1 col-xs-1">
                     <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
@@ -84,7 +85,6 @@ class ProductChildView extends Marionette.ItemView
 				$('.save_products').hide()
 			
 		else
-			@ui.responseMessage.removeClass('alert alert-danger')
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 			$('html, body').animate({
 							scrollTop: 0
@@ -92,7 +92,6 @@ class ProductChildView extends Marionette.ItemView
 		
 
 	erroraHandler:(response, status, xhr)=>
-		@ui.responseMessage.removeClass('alert alert-danger')
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 		$('html, body').animate({
 							scrollTop: 0
@@ -128,16 +127,12 @@ class ProductChildView extends Marionette.ItemView
 		servings = []
 		reminderArr = []
 		$.each qty , (index,value)->
-			i = 0
-			
 			servingsqty = []
-			while(i < value.qty)
-				newClass = product_type+'_default_class'
-				if  name.toUpperCase() == 'X2O'
-					newClass = 'x2o_default_class'
-				servingsqty.push classname : newClass
-				i++
-			servings.push serving : servingsqty   
+			newClass = product_type+'_default_class'
+			if  name.toUpperCase() == 'X2O'
+				newClass = 'x2o_default_class'
+				
+			servings.push classname : newClass , qty : value.qty
 
 		$.each reminder , (ind,val)->
 			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
@@ -225,7 +220,6 @@ class UserProductListView extends Marionette.CompositeView
 			region =  new Marionette.Region el : '#xoomaapptemplate'
 			region.show listview
 		else
-			@ui.responseMessage.removeClass('alert alert-danger')
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 			$('html, body').animate({
 							scrollTop: 0
@@ -233,7 +227,6 @@ class UserProductListView extends Marionette.CompositeView
 
 
 	_errorHandler:(response, status, xhr)=>
-		@ui.responseMessage.removeClass('alert alert-danger')
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 		$('html, body').animate({
 							scrollTop: 0

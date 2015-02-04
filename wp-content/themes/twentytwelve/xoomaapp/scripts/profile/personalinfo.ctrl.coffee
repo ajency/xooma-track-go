@@ -75,14 +75,12 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	successHandler:(response, status,xhr)=>
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
-			@ui.responseMessage.removeClass('alert alert-danger')
 			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 		else
 			if state == '/home'
-				@ui.responseMessage.removeClass('alert alert-success')
 				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 				$('html, body').animate({
 							scrollTop: 0
@@ -94,7 +92,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	errorHandler:(error)=>
-		@ui.responseMessage.removeClass('alert alert-danger')
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 							scrollTop: 0

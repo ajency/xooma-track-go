@@ -592,23 +592,23 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
               </h5>
                       <ul class="list-inline   m-t-20">
                         <li class="col-md-7 col-xs-7 dotted-line">
-                                  <ul class="list-inline no-dotted">
+                                  <ul class="list-inline no-dotted userproducts">
         
                                 <li> <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
                                 
-                                        <h6 class="text-center text-primary">Serving 1</h6>
+                                       
                               </li>
                                  <li>
 
                                           <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
                                    
-                                        <h6 class="text-center text-primary">Serving 2</h6>
+                                       
                               </li>
                                 <li>
 
                                           <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
                                    
-                                        <h6 class="text-center text-primary">Serving 2</h6>
+                                        
                               </li>
                           </ul>      
                         </li>
