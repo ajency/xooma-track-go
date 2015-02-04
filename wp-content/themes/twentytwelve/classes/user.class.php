@@ -399,8 +399,7 @@ class User
                 'reminder'      => $reminder,
                 'settings'      => $settings_data->no_of_days,
                 'type'          => $val[0]['frequency'],
-                'timezone'      => $response['timezone'],
-                'upcoming'      => $occurrences['next_occurrence']
+                'timezone'      => $response['timezone']
 
 
     );
