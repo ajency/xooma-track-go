@@ -224,7 +224,7 @@ class HomeX2OView extends Marionette.ItemView
 			
 			</div>
 		</div><ul class="list-inline text-center row row-line x2oList">
-			 <li class="col-md-4 col-xs-4"> 
+			 <li class="col-md-4 col-xs-3"> 
 					<h5 class="text-center">Daily Target</h5>
 					<h4 class="text-center bold  text-primary" >{{qty}}</h4>
 				</li>
@@ -232,7 +232,7 @@ class HomeX2OView extends Marionette.ItemView
 					<h5 class="text-center">Consumed</h5>
 						<h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4>
 				</li>
-				<li class="col-md-4 col-xs-4">
+				<li class="col-md-4 col-xs-5">
 					<h5 class="text-center">Last consumed at</h5>
 					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
 				</li></ul></div></div>'
@@ -366,18 +366,15 @@ class HomeX2OView extends Marionette.ItemView
 		
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
-			arr['highlight'] =  "#50abf1"
 			arr['value'] = qty
 			
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
-			arr['highlight'] =  "#cdcdcd"
 			arr['value'] = qty
 			
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
-			arr['highlight'] =  "#cdcdcd"
 			arr['value'] = qty
 			
 
@@ -394,7 +391,6 @@ class HomeX2OView extends Marionette.ItemView
 			doughnutData.push 
 					value: occurrence['value']
 					color:occurrence['color']
-					highlight:occurrence['highlight']
 					label: "Bottle "+ i
 				
 		doughnutData
@@ -472,7 +468,7 @@ class ProductChildView extends Marionette.ItemView
 			  </div>
 		 
 
-				   </br> '
+				 '
 
 	ui :
 		anytime     : '.anytime'
