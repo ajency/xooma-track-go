@@ -967,7 +967,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 					Number of {{product_type}}(s) will be updated to 
 				</label>
 				<div class="col-sm-6 col-xs-6">
-				 <h3 class="bold-sum text-primary"><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> - </span> <span class="nsub"></span>  = <span class="eqa"></span></h3>
+				 <h3 class="bold-sum text-primary"><span class="finaladd"><span class="navail"></span><span class="record"> + <span class="nadd"></span></span><span class="sign"> - </span><span class="nsub"></span>  = <span class="eqa"></span></h3>
 				</div>
 	  </div>
 	  
@@ -1013,7 +1013,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 <div class="aj-response-message"> 
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
-<h5 class="text-center bold">Product name</h5>
+<h5 class="text-center bold product_name">Product name</h5>
 <ul id='timeline' class="viewInventory">
 </ul>
 </div>

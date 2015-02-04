@@ -1274,7 +1274,7 @@ function get_history_user_product($id,$product_id){
 			 }
 
 			 
-	 return $transaction;
+	 return array('ID'=>$term[0]['id'], 'response' =>$transaction);
 
 }
 

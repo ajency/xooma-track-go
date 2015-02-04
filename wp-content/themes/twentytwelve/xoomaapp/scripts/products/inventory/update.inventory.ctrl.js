@@ -101,10 +101,10 @@ EditInventoryView = (function(_super) {
       this.ui.navail.text(available);
       this.ui.nadd.text(equalto);
       if (this.ui.rangeSliders.val() < 0) {
-        $('.sign').text('-');
+        $('.sign').text(' - ');
         eqt = parseInt(available) + parseInt(equalto) - parseInt(Math.abs(this.ui.rangeSliders.val()));
       } else {
-        $('.sign').text('+');
+        $('.sign').text(' + ');
         eqt = parseInt(available) + parseInt(equalto) + parseInt(Math.abs(this.ui.rangeSliders.val()));
       }
       this.ui.nsub.text(Math.abs(this.ui.rangeSliders.val()));
@@ -144,16 +144,16 @@ EditInventoryView = (function(_super) {
     total = this.model.get('total');
     this.ui.navail.text(available);
     if (parseInt(this.ui.rangeSliders.val()) === 0) {
-      $('.sign').text('-');
+      $('.sign').text(' - ');
       this.ui.save.hide();
       eqt = parseInt(available) - parseInt(Math.abs(this.ui.rangeSliders.val()));
     }
     if (this.ui.rangeSliders.val() < 0) {
-      $('.sign').text('-');
+      $('.sign').text(' - ');
       eqt = parseInt(available) - parseInt(Math.abs(this.ui.rangeSliders.val()));
       this.ui.save.show();
     } else if (this.ui.rangeSliders.val() > 0) {
-      $('.sign').text('+');
+      $('.sign').text(' + ');
       eqt = parseInt(available) + parseInt(Math.abs(this.ui.rangeSliders.val()));
       this.ui.save.show();
     }

@@ -37,6 +37,11 @@ class ViewInventoryView extends Marionette.CompositeView
 
 	childViewContainer : 'ul.viewInventory'
 
+	onShow:->
+		ID  = Marionette.getOption( @, 'ID' )
+		model = App.useProductColl.findWhere({id:parseInt(ID)})
+		$('.product_name').text model.get 'name'
+
 class App.ViewInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
@@ -56,9 +61,11 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 
 	successHandler:(response,status,xhr)=>
 		if xhr.status == 200
-			coll = new Backbone.Collection response
+			coll = new Backbone.Collection response.response
 			@show new ViewInventoryView
 					collection : coll
+					ID : response.ID
+
 		else
 			$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
 			$('html, body').animate({
