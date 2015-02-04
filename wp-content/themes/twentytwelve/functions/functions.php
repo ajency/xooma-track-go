@@ -997,6 +997,7 @@ function add_asperbmi_products($user_id,$weight){
 
 					if($state != '/home' && is_null($object)) 
 					{
+						$actual = 1 ;
 					$time_set = $value['time_set'];
 						if( $time_set == 'asperbmi' ){
 							 
@@ -1006,7 +1007,7 @@ function add_asperbmi_products($user_id,$weight){
 											
 											$original = explode('<', $val['range']);
 
-											$actual = 1 ;
+											
 
 											if(intval($original[0]) <= intval($weight) && intval($weight) <= intval($original[1]) )
 												$actual = $val['quantity'];
