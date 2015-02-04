@@ -1266,17 +1266,17 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
             </div>
         </div>
            <div class="row m-t-20">
-        <div class="col-sm-5 col-xs-3"></div>
-      <div class="col-sm-3 col-xs-6">
+        <div class="col-sm-5 col-xs-2"></div>
+      <div class="col-sm-3 col-xs-9">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
-          <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > Confirm </button>
-           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > Skip </button>
+          <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
+           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > <i class="fa fa-angle-double-right"></i> Skip </button>
                 <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       </div>
-      <div class="col-sm-4 col-xs-3"></div>
+      <div class="col-sm-4 col-xs-1"></div>
     </div>
   </div>
 
