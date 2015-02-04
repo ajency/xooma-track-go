@@ -7319,6 +7319,12 @@ packet_expected_class {
   html body .x2oList {
     margin: 0px;
   }
+  html body .x2oList h5 {
+    font-size: 11px;
+  }
+  html body .x2oList h4 {
+    font-size: 18px;
+  }
 }
 /* Top - Header */
 .topheader {
