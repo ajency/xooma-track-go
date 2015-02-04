@@ -65,6 +65,7 @@ ProductChildView = (function(_super) {
         return $('.save_products').hide();
       }
     } else {
+      this.ui.responseMessage.removeClass('alert alert-danger');
       this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
       return $('html, body').animate({
         scrollTop: 0
@@ -73,6 +74,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.erroraHandler = function(response, status, xhr) {
+    this.ui.responseMessage.removeClass('alert alert-danger');
     this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
     return $('html, body').animate({
       scrollTop: 0
@@ -243,6 +245,7 @@ UserProductListView = (function(_super) {
       });
       return region.show(listview);
     } else {
+      this.ui.responseMessage.removeClass('alert alert-danger');
       this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
       return $('html, body').animate({
         scrollTop: 0
@@ -251,6 +254,7 @@ UserProductListView = (function(_super) {
   };
 
   UserProductListView.prototype._errorHandler = function(response, status, xhr) {
+    this.ui.responseMessage.removeClass('alert alert-danger');
     this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
     return $('html, body').animate({
       scrollTop: 0
