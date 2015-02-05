@@ -6584,6 +6584,7 @@ body > .container {
   border: 0px !important;
   width: 32%;
   text-align: center;
+  position: relative;
 }
 .no-dotted li a {
   color: #ccc;
