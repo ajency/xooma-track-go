@@ -488,7 +488,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 
 <script id="home-template" type="text/template">
 		<div class="container" id="homeregion"> 
-		<div class="aj-response-message"> </div>
+		<div class="aj-response-message no-tab"> </div>
 	 <div class="row section-nm">
 			<div class="col-md-2"> 
 			</div>
