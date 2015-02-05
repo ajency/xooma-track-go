@@ -97,7 +97,14 @@ function isWebView(){
     return !(!window.cordova && !window.PhoneGap && !window.phonegap)
 
 }
+
+function removeMsg()
+{
+  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
+}
 $(window).bind('load',isWebView);
+$(window).bind('load',removeMsg)
+
 var App  = new Marionette.Application()
 
 <?php echo  aj_get_global_js_vars(); ?>

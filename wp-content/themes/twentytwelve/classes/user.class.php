@@ -350,10 +350,29 @@ class User
                         
             $settings_data = json_decode($settings->value);
             
-             
-                        
+            
+
             
             $user_id = $id;
+
+            $object_id = get_object_id($term->product_id,$user_id);
+            
+            $object_type = 'user_product_reminder';
+
+    
+
+   
+
+
+
+            $start_dt = date('Y-m-d 00:00:00');
+
+
+        
+
+           
+
+            $end_date = date('Y-m-d 23:59:59');
 
             $occurrence = get_occurrence_date($term->product_id,$id,$date="");
 
@@ -364,7 +383,15 @@ class User
 
             //get users_timezone
 
+            // $occurrences = \ajency\ScheduleReminder\Occurrence::
+            //         get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id);
+
             
+            $next = 0;
+            // if(count( $occurrences)!=0)
+            //     $next = $occurrences['next_occurrence'];
+
+
             $sub[] = array(
                 'id'            => intval($term->product_id),
                 'name'          => $val[0]['name'],
@@ -377,7 +404,8 @@ class User
                 'reminder'      => $reminder,
                 'settings'      => $settings_data->no_of_days,
                 'type'          => $val[0]['frequency'],
-                'timezone'      => $response['timezone']
+                'timezone'      => $response['timezone'],
+                'upcoming'      => $next
 
 
     );

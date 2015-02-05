@@ -80,6 +80,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		@showErrorMsg()
 
 	showErrorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
@@ -187,6 +188,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		@show new HomeLayoutView
 
 	errorHandler:=>
+		window.removeMsg()
 		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
@@ -197,8 +199,7 @@ class HomeX2OView extends Marionette.ItemView
 	template : '<div class="row">
 			<div class="col-md-4 col-xs-4"></div>
 			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
-			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
-		</div>
+					</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
@@ -336,21 +337,26 @@ class HomeX2OView extends Marionette.ItemView
 
 	getCount:(val)->
 		count = 0
+		time = []
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
+			time.push val.time
 		else
 			$.each val , (ind,val1)->
 				if!(_.isArray(val1)) 
 					count += parseFloat val1.qty
+					time.push time.time
 				else
 					$.each val1 , (ind,val2)->
 						if _.isArray(val2)
 							$.each val2 ,  (ind,value)->
 								count += parseFloat value.qty
+								time.push value.time
 						else
 							count += parseFloat val2.qty
+							time.push val2.time
 
-		count	
+		[count, time]	
 
 	
 		
@@ -366,32 +372,39 @@ class HomeX2OView extends Marionette.ItemView
 		
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
-			arr['value'] = qty
+			arr['value'] = qty[0]
+			arr['time'] = qty[1]
 			
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
-			arr['value'] = qty
+			arr['value'] = qty[0]
+			arr['time'] = qty[1]
 			
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
-			arr['value'] = qty
+			arr['value'] = qty[0]
+			arr['time'] = qty[1]
 			
 
 		arr
 
 
 	drawBottle:(data)->
+		timezone = App.currentUser.get 'timezone'
 		doughnutData = []
 		$.each data, (ind,val)->
 			occurrence = HomeX2OView::get_occurrence(val)
+			msg = "Not consumed (ml)"
 			i = parseInt(ind) + 1
-			if occurrence['value'] == 0
-				occurrence['value'] = 1
+			if occurrence['time'].length != 0
+				actualtime = _.last occurrence['time']
+				time = moment(actualtime+timezone).format('hA')
+				msg = "Consumed Bottle "+ i+ '(ml) at '+ time
 			doughnutData.push 
-					value: occurrence['value']
+					value: parseInt(occurrence['value']) * 100 
 					color:occurrence['color']
-					label: "Bottle "+ i
+					label: msg
 				
 		doughnutData
 
@@ -466,7 +479,8 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		 
+		  <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{name}}! {{msg}}</div>
+
 
 				 '
 
@@ -493,7 +507,6 @@ class ProductChildView extends Marionette.ItemView
 
 
 	serializeData:->
-		console.log Messages['25_timeslot1']
 		per = [0,25,50,75,100]
 		per1 = ['25_50','50_75']
 		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
@@ -557,7 +570,15 @@ class ProductChildView extends Marionette.ItemView
 			temp = val.split('_')
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
+		msg = "no next reminder"
+		if @model.get('upcoming') != 0
+			$('#bell'+@model.get('id')).removeClass 'fa-bell-slash no-remiander'
+			$('#bell'+@model.get('id')).addClass 'fa-bell-o element-animation'
+			time = moment(@model.get('upcoming')+timezone).format(hA)
+			msg = 'Your next reminder is at '+time
 		data.texmsg = texmsg
+		data.name = App.currentUser.get('display_name')
+		data.msg = msg
 		data
 
 	expectedfunc:(val,key,count,model)->

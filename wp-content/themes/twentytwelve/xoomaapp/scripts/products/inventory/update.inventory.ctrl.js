@@ -196,6 +196,7 @@ EditInventoryView = (function(_super) {
       App.useProductColl.add(model, {
         merge: true
       });
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
       return $('html, body').animate({
         scrollTop: 0
@@ -210,6 +211,7 @@ EditInventoryView = (function(_super) {
   };
 
   EditInventoryView.prototype.errorMsg = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!");
     return $('html, body').animate({
       scrollTop: 0

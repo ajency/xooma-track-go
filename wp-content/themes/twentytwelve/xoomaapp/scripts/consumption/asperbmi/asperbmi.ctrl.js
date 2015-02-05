@@ -97,6 +97,7 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.showErrorMsg = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved!");
     return $('html, body').animate({
       scrollTop: 0

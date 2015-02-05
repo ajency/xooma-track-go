@@ -86,6 +86,7 @@ class ProductChildView extends Marionette.ItemView
 				$('.save_products').hide()
 			
 		else
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 			$('html, body').animate({
 							scrollTop: 0
@@ -93,6 +94,7 @@ class ProductChildView extends Marionette.ItemView
 		
 
 	erroraHandler:(response, status, xhr)=>
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 		$('html, body').animate({
 							scrollTop: 0
@@ -221,6 +223,7 @@ class UserProductListView extends Marionette.CompositeView
 			region =  new Marionette.Region el : '#xoomaapptemplate'
 			region.show listview
 		else
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 			$('html, body').animate({
 							scrollTop: 0
@@ -228,6 +231,7 @@ class UserProductListView extends Marionette.CompositeView
 
 
 	_errorHandler:(response, status, xhr)=>
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 		$('html, body').animate({
 							scrollTop: 0

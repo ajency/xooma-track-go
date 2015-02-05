@@ -94,6 +94,7 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.showErrorMsg = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
     return $('html, body').animate({
       scrollTop: 0
