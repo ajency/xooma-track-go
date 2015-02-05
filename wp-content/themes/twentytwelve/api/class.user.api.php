@@ -383,7 +383,9 @@ class User_API
 
         global $user;
 
-        $response = $user->get_user_home_products($id,$pid="");
+        $date = $_REQUEST['date'];
+
+        $response = $user->get_user_home_products($id,$pid="",$date);
 
         if(count($response) == 0){
             $response = new WP_JSON_Response( $response );
@@ -521,7 +523,7 @@ class User_API
         {
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
 
-            $product = $user->get_user_home_products($id,$pid);
+            $product = $user->get_user_home_products($id,$pid,$date="");
             $response = new WP_JSON_Response( $product['response'] );
             }
             $response->set_status( 201 );

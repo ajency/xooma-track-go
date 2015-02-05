@@ -93,7 +93,6 @@ class ScheduleView extends Marionette.ItemView
 			product = @model.get('id')
 			date = $('#date').val()
 			t = $('#consume_time').val()
-			date = moment().format('YYYY-MM-DD')
 			time  = moment(t,"HH:mm a").format("HH:mm:ss")
 			if t == ""
 				time  = moment().format("HH:mm:ss")
@@ -130,6 +129,7 @@ class ScheduleView extends Marionette.ItemView
 				return false
 
 		$('#date').val date
+		App.currentUser.set 'homeDate' , date
 		$('.js__timepicker').pickatime(
 			interval: 15
 			onSet : (context)->
@@ -207,20 +207,31 @@ class ScheduleView extends Marionette.ItemView
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		console.log productId  = @getParams()
-		product = 3
-		date = '2015-02-04'
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[1]
+		date = locationurl[3]
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
 		productModel = productsColl.where({id:parseInt(product)})
+		if productModel == undefined
+			App.currentUser.getUserProducts().done(@showView).fail @errorHandler
+		else
+			@_showView(productModel[0],date)
+
+	showView:(Collection)=>
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[1]
+		date = locationurl[3]
+		productModel = App.useProductColl.where({id:parseInt(product)})
 		@_showView(productModel[0],date)
 
 
-	successHandler:(response,status,xhr)=>
-		model = new Backbone.Model response
-		@_showView(model)
+	
 		
 
 	_showView:(productModel,date)->

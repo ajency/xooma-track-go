@@ -38,7 +38,7 @@ AsperbmiView = (function(_super) {
         return;
       }
       product = this.model.get('id');
-      date = moment().format('YYYY-MM-DD');
+      date = $('#date').val();
       time = moment().format("HH:mm:ss");
       return $.ajax({
         method: 'POST',
@@ -140,6 +140,10 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.onShow = function() {
+    var date;
+    date = Marionette.getOption(this, 'date');
+    $('#date').val(date);
+    App.currentUser.set('homeDate', date);
     return this.generate(this.model.get('occurrence'));
   };
 
@@ -238,31 +242,51 @@ App.AsperbmiCtrl = (function(_super) {
   __extends(AsperbmiCtrl, _super);
 
   function AsperbmiCtrl() {
+    this.showView = __bind(this.showView, this);
     return AsperbmiCtrl.__super__.constructor.apply(this, arguments);
   }
 
   AsperbmiCtrl.prototype.initialize = function(options) {
-    var product, productId, productModel, products, productsColl;
+    var date, locationurl, product, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
     this.show(this.parent().getLLoadingView());
-    productId = this.getParams();
-    product = parseInt(productId[0]);
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[1]);
+    date = locationurl[3];
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
     });
     productsColl = new Backbone.Collection(products);
-    productModel = productsColl.where({
-      id: parseInt(productId[0])
-    });
-    return this._showView(productModel[0]);
+    console.log(productModel = productsColl.where({
+      id: parseInt(product)
+    }));
+    if (productModel === void 0) {
+      return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
+    } else {
+      return this._showView(productModel[0], date);
+    }
   };
 
-  AsperbmiCtrl.prototype._showView = function(productModel) {
+  AsperbmiCtrl.prototype.showView = function(Collection) {
+    var date, locationurl, product, productModel, url;
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[1]);
+    date = locationurl[3];
+    productModel = App.useProductColl.where({
+      id: parseInt(product)
+    });
+    return this._showView(productModel[0], date);
+  };
+
+  AsperbmiCtrl.prototype._showView = function(productModel, date) {
     return this.show(new AsperbmiView({
-      model: productModel
+      model: productModel,
+      date: date
     }));
   };
 

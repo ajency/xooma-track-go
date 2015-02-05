@@ -112,7 +112,8 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getUserProducts: function() {
-    var _successHandler;
+    var date, _successHandler;
+    date = moment().format('YYYY-MM-DD');
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param, products;
@@ -136,13 +137,22 @@ _.extend(Ajency.CurrentUser.prototype, {
     })(this);
     return $.ajax({
       method: 'GET',
+      data: 'date=' + date,
       url: this._getUrl('products'),
       success: _successHandler
     });
   },
   getHomeProducts: function() {
-    var deferred, _successHandler;
+    var date, deferred, _successHandler;
     deferred = Marionette.Deferred();
+    date = "";
+    if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
+      date = App.currentUser.get('homeDate');
+    } else {
+      console.log(date = moment().format('YYYY-MM-DD'));
+      App.currentUser.set('homeDate', date);
+    }
+    console.log(date);
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param;
@@ -164,6 +174,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     })(this);
     $.ajax({
       method: 'GET',
+      data: 'date=' + date,
       url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
       success: _successHandler
     });

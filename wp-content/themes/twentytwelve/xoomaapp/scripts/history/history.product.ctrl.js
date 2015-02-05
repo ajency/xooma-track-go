@@ -34,7 +34,22 @@ ViewProductHistoryView = (function(_super) {
       return this.loadData(product);
     },
     'click .consume': function(e) {
-      return e.preventDefault();
+      var date, model, product;
+      e.preventDefault();
+      product = Marionette.getOption(this, 'id');
+      product = Marionette.getOption(this, 'id');
+      date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
+      if ($('#picker_inline_fixed').val() === "") {
+        date = moment().format("YYYY-MM-DD");
+      }
+      model = App.useProductColl.findWhere({
+        id: parseInt(product)
+      });
+      if (model.get('name').toUpperCase() === 'X2O') {
+        return App.navigate("#products/" + product + '/bmi/' + date, true);
+      } else {
+        return App.navigate("#products/" + product + '/consume/' + date, true);
+      }
     }
   };
 
@@ -47,7 +62,7 @@ ViewProductHistoryView = (function(_super) {
     if (model === void 0) {
       return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
     } else {
-      return loadView();
+      return this.loadView();
     }
   };
 

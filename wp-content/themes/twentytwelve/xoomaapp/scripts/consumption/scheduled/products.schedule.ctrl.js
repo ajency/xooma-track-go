@@ -110,7 +110,6 @@ ScheduleView = (function(_super) {
       product = this.model.get('id');
       date = $('#date').val();
       t = $('#consume_time').val();
-      date = moment().format('YYYY-MM-DD');
       time = moment(t, "HH:mm a").format("HH:mm:ss");
       if (t === "") {
         time = moment().format("HH:mm:ss");
@@ -152,6 +151,7 @@ ScheduleView = (function(_super) {
       }
     });
     $('#date').val(date);
+    App.currentUser.set('homeDate', date);
     $('.js__timepicker').pickatime({
       interval: 15,
       onSet: function(context) {
@@ -233,18 +233,20 @@ App.ScheduleCtrl = (function(_super) {
   __extends(ScheduleCtrl, _super);
 
   function ScheduleCtrl() {
-    this.successHandler = __bind(this.successHandler, this);
+    this.showView = __bind(this.showView, this);
     return ScheduleCtrl.__super__.constructor.apply(this, arguments);
   }
 
   ScheduleCtrl.prototype.initialize = function(options) {
-    var date, product, productId, productModel, products, productsColl;
+    var date, locationurl, product, productId, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
     console.log(productId = this.getParams());
-    product = 3;
-    date = '2015-02-04';
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[1]);
+    date = locationurl[3];
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
@@ -253,13 +255,23 @@ App.ScheduleCtrl = (function(_super) {
     productModel = productsColl.where({
       id: parseInt(product)
     });
-    return this._showView(productModel[0], date);
+    if (productModel === void 0) {
+      return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
+    } else {
+      return this._showView(productModel[0], date);
+    }
   };
 
-  ScheduleCtrl.prototype.successHandler = function(response, status, xhr) {
-    var model;
-    model = new Backbone.Model(response);
-    return this._showView(model);
+  ScheduleCtrl.prototype.showView = function(Collection) {
+    var date, locationurl, product, productModel, url;
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[1]);
+    date = locationurl[3];
+    productModel = App.useProductColl.where({
+      id: parseInt(product)
+    });
+    return this._showView(productModel[0], date);
   };
 
   ScheduleCtrl.prototype._showView = function(productModel, date) {

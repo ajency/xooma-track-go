@@ -19,7 +19,7 @@ class AsperbmiView extends Marionette.ItemView
 			if qty is 0
 			  return
 			product = @model.get('id')
-			date = moment().format('YYYY-MM-DD')
+			date = $('#date').val()
 			time  = moment().format("HH:mm:ss")
 			$.ajax
 						method : 'POST'
@@ -110,6 +110,10 @@ class AsperbmiView extends Marionette.ItemView
 		data
 
 	onShow:->
+			date  = Marionette.getOption( @, 'date')
+			
+			$('#date').val date
+			App.currentUser.set 'homeDate' , date
 			@generate(@model.get('occurrence'))
 
 	generate:(data)->
@@ -194,16 +198,32 @@ class AsperbmiView extends Marionette.ItemView
 class App.AsperbmiCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
-		productId  = @getParams()
-		product = parseInt productId[0]
+		#productId  = @getParams()
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[1]
+		date = locationurl[3]
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:parseInt(productId[0])})
-		@_showView(productModel[0])
+		console.log productModel = productsColl.where({id:parseInt(product)})
+		if productModel == undefined
+			App.currentUser.getUserProducts().done(@showView).fail @errorHandler
+		else
+			@_showView(productModel[0],date)
+		
 
-	_showView:(productModel)->
+	showView:(Collection)=>
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[1]
+		date = locationurl[3]
+		productModel = App.useProductColl.where({id:parseInt(product)})
+		@_showView(productModel[0],date)
+
+	_showView:(productModel,date)->
 		@show new AsperbmiView
 					model : productModel
+					date : date

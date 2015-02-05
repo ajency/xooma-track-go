@@ -75,6 +75,7 @@ _.extend Ajency.CurrentUser::,
 			success: _successHandler
 
 	getUserProducts : ->
+		date = moment().format('YYYY-MM-DD')
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
 				data = response.response
@@ -94,11 +95,21 @@ _.extend Ajency.CurrentUser::,
 
 		$.ajax
 			method : 'GET'
+			data : 'date='+date
 			url : @_getUrl 'products'
 			success: _successHandler
 
 	getHomeProducts : ->
 		deferred = Marionette.Deferred()
+		date = ""
+		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
+		 	date = App.currentUser.get('homeDate')
+		else
+			console.log date = moment().format('YYYY-MM-DD')
+			App.currentUser.set 'homeDate' , date
+
+		console.log date
+			
 		_successHandler = (response, status, xhr)=>
 			data = response.response
 			dates = response.graph['dates']
@@ -118,6 +129,7 @@ _.extend Ajency.CurrentUser::,
 
 		$.ajax
 			method : 'GET'
+			data : 'date='+date
 			url : "#{APIURL}/records/#{App.currentUser.get('ID')}"
 			success: _successHandler
 

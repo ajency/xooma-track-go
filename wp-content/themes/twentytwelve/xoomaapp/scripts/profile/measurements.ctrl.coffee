@@ -32,7 +32,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
 				return  false
-		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 ||	e.charCode == 44 
+		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 
 	
 
 
@@ -94,8 +94,21 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@measurements['weight'] = $('#weight').val()
 		@measurements['height'] = $('#height').val()
 		@measurements['date'] = $('#date_field').val()
-		formdata = @measurements
-		@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
+		count = 0
+		$.each @measurements , (ind,val)->
+			console.log !(_.isNumber(val))
+			if !(_.isNumber(val)) && val != ""
+				count++ 
+				window.removeMsg()
+				$('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!")
+				$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
+				return
+		console.log count
+		if count == 0
+			formdata = @measurements
+			@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
 	    
 

@@ -56,6 +56,10 @@ class HomeLayoutView extends Marionette.LayoutView
 				reg_date = App.graph.get 'reg_date'
 				@ui.start_date.val reg_date
 			@ui.end_date.val today
+
+		'click #showHome':(e)->
+			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
+
 			
 
 	onFormSubmit: (_formData)=>
@@ -92,6 +96,25 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
+
+		$('#update').val moment().format('YYYY-MM-DD')
+		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
+		 	$('#update').val App.currentUser.get('homeDate')
+		else
+			date = moment().format('YYYY-MM-DD')
+			App.currentUser.set 'homeDate' , date
+			$('#update').val date
+		$('#update').datepicker(
+			    dateFormat : 'yy-mm-dd'
+			    changeYear: true,
+			    changeMonth: true,
+			    maxDate: new Date()
+			    onSelect: (dateText, inst)->
+			    	App.currentUser.set 'homeDate' , dateText
+			    	
+
+		)
+
 		$('.history').attr('href' ,'#/measurements/'+App.currentUser.get('ID')+'/history' )
 		$('.update').attr('href' ,'#/profile/measurements' )	
 		if parseInt(App.useProductColl.length) == 0
@@ -203,7 +226,7 @@ class HomeX2OView extends Marionette.ItemView
 
 	template : '<div class="row">
 			<div class="col-md-4 col-xs-4"></div>
-			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
+			
 					</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
