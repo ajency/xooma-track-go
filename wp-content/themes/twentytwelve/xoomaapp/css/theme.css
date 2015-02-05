@@ -5103,6 +5103,7 @@ a.list-group-item-danger.active:focus {
   border-radius: 0;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  background: #fff;
 }
 .panel-body {
   padding: 15px;
@@ -6375,8 +6376,11 @@ body {
 }
 @media (max-width: 768px) {
   .no-tab {
-    top: 63px !important;
+    top: 50px !important;
   }
+}
+body {
+  background: #F9F9F9;
 }
 body > .container {
   padding: 0;
@@ -6468,7 +6472,15 @@ body > .container {
 }
 @media (max-width: 768px) {
   .section {
-    padding: 45px 0px 10px 0px;
+    padding: 48px 0px 10px 0px;
+  }
+}
+.section-nm {
+  padding: 28px 0px 10px 0px;
+}
+@media (max-width: 768px) {
+  .section-nm {
+    padding: 0px 0px 0px 0px;
   }
 }
 .list-style li {
@@ -7043,43 +7055,48 @@ packet_expected_class {
 /**  scoop-product-type **/
 /** bottle product-type **/
 .sprite-7 {
-  background: url(../images/sprite-type.png) no-repeat;
-  width: 25px;
-  height: 71px;
+  background: url(../images/sprite-new.png) no-repeat;
+  width: 34px;
+  height: 50px;
   display: inline-block;
+  margin-bottom: -10px;
   margin-right: 3px;
 }
 .x2o_default_class {
-  background: url(../images/sprite-type.png) no-repeat;
-  width: 25px;
-  height: 71px;
+  background: url(../images/sprite-new.png) no-repeat;
+  width: 34px;
+  height: 50px;
   display: inline-block;
+  margin-bottom: -10px;
   margin-right: 3px;
-  background-position: -45px -286px;
+  background-position: -1px -265px;
 }
 .x2o_bonus_class {
-  background: url(../images/sprite-type.png) no-repeat;
-  width: 25px;
-  height: 71px;
+  background: url(../images/sprite-new.png) no-repeat;
+  width: 34px;
+  height: 50px;
   display: inline-block;
+  margin-bottom: -10px;
   margin-right: 3px;
-  background-position: -118px -286px;
+  background-position: -105px -265px;
 }
 .x2o_occurred_class {
-  background: url(../images/sprite-type.png) no-repeat;
-  width: 25px;
-  height: 71px;
+  background: url(../images/sprite-new.png) no-repeat;
+  width: 34px;
+  height: 50px;
   display: inline-block;
+  margin-bottom: -10px;
   margin-right: 3px;
-  background-position: -82px -286px;
+  background-position: -54px -265px;
 }
 .x2o_expected_class {
-  background: url(../images/sprite-type.png) no-repeat;
-  width: 25px;
-  height: 71px;
+  background: url(../images/sprite-new.png) no-repeat;
+  width: 34px;
+  height: 50px;
   display: inline-block;
+  margin-bottom: -10px;
   margin-right: 3px;
-  background-position: -10px -286px;
+  background-position: -105px -265px;
 }
 /**  scoop-product-type **/
 .no-remiander {
@@ -7260,7 +7277,7 @@ packet_expected_class {
 @media (max-width: 768px) {
   .alert.alert-success,
   .alert.alert-danger {
-    top: 97px;
+    top: 85px;
   }
 }
 .alert.alert-success,
@@ -7340,6 +7357,7 @@ packet_expected_class {
 @media (max-width: 768px) {
   .topheader .navbar {
     margin: 0px;
+    padding: 0px 8px;
   }
 }
 @media (min-width: 992px) {
@@ -7539,7 +7557,7 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .sub-header {
-    top: 62px;
+    top: 50px;
   }
 }
 .sub-header ul {
@@ -10402,7 +10420,7 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .cbp-vm-switcher {
-    padding: 20px 0px;
+    padding: 0px 0px;
   }
 }
 /* options/select wrapper with switch anchors */
@@ -10458,6 +10476,7 @@ packet_expected_class {
 @media (max-width: 768px) {
   .cbp-vm-image {
     height: 135px;
+    margin-bottom: 15px;
   }
 }
 .cbp-vm-image img {
