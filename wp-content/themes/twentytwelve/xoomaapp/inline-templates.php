@@ -164,12 +164,12 @@
 <script id="settings-template" type="text/template">
 		<div class="container"> 
 		<div class="aj-response-message no-tab"> </div>
-		  <div class="row">
+		  <div class="row section-nm">
 		 <div class="col-md-2">
 		 </div>
 			<div class="col-md-8 col-xs-12">
 			  
-			  <form class="form-horizontal m-t-20">
+			  <form class="form-horizontal ">
   <div class="form-group link"  onclick="location.href='#profile/my-products'">
 	<label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
   </div>
@@ -487,16 +487,16 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 </script>
 
 <script id="home-template" type="text/template">
-		<div class="container" id="homeregion"> </br>
+		<div class="container" id="homeregion"> 
 		<div class="aj-response-message"> </div>
-	 <div class="row">
+	 <div class="row section-nm">
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
 				 <div ui-region="x2o">
 					  
 					</div>
-		   <br>   
+		
 
 	   <div ui-region="other-products" id="otherproducts">
 	   
@@ -702,11 +702,11 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			</div>
 		</div>
 	</div>
-
-	<div class="container"> </br></br>
+	<div class="section">
+	<div class="container "> 
 	<div class="aj-response-message"></div>
-		<h3 class="bold">{{name}}</h3>
-		  <div class="row">
+		<h3 class="bold margin-none">{{name}}</h3>
+		  <div class="row " >
 			<div class="col-md-6 col-xs-12">
 				  <div class="row">
 					<div class="col-md-8 col-xs-8">
@@ -920,7 +920,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			  </div>
 		   
 		</div>
-	  
+	  </div>  
 	</div>    
 </script>
 
@@ -935,9 +935,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			</div>
 		</div>
 	</div>
-<br>
-<br>
-<br>
+<div class="section">
 <div class="container " >
 	<div class="aj-response-message"></div>
 <div class="row">
@@ -1032,13 +1030,13 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	</div>-->			
 
 				<div class="">
-					<div class="col-sm-12 pull-right">
+					<div class="pull-right">
 					<input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
 						  <input type="hidden" name="total" value="{{total}}" / >
 						  
 					  <button type="submit" class="btn btn-primary aj-submit-button save pull-right" name="save"><i class="fa fa-check"></i> Save</button>
 					  <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
-
+                      <div class="clearfix"></div> <br>
 					</div>
 				</div>
 			 </form>
@@ -1046,6 +1044,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		<div class="col-sm-2"></div>
 	 </div>
   </div>
+    </div>
 </script>
 
 <script id="view-inventory-template" type="text/template">
