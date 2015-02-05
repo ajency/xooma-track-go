@@ -180,12 +180,14 @@ body{
         }
 }
 .no-dotted{
- li{border:0px !important;width: 32%;text-align:center;
+ li{
+ border:0px !important;width: 31%;text-align:center;position:relative;
     a{
       color:#ccc;
       text-decoration:none;
     }
    @media (max-width: @screen-sm-min) {
+        margin-bottom:10px;
         h3{
           font-size: 26px;
          }
@@ -809,11 +811,14 @@ img {
     }
     .userproducts{
         .col-md-4{
-          border-left:1px dotted #ccc;
           font-size:11px;
+          text-align: center;
           h2{
             font-size: 18px;
           }
+        }
+        .col-md-7{
+           border-right:1px dotted #ccc;
         }
     }
     .btn-group{
@@ -825,5 +830,5 @@ img {
   background:@brand-primary;
   position: absolute;
   margin-left: -16px;
-top: 0px;
+  top: 0px;
 }
