@@ -16,7 +16,7 @@ class ProductChildView extends Marionette.ItemView
 
 	template  : '
           <div class="panel-body ">
-            <h5 class="margin-none mid-title "> {{name}}
+            <h5 class=" mid-title "> {{name}}
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
@@ -26,14 +26,14 @@ class ProductChildView extends Marionette.ItemView
                         <li><a href="#" class="remove hidden">Remove the product</a></li>
                       </ul>
               </h5>
-                      <ul class="list-inline   m-t-20">
+                      <ul class="list-inline   ">
                       	 <li class="col-md-7 col-xs-7 dotted-line">
                       	 	<ul class="list-inline no-dotted ">
                         
                         	
                         	{{#servings}}
                         	<li>
-                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div>{{qty}}</h3>
+                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3>
                                 
 							 </li>
                         	{{/servings}}	
@@ -41,14 +41,17 @@ class ProductChildView extends Marionette.ItemView
                        
                         </ul>
                         </li>
-                        <li class="col-md-1 col-xs-1">
-                    <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
+                        <li class="col-md-1 col-xs-1 hidden-xs">
+                    <h4>    <i class="fa fa-random text-muted"></i></h4>
                         </li>
-                        <li class="col-md-4  col-xs-4 text-center">
-                          <span clas="servings_text">{{servings_text}}</span>
+                        <li class="col-md-4  col-xs-5 ">
+                        	<div class="row">
+                        		<div class="col-sm-3"> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2></div>
+                        		<div class="col-sm-9"> <small> <span class="servings_text center-block">{{servings_text}}</span>
                           <i class="fa fa-frown-o {{frown}}"></i>
-                          <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2>
-                         <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span>
+                         <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div>
+                        	</div>
+                        
                         </li>
                     </ul>
                 </div>
@@ -86,6 +89,7 @@ class ProductChildView extends Marionette.ItemView
 				$('.save_products').hide()
 			
 		else
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 			$('html, body').animate({
 							scrollTop: 0
@@ -93,6 +97,7 @@ class ProductChildView extends Marionette.ItemView
 		
 
 	erroraHandler:(response, status, xhr)=>
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 		$('html, body').animate({
 							scrollTop: 0
@@ -124,7 +129,13 @@ class ProductChildView extends Marionette.ItemView
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
 		name = @model.get('name')
-		timezone = @model.get('timezone')
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if @model.get('timezone') != null
+			timezone = @model.get('timezone')
+		
 		servings = []
 		reminderArr = []
 		$.each qty , (index,value)->
@@ -136,7 +147,8 @@ class ProductChildView extends Marionette.ItemView
 			servings.push classname : newClass , qty : value.qty
 
 		$.each reminder , (ind,val)->
-			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+
+			time  = moment(val.time+timezone, "HH:mm:ss Z").format("h:ss A")
 		
 			reminderArr.push time
 
@@ -171,7 +183,18 @@ class ProductChildView extends Marionette.ItemView
 		
 class EmptyView extends Marionette.ItemView	
 
-	template : '<div class="alert alert-danger">Go ahead and add your first product rigt away!</div>'		
+	template : '<div></div>'	
+
+	ui :
+		responseMessage : '.aj-response-message'
+
+
+	onShow:->
+		$('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added")
+		$('html, body').animate({
+						scrollTop: 0
+						}, 'slow')
+
 
 class UserProductListView extends Marionette.CompositeView
 
@@ -221,6 +244,7 @@ class UserProductListView extends Marionette.CompositeView
 			region =  new Marionette.Region el : '#xoomaapptemplate'
 			region.show listview
 		else
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 			$('html, body').animate({
 							scrollTop: 0
@@ -228,6 +252,7 @@ class UserProductListView extends Marionette.CompositeView
 
 
 	_errorHandler:(response, status, xhr)=>
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")
 		$('html, body').animate({
 							scrollTop: 0

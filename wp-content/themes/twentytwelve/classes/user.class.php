@@ -387,6 +387,12 @@ class User
                     get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id);
 
 
+
+            $next = 0;
+            if(count( $occurrences) != 0)
+                $next = $occurrences;
+
+
             $sub[] = array(
                 'id'            => intval($term->product_id),
                 'name'          => $val[0]['name'],
@@ -400,7 +406,7 @@ class User
                 'settings'      => $settings_data->no_of_days,
                 'type'          => $val[0]['frequency'],
                 'timezone'      => $response['timezone'],
-                'upcoming'      => $occurrences['next_occurrence']
+                'upcoming'      => $occurrences
 
 
     );

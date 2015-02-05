@@ -80,6 +80,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		@showErrorMsg()
 
 	showErrorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
@@ -90,6 +91,7 @@ class HomeLayoutView extends Marionette.LayoutView
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
 		if parseInt(App.useProductColl.length) == 0
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!")
 			$('html, body').animate({
 								scrollTop: 0
@@ -187,6 +189,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		@show new HomeLayoutView
 
 	errorHandler:=>
+		window.removeMsg()
 		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
@@ -197,8 +200,7 @@ class HomeX2OView extends Marionette.ItemView
 	template : '<div class="row">
 			<div class="col-md-4 col-xs-4"></div>
 			<div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div>
-			<div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div>
-		</div>
+					</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
@@ -211,11 +213,11 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				   <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a>    
+				   <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6>   
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
-                        <h6 class="text-center margin-none texmsg">{{texmsg}}</h6>         
+                        <h6 class="text-center texmsg">{{texmsg}}</h6></a>          
 					
 				  </div>
 					<div id="canvas-holder">
@@ -250,7 +252,12 @@ class HomeX2OView extends Marionette.ItemView
 		timeslot = ""
 		time = ""
 		timearray = []
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if @model.get('timezone') != null
+			timezone = @model.get('timezone')
 		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		timearray.push moment(tt+timezone, "HH:mm Z").format("x")
 		occurrenceArr = []
@@ -336,21 +343,26 @@ class HomeX2OView extends Marionette.ItemView
 
 	getCount:(val)->
 		count = 0
+		time = []
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
+			time.push val.time
 		else
 			$.each val , (ind,val1)->
 				if!(_.isArray(val1)) 
 					count += parseFloat val1.qty
+					time.push time.time
 				else
 					$.each val1 , (ind,val2)->
 						if _.isArray(val2)
 							$.each val2 ,  (ind,value)->
 								count += parseFloat value.qty
+								time.push value.time
 						else
 							count += parseFloat val2.qty
+							time.push val2.time
 
-		count	
+		[count, time]	
 
 	
 		
@@ -366,32 +378,46 @@ class HomeX2OView extends Marionette.ItemView
 		
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
-			arr['value'] = qty
+			arr['value'] = qty[0]
+			arr['time'] = qty[1]
 			
 			
 		else if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
-			arr['value'] = qty
+			arr['value'] = qty[0]
+			arr['time'] = qty[1]
 			
 		else if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
-			arr['value'] = qty
+			arr['value'] = qty[0]
+			arr['time'] = qty[1]
 			
 
 		arr
 
 
 	drawBottle:(data)->
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if @model.get('timezone') != null
+			timezone = @model.get('timezone')
 		doughnutData = []
 		$.each data, (ind,val)->
 			occurrence = HomeX2OView::get_occurrence(val)
+			msg = "Not consumed (ml)"
 			i = parseInt(ind) + 1
-			if occurrence['value'] == 0
+			if occurrence['value'] == 0 
 				occurrence['value'] = 1
+			if occurrence['time'].length != 0
+				actualtime = _.last occurrence['time']
+				time = moment(actualtime+timezone).format('hA')
+				msg = "Consumed Bottle "+ i+ '(ml) at '+ time
 			doughnutData.push 
-					value: occurrence['value']
+					value: parseInt(occurrence['value']) * 100 
 					color:occurrence['color']
-					label: "Bottle "+ i
+					label: msg
 				
 		doughnutData
 
@@ -466,7 +492,8 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		 
+		  <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{name}}! {{msg}}</div>
+
 
 				 '
 
@@ -493,7 +520,6 @@ class ProductChildView extends Marionette.ItemView
 
 
 	serializeData:->
-		console.log Messages['25_timeslot1']
 		per = [0,25,50,75,100]
 		per1 = ['25_50','50_75']
 		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
@@ -514,7 +540,11 @@ class ProductChildView extends Marionette.ItemView
 		timeslot = ""
 		time = ""
 		timearray = []
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		timearray.push moment(tt+timezone, "HH:mm Z").format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
@@ -557,7 +587,24 @@ class ProductChildView extends Marionette.ItemView
 			temp = val.split('_')
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
+		
+		msg = ""
+		if parseInt(model.get('reminder').length) == 0
+			msg = "No reminders set"
+		
+		if @model.get('upcoming').length != 0
+			$.each @model.get('upcoming') , (ind,val)->
+				time = _.last timearray
+				time1 = moment(val.next_occurrence+timezone, "HH:mm Z").format("x")
+				if parseInt(time) < parseInt(time1)
+					$('#bell'+model.get('id')).removeClass 'fa-bell-slash no-remiander'
+					$('#bell'+model.get('id')).addClass 'fa-bell-o element-animation'
+					time = moment(@model.get('upcoming')+timezone).format('hA')
+					msg = 'Your next reminder is at '+time
+					return
 		data.texmsg = texmsg
+		data.name = App.currentUser.get('display_name')
+		data.msg = msg
 		data
 
 	expectedfunc:(val,key,count,model)->
@@ -565,6 +612,12 @@ class ProductChildView extends Marionette.ItemView
 		temp = []
 		i = 0
 		html = ""
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase()
 		qty = model.get 'qty'
@@ -585,6 +638,7 @@ class ProductChildView extends Marionette.ItemView
 		if parseInt(reminders.length) != 0
 			classname = ''
 			time = reminders[key].time
+			time  = moment(time+timezone, "HH:mm:ss Z").format("h:ss A")
 			serving_text = time
 
 		newClass = product_type+'_expected_class'
@@ -610,7 +664,11 @@ class ProductChildView extends Marionette.ItemView
 		console.log val
 		temp = []
 		i = 0
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		time = moment(val.occurrence+timezone, "HH:mm Z").format("h:ss A")
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 

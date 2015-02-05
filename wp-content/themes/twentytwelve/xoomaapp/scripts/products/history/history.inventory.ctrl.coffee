@@ -44,15 +44,23 @@ class ViewInventoryView extends Marionette.CompositeView
 
 class App.ViewInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
 		productModel = App.useProductColl.where({id:parseInt(productId[0])})
-		@_showView(productModel[0])
+		product = productId[0]
+		if productModel == undefined || productModel.length == 0
+			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		else
+			@_showHistoryView(productModel[0])
 
-	_showView:(model)->
-		product = model.get('id')
+	_showView:(collection)=>
 		
+		productId  = @getParams()
+		productModel = App.useProductColl.where({id:parseInt(productId[0])})
+		@_showHistoryView(productModel[0])
+
+	_showHistoryView:(model)->
+		product = model.get('id')
 		$.ajax
 			method : 'GET'
 			url : "#{_SITEURL}/wp-json/inventory/#{App.currentUser.get('ID')}/products/#{product}"
@@ -67,12 +75,14 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 					ID : response.ID
 
 		else
+			window.removeMsg()
 			$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 
 	errorHandler:(response,status,xhr)=>	
+		window.removeMsg()
 		$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
 		$('html, body').animate({
 							scrollTop: 0

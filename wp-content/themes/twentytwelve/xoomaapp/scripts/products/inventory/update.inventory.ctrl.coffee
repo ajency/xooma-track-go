@@ -164,6 +164,7 @@ class EditInventoryView extends Marionette.ItemView
 			model = new UserProductModel 
 			model.set response[0]
 			App.useProductColl.add model , {merge: true}
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-success').text("Inventory updated!")
 			$('html, body').animate({
 							scrollTop: 0
@@ -175,6 +176,7 @@ class EditInventoryView extends Marionette.ItemView
 		@errorMsg()
 
 	errorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!")
 		$('html, body').animate({
 							scrollTop: 0
@@ -189,9 +191,22 @@ class App.EditInventoryCtrl extends Ajency.RegionController
 		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
+		console.log productModel = App.useProductColl.where({id:parseInt(productId[0])})
+		product = productId[0]
+		if productModel == undefined || productModel.length == 0
+			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		else
+
+			@show new EditInventoryView
+				model : productModel[0]
+
+	_showView:(collection)=>
+		productId  = @getParams()
 		productModel = App.useProductColl.where({id:parseInt(productId[0])})
 		@show new EditInventoryView
-				model : productModel[0]	
+				model : productModel[0]
+
+	
 					
 		
 

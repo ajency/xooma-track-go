@@ -54,6 +54,7 @@ class EditProductsView extends Marionette.ItemView
 			e.preventDefault()
 			check = @checkreminder()
 			if check == false
+				window.removeMsg()
 				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
 				$('html, body').animate({
 							scrollTop: 0
@@ -62,8 +63,6 @@ class EditProductsView extends Marionette.ItemView
 			sub = @ui.subtract.val()
 			if sub == ""
 				sub = 0
-			console.log $('#available').val()
-			console.log sub
 			if parseInt($('#available').val()) >  parseInt(sub) 
 				data = @ui.form.serialize()
 				product = @model.get('id')
@@ -74,6 +73,7 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
+				window.removeMsg()
 				@ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!")
 				$('html, body').animate({
 							scrollTop: 0
@@ -257,6 +257,7 @@ class EditProductsView extends Marionette.ItemView
 
 
 	errorSave :(response,status,xhr)=>
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({
 						scrollTop: 0
@@ -406,7 +407,12 @@ class EditProductsView extends Marionette.ItemView
 			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 			
 	showEditScheduleData:(model)->
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
@@ -439,7 +445,11 @@ class EditProductsView extends Marionette.ItemView
 			
 
 	showServings:(model)->
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		if parseInt(model.get('check')) == 1

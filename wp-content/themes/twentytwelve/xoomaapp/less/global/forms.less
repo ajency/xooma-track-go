@@ -312,11 +312,11 @@ input[type="range"] {
   display: inline-block !important;
   @media (max-width: @screen-sm-min) {
         font-size: 1.5rem !important;
-        float: right;
-        margin: 4px auto;
-} 
+        margin: 14px auto;
+        text-align: center;
+        display: block !important;
 }
-
+}
 
 .cmn-toggle {
   position: absolute;
@@ -436,8 +436,14 @@ visibility: hidden;
           }
       td{
         height:5em !important;
+        line-height: 4.3em;
+        text-align: center;
+        .ui-state-default{
+          text-align: center;
+        }
    @media (max-width: @screen-sm-min) {
         height:auto !important;
+        line-height: 2.3em;
  }
         a{
           height:5em !important;
@@ -503,5 +509,5 @@ visibility: hidden;
 
 .input-time{
   border: 0px;
-  width: 60px;
+  width: 71px;
 }

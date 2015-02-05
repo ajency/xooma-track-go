@@ -59,24 +59,38 @@ App.ViewInventoryCtrl = (function(_super) {
   function ViewInventoryCtrl() {
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
+    this._showView = __bind(this._showView, this);
     return ViewInventoryCtrl.__super__.constructor.apply(this, arguments);
   }
 
   ViewInventoryCtrl.prototype.initialize = function(options) {
-    var productId, productModel, products;
+    var product, productId, productModel, products;
     if (options == null) {
       options = {};
     }
-    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
     productModel = App.useProductColl.where({
       id: parseInt(productId[0])
     });
-    return this._showView(productModel[0]);
+    product = productId[0];
+    if (productModel === void 0 || productModel.length === 0) {
+      return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+    } else {
+      return this._showHistoryView(productModel[0]);
+    }
   };
 
-  ViewInventoryCtrl.prototype._showView = function(model) {
+  ViewInventoryCtrl.prototype._showView = function(collection) {
+    var productId, productModel;
+    productId = this.getParams();
+    productModel = App.useProductColl.where({
+      id: parseInt(productId[0])
+    });
+    return this._showHistoryView(productModel[0]);
+  };
+
+  ViewInventoryCtrl.prototype._showHistoryView = function(model) {
     var product;
     product = model.get('id');
     return $.ajax({
@@ -96,6 +110,7 @@ App.ViewInventoryCtrl = (function(_super) {
         ID: response.ID
       }));
     } else {
+      window.removeMsg();
       $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
       return $('html, body').animate({
         scrollTop: 0
@@ -104,6 +119,7 @@ App.ViewInventoryCtrl = (function(_super) {
   };
 
   ViewInventoryCtrl.prototype.errorHandler = function(response, status, xhr) {
+    window.removeMsg();
     $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
     return $('html, body').animate({
       scrollTop: 0

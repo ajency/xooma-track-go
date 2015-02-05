@@ -107,6 +107,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.showErrorMsg = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
     return $('html, body').animate({
       scrollTop: 0
@@ -116,6 +117,7 @@ HomeLayoutView = (function(_super) {
   HomeLayoutView.prototype.onShow = function() {
     App.trigger('cordova:hide:splash:screen');
     if (parseInt(App.useProductColl.length) === 0) {
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!");
       $('html, body').animate({
         scrollTop: 0
@@ -216,6 +218,7 @@ App.HomeCtrl = (function(_super) {
   };
 
   HomeCtrl.prototype.errorHandler = function() {
+    window.removeMsg();
     $('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!");
     return $('html, body').animate({
       scrollTop: 0
@@ -233,14 +236,14 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center margin-none texmsg">{{texmsg}}</h6> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6></a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
   };
 
   HomeX2OView.prototype.serializeData = function() {
-    var bonusArr, consumed, data, howmuch, occurrenceArr, per, per1, recent, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
+    var bonusArr, consumed, d, data, howmuch, n, occurrenceArr, per, per1, recent, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
     data = HomeX2OView.__super__.serializeData.call(this);
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
@@ -250,7 +253,12 @@ HomeX2OView = (function(_super) {
     timeslot = "";
     time = "";
     timearray = [];
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (this.model.get('timezone') !== null) {
+      timezone = this.model.get('timezone');
+    }
     console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
     timearray.push(moment(tt + timezone, "HH:mm Z").format("x"));
     occurrenceArr = [];
@@ -280,7 +288,7 @@ HomeX2OView = (function(_super) {
     });
     console.log(howmuch = parseFloat(parseInt(consumed) / parseInt(this.model.get('qty').length)) * 100);
     $.each(timearr, function(ind, val) {
-      var d, t0, t1, time1, time2;
+      var t0, t1, time1, time2;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('HH:mm:ss');
       t1 = moment(temp[1], "hA").format('HH:mm:ss');
@@ -343,28 +351,33 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.getCount = function(val) {
-    var count;
+    var count, time;
     count = 0;
+    time = [];
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
+      time.push(val.time);
     } else {
       $.each(val, function(ind, val1) {
         if (!(_.isArray(val1))) {
-          return count += parseFloat(val1.qty);
+          count += parseFloat(val1.qty);
+          return time.push(time.time);
         } else {
           return $.each(val1, function(ind, val2) {
             if (_.isArray(val2)) {
               return $.each(val2, function(ind, value) {
-                return count += parseFloat(value.qty);
+                count += parseFloat(value.qty);
+                return time.push(value.time);
               });
             } else {
-              return count += parseFloat(val2.qty);
+              count += parseFloat(val2.qty);
+              return time.push(val2.time);
             }
           });
         }
       });
     }
-    return count;
+    return [count, time];
   };
 
   HomeX2OView.prototype.get_occurrence = function(data) {
@@ -378,31 +391,46 @@ HomeX2OView = (function(_super) {
     qty = HomeX2OView.prototype.getCount(data.meta_value);
     if (occurrence === true && expected === true) {
       arr['color'] = "#6bbfff";
-      arr['value'] = qty;
+      arr['value'] = qty[0];
+      arr['time'] = qty[1];
     } else if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
-      arr['value'] = qty;
+      arr['value'] = qty[0];
+      arr['time'] = qty[1];
     } else if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
-      arr['value'] = qty;
+      arr['value'] = qty[0];
+      arr['time'] = qty[1];
     }
     return arr;
   };
 
   HomeX2OView.prototype.drawBottle = function(data) {
-    var doughnutData;
+    var d, doughnutData, n, timezone;
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (this.model.get('timezone') !== null) {
+      timezone = this.model.get('timezone');
+    }
     doughnutData = [];
     $.each(data, function(ind, val) {
-      var i, occurrence;
+      var actualtime, i, msg, occurrence, time;
       occurrence = HomeX2OView.prototype.get_occurrence(val);
+      msg = "Not consumed (ml)";
       i = parseInt(ind) + 1;
       if (occurrence['value'] === 0) {
         occurrence['value'] = 1;
       }
+      if (occurrence['time'].length !== 0) {
+        actualtime = _.last(occurrence['time']);
+        time = moment(actualtime + timezone).format('hA');
+        msg = "Consumed Bottle " + i + '(ml) at ' + time;
+      }
       return doughnutData.push({
-        value: occurrence['value'],
+        value: parseInt(occurrence['value']) * 100,
         color: occurrence['color'],
-        label: "Bottle " + i
+        label: msg
       });
     });
     return doughnutData;
@@ -454,7 +482,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-12"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div>';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-12"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{name}}! {{msg}}</div>';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -483,8 +511,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, consumed, count, data, howmuch, model, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
-    console.log(Messages['25_timeslot1']);
+    var bonusArr, consumed, count, d, data, howmuch, model, msg, n, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
     timearr = ["2AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-2AM"];
@@ -505,7 +532,12 @@ ProductChildView = (function(_super) {
     timeslot = "";
     time = "";
     timearray = [];
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
     timearray.push(moment(tt + timezone, "HH:mm Z").format("x"));
     $.each(this.model.get('occurrence'), function(ind, val) {
@@ -539,7 +571,7 @@ ProductChildView = (function(_super) {
     });
     howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100;
     $.each(timearr, function(ind, val) {
-      var d, t0, t1, time1, time2;
+      var t0, t1, time1, time2;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('HH:mm:ss');
       t1 = moment(temp[1], "hA").format('HH:mm:ss');
@@ -562,15 +594,40 @@ ProductChildView = (function(_super) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
+    msg = "";
+    if (parseInt(model.get('reminder').length) === 0) {
+      msg = "No reminders set";
+    }
+    if (this.model.get('upcoming').length !== 0) {
+      $.each(this.model.get('upcoming'), function(ind, val) {
+        var time1;
+        time = _.last(timearray);
+        time1 = moment(val.next_occurrence + timezone, "HH:mm Z").format("x");
+        if (parseInt(time) < parseInt(time1)) {
+          $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
+          $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
+          time = moment(this.model.get('upcoming') + timezone).format('hA');
+          msg = 'Your next reminder is at ' + time;
+        }
+      });
+    }
     data.texmsg = texmsg;
+    data.name = App.currentUser.get('display_name');
+    data.msg = msg;
     return data;
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, date, html, i, increment, meta_id, newClass, product, product_type, qty, reminders, schedule_id, serving_text, temp, tempcnt, time, whenarr;
+    var classname, d, date, html, i, increment, meta_id, n, newClass, product, product_type, qty, reminders, schedule_id, serving_text, temp, tempcnt, time, timezone, whenarr;
     temp = [];
     i = 0;
     html = "";
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
     qty = model.get('qty');
@@ -590,6 +647,7 @@ ProductChildView = (function(_super) {
     if (parseInt(reminders.length) !== 0) {
       classname = '';
       time = reminders[key].time;
+      time = moment(time + timezone, "HH:mm:ss Z").format("h:ss A");
       serving_text = time;
     }
     newClass = product_type + '_expected_class';
@@ -613,11 +671,16 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.occurredfunc = function(val, key, model) {
-    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp, time, timezone;
+    var d, html, i, meta_id, n, newClass, product_type, qty, schedule_id, temp, time, timezone;
     console.log(val);
     temp = [];
     i = 0;
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     time = moment(val.occurrence + timezone, "HH:mm Z").format("h:ss A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();

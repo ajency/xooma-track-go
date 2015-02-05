@@ -312,6 +312,17 @@ function update_anytime_product_details($id,$pid,$data){
 
 				}
 
+				//store schedule
+
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['servings_per_day']
+
+					);
+				update_schedule($schedule);
+
+			//store schedule
+
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
@@ -364,16 +375,7 @@ function update_anytime_product_details($id,$pid,$data){
 			if($data['subtract'] !=0) 
 			store_stock_data($args_del);
 
-		//store schedule
-
-				$schedule = array(
-					'main_id'   => $main_id,
-					'time_set'  => $data['servings_per_day']
-
-					);
-				update_schedule($schedule);
-
-			//store schedule
+		
 	}
 
 
@@ -572,6 +574,17 @@ function update_schedule_product_details($id,$pid,$data){
 
 				}
 
+				//store schedule
+
+				$schedule = array(
+					'main_id'   => $main_id,
+					'time_set'  => $data['servings_per_day']
+
+					);
+				update_schedule($schedule);
+
+			//store schedule
+
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
@@ -623,16 +636,7 @@ function update_schedule_product_details($id,$pid,$data){
 			if($data['subtract'] !=0) 
 			store_stock_data($args_del);
 
-		 //store schedule
-
-				$schedule = array(
-					'main_id'   => $main_id,
-					'time_set'  => $data['servings_per_day']
-
-					);
-				update_schedule($schedule);
-
-			//store schedule
+		 
 			 
 	}
 
@@ -962,7 +966,10 @@ function store_reminders($main_id,$servings,$reminder){
 
 						$schedule = \ajency\ScheduleReminder\Schedule::get($id);
 
-						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+
+						$scheduleobj = (object)$schedule;
+
+						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
 
 		return  $id;
 					 
@@ -1083,7 +1090,8 @@ function store_add_schedule($args){
 
 				$schedule = \ajency\ScheduleReminder\Schedule::get($id);
 				
-				$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+				$scheduleobj = (object)$schedule;
+				$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
 
 	return $id;
 

@@ -93,6 +93,7 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.showErrorMsg = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!");
     return $('html, body').animate({
       scrollTop: 0
@@ -100,12 +101,17 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.showData = function(response) {
-    var arr, coll, html, timezone;
+    var arr, coll, d, html, n, timezone;
     coll = new Backbone.Collection(response.response);
     $('.name').text(response.name.toUpperCase());
     html = "";
     arr = 0;
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     coll.each(function(index) {
       var data, fromnow, i, meta_id, meta_value, qty, time;
       if (index.get('meta_value').length !== 0 && response.name.toUpperCase() !== 'X2O') {

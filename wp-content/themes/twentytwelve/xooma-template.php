@@ -83,6 +83,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment-timezone/moment-timezone.js"></script>
 
 <!-- endbuild -->
 
@@ -97,7 +98,14 @@ function isWebView(){
     return !(!window.cordova && !window.PhoneGap && !window.phonegap)
 
 }
+
+function removeMsg()
+{
+  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
+}
 $(window).bind('load',isWebView);
+$(window).bind('load',removeMsg)
+
 var App  = new Marionette.Application()
 
 <?php echo  aj_get_global_js_vars(); ?>

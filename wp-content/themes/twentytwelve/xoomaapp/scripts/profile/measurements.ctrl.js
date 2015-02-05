@@ -127,6 +127,7 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
     var state;
     if (xhr.status === 404) {
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
@@ -134,6 +135,7 @@ ProfileMeasurementsView = (function(_super) {
     } else {
       state = App.currentUser.get('state');
       if (state === '/home') {
+        window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!");
         return $('html, body').animate({
           scrollTop: 0
@@ -146,6 +148,7 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0

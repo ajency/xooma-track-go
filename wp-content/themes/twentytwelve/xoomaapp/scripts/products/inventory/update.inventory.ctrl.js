@@ -195,6 +195,7 @@ EditInventoryView = (function(_super) {
       App.useProductColl.add(model, {
         merge: true
       });
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
       return $('html, body').animate({
         scrollTop: 0
@@ -209,6 +210,7 @@ EditInventoryView = (function(_super) {
   };
 
   EditInventoryView.prototype.errorMsg = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!");
     return $('html, body').animate({
       scrollTop: 0
@@ -223,17 +225,34 @@ App.EditInventoryCtrl = (function(_super) {
   __extends(EditInventoryCtrl, _super);
 
   function EditInventoryCtrl() {
+    this._showView = __bind(this._showView, this);
     return EditInventoryCtrl.__super__.constructor.apply(this, arguments);
   }
 
   EditInventoryCtrl.prototype.initialize = function(options) {
-    var productId, productModel, products;
+    var product, productId, productModel, products;
     if (options == null) {
       options = {};
     }
     this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
+    console.log(productModel = App.useProductColl.where({
+      id: parseInt(productId[0])
+    }));
+    product = productId[0];
+    if (productModel === void 0 || productModel.length === 0) {
+      return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+    } else {
+      return this.show(new EditInventoryView({
+        model: productModel[0]
+      }));
+    }
+  };
+
+  EditInventoryCtrl.prototype._showView = function(collection) {
+    var productId, productModel;
+    productId = this.getParams();
     productModel = App.useProductColl.where({
       id: parseInt(productId[0])
     });
