@@ -191,9 +191,22 @@ class App.EditInventoryCtrl extends Ajency.RegionController
 		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
+		console.log productModel = App.useProductColl.where({id:parseInt(productId[0])})
+		product = productId[0]
+		if productModel == undefined || productModel.length == 0
+			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+		else
+
+			@show new EditInventoryView
+				model : productModel[0]
+
+	_showView:(collection)=>
+		productId  = @getParams()
 		productModel = App.useProductColl.where({id:parseInt(productId[0])})
 		@show new EditInventoryView
-				model : productModel[0]	
+				model : productModel[0]
+
+	
 					
 		
 
