@@ -882,7 +882,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
   </div>
 <div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6 col-xs-7 control-label">Set reminder</label>
-	<div class="col-sm-6 col-xs-5 ">
+	<div class="col-sm-6 col-xs-5">
 	 <div class="btn-group" role="group" aria-label="...">
 	  <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
 	  <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
