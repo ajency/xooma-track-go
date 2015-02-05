@@ -420,6 +420,9 @@ HomeX2OView = (function(_super) {
       occurrence = HomeX2OView.prototype.get_occurrence(val);
       msg = "Not consumed (ml)";
       i = parseInt(ind) + 1;
+      if (occurrence['value'] === 0) {
+        occurrence['value'] = 1;
+      }
       if (occurrence['time'].length !== 0) {
         actualtime = _.last(occurrence['time']);
         time = moment(actualtime + timezone).format('hA');

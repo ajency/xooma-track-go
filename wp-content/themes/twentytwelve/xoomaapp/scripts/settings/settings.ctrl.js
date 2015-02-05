@@ -68,6 +68,7 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.successnotiSave = function(response, status, xhr) {
+    window.removeMsg();
     if (xhr.status === 201) {
       App.currentUser.set('notifications', parseInt(response.notifications));
       this.ui.responseMessage.addClass('alert alert-success').text("Notifications data saved!");
@@ -80,6 +81,7 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.showErr = function() {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Data couldn't be saved!");
     return $('html, body').animate({
       scrollTop: 0
@@ -87,6 +89,7 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.successSave = function(response, status, xhr) {
+    window.removeMsg();
     if (xhr.status === 201) {
       App.currentUser.set('emails', parseInt(response.emails));
       this.ui.responseMessage.addClass('alert alert-success').text("Emails data saved!");
