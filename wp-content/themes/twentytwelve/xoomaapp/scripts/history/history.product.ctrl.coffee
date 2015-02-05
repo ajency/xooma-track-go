@@ -18,15 +18,8 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 		'click .consume':(e)->
 			e.preventDefault()
-			console.log product = Marionette.getOption( @, 'id' )
-			date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
-			if $('#picker_inline_fixed').val() == ""
-				date = moment().format("YYYY-MM-DD")
-			model = App.useProductColl.findWhere({id:parseInt(product)})
-			if model.get('name').toUpperCase() == 'X2O'
-				App.navigate "#products/"+product+'/bmi/'+date , true
-			else
-				App.navigate "#products/"+product+'/consume/'+date , true
+			
+			
 
 		
 
@@ -34,6 +27,28 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 	onShow:->
 		product = Marionette.getOption( @, 'id' )
+		model = App.useProductColl.findWhere({id:parseInt(product)})
+		if model == undefined
+			App.currentUser.getUserProducts().done(@showView).fail @errorHandler
+		else
+			loadView()
+
+	showView:(collection)=>
+		@loadView()
+
+	loadView:()->
+		product = Marionette.getOption( @, 'id' )
+		date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
+		if $('#picker_inline_fixed').val() == ""
+			date = moment().format("YYYY-MM-DD")
+		
+		model = App.useProductColl.findWhere({id:parseInt(product)})
+		if model.get('name').toUpperCase() == 'X2O'
+			$('.consume').attr('href' ,"#products/"+product+'/bmi/'+date )
+			
+		else
+			$('.consume').attr('href' ,"#products/"+product+'/consume/'+date )
+				
 		@loadData(product)
 		$('#picker_inline_fixed').datepicker({
 		    inline: true,

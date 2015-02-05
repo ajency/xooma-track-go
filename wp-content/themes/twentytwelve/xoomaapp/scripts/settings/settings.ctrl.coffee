@@ -81,6 +81,9 @@ class SettingsView extends Marionette.ItemView
 			@showErr()
 
 	onShow:->
+		if !window.isWebView()
+			$('.notificationclass').hide()
+
 		notification = App.currentUser.get 'notification'
 		if parseInt(notification) == 1
 			@ui.notification.prop('checked',true)

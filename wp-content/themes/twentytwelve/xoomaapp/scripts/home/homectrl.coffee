@@ -36,11 +36,13 @@ class HomeLayoutView extends Marionette.LayoutView
 
 		'click @ui.history':(e)->
 			e.preventDefault()
-			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true
+			
 
 		'click @ui.update':(e)->
 			e.preventDefault()
-			App.navigate '#/profile/measurements' , true
+			
+			
+			
 
 		'change @ui.time_period':(e)->
 			id = $(e.target).val()
@@ -90,6 +92,8 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
+		$('.history').attr('href' ,'#/measurements/'+App.currentUser.get('ID')+'/history' )
+		$('.update').attr('href' ,'#/profile/measurements' )	
 		if parseInt(App.useProductColl.length) == 0
 			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!")
@@ -588,7 +592,7 @@ class ProductChildView extends Marionette.ItemView
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
 		
-		msg = ""
+		msg = "Time set for reminders has already elapsed"
 		if parseInt(model.get('reminder').length) == 0
 			msg = "No reminders set"
 		

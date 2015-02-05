@@ -186,7 +186,7 @@
   </div>
 
 
-  <div class="form-group">
+  <div class="form-group notificationclass">
 	<label class="col-sm-8 col-xs-8  control-label">Notifications</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">

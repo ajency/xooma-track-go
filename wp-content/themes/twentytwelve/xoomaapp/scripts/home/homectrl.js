@@ -57,12 +57,10 @@ HomeLayoutView = (function(_super) {
       }
     },
     'click @ui.history': function(e) {
-      e.preventDefault();
-      return App.navigate('#/measurements/' + App.currentUser.get('ID') + '/history', true);
+      return e.preventDefault();
     },
     'click @ui.update': function(e) {
-      e.preventDefault();
-      return App.navigate('#/profile/measurements', true);
+      return e.preventDefault();
     },
     'change @ui.time_period': function(e) {
       var date, id, previous, reg_date, today;
@@ -117,6 +115,8 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.onShow = function() {
     App.trigger('cordova:hide:splash:screen');
+    $('.history').attr('href', '#/measurements/' + App.currentUser.get('ID') + '/history');
+    $('.update').attr('href', '#/profile/measurements');
     if (parseInt(App.useProductColl.length) === 0) {
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!");
@@ -595,7 +595,7 @@ ProductChildView = (function(_super) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
-    msg = "";
+    msg = "Time set for reminders has already elapsed";
     if (parseInt(model.get('reminder').length) === 0) {
       msg = "No reminders set";
     }
