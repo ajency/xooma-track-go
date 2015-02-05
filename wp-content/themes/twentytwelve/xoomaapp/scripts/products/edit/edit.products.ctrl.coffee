@@ -407,7 +407,12 @@ class EditProductsView extends Marionette.ItemView
 			$('.when1 option[value="'+whendata[1]+'"]').prop("selected",true)
 			
 	showEditScheduleData:(model)->
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
@@ -440,7 +445,11 @@ class EditProductsView extends Marionette.ItemView
 			
 
 	showServings:(model)->
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		qty = model.get 'qty'
 		reminders = model.get 'reminders'
 		if parseInt(model.get('check')) == 1

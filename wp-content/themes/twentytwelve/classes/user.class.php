@@ -390,7 +390,7 @@ class User
 
             $next = 0;
             if(count( $occurrences) != 0)
-                $next = $occurrences['next_occurrence'];
+                $next = $occurrences;
 
 
             $sub[] = array(
@@ -406,7 +406,7 @@ class User
                 'settings'      => $settings_data->no_of_days,
                 'type'          => $val[0]['frequency'],
                 'timezone'      => $response['timezone'],
-                'upcoming'      => $next
+                'upcoming'      => $occurrences
 
 
     );

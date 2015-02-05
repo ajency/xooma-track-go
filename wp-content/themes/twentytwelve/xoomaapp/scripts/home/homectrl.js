@@ -244,7 +244,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.serializeData = function() {
-    var bonusArr, consumed, data, howmuch, occurrenceArr, per, per1, recent, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
+    var bonusArr, consumed, d, data, howmuch, n, occurrenceArr, per, per1, recent, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
     data = HomeX2OView.__super__.serializeData.call(this);
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
@@ -254,7 +254,12 @@ HomeX2OView = (function(_super) {
     timeslot = "";
     time = "";
     timearray = [];
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (this.model.get('timezone') !== null) {
+      timezone = this.model.get('timezone');
+    }
     console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
     timearray.push(moment(tt + timezone, "HH:mm Z").format("x"));
     occurrenceArr = [];
@@ -284,7 +289,7 @@ HomeX2OView = (function(_super) {
     });
     console.log(howmuch = parseFloat(parseInt(consumed) / parseInt(this.model.get('qty').length)) * 100);
     $.each(timearr, function(ind, val) {
-      var d, t0, t1, time1, time2;
+      var t0, t1, time1, time2;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('HH:mm:ss');
       t1 = moment(temp[1], "hA").format('HH:mm:ss');
@@ -402,8 +407,13 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.drawBottle = function(data) {
-    var doughnutData, timezone;
-    timezone = App.currentUser.get('timezone');
+    var d, doughnutData, n, timezone;
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (this.model.get('timezone') !== null) {
+      timezone = this.model.get('timezone');
+    }
     doughnutData = [];
     $.each(data, function(ind, val) {
       var actualtime, i, msg, occurrence, time;
@@ -499,7 +509,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, consumed, count, data, howmuch, model, msg, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
+    var bonusArr, consumed, count, d, data, howmuch, model, msg, n, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
     timearr = ["2AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-2AM"];
@@ -520,7 +530,12 @@ ProductChildView = (function(_super) {
     timeslot = "";
     time = "";
     timearray = [];
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
     timearray.push(moment(tt + timezone, "HH:mm Z").format("x"));
     $.each(this.model.get('occurrence'), function(ind, val) {
@@ -554,7 +569,7 @@ ProductChildView = (function(_super) {
     });
     howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100;
     $.each(timearr, function(ind, val) {
-      var d, t0, t1, time1, time2;
+      var t0, t1, time1, time2;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('HH:mm:ss');
       t1 = moment(temp[1], "hA").format('HH:mm:ss');
@@ -578,11 +593,18 @@ ProductChildView = (function(_super) {
       }
     });
     msg = "no next reminder";
-    if (this.model.get('upcoming') !== 0) {
-      $('#bell' + this.model.get('id')).removeClass('fa-bell-slash no-remiander');
-      $('#bell' + this.model.get('id')).addClass('fa-bell-o element-animation');
-      time = moment(this.model.get('upcoming') + timezone).format(hA);
-      msg = 'Your next reminder is at ' + time;
+    if (this.model.get('upcoming').length !== 0) {
+      $.each(this.model.get('upcoming'), function(ind, val) {
+        var time1;
+        time = _.last(timearray);
+        time1 = moment(val.next_occurrence + timezone, "HH:mm Z").format("x");
+        if (parseInt(time) < parseInt(time1)) {
+          $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
+          $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
+          time = moment(this.model.get('upcoming') + timezone).format('hA');
+          msg = 'Your next reminder is at ' + time;
+        }
+      });
     }
     data.texmsg = texmsg;
     data.name = App.currentUser.get('display_name');
@@ -591,10 +613,16 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
-    var classname, date, html, i, increment, meta_id, newClass, product, product_type, qty, reminders, schedule_id, serving_text, temp, tempcnt, time, whenarr;
+    var classname, d, date, html, i, increment, meta_id, n, newClass, product, product_type, qty, reminders, schedule_id, serving_text, temp, tempcnt, time, timezone, whenarr;
     temp = [];
     i = 0;
     html = "";
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
     qty = model.get('qty');
@@ -614,6 +642,7 @@ ProductChildView = (function(_super) {
     if (parseInt(reminders.length) !== 0) {
       classname = '';
       time = reminders[key].time;
+      time = moment(time + timezone, "HH:mm:ss Z").format("h:ss A");
       serving_text = time;
     }
     newClass = product_type + '_expected_class';
@@ -637,11 +666,16 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.occurredfunc = function(val, key, model) {
-    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp, time, timezone;
+    var d, html, i, meta_id, n, newClass, product_type, qty, schedule_id, temp, time, timezone;
     console.log(val);
     temp = [];
     i = 0;
-    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     time = moment(val.occurrence + timezone, "HH:mm Z").format("h:ss A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();

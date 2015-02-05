@@ -82,7 +82,12 @@ class ViewProductHistoryView extends Marionette.ItemView
 		$('.name').text response.name.toUpperCase()
 		html = ""
 		arr = 0
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		coll.each (index)->
 			if index.get('meta_value').length != 0 && response.name.toUpperCase() != 'X2O'
 				meta_value = index.get('meta_value')
