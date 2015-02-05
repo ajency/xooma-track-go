@@ -172,7 +172,18 @@ EmptyView = (function(_super) {
     return EmptyView.__super__.constructor.apply(this, arguments);
   }
 
-  EmptyView.prototype.template = '<div class="alert alert-danger">Go ahead and add your first product rigt away!</div>';
+  EmptyView.prototype.template = '<div></div>';
+
+  EmptyView.prototype.ui = {
+    responseMessage: '.aj-response-message'
+  };
+
+  EmptyView.prototype.onShow = function() {
+    $('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
+  };
 
   return EmptyView;
 

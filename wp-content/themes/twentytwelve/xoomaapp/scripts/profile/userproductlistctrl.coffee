@@ -173,7 +173,18 @@ class ProductChildView extends Marionette.ItemView
 		
 class EmptyView extends Marionette.ItemView	
 
-	template : '<div class="alert alert-danger">Go ahead and add your first product rigt away!</div>'		
+	template : '<div></div>'	
+
+	ui :
+		responseMessage : '.aj-response-message'
+
+
+	onShow:->
+		$('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added")
+		$('html, body').animate({
+						scrollTop: 0
+						}, 'slow')
+
 
 class UserProductListView extends Marionette.CompositeView
 
