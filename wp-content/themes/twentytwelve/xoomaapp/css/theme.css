@@ -7352,6 +7352,9 @@ packet_expected_class {
     font-size: 18px;
   }
 }
+.badge-primary {
+  background: #3099ea;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
