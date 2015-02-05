@@ -101,6 +101,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 	successHandler : (response, status,xhr)=>
 		if xhr.status is 404
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
 							scrollTop: 0
@@ -108,6 +109,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		else
 			state = App.currentUser.get 'state'
 			if state == '/home'
+				window.removeMsg()
 				@ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!")
 				$('html, body').animate({
 							scrollTop: 0
@@ -118,6 +120,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			
 
 	errorHandler : (error)=>
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			
 		$('html, body').animate({

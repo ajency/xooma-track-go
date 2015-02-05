@@ -72,6 +72,7 @@ EditProductsView = (function(_super) {
       e.preventDefault();
       check = this.checkreminder();
       if (check === false) {
+        window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
         $('html, body').animate({
           scrollTop: 0
@@ -82,8 +83,6 @@ EditProductsView = (function(_super) {
       if (sub === "") {
         sub = 0;
       }
-      console.log($('#available').val());
-      console.log(sub);
       if (parseInt($('#available').val()) > parseInt(sub)) {
         data = this.ui.form.serialize();
         product = this.model.get('id');
@@ -95,6 +94,7 @@ EditProductsView = (function(_super) {
           error: this.errorSave
         });
       } else {
+        window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!");
         return $('html, body').animate({
           scrollTop: 0
@@ -284,6 +284,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.errorSave = function(response, status, xhr) {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0

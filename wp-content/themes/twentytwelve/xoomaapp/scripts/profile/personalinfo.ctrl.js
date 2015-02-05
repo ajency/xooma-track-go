@@ -85,6 +85,7 @@ ProfilePersonalInfoView = (function(_super) {
     var state;
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
@@ -104,6 +105,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
+    window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({
       scrollTop: 0

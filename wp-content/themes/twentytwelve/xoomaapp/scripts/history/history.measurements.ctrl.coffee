@@ -55,6 +55,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 		@showErrorMsg()
 
 	showErrorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0

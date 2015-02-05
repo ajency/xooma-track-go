@@ -67,12 +67,14 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 					ID : response.ID
 
 		else
+			window.removeMsg()
 			$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 
 	errorHandler:(response,status,xhr)=>	
+		window.removeMsg()
 		$('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!")
 		$('html, body').animate({
 							scrollTop: 0

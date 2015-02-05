@@ -97,6 +97,7 @@ App.ViewInventoryCtrl = (function(_super) {
         ID: response.ID
       }));
     } else {
+      window.removeMsg();
       $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
       return $('html, body').animate({
         scrollTop: 0
@@ -105,6 +106,7 @@ App.ViewInventoryCtrl = (function(_super) {
   };
 
   ViewInventoryCtrl.prototype.errorHandler = function(response, status, xhr) {
+    window.removeMsg();
     $('.aj-response-message').addClass('alert alert-danger').text("Details could not be loaded!");
     return $('html, body').animate({
       scrollTop: 0

@@ -80,6 +80,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		@showErrorMsg()
 
 	showErrorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0
@@ -187,6 +188,7 @@ class App.HomeCtrl extends Ajency.RegionController
 		@show new HomeLayoutView
 
 	errorHandler:=>
+		window.removeMsg()
 		$('.aj-response-message').addClass('alert alert-danger').text("Data couldn't be loaded!")
 		$('html, body').animate({
 							scrollTop: 0

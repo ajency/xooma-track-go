@@ -164,6 +164,7 @@ class EditInventoryView extends Marionette.ItemView
 			model = new UserProductModel 
 			model.set response[0]
 			App.useProductColl.add model , {merge: true}
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-success').text("Inventory updated!")
 			$('html, body').animate({
 							scrollTop: 0
@@ -175,6 +176,7 @@ class EditInventoryView extends Marionette.ItemView
 		@errorMsg()
 
 	errorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Inventory couldn't be updated!")
 		$('html, body').animate({
 							scrollTop: 0

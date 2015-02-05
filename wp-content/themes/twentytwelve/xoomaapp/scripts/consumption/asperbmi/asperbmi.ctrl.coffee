@@ -76,6 +76,7 @@ class AsperbmiView extends Marionette.ItemView
 		@showErrorMsg()
 
 	showErrorMsg:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved!")
 		$('html, body').animate({
 							scrollTop: 0
