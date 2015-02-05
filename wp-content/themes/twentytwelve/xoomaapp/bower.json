@@ -46,7 +46,8 @@
     "chartjs": "~1.0.1",
     "ea-vertical-progress": "*",
     "underscore.string": "~3.0.1",
-    "jquery-ui": "~1.11.2"
+    "jquery-ui": "~1.11.2",
+    "moment-timezone": "~0.3.0"
   },
   "resolutions": {
     "underscore": ">=1.5.0",
