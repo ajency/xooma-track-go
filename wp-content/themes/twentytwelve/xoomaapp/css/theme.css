@@ -6629,6 +6629,15 @@ text {
 .mid-title span {
   font-size: 0.6em;
 }
+.mid-title div {
+  width: 91%;
+  float: left;
+  word-wrap: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 20px;
+}
 .element-animation {
   animation: animationFrames ease-in 2s;
   animation-iteration-count: infinite;
