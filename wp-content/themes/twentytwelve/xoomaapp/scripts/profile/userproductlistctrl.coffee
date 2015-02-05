@@ -126,7 +126,11 @@ class ProductChildView extends Marionette.ItemView
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
 		name = @model.get('name')
-		timezone = @model.get('timezone')
+		d = new Date()
+		m = "GMT " + -d.getTimezoneOffset()/60;
+		timezone = moment().tz(m).format('MMMM Do YYYY, h:mm:ss a')
+		if @model.get('timezone') == null
+			timezone = @model.get('timezone')
 		servings = []
 		reminderArr = []
 		$.each qty , (index,value)->

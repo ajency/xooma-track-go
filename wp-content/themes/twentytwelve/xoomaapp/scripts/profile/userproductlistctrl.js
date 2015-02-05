@@ -100,7 +100,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var available, contacount, containers, data, name, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalservings, type;
+    var available, contacount, containers, d, data, m, name, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalservings, type;
     data = ProductChildView.__super__.serializeData.call(this);
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
@@ -109,7 +109,12 @@ ProductChildView = (function(_super) {
     reminder = this.model.get('reminder');
     type = this.model.get('type');
     name = this.model.get('name');
-    timezone = this.model.get('timezone');
+    d = new Date();
+    m = "GMT " + -d.getTimezoneOffset() / 60;
+    timezone = moment().tz(m).format('MMMM Do YYYY, h:mm:ss a');
+    if (this.model.get('timezone') === null) {
+      timezone = this.model.get('timezone');
+    }
     servings = [];
     reminderArr = [];
     $.each(qty, function(index, value) {
