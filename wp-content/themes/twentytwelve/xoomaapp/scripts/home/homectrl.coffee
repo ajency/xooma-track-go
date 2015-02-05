@@ -585,7 +585,11 @@ class ProductChildView extends Marionette.ItemView
 			temp = val.split('_')
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
-		msg = "no next reminder"
+		
+		msg = ""
+		if parseInt(model.get('reminder').length) == 0
+			msg = "No reminders set"
+		
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
 				time = _.last timearray

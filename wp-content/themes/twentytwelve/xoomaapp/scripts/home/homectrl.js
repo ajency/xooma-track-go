@@ -592,7 +592,10 @@ ProductChildView = (function(_super) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
-    msg = "no next reminder";
+    msg = "";
+    if (parseInt(model.get('reminder').length) === 0) {
+      msg = "No reminders set";
+    }
     if (this.model.get('upcoming').length !== 0) {
       $.each(this.model.get('upcoming'), function(ind, val) {
         var time1;
