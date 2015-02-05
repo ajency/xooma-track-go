@@ -488,7 +488,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 
 <script id="home-template" type="text/template">
 		<div class="container" id="homeregion"> 
-		<div class="aj-response-message"> </div>
+		<div class="aj-response-message no-tab"> </div>
 	 <div class="row section-nm">
 			<div class="col-md-2"> 
 			</div>
@@ -573,7 +573,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				<p class="text-center">Your xooma products are displayed here once you add them.
 </p>
 		<div class="container">
-		<div class="aj-response-message"> 
+		<div class="aj-response-message"> </div>
 			  <div class="row">
 				  <div class="col-md-2"></div>
 				  <div class="col-md-8">

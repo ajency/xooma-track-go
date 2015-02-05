@@ -6371,6 +6371,9 @@ body {
 .link label {
   cursor: pointer;
 }
+a:hover {
+  text-decoration: none;
+}
 .no-tab {
   top: 69px !important;
 }
@@ -6726,7 +6729,7 @@ div#mcttCloseButton {
   width: 14px;
   height: 14px;
   position: absolute;
-  background-image: url(../../images/closeBtn.gif);
+  background-image: url(../../assets/images/closeBtn.gif);
   cursor: pointer;
   overflow: hidden;
   top: 12px;
@@ -7211,6 +7214,7 @@ packet_expected_class {
   left: 0%;
   right: 0%;
   width: 150px;
+  z-index: 999;
 }
 @media (max-width: 768px) {
   .fill-bottle {
@@ -7335,6 +7339,12 @@ packet_expected_class {
   }
   html body .x2oList {
     margin: 0px;
+  }
+  html body .x2oList h5 {
+    font-size: 11px;
+  }
+  html body .x2oList h4 {
+    font-size: 18px;
   }
 }
 /* Top - Header */
