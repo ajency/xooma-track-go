@@ -496,7 +496,7 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		  <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{name}}! {{msg}}</div>
+		  <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{username}}! {{msg}}</div>
 
 
 				 '
@@ -607,7 +607,7 @@ class ProductChildView extends Marionette.ItemView
 					msg = 'Your next reminder is at '+time
 					return
 		data.texmsg = texmsg
-		data.name = App.currentUser.get('display_name')
+		data.username = App.currentUser.get('display_name')
 		data.msg = msg
 		data
 
