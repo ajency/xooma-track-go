@@ -252,7 +252,12 @@ class HomeX2OView extends Marionette.ItemView
 		timeslot = ""
 		time = ""
 		timearray = []
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if @model.get('timezone') != null
+			timezone = @model.get('timezone')
 		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		timearray.push moment(tt+timezone, "HH:mm Z").format("x")
 		occurrenceArr = []
@@ -392,7 +397,12 @@ class HomeX2OView extends Marionette.ItemView
 
 
 	drawBottle:(data)->
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if @model.get('timezone') != null
+			timezone = @model.get('timezone')
 		doughnutData = []
 		$.each data, (ind,val)->
 			occurrence = HomeX2OView::get_occurrence(val)
@@ -528,7 +538,11 @@ class ProductChildView extends Marionette.ItemView
 		timeslot = ""
 		time = ""
 		timearray = []
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		timearray.push moment(tt+timezone, "HH:mm Z").format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
@@ -572,11 +586,16 @@ class ProductChildView extends Marionette.ItemView
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
 		msg = "no next reminder"
-		if @model.get('upcoming') != 0
-			$('#bell'+@model.get('id')).removeClass 'fa-bell-slash no-remiander'
-			$('#bell'+@model.get('id')).addClass 'fa-bell-o element-animation'
-			time = moment(@model.get('upcoming')+timezone).format(hA)
-			msg = 'Your next reminder is at '+time
+		if @model.get('upcoming').length != 0
+			$.each @model.get('upcoming') , (ind,val)->
+				time = _.last timearray
+				time1 = moment(val.next_occurrence+timezone, "HH:mm Z").format("x")
+				if parseInt(time) < parseInt(time1)
+					$('#bell'+model.get('id')).removeClass 'fa-bell-slash no-remiander'
+					$('#bell'+model.get('id')).addClass 'fa-bell-o element-animation'
+					time = moment(@model.get('upcoming')+timezone).format('hA')
+					msg = 'Your next reminder is at '+time
+					return
 		data.texmsg = texmsg
 		data.name = App.currentUser.get('display_name')
 		data.msg = msg
@@ -587,6 +606,12 @@ class ProductChildView extends Marionette.ItemView
 		temp = []
 		i = 0
 		html = ""
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase()
 		qty = model.get 'qty'
@@ -607,6 +632,7 @@ class ProductChildView extends Marionette.ItemView
 		if parseInt(reminders.length) != 0
 			classname = ''
 			time = reminders[key].time
+			time  = moment(time+timezone, "HH:mm:ss Z").format("h:ss A")
 			serving_text = time
 
 		newClass = product_type+'_expected_class'
@@ -632,7 +658,11 @@ class ProductChildView extends Marionette.ItemView
 		console.log val
 		temp = []
 		i = 0
-		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		n = -(d.getTimezoneOffset())
+		timezone = n
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get 'timezone'
 		time = moment(val.occurrence+timezone, "HH:mm Z").format("h:ss A")
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 

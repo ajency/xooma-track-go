@@ -16,7 +16,7 @@ class ProductChildView extends Marionette.ItemView
 
 	template  : '
           <div class="panel-body ">
-            <h5 class="margin-none mid-title "> {{name}}
+            <h5 class=" mid-title "> {{name}}
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
@@ -26,14 +26,14 @@ class ProductChildView extends Marionette.ItemView
                         <li><a href="#" class="remove hidden">Remove the product</a></li>
                       </ul>
               </h5>
-                      <ul class="list-inline   m-t-20">
+                      <ul class="list-inline   ">
                       	 <li class="col-md-7 col-xs-7 dotted-line">
                       	 	<ul class="list-inline no-dotted ">
                         
                         	
                         	{{#servings}}
                         	<li>
-                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div>{{qty}}</h3>
+                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3>
                                 
 							 </li>
                         	{{/servings}}	
@@ -45,10 +45,13 @@ class ProductChildView extends Marionette.ItemView
                     <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
                         </li>
                         <li class="col-md-4  col-xs-4 text-center">
-                          <span clas="servings_text">{{servings_text}}</span>
+                        	<div class="row">
+                        		<div class="col-sm-3"> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2></div>
+                        		<div class="col-sm-9">  <span clas="servings_text center-block">{{servings_text}}</span>
                           <i class="fa fa-frown-o {{frown}}"></i>
-                          <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2>
-                         <span class="{{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span>
+                         <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </div>
+                        	</div>
+                        
                         </li>
                     </ul>
                 </div>
@@ -127,10 +130,12 @@ class ProductChildView extends Marionette.ItemView
 		type = @model.get('type') 
 		name = @model.get('name')
 		d = new Date()
-		m = "GMT " + -d.getTimezoneOffset()/60;
-		timezone = moment().tz(m).format('MMMM Do YYYY, h:mm:ss a')
-		if @model.get('timezone') == null
+		n = -(d.getTimezoneOffset())
+		
+		timezone = n
+		if @model.get('timezone') != null
 			timezone = @model.get('timezone')
+		
 		servings = []
 		reminderArr = []
 		$.each qty , (index,value)->
@@ -142,7 +147,8 @@ class ProductChildView extends Marionette.ItemView
 			servings.push classname : newClass , qty : value.qty
 
 		$.each reminder , (ind,val)->
-			time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+
+			time  = moment(val.time+timezone, "HH:mm:ss Z").format("h:ss A")
 		
 			reminderArr.push time
 

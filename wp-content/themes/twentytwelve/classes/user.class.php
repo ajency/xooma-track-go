@@ -383,14 +383,14 @@ class User
 
             //get users_timezone
 
-            // $occurrences = \ajency\ScheduleReminder\Occurrence::
-            //         get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id);
+            $occurrences = \ajency\ScheduleReminder\Occurrence::
+                    get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id);
 
 
 
             $next = 0;
-            // if(count( $occurrences) != 0)
-            //     $next = $occurrences['next_occurrence'];
+            if(count( $occurrences) != 0)
+                $next = $occurrences;
 
 
             $sub[] = array(
@@ -406,7 +406,7 @@ class User
                 'settings'      => $settings_data->no_of_days,
                 'type'          => $val[0]['frequency'],
                 'timezone'      => $response['timezone'],
-                'upcoming'      => $next
+                'upcoming'      => $occurrences
 
 
     );

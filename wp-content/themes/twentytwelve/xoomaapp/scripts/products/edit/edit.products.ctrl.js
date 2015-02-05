@@ -444,8 +444,13 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showEditScheduleData = function(model) {
-    var qty, reminders, time, timezone;
-    timezone = App.currentUser.get('timezone');
+    var d, n, qty, reminders, time, timezone;
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     qty = model.get('qty');
     reminders = model.get('reminders');
     $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
@@ -479,8 +484,13 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showServings = function(model) {
-    var qty, reminders, timezone;
-    timezone = App.currentUser.get('timezone');
+    var d, n, qty, reminders, timezone;
+    d = new Date();
+    n = -(d.getTimezoneOffset());
+    timezone = n;
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
+    }
     qty = model.get('qty');
     reminders = model.get('reminders');
     if (parseInt(model.get('check')) === 1) {
