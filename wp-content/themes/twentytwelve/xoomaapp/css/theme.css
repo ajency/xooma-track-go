@@ -6582,7 +6582,7 @@ body > .container {
 }
 .no-dotted li {
   border: 0px !important;
-  width: 32%;
+  width: 31%;
   text-align: center;
   position: relative;
 }
@@ -6591,6 +6591,9 @@ body > .container {
   text-decoration: none;
 }
 @media (max-width: 768px) {
+  .no-dotted li {
+    margin-bottom: 10px;
+  }
   .no-dotted li h3 {
     font-size: 26px;
   }
@@ -7378,11 +7381,14 @@ packet_expected_class {
     font-size: 18px;
   }
   .userproducts .col-md-4 {
-    border-left: 1px dotted #ccc;
     font-size: 11px;
+    text-align: center;
   }
   .userproducts .col-md-4 h2 {
     font-size: 18px;
+  }
+  .userproducts .col-md-7 {
+    border-right: 1px dotted #ccc;
   }
   .btn-group {
     float: right;
