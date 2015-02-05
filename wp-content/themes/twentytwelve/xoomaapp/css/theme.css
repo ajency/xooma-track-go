@@ -5128,7 +5128,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-footer {
   padding: 10px 15px;
-  background-color: #D2F8FF;
+  background-color: #E4E4E4;
   border-top: 1px solid #dddddd;
   border-bottom-right-radius: -1;
   border-bottom-left-radius: -1;
@@ -11021,10 +11021,16 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 .history-calender .ui-datepicker td {
   height: 5em !important;
+  line-height: 4.3em;
+  text-align: center;
+}
+.history-calender .ui-datepicker td .ui-state-default {
+  text-align: center;
 }
 @media (max-width: 768px) {
   .history-calender .ui-datepicker td {
     height: auto !important;
+    line-height: 2.3em;
   }
 }
 .history-calender .ui-datepicker td a {
