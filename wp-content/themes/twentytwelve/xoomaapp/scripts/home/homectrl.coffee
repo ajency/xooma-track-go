@@ -91,6 +91,7 @@ class HomeLayoutView extends Marionette.LayoutView
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
 		if parseInt(App.useProductColl.length) == 0
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("No products added by the user!")
 			$('html, body').animate({
 								scrollTop: 0
@@ -212,11 +213,11 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				   <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a>    
+				   <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6>   
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
-                        <h6 class="text-center margin-none texmsg">{{texmsg}}</h6>         
+                        <h6 class="text-center texmsg">{{texmsg}}</h6></a>          
 					
 				  </div>
 					<div id="canvas-holder">

@@ -217,6 +217,7 @@ class Occurrence{
 		$schedules = (array)$wpdb->get_results($query);
 
 		foreach ($schedules as $schedule) {
+			$schedule = (object)$schedule;
 			$next_occurrence = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
 			$schedule->next_occurrence = $next_occurrence;
 		}

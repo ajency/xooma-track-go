@@ -584,7 +584,7 @@ function update_schedule_product_details($id,$pid,$data){
 				update_schedule($schedule);
 
 			//store schedule
-				
+
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
@@ -966,7 +966,10 @@ function store_reminders($main_id,$servings,$reminder){
 
 						$schedule = \ajency\ScheduleReminder\Schedule::get($id);
 
-						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+
+						$scheduleobj = (object)$schedule;
+
+						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
 
 		return  $id;
 					 
@@ -1087,7 +1090,8 @@ function store_add_schedule($args){
 
 				$schedule = \ajency\ScheduleReminder\Schedule::get($id);
 				
-				$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($schedule);
+				$scheduleobj = (object)$schedule;
+				$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
 
 	return $id;
 
