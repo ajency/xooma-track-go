@@ -5128,7 +5128,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-footer {
   padding: 10px 15px;
-  background-color: #f5f5f5;
+  background-color: #E4E4E4;
   border-top: 1px solid #dddddd;
   border-bottom-right-radius: -1;
   border-bottom-left-radius: -1;
@@ -5755,6 +5755,11 @@ button.close {
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   white-space: normal;
+}
+@media (max-width: 768px) {
+  .popover {
+    width: 150px;
+  }
 }
 .popover.top {
   margin-top: -10px;
@@ -9789,7 +9794,7 @@ packet_expected_class {
  */
 .picker__input {
   cursor: default !important;
-  background: #ffffff !important;
+  background: none!important;
 }
 /**
  * When the picker is opened, the input element is “activated”.
@@ -10563,7 +10568,7 @@ packet_expected_class {
 }
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
-  min-height: 70px;
+  min-height: 77px;
   margin: 10px auto;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -11016,10 +11021,16 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 .history-calender .ui-datepicker td {
   height: 5em !important;
+  line-height: 4.3em;
+  text-align: center;
+}
+.history-calender .ui-datepicker td .ui-state-default {
+  text-align: center;
 }
 @media (max-width: 768px) {
   .history-calender .ui-datepicker td {
     height: auto !important;
+    line-height: 2.3em;
   }
 }
 .history-calender .ui-datepicker td a {
@@ -11087,7 +11098,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 .input-time {
   border: 0px;
-  width: 60px;
+  width: 71px;
 }
 h1.special,
 h2.special,
