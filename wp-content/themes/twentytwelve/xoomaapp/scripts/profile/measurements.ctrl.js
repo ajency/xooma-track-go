@@ -53,7 +53,7 @@ ProfileMeasurementsView = (function(_super) {
         return false;
       }
     }
-    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 44;
+    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46;
   };
 
   ProfileMeasurementsView.prototype.keyup = function(e) {
@@ -117,12 +117,27 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
-    var formdata;
+    var count, formdata;
     this.measurements['weight'] = $('#weight').val();
     this.measurements['height'] = $('#height').val();
     this.measurements['date'] = $('#date_field').val();
-    formdata = this.measurements;
-    return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
+    count = 0;
+    $.each(this.measurements, function(ind, val) {
+      console.log(!(_.isNumber(val)));
+      if (!(_.isNumber(val)) && val !== "") {
+        count++;
+        window.removeMsg();
+        $('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+      }
+    });
+    console.log(count);
+    if (count === 0) {
+      formdata = this.measurements;
+      return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
+    }
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {

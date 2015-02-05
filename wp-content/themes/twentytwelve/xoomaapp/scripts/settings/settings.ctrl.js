@@ -103,6 +103,9 @@ SettingsView = (function(_super) {
 
   SettingsView.prototype.onShow = function() {
     var emails, notification;
+    if (!window.isWebView()) {
+      $('.notificationclass').hide();
+    }
     notification = App.currentUser.get('notification');
     if (parseInt(notification) === 1) {
       this.ui.notification.prop('checked', true);

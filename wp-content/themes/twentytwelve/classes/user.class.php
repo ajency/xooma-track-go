@@ -287,7 +287,7 @@ class User
 
 
 
-    public function get_user_home_products($id,$pid){
+    public function get_user_home_products($id,$pid,$date){
 
         global $wpdb;
 
@@ -365,16 +365,18 @@ class User
 
 
 
-            $start_dt = date('Y-m-d 00:00:00');
+           
 
-
+            $start_dt = date("Y-m-d 00:00:00", strtotime($date));
         
 
            
 
-            $end_date = date('Y-m-d 23:59:59');
+            
 
-            $occurrence = get_occurrence_date($term->product_id,$id,$date="");
+            $end_date = date("Y-m-d 00:00:00", strtotime($date));
+
+            $occurrence = get_occurrence_date($term->product_id,$id,$date);
 
             $response = $user->get_user_product_details($id,$term->product_id);
 

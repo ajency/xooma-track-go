@@ -16,7 +16,7 @@ class ProductChildView extends Marionette.ItemView
 
 	template  : '
           <div class="panel-body ">
-            <h5 class=" mid-title "> {{name}}
+            <h5 class=" mid-title "><div> {{name}}</div>
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
@@ -46,7 +46,7 @@ class ProductChildView extends Marionette.ItemView
                         </li>
                         <li class="col-md-4  col-xs-5 ">
                         	<div class="row">
-                        		<div class="col-sm-3"> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2></div>
+                        		<div class="col-sm-3"> <h3 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h3></div>
                         		<div class="col-sm-9"> <small> <span class="servings_text center-block">{{servings_text}}</span>
                           <i class="fa fa-frown-o {{frown}}"></i>
                          <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div>

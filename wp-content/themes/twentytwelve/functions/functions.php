@@ -111,7 +111,7 @@ function save_anytime_product_details($id,$data){
 			//store schedule
 
 				
-				$product = $user->get_user_home_products($id,$data['id']);
+				$product = $user->get_user_home_products($id,$data['id'],$date="");
 				return $product['response'];
 				
 		}
@@ -380,7 +380,7 @@ function update_anytime_product_details($id,$pid,$data){
 
 
 		if($main){
-				$product = $user->get_user_home_products($id,$pid);
+				$product = $user->get_user_home_products($id,$pid,$date="");
 				return $product['response'];
 
 		}
@@ -642,7 +642,7 @@ function update_schedule_product_details($id,$pid,$data){
 
 
 		if($main){
-				$product = $user->get_user_home_products($id,$pid);
+				$product = $user->get_user_home_products($id,$pid,$date="");
 				return $product['response'];
 
 		}

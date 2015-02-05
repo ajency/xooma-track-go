@@ -186,7 +186,7 @@
   </div>
 
 
-  <div class="form-group">
+  <div class="form-group notificationclass">
 	<label class="col-sm-8 col-xs-8  control-label">Notifications</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">
@@ -488,6 +488,11 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 
 <script id="home-template" type="text/template">
 		<div class="container" id="homeregion"> 
+		<div class="alert alert-warning alert-msg measurements_update " role="alert">
+				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and see your consumption for the date!
+				<input type="text"  id="update" class="line-datepicker " placeholder="&#xf073;">
+				<input type="button" id="showHome" value="Show" > <div class="clearfix"></div>
+				</div>
 		<div class="aj-response-message no-tab"> </div>
 	 <div class="row section-nm">
 			<div class="col-md-2"> 
@@ -1099,7 +1104,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
                     <div id="picker_inline_fixed"></div>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
-                    <a href="" class="btn btn-primary consume">Consume</a>
+                    <!--<a href="" class="btn btn-primary consume">Consume</a>-->
                </form>
               <ul id='timeline' class="viewHistory">
               
@@ -1200,7 +1205,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			 <div class="col-md-4 ">
 			</div>
 		</div>
-		
+		 <input type="hidden" name="date" id="date" value="" / >
 	   <div class="row m-t-20">
 	   		<div class="col-sm-5 col-xs-4"></div>
 			<div class="col-sm-2 col-xs-4">

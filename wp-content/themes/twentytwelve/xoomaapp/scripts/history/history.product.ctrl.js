@@ -17,6 +17,7 @@ ViewProductHistoryView = (function(_super) {
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     this.loadData = __bind(this.loadData, this);
+    this.showView = __bind(this.showView, this);
     return ViewProductHistoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -35,7 +36,8 @@ ViewProductHistoryView = (function(_super) {
     'click .consume': function(e) {
       var date, model, product;
       e.preventDefault();
-      console.log(product = Marionette.getOption(this, 'id'));
+      product = Marionette.getOption(this, 'id');
+      product = Marionette.getOption(this, 'id');
       date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
       if ($('#picker_inline_fixed').val() === "") {
         date = moment().format("YYYY-MM-DD");
@@ -52,8 +54,37 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.onShow = function() {
-    var product;
+    var model, product;
     product = Marionette.getOption(this, 'id');
+    model = App.useProductColl.findWhere({
+      id: parseInt(product)
+    });
+    if (model === void 0) {
+      return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
+    } else {
+      return this.loadView();
+    }
+  };
+
+  ViewProductHistoryView.prototype.showView = function(collection) {
+    return this.loadView();
+  };
+
+  ViewProductHistoryView.prototype.loadView = function() {
+    var date, model, product;
+    product = Marionette.getOption(this, 'id');
+    date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
+    if ($('#picker_inline_fixed').val() === "") {
+      date = moment().format("YYYY-MM-DD");
+    }
+    model = App.useProductColl.findWhere({
+      id: parseInt(product)
+    });
+    if (model.get('name').toUpperCase() === 'X2O') {
+      $('.consume').attr('href', "#products/" + product + '/bmi/' + date);
+    } else {
+      $('.consume').attr('href', "#products/" + product + '/consume/' + date);
+    }
     this.loadData(product);
     return $('#picker_inline_fixed').datepicker({
       inline: true,

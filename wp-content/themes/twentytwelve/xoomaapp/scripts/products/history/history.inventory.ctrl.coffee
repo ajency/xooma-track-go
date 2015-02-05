@@ -44,6 +44,7 @@ class ViewInventoryView extends Marionette.CompositeView
 
 class App.ViewInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
+		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		products = []
 		productModel = App.useProductColl.where({id:parseInt(productId[0])})
@@ -60,6 +61,7 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 		@_showHistoryView(productModel[0])
 
 	_showHistoryView:(model)->
+		@show @parent().getLLoadingView()
 		product = model.get('id')
 		$.ajax
 			method : 'GET'
