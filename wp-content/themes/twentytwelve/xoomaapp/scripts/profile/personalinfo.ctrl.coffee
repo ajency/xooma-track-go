@@ -81,6 +81,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 							}, 'slow')
 		else
 			if state == '/home'
+				window.removeMsg()
 				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 				$('html, body').animate({
 							scrollTop: 0

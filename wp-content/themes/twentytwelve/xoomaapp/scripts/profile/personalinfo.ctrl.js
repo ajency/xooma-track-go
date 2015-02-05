@@ -91,6 +91,7 @@ ProfilePersonalInfoView = (function(_super) {
       }, 'slow');
     } else {
       if (state === '/home') {
+        window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
         return $('html, body').animate({
           scrollTop: 0

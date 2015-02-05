@@ -234,7 +234,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> <div class="col-md-4 col-xs-4"> <h5 class="text-center">HISTORY <i class="fa fa-angle-right"></i></h5> </div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center margin-none texmsg">{{texmsg}}</h6> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> <div class="col-md-4 col-xs-4"> <h4 class="text-center">TODAY </h4></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6></a> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center margin-none texmsg">{{texmsg}}</h6> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -344,28 +344,33 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.getCount = function(val) {
-    var count;
+    var count, time;
     count = 0;
+    time = [];
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
+      time.push(val.time);
     } else {
       $.each(val, function(ind, val1) {
         if (!(_.isArray(val1))) {
-          return count += parseFloat(val1.qty);
+          count += parseFloat(val1.qty);
+          return time.push(time.time);
         } else {
           return $.each(val1, function(ind, val2) {
             if (_.isArray(val2)) {
               return $.each(val2, function(ind, value) {
-                return count += parseFloat(value.qty);
+                count += parseFloat(value.qty);
+                return time.push(value.time);
               });
             } else {
-              return count += parseFloat(val2.qty);
+              count += parseFloat(val2.qty);
+              return time.push(val2.time);
             }
           });
         }
       });
     }
-    return count;
+    return [count, time];
   };
 
   HomeX2OView.prototype.get_occurrence = function(data) {
@@ -379,31 +384,38 @@ HomeX2OView = (function(_super) {
     qty = HomeX2OView.prototype.getCount(data.meta_value);
     if (occurrence === true && expected === true) {
       arr['color'] = "#6bbfff";
-      arr['value'] = qty;
+      arr['value'] = qty[0];
+      arr['time'] = qty[1];
     } else if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
-      arr['value'] = qty;
+      arr['value'] = qty[0];
+      arr['time'] = qty[1];
     } else if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
-      arr['value'] = qty;
+      arr['value'] = qty[0];
+      arr['time'] = qty[1];
     }
     return arr;
   };
 
   HomeX2OView.prototype.drawBottle = function(data) {
-    var doughnutData;
+    var doughnutData, timezone;
+    timezone = App.currentUser.get('timezone');
     doughnutData = [];
     $.each(data, function(ind, val) {
-      var i, occurrence;
+      var actualtime, i, msg, occurrence, time;
       occurrence = HomeX2OView.prototype.get_occurrence(val);
+      msg = "Not consumed (ml)";
       i = parseInt(ind) + 1;
-      if (occurrence['value'] === 0) {
-        occurrence['value'] = 1;
+      if (occurrence['time'].length !== 0) {
+        actualtime = _.last(occurrence['time']);
+        time = moment(actualtime + timezone).format('hA');
+        msg = "Consumed Bottle " + i + '(ml) at ' + time;
       }
       return doughnutData.push({
-        value: occurrence['value'],
+        value: parseInt(occurrence['value']) * 100,
         color: occurrence['color'],
-        label: "Bottle " + i
+        label: msg
       });
     });
     return doughnutData;
@@ -455,7 +467,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-12"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div>';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20"> <li class="col-md-8 col-xs-12"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{name}}! {{msg}}</div>';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -484,8 +496,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, consumed, count, data, howmuch, model, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
-    console.log(Messages['25_timeslot1']);
+    var bonusArr, consumed, count, data, howmuch, model, msg, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timezone, tt;
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
     timearr = ["2AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-2AM"];
@@ -563,7 +574,16 @@ ProductChildView = (function(_super) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
+    msg = "no next reminder";
+    if (this.model.get('upcoming') !== 0) {
+      $('#bell' + this.model.get('id')).removeClass('fa-bell-slash no-remiander');
+      $('#bell' + this.model.get('id')).addClass('fa-bell-o element-animation');
+      time = moment(this.model.get('upcoming') + timezone).format(hA);
+      msg = 'Your next reminder is at ' + time;
+    }
     data.texmsg = texmsg;
+    data.name = App.currentUser.get('display_name');
+    data.msg = msg;
     return data;
   };
 
