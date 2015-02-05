@@ -646,7 +646,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 <script id="add-product-template" type="h-template">
 	<div id="listproduct" >
 <div class="container">
-		<div class="aj-response-message"> 
+		<div class="aj-response-message"></div> 
 			  <div class="row">
 				  <div class="col-md-12">
 					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid ">
@@ -1061,7 +1061,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 <br>
 
 <div class="container"> 
-<div class="aj-response-message"> 
+<div class="aj-response-message"></div> 
 <div class="row">
 <div class="col-sm-6 col-sm-offset-3">
 <h5 class="text-center bold product_name">Product name</h5>

@@ -44,28 +44,39 @@ class SettingsView extends Marionette.ItemView
 					error : @errorSave
 
 	successnotiSave:(response,status,xhr)=>
+		window.removeMsg()
 		if xhr.status == 201
 			App.currentUser.set 'notifications' , parseInt(response.notifications)
 			@ui.responseMessage.addClass('alert alert-success').text("Notifications data saved!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
+			
+			
+			
 		else
 			@showErr()
 
 	showErr:->
+		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Data couldn't be saved!")
 		$('html, body').animate({
 						scrollTop: 0
 						}, 'slow')
+		
+		
 
 	successSave:(response,status,xhr)=>
+		window.removeMsg()
 		if xhr.status == 201
 			App.currentUser.set 'emails' , parseInt(response.emails)
 			@ui.responseMessage.addClass('alert alert-success').text("Emails data saved!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
+			
+			
+			
 		else
 			@showErr()
 
