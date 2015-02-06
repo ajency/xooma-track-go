@@ -178,17 +178,17 @@ AsperbmiView = (function(_super) {
       };
     })(this));
     if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
-      ind = parseInt(this.model.get('occurrence').length);
+      ind = 'bonus';
       return this.create_occurrences(ind);
     }
   };
 
   AsperbmiView.prototype.create_occurrences = function(ind) {
-    var bonus, msg;
+    var msg;
     console.log(this.model);
-    console.log(bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings')));
-    if (parseInt(bonus) >= 0 && parseInt(ind) !== 0) {
+    if (ind === 'bonus') {
       $('.bonus').text('(Bonus)');
+      ind = parseInt(this.model.get('occurrence').length);
     }
     $('#meta_id').val(0);
     $('.serving').text('Serving ' + (parseInt(ind) + 1));
