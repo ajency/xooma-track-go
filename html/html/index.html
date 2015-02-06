@@ -362,7 +362,7 @@
                         <li><a href="#">Remove the product</a></li>
                       </ul>
               </h5>
-                      <ul class="list-inline   m-t-20">
+                      <ul class="list-inline variable-width  m-t-20">
                         <li class="col-md-7 col-xs-7">
                                  <img src="../img/bottle.png" height="80px"/>
                                  <img src="../img/bottle.png "height="80px"/>
@@ -755,7 +755,7 @@
     <script type="text/javascript" src="assets/js/bootstrap-datepicker/bootstrap-datetimepicker.js" ></script>
         <script src="assets/js/classie.js"></script>
 		<script src="assets/js/cbpViewModeSwitch.js"></script>
- 
+  <script type="text/javascript" src="assets/js/slick.min.js"></script>
 <!--    <script src="assets/js/bootstrap-material-design/ripples.min.js"></script>
     <script src="assets/js/bootstrap-material-design/material.min.js"></script>
     
@@ -771,6 +771,15 @@
     $(function() {
         $('nav#menu').mmenu();
     });
+
+    $('.variable-width').slick({
+  dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 1,
+  centerMode: true,
+  variableWidth: true
+});
     </script>
 
     <script>

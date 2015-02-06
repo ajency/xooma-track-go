@@ -91,10 +91,11 @@
 
 											</div>
 											 <a class="link" href="#settings">
-							<h4><i class="fa fa-cog pull-right "></i></h4>
+							<h4><img src="<?php echo get_template_directory_uri(); ?>/images/icon-setting.png" class="pull-right m-r-10" width="25px" /></h4>
 							</a>
+
 							<a class="link" href="#/home">
-							<h4><i class="fa fa-home pull-right"></i></h4>
+							<h4><img src="<?php echo get_template_directory_uri(); ?>/images/icon-home.png" class="pull-right m-r-10" width="25px"  /></i></h4>
 							</a>
 										</div>
 					
