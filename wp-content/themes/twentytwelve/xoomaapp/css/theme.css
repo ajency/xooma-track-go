@@ -6482,6 +6482,9 @@ body > .container {
 .m-r-10 {
   margin-right: 10px;
 }
+.m-t--10 {
+  margin-top: -7px;
+}
 .m-t-10 {
   margin-top: 10px;
 }
@@ -6500,6 +6503,13 @@ body > .container {
 .bold {
   font-weight: 700;
 }
+.home-datepicker {
+  margin: 0px;
+  border: 0px;
+  background: none;
+  font-size: 1.5em;
+  width: 21%;
+}
 .section {
   padding: 70px 0px 10px 0px;
 }
@@ -6514,6 +6524,14 @@ body > .container {
 @media (max-width: 768px) {
   .section-nm {
     padding: 0px 0px 0px 0px;
+  }
+}
+.section-home {
+  padding: 28px 0px 10px 0px;
+}
+@media (max-width: 768px) {
+  .section-home {
+    padding: 50px 0px 0px 0px;
   }
 }
 .list-style li {
@@ -6778,7 +6796,7 @@ div#mcttCloseButton {
   width: 14px;
   height: 14px;
   position: absolute;
-  background-image: url(../../images/closeBtn.gif);
+  background-image: url(../../assets/images/closeBtn.gif);
   cursor: pointer;
   overflow: hidden;
   top: 12px;
@@ -7258,16 +7276,15 @@ packet_expected_class {
   display: block;
   margin: auto;
   position: absolute;
-  top: 163px;
+  top: 195px;
   text-align: center;
   left: 0%;
   right: 0%;
   width: 150px;
-  z-index: 999;
 }
 @media (max-width: 768px) {
   .fill-bottle {
-    top: 135px;
+    top: 84px;
   }
   .fill-bottle img {
     width: 70%;
@@ -7407,6 +7424,23 @@ packet_expected_class {
   }
   .btn-group {
     float: right;
+  }
+  .panel-mobile {
+    position: fixed;
+    width: 100%;
+    left: 0%;
+    top: 50px;
+    z-index: 999;
+    padding: 0px;
+  }
+  .panel-mobile .panel-body {
+    padding: 9px 4px;
+  }
+  .panel-mobile .panel-body img {
+    width: 9%;
+  }
+  .panel-mobile .panel-body input {
+    width: 82%;
   }
 }
 .badge-primary {
@@ -10873,7 +10907,7 @@ packet_expected_class {
   }
 }
 .cbp-vm-view-grid .cbp-vm-title {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 @media (max-width: 768px) {
   .cbp-vm-view-grid .cbp-vm-title {
@@ -10882,7 +10916,7 @@ packet_expected_class {
 }
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
-  min-height: 77px;
+  min-height: 90px;
   margin: 10px auto;
   overflow: hidden;
   text-overflow: ellipsis;
