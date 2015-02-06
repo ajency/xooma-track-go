@@ -129,7 +129,6 @@ class ScheduleView extends Marionette.ItemView
 				return false
 
 		$('#date').val date
-		App.currentUser.set 'homeDate' , date
 		$('.js__timepicker').pickatime(
 			interval: 15
 			onSet : (context)->
@@ -206,27 +205,26 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		console.log productId  = @getParams()
 		url = window.location.hash.split('#')
 		locationurl = url[1].split('/')
-		product = parseInt locationurl[1]
-		date = locationurl[3]
+		product = parseInt locationurl[2]
+		date = locationurl[4]
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
 		productModel = productsColl.where({id:parseInt(product)})
-		if productModel == undefined
-			App.currentUser.getUserProducts().done(@showView).fail @errorHandler
+		if productModel.length == 0
+			App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
 		else
 			@_showView(productModel[0],date)
 
 	showView:(Collection)=>
 		url = window.location.hash.split('#')
 		locationurl = url[1].split('/')
-		product = parseInt locationurl[1]
-		date = locationurl[3]
+		product = parseInt locationurl[2]
+		date = locationurl[4]
 		productModel = App.useProductColl.where({id:parseInt(product)})
 		@_showView(productModel[0],date)
 

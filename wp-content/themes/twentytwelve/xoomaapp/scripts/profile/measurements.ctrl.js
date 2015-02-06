@@ -118,13 +118,9 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
     var count, formdata;
-    this.measurements['weight'] = $('#weight').val();
-    this.measurements['height'] = $('#height').val();
-    this.measurements['date'] = $('#date_field').val();
     count = 0;
     $.each(this.measurements, function(ind, val) {
-      console.log(!(_.isNumber(val)));
-      if (!(_.isNumber(val)) && val !== "") {
+      if ((!($.isNumeric(val))) && val !== "" && ind !== 'date') {
         count++;
         window.removeMsg();
         $('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!");
@@ -133,8 +129,10 @@ ProfileMeasurementsView = (function(_super) {
         }, 'slow');
       }
     });
-    console.log(count);
     if (count === 0) {
+      this.measurements['weight'] = $('#weight').val();
+      this.measurements['height'] = $('#height').val();
+      this.measurements['date'] = $('#date_field').val();
       formdata = this.measurements;
       return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
     }

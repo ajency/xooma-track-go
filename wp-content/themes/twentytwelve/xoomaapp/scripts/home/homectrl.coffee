@@ -58,9 +58,35 @@ class HomeLayoutView extends Marionette.LayoutView
 			@ui.end_date.val today
 
 		'click #showHome':(e)->
+			$('#homeregion').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
+		
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 
+	_showView:(collection)=>
+		response = collection.response
+		App.useProductColl.reset response
+		productcollection = App.useProductColl.clone()
+		model = productcollection.findWhere({name:'X2O'}) 
+
+		if model != undefined
+			if model.get('name').toUpperCase() == 'X2O'
+				modelColl = model
+				listview = new HomeX2OView
+							model : modelColl
+
 			
+								
+				region =  new Marionette.Region el : '#x2oregion'
+				region.show listview
+
+			
+				productcollection.remove model
+				productcollection.reset productcollection.toArray()
+				listview1 = new HomeOtherProductsView
+								collection : productcollection	
+
+				region =  new Marionette.Region el : '#otherproducts'
+				region.show listview1	
 
 	onFormSubmit: (_formData)=>
 		$.ajax
@@ -200,15 +226,11 @@ class App.HomeCtrl extends Ajency.RegionController
 		if App.useProductColl.length == 0 && state == '/home'
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
-			if state != '/home'
-				new workflow
-			else
-
-
-				@show new HomeLayoutView
+			@show new HomeLayoutView
 
 	_showView:(collection)=>
 		@show @parent().getLLoadingView()
+		
 		response = collection.response
 		App.useProductColl.reset response
 		
@@ -283,8 +305,8 @@ class HomeX2OView extends Marionette.ItemView
 		n = -(d.getTimezoneOffset())
 		
 		timezone = n
-		if @model.get('timezone') != null
-			timezone = @model.get('timezone')
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get('timezone')
 		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		timearray.push moment(tt+timezone, "HH:mm Z").format("x")
 		occurrenceArr = []
@@ -300,13 +322,13 @@ class HomeX2OView extends Marionette.ItemView
 				date = val.occurrence
 				occurrenceArr.push date
 				consumed++
-				
+
 			if occurrence == true && expected == false
 				bonusArr++
 			
 			if occurrenceArr.length != 0 
 				recent = _.last occurrenceArr
-				data.time = moment(recent).format("ddd, hA")
+				data.time = moment(recent+timezone,"HH:mm: Z").format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
 		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(@model.get('qty').length)) * 100
@@ -320,7 +342,7 @@ class HomeX2OView extends Marionette.ItemView
 			time2 = moment(t1+timezone, "HH:mm Z").format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
-		
+		console.log timeslot
 		$.each per , (ind,val)->
 			if parseInt(val) == parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
@@ -330,7 +352,7 @@ class HomeX2OView extends Marionette.ItemView
 				texmsg = Messages[val+'_'+timeslot]
 		data.texmsg = texmsg
 		data.remianing = occurrenceArr.length
-		data.dateval = moment().format('YYYY-MM-DD')
+		data.dateval = App.currentUser.get('homeDate')
 		data.qty = @model.get('qty').length
 		data
 
@@ -369,27 +391,30 @@ class HomeX2OView extends Marionette.ItemView
 
 
 	getCount:(val)->
+		console.log val
 		count = 0
 		time = []
 		if!(_.isArray(val)) 
 			count += parseFloat val.qty
-			time.push val.time
+			time.push val.date
 		else
 			$.each val , (ind,val1)->
 				if!(_.isArray(val1)) 
 					count += parseFloat val1.qty
-					time.push time.time
+					time.push val1.date
 				else
 					$.each val1 , (ind,val2)->
 						if _.isArray(val2)
 							$.each val2 ,  (ind,value)->
 								count += parseFloat value.qty
-								time.push value.time
+								time.push value.date
 						else
 							count += parseFloat val2.qty
-							time.push val2.time
+							time.push val2.date
 
-		[count, time]	
+		console.log time
+		lasttime = _.last time
+		[count, lasttime]	
 
 	
 		
@@ -401,8 +426,10 @@ class HomeX2OView extends Marionette.ItemView
 		value = 0
 		arr = []
 		qty = 0
-		qty = HomeX2OView::getCount(data.meta_value)
-		
+		console.log qty = HomeX2OView::getCount(data.meta_value)
+
+		if qty[1] == undefined
+			qty[1] = []		
 		if occurrence == true && expected == true
 			arr['color'] = "#6bbfff"
 			arr['value'] = qty[0]
@@ -428,21 +455,21 @@ class HomeX2OView extends Marionette.ItemView
 		n = -(d.getTimezoneOffset())
 		
 		timezone = n
-		if @model.get('timezone') != null
-			timezone = @model.get('timezone')
+		if App.currentUser.get('timezone') != null
+			timezone = App.currentUser.get('timezone')
 		doughnutData = []
 		$.each data, (ind,val)->
-			occurrence = HomeX2OView::get_occurrence(val)
+			console.log occurrence = HomeX2OView::get_occurrence(val)
 			msg = "Not consumed (ml)"
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0 
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
-				actualtime = _.last occurrence['time']
-				time = moment(actualtime+timezone).format('hA')
+				actualtime = occurrence['time']
+				time = moment(actualtime+timezone, "HH:mm Z").format('hA')
 				msg = "Consumed Bottle "+ i+ '(ml) at '+ time
 			doughnutData.push 
-					value: parseInt(occurrence['value']) * 100 
+					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']
 					label: msg
 				
@@ -595,7 +622,7 @@ class ProductChildView extends Marionette.ItemView
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
 			data.no_servings =  no_servings
 			data.serving_size = temp.length
-		howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('HH:mm:ss')
@@ -606,7 +633,7 @@ class ProductChildView extends Marionette.ItemView
 			time2 = moment(t1+timezone, "HH:mm Z").format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
-		
+		console.log timeslot
 		$.each per , (ind,val)->
 			if parseInt(val) == parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
@@ -654,7 +681,7 @@ class ProductChildView extends Marionette.ItemView
 		tempcnt = 0
 		increment = parseInt(key) + 1
 		product = model.get('id')
-		date = moment().format('YYYY-MM-DD')
+		date = App.currentUser.get('homeDate')
 		whenarr = [0 , 'Morning Before meal' , 'Morning After meal' ,'Night Before meal' ,'Night After meal' ]
 		
 		if model.get('type') == "Anytime"
