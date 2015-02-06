@@ -181,13 +181,14 @@ body{
 }
 .no-dotted{
  li{
- border:0px !important;width: 31%;text-align:center;position:relative;
+ border:0px !important;width: 12%;text-align:center;position:relative;
     a{
       color:#ccc;
       text-decoration:none;
     }
    @media (max-width: @screen-sm-min) {
         margin-bottom:10px;
+        width: 31%;
         h3{
           font-size: 26px;
          }
@@ -244,6 +245,9 @@ display:none !important;
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 20px;
+      @media (max-width: @screen-sm-min) {
+        width:78%;
+      }
     }
 }
 .element-animation{
