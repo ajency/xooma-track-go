@@ -411,12 +411,16 @@ visibility: hidden;
   .ui-datepicker {
         width: 100% !important;
         border-radius:0px !important;
+        padding: 0;
+        table{
+          margin:0px;
+        }
         th{
           font-weight: 100;
         }
         .ui-corner-all{
          border-radius:0px !important; 
-           background: #DFDFDF;
+           background: @blue;
            border: 0px;
         }
         select.ui-datepicker-month, select.ui-datepicker-year {

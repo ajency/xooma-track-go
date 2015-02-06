@@ -91,10 +91,11 @@
 
 											</div>
 											 <a class="link" href="#settings">
-							<h4><i class="fa fa-cog pull-right "></i></h4>
+							<h4><img src="<?php echo get_template_directory_uri(); ?>/images/icon-setting.png" class="pull-right m-r-10" width="25px" /></h4>
 							</a>
+
 							<a class="link" href="#/home">
-							<h4><i class="fa fa-home pull-right"></i></h4>
+							<h4><img src="<?php echo get_template_directory_uri(); ?>/images/icon-home.png" class="pull-right m-r-10" width="25px"  /></i></h4>
 							</a>
 										</div>
 					
@@ -481,7 +482,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		 <div class="col-md-8"> 
 		 <div class="panel panel-default panel-mobile">
 				  <div class="panel-body text-center ">
-					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10"/><input type="text"  id="update" class="home-datepicker " >
+					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10"/><input type="text"  id="update" class="home-datepicker text-primary" >
 				<!--<input type="button" id="showHome" value="Show" class="btn btn-primary" >--><img src="<?php echo get_template_directory_uri(); ?>/images/arrow.png" id="showHome" class="pull-right"/> <div class="clearfix"></div>
 				  </div>
 			</div>
