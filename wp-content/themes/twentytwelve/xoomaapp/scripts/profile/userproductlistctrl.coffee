@@ -16,7 +16,7 @@ class ProductChildView extends Marionette.ItemView
 
 	template  : '
           <div class="panel-body ">
-            <h5 class=" mid-title "><div> {{name}}</div>
+            <h5 class=" mid-title margin-none"><div> {{name}}</div>
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
@@ -121,7 +121,7 @@ class ProductChildView extends Marionette.ItemView
 			@ui.remove.removeClass 'hidden'
 
 		$('.responsive').slick(
-				dots: true,
+				dots: false,
 				infinite: false,
 				speed: 300,
 				slidesToShow: 4,
@@ -132,7 +132,7 @@ class ProductChildView extends Marionette.ItemView
 						slidesToShow: 3,
 						slidesToScroll: 3,
 						infinite: true,
-						dots: true
+						dots: false
 					breakpoint: 600,
 					settings: 
 						slidesToShow: 2,

@@ -29,7 +29,7 @@ ProductChildView = (function(_super) {
     return this.$el.prop("id", 'cart' + this.model.get("id"));
   };
 
-  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class=" mid-title "><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   "> <li class="col-md-7 col-xs-7 dotted-line"> <ul class="list-inline no-dotted responsive"> {{#servings}} <li> <h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3> </li> {{/servings}} </ul> </li> <li class="col-md-1 col-xs-1 hidden-xs"> <h4>    <i class="fa fa-random text-muted"></i></h4> </li> <li class="col-md-4  col-xs-5 "> <div class="row"> <div class="col-sm-3"> <h3 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h3></div> <div class="col-sm-9"> <small> <span class="servings_text center-block">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div> </div> </li> </ul> </div> <div class="panel-footer"> <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
+  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline   "> <li class="col-md-7 col-xs-7 dotted-line"> <ul class="list-inline no-dotted responsive"> {{#servings}} <li> <h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3> </li> {{/servings}} </ul> </li> <li class="col-md-1 col-xs-1 hidden-xs"> <h4>    <i class="fa fa-random text-muted"></i></h4> </li> <li class="col-md-4  col-xs-5 "> <div class="row"> <div class="col-sm-3"> <h3 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h3></div> <div class="col-sm-9"> <small> <span class="servings_text center-block">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div> </div> </li> </ul> </div> <div class="panel-footer"> <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
 
   ProductChildView.prototype.events = {
     'click .remove': function(e) {
@@ -98,7 +98,7 @@ ProductChildView = (function(_super) {
       this.ui.remove.removeClass('hidden');
     }
     return $('.responsive').slick({
-      dots: true,
+      dots: false,
       infinite: false,
       speed: 300,
       slidesToShow: 4,
@@ -109,7 +109,7 @@ ProductChildView = (function(_super) {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
+          dots: false
         },
         breakpoint: 600,
         settings: {

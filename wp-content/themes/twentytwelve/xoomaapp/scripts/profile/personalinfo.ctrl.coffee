@@ -37,8 +37,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
-		Backbone.Syphon.deserialize @, @model.toJSON()
-
 		if !window.isWebView()
 			$('#birth_date').datepicker({
 			    dateFormat : 'yy-mm-dd'

@@ -58,7 +58,6 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
     App.trigger('cordova:hide:splash:screen');
-    Backbone.Syphon.deserialize(this, this.model.toJSON());
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',
