@@ -11346,13 +11346,17 @@ input.cmn-toggle-round-flat:checked + label:after {
 .history-calender .ui-datepicker {
   width: 100% !important;
   border-radius: 0px !important;
+  padding: 0;
+}
+.history-calender .ui-datepicker table {
+  margin: 0px;
 }
 .history-calender .ui-datepicker th {
   font-weight: 100;
 }
 .history-calender .ui-datepicker .ui-corner-all {
   border-radius: 0px !important;
-  background: #DFDFDF;
+  background: #3099ea;
   border: 0px;
 }
 .history-calender .ui-datepicker select.ui-datepicker-month,
