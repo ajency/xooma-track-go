@@ -374,7 +374,7 @@ class User
 
             
 
-            $end_date = date("Y-m-d 00:00:00", strtotime($date));
+           $end_date = date("Y-m-d 23:59:59", strtotime($date));
 
             $occurrence = get_occurrence_date($term->product_id,$id,$date);
 

@@ -43,7 +43,7 @@ AsperbmiView = (function(_super) {
         return;
       }
       product = this.model.get('id');
-      date = $('#date').val();
+      date = App.currentUser.get('homeDate');
       time = moment().format("HH:mm:ss");
       return $.ajax({
         method: 'POST',
