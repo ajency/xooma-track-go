@@ -28,7 +28,7 @@ class ProductChildView extends Marionette.ItemView
               </h5>
                       <ul class="list-inline   ">
                       	 <li class="col-md-7 col-xs-7 dotted-line">
-                      	 	<ul class="list-inline no-dotted ">
+                      	 	<ul class="list-inline no-dotted responsive">
                         
                         	
                         	{{#servings}}
@@ -119,6 +119,34 @@ class ProductChildView extends Marionette.ItemView
 			@ui.add.removeClass 'hidden'
 			@ui.update.removeClass 'hidden'
 			@ui.remove.removeClass 'hidden'
+
+		$('.responsive').slick(
+				dots: true,
+				infinite: false,
+				speed: 300,
+				slidesToShow: 4,
+				slidesToScroll: 4,
+				responsive:
+					breakpoint: 1024,
+					settings: 
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						dots: true
+					breakpoint: 600,
+					settings: 
+						slidesToShow: 2,
+						slidesToScroll: 2
+					breakpoint: 480,
+					settings: 
+						slidesToShow: 1,
+						slidesToScroll: 1
+
+
+
+				
+			);
+
 
 	serializeData:->
 		data = super()

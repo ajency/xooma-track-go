@@ -2,7 +2,20 @@ App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
+Ajency.LoginView::onShow = @showslick
 
+
+_.extend Ajency.LoginView::,
+
+	onShow:->
+		console.log "ssss"
+		$('.single-item').slick(
+			dots: true,
+			infinite: true,
+			speed: 500,
+			slidesToShow: 1,
+			slidesToScroll: 1
+		);
 
 class Ajency.FormView extends Marionette.LayoutView
 	behaviors : 

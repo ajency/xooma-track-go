@@ -10,6 +10,21 @@ Ajency.CurrentUserView.prototype.template = '#current-user-template';
 
 Ajency.LoginView.prototype.template = '#login-template';
 
+Ajency.LoginView.prototype.onShow = this.showslick;
+
+_.extend(Ajency.LoginView.prototype, {
+  onShow: function() {
+    console.log("ssss");
+    return $('.single-item').slick({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    });
+  }
+});
+
 Ajency.FormView = (function(_super) {
   __extends(FormView, _super);
 

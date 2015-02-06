@@ -484,7 +484,7 @@ HomeX2OView = (function(_super) {
       if (occurrence['time'].length !== 0) {
         actualtime = occurrence['time'];
         time = moment(actualtime + timezone, "HH:mm Z").format('hA');
-        msg = "Consumed Bottle " + i + '(ml) at ' + time;
+        msg = "Bottle " + i + ' consumed(in ml) at ' + time;
       }
       return doughnutData.push({
         value: parseFloat(occurrence['value']) * 100,

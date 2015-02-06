@@ -469,7 +469,8 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 
 		<div class="container" id="homeregion"> 
 		<!--<div class="alert alert-warning alert-msg measurements_update text-center" role="alert">
-				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and see your consumption for the date!
+				  <i class="fa fa-bullhorn"></i>  Pick up a date here and update your consumptions for that day
+!
 				
 				</div>-->
 
