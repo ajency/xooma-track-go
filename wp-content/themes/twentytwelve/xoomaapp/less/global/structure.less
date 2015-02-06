@@ -88,6 +88,9 @@ body{
 .m-r-10{
     margin-right: 10px;
 }
+.m-t--10{
+    margin-top: -7px;
+}
 .m-t-10{
     margin-top: 10px;
 }
@@ -106,6 +109,13 @@ body{
 .bold{
     font-weight: @font-bold;
 }
+.home-datepicker {
+    margin:0px;
+    border:0px;
+    background:none;
+    font-size:1.5em;
+    width:21%;
+}
 .section{
     padding:70px 0px 10px 0px;
      @media (max-width: @screen-sm-min) {
@@ -116,6 +126,12 @@ body{
     padding:28px 0px 10px 0px;
      @media (max-width: @screen-sm-min) {
             padding:0px 0px 0px 0px;
+            }
+}
+.section-home{
+    padding:28px 0px 10px 0px;
+     @media (max-width: @screen-sm-min) {
+            padding:50px 0px 0px 0px;
             }
 }
 .list-style {
@@ -699,14 +715,13 @@ img {
          display: block;
           margin: auto;
           position: absolute;
-          top: 163px;
+          top: 195px;
           text-align: center;
           left: 0%;
           right: 0%;
           width: 150px;
-          z-index:999;
           @media (max-width: @screen-sm-min) {
-                 top: 135px;
+                 top: 84px;
                  img{
                     width:70%;
                  }
@@ -836,6 +851,23 @@ img {
     }
     .btn-group{
       float:right;
+    }
+    .panel-mobile{
+      position: fixed;
+      width: 100%;
+      left: 0%;
+      top: 50px;
+      z-index: 999;
+      padding: 0px;
+        .panel-body {
+            padding: 9px 4px;
+            img{
+                width: 9%;
+            }
+            input{
+              width: 82%;
+            }
+        }
     }
 }
 

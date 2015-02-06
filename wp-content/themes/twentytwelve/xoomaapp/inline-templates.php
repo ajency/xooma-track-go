@@ -466,17 +466,25 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 </script>
 
 <script id="home-template" type="text/template">
+
 		<div class="container" id="homeregion"> 
-		<div class="alert alert-warning alert-msg measurements_update " role="alert">
+		<!--<div class="alert alert-warning alert-msg measurements_update text-center" role="alert">
 				  <i class="fa fa-bullhorn"></i> Choose a date from the calender and see your consumption for the date!
-				<input type="text"  id="update" class="line-datepicker " placeholder="&#xf073;">
-				<input type="button" id="showHome" value="Show" > <div class="clearfix"></div>
-				</div>
+				
+				</div>-->
+
 		<div class="aj-response-message no-tab"> </div>
-	 <div class="row section-nm">
+	 <div class="row section-home">
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
+		 <div class="panel panel-default panel-mobile">
+				  <div class="panel-body text-center ">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10"/><input type="text"  id="update" class="home-datepicker " >
+				<!--<input type="button" id="showHome" value="Show" class="btn btn-primary" >--><img src="<?php echo get_template_directory_uri(); ?>/images/arrow.png" id="showHome" class="pull-right"/> <div class="clearfix"></div>
+				  </div>
+			</div>
+
 				 <div ui-region="x2o" id="x2oregion">
 					  
 					</div>
@@ -547,6 +555,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 
 </div>
+
 </script>
 
 
