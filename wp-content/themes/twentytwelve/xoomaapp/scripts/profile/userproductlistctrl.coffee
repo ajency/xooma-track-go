@@ -160,7 +160,7 @@ class ProductChildView extends Marionette.ItemView
 		d = new Date()
 		n = -(d.getTimezoneOffset())
 		
-		console.log timezone = n
+		timezone = n
 		if @model.get('timezone') != null
 			timezone = @model.get('timezone')
 		

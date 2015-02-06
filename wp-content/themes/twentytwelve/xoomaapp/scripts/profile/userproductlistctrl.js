@@ -137,7 +137,7 @@ ProductChildView = (function(_super) {
     name = this.model.get('name');
     d = new Date();
     n = -(d.getTimezoneOffset());
-    console.log(timezone = n);
+    timezone = n;
     if (this.model.get('timezone') !== null) {
       timezone = this.model.get('timezone');
     }
