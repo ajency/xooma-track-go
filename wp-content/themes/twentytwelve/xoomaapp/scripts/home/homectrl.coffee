@@ -130,11 +130,13 @@ class HomeLayoutView extends Marionette.LayoutView
 			date = moment().format('YYYY-MM-DD')
 			App.currentUser.set 'homeDate' , date
 			$('#update').val date
+		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 			    dateFormat : 'yy-mm-dd'
 			    changeYear: true,
 			    changeMonth: true,
 			    maxDate: new Date()
+			    minDate : new Date(reg_date)
 			    onSelect: (dateText, inst)->
 			    	App.currentUser.set 'homeDate' , dateText
 			    	

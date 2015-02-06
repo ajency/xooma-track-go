@@ -218,6 +218,7 @@ class EmptyView extends Marionette.ItemView
 
 
 	onShow:->
+		$('.save_products').hide()
 		$('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added")
 		$('html, body').animate({
 						scrollTop: 0

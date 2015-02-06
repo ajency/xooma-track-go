@@ -301,13 +301,13 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 												<div class="form-group">
 														<label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
 														<div class="col-sm-9 col-xs-8">
-																<select class="form-control" name="profile[timezone]" id="profile[timezone]">
-																		<option value="UTC-05:00">Eastern Time Zone (UTC-05:00)</option>
-																		<option value="UTC-06:00">Central Time Zone (UTC-06:00)</option>
-																		<option value="UTC-07:00">Mountain Time Zone (UTC-07:00)</option>
+																<select class="form-control" name="profile[timezone]" id="timezone]">
+																		<option value="Eastern Time Zone (UTC-05:00)">Eastern Time Zone (UTC-05:00)</option>
+																		<option value="Central Time Zone (UTC-06:00)">Central Time Zone (UTC-06:00)</option>
+																		<option value="Mountain Time Zone (UTC-07:00)">Mountain Time Zone (UTC-07:00)</option>
 																		<option value="UTC-08:00">Pacific Time Zone (UTC-08:00)</option>
-																		<option value="UTC-09:00">Alaska Time Zone (UTC-09:00)</option>
-																		<option value="UTC-10:00">Hawaii-Aleutian Time Zone (UTC-10:00)</option>
+																		<option value="Pacific Time Zone (UTC-08:00)">Alaska Time Zone (UTC-09:00)</option>
+																		<option value="Hawaii-Aleutian Time Zone (UTC-10:00)">Hawaii-Aleutian Time Zone (UTC-10:00)</option>
 																		
 																</select>
 														</div>

@@ -114,6 +114,9 @@ var App  = new Marionette.Application()
 
 var Messages = <?php echo json_encode(load());?>;
 
+<?php date_default_timezone_set("UTC +0530");
+echo date_default_timezone_get(); ?>
+
 </script>
 
 

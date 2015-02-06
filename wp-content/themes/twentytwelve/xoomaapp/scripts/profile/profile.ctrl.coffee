@@ -31,9 +31,10 @@ class ProfileCtrlView extends Marionette.LayoutView
 		@listenTo App, 'state:transition:complete', @handleMenu
 
 	preventClick : (evt)->
-		@$('#'+evt.target.id).parent().removeClass 'done'
-		@$('#'+evt.target.id).parent().addClass 'selected'
-		@$('#'+evt.target.id).parent().siblings().removeClass 'selected'
+		console.log $(evt.target).closest('li')
+		$(evt.target).closest('li').removeClass 'done'
+		$(evt.target).closest('li').addClass 'selected'
+		$(evt.target).closest('li').siblings().removeClass 'selected'
 
 	onShow:->
 		@handleMenu
@@ -42,7 +43,7 @@ class ProfileCtrlView extends Marionette.LayoutView
 	handleMenu : (evt, state, args)->
 		url = '#'+App.currentUser.get 'state'
 		computed_url = '#'+window.location.hash.split('#')[1]
-		if url == computed_url
+		if url == computed_url 
 			@$('a[href="'+url+'"]').parent().addClass 'selected'
 			@$('a[href="'+url+'"]').parent().unbind()
 			@$('a[href="'+url+'"]').parent().find('a').css(cursor:'pointer')
@@ -58,8 +59,20 @@ class ProfileCtrlView extends Marionette.LayoutView
 			$('a[href="'+computed_url+'"]').parent().nextAll().addClass 'done'
 			# $('.tag').addClass 'done'
 		
-		else
+		else if url != '#/home' && url != computed_url
+			@$('a[href="'+url+'"]').parent().prevAll().find('a').css(cursor:'pointer')
+			@$('a[href="'+url+'"]').parent().prevAll().removeClass 'selected'
+			@$('a[href="'+url+'"]').parent().prevAll().addClass 'done'
+			@$('a[href="'+url+'"]').parent().nextAll().bind('click',@disableEvent)
+			@$('a[href="'+url+'"]').parent().nextAll().find('a').css(cursor:'default')
 			@$('a[href="'+computed_url+'"]').parent().addClass 'selected'
+			@$('a[href="'+computed_url+'"]').parent().removeClass 'done'
+			@$('a[href="'+computed_url+'"]').parent().unbind()
+			@$('a[href="'+computed_url+'"]').parent().find('a').css(cursor:'pointer')
+			@$('a[href="'+url+'"]').parent().find('a').css(cursor:'default')
+			@$('a[href="'+url+'"]').parent().bind('click',@disableEvent)
+			
+			
 		
 
 	disableEvent:(evt)->

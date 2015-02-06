@@ -210,6 +210,7 @@ EmptyView = (function(_super) {
   };
 
   EmptyView.prototype.onShow = function() {
+    $('.save_products').hide();
     $('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added");
     return $('html, body').animate({
       scrollTop: 0

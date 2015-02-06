@@ -151,7 +151,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
-    var date;
+    var date, reg_date;
     App.trigger('cordova:hide:splash:screen');
     $('#update').val(moment().format('YYYY-MM-DD'));
     if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
@@ -161,11 +161,13 @@ HomeLayoutView = (function(_super) {
       App.currentUser.set('homeDate', date);
       $('#update').val(date);
     }
+    reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
       dateFormat: 'yy-mm-dd',
       changeYear: true,
       changeMonth: true,
       maxDate: new Date(),
+      minDate: new Date(reg_date),
       onSelect: function(dateText, inst) {
         return App.currentUser.set('homeDate', dateText);
       }
