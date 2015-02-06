@@ -164,6 +164,15 @@ window.ParsleyValidator
   	return value.length == requirement;
   })
   .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
+$(document).ready(function() {
+$('.single-item').slick({
+dots: true,
+infinite: true,
+speed: 500,
+slidesToShow: 1,
+slidesToScroll: 1
+});
+});
 
  
 </script>

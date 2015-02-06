@@ -65,9 +65,8 @@ class ScheduleView extends Marionette.ItemView
 				qty = @ui.qty.val()
 				data = $('#schduleid').val()
 				product = @model.get('id')
-				date = $('#date').val()
+				date = App.currentUser.get('homeDate')
 				t = $('#consume_time').val()
-				date = moment().format('YYYY-MM-DD')
 				time  = moment(t,"HH:mm a").format("HH:mm:ss")
 				if t == ""
 					time  = moment().format("HH:mm:ss")
@@ -91,7 +90,7 @@ class ScheduleView extends Marionette.ItemView
 			qty = 0
 			data = $('#schduleid').val()
 			product = @model.get('id')
-			date = $('#date').val()
+			date = App.currentUser.get('homeDate')
 			t = $('#consume_time').val()
 			time  = moment(t,"HH:mm a").format("HH:mm:ss")
 			if t == ""

@@ -58,8 +58,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			@ui.end_date.val today
 
 		'click #showHome':(e)->
-			$('#homeregion').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
-		
+			
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 
 	_showView:(collection)=>

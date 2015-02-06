@@ -77,7 +77,6 @@ HomeLayoutView = (function(_super) {
       return this.ui.end_date.val(today);
     },
     'click #showHome': function(e) {
-      $('#homeregion').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     }
   };

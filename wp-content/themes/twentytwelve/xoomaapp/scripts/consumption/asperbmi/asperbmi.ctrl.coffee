@@ -24,7 +24,7 @@ class AsperbmiView extends Marionette.ItemView
 									}, 'slow')
 				return
 			product = @model.get('id')
-			date = $('#date').val()
+			date = App.currentUser.get('homeDate')
 			time  = moment().format("HH:mm:ss")
 			$.ajax
 						method : 'POST'
