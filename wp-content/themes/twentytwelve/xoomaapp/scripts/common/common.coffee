@@ -3,6 +3,7 @@ App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
 
+
 class Ajency.FormView extends Marionette.LayoutView
 	behaviors : 
 		FormBehavior : 

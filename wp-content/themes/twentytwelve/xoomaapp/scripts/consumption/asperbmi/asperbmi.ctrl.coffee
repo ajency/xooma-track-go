@@ -141,14 +141,14 @@ class AsperbmiView extends Marionette.ItemView
 					@create_occurrences(ind)
 					return false
 			if(parseInt(@model.get('occurrence').length) == parseInt count1)
-				ind = parseInt(@model.get('occurrence').length)
+				ind = 'bonus'
 				@create_occurrences(ind)
 				
 	create_occurrences:(ind)=>
 			console.log @model
-			console.log bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
-			if parseInt(bonus) >= 0 && parseInt(ind) != 0
+			if ind == 'bonus'
 				$('.bonus').text '(Bonus)'
+				ind  = parseInt(@model.get('occurrence').length) 
 			$('#meta_id').val(0)
 			$('.serving').text 'Serving '+ (parseInt(ind) + 1)
 			$('.bottlecnt').text 'No Consumption'

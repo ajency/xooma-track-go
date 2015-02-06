@@ -36,12 +36,13 @@ class HomeLayoutView extends Marionette.LayoutView
 
 		'click @ui.history':(e)->
 			e.preventDefault()
+			App.navigate '#/measurements/'+App.currentUser.get('ID')+'/history' , true
+		
 			
 
 		'click @ui.update':(e)->
 			e.preventDefault()
-			
-			
+			App.navigate '#/profile/measurements' , true
 			
 
 		'change @ui.time_period':(e)->

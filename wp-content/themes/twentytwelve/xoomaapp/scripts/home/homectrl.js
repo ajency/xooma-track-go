@@ -58,10 +58,12 @@ HomeLayoutView = (function(_super) {
       }
     },
     'click @ui.history': function(e) {
-      return e.preventDefault();
+      e.preventDefault();
+      return App.navigate('#/measurements/' + App.currentUser.get('ID') + '/history', true);
     },
     'click @ui.update': function(e) {
-      return e.preventDefault();
+      e.preventDefault();
+      return App.navigate('#/profile/measurements', true);
     },
     'change @ui.time_period': function(e) {
       var date, id, previous, reg_date, today;
