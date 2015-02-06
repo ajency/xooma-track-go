@@ -68,8 +68,14 @@ EditProductsView = (function(_super) {
       return this.showReminders();
     },
     'click .save': function(e) {
-      var check, data, product, sub;
+      var check, data, product, products, sub;
       e.preventDefault();
+      product = parseInt(this.model.get('id'));
+      products = App.currentUser.get('products');
+      if ($.inArray(product, products) > -1) {
+        this.saveData(this.model);
+        return;
+      }
       check = this.checkreminder();
       if (check === false) {
         window.removeMsg();
@@ -95,7 +101,7 @@ EditProductsView = (function(_super) {
         });
       } else {
         window.removeMsg();
-        this.ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!");
+        this.ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!");
         return $('html, body').animate({
           scrollTop: 0
         }, 'slow');
@@ -179,6 +185,28 @@ EditProductsView = (function(_super) {
       $('#available').val(cnt);
       return $('.available').text(cnt);
     }
+  };
+
+  EditProductsView.prototype.saveData = function(model) {
+    var check, data, product;
+    check = this.checkreminder();
+    if (check === false) {
+      window.removeMsg();
+      this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
+      $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+      return;
+    }
+    data = this.ui.form.serialize();
+    product = model.get('id');
+    return $.ajax({
+      method: 'POST',
+      url: "" + _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+      data: data,
+      success: this.successSave,
+      error: this.errorSave
+    });
   };
 
   EditProductsView.prototype.checkreminder = function() {

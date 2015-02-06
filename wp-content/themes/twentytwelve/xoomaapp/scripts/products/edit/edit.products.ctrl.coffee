@@ -52,6 +52,11 @@ class EditProductsView extends Marionette.ItemView
 
 		'click .save':(e)->
 			e.preventDefault()
+			product = parseInt @model.get('id')
+			products = App.currentUser.get 'products'
+			if $.inArray( product, products ) > -1
+				@saveData(@model)
+				return
 			check = @checkreminder()
 			if check == false
 				window.removeMsg()
@@ -73,11 +78,13 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				window.removeMsg()
-				@ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!")
-				$('html, body').animate({
-							scrollTop: 0
-							}, 'slow')
+
+			
+					window.removeMsg()
+					@ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!")
+					$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
 
 
 		
@@ -160,6 +167,25 @@ class EditProductsView extends Marionette.ItemView
 			cnt = parseInt($(e.target).val()) * parseInt(@model.get('total'))
 			$('#available').val cnt
 			$('.available').text cnt
+
+	saveData:(model)->
+		check = @checkreminder()
+		if check == false
+			window.removeMsg()
+			@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
+			$('html, body').animate({
+						scrollTop: 0
+						}, 'slow')
+			return 
+		
+		data = @ui.form.serialize()
+		product = model.get('id')
+		$.ajax
+			method : 'POST'
+			url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+			data : data
+			success : @successSave
+			error : @errorSave
 
 	checkreminder:->
 		servings = $('.servings_per_day').val()

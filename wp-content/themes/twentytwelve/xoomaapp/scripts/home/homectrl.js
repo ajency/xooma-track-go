@@ -659,14 +659,15 @@ ProductChildView = (function(_super) {
     }
     if (this.model.get('upcoming').length !== 0) {
       $.each(this.model.get('upcoming'), function(ind, val) {
-        var time1;
-        time = _.last(timearray);
+        var time1, timedisplay;
+        console.log(time = _.last(timearray));
         time1 = moment(val.next_occurrence + timezone, "HH:mm Z").format("x");
         if (parseInt(time) < parseInt(time1)) {
           $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
           $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
-          time = moment(this.model.get('upcoming') + timezone).format('hA');
-          msg = 'Your next reminder is at ' + time;
+          console.log(timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('hA'));
+          msg = 'Your next reminder is at ' + timedisplay;
+          return false;
         }
       });
     }

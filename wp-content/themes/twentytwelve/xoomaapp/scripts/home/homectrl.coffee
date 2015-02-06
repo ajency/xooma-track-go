@@ -648,14 +648,14 @@ class ProductChildView extends Marionette.ItemView
 		
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
-				time = _.last timearray
+				console.log time = _.last timearray
 				time1 = moment(val.next_occurrence+timezone, "HH:mm Z").format("x")
 				if parseInt(time) < parseInt(time1)
 					$('#bell'+model.get('id')).removeClass 'fa-bell-slash no-remiander'
 					$('#bell'+model.get('id')).addClass 'fa-bell-o element-animation'
-					time = moment(@model.get('upcoming')+timezone).format('hA')
-					msg = 'Your next reminder is at '+time
-					return
+					console.log timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('hA')
+					msg = 'Your next reminder is at '+timedisplay
+					return false
 		data.texmsg = texmsg
 		data.username = App.currentUser.get('display_name')
 		data.msg = msg

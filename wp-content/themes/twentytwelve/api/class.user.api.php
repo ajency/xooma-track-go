@@ -522,8 +522,8 @@ class User_API
         else
         {
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
-
-            $product = $user->get_user_home_products($id,$pid,$date="");
+            $date = date('Y-m-d');
+            $product = $user->get_user_home_products($id,$pid,$date);
             $response = new WP_JSON_Response( $product['response'] );
             }
             $response->set_status( 201 );
