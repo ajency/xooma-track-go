@@ -49,9 +49,10 @@ ProfileCtrlView = (function(_super) {
   };
 
   ProfileCtrlView.prototype.preventClick = function(evt) {
-    this.$('#' + evt.target.id).parent().removeClass('done');
-    this.$('#' + evt.target.id).parent().addClass('selected');
-    return this.$('#' + evt.target.id).parent().siblings().removeClass('selected');
+    console.log($(evt.target).closest('li'));
+    $(evt.target).closest('li').removeClass('done');
+    $(evt.target).closest('li').addClass('selected');
+    return $(evt.target).closest('li').siblings().removeClass('selected');
   };
 
   ProfileCtrlView.prototype.onShow = function() {
@@ -82,8 +83,26 @@ ProfileCtrlView = (function(_super) {
       $('a[href="' + computed_url + '"]').parent().addClass('selected');
       $('a[href="' + computed_url + '"]').parent().prevAll().addClass('done');
       return $('a[href="' + computed_url + '"]').parent().nextAll().addClass('done');
-    } else {
-      return this.$('a[href="' + computed_url + '"]').parent().addClass('selected');
+    } else if (url !== '#/home' && url !== computed_url) {
+      this.$('a[href="' + url + '"]').parent().prevAll().find('a').css({
+        cursor: 'pointer'
+      });
+      this.$('a[href="' + url + '"]').parent().prevAll().removeClass('selected');
+      this.$('a[href="' + url + '"]').parent().prevAll().addClass('done');
+      this.$('a[href="' + url + '"]').parent().nextAll().bind('click', this.disableEvent);
+      this.$('a[href="' + url + '"]').parent().nextAll().find('a').css({
+        cursor: 'default'
+      });
+      this.$('a[href="' + computed_url + '"]').parent().addClass('selected');
+      this.$('a[href="' + computed_url + '"]').parent().removeClass('done');
+      this.$('a[href="' + computed_url + '"]').parent().unbind();
+      this.$('a[href="' + computed_url + '"]').parent().find('a').css({
+        cursor: 'pointer'
+      });
+      this.$('a[href="' + url + '"]').parent().find('a').css({
+        cursor: 'default'
+      });
+      return this.$('a[href="' + url + '"]').parent().bind('click', this.disableEvent);
     }
   };
 

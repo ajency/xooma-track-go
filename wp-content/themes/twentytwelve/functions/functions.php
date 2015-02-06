@@ -182,10 +182,10 @@ function update_anytime_product_details($id,$pid,$data){
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
-
-					date_default_timezone_set("UTC");
+					$user_details = get_user_meta($id,'user_details',true);
 
 					$today = date("H:i:s", strtotime( $data['reminder_time'.$i]));
+					
 					
 					
 					$meta_id = $wpdb->insert(

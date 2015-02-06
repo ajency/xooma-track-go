@@ -10,6 +10,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		responseMessage : '.aj-response-message'
 		dateElement : 'input[name="profile[birth_date]"]'
 		xooma_member_id : '.xooma_member_id'
+		timezone : 'input[name="profile[timezone]"]'
 	modelEvents :
 		'change:profile_picture' : 'render'
 
@@ -36,9 +37,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 
 	onShow:->
-		App.trigger 'cordova:hide:splash:screen'
-		Backbone.Syphon.deserialize @, @model.toJSON()
 
+		App.trigger 'cordova:hide:splash:screen'
 		if !window.isWebView()
 			$('#birth_date').datepicker({
 			    dateFormat : 'yy-mm-dd'
@@ -56,7 +56,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('#profile').parent().addClass 'selected'
 			$('#profile').parent().siblings().removeClass 'selected'
 			$('#profile').parent().nextAll().addClass 'done'
-
+		
+		if App.currentUser.get('timezone') == null
+			$('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
 
 		
 		

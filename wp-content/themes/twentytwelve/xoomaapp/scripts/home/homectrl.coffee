@@ -130,11 +130,13 @@ class HomeLayoutView extends Marionette.LayoutView
 			date = moment().format('YYYY-MM-DD')
 			App.currentUser.set 'homeDate' , date
 			$('#update').val date
+		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 			    dateFormat : 'yy-mm-dd'
 			    changeYear: true,
 			    changeMonth: true,
 			    maxDate: new Date()
+			    minDate : new Date(reg_date)
 			    onSelect: (dateText, inst)->
 			    	App.currentUser.set 'homeDate' , dateText
 			    	
@@ -281,7 +283,7 @@ class HomeX2OView extends Marionette.ItemView
 				</li>
 				<li class="col-md-4 col-xs-4">
 					<h5 class="text-center">Consumed</h5>
-						<h4 class="text-center bold text-primary margin-none" >{{remianing}}</h4>
+						<h4 class="text-center bold text-primary" >{{remianing}}</h4>
 				</li>
 				<li class="col-md-4 col-xs-5">
 					<h5 class="text-center">Last consumed at</h5>
@@ -514,7 +516,7 @@ class ProductChildView extends Marionette.ItemView
 							<input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" />
 					
 
-			  <ul class="list-inline dotted-line  text-center row m-t-20">
+			  <ul class="list-inline dotted-line  text-center row m-t-20 panel-product">
 								  <li class="col-md-8 col-xs-12"> 
 							 <ul class="list-inline no-dotted">
 							 					{{#no_servings}}

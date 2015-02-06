@@ -28,7 +28,8 @@ ProfilePersonalInfoView = (function(_super) {
     form: '.update_user_details',
     responseMessage: '.aj-response-message',
     dateElement: 'input[name="profile[birth_date]"]',
-    xooma_member_id: '.xooma_member_id'
+    xooma_member_id: '.xooma_member_id',
+    timezone: 'input[name="profile[timezone]"]'
   };
 
   ProfilePersonalInfoView.prototype.modelEvents = {
@@ -58,7 +59,6 @@ ProfilePersonalInfoView = (function(_super) {
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
     App.trigger('cordova:hide:splash:screen');
-    Backbone.Syphon.deserialize(this, this.model.toJSON());
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',
@@ -73,7 +73,10 @@ ProfilePersonalInfoView = (function(_super) {
       $('#profile').parent().removeClass('done');
       $('#profile').parent().addClass('selected');
       $('#profile').parent().siblings().removeClass('selected');
-      return $('#profile').parent().nextAll().addClass('done');
+      $('#profile').parent().nextAll().addClass('done');
+    }
+    if (App.currentUser.get('timezone') === null) {
+      return $('#timezone option[value="' + $('#timezone').val() + '"]').prop("selected", true);
     }
   };
 
