@@ -262,16 +262,16 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				   <a href="#/products/{{id}}/bmi/{{dateval}}" ><h6 class="text-center"> Tap to Consume</h6>   
+				  <h6 class="text-center"> Tap to Consume</h6>   
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
-                        <h6 class="text-center texmsg">{{texmsg}}</h6></a>          
+                        <h6 class="text-center texmsg">{{texmsg}}</h6>          
 					
 				  </div>
-					<div id="canvas-holder">
+					 <a href="#/products/{{id}}/bmi/{{dateval}}" ><div id="canvas-holder">
 						<canvas id="chart-area" width="500" height="500"/>
-					</div>
+					</div></a>
 			
 			</div>
 		</div><ul class="list-inline text-center row row-line x2oList">
