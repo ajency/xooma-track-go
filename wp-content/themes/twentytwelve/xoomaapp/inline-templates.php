@@ -25,50 +25,29 @@
 			<div class="col-sm-3">
 			</div>
 					<div class="col-sm-6">
-							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-									<br>
-									<br>
-<br>
-									<ol class="carousel-indicators">
-										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="4"></li>
-									</ol>
-									<div class="carousel-inner" role="listbox">
-										<div class="item active">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive">
-											<div class="carousel-caption text-center">
-													<h5>Easy and intuitive way to keep track of your Xooma products intake.</h5>
-													
-											</div>
-										</div>
-											<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  >
-											<div class="carousel-caption text-center">
-													<h5>App offers timely notification and email reminders making sure you never miss a dose!</h5>
-											</div>
-										</div>
-										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" >
-											<div class="carousel-caption text-center">
-													<h5>Measure your fitness with Progress chart</h5>
-											</div>
-										</div>
-										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" >
-											<div class="carousel-caption text-center "  >
-													<h5>Know when your stock is running out and order in time</h5>
-											</div>
-										</div>
-										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  >
-											<div class="carousel-caption text-center"  >
-													<h5>One screen where download to app link (ios and android ) available</h5>
-											</div>
-										</div>
-									</div>
+	
+
+
+<div class="slider single-item">
+                    <div><h3><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
+                        <h5 class="text-center">Easy and intuitive way to keep track of your <br>Xooma products intake.</h5>
+                    </div>
+                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
+                    <h5 class="text-center">App offers timely notification and email reminders<br> making sure you never miss a dose!</h5>
+                    </div>
+                    <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" ></h3>
+                    <h5 class="text-center">Measure your fitness with Progress chart</h5>
+                    </div>
+                    <div><h3>  <img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
+                    <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
+                    </div>
+                    <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
+ <h5 class="text-center">One screen where download to app link <br>(ios and android ) available</h5>
+                    </div>
+                   
+                </div>
+
+
 
 							</div>
 <div class="col-sm-3">
@@ -655,6 +634,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			  <div class="row">
 				  <div class="col-md-12">
 					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid ">
+					<div>
 					<div class="row m-t-10">
 						<div class="col-sm-6 col-xs-6">
 						 		<h5 class="bold margin-none"> Add Products</h5>
@@ -666,7 +646,8 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 								</div>
 							</div>
 					</div>	
-					<hr class="hr-mobile">	
+					<hr class="hr-mobile">
+					</div>	
 					<ul class="products-list">
 						
 					</ul>
@@ -781,7 +762,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
   <div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Quantity per serving</label>
 	<div class="col-sm-6 col-xs-7">
-	  <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
+	  <select class="form-control  col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
 		  <option value="1">1</option>
 		  <option value="2">2</option>
 		  <option value="3">3</option>

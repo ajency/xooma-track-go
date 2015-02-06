@@ -131,8 +131,13 @@
 .cbp-vm-switcher ul li {
 	display: block;
 	position: relative;
-}
+	border-bottom: 1px solid #ccc;
 
+}
+.cbp-vm-switcher ul li:last-child {
+border:0px;
+
+}
 .cbp-vm-image {
 	display: block;
 	margin: 0 auto;
@@ -212,15 +217,17 @@
 }
 
 .cbp-vm-view-grid ul li {
-	width: 33%;
+	width: 23%;
 	text-align: center;
-	padding: 25px;
-	margin: 20px 0 0;
+	padding: 20px;
+	margin: 20px 8px 0;
 	display: inline-block;
 	min-height: 420px;
 	vertical-align: top;
+	background: #fff;
+	border: 1px solid #EFEFEF;
 @media (max-width: @screen-sm-min) {
-       	margin: 9px 0 0;
+       	margin: 9px 4px 0;
  }
 }
 
@@ -270,6 +277,7 @@
 	padding: 0 10px;
 	white-space: normal;
 	width: 23%;
+	font-weight: 500;
 }
 
 .cbp-vm-view-list .cbp-vm-price {
@@ -309,8 +317,14 @@
 	}
 
 	.cbp-vm-view-list .cbp-vm-title {
-		width: auto;
         line-height: 40px;
+        width: 69%;
+		line-height: 40px;
+		height: 40px;
+		word-wrap: normal;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.cbp-vm-view-list .cbp-vm-details  {
@@ -324,7 +338,7 @@
 
 @media screen and (max-width: 40.125em) {
 	.cbp-vm-view-grid ul li {
-		width: 50%;
+		width: 47%;
 		padding: 9px;
 		min-height: 330px;
 	}
