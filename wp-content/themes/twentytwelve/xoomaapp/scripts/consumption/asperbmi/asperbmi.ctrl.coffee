@@ -17,7 +17,12 @@ class AsperbmiView extends Marionette.ItemView
 			meta_id = @$el.find('#meta_id').val()
 			qty = ( @originalBottleRemaining - @bottleRemaining ) / 100
 			if qty is 0
-			  return
+				window.removeMsg()
+				@ui.responseMessage.addClass('alert alert-danger').text("No change in the quantity!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return
 			product = @model.get('id')
 			date = $('#date').val()
 			time  = moment().format("HH:mm:ss")
@@ -64,7 +69,7 @@ class AsperbmiView extends Marionette.ItemView
 				@create_occurrences(index)
 			$('.bottlecnt').text cnt
 			
-			
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!")
 			$('html, body').animate({
 								scrollTop: 0
@@ -113,7 +118,6 @@ class AsperbmiView extends Marionette.ItemView
 			date  = Marionette.getOption( @, 'date')
 			
 			$('#date').val date
-			App.currentUser.set 'homeDate' , date
 			@generate(@model.get('occurrence'))
 
 	generate:(data)->
@@ -121,9 +125,6 @@ class AsperbmiView extends Marionette.ItemView
 			bonus = 0
 			count1 = 0
 			console.log @model.get('occurrence').length
-			console.log bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
-			if parseInt(bonus) >= 0
-				$('.bonus').text '(Bonus)'
 			$.each occur , (ind,val)=>
 				occurrence = _.has(val, "occurrence")
 				expected = _.has(val, "expected")
@@ -144,6 +145,10 @@ class AsperbmiView extends Marionette.ItemView
 				@create_occurrences(ind)
 				
 	create_occurrences:(ind)=>
+			console.log @model
+			console.log bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
+			if parseInt(bonus) >= 0 && parseInt(ind) != 0
+				$('.bonus').text '(Bonus)'
 			$('#meta_id').val(0)
 			$('.serving').text 'Serving '+ (parseInt(ind) + 1)
 			$('.bottlecnt').text 'No Consumption'
@@ -201,16 +206,17 @@ class App.AsperbmiCtrl extends Ajency.RegionController
 		#productId  = @getParams()
 		url = window.location.hash.split('#')
 		locationurl = url[1].split('/')
-		product = parseInt locationurl[1]
-		date = locationurl[3]
+		product = parseInt locationurl[2]
+		date = locationurl[4]
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
-		console.log productModel = productsColl.where({id:parseInt(product)})
-		if productModel == undefined
-			App.currentUser.getUserProducts().done(@showView).fail @errorHandler
+		productModel = productsColl.where({id:parseInt(product)})
+		
+		if parseInt(productModel.length) == 0
+			App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
 		else
 			@_showView(productModel[0],date)
 		
@@ -218,8 +224,8 @@ class App.AsperbmiCtrl extends Ajency.RegionController
 	showView:(Collection)=>
 		url = window.location.hash.split('#')
 		locationurl = url[1].split('/')
-		product = parseInt locationurl[1]
-		date = locationurl[3]
+		product = parseInt locationurl[2]
+		date = locationurl[4]
 		productModel = App.useProductColl.where({id:parseInt(product)})
 		@_showView(productModel[0],date)
 

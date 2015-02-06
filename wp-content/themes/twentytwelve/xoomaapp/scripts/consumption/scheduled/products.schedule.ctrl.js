@@ -151,7 +151,6 @@ ScheduleView = (function(_super) {
       }
     });
     $('#date').val(date);
-    App.currentUser.set('homeDate', date);
     $('.js__timepicker').pickatime({
       interval: 15,
       onSet: function(context) {
@@ -238,15 +237,14 @@ App.ScheduleCtrl = (function(_super) {
   }
 
   ScheduleCtrl.prototype.initialize = function(options) {
-    var date, locationurl, product, productId, productModel, products, productsColl, url;
+    var date, locationurl, product, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
-    console.log(productId = this.getParams());
     url = window.location.hash.split('#');
     locationurl = url[1].split('/');
-    product = parseInt(locationurl[1]);
-    date = locationurl[3];
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
@@ -255,8 +253,8 @@ App.ScheduleCtrl = (function(_super) {
     productModel = productsColl.where({
       id: parseInt(product)
     });
-    if (productModel === void 0) {
-      return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
+    if (productModel.length === 0) {
+      return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
     } else {
       return this._showView(productModel[0], date);
     }
@@ -266,8 +264,8 @@ App.ScheduleCtrl = (function(_super) {
     var date, locationurl, product, productModel, url;
     url = window.location.hash.split('#');
     locationurl = url[1].split('/');
-    product = parseInt(locationurl[1]);
-    date = locationurl[3];
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
     productModel = App.useProductColl.where({
       id: parseInt(product)
     });

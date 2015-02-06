@@ -477,7 +477,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
-				 <div ui-region="x2o">
+				 <div ui-region="x2o" id="x2oregion">
 					  
 					</div>
 		

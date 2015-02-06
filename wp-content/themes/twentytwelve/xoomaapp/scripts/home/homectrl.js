@@ -24,6 +24,7 @@ HomeLayoutView = (function(_super) {
     this._errorHandler = __bind(this._errorHandler, this);
     this._successHandler = __bind(this._successHandler, this);
     this.onFormSubmit = __bind(this.onFormSubmit, this);
+    this._showView = __bind(this._showView, this);
     return HomeLayoutView.__super__.constructor.apply(this, arguments);
   }
 
@@ -76,7 +77,39 @@ HomeLayoutView = (function(_super) {
       return this.ui.end_date.val(today);
     },
     'click #showHome': function(e) {
+      $('#homeregion').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
+    }
+  };
+
+  HomeLayoutView.prototype._showView = function(collection) {
+    var listview, listview1, model, modelColl, productcollection, region, response;
+    response = collection.response;
+    App.useProductColl.reset(response);
+    productcollection = App.useProductColl.clone();
+    model = productcollection.findWhere({
+      name: 'X2O'
+    });
+    if (model !== void 0) {
+      if (model.get('name').toUpperCase() === 'X2O') {
+        modelColl = model;
+        listview = new HomeX2OView({
+          model: modelColl
+        });
+        region = new Marionette.Region({
+          el: '#x2oregion'
+        });
+        region.show(listview);
+        productcollection.remove(model);
+        productcollection.reset(productcollection.toArray());
+        listview1 = new HomeOtherProductsView({
+          collection: productcollection
+        });
+        region = new Marionette.Region({
+          el: '#otherproducts'
+        });
+        return region.show(listview1);
+      }
     }
   };
 
@@ -222,11 +255,7 @@ App.HomeCtrl = (function(_super) {
     if (App.useProductColl.length === 0 && state === '/home') {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     } else {
-      if (state !== '/home') {
-        return new workflow;
-      } else {
-        return this.show(new HomeLayoutView);
-      }
+      return this.show(new HomeLayoutView);
     }
   };
 
@@ -278,8 +307,8 @@ HomeX2OView = (function(_super) {
     d = new Date();
     n = -(d.getTimezoneOffset());
     timezone = n;
-    if (this.model.get('timezone') !== null) {
-      timezone = this.model.get('timezone');
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
     }
     console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
     timearray.push(moment(tt + timezone, "HH:mm Z").format("x"));
@@ -303,7 +332,7 @@ HomeX2OView = (function(_super) {
       }
       if (occurrenceArr.length !== 0) {
         recent = _.last(occurrenceArr);
-        data.time = moment(recent).format("ddd, hA");
+        data.time = moment(recent + timezone, "HH:mm: Z").format("ddd, hA");
       }
       data.bonus = bonusArr;
       return data.occurr = occurrenceArr.length;
@@ -322,6 +351,7 @@ HomeX2OView = (function(_super) {
         return timeslot = Messages[val];
       }
     });
+    console.log(timeslot);
     $.each(per, function(ind, val) {
       if (parseInt(val) === parseInt(howmuch)) {
         return texmsg = Messages[val + '_' + timeslot];
@@ -335,7 +365,7 @@ HomeX2OView = (function(_super) {
     });
     data.texmsg = texmsg;
     data.remianing = occurrenceArr.length;
-    data.dateval = moment().format('YYYY-MM-DD');
+    data.dateval = App.currentUser.get('homeDate');
     data.qty = this.model.get('qty').length;
     return data;
   };
@@ -373,33 +403,36 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.getCount = function(val) {
-    var count, time;
+    var count, lasttime, time;
+    console.log(val);
     count = 0;
     time = [];
     if (!(_.isArray(val))) {
       count += parseFloat(val.qty);
-      time.push(val.time);
+      time.push(val.date);
     } else {
       $.each(val, function(ind, val1) {
         if (!(_.isArray(val1))) {
           count += parseFloat(val1.qty);
-          return time.push(time.time);
+          return time.push(val1.date);
         } else {
           return $.each(val1, function(ind, val2) {
             if (_.isArray(val2)) {
               return $.each(val2, function(ind, value) {
                 count += parseFloat(value.qty);
-                return time.push(value.time);
+                return time.push(value.date);
               });
             } else {
               count += parseFloat(val2.qty);
-              return time.push(val2.time);
+              return time.push(val2.date);
             }
           });
         }
       });
     }
-    return [count, time];
+    console.log(time);
+    lasttime = _.last(time);
+    return [count, lasttime];
   };
 
   HomeX2OView.prototype.get_occurrence = function(data) {
@@ -410,7 +443,10 @@ HomeX2OView = (function(_super) {
     value = 0;
     arr = [];
     qty = 0;
-    qty = HomeX2OView.prototype.getCount(data.meta_value);
+    console.log(qty = HomeX2OView.prototype.getCount(data.meta_value));
+    if (qty[1] === void 0) {
+      qty[1] = [];
+    }
     if (occurrence === true && expected === true) {
       arr['color'] = "#6bbfff";
       arr['value'] = qty[0];
@@ -432,25 +468,25 @@ HomeX2OView = (function(_super) {
     d = new Date();
     n = -(d.getTimezoneOffset());
     timezone = n;
-    if (this.model.get('timezone') !== null) {
-      timezone = this.model.get('timezone');
+    if (App.currentUser.get('timezone') !== null) {
+      timezone = App.currentUser.get('timezone');
     }
     doughnutData = [];
     $.each(data, function(ind, val) {
       var actualtime, i, msg, occurrence, time;
-      occurrence = HomeX2OView.prototype.get_occurrence(val);
+      console.log(occurrence = HomeX2OView.prototype.get_occurrence(val));
       msg = "Not consumed (ml)";
       i = parseInt(ind) + 1;
       if (occurrence['value'] === 0) {
         occurrence['value'] = 1;
       }
       if (occurrence['time'].length !== 0) {
-        actualtime = _.last(occurrence['time']);
-        time = moment(actualtime + timezone).format('hA');
+        actualtime = occurrence['time'];
+        time = moment(actualtime + timezone, "HH:mm Z").format('hA');
         msg = "Consumed Bottle " + i + '(ml) at ' + time;
       }
       return doughnutData.push({
-        value: parseInt(occurrence['value']) * 100,
+        value: parseFloat(occurrence['value']) * 100,
         color: occurrence['color'],
         label: msg
       });
@@ -591,7 +627,7 @@ ProductChildView = (function(_super) {
       data.no_servings = no_servings;
       return data.serving_size = temp.length;
     });
-    howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100;
+    console.log(howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100);
     $.each(timearr, function(ind, val) {
       var t0, t1, time1, time2;
       temp = val.split('-');
@@ -605,6 +641,7 @@ ProductChildView = (function(_super) {
         return timeslot = Messages[val];
       }
     });
+    console.log(timeslot);
     $.each(per, function(ind, val) {
       if (parseInt(val) === parseInt(howmuch)) {
         return texmsg = Messages[val + '_' + timeslot];
@@ -659,7 +696,7 @@ ProductChildView = (function(_super) {
     tempcnt = 0;
     increment = parseInt(key) + 1;
     product = model.get('id');
-    date = moment().format('YYYY-MM-DD');
+    date = App.currentUser.get('homeDate');
     whenarr = [0, 'Morning Before meal', 'Morning After meal', 'Night Before meal', 'Night After meal'];
     if (model.get('type') === "Anytime") {
       serving_text = 'Serving ' + increment;

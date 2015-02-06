@@ -91,13 +91,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onFormSubmit : (_formData)=>
-		@measurements['weight'] = $('#weight').val()
-		@measurements['height'] = $('#height').val()
-		@measurements['date'] = $('#date_field').val()
 		count = 0
 		$.each @measurements , (ind,val)->
-			console.log !(_.isNumber(val))
-			if !(_.isNumber(val)) && val != ""
+			if (!($.isNumeric(val))) && val!="" && ind != 'date' 
 				count++ 
 				window.removeMsg()
 				$('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!")
@@ -105,8 +101,12 @@ class ProfileMeasurementsView extends Marionette.ItemView
 								scrollTop: 0
 								}, 'slow')
 				return
-		console.log count
+		
 		if count == 0
+			@measurements['weight'] = $('#weight').val()
+			@measurements['height'] = $('#height').val()
+			@measurements['date'] = $('#date_field').val()
+		
 			formdata = @measurements
 			@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 

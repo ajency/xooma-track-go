@@ -35,6 +35,11 @@ AsperbmiView = (function(_super) {
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
       if (qty === 0) {
+        window.removeMsg();
+        this.ui.responseMessage.addClass('alert alert-danger').text("No change in the quantity!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
         return;
       }
       product = this.model.get('id');
@@ -83,6 +88,7 @@ AsperbmiView = (function(_super) {
         this.create_occurrences(index);
       }
       $('.bottlecnt').text(cnt);
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
       return $('html, body').animate({
         scrollTop: 0
@@ -143,7 +149,6 @@ AsperbmiView = (function(_super) {
     var date;
     date = Marionette.getOption(this, 'date');
     $('#date').val(date);
-    App.currentUser.set('homeDate', date);
     return this.generate(this.model.get('occurrence'));
   };
 
@@ -153,10 +158,6 @@ AsperbmiView = (function(_super) {
     bonus = 0;
     count1 = 0;
     console.log(this.model.get('occurrence').length);
-    console.log(bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings')));
-    if (parseInt(bonus) >= 0) {
-      $('.bonus').text('(Bonus)');
-    }
     $.each(occur, (function(_this) {
       return function(ind, val) {
         var count, expected, meta_id, occurrence;
@@ -183,7 +184,12 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.create_occurrences = function(ind) {
-    var msg;
+    var bonus, msg;
+    console.log(this.model);
+    console.log(bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings')));
+    if (parseInt(bonus) >= 0 && parseInt(ind) !== 0) {
+      $('.bonus').text('(Bonus)');
+    }
     $('#meta_id').val(0);
     $('.serving').text('Serving ' + (parseInt(ind) + 1));
     $('.bottlecnt').text('No Consumption');
@@ -254,18 +260,18 @@ App.AsperbmiCtrl = (function(_super) {
     this.show(this.parent().getLLoadingView());
     url = window.location.hash.split('#');
     locationurl = url[1].split('/');
-    product = parseInt(locationurl[1]);
-    date = locationurl[3];
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
     });
     productsColl = new Backbone.Collection(products);
-    console.log(productModel = productsColl.where({
+    productModel = productsColl.where({
       id: parseInt(product)
-    }));
-    if (productModel === void 0) {
-      return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
+    });
+    if (parseInt(productModel.length) === 0) {
+      return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
     } else {
       return this._showView(productModel[0], date);
     }
@@ -275,8 +281,8 @@ App.AsperbmiCtrl = (function(_super) {
     var date, locationurl, product, productModel, url;
     url = window.location.hash.split('#');
     locationurl = url[1].split('/');
-    product = parseInt(locationurl[1]);
-    date = locationurl[3];
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
     productModel = App.useProductColl.where({
       id: parseInt(product)
     });
