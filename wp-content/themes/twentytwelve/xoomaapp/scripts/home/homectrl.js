@@ -476,7 +476,7 @@ HomeX2OView = (function(_super) {
     $.each(data, function(ind, val) {
       var actualtime, i, msg, occurrence, time;
       console.log(occurrence = HomeX2OView.prototype.get_occurrence(val));
-      msg = "Not consumed (ml)";
+      msg = "No change in consumption(in ml)";
       i = parseInt(ind) + 1;
       if (occurrence['value'] === 0) {
         occurrence['value'] = 1;
