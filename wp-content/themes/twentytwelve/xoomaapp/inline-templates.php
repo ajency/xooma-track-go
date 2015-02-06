@@ -26,7 +26,7 @@
 			</div>
 					<div class="col-sm-6">
 	
-
+<br>
 
 <div class="slider single-item">
                     <div><h3><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
@@ -55,6 +55,7 @@
 							<!-- Login Button  -->
 					</div>
 			</div>
+			<br>
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
 	</div>
 </script>

@@ -6583,6 +6583,7 @@ body > .container {
 }
 .dotted-line li i {
   font-size: 40px;
+  color: #FFC200;
 }
 .dotted-line li i.status {
   font-size: 1.2em;
@@ -7269,7 +7270,7 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .bottle-msg {
-    padding: 16px 33px;
+    padding: 16px 40px;
   }
 }
 .fill-bottle {
@@ -8022,6 +8023,9 @@ packet_expected_class {
   content: 'â†';
 }
 /* Dots */
+.panel .slick-slider {
+  margin-bottom: 0px;
+}
 .slick-slider {
   margin-bottom: 30px;
 }
@@ -11457,7 +11461,12 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 .input-time {
   border: 0px;
-  width: 71px;
+  width: 91px;
+}
+@media (max-width: 768px) {
+  .input-time {
+    width: 71px;
+  }
 }
 h1.special,
 h2.special,
