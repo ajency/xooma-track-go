@@ -11598,33 +11598,73 @@ h6.brand {
   left: 49%;
   top: 8%;
 }
+@media (max-width: 768px) {
+  .imageMap .hotspot-neck {
+    left: 48%;
+  }
+}
 .imageMap .hotspot-chest {
   left: 53%;
   top: 18%;
+}
+@media (max-width: 768px) {
+  .imageMap .hotspot-chest {
+    left: 56%;
+  }
 }
 .imageMap .hotspot-arm {
   left: 60%;
   top: 30%;
 }
+@media (max-width: 768px) {
+  .imageMap .hotspot-arm {
+    left: 68%;
+  }
+}
 .imageMap .hotspot-abdomen {
   left: 53%;
   top: 34%;
+}
+@media (max-width: 768px) {
+  .imageMap .hotspot-abdomen {
+    left: 57%;
+  }
 }
 .imageMap .hotspot-waist {
   left: 54%;
   top: 45%;
 }
+@media (max-width: 768px) {
+  .imageMap .hotspot-waist {
+    left: 57%;
+  }
+}
 .imageMap .hotspot-hips {
   left: 46%;
   top: 53%;
+}
+@media (max-width: 768px) {
+  .imageMap .hotspot-hips {
+    left: 42%;
+  }
 }
 .imageMap .hotspot-thigh {
   left: 54%;
   top: 56%;
 }
+@media (max-width: 768px) {
+  .imageMap .hotspot-thigh {
+    left: 57%;
+  }
+}
 .imageMap .hotspot-midcalf {
   left: 45%;
   top: 75%;
+}
+@media (max-width: 768px) {
+  .imageMap .hotspot-midcalf {
+    left: 40%;
+  }
 }
 @-webkit-keyframes 'blink' {
   0% {
