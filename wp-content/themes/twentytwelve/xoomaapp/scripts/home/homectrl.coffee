@@ -280,7 +280,7 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				 <a href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
+				 <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
@@ -307,6 +307,21 @@ class HomeX2OView extends Marionette.ItemView
 				</li></ul></div></div>'
 	ui :
 		liquid : '.liquid'
+
+	events:
+		'click #original':(e)->
+			console.log @model.get 'available'
+			available = @model.get 'available'
+
+			if parseInt(available) <= 0
+				e.preventDefault()
+				$('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return false
+			else
+				return true
 
 	serializeData:->
 		data = super()
@@ -592,6 +607,21 @@ class ProductChildView extends Marionette.ItemView
 
 	ui :
 		anytime     : '.anytime'
+
+	events:
+		'click #original':(e)->
+			console.log @model.get 'available'
+			available = @model.get 'available'
+
+			if parseInt(available) <= 0
+				e.preventDefault()
+				$('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return false
+			else
+				return true
 
 	
 

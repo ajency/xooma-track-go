@@ -123,7 +123,8 @@ class ViewProductHistoryView extends Marionette.ItemView
 				d = new Date(meta_value.date)
 				timestamp = d.getTime()
 				time = moment(timestamp).zone(timezone).format("h:ss A")
-				fromnow = moment(timestamp).zone(timezone).fromNow()
+				time1 = moment(timestamp).zone(timezone).format("x")
+				fromnow = moment(time1).fromNow()
 				
 				qty = meta_value.qty
 				arr++
