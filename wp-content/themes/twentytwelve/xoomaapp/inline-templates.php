@@ -1202,7 +1202,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 		 <input type="hidden" name="date" id="date" value="" / >
 	   <div class="row m-t-20">
-	   		<div class="col-sm-5 col-xs-4"></div>
+	   		<div class="col-sm-5 col-xs-4"> <div class="loadingconusme"></div></div>
 			<div class="col-sm-2 col-xs-4">
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
@@ -1210,7 +1210,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
               	
 			</div>
 			<div class="col-sm-5 col-xs-4"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
-		<div class="loadingconusme"></div></div>
+		</div>
   </div>
 	<br>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
