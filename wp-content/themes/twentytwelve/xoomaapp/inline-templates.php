@@ -1160,7 +1160,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
  
 
 	
-		<h5 class="bold text-center"><span class="serving"></span><small class="bonus"></small></h5>
+		<h5 class=" text-center"><span class="serving"></span><small class="bonus"></small></h5>
 <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			
@@ -1190,7 +1190,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 						
 				 </div>
 
-				 	<small class="text-center center-block">Touch the bottle to consume </small>	
+				 		
 
 				 	
 
@@ -1260,7 +1260,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
                  <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i> <input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o input-time text-muetd fieldset__input js__timepicker" placeholder="Now"/> <!--<span class="now">Now</span>--></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div id="consume_time" name="consume_time" class="fa fa-pencil-square-o input-time text-muetd fieldset__input js__timepicker "> edit</div></small><input type="button" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd fieldset__input js__timepicker hidden" /></h5>
             </div>
             <div class="col-md-3">
          
@@ -1274,7 +1274,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
-           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > <i class="fa fa-angle-double-right"></i> Skip </button>
+           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-default  " > <i class="fa fa-angle-double-right"></i> Skip </button>
                 <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       <div class="loadingconusme"></div></div>
       <div class="col-sm-4 col-xs-1"></div>
