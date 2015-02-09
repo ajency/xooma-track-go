@@ -79,13 +79,14 @@ HomeLayoutView = (function(_super) {
       return this.ui.end_date.val(today);
     },
     'click #showHome': function(e) {
-      new Loading;
+      $('.loading').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     }
   };
 
   HomeLayoutView.prototype._showView = function(collection) {
     var listview, listview1, model, modelColl, productcollection, region, response;
+    $('.loading').html("");
     response = collection.response;
     App.useProductColl.reset(response);
     productcollection = App.useProductColl.clone();

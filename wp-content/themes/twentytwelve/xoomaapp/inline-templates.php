@@ -488,6 +488,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				  </div>
 			</div>
 
+				<div class="loading"></div> 
 				 <div ui-region="x2o" id="x2oregion">
 					  
 					</div>
@@ -497,7 +498,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	   
 		 </div>         
 
-
+  
 
 	
 	<div class="panel panel-default">
