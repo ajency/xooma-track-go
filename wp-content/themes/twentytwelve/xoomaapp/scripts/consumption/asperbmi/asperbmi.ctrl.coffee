@@ -13,6 +13,8 @@ class AsperbmiView extends Marionette.ItemView
 
 	events:
 		'click #confirm':(e)->
+			$('.loadingconusme').html '<li><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>'
+				
 			e.preventDefault()
 			meta_id = @$el.find('#meta_id').val()
 			qty = ( @originalBottleRemaining - @bottleRemaining ) / 100
@@ -48,6 +50,7 @@ class AsperbmiView extends Marionette.ItemView
 
 
 	saveHandler:(response,status,xhr)=>
+		$('.loadingconusme').html ""
 		if xhr.status == 201
 			occurResponse = _.map response.occurrence, (occurrence)->
 				occurrence.meta_id = parseInt occurrence.meta_id

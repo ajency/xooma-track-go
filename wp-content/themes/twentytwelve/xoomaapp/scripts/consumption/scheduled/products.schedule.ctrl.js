@@ -81,6 +81,7 @@ ScheduleView = (function(_super) {
     },
     'click .intake': function(e) {
       var data, date, meta_id, product, qty, t, time;
+      $('.loadingconusme').html('<li><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>');
       e.preventDefault();
       meta_id = $('#meta_id').val();
       qty = this.ui.qty.val();
@@ -103,6 +104,7 @@ ScheduleView = (function(_super) {
     'click #skip': function(e) {
       var data, date, meta_id, product, qty, t, time;
       e.preventDefault();
+      $('.loadingconusme').html('<li><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>');
       meta_id = $('#meta_id').val();
       qty = 0;
       data = $('#schduleid').val();

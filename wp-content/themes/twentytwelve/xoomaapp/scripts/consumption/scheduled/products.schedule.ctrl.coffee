@@ -60,6 +60,7 @@ class ScheduleView extends Marionette.ItemView
 			
 	
 		'click .intake':(e)->
+				$('.loadingconusme').html '<li><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>'
 				e.preventDefault()
 				meta_id = $('#meta_id').val()
 				qty = @ui.qty.val()
@@ -86,6 +87,8 @@ class ScheduleView extends Marionette.ItemView
 
 		'click #skip':(e)->
 			e.preventDefault()
+			$('.loadingconusme').html '<li><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>'
+				
 			meta_id = $('#meta_id').val()
 			qty = 0
 			data = $('#schduleid').val()
