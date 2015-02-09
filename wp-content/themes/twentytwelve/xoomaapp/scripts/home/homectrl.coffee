@@ -328,7 +328,8 @@ class HomeX2OView extends Marionette.ItemView
 				date = val.occurrence
 				occurrenceArr.push date
 				consumed++
-				qtyconsumed = @getCount(val.occurrence.meta_value)
+				console.log val.meta_value
+				qtyconsumed = HomeX2OView::getCount(val.meta_value)
 				qtyarr.push qtyconsumed[0]
 
 

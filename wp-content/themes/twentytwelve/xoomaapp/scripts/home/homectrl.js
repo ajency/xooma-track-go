@@ -333,7 +333,8 @@ HomeX2OView = (function(_super) {
         date = val.occurrence;
         occurrenceArr.push(date);
         consumed++;
-        qtyconsumed = this.getCount(val.occurrence.meta_value);
+        console.log(val.meta_value);
+        qtyconsumed = HomeX2OView.prototype.getCount(val.meta_value);
         qtyarr.push(qtyconsumed[0]);
       }
       if (occurrence === true && expected === false) {
