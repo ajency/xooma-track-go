@@ -156,8 +156,10 @@ ProductChildView = (function(_super) {
       });
     });
     $.each(reminder, function(ind, val) {
-      var time;
-      time = moment(val.time + timezone, "HH:mm:ss Z").format("h:ss A");
+      var time, timestamp;
+      d = new Date(val.time);
+      timestamp = d.getTime();
+      time = moment(timestamp).zone(timezone).format("h:ss A");
       return reminderArr.push(time);
     });
     remind = reminderArr.join(',');

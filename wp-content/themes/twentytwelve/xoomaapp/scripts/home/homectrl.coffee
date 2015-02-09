@@ -59,7 +59,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			@ui.end_date.val today
 
 		'click #showHome':(e)->
-			
+			new Loading
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 
 	_showView:(collection)=>
@@ -310,7 +310,10 @@ class HomeX2OView extends Marionette.ItemView
 		if App.currentUser.get('timezone') != null
 			timezone = App.currentUser.get('timezone')
 		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
-		timearray.push moment(tt+timezone, "HH:mm Z").format("x")
+		d = new Date()
+		timestamp = d.getTime()
+		
+		timearray.push moment(timestamp).zone(timezone).format("x")
 		occurrenceArr = []
 		bonusArr = 0
 		recent = '--'
@@ -330,18 +333,25 @@ class HomeX2OView extends Marionette.ItemView
 			
 			if occurrenceArr.length != 0 
 				recent = _.last occurrenceArr
-				data.time = moment(recent+timezone,"HH:mm: Z").format("ddd, hA")
+				d = new Date(recent)
+				timestamp = d.getTime()
+				data.time = moment(timestamp).zone(timezone).format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
 		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(@model.get('qty').length)) * 100
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
-			t0 = moment(temp[0], "hA").format('HH:mm:ss')
-			t1 = moment(temp[1], "hA").format('HH:mm:ss')
+			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
+			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
+
 			time = _.last timearray
 			d = moment().format('YYYY-MM-DD')
-			time1 = moment(t0+timezone, "HH:mm Z").format("x")
-			time2 = moment(t1+timezone, "HH:mm Z").format("x")
+			d0 = new Date(t0)
+			timestamp0 = d0.getTime()
+			d1 = new Date(t1)
+			timestamp1 = d1.getTime()
+			time1 = moment(timestamp0).zone(timezone).format("x")
+			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
 		console.log timeslot
@@ -468,7 +478,11 @@ class HomeX2OView extends Marionette.ItemView
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
 				actualtime = occurrence['time']
-				time = moment(actualtime+timezone, "HH:mm Z").format('hA')
+				d = new Date(actualtime)
+				timestamp = d.getTime()
+				time = moment(timestamp).zone(timezone).format('hA')
+			
+				
 				msg = "Bottle "+ i+ ' consumed(in ml) at '+ time
 			doughnutData.push 
 					value: parseFloat(occurrence['value']) * 100 
@@ -601,8 +615,9 @@ class ProductChildView extends Marionette.ItemView
 		timezone = n
 		if App.currentUser.get('timezone') != null
 			timezone = App.currentUser.get 'timezone'
-		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
-		timearray.push moment(tt+timezone, "HH:mm Z").format("x")	
+		d = new Date()
+		timestamp = d.getTime()
+		timearray.push moment(timestamp).zone(timezone).format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -627,12 +642,17 @@ class ProductChildView extends Marionette.ItemView
 		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
-			t0 = moment(temp[0], "hA").format('HH:mm:ss')
-			t1 = moment(temp[1], "hA").format('HH:mm:ss')
+			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
+			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
+
 			time = _.last timearray
 			d = moment().format('YYYY-MM-DD')
-			time1 = moment(t0+timezone, "HH:mm Z").format("x")
-			time2 = moment(t1+timezone, "HH:mm Z").format("x")
+			d0 = new Date(t0)
+			timestamp0 = d0.getTime()
+			d1 = new Date(t1)
+			timestamp1 = d1.getTime()
+			time1 = moment(timestamp0).zone(timezone).format("x")
+			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
 		console.log timeslot
@@ -651,7 +671,10 @@ class ProductChildView extends Marionette.ItemView
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
 				console.log time = _.last timearray
-				time1 = moment(val.next_occurrence+timezone, "HH:mm Z").format("x")
+				d = new Date(val.next_occurrence)
+				timestamp = d.getTime()
+				time1 = moment(timestamp).zone(timezone).format("x")
+			
 				if parseInt(time) < parseInt(time1)
 					$('#bell'+model.get('id')).removeClass 'fa-bell-slash no-remiander'
 					$('#bell'+model.get('id')).addClass 'fa-bell-o element-animation'
@@ -694,7 +717,9 @@ class ProductChildView extends Marionette.ItemView
 		if parseInt(reminders.length) != 0
 			classname = ''
 			time = reminders[key].time
-			time  = moment(time+timezone, "HH:mm:ss Z").format("h:ss A")
+			d = new Date(time)
+			timestamp = d.getTime()
+			time = moment(timestamp).zone(timezone).format("h:ss A")
 			serving_text = time
 
 		newClass = product_type+'_expected_class'
@@ -725,7 +750,10 @@ class ProductChildView extends Marionette.ItemView
 		timezone = n
 		if App.currentUser.get('timezone') != null
 			timezone = App.currentUser.get 'timezone'
-		time = moment(val.occurrence+timezone, "HH:mm Z").format("h:ss A")
+		d = new Date(val.occurrence)
+		timestamp = d.getTime()
+		time = moment(timestamp).zone(timezone).format("h:ss A")
+			
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 
 		console.log qty = val.meta_value.qty
