@@ -164,8 +164,9 @@ ViewProductHistoryView = (function(_super) {
           i++;
           d = new Date(val.date);
           timestamp = d.getTime();
-          time = moment(timestamp).zone(timezone).format("h:ss A");
-          fromnow = moment(timestamp).zone(timezone).fromNow();
+          time = moment(timestamp).zone(timezone).format("h:mm A");
+          time1 = moment(timestamp).zone(timezone).format("x");
+          fromnow = moment(time1).fromNow();
           qty = val.qty;
           meta_id = parseInt(index.get('meta_id')) + parseInt(i);
           arr++;
