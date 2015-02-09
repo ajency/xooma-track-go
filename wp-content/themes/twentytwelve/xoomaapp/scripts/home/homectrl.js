@@ -51,6 +51,18 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.events = {
     'change @ui.param': function(e) {
+      var date, id, previous, reg_date, today;
+      if ($('.time_period').val() === '' || $('.time_period').val() === 'all') {
+        reg_date = App.graph.get('reg_date');
+        this.ui.start_date.val(reg_date);
+      } else {
+        id = this.ui.time_period.val();
+        date = moment().subtract(id, 'days');
+        previous = date.format('YYYY-MM-DD');
+        this.ui.start_date.val(previous);
+      }
+      today = moment().format('YYYY-MM-DD');
+      this.ui.end_date.val(today);
       if ($(e.target).val() === 'bmi') {
         return this.ui.time_period.hide();
       } else {
@@ -222,6 +234,9 @@ HomeLayoutView = (function(_super) {
     var ctdx, dates, lineChartData, param;
     dates = App.graph.get('dates');
     param = App.graph.get('param');
+    if (dates.length === 0 && param.length === 0) {
+      $('.loadinggraph').html("<li>No data found</li>");
+    }
     lineChartData = {
       labels: dates,
       datasets: [
