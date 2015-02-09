@@ -1447,7 +1447,7 @@ function store_consumption_details($args){
 				{
 					$occurrences = \ajency\ScheduleReminder\Occurrence::
 					_insert_occurrence($occurrence_data); 
-
+					
 					update_consumption($object_id,$args['qty']);
 
 					$meta_id = $occurrences;

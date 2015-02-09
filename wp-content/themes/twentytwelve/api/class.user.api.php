@@ -586,9 +586,7 @@ class User_API
         $meta_id = $_REQUEST['meta_id'];
         $date = $_REQUEST['date'];
         $time = $_REQUEST['time'];
-        $today = date("Y-m-d", strtotime($date));
-        $time1 = date("H:i:s", strtotime($time));
-        $start = date("$today $time1");
+        
 
 
         $user_details = get_user_meta($id,'user_details',true);

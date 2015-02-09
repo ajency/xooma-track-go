@@ -292,19 +292,9 @@ class HomeX2OView extends Marionette.ItemView
 					</div>
 			
 			</div>
-		</div><ul class="list-inline text-center row row-line x2oList">
-			 <li class="col-md-4 col-xs-3"> 
-					<h5 class="text-center">Daily Target</h5>
-					<h4 class="text-center bold  text-primary" >{{qty}}</h4>
-				</li>
-				<li class="col-md-4 col-xs-4">
-					<h5 class="text-center">Consumed</h5>
-						<h4 class="text-center bold text-primary" >{{remianing}}</h4>
-				</li>
-				<li class="col-md-4 col-xs-5">
-					<h5 class="text-center">Last consumed at</h5>
-					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
-				</li></ul></div></div>'
+		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6
+
+		</div></div>'
 	ui :
 		liquid : '.liquid'
 
