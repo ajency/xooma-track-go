@@ -482,9 +482,10 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			</div>
 		 <div class="col-md-8"> 
 		 <div class="panel panel-default panel-mobile">
-				  <div class="panel-body text-center ">
-					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10"/><input type="text"  id="update" class="home-datepicker " >
-				<!--<input type="button" id="showHome" value="Show" class="btn btn-primary" >--><img src="<?php echo get_template_directory_uri(); ?>/images/arrow.png" id="showHome" class="pull-right"/> <div class="clearfix"></div>
+				  <div class="panel-body  ">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/><input type="text"  id="update" class="home-datepicker " >
+				<a id="showHome">( Show ) </a> <i class="fa fa-sun-o pull-right" style="font-size:3em"></i>
+
 				  </div>
 			</div>
 
