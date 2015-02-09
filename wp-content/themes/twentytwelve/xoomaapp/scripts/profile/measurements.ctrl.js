@@ -61,9 +61,12 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, obj, state;
+    var date, meaurement_date, obj, state;
     App.trigger('cordova:hide:splash:screen');
-    $('#update').val(moment().format('YYYY-MM-DD'));
+    if (App.currentUser.has('measurements')) {
+      meaurement_date = App.currentUser.get('measurements').date;
+      $('#update').val(moment(meaurement_date).format('YYYY-MM-DD'));
+    }
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
       dateFormat: 'yy-mm-dd',
@@ -200,18 +203,11 @@ App.UserMeasurementCtrl = (function(_super) {
   };
 
   UserMeasurementCtrl.prototype._get_measurement_details = function() {
-    var deferred;
-    if (!App.currentUser.has('measurements')) {
-      return $.ajax({
-        method: 'GET',
-        url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
-        success: this.successHandler
-      });
-    } else {
-      deferred = Marionette.Deferred();
-      deferred.resolve(true);
-      return deferred.promise();
-    }
+    return $.ajax({
+      method: 'GET',
+      url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+      success: this.successHandler
+    });
   };
 
   UserMeasurementCtrl.prototype.errorHandler = function(error) {

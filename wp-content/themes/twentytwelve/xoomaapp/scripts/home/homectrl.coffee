@@ -29,6 +29,16 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	events:
 		'change @ui.param':(e)->
+			if $('.time_period').val() == '' || $('.time_period').val() == 'all'
+				reg_date = App.graph.get 'reg_date'
+				@ui.start_date.val reg_date
+			else
+				id = @ui.time_period.val()
+				date =  moment().subtract(id, 'days')
+				previous = date.format('YYYY-MM-DD')
+				@ui.start_date.val previous
+			today = moment().format('YYYY-MM-DD')
+			@ui.end_date.val today
 			if $(e.target).val() == 'bmi'
 				@ui.time_period.hide()
 			else 
@@ -59,10 +69,11 @@ class HomeLayoutView extends Marionette.LayoutView
 			@ui.end_date.val today
 
 		'click #showHome':(e)->
-			new Loading
+			$('.loading').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 
 	_showView:(collection)=>
+		$('.loading').html ""
 		response = collection.response
 		App.useProductColl.reset response
 		productcollection = App.useProductColl.clone()
@@ -89,6 +100,8 @@ class HomeLayoutView extends Marionette.LayoutView
 		region.show listview1	
 
 	onFormSubmit: (_formData)=>
+		$('.loadinggraph').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
+			
 		$.ajax
 			method : 'GET'
 			data : _formData
@@ -98,6 +111,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	_successHandler: (response, status,xhr)=>
 		dates = _.has(response, "dates")
+		$('.loadinggraph').html ""
 		if dates == true && xhr.status == 200
 			App.graph.set 'dates' , response.dates
 			App.graph.set 'param' , response.param
@@ -195,6 +209,8 @@ class HomeLayoutView extends Marionette.LayoutView
 	generateGraph:->
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'
+		if dates.length == 0 && param.length == 0
+			$('.loadinggraph').html "<li>No data found</li>"
 		lineChartData = 
 			labels : dates,
 			datasets : [
@@ -264,7 +280,7 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				 <a href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
+				 <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
@@ -276,21 +292,26 @@ class HomeX2OView extends Marionette.ItemView
 					</div>
 			
 			</div>
-		</div><ul class="list-inline text-center row row-line x2oList">
-			 <li class="col-md-4 col-xs-3"> 
-					<h5 class="text-center">Daily Target</h5>
-					<h4 class="text-center bold  text-primary" >{{qty}}</h4>
-				</li>
-				<li class="col-md-4 col-xs-4">
-					<h5 class="text-center">Consumed</h5>
-						<h4 class="text-center bold text-primary" >{{remianing}}</h4>
-				</li>
-				<li class="col-md-4 col-xs-5">
-					<h5 class="text-center">Last consumed at</h5>
-					<h4 class="text-center bold text-primary" >{{time}}</small></h4>       
-				</li></ul></div></div>'
+		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6
+
+		</div></div>'
 	ui :
 		liquid : '.liquid'
+
+	events:
+		'click #original':(e)->
+			console.log @model.get 'available'
+			available = @model.get 'available'
+
+			if parseInt(available) <= 0
+				e.preventDefault()
+				$('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return false
+			else
+				return true
 
 	serializeData:->
 		data = super()
@@ -321,6 +342,7 @@ class HomeX2OView extends Marionette.ItemView
 		data.bonus = 0
 		consumed = 0	
 		qtyarr = []	
+		qtyarr.push 0
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
@@ -340,7 +362,7 @@ class HomeX2OView extends Marionette.ItemView
 			recent = _.last occurrenceArr
 			d = new Date(recent)
 			timestamp = d.getTime()
-			data.time = moment(timestamp).zone(timezone).format("ddd, hA")
+			data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
 		howmuchqty = _.last qtyarr
@@ -486,7 +508,7 @@ class HomeX2OView extends Marionette.ItemView
 				actualtime = occurrence['time']
 				d = new Date(actualtime)
 				timestamp = d.getTime()
-				time = moment(timestamp).zone(timezone).format('hA')
+				time = moment(timestamp).zone(timezone).format('h:mm A')
 			
 				
 				msg = "Bottle "+ i+ ' consumed(in ml) at '+ time
@@ -575,6 +597,21 @@ class ProductChildView extends Marionette.ItemView
 
 	ui :
 		anytime     : '.anytime'
+
+	events:
+		'click #original':(e)->
+			console.log @model.get 'available'
+			available = @model.get 'available'
+
+			if parseInt(available) <= 0
+				e.preventDefault()
+				$('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return false
+			else
+				return true
 
 	
 
@@ -684,7 +721,7 @@ class ProductChildView extends Marionette.ItemView
 				if parseInt(time) < parseInt(time1)
 					$('#bell'+model.get('id')).removeClass 'fa-bell-slash no-remiander'
 					$('#bell'+model.get('id')).addClass 'fa-bell-o element-animation'
-					console.log timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('hA')
+					console.log timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
 					msg = 'Your next reminder is at '+timedisplay
 					return false
 		data.texmsg = texmsg
@@ -725,7 +762,7 @@ class ProductChildView extends Marionette.ItemView
 			time = reminders[key].time
 			d = new Date(time)
 			timestamp = d.getTime()
-			time = moment(timestamp).zone(timezone).format("h:ss A")
+			time = moment(timestamp).zone(timezone).format("h:mm A")
 			serving_text = time
 
 		newClass = product_type+'_expected_class'
@@ -758,7 +795,7 @@ class ProductChildView extends Marionette.ItemView
 			timezone = App.currentUser.get 'timezone'
 		d = new Date(val.occurrence)
 		timestamp = d.getTime()
-		time = moment(timestamp).zone(timezone).format("h:ss A")
+		time = moment(timestamp).zone(timezone).format("h:mm A")
 			
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 

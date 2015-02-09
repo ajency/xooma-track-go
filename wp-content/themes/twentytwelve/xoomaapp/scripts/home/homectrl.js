@@ -51,6 +51,18 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.events = {
     'change @ui.param': function(e) {
+      var date, id, previous, reg_date, today;
+      if ($('.time_period').val() === '' || $('.time_period').val() === 'all') {
+        reg_date = App.graph.get('reg_date');
+        this.ui.start_date.val(reg_date);
+      } else {
+        id = this.ui.time_period.val();
+        date = moment().subtract(id, 'days');
+        previous = date.format('YYYY-MM-DD');
+        this.ui.start_date.val(previous);
+      }
+      today = moment().format('YYYY-MM-DD');
+      this.ui.end_date.val(today);
       if ($(e.target).val() === 'bmi') {
         return this.ui.time_period.hide();
       } else {
@@ -79,13 +91,14 @@ HomeLayoutView = (function(_super) {
       return this.ui.end_date.val(today);
     },
     'click #showHome': function(e) {
-      new Loading;
+      $('.loading').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     }
   };
 
   HomeLayoutView.prototype._showView = function(collection) {
     var listview, listview1, model, modelColl, productcollection, region, response;
+    $('.loading').html("");
     response = collection.response;
     App.useProductColl.reset(response);
     productcollection = App.useProductColl.clone();
@@ -116,6 +129,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onFormSubmit = function(_formData) {
+    $('.loadinggraph').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
     return $.ajax({
       method: 'GET',
       data: _formData,
@@ -128,6 +142,7 @@ HomeLayoutView = (function(_super) {
   HomeLayoutView.prototype._successHandler = function(response, status, xhr) {
     var dates;
     dates = _.has(response, "dates");
+    $('.loadinggraph').html("");
     if (dates === true && xhr.status === 200) {
       App.graph.set('dates', response.dates);
       App.graph.set('param', response.param);
@@ -219,6 +234,9 @@ HomeLayoutView = (function(_super) {
     var ctdx, dates, lineChartData, param;
     dates = App.graph.get('dates');
     param = App.graph.get('param');
+    if (dates.length === 0 && param.length === 0) {
+      $('.loadinggraph').html("<li>No data found</li>");
+    }
     lineChartData = {
       labels: dates,
       datasets: [
@@ -291,10 +309,28 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6 </div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
+  };
+
+  HomeX2OView.prototype.events = {
+    'click #original': function(e) {
+      var available;
+      console.log(this.model.get('available'));
+      available = this.model.get('available');
+      if (parseInt(available) <= 0) {
+        e.preventDefault();
+        $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return false;
+      } else {
+        return true;
+      }
+    }
   };
 
   HomeX2OView.prototype.serializeData = function() {
@@ -325,6 +361,7 @@ HomeX2OView = (function(_super) {
     data.bonus = 0;
     consumed = 0;
     qtyarr = [];
+    qtyarr.push(0);
     $.each(this.model.get('occurrence'), function(ind, val) {
       var date, expected, occurrence, qtyconsumed;
       occurrence = _.has(val, "occurrence");
@@ -345,7 +382,7 @@ HomeX2OView = (function(_super) {
       recent = _.last(occurrenceArr);
       d = new Date(recent);
       timestamp = d.getTime();
-      data.time = moment(timestamp).zone(timezone).format("ddd, hA");
+      data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A");
       data.bonus = bonusArr;
       data.occurr = occurrenceArr.length;
     }
@@ -501,7 +538,7 @@ HomeX2OView = (function(_super) {
         actualtime = occurrence['time'];
         d = new Date(actualtime);
         timestamp = d.getTime();
-        time = moment(timestamp).zone(timezone).format('hA');
+        time = moment(timestamp).zone(timezone).format('h:mm A');
         msg = "Bottle " + i + ' consumed(in ml) at ' + time;
       }
       return doughnutData.push({
@@ -563,6 +600,24 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
+  };
+
+  ProductChildView.prototype.events = {
+    'click #original': function(e) {
+      var available;
+      console.log(this.model.get('available'));
+      available = this.model.get('available');
+      if (parseInt(available) <= 0) {
+        e.preventDefault();
+        $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return false;
+      } else {
+        return true;
+      }
+    }
   };
 
   ProductChildView.prototype.saveHandler = function(response, status, xhr) {
@@ -691,7 +746,7 @@ ProductChildView = (function(_super) {
         if (parseInt(time) < parseInt(time1)) {
           $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
           $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
-          console.log(timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('hA'));
+          console.log(timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A'));
           msg = 'Your next reminder is at ' + timedisplay;
           return false;
         }
@@ -735,7 +790,7 @@ ProductChildView = (function(_super) {
       time = reminders[key].time;
       d = new Date(time);
       timestamp = d.getTime();
-      time = moment(timestamp).zone(timezone).format("h:ss A");
+      time = moment(timestamp).zone(timezone).format("h:mm A");
       serving_text = time;
     }
     newClass = product_type + '_expected_class';
@@ -771,7 +826,7 @@ ProductChildView = (function(_super) {
     }
     d = new Date(val.occurrence);
     timestamp = d.getTime();
-    time = moment(timestamp).zone(timezone).format("h:ss A");
+    time = moment(timestamp).zone(timezone).format("h:mm A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
     console.log(qty = val.meta_value.qty);

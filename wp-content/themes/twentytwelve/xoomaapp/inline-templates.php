@@ -489,6 +489,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				  </div>
 			</div>
 
+				<div class="loading"></div> 
 				 <div ui-region="x2o" id="x2oregion">
 					  
 					</div>
@@ -498,7 +499,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	   
 		 </div>         
 
-
+  
 
 	
 	<div class="panel panel-default">
@@ -545,7 +546,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button btn btn-primary" >Generate</button>
-	<div class="clearfix"></div><br>
+	<div class="clearfix"></div><br><div class="loadinggraph"></div> 
 				<div style="width:100%">
 								<div>
 									<canvas id="canvas" height="450" width="600"></canvas>
@@ -1209,7 +1210,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
               	
 			</div>
 			<div class="col-sm-5 col-xs-4"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
-		</div>
+		<div class="loadingconusme"></div></div>
   </div>
 	<br>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1275,7 +1276,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
            <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > <i class="fa fa-angle-double-right"></i> Skip </button>
                 <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
-      </div>
+      <div class="loadingconusme"></div></div>
       <div class="col-sm-4 col-xs-1"></div>
     </div>
 

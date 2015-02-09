@@ -1,0 +1,25 @@
+{
+  "name": "xooma",
+  "version": "0.0.0",
+  "description": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajency/xooma-track-go.git"
+  },
+  "keywords": [
+    "xooma"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajency/xooma-track-go/issues"
+  },
+  "homepage": "https://github.com/ajency/xooma-track-go",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}

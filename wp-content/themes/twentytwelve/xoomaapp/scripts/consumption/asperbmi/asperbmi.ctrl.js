@@ -31,6 +31,7 @@ AsperbmiView = (function(_super) {
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
       var date, meta_id, product, qty, time;
+      $('.loadingconusme').html('<li><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>');
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
@@ -66,6 +67,7 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
     var cnt, index, model, msg, occurResponse, tempColl;
+    $('.loadingconusme').html("");
     if (xhr.status === 201) {
       occurResponse = _.map(response.occurrence, function(occurrence) {
         occurrence.meta_id = parseInt(occurrence.meta_id);

@@ -177,7 +177,7 @@ class ProductChildView extends Marionette.ItemView
 		$.each reminder , (ind,val)->
 			d = new Date(val.time)
 			timestamp = d.getTime()
-			time = moment(timestamp).zone(timezone).format("h:ss A")
+			time = moment(timestamp).zone(timezone).format("h:mm A")
 			
 			reminderArr.push time
 

@@ -122,8 +122,9 @@ class ViewProductHistoryView extends Marionette.ItemView
 				meta_id = index.get('meta_value')
 				d = new Date(meta_value.date)
 				timestamp = d.getTime()
-				time = moment(timestamp).zone(timezone).format("h:ss A")
-				fromnow = moment(timestamp).zone(timezone).fromNow()
+				time = moment(timestamp).zone(timezone).format("h:mm A")
+				time1 = moment(timestamp).zone(timezone).format("x")
+				fromnow = moment(time1).fromNow()
 				
 				qty = meta_value.qty
 				arr++
@@ -139,8 +140,9 @@ class ViewProductHistoryView extends Marionette.ItemView
 					i++
 					d = new Date(val.date)
 					timestamp = d.getTime()
-					time = moment(timestamp).zone(timezone).format("h:ss A")
-					fromnow = moment(timestamp).zone(timezone).fromNow()
+					time = moment(timestamp).zone(timezone).format("h:mm A")
+					time1 = moment(timestamp).zone(timezone).format("x")
+					fromnow = moment(time1).fromNow()
 					qty = val.qty
 					meta_id = parseInt(index.get('meta_id')) + parseInt(i) 
 					arr++

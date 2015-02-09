@@ -647,7 +647,7 @@ function update_schedule_product_details($id,$pid,$data){
 					$date = date("Y-m-d $today ");
 					
 					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timeone']);
+					$newTZ = new DateTimeZone($details['timezone']);
 					$date = new DateTime( $date);
 					$todaydate = $date->setTimezone( $newTZ );
 					$t  = $todaydate->format('Y-m-d H:i:s');
@@ -1203,8 +1203,8 @@ function update_schedule($args){
 
 	$query = $wpdb->query("DELETE from $schedules where object_id=".$main_id);
 
-	if( $sqlquery)
-	$query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
+	// if( $sqlquery)
+	// $query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
 
 	$id = store_add_schedule($args);
 
@@ -1447,7 +1447,7 @@ function store_consumption_details($args){
 				{
 					$occurrences = \ajency\ScheduleReminder\Occurrence::
 					_insert_occurrence($occurrence_data); 
-
+					
 					update_consumption($object_id,$args['qty']);
 
 					$meta_id = $occurrences;
@@ -1602,7 +1602,7 @@ function get_previous_record($start_dt,$user_id,$parameter){
 				$previous_data = maybe_unserialize($previous_ro->value);
 				$pre_date = array('previous_date' => $start_dt , 'param' => $previous_data[$parameter] ) ; 
 			
-				$previous = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where id < $previous_ro->id LIMIT 1 ");
+				$previous = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where user_id=".$user_id." and  id < $previous_ro->id LIMIT 1 ");
 				
 				if(is_null($previous))
 				{
@@ -1614,6 +1614,7 @@ function get_previous_record($start_dt,$user_id,$parameter){
 				else
 				{
 					$previous_data = maybe_unserialize($previous->value);
+
 					$previousdata = $previous_data[$parameter];
 					$pre_date = array('previous_date' => $pre_date , 'param' => $previousdata ) ; 
 				}
@@ -1639,7 +1640,7 @@ function get_next_record($end_dt,$user_id,$parameter){
 
 					$next_data = maybe_unserialize($next_ro->value);
 					$next_date = array('next_date' => $end_dt , 'param' => $next_data[$parameter] ) ; 
-					$next = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where id > $next_ro->id LIMIT 1 ");
+					$next = $wpdb->get_row("SELECT *, DATE(`date`) as datefield from $table where user_id=".$user_id." and id > $next_ro->id LIMIT 1 ");
 					if(is_null($next))
 					{
 						$nextdata = '';

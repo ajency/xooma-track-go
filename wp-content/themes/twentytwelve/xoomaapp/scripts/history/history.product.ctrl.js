@@ -145,14 +145,15 @@ ViewProductHistoryView = (function(_super) {
       timezone = App.currentUser.get('timezone');
     }
     coll.each(function(index) {
-      var data, fromnow, i, meta_id, meta_value, qty, time, timestamp;
+      var data, fromnow, i, meta_id, meta_value, qty, time, time1, timestamp;
       if (index.get('meta_value').length !== 0 && response.name.toUpperCase() !== 'X2O') {
         meta_value = index.get('meta_value');
         meta_id = index.get('meta_value');
         d = new Date(meta_value.date);
         timestamp = d.getTime();
-        time = moment(timestamp).zone(timezone).format("h:ss A");
-        fromnow = moment(timestamp).zone(timezone).fromNow();
+        time = moment(timestamp).zone(timezone).format("h:mm A");
+        time1 = moment(timestamp).zone(timezone).format("x");
+        fromnow = moment(time1).fromNow();
         qty = meta_value.qty;
         arr++;
         return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
@@ -163,8 +164,9 @@ ViewProductHistoryView = (function(_super) {
           i++;
           d = new Date(val.date);
           timestamp = d.getTime();
-          time = moment(timestamp).zone(timezone).format("h:ss A");
-          fromnow = moment(timestamp).zone(timezone).fromNow();
+          time = moment(timestamp).zone(timezone).format("h:mm A");
+          time1 = moment(timestamp).zone(timezone).format("x");
+          fromnow = moment(time1).fromNow();
           qty = val.qty;
           meta_id = parseInt(index.get('meta_id')) + parseInt(i);
           arr++;
