@@ -298,7 +298,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.serializeData = function() {
-    var bonusArr, consumed, d, data, howmuch, n, occurrenceArr, per, per1, recent, temp, texmsg, time, timearr, timearray, timeslot, timestamp, timezone, tt;
+    var bonusArr, consumed, d, data, howmuch, howmuchqty, n, occurrenceArr, per, per1, qtyarr, recent, temp, texmsg, time, timearr, timearray, timeslot, timestamp, timezone, tt;
     data = HomeX2OView.__super__.serializeData.call(this);
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
@@ -324,28 +324,32 @@ HomeX2OView = (function(_super) {
     data.time = recent;
     data.bonus = 0;
     consumed = 0;
+    qtyarr = [];
     $.each(this.model.get('occurrence'), function(ind, val) {
-      var date, expected, occurrence;
+      var date, expected, occurrence, qtyconsumed;
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
         date = val.occurrence;
         occurrenceArr.push(date);
         consumed++;
+        qtyconsumed = this.getCount(val.occurrence.meta_value);
+        qtyarr.push(qtyconsumed[0]);
       }
       if (occurrence === true && expected === false) {
-        bonusArr++;
+        return bonusArr++;
       }
-      if (occurrenceArr.length !== 0) {
-        recent = _.last(occurrenceArr);
-        d = new Date(recent);
-        timestamp = d.getTime();
-        data.time = moment(timestamp).zone(timezone).format("ddd, hA");
-      }
-      data.bonus = bonusArr;
-      return data.occurr = occurrenceArr.length;
     });
-    console.log(howmuch = parseFloat(parseInt(consumed) / parseInt(this.model.get('qty').length)) * 100);
+    if (occurrenceArr.length !== 0) {
+      recent = _.last(occurrenceArr);
+      d = new Date(recent);
+      timestamp = d.getTime();
+      data.time = moment(timestamp).zone(timezone).format("ddd, hA");
+      data.bonus = bonusArr;
+      data.occurr = occurrenceArr.length;
+    }
+    howmuchqty = _.last(qtyarr);
+    console.log(howmuch = parseFloat(howmuchqty) * 100);
     $.each(timearr, function(ind, val) {
       var d0, d1, t0, t1, time1, time2, timestamp0, timestamp1;
       temp = val.split('-');
