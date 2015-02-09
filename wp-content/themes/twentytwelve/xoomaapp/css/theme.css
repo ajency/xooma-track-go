@@ -6483,7 +6483,7 @@ body > .container {
   margin-right: 10px;
 }
 .m-t--10 {
-  margin-top: -7px;
+  margin-top: -10px;
 }
 .m-t-10 {
   margin-top: 10px;
@@ -6504,11 +6504,11 @@ body > .container {
   font-weight: 700;
 }
 .home-datepicker {
-  margin: 0px;
+  margin: 0px 10px;
   border: 0px;
   background: none;
-  font-size: 1.5em;
-  width: 21%;
+  font-size: 1.7em;
+  width: 18%;
 }
 .section {
   padding: 70px 0px 10px 0px;
@@ -6658,7 +6658,7 @@ text {
   font-size: 0.6em;
 }
 .mid-title div {
-  width: 91%;
+  width: 88%;
   float: left;
   word-wrap: normal;
   white-space: nowrap;
@@ -7393,7 +7393,10 @@ packet_expected_class {
     font-size: 12px !important;
   }
   html body .panel-product {
-    margin: 0px;
+    margin-top: 0px;
+  }
+  html body .panel-product li {
+    border-right: 0px;
   }
   html body .hr-mobile {
     margin: 0px;
@@ -7465,7 +7468,7 @@ packet_expected_class {
     width: 9%;
   }
   .panel-mobile .panel-body input {
-    width: 82%;
+    width: 36%;
   }
 }
 .badge-primary {
@@ -11535,13 +11538,8 @@ input.cmn-toggle-round-flat:checked + label:after {
   text-align: center;
 }
 .input-time {
-  border: 0px;
-  width: 100px;
-}
-@media (max-width: 768px) {
-  .input-time {
-    width: 71px;
-  }
+  color: #000;
+  margin-left: 10px;
 }
 h1.special,
 h2.special,
