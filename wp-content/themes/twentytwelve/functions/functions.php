@@ -1203,8 +1203,8 @@ function update_schedule($args){
 
 	$query = $wpdb->query("DELETE from $schedules where object_id=".$main_id);
 
-	if( $sqlquery)
-	$query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
+	// if( $sqlquery)
+	// $query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
 
 	$id = store_add_schedule($args);
 

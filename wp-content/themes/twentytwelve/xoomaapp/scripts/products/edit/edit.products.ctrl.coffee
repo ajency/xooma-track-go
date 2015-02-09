@@ -347,6 +347,7 @@ class EditProductsView extends Marionette.ItemView
 			interval: 15
 
 			)
+		
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
@@ -445,7 +446,7 @@ class EditProductsView extends Marionette.ItemView
 		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
 		d = new Date(reminders[0].time)
 		timestamp = d.getTime()
-		time = moment(timestamp).zone(timezone).format("h:ss A")
+		time = moment(timestamp).zone(timezone).format("h:mm A")
 				
 		
 		if parseInt(@model.get('reminder_flag')) != 0
@@ -458,7 +459,7 @@ class EditProductsView extends Marionette.ItemView
 			$('.when1 option[value="'+qty[1].when+'"]').prop("selected",true)
 			d = new Date(reminders[1].time)
 			timestamp = d.getTime()
-			time = moment(timestamp).zone(timezone).format("h:ss A")
+			time = moment(timestamp).zone(timezone).format("h:mm A")
 			if parseInt(@model.get('reminder_flag')) != 0
 				$('#reminder_time1').val time
 			
@@ -500,7 +501,7 @@ class EditProductsView extends Marionette.ItemView
 			$.each reminders , (ind,val)->
 				d = new Date(val.time)
 				timestamp = d.getTime()
-				time = moment(timestamp).zone(timezone).format("h:ss A")
+				time = moment(timestamp).zone(timezone).format("h:mm A")
 				$('#reminder_time'+ind).val time
 		
 			

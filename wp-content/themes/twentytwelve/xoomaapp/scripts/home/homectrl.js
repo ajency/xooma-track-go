@@ -382,7 +382,7 @@ HomeX2OView = (function(_super) {
       recent = _.last(occurrenceArr);
       d = new Date(recent);
       timestamp = d.getTime();
-      data.time = moment(timestamp).zone(timezone).format("ddd, hA");
+      data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A");
       data.bonus = bonusArr;
       data.occurr = occurrenceArr.length;
     }
@@ -538,7 +538,7 @@ HomeX2OView = (function(_super) {
         actualtime = occurrence['time'];
         d = new Date(actualtime);
         timestamp = d.getTime();
-        time = moment(timestamp).zone(timezone).format('hA');
+        time = moment(timestamp).zone(timezone).format('h:mm A');
         msg = "Bottle " + i + ' consumed(in ml) at ' + time;
       }
       return doughnutData.push({
@@ -746,7 +746,7 @@ ProductChildView = (function(_super) {
         if (parseInt(time) < parseInt(time1)) {
           $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
           $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
-          console.log(timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('hA'));
+          console.log(timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A'));
           msg = 'Your next reminder is at ' + timedisplay;
           return false;
         }
@@ -790,7 +790,7 @@ ProductChildView = (function(_super) {
       time = reminders[key].time;
       d = new Date(time);
       timestamp = d.getTime();
-      time = moment(timestamp).zone(timezone).format("h:ss A");
+      time = moment(timestamp).zone(timezone).format("h:mm A");
       serving_text = time;
     }
     newClass = product_type + '_expected_class';
@@ -826,7 +826,7 @@ ProductChildView = (function(_super) {
     }
     d = new Date(val.occurrence);
     timestamp = d.getTime();
-    time = moment(timestamp).zone(timezone).format("h:ss A");
+    time = moment(timestamp).zone(timezone).format("h:mm A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
     console.log(qty = val.meta_value.qty);

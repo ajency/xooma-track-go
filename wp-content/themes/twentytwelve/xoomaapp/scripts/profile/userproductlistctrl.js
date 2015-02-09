@@ -159,7 +159,7 @@ ProductChildView = (function(_super) {
       var time, timestamp;
       d = new Date(val.time);
       timestamp = d.getTime();
-      time = moment(timestamp).zone(timezone).format("h:ss A");
+      time = moment(timestamp).zone(timezone).format("h:mm A");
       return reminderArr.push(time);
     });
     remind = reminderArr.join(',');
