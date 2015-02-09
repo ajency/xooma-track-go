@@ -132,7 +132,13 @@ body{
     padding:28px 0px 10px 0px;
      @media (max-width: @screen-sm-min) {
             padding:50px 0px 0px 0px;
-            }
+   }
+}
+.section-list{
+    padding:80px 0px 10px 0px;
+     @media (max-width: @screen-sm-min) {
+            padding: 15px 0px 55px 0px;
+   }
 }
 .list-style {
     li{
@@ -807,6 +813,9 @@ img {
 @media (max-width: @screen-sm-min) {
     html body{
       font-size: 12px !important;
+      .panel-product{
+        margin:0px;
+      }
         .hr-mobile{
           margin:0px;
         }
@@ -837,6 +846,19 @@ img {
           font-size: 18px;
           }
         }
+   .home-sub-header{
+    top: inherit;
+    bottom: 0px;
+    background:@gray-darker;
+    padding:0px;
+      li{
+          opacity:.4;
+      }
+      li.selected{
+          opacity:.9;
+      }
+    }
+
     }
     .userproducts{
         .col-md-4{
@@ -877,4 +899,42 @@ img {
   position: absolute;
   margin-left: -16px;
   top: 0px;
+}
+.blur-background{
+  color:@white;
+  background:url(../../images/23.jpg)no-repeat;
+  height:100%;
+  position: fixed;
+  width:100%;
+  top:9%;
+     .sub-header{
+    background:rgba(0, 0, 0, 0.26);
+    }
+    .btn-link{
+      color:@white;
+    }
+    output{
+      font-size:3.5em !important;
+      font-weight:100;
+    }
+    .rangeslider, .rangeslider__fill{
+      height:5px;
+      width:50%;
+    }
+    .rangeslider__fill{
+      background:#5C5C5C;
+    }
+    .rangeslider__handle{
+      background-image:none !important; 
+      width:20px;
+      height:20px;
+      top:-7px;
+
+    }
+  .text-muted{
+     color:@white;
+    }
+::-webkit-input-placeholder { color:#fff; }
+::-webkit-input-placeholder { color:#fff;  }
+::-webkit-input-placeholder { color:#fff;  }
 }

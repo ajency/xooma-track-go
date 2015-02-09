@@ -115,18 +115,18 @@
 		</div>
 </script>
 <script id="profile-template" type="text/template">
-		<div class="sub-header">
+		<div class="sub-header home-sub-header">
 				<div class="container">
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li class="tag"><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
+												<li class="tag"><a id="profile" href="#/profile/personal-info"><img src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
 														<span class="hidden-xs"> PERSONAL INFO</span></a>
 												</li>
-												<li class="tag"><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
+												<li class="tag"><a id="measurement" href="#/profile/measurements"><img src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
 														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
-												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
+												<li class="tag"><a id="product" href="#/profile/my-products"><img src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
 
 														<span class="hidden-xs">MY PRODUCTS</span></a>
 
@@ -236,7 +236,7 @@
 </script>
 <script id="profile-personal-info-template" type="text/template">
 
-		<div id="personalinfo" class="section">
+		<div id="personalinfo" class="section-list">
 
 				<div class="container">
 
@@ -327,7 +327,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 </script>
 <script id="profile-measurements-template" type="text/template">
-		<div id="measuremnt" class="section">
+		<div id="measuremnt" class="section-list">
 
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
@@ -563,7 +563,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 
 
 <script id="produts-template" type="h-template">
-<div id="xoomaproduct" class="section"> 
+<div id="xoomaproduct" class="section-list"> 
 				<h5 class="text-center bold margin-none">My Xooma products</h5>
 				<p class="text-center">Your xooma products are displayed here once you add them.
 </p>
@@ -1231,6 +1231,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 </script>
 
 <script id="schedule-template" type="text/template">
+<div class="blur-background">
  <div class="sub-header">
     <div class="container">
       <div class="row">
@@ -1240,23 +1241,23 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
       </div>
     </div>
   </div>
-<div class="container"> </br></br>
-
+<div class="container"> 
+<div class="section "> 
 <div class="aj-response-message"></div>
 <form id="consume" class="form-horizontal" role="form" method="POST">
- <div class="row">
+
 
         <div class="row">
             <div class="col-md-3 "> 
            
             </div>
             <div class="col-md-6 col-xs-12">
-                <h2 class="text-center margin-none"> <div class="{{classname}}"></div>{{name}}</h2>
+                <h3 class="text-center margin-none text-muted"> <div class="{{classname}}"></div>{{name}}</h3>
                  <h6 class="text-center text-muted">{{serving}}</h6>
-                 <h5 class="text-center text-muted m-t-30">How many {{product_type}}(s) did you have ?</h5>
-                   <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
+                 <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
+                   <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-primary"></i> <input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o input-time text-primary fieldset__input js__timepicker" placeholder="Now"/> <!--<span class="now">Now</span>--></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i> <input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o input-time text-muetd fieldset__input js__timepicker" placeholder="Now"/> <!--<span class="now">Now</span>--></h5>
             </div>
             <div class="col-md-3">
          
@@ -1264,18 +1265,19 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
         </div>
            <div class="row m-t-20">
         <div class="col-sm-5 col-xs-2"></div>
-      <div class="col-sm-3 col-xs-9">
+      <div class="col-sm-3 col-xs-10">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
            <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > <i class="fa fa-angle-double-right"></i> Skip </button>
-                <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
+                <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
       </div>
       <div class="col-sm-4 col-xs-1"></div>
     </div>
-  </div>
 
+</div>
 </form>
+</div>
 </script>
