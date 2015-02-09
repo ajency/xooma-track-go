@@ -104,15 +104,15 @@ HomeLayoutView = (function(_super) {
         region.show(listview);
         productcollection.remove(model);
         productcollection.reset(productcollection.toArray());
-        listview1 = new HomeOtherProductsView({
-          collection: productcollection
-        });
-        region = new Marionette.Region({
-          el: '#otherproducts'
-        });
-        return region.show(listview1);
       }
     }
+    listview1 = new HomeOtherProductsView({
+      collection: productcollection
+    });
+    region = new Marionette.Region({
+      el: '#otherproducts'
+    });
+    return region.show(listview1);
   };
 
   HomeLayoutView.prototype.onFormSubmit = function(_formData) {
@@ -291,7 +291,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </div> <a href="#/products/{{id}}/bmi/{{dateval}}" ><div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div></a> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><ul class="list-inline text-center row row-line x2oList"> <li class="col-md-4 col-xs-3"> <h5 class="text-center">Daily Target</h5> <h4 class="text-center bold  text-primary" >{{qty}}</h4> </li> <li class="col-md-4 col-xs-4"> <h5 class="text-center">Consumed</h5> <h4 class="text-center bold text-primary" >{{remianing}}</h4> </li> <li class="col-md-4 col-xs-5"> <h5 class="text-center">Last consumed at</h5> <h4 class="text-center bold text-primary" >{{time}}</small></h4> </li></ul></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'

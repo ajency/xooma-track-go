@@ -27,7 +27,7 @@ class ProductChildView extends Marionette.ItemView
                       </ul>
               </h5>
                       <ul class="list-inline   ">
-                      	 <li class="col-md-7 col-xs-7 dotted-line">
+                      	 <li class="col-md-7 col-xs-6 dotted-line">
                       	 	<ul class="list-inline no-dotted responsive">
                         
                         	
@@ -44,7 +44,7 @@ class ProductChildView extends Marionette.ItemView
                         <li class="col-md-1 col-xs-1 hidden-xs">
                     <h4>    <i class="fa fa-random text-muted"></i></h4>
                         </li>
-                        <li class="col-md-4  col-xs-5 ">
+                        <li class="col-md-4  col-xs-6 ">
                         	<div class="row">
                         		<div class="col-sm-3"> <h3 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h3></div>
                         		<div class="col-sm-9"> <small> <span class="servings_text center-block">{{servings_text}}</span>

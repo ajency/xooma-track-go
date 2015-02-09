@@ -82,11 +82,11 @@ class HomeLayoutView extends Marionette.LayoutView
 			
 				productcollection.remove model
 				productcollection.reset productcollection.toArray()
-				listview1 = new HomeOtherProductsView
-								collection : productcollection	
+		listview1 = new HomeOtherProductsView
+						collection : productcollection	
 
-				region =  new Marionette.Region el : '#otherproducts'
-				region.show listview1	
+		region =  new Marionette.Region el : '#otherproducts'
+		region.show listview1	
 
 	onFormSubmit: (_formData)=>
 		$.ajax
@@ -264,16 +264,16 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				  <h6 class="text-center"> Tap to Consume</h6>   
+				 <a href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
                         <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
                              
 
-                        <h6 class="text-center texmsg">{{texmsg}}</h6>          
+                        <h6 class="text-center texmsg">{{texmsg}}</h6> </a>         
 					
 				  </div>
-					 <a href="#/products/{{id}}/bmi/{{dateval}}" ><div id="canvas-holder">
+					 <div id="canvas-holder">
 						<canvas id="chart-area" width="500" height="500"/>
-					</div></a>
+					</div>
 			
 			</div>
 		</div><ul class="list-inline text-center row row-line x2oList">
