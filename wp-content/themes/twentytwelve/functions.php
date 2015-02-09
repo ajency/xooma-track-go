@@ -94,7 +94,18 @@ require( get_template_directory() . '/inc/custom-function.php' );
 
 #load all the classes
 require_once (get_template_directory().'/vendor/autoload.php');
+
+
+
 require_once (get_template_directory().'/parse-php-sdk/autoload.php');
+
+use Parse\ParseClient;
+ 
+ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
+
+
+use Parse\ParseCloud;
+
 require_once (get_template_directory().'/vendor/vlucas/valitron/src/Valitron/Validator.php');
 require_once (get_template_directory().'/classes/product.class.php');
 require_once (get_template_directory().'/classes/productList.class.php');
@@ -109,12 +120,7 @@ require_once (get_template_directory().'/api/class.product.api.php');
 require_once (get_template_directory().'/api/class.user.api.php');
 #load all the apis
 //parse
-use Parse\ParseClient;
- 
-ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
 
-
-use Parse\ParseCloud;
 
 
 
