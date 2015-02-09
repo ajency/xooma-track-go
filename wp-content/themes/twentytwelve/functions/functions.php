@@ -1925,13 +1925,7 @@ function cron_job_reminders($args)
 	
 	// function call
 	// // //parse
-		use Parse\ParseClient;
-		 
-		ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
-
-
-		use Parse\ParseCloud;
-
+		
 		
 		$result = ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
