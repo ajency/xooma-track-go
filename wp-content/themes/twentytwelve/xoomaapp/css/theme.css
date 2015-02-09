@@ -7290,6 +7290,7 @@ packet_expected_class {
   left: 0%;
   right: 0%;
   width: 150px;
+  z-index: 9;
 }
 @media (max-width: 768px) {
   .fill-bottle {
@@ -7532,6 +7533,7 @@ packet_expected_class {
   z-index: 1000;
 }
 .topheader .navbar {
+  margin-bottom: 0px;
   padding: 8px;
 }
 @media (max-width: 768px) {
