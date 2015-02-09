@@ -158,15 +158,11 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 								model : App.currentUser
 
 	_get_measurement_details:->
-		if not App.currentUser.has 'measurements'
-			$.ajax
-				method : 'GET'
-				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
-				success: @successHandler
-		else
-			deferred = Marionette.Deferred()
-			deferred.resolve(true)
-			deferred.promise()
+		$.ajax
+			method : 'GET'
+			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+			success: @successHandler
+		
 
 	errorHandler : (error)->
 		@region =  new Marionette.Region el : '#nofound-template'

@@ -200,18 +200,11 @@ App.UserMeasurementCtrl = (function(_super) {
   };
 
   UserMeasurementCtrl.prototype._get_measurement_details = function() {
-    var deferred;
-    if (!App.currentUser.has('measurements')) {
-      return $.ajax({
-        method: 'GET',
-        url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
-        success: this.successHandler
-      });
-    } else {
-      deferred = Marionette.Deferred();
-      deferred.resolve(true);
-      return deferred.promise();
-    }
+    return $.ajax({
+      method: 'GET',
+      url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+      success: this.successHandler
+    });
   };
 
   UserMeasurementCtrl.prototype.errorHandler = function(error) {
