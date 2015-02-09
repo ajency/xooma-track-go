@@ -1202,8 +1202,8 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 		 <input type="hidden" name="date" id="date" value="" / >
 	   <div class="row m-t-20">
-	   		<div class="col-sm-5 col-xs-4"> <div class="loadingconusme"></div></div>
-			<div class="col-sm-2 col-xs-4">
+	   		<div class="col-sm-5 col-xs-4"> </div>
+			<div class="col-sm-2 col-xs-4"><div class="loadingconusme pull-left m-t-10" ></div>
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  center-block" > Confirm </button>
