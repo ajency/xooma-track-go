@@ -319,7 +319,8 @@ class HomeX2OView extends Marionette.ItemView
 		recent = '--'
 		data.time = recent
 		data.bonus = 0
-		consumed = 0		
+		consumed = 0	
+		qtyarr = []	
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
@@ -327,18 +328,23 @@ class HomeX2OView extends Marionette.ItemView
 				date = val.occurrence
 				occurrenceArr.push date
 				consumed++
+				console.log val.meta_value
+				qtyconsumed = HomeX2OView::getCount(val.meta_value)
+				qtyarr.push qtyconsumed[0]
+
 
 			if occurrence == true && expected == false
 				bonusArr++
 			
-			if occurrenceArr.length != 0 
-				recent = _.last occurrenceArr
-				d = new Date(recent)
-				timestamp = d.getTime()
-				data.time = moment(timestamp).zone(timezone).format("ddd, hA")
+		if occurrenceArr.length != 0 
+			recent = _.last occurrenceArr
+			d = new Date(recent)
+			timestamp = d.getTime()
+			data.time = moment(timestamp).zone(timezone).format("ddd, hA")
 			data.bonus = bonusArr
 			data.occurr = occurrenceArr.length
-		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(@model.get('qty').length)) * 100
+		howmuchqty = _.last qtyarr
+		console.log howmuch = parseFloat(howmuchqty) * 100
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
