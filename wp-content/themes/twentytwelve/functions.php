@@ -115,19 +115,7 @@ ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKj
 
 
 use Parse\ParseCloud;
-$usersToBeNotified = array();
-$usersToBeNotified[0] = array(
 
-						'ID' => 212 ,
-						'message' => 'hello!!!!!',
-						'product' => 'Berry Balance'
-					);
-$usersToBeNotified[1] = array(
-
-						'ID' => 213 ,
-						'message' => 'hello!!!!!',
-						'product' =>'X2O'
-					);
 
 
 
