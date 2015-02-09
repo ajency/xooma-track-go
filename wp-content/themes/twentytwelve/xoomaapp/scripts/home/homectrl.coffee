@@ -69,7 +69,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			@ui.end_date.val today
 
 		'click #showHome':(e)->
-			$('.loading').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
+			$('.loading').html 'Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">'
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 
 	_showView:(collection)=>
@@ -100,7 +100,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		region.show listview1	
 
 	onFormSubmit: (_formData)=>
-		$('.loadinggraph').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
+		$('.loadinggraph').html 'Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">'
 			
 		$.ajax
 			method : 'GET'
@@ -793,7 +793,7 @@ class ProductChildView extends Marionette.ItemView
 		timezone = n
 		if App.currentUser.get('timezone') != null
 			timezone = App.currentUser.get 'timezone'
-		d = new Date(val.occurrence)
+		d = new Date(val.meta_value.date)
 		timestamp = d.getTime()
 		time = moment(timestamp).zone(timezone).format("h:mm A")
 			

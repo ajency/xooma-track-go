@@ -31,7 +31,7 @@ AsperbmiView = (function(_super) {
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
       var date, meta_id, product, qty, time;
-      $('.loadingconusme').html('<li><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>');
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;

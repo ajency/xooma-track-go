@@ -955,6 +955,7 @@ function get_occurrence_date($product_id,$user_id,$date){
 			{
 				$start_datetime = date('Y-m-d 00:00:00');
 				$end_datetime = date('Y-m-d 23:59:59');
+				// $end_datetime = date('Y-m-d H:i:s',strtotime($enddatetime . "+1 days"));
 			}
 			else
 			{
@@ -962,9 +963,10 @@ function get_occurrence_date($product_id,$user_id,$date){
 
 		
 				$start_datetime = date("Y-m-d 00:00:00", strtotime($date));
-				$end_datetime = date("Y-m-d 23:59:59", strtotime($date));
+				$end_datetime = date('Y-m-d 23:59:59', strtotime($date));
+				// $end_datetime = date('Y-m-d H:i:s',strtotime($enddatetime . "+1 days"));
 			}
-
+			
 			$occurrences = \ajency\ScheduleReminder\Occurrence::
 			get_occurrences($schedule, $start_datetime, $end_datetime); 
 			
@@ -1419,7 +1421,7 @@ function store_consumption_details($args){
 		$user_details = get_user_meta($id,'user_details',true);
 
 		$details = maybe_unserialize($user_details);
-		$today = date("Y-m-d", strtotime($args['date']));
+		$today = $args['date'];
 		$time = date("H:i:s", strtotime($args['time']));
         $start = date("$today $time");
 		
@@ -1438,7 +1440,7 @@ function store_consumption_details($args){
 		
 		$occurrence_data = array(
 						'schedule_id' =>  $schedule,
-						'occurrence' => $today_date,
+						'occurrence' => $start,
 						'meta_value' => $args['meta_value'],
 						'meta_id'     => $args['meta_id']
 					);
@@ -1447,7 +1449,7 @@ function store_consumption_details($args){
 				{
 					$occurrences = \ajency\ScheduleReminder\Occurrence::
 					_insert_occurrence($occurrence_data); 
-					
+
 					update_consumption($object_id,$args['qty']);
 
 					$meta_id = $occurrences;

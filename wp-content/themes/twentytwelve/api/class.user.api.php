@@ -592,9 +592,8 @@ class User_API
         $user_details = get_user_meta($id,'user_details',true);
 
         $details = maybe_unserialize($user_details);
-        $todayy = date("Y-m-d", strtotime($date));
         $timee = date("H:i:s", strtotime($time));
-        $start = date("$todayy $timee");
+        $start = date("$date $timee");
         
                         
         $UTC = new DateTimeZone("UTC");
@@ -624,7 +623,7 @@ class User_API
             );
 
 
-
+        
 
         $response = store_consumption_details($args);
 

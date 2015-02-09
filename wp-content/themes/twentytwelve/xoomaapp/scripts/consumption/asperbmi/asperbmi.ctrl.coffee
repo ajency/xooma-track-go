@@ -13,7 +13,7 @@ class AsperbmiView extends Marionette.ItemView
 
 	events:
 		'click #confirm':(e)->
-			$('.loadingconusme').html '<li><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px"></li>'
+			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 				
 			e.preventDefault()
 			meta_id = @$el.find('#meta_id').val()
