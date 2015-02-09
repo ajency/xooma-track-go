@@ -325,6 +325,7 @@ HomeX2OView = (function(_super) {
     data.bonus = 0;
     consumed = 0;
     qtyarr = [];
+    qtyarr.push(0);
     $.each(this.model.get('occurrence'), function(ind, val) {
       var date, expected, occurrence, qtyconsumed;
       occurrence = _.has(val, "occurrence");

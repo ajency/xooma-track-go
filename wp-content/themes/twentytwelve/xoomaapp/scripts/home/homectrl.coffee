@@ -321,6 +321,7 @@ class HomeX2OView extends Marionette.ItemView
 		data.bonus = 0
 		consumed = 0	
 		qtyarr = []	
+		qtyarr.push 0
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
