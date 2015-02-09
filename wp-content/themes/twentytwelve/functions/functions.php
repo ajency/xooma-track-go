@@ -647,7 +647,7 @@ function update_schedule_product_details($id,$pid,$data){
 					$date = date("Y-m-d $today ");
 					
 					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timeone']);
+					$newTZ = new DateTimeZone($details['timezone']);
 					$date = new DateTime( $date);
 					$todaydate = $date->setTimezone( $newTZ );
 					$t  = $todaydate->format('Y-m-d H:i:s');
