@@ -1,4 +1,4 @@
-.btn {
+.btn , .tap{
     border-radius: 2px;
     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.2s;
@@ -27,3 +27,38 @@
     }
     
 }
+
+
+.circle {
+
+ border:1px solid #ccc;
+}
+
+@keyframes a1 {
+  0%   {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(2);
+    opacity: .0;
+  }
+}
+
+.circle {
+  animation: a1 1.5s infinite; /* IE 10+ */
+}
+
+
+
+@keyframes a2 {
+  0%   {
+    color: white;
+  }
+  50% { 
+    color: tomato;
+  }
+}
+
+
+
