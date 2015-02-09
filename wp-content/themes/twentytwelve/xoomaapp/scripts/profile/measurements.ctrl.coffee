@@ -47,8 +47,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			
 
 		App.trigger 'cordova:hide:splash:screen'
-		meaurement_date = App.currentUser.get('measurements').date
-		$('#update').val moment(meaurement_date).format('YYYY-MM-DD')
+		if App.currentUser.has 'measurements'
+			meaurement_date = App.currentUser.get('measurements').date
+			$('#update').val moment(meaurement_date).format('YYYY-MM-DD')
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 		    dateFormat : 'yy-mm-dd'
