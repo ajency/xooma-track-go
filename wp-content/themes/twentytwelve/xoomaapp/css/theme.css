@@ -7491,6 +7491,12 @@ packet_expected_class {
   font-size: 3.5em !important;
   font-weight: 100;
 }
+@media (max-width: 768px) {
+  .blur-background output {
+    font-size: 2.5em !important;
+    line-height: 1.7em !important;
+  }
+}
 .blur-background .rangeslider,
 .blur-background .rangeslider__fill {
   height: 5px;
