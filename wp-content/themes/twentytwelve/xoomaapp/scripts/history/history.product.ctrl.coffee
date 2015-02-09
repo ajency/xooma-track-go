@@ -120,8 +120,11 @@ class ViewProductHistoryView extends Marionette.ItemView
 			if index.get('meta_value').length != 0 && response.name.toUpperCase() != 'X2O'
 				meta_value = index.get('meta_value')
 				meta_id = index.get('meta_value')
-				time = moment(meta_value.date+timezone, "HH:mm Z").format("hA")
-				fromnow = moment(meta_value.date+timezone).fromNow()
+				d = new Date(meta_value.date)
+				timestamp = d.getTime()
+				time = moment(timestamp).zone(timezone).format("h:ss A")
+				fromnow = moment(timestamp).zone(timezone).fromNow()
+				
 				qty = meta_value.qty
 				arr++
 				html += '<li class="work'+meta_id+'"><div class="relative">
@@ -134,8 +137,10 @@ class ViewProductHistoryView extends Marionette.ItemView
 				data = ViewProductHistoryView::getCount(index.get('meta_value'))
 				$.each data , (ind,val)->
 					i++
-					time = moment(val.date+timezone, "HH:mm Z").format("hA")
-					fromnow = moment(val.date+timezone).fromNow()
+					d = new Date(val.date)
+					timestamp = d.getTime()
+					time = moment(timestamp).zone(timezone).format("h:ss A")
+					fromnow = moment(timestamp).zone(timezone).fromNow()
 					qty = val.qty
 					meta_id = parseInt(index.get('meta_id')) + parseInt(i) 
 					arr++

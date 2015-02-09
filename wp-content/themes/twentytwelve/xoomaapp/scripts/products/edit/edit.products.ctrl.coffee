@@ -443,7 +443,11 @@ class EditProductsView extends Marionette.ItemView
 		reminders = model.get 'reminders'
 		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
-		time  = moment(reminders[0].time+timezone, "HH:mm Z").format("h:ss A")
+		d = new Date(reminders[0].time)
+		timestamp = d.getTime()
+		time = moment(timestamp).zone(timezone).format("h:ss A")
+				
+		
 		if parseInt(@model.get('reminder_flag')) != 0
 			$('#reminder_time0').val time
 		if @model.get('time_set') == 'Once' 
@@ -452,7 +456,9 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('.qty1 option[value="'+qty[1].qty+'"]').prop("selected",true)
 			$('.when1 option[value="'+qty[1].when+'"]').prop("selected",true)
-			time  = moment(reminders[1].time+timezone, "HH:mm Z").format("h:ss A")
+			d = new Date(reminders[1].time)
+			timestamp = d.getTime()
+			time = moment(timestamp).zone(timezone).format("h:ss A")
 			if parseInt(@model.get('reminder_flag')) != 0
 				$('#reminder_time1').val time
 			
@@ -492,7 +498,9 @@ class EditProductsView extends Marionette.ItemView
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		if parseInt(@model.get('reminder_flag')) != 0
 			$.each reminders , (ind,val)->
-				time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+				d = new Date(val.time)
+				timestamp = d.getTime()
+				time = moment(timestamp).zone(timezone).format("h:ss A")
 				$('#reminder_time'+ind).val time
 		
 			

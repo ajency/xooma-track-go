@@ -302,7 +302,8 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 														<label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
 														<div class="col-sm-9 col-xs-8">
 																<select class="form-control" name="profile[timezone]" id="timezone]">
-																		<option value="Eastern Time Zone (UTC-05:00)">Eastern Time Zone (UTC-05:00)</option>
+																		<option value="Asia/Kolkata">Asia/Kolkata</option>
+																		<option value="EST">Eastern Time Zone (UTC-05:00)</option>
 																		<option value="Central Time Zone (UTC-06:00)">Central Time Zone (UTC-06:00)</option>
 																		<option value="Mountain Time Zone (UTC-07:00)">Mountain Time Zone (UTC-07:00)</option>
 																		<option value="UTC-08:00">Pacific Time Zone (UTC-08:00)</option>

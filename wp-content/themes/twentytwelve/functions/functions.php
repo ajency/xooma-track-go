@@ -184,16 +184,25 @@ function update_anytime_product_details($id,$pid,$data){
 						//savings reminders
 					$user_details = get_user_meta($id,'user_details',true);
 
-					$today = date("H:i:s", strtotime( $data['reminder_time'.$i]));
+					$details = maybe_unserialize($user_details);
+					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$date = date("Y-m-d $today ");
 					
-					
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $date);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
 					
 					$meta_id = $wpdb->insert(
 									$product_meta_table,
 									array(
 										'main_id'                     => $main_id,
 										'key'                         => 'reminders',
-										'value'                       => serialize(array('time' => $today))
+										'value'                       => serialize(array('time' => $today_date))
 									),
 									array(
 										'%d',
@@ -332,15 +341,30 @@ function update_anytime_product_details($id,$pid,$data){
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
-					date_default_timezone_set("UTC");
-					$today = date("H:i:s", strtotime( $data['reminder_time'.$i]));
+
+
+					$user_details = get_user_meta($id,'user_details',true);
+
+					$details = maybe_unserialize($user_details);
 					
+					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$date = date("Y-m-d $today ");
+					
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $date);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
 					 $meta_id = $wpdb->insert(
 									$product_meta_table,
 									array(
 										'main_id'                     => $main_id,
 										'key'                         => 'reminders',
-										'value'                       => serialize(array('time' => $today))
+										'value'                       => serialize(array('time' => $today_date))
 									),
 									array(
 										'%d',
@@ -466,15 +490,28 @@ function update_schedule_product_details($id,$pid,$data){
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
-					date_default_timezone_set("UTC");
-					$today = date("H:i:s", strtotime( $data['reminder_time'.$i]));
+					$user_details = get_user_meta($id,'user_details',true);
+
+					$details = maybe_unserialize($user_details);
 					
+					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$date = date("Y-m-d $today ");
+					
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $date);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
 					 $meta_id = $wpdb->insert(
 									$product_meta_table,
 									array(
 										'main_id'                     => $main_id,
 										'key'                         => 'reminders',
-										'value'                       => serialize(array('time' => $today))
+										'value'                       => serialize(array('time' => $today_date))
 									),
 									array(
 										'%d',
@@ -602,15 +639,28 @@ function update_schedule_product_details($id,$pid,$data){
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
-					date_default_timezone_set("UTC");
-					$today = date("H:i:s", strtotime( $data['reminder_time'.$i]));
+					$user_details = get_user_meta($id,'user_details',true);
+
+					$details = maybe_unserialize($user_details);
 					
+					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$date = date("Y-m-d $today ");
+					
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timeone']);
+					$date = new DateTime( $date);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
 					 $meta_id = $wpdb->insert(
 									$product_meta_table,
 									array(
 										'main_id'                     => $main_id,
 										'key'                         => 'reminders',
-										'value'                       => serialize(array('time' => $today))
+										'value'                       => serialize(array('time' => $today_date))
 									),
 									array(
 										'%d',
@@ -969,14 +1019,37 @@ function update_status($id){
 
 function store_reminders($main_id,$servings,$reminder){
 
-						date_default_timezone_set("UTC");
-						$interval = 24/intval($servings);
-						$today = date("H:i:s", strtotime($reminder));
-						$start = date("Y-m-d $today ");
-						$schedule_data = array(
+					global $wpdb;
+
+					$table = $wpdb->prefix . "product_main";
+
+					$user = $wpdb->get_row("SELECT * from $table where id=".$main_id);
+
+
+					$user_details = get_user_meta($user->user_id,'user_details',true);
+
+					
+
+					$details = maybe_unserialize($user_details);
+					
+
+					$today = date("H:i:s", strtotime($reminder));
+					$start = date("Y-m-d $today ");
+						
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $start);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
+					$interval = 24/intval($servings);
+					$schedule_data = array(
 								'object_type' => 'user_product_reminder',
 								'object_id' => $main_id,
-								'start_dt'  => $start,
+								'start_dt'  => $today_date,
 								'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
 						);
 						
@@ -1341,17 +1414,31 @@ function store_consumption_details($args){
 			$schedule = \ajency\ScheduleReminder\Schedule::get_schedule_id('user_product', $object_id);
 
 		}
-		date_default_timezone_set("UTC");
+		$id = $args['id'];
 
-		
+		$user_details = get_user_meta($id,'user_details',true);
+
+		$details = maybe_unserialize($user_details);
 		$today = date("Y-m-d", strtotime($args['date']));
 		$time = date("H:i:s", strtotime($args['time']));
         $start = date("$today $time");
 		
+						
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $start);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
+		
+		
 		
 		$occurrence_data = array(
 						'schedule_id' =>  $schedule,
-						'occurrence' => $start,
+						'occurrence' => $today_date,
 						'meta_value' => $args['meta_value'],
 						'meta_id'     => $args['meta_id']
 					);
@@ -1914,3 +2001,26 @@ function send_message($user_id,$product_id,$type,$time=0)
 }
 
 
+function send_stock_reminders()
+{
+
+	global $wpdb;
+
+	
+	$table = $wpdb->prefix . "product_main";
+
+	$defualts = $wpdb->prefix . "defualts";
+
+	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
+
+	foreach ($results as $key => $value) {
+		//available count of the user//
+		$available = get_stock_count_user($value->user_id,$value->product_id);
+
+		//settings value
+		$settings = $wpdb->get_results("SELECT * from $defaults where type='settings'");
+
+		
+	}
+
+}
