@@ -91,7 +91,7 @@ HomeLayoutView = (function(_super) {
       return this.ui.end_date.val(today);
     },
     'click #showHome': function(e) {
-      $('.loading').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
+      $('.loading').html('Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">');
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     }
   };
@@ -129,7 +129,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onFormSubmit = function(_formData) {
-    $('.loadinggraph').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
+    $('.loadinggraph').html('Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">');
     return $.ajax({
       method: 'GET',
       data: _formData,
@@ -824,7 +824,7 @@ ProductChildView = (function(_super) {
     if (App.currentUser.get('timezone') !== null) {
       timezone = App.currentUser.get('timezone');
     }
-    d = new Date(val.occurrence);
+    d = new Date(val.meta_value.date);
     timestamp = d.getTime();
     time = moment(timestamp).zone(timezone).format("h:mm A");
     product_type = model.get('product_type');
