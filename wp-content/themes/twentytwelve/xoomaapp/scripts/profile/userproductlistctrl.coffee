@@ -16,7 +16,7 @@ class ProductChildView extends Marionette.ItemView
 
 	template  : '
           <div class="panel-body ">
-            <h5 class=" mid-title "> {{name}}
+            <h5 class=" mid-title margin-none"><div> {{name}}</div>
               <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
@@ -27,8 +27,8 @@ class ProductChildView extends Marionette.ItemView
                       </ul>
               </h5>
                       <ul class="list-inline   ">
-                      	 <li class="col-md-7 col-xs-7 dotted-line">
-                      	 	<ul class="list-inline no-dotted ">
+                      	 <li class="col-md-7 col-xs-6 dotted-line">
+                      	 	<ul class="list-inline no-dotted responsive">
                         
                         	
                         	{{#servings}}
@@ -44,9 +44,9 @@ class ProductChildView extends Marionette.ItemView
                         <li class="col-md-1 col-xs-1 hidden-xs">
                     <h4>    <i class="fa fa-random text-muted"></i></h4>
                         </li>
-                        <li class="col-md-4  col-xs-5 ">
+                        <li class="col-md-4  col-xs-6 ">
                         	<div class="row">
-                        		<div class="col-sm-3"> <h2 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h2></div>
+                        		<div class="col-sm-3"> <h3 class="margin-none bold {{newClass}} {{hidden}} avail">{{servingsleft}}</h3></div>
                         		<div class="col-sm-9"> <small> <span class="servings_text center-block">{{servings_text}}</span>
                           <i class="fa fa-frown-o {{frown}}"></i>
                          <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div>
@@ -120,6 +120,34 @@ class ProductChildView extends Marionette.ItemView
 			@ui.update.removeClass 'hidden'
 			@ui.remove.removeClass 'hidden'
 
+		$('.responsive').slick(
+				dots: false,
+				infinite: false,
+				speed: 300,
+				slidesToShow: 4,
+				slidesToScroll: 4,
+				responsive:
+					breakpoint: 1024,
+					settings: 
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						dots: false
+					breakpoint: 600,
+					settings: 
+						slidesToShow: 2,
+						slidesToScroll: 2
+					breakpoint: 480,
+					settings: 
+						slidesToShow: 1,
+						slidesToScroll: 1
+
+
+
+				
+			);
+
+
 	serializeData:->
 		data = super()
 		qty = @model.get 'qty'
@@ -147,9 +175,10 @@ class ProductChildView extends Marionette.ItemView
 			servings.push classname : newClass , qty : value.qty
 
 		$.each reminder , (ind,val)->
-
-			time  = moment(val.time+timezone, "HH:mm:ss Z").format("h:ss A")
-		
+			d = new Date(val.time)
+			timestamp = d.getTime()
+			time = moment(timestamp).zone(timezone).format("h:mm A")
+			
 			reminderArr.push time
 
 		remind  = reminderArr.join(',')
@@ -190,6 +219,7 @@ class EmptyView extends Marionette.ItemView
 
 
 	onShow:->
+		$('.save_products').hide()
 		$('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added")
 		$('html, body').animate({
 						scrollTop: 0

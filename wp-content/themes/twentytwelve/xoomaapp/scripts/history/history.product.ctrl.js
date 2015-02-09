@@ -16,6 +16,7 @@ ViewProductHistoryView = (function(_super) {
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
     this.loadData = __bind(this.loadData, this);
+    this.showView = __bind(this.showView, this);
     return ViewProductHistoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -34,7 +35,8 @@ ViewProductHistoryView = (function(_super) {
     'click .consume': function(e) {
       var date, model, product;
       e.preventDefault();
-      console.log(product = Marionette.getOption(this, 'id'));
+      product = Marionette.getOption(this, 'id');
+      product = Marionette.getOption(this, 'id');
       date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
       if ($('#picker_inline_fixed').val() === "") {
         date = moment().format("YYYY-MM-DD");
@@ -51,8 +53,37 @@ ViewProductHistoryView = (function(_super) {
   };
 
   ViewProductHistoryView.prototype.onShow = function() {
-    var product;
+    var model, product;
     product = Marionette.getOption(this, 'id');
+    model = App.useProductColl.findWhere({
+      id: parseInt(product)
+    });
+    if (model === void 0) {
+      return App.currentUser.getUserProducts().done(this.showView).fail(this.errorHandler);
+    } else {
+      return this.loadView();
+    }
+  };
+
+  ViewProductHistoryView.prototype.showView = function(collection) {
+    return this.loadView();
+  };
+
+  ViewProductHistoryView.prototype.loadView = function() {
+    var date, model, product;
+    product = Marionette.getOption(this, 'id');
+    date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD");
+    if ($('#picker_inline_fixed').val() === "") {
+      date = moment().format("YYYY-MM-DD");
+    }
+    model = App.useProductColl.findWhere({
+      id: parseInt(product)
+    });
+    if (model.get('name').toUpperCase() === 'X2O') {
+      $('.consume').attr('href', "#products/" + product + '/bmi/' + date);
+    } else {
+      $('.consume').attr('href', "#products/" + product + '/consume/' + date);
+    }
     this.loadData(product);
     return $('#picker_inline_fixed').datepicker({
       inline: true,
@@ -113,12 +144,15 @@ ViewProductHistoryView = (function(_super) {
       timezone = App.currentUser.get('timezone');
     }
     coll.each(function(index) {
-      var data, fromnow, i, meta_id, meta_value, qty, time;
+      var data, fromnow, i, meta_id, meta_value, qty, time, time1, timestamp;
       if (index.get('meta_value').length !== 0 && response.name.toUpperCase() !== 'X2O') {
         meta_value = index.get('meta_value');
         meta_id = index.get('meta_value');
-        time = moment(meta_value.date + timezone, "HH:mm Z").format("hA");
-        fromnow = moment(meta_value.date + timezone).fromNow();
+        d = new Date(meta_value.date);
+        timestamp = d.getTime();
+        time = moment(timestamp).zone(timezone).format("h:mm A");
+        time1 = moment(timestamp).zone(timezone).format("x");
+        fromnow = moment(time1).fromNow();
         qty = meta_value.qty;
         arr++;
         return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
@@ -127,8 +161,11 @@ ViewProductHistoryView = (function(_super) {
         data = ViewProductHistoryView.prototype.getCount(index.get('meta_value'));
         return $.each(data, function(ind, val) {
           i++;
-          time = moment(val.date + timezone, "HH:mm Z").format("hA");
-          fromnow = moment(val.date + timezone).fromNow();
+          d = new Date(val.date);
+          timestamp = d.getTime();
+          time = moment(timestamp).zone(timezone).format("h:mm A");
+          time1 = moment(timestamp).zone(timezone).format("x");
+          fromnow = moment(time1).fromNow();
           qty = val.qty;
           meta_id = parseInt(index.get('meta_id')) + parseInt(i);
           arr++;

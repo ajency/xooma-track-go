@@ -52,6 +52,11 @@ class EditProductsView extends Marionette.ItemView
 
 		'click .save':(e)->
 			e.preventDefault()
+			product = parseInt @model.get('id')
+			products = App.currentUser.get 'products'
+			if $.inArray( product, products ) > -1
+				@saveData(@model)
+				return
 			check = @checkreminder()
 			if check == false
 				window.removeMsg()
@@ -73,11 +78,13 @@ class EditProductsView extends Marionette.ItemView
 					success : @successSave
 					error : @errorSave
 			else
-				window.removeMsg()
-				@ui.responseMessage.addClass('alert alert-danger').text("Value entered for adjustments should be less than the available size!")
-				$('html, body').animate({
-							scrollTop: 0
-							}, 'slow')
+
+			
+					window.removeMsg()
+					@ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!")
+					$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
 
 
 		
@@ -160,6 +167,25 @@ class EditProductsView extends Marionette.ItemView
 			cnt = parseInt($(e.target).val()) * parseInt(@model.get('total'))
 			$('#available').val cnt
 			$('.available').text cnt
+
+	saveData:(model)->
+		check = @checkreminder()
+		if check == false
+			window.removeMsg()
+			@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
+			$('html, body').animate({
+						scrollTop: 0
+						}, 'slow')
+			return 
+		
+		data = @ui.form.serialize()
+		product = model.get('id')
+		$.ajax
+			method : 'POST'
+			url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+			data : data
+			success : @successSave
+			error : @errorSave
 
 	checkreminder:->
 		servings = $('.servings_per_day').val()
@@ -321,6 +347,7 @@ class EditProductsView extends Marionette.ItemView
 			interval: 15
 
 			)
+		
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
@@ -417,7 +444,11 @@ class EditProductsView extends Marionette.ItemView
 		reminders = model.get 'reminders'
 		$('.qty0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		$('.when0 option[value="'+qty[0].when+'"]').prop("selected",true)
-		time  = moment(reminders[0].time+timezone, "HH:mm Z").format("h:ss A")
+		d = new Date(reminders[0].time)
+		timestamp = d.getTime()
+		time = moment(timestamp).zone(timezone).format("h:mm A")
+				
+		
 		if parseInt(@model.get('reminder_flag')) != 0
 			$('#reminder_time0').val time
 		if @model.get('time_set') == 'Once' 
@@ -426,7 +457,9 @@ class EditProductsView extends Marionette.ItemView
 		else
 			$('.qty1 option[value="'+qty[1].qty+'"]').prop("selected",true)
 			$('.when1 option[value="'+qty[1].when+'"]').prop("selected",true)
-			time  = moment(reminders[1].time+timezone, "HH:mm Z").format("h:ss A")
+			d = new Date(reminders[1].time)
+			timestamp = d.getTime()
+			time = moment(timestamp).zone(timezone).format("h:mm A")
 			if parseInt(@model.get('reminder_flag')) != 0
 				$('#reminder_time1').val time
 			
@@ -466,7 +499,9 @@ class EditProductsView extends Marionette.ItemView
 			$('#qty_per_servings0 option[value="'+qty[0].qty+'"]').prop("selected",true)
 		if parseInt(@model.get('reminder_flag')) != 0
 			$.each reminders , (ind,val)->
-				time  = moment(val.time+timezone, "HH:mm Z").format("h:ss A")
+				d = new Date(val.time)
+				timestamp = d.getTime()
+				time = moment(timestamp).zone(timezone).format("h:mm A")
 				$('#reminder_time'+ind).val time
 		
 			

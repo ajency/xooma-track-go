@@ -80,14 +80,14 @@ ScheduleView = (function(_super) {
     },
     'click .intake': function(e) {
       var data, date, meta_id, product, qty, t, time;
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = $('#meta_id').val();
       qty = this.ui.qty.val();
       data = $('#schduleid').val();
       product = this.model.get('id');
-      date = $('#date').val();
+      date = App.currentUser.get('homeDate');
       t = $('#consume_time').val();
-      date = moment().format('YYYY-MM-DD');
       time = moment(t, "HH:mm a").format("HH:mm:ss");
       if (t === "") {
         time = moment().format("HH:mm:ss");
@@ -103,13 +103,13 @@ ScheduleView = (function(_super) {
     'click #skip': function(e) {
       var data, date, meta_id, product, qty, t, time;
       e.preventDefault();
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       meta_id = $('#meta_id').val();
       qty = 0;
       data = $('#schduleid').val();
       product = this.model.get('id');
-      date = $('#date').val();
+      date = App.currentUser.get('homeDate');
       t = $('#consume_time').val();
-      date = moment().format('YYYY-MM-DD');
       time = moment(t, "HH:mm a").format("HH:mm:ss");
       if (t === "") {
         time = moment().format("HH:mm:ss");
@@ -232,18 +232,19 @@ App.ScheduleCtrl = (function(_super) {
   __extends(ScheduleCtrl, _super);
 
   function ScheduleCtrl() {
-    this.successHandler = __bind(this.successHandler, this);
+    this.showView = __bind(this.showView, this);
     return ScheduleCtrl.__super__.constructor.apply(this, arguments);
   }
 
   ScheduleCtrl.prototype.initialize = function(options) {
-    var date, product, productId, productModel, products, productsColl;
+    var date, locationurl, product, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
-    console.log(productId = this.getParams());
-    product = 3;
-    date = '2015-02-04';
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
@@ -252,13 +253,23 @@ App.ScheduleCtrl = (function(_super) {
     productModel = productsColl.where({
       id: parseInt(product)
     });
-    return this._showView(productModel[0], date);
+    if (productModel.length === 0) {
+      return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
+    } else {
+      return this._showView(productModel[0], date);
+    }
   };
 
-  ScheduleCtrl.prototype.successHandler = function(response, status, xhr) {
-    var model;
-    model = new Backbone.Model(response);
-    return this._showView(model);
+  ScheduleCtrl.prototype.showView = function(Collection) {
+    var date, locationurl, product, productModel, url;
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
+    productModel = App.useProductColl.where({
+      id: parseInt(product)
+    });
+    return this._showView(productModel[0], date);
   };
 
   ScheduleCtrl.prototype._showView = function(productModel, date) {

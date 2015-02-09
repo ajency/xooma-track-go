@@ -25,50 +25,29 @@
 			<div class="col-sm-3">
 			</div>
 					<div class="col-sm-6">
-							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-									<br>
-									<br>
+	
 <br>
-									<ol class="carousel-indicators">
-										<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-										<li data-target="#carousel-example-generic" data-slide-to="4"></li>
-									</ol>
-									<div class="carousel-inner" role="listbox">
-										<div class="item active">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive">
-											<div class="carousel-caption text-center">
-													<h5>Easy and intuitive way to keep track of your Xooma products intake.</h5>
-													
-											</div>
-										</div>
-											<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  >
-											<div class="carousel-caption text-center">
-													<h5>App offers timely notification and email reminders making sure you never miss a dose!</h5>
-											</div>
-										</div>
-										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" >
-											<div class="carousel-caption text-center">
-													<h5>Measure your fitness with Progress chart</h5>
-											</div>
-										</div>
-										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" >
-											<div class="carousel-caption text-center "  >
-													<h5>Know when your stock is running out and order in time</h5>
-											</div>
-										</div>
-										<div class="item ">
-											<img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  >
-											<div class="carousel-caption text-center"  >
-													<h5>One screen where download to app link (ios and android ) available</h5>
-											</div>
-										</div>
-									</div>
+
+<div class="slider single-item">
+                    <div><h3><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
+                        <h5 class="text-center">Easy and intuitive way to keep track of your <br>Xooma products intake.</h5>
+                    </div>
+                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
+                    <h5 class="text-center">App offers timely notification and email reminders<br> making sure you never miss a dose!</h5>
+                    </div>
+                    <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" ></h3>
+                    <h5 class="text-center">Measure your fitness with Progress chart</h5>
+                    </div>
+                    <div><h3>  <img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
+                    <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
+                    </div>
+                    <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
+ <h5 class="text-center">One screen where download to app link <br>(ios and android ) available</h5>
+                    </div>
+                   
+                </div>
+
+
 
 							</div>
 <div class="col-sm-3">
@@ -76,6 +55,7 @@
 							<!-- Login Button  -->
 					</div>
 			</div>
+			<br>
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
 	</div>
 </script>
@@ -135,18 +115,18 @@
 		</div>
 </script>
 <script id="profile-template" type="text/template">
-		<div class="sub-header">
+		<div class="sub-header home-sub-header">
 				<div class="container">
 						<div class="row">
 								<div class="col-sm-12">
 										<ul class="list-inline">
-												<li class="tag"><a id="profile" href="#/profile/personal-info"><i class="fa fa-user"></i>
+												<li class="tag"><a id="profile" href="#/profile/personal-info"><img src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
 														<span class="hidden-xs"> PERSONAL INFO</span></a>
 												</li>
-												<li class="tag"><a id="measurement" href="#/profile/measurements"><i class="fa fa-pencil-square-o"></i>
+												<li class="tag"><a id="measurement" href="#/profile/measurements"><img src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
 														<span class="hidden-xs">MEASUREMENT</span></a>
 												</li>
-												<li class="tag"><a id="product" href="#/profile/my-products"><i class="fa fa-list"></i>
+												<li class="tag"><a id="product" href="#/profile/my-products"><img src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
 
 														<span class="hidden-xs">MY PRODUCTS</span></a>
 
@@ -186,7 +166,7 @@
   </div>
 
 
-  <div class="form-group">
+  <div class="form-group notificationclass">
 	<label class="col-sm-8 col-xs-8  control-label">Notifications</label>
 	<div class="col-sm-4 col-xs-4 ">
 	 <div class="switch">
@@ -256,7 +236,7 @@
 </script>
 <script id="profile-personal-info-template" type="text/template">
 
-		<div id="personalinfo" class="section">
+		<div id="personalinfo" class="section-list">
 
 				<div class="container">
 
@@ -322,13 +302,14 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 												<div class="form-group">
 														<label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
 														<div class="col-sm-9 col-xs-8">
-																<select class="form-control" name="profile[timezone]">
-																		<option value="UTC-05:00">Eastern Time Zone (UTC-05:00)</option>
-																		<option value="UTC-06:00">Central Time Zone (UTC-06:00)</option>
-																		<option value="UTC-07:00">Mountain Time Zone (UTC-07:00)</option>
+																<select class="form-control" name="profile[timezone]" id="timezone]">
+																		<option value="Asia/Kolkata">Asia/Kolkata</option>
+																		<option value="EST">Eastern Time Zone (UTC-05:00)</option>
+																		<option value="Central Time Zone (UTC-06:00)">Central Time Zone (UTC-06:00)</option>
+																		<option value="Mountain Time Zone (UTC-07:00)">Mountain Time Zone (UTC-07:00)</option>
 																		<option value="UTC-08:00">Pacific Time Zone (UTC-08:00)</option>
-																		<option value="UTC-09:00">Alaska Time Zone (UTC-09:00)</option>
-																		<option value="UTC-10:00">Hawaii-Aleutian Time Zone (UTC-10:00)</option>
+																		<option value="Pacific Time Zone (UTC-08:00)">Alaska Time Zone (UTC-09:00)</option>
+																		<option value="Hawaii-Aleutian Time Zone (UTC-10:00)">Hawaii-Aleutian Time Zone (UTC-10:00)</option>
 																		
 																</select>
 														</div>
@@ -347,7 +328,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 </script>
 <script id="profile-measurements-template" type="text/template">
-		<div id="measuremnt" class="section">
+		<div id="measuremnt" class="section-list">
 
 				<div class="container">
 				<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
@@ -487,13 +468,29 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 </script>
 
 <script id="home-template" type="text/template">
+
 		<div class="container" id="homeregion"> 
+		<!--<div class="alert alert-warning alert-msg measurements_update text-center" role="alert">
+				  <i class="fa fa-bullhorn"></i>  Pick up a date here and update your consumptions for that day
+!
+				
+				</div>-->
+
 		<div class="aj-response-message no-tab"> </div>
-	 <div class="row section-nm">
+	 <div class="row section-home">
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
-				 <div ui-region="x2o">
+		 <div class="panel panel-default panel-mobile">
+				  <div class="panel-body  ">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/><input type="text"  id="update" class="home-datepicker " >
+				<a id="showHome">( Show ) </a> <img src="<?php echo get_template_directory_uri(); ?>/images/morning.gif" class="pull-right"/>
+
+				  </div>
+			</div>
+
+				<div class="loading"></div> 
+				 <div ui-region="x2o" id="x2oregion">
 					  
 					</div>
 		
@@ -502,7 +499,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	   
 		 </div>         
 
-
+  
 
 	
 	<div class="panel panel-default">
@@ -549,7 +546,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button btn btn-primary" >Generate</button>
-	<div class="clearfix"></div><br>
+	<div class="clearfix"></div><br><div class="loadinggraph"></div> 
 				<div style="width:100%">
 								<div>
 									<canvas id="canvas" height="450" width="600"></canvas>
@@ -563,12 +560,13 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 
 </div>
+
 </script>
 
 
 
 <script id="produts-template" type="h-template">
-<div id="xoomaproduct" class="section"> 
+<div id="xoomaproduct" class="section-list"> 
 				<h5 class="text-center bold margin-none">My Xooma products</h5>
 				<p class="text-center">Your xooma products are displayed here once you add them.
 </p>
@@ -650,6 +648,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			  <div class="row">
 				  <div class="col-md-12">
 					<div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid ">
+					<div>
 					<div class="row m-t-10">
 						<div class="col-sm-6 col-xs-6">
 						 		<h5 class="bold margin-none"> Add Products</h5>
@@ -661,7 +660,8 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 								</div>
 							</div>
 					</div>	
-					<hr class="hr-mobile">	
+					<hr class="hr-mobile">
+					</div>	
 					<ul class="products-list">
 						
 					</ul>
@@ -776,7 +776,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
   <div class="form-group ">
 	<label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Quantity per serving</label>
 	<div class="col-sm-6 col-xs-7">
-	  <select class="form-control form-control-sm col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
+	  <select class="form-control  col-sm-6 col-xs-3 qty_per_servings" name="qty_per_servings0" id="qty_per_servings0">
 		  <option value="1">1</option>
 		  <option value="2">2</option>
 		  <option value="3">3</option>
@@ -1033,7 +1033,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 					<div class="pull-right">
 					<input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
 						  <input type="hidden" name="total" value="{{total}}" / >
-						  
+					 <button type="button" class="btn btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button>	
 					  <button type="submit" class="btn btn-primary aj-submit-button save pull-right" name="save"><i class="fa fa-check"></i> Save</button>
 					  <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
                       <div class="clearfix"></div> <br>
@@ -1099,7 +1099,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
                     <div id="picker_inline_fixed"></div>
                     <br/>
                     <button class="btn btn-primary" type="button" id="show" name="show">Show</button>
-                    <a href="" class="btn btn-primary consume">Consume</a>
+                    <!--<a href="" class="btn btn-primary consume">Consume</a>-->
                </form>
               <ul id='timeline' class="viewHistory">
               
@@ -1160,7 +1160,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
  
 
 	
-		<h5 class="bold text-center"><span class="serving"></span><small class="bonus"></small></h5>
+		<h5 class=" text-center"><span class="serving"></span><small class="bonus"></small></h5>
 <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
 		<div class="row">
 			
@@ -1190,7 +1190,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 						
 				 </div>
 
-				 	<small class="text-center center-block">Touch the bottle to consume </small>	
+				 		
 
 				 	
 
@@ -1200,9 +1200,9 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 			 <div class="col-md-4 ">
 			</div>
 		</div>
-		
+		 <input type="hidden" name="date" id="date" value="" / >
 	   <div class="row m-t-20">
-	   		<div class="col-sm-5 col-xs-4"></div>
+	   		<div class="col-sm-5 col-xs-4"> <div class="loadingconusme"></div></div>
 			<div class="col-sm-2 col-xs-4">
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
@@ -1234,6 +1234,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 </script>
 
 <script id="schedule-template" type="text/template">
+<div class="blur-background">
  <div class="sub-header">
     <div class="container">
       <div class="row">
@@ -1243,23 +1244,23 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
       </div>
     </div>
   </div>
-<div class="container"> </br></br>
-
+<div class="container"> 
+<div class="section "> 
 <div class="aj-response-message"></div>
 <form id="consume" class="form-horizontal" role="form" method="POST">
- <div class="row">
+
 
         <div class="row">
             <div class="col-md-3 "> 
            
             </div>
             <div class="col-md-6 col-xs-12">
-                <h2 class="text-center margin-none"> <div class="{{classname}}"></div>{{name}}</h2>
+                <h3 class="text-center margin-none text-muted"> <div class="{{classname}}"></div>{{name}}</h3>
                  <h6 class="text-center text-muted">{{serving}}</h6>
-                 <h5 class="text-center text-muted m-t-30">How many {{product_type}}(s) did you have ?</h5>
-                   <h4 class="text-center margin-none "> <output class="text-success"></output></h4>
+                 <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
+                   <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-primary"></i> <input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o input-time text-primary fieldset__input js__timepicker" placeholder="Now"/> <!--<span class="now">Now</span>--></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div id="consume_time" name="consume_time" class="fa fa-pencil-square-o input-time text-muetd fieldset__input js__timepicker "> edit</div></small><input type="button" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd fieldset__input js__timepicker hidden" /></h5>
             </div>
             <div class="col-md-3">
          
@@ -1267,18 +1268,19 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
         </div>
            <div class="row m-t-20">
         <div class="col-sm-5 col-xs-2"></div>
-      <div class="col-sm-3 col-xs-9">
+      <div class="col-sm-3 col-xs-10">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
         
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
-           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-primary  " > <i class="fa fa-angle-double-right"></i> Skip </button>
-                <button class="reset-progress btn-link reset " type="button" > <i class="fa fa-refresh"></i> Reset</button>
-      </div>
+           <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-default  " > <i class="fa fa-angle-double-right"></i> Skip </button>
+                <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
+      <div class="loadingconusme"></div></div>
       <div class="col-sm-4 col-xs-1"></div>
     </div>
-  </div>
 
+</div>
 </form>
+</div>
 </script>

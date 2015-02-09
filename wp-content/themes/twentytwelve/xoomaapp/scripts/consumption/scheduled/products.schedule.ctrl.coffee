@@ -60,14 +60,14 @@ class ScheduleView extends Marionette.ItemView
 			
 	
 		'click .intake':(e)->
+				$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 				e.preventDefault()
 				meta_id = $('#meta_id').val()
 				qty = @ui.qty.val()
 				data = $('#schduleid').val()
 				product = @model.get('id')
-				date = $('#date').val()
+				date = App.currentUser.get('homeDate')
 				t = $('#consume_time').val()
-				date = moment().format('YYYY-MM-DD')
 				time  = moment(t,"HH:mm a").format("HH:mm:ss")
 				if t == ""
 					time  = moment().format("HH:mm:ss")
@@ -87,13 +87,14 @@ class ScheduleView extends Marionette.ItemView
 
 		'click #skip':(e)->
 			e.preventDefault()
+			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
+				
 			meta_id = $('#meta_id').val()
 			qty = 0
 			data = $('#schduleid').val()
 			product = @model.get('id')
-			date = $('#date').val()
+			date = App.currentUser.get('homeDate')
 			t = $('#consume_time').val()
-			date = moment().format('YYYY-MM-DD')
 			time  = moment(t,"HH:mm a").format("HH:mm:ss")
 			if t == ""
 				time  = moment().format("HH:mm:ss")
@@ -206,21 +207,31 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		console.log productId  = @getParams()
-		product = 3
-		date = '2015-02-04'
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[2]
+		date = locationurl[4]
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
 		productModel = productsColl.where({id:parseInt(product)})
+		if productModel.length == 0
+			App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
+		else
+			@_showView(productModel[0],date)
+
+	showView:(Collection)=>
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[2]
+		date = locationurl[4]
+		productModel = App.useProductColl.where({id:parseInt(product)})
 		@_showView(productModel[0],date)
 
 
-	successHandler:(response,status,xhr)=>
-		model = new Backbone.Model response
-		@_showView(model)
+	
 		
 
 	_showView:(productModel,date)->

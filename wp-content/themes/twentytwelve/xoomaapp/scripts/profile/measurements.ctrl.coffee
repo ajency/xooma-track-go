@@ -32,7 +32,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
 				return  false
-		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 ||	e.charCode == 44 
+		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 
 	
 
 
@@ -47,7 +47,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			
 
 		App.trigger 'cordova:hide:splash:screen'
-		$('#update').val moment().format('YYYY-MM-DD')
+		if App.currentUser.has 'measurements'
+			meaurement_date = App.currentUser.get('measurements').date
+			$('#update').val moment(meaurement_date).format('YYYY-MM-DD')
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 		    dateFormat : 'yy-mm-dd'
@@ -91,11 +93,24 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onFormSubmit : (_formData)=>
-		@measurements['weight'] = $('#weight').val()
-		@measurements['height'] = $('#height').val()
-		@measurements['date'] = $('#date_field').val()
-		formdata = @measurements
-		@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
+		count = 0
+		$.each @measurements , (ind,val)->
+			if (!($.isNumeric(val))) && val!="" && ind != 'date' 
+				count++ 
+				window.removeMsg()
+				$('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!")
+				$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
+				return
+		
+		if count == 0
+			@measurements['weight'] = $('#weight').val()
+			@measurements['height'] = $('#height').val()
+			@measurements['date'] = $('#date_field').val()
+		
+			formdata = @measurements
+			@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
 	    
 
@@ -148,15 +163,11 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 								model : App.currentUser
 
 	_get_measurement_details:->
-		if not App.currentUser.has 'measurements'
-			$.ajax
-				method : 'GET'
-				url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
-				success: @successHandler
-		else
-			deferred = Marionette.Deferred()
-			deferred.resolve(true)
-			deferred.promise()
+		$.ajax
+			method : 'GET'
+			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+			success: @successHandler
+		
 
 	errorHandler : (error)->
 		@region =  new Marionette.Region el : '#nofound-template'

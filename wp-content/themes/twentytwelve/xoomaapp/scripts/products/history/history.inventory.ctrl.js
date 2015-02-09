@@ -68,6 +68,7 @@ App.ViewInventoryCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     products = [];
     productModel = App.useProductColl.where({
@@ -92,6 +93,7 @@ App.ViewInventoryCtrl = (function(_super) {
 
   ViewInventoryCtrl.prototype._showHistoryView = function(model) {
     var product;
+    this.show(this.parent().getLLoadingView());
     product = model.get('id');
     return $.ajax({
       method: 'GET',

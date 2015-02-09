@@ -203,7 +203,7 @@
                    </h5>
                              <ul class="list-inline text-center row dotted-line m-t-20">
                        <li class="col-md-8 col-xs-8"> 
-                        <ul class="list-inline no-dotted">
+                        <ul class="list-inline  responsive">
                               <li>
                                         <a ><img src="assets/images/btn_03.png" width="70px"></a>
                                         <h6 class="text-center margin-none">Tap to take </h6>
@@ -217,7 +217,29 @@
                                        <i class="fa fa-clock-o center-block status"></i>
                                         <h6 class="text-center text-primary">Serving 1</h6>
                               </li>
-                                
+                                  <li>
+
+                                        <a >
+                                          <h3 class="bold"><div class="cap"></div>3</h3>
+                                       </a>
+                                       <i class="fa fa-clock-o center-block status"></i>
+                                        <h6 class="text-center text-primary">Serving 1</h6>
+                              </li>  <li>
+
+                                        <a >
+                                          <h3 class="bold"><div class="cap"></div>3</h3>
+                                       </a>
+                                       <i class="fa fa-clock-o center-block status"></i>
+                                        <h6 class="text-center text-primary">Serving 1</h6>
+                              </li>
+                                <li>
+
+                                        <a >
+                                          <h3 class="bold"><div class="cap"></div>3</h3>
+                                       </a>
+                                       <i class="fa fa-clock-o center-block status"></i>
+                                        <h6 class="text-center text-primary">Serving 1</h6>
+                              </li>
                           </ul>      
                        </li>
                                    
@@ -394,7 +416,7 @@
       <script src="assets/js/datepicker/picker.date.js"></script>
       <script src="assets/js/datepicker/picker.time.js"></script>
       <script src="assets/js/datepicker/demo.js"></script>
- 
+  <script type="text/javascript" src="assets/js/slick.min.js"></script>
       <script src="assets/js/owl.carousel.min.js"></script>
             <SCRIPT src='assets/js/chart.js'></script>
         <SCRIPT src='assets/js/ChartNew.js'></script>
@@ -402,7 +424,41 @@
 
       <!-- Mobile menu & popover -->
               <script>
-
+$('.responsive').slick({
+  dots: true,
+  infinite: false,
+  speed: 300,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
       $(document).ready(function($) {
        
           $("#owl-example2").owlCarousel({

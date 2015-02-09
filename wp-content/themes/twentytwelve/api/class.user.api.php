@@ -383,7 +383,9 @@ class User_API
 
         global $user;
 
-        $response = $user->get_user_home_products($id,$pid="");
+        $date = $_REQUEST['date'];
+
+        $response = $user->get_user_home_products($id,$pid="",$date);
 
         if(count($response) == 0){
             $response = new WP_JSON_Response( $response );
@@ -520,8 +522,8 @@ class User_API
         else
         {
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
-
-            $product = $user->get_user_home_products($id,$pid);
+            $date = date('Y-m-d');
+            $product = $user->get_user_home_products($id,$pid,$date);
             $response = new WP_JSON_Response( $product['response'] );
             }
             $response->set_status( 201 );
@@ -584,9 +586,25 @@ class User_API
         $meta_id = $_REQUEST['meta_id'];
         $date = $_REQUEST['date'];
         $time = $_REQUEST['time'];
-        $today = date("Y-m-d", strtotime($date));
-        $time1 = date("H:i:s", strtotime($time));
-        $start = date("$today $time1");
+        
+
+
+        $user_details = get_user_meta($id,'user_details',true);
+
+        $details = maybe_unserialize($user_details);
+        $timee = date("H:i:s", strtotime($time));
+        $start = date("$date $timee");
+        
+                        
+        $UTC = new DateTimeZone("UTC");
+        $newTZ = new DateTimeZone($details['timezone']);
+        $dat = new DateTime( $start);
+        $todaydate = $dat->setTimezone( $newTZ );
+        $t  = $todaydate->format('Y-m-d H:i:s');
+        $date1 = new DateTime($t);
+        $date1->setTimezone( $UTC );
+        $today_date = $date1->format('Y-m-d H:i:s');
+
         $args = array(
 
             'id'            => $id,
@@ -596,7 +614,7 @@ class User_API
             'time'          => $time,
             'qty'           => $qty,
             'meta_value'    => array(
-                'date'      => $start,
+                'date'      => $today_date,
                 'qty'       => $qty
 
                 )
@@ -605,7 +623,7 @@ class User_API
             );
 
 
-
+        
 
         $response = store_consumption_details($args);
 

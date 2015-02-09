@@ -30,14 +30,20 @@ AsperbmiView = (function(_super) {
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
       var date, meta_id, product, qty, time;
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
       if (qty === 0) {
+        window.removeMsg();
+        this.ui.responseMessage.addClass('alert alert-danger').text("No change in the quantity!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
         return;
       }
       product = this.model.get('id');
-      date = moment().format('YYYY-MM-DD');
+      date = App.currentUser.get('homeDate');
       time = moment().format("HH:mm:ss");
       return $.ajax({
         method: 'POST',
@@ -60,6 +66,7 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
     var cnt, index, model, msg, occurResponse, tempColl;
+    $('.loadingconusme').html("");
     if (xhr.status === 201) {
       occurResponse = _.map(response.occurrence, function(occurrence) {
         occurrence.meta_id = parseInt(occurrence.meta_id);
@@ -82,6 +89,7 @@ AsperbmiView = (function(_super) {
         this.create_occurrences(index);
       }
       $('.bottlecnt').text(cnt);
+      window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
       return $('html, body').animate({
         scrollTop: 0
@@ -139,6 +147,9 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.onShow = function() {
+    var date;
+    date = Marionette.getOption(this, 'date');
+    $('#date').val(date);
     return this.generate(this.model.get('occurrence'));
   };
 
@@ -148,10 +159,6 @@ AsperbmiView = (function(_super) {
     bonus = 0;
     count1 = 0;
     console.log(this.model.get('occurrence').length);
-    console.log(bonus = parseInt(this.model.get('occurrence').length) - parseInt(this.model.get('servings')));
-    if (parseInt(bonus) >= 0) {
-      $('.bonus').text('(Bonus)');
-    }
     $.each(occur, (function(_this) {
       return function(ind, val) {
         var count, expected, meta_id, occurrence;
@@ -172,13 +179,18 @@ AsperbmiView = (function(_super) {
       };
     })(this));
     if (parseInt(this.model.get('occurrence').length) === parseInt(count1)) {
-      ind = parseInt(this.model.get('occurrence').length);
+      ind = 'bonus';
       return this.create_occurrences(ind);
     }
   };
 
   AsperbmiView.prototype.create_occurrences = function(ind) {
     var msg;
+    console.log(this.model);
+    if (ind === 'bonus') {
+      $('.bonus').text('(Bonus)');
+      ind = parseInt(this.model.get('occurrence').length);
+    }
     $('#meta_id').val(0);
     $('.serving').text('Serving ' + (parseInt(ind) + 1));
     $('.bottlecnt').text('No Consumption');
@@ -237,31 +249,51 @@ App.AsperbmiCtrl = (function(_super) {
   __extends(AsperbmiCtrl, _super);
 
   function AsperbmiCtrl() {
+    this.showView = __bind(this.showView, this);
     return AsperbmiCtrl.__super__.constructor.apply(this, arguments);
   }
 
   AsperbmiCtrl.prototype.initialize = function(options) {
-    var product, productId, productModel, products, productsColl;
+    var date, locationurl, product, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
     this.show(this.parent().getLLoadingView());
-    productId = this.getParams();
-    product = parseInt(productId[0]);
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
     products = [];
     App.useProductColl.each(function(val) {
       return products.push(val);
     });
     productsColl = new Backbone.Collection(products);
     productModel = productsColl.where({
-      id: parseInt(productId[0])
+      id: parseInt(product)
     });
-    return this._showView(productModel[0]);
+    if (parseInt(productModel.length) === 0) {
+      return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
+    } else {
+      return this._showView(productModel[0], date);
+    }
   };
 
-  AsperbmiCtrl.prototype._showView = function(productModel) {
+  AsperbmiCtrl.prototype.showView = function(Collection) {
+    var date, locationurl, product, productModel, url;
+    url = window.location.hash.split('#');
+    locationurl = url[1].split('/');
+    product = parseInt(locationurl[2]);
+    date = locationurl[4];
+    productModel = App.useProductColl.where({
+      id: parseInt(product)
+    });
+    return this._showView(productModel[0], date);
+  };
+
+  AsperbmiCtrl.prototype._showView = function(productModel, date) {
     return this.show(new AsperbmiView({
-      model: productModel
+      model: productModel,
+      date: date
     }));
   };
 

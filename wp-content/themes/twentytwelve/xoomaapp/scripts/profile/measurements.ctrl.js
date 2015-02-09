@@ -52,7 +52,7 @@ ProfileMeasurementsView = (function(_super) {
         return false;
       }
     }
-    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 44;
+    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46;
   };
 
   ProfileMeasurementsView.prototype.keyup = function(e) {
@@ -60,9 +60,12 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, obj, state;
+    var date, meaurement_date, obj, state;
     App.trigger('cordova:hide:splash:screen');
-    $('#update').val(moment().format('YYYY-MM-DD'));
+    if (App.currentUser.has('measurements')) {
+      meaurement_date = App.currentUser.get('measurements').date;
+      $('#update').val(moment(meaurement_date).format('YYYY-MM-DD'));
+    }
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
       dateFormat: 'yy-mm-dd',
@@ -116,12 +119,25 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
-    var formdata;
-    this.measurements['weight'] = $('#weight').val();
-    this.measurements['height'] = $('#height').val();
-    this.measurements['date'] = $('#date_field').val();
-    formdata = this.measurements;
-    return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
+    var count, formdata;
+    count = 0;
+    $.each(this.measurements, function(ind, val) {
+      if ((!($.isNumeric(val))) && val !== "" && ind !== 'date') {
+        count++;
+        window.removeMsg();
+        $('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+      }
+    });
+    if (count === 0) {
+      this.measurements['weight'] = $('#weight').val();
+      this.measurements['height'] = $('#height').val();
+      this.measurements['date'] = $('#date_field').val();
+      formdata = this.measurements;
+      return this.model.saveMeasurements(formdata).done(this.successHandler).fail(this.errorHandler);
+    }
   };
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
@@ -190,18 +206,11 @@ App.UserMeasurementCtrl = (function(_super) {
   };
 
   UserMeasurementCtrl.prototype._get_measurement_details = function() {
-    var deferred;
-    if (!App.currentUser.has('measurements')) {
-      return $.ajax({
-        method: 'GET',
-        url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
-        success: this.successHandler
-      });
-    } else {
-      deferred = Marionette.Deferred();
-      deferred.resolve(true);
-      return deferred.promise();
-    }
+    return $.ajax({
+      method: 'GET',
+      url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+      success: this.successHandler
+    });
   };
 
   UserMeasurementCtrl.prototype.errorHandler = function(error) {

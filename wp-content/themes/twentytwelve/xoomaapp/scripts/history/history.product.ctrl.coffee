@@ -18,15 +18,21 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 		'click .consume':(e)->
 			e.preventDefault()
-			console.log product = Marionette.getOption( @, 'id' )
+			product = Marionette.getOption( @, 'id' )
+			product = Marionette.getOption( @, 'id' )
 			date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
 			if $('#picker_inline_fixed').val() == ""
 				date = moment().format("YYYY-MM-DD")
+			
 			model = App.useProductColl.findWhere({id:parseInt(product)})
 			if model.get('name').toUpperCase() == 'X2O'
 				App.navigate "#products/"+product+'/bmi/'+date , true
+				
 			else
 				App.navigate "#products/"+product+'/consume/'+date , true
+		
+			
+			
 
 		
 
@@ -34,6 +40,28 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 	onShow:->
 		product = Marionette.getOption( @, 'id' )
+		model = App.useProductColl.findWhere({id:parseInt(product)})
+		if model == undefined
+			App.currentUser.getUserProducts().done(@showView).fail @errorHandler
+		else
+			@loadView()
+
+	showView:(collection)=>
+		@loadView()
+
+	loadView:()->
+		product = Marionette.getOption( @, 'id' )
+		date = moment($('#picker_inline_fixed').val()).format("YYYY-MM-DD")
+		if $('#picker_inline_fixed').val() == ""
+			date = moment().format("YYYY-MM-DD")
+		
+		model = App.useProductColl.findWhere({id:parseInt(product)})
+		if model.get('name').toUpperCase() == 'X2O'
+			$('.consume').attr('href' ,"#products/"+product+'/bmi/'+date )
+			
+		else
+			$('.consume').attr('href' ,"#products/"+product+'/consume/'+date )
+				
 		@loadData(product)
 		$('#picker_inline_fixed').datepicker({
 		    inline: true,
@@ -92,8 +120,12 @@ class ViewProductHistoryView extends Marionette.ItemView
 			if index.get('meta_value').length != 0 && response.name.toUpperCase() != 'X2O'
 				meta_value = index.get('meta_value')
 				meta_id = index.get('meta_value')
-				time = moment(meta_value.date+timezone, "HH:mm Z").format("hA")
-				fromnow = moment(meta_value.date+timezone).fromNow()
+				d = new Date(meta_value.date)
+				timestamp = d.getTime()
+				time = moment(timestamp).zone(timezone).format("h:mm A")
+				time1 = moment(timestamp).zone(timezone).format("x")
+				fromnow = moment(time1).fromNow()
+				
 				qty = meta_value.qty
 				arr++
 				html += '<li class="work'+meta_id+'"><div class="relative">
@@ -106,8 +138,11 @@ class ViewProductHistoryView extends Marionette.ItemView
 				data = ViewProductHistoryView::getCount(index.get('meta_value'))
 				$.each data , (ind,val)->
 					i++
-					time = moment(val.date+timezone, "HH:mm Z").format("hA")
-					fromnow = moment(val.date+timezone).fromNow()
+					d = new Date(val.date)
+					timestamp = d.getTime()
+					time = moment(timestamp).zone(timezone).format("h:mm A")
+					time1 = moment(timestamp).zone(timezone).format("x")
+					fromnow = moment(time1).fromNow()
 					qty = val.qty
 					meta_id = parseInt(index.get('meta_id')) + parseInt(i) 
 					arr++

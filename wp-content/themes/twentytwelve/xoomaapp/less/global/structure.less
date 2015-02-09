@@ -88,6 +88,9 @@ body{
 .m-r-10{
     margin-right: 10px;
 }
+.m-t--10{
+    margin-top: -10px;
+}
 .m-t-10{
     margin-top: 10px;
 }
@@ -106,6 +109,13 @@ body{
 .bold{
     font-weight: @font-bold;
 }
+.home-datepicker {
+    margin:0px 10px;
+    border:0px;
+    background:none;
+    font-size:1.7em;
+    width:18%;
+}
 .section{
     padding:70px 0px 10px 0px;
      @media (max-width: @screen-sm-min) {
@@ -117,6 +127,18 @@ body{
      @media (max-width: @screen-sm-min) {
             padding:0px 0px 0px 0px;
             }
+}
+.section-home{
+    padding:28px 0px 10px 0px;
+     @media (max-width: @screen-sm-min) {
+            padding:50px 0px 0px 0px;
+   }
+}
+.section-list{
+    padding:80px 0px 10px 0px;
+     @media (max-width: @screen-sm-min) {
+            padding: 15px 0px 55px 0px;
+   }
 }
 .list-style {
     li{
@@ -168,6 +190,7 @@ body{
         border-right: 1px dotted @gray-light;
         i{
             font-size: 40px;
+             color: #FFC200;
         }
         i.status{
           font-size:1.2em;
@@ -181,13 +204,14 @@ body{
 }
 .no-dotted{
  li{
- border:0px !important;width: 31%;text-align:center;position:relative;
+ border:0px !important;width: 12%;text-align:center;position:relative;
     a{
       color:#ccc;
       text-decoration:none;
     }
    @media (max-width: @screen-sm-min) {
         margin-bottom:10px;
+        width: 31%;
         h3{
           font-size: 26px;
          }
@@ -235,6 +259,18 @@ display:none !important;
     position: relative;
     span{
       font-size:0.6em;
+    }
+    div{
+      width: 88%;
+      float: left;
+      word-wrap: normal;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 20px;
+      @media (max-width: @screen-sm-min) {
+        width:78%;
+      }
     }
 }
 .element-animation{
@@ -679,21 +715,21 @@ img {
     color:#000;
     z-index: -1;
               @media (max-width: @screen-sm-min) {
-               padding: 16px 33px;
+               padding: 16px 40px;
       }
 } 
       .fill-bottle{
          display: block;
           margin: auto;
           position: absolute;
-          top: 163px;
+          top: 195px;
           text-align: center;
           left: 0%;
           right: 0%;
           width: 150px;
-          z-index:999;
+          z-index:9;
           @media (max-width: @screen-sm-min) {
-                 top: 135px;
+                 top: 84px;
                  img{
                     width:70%;
                  }
@@ -778,6 +814,12 @@ img {
 @media (max-width: @screen-sm-min) {
     html body{
       font-size: 12px !important;
+      .panel-product{
+        margin-top:0px;
+        li{
+          border-right:0px;
+        }
+      }
         .hr-mobile{
           margin:0px;
         }
@@ -808,6 +850,19 @@ img {
           font-size: 18px;
           }
         }
+   .home-sub-header{
+    top: inherit;
+    bottom: 0px;
+    background:@gray-darker;
+    padding:0px;
+      li{
+          opacity:.4;
+      }
+      li.selected{
+          opacity:.9;
+      }
+    }
+
     }
     .userproducts{
         .col-md-4{
@@ -824,6 +879,23 @@ img {
     .btn-group{
       float:right;
     }
+    .panel-mobile{
+      position: fixed;
+      width: 100%;
+      left: 0%;
+      top: 50px;
+      z-index: 999;
+      padding: 0px;
+        .panel-body {
+            padding: 9px 4px;
+            img{
+                width: 10%;
+            }
+            input{
+              width: 36%;
+            }
+        }
+    }
 }
 
 .badge-primary {
@@ -831,4 +903,46 @@ img {
   position: absolute;
   margin-left: -16px;
   top: 0px;
+}
+.blur-background{
+  color:@white;
+  background:url(../../images/23.jpg)no-repeat;
+  height:100%;
+  position: fixed;
+  width:100%;
+  top:9%;
+     .sub-header{
+    background:rgba(0, 0, 0, 0.26);
+    }
+    .btn-link{
+      color:@white;
+    }
+    output{
+      font-size:3.5em !important;
+      font-weight:100;
+   @media (max-width: @screen-sm-min)    {
+      font-size: 2.5em !important;
+      line-height: 1.7em!important
+      }
+    }
+    .rangeslider, .rangeslider__fill{
+      height:5px;
+      width:50%;
+    }
+    .rangeslider__fill{
+      background:#5C5C5C;
+    }
+    .rangeslider__handle{
+      background-image:none !important; 
+      width:20px;
+      height:20px;
+      top:-7px;
+
+    }
+  .text-muted{
+     color:@white;
+    }
+    ::-webkit-input-placeholder { color:#fff; }
+    ::-webkit-input-placeholder { color:#fff;  }
+    ::-webkit-input-placeholder { color:#fff;  }
 }

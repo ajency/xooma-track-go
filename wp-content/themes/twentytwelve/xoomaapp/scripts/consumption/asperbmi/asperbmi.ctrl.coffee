@@ -13,13 +13,20 @@ class AsperbmiView extends Marionette.ItemView
 
 	events:
 		'click #confirm':(e)->
+			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
+				
 			e.preventDefault()
 			meta_id = @$el.find('#meta_id').val()
 			qty = ( @originalBottleRemaining - @bottleRemaining ) / 100
 			if qty is 0
-			  return
+				window.removeMsg()
+				@ui.responseMessage.addClass('alert alert-danger').text("No change in the quantity!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return
 			product = @model.get('id')
-			date = moment().format('YYYY-MM-DD')
+			date = App.currentUser.get('homeDate')
 			time  = moment().format("HH:mm:ss")
 			$.ajax
 						method : 'POST'
@@ -43,6 +50,7 @@ class AsperbmiView extends Marionette.ItemView
 
 
 	saveHandler:(response,status,xhr)=>
+		$('.loadingconusme').html ""
 		if xhr.status == 201
 			occurResponse = _.map response.occurrence, (occurrence)->
 				occurrence.meta_id = parseInt occurrence.meta_id
@@ -64,7 +72,7 @@ class AsperbmiView extends Marionette.ItemView
 				@create_occurrences(index)
 			$('.bottlecnt').text cnt
 			
-			
+			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!")
 			$('html, body').animate({
 								scrollTop: 0
@@ -110,6 +118,9 @@ class AsperbmiView extends Marionette.ItemView
 		data
 
 	onShow:->
+			date  = Marionette.getOption( @, 'date')
+			
+			$('#date').val date
 			@generate(@model.get('occurrence'))
 
 	generate:(data)->
@@ -117,9 +128,6 @@ class AsperbmiView extends Marionette.ItemView
 			bonus = 0
 			count1 = 0
 			console.log @model.get('occurrence').length
-			console.log bonus = parseInt(@model.get('occurrence').length) - parseInt(@model.get('servings'))
-			if parseInt(bonus) >= 0
-				$('.bonus').text '(Bonus)'
 			$.each occur , (ind,val)=>
 				occurrence = _.has(val, "occurrence")
 				expected = _.has(val, "expected")
@@ -136,10 +144,14 @@ class AsperbmiView extends Marionette.ItemView
 					@create_occurrences(ind)
 					return false
 			if(parseInt(@model.get('occurrence').length) == parseInt count1)
-				ind = parseInt(@model.get('occurrence').length)
+				ind = 'bonus'
 				@create_occurrences(ind)
 				
 	create_occurrences:(ind)=>
+			console.log @model
+			if ind == 'bonus'
+				$('.bonus').text '(Bonus)'
+				ind  = parseInt(@model.get('occurrence').length) 
 			$('#meta_id').val(0)
 			$('.serving').text 'Serving '+ (parseInt(ind) + 1)
 			$('.bottlecnt').text 'No Consumption'
@@ -194,16 +206,33 @@ class AsperbmiView extends Marionette.ItemView
 class App.AsperbmiCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
-		productId  = @getParams()
-		product = parseInt productId[0]
+		#productId  = @getParams()
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[2]
+		date = locationurl[4]
 		products = []
 		App.useProductColl.each (val)->
 			products.push val
 		
 		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:parseInt(productId[0])})
-		@_showView(productModel[0])
+		productModel = productsColl.where({id:parseInt(product)})
+		
+		if parseInt(productModel.length) == 0
+			App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
+		else
+			@_showView(productModel[0],date)
+		
 
-	_showView:(productModel)->
+	showView:(Collection)=>
+		url = window.location.hash.split('#')
+		locationurl = url[1].split('/')
+		product = parseInt locationurl[2]
+		date = locationurl[4]
+		productModel = App.useProductColl.where({id:parseInt(product)})
+		@_showView(productModel[0],date)
+
+	_showView:(productModel,date)->
 		@show new AsperbmiView
 					model : productModel
+					date : date
