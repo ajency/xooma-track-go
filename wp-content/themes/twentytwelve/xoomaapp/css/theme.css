@@ -7465,7 +7465,7 @@ packet_expected_class {
     padding: 9px 4px;
   }
   .panel-mobile .panel-body img {
-    width: 9%;
+    width: 10%;
   }
   .panel-mobile .panel-body input {
     width: 36%;
@@ -11590,29 +11590,60 @@ h6.brand {
 .lg-icon {
   font-size: 34px;
 }
-.btn {
+.btn,
+.tap {
   border-radius: 2px;
   transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 0.2s;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
-.btn > paper-ripple {
+.btn > paper-ripple,
+.tap > paper-ripple {
   border-radius: 2px;
   overflow: hidden;
 }
-.btn.narrow {
+.btn.narrow,
+.tap.narrow {
   width: 60px;
 }
-.btn:active {
+.btn:active,
+.tap:active {
   box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
   transition-delay: 0s;
 }
-.btn:hover {
+.btn:hover,
+.tap:hover {
   transition: all 250ms;
 }
-.btn.btn-gray {
+.btn.btn-gray,
+.tap.btn-gray {
   background-color: #999999;
   color: #ffffff;
+}
+.circle {
+  border: 1px solid #ccc;
+}
+@keyframes a1 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: .0;
+  }
+}
+.circle {
+  animation: a1 1.5s infinite;
+  /* IE 10+ */
+}
+@keyframes a2 {
+  0% {
+    color: white;
+  }
+  50% {
+    color: tomato;
+  }
 }
 .block-link {
   padding: 120px 15px 15px;
