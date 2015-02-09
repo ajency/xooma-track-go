@@ -90,6 +90,8 @@ class HomeLayoutView extends Marionette.LayoutView
 		region.show listview1	
 
 	onFormSubmit: (_formData)=>
+		$('.loadinggraph').html '<li>Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>'
+			
 		$.ajax
 			method : 'GET'
 			data : _formData
@@ -99,6 +101,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	_successHandler: (response, status,xhr)=>
 		dates = _.has(response, "dates")
+		$('.loadinggraph').html ""
 		if dates == true && xhr.status == 200
 			App.graph.set 'dates' , response.dates
 			App.graph.set 'param' , response.param

@@ -117,6 +117,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onFormSubmit = function(_formData) {
+    $('.loadinggraph').html('<li>Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px"></li>');
     return $.ajax({
       method: 'GET',
       data: _formData,
@@ -129,6 +130,7 @@ HomeLayoutView = (function(_super) {
   HomeLayoutView.prototype._successHandler = function(response, status, xhr) {
     var dates;
     dates = _.has(response, "dates");
+    $('.loadinggraph').html("");
     if (dates === true && xhr.status === 200) {
       App.graph.set('dates', response.dates);
       App.graph.set('param', response.param);

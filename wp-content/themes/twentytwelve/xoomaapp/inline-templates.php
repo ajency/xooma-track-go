@@ -545,7 +545,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button btn btn-primary" >Generate</button>
-	<div class="clearfix"></div><br>
+	<div class="clearfix"></div><br><div class="loadinggraph"></div> 
 				<div style="width:100%">
 								<div>
 									<canvas id="canvas" height="450" width="600"></canvas>
