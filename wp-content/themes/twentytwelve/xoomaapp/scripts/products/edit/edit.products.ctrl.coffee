@@ -224,6 +224,7 @@ class EditProductsView extends Marionette.ItemView
 
 	showReminders:()->
 		if parseInt($('#reminder').val()) == 1
+				$('.reminder_div').show()
 				$(@ui.servings_diff).prop 'disabled' , false
 				$('#reminder_time0').removeAttr 'disabled'
 
@@ -244,6 +245,7 @@ class EditProductsView extends Marionette.ItemView
 					val.id = 'reminder_time'+ind
 				
 		else
+			$('.reminder_div').hide()
 			$('#reminder_time0').attr 'disabled' , true			
 			
 			html1 = '<div class="reminder">'+$('.reminder').first().html()+'</div>'
@@ -392,6 +394,7 @@ class EditProductsView extends Marionette.ItemView
 
 		if $.inArray( product, products ) == -1
 			$('.remove').hide()
+			$('.reminder_div').hide()
 
 	checkMode:()->
 		product = parseInt @model.get('id')

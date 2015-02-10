@@ -294,7 +294,7 @@ class HomeX2OView extends Marionette.ItemView
 			</div>
 		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6
 
-		</div></div>'
+		<div class="clearfix"></div></div></div>'
 	ui :
 		liquid : '.liquid'
 
@@ -315,7 +315,7 @@ class HomeX2OView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		per = [0,25,50,75,100]
+		per = [0,25,50,75,100,'bonus']
 		per1 = ['25_50','50_75']
 		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
 		
@@ -339,34 +339,39 @@ class HomeX2OView extends Marionette.ItemView
 		bonusArr = 0
 		recent = '--'
 		data.time = recent
-		data.bonus = 0
+		
 		consumed = 0	
 		qtyarr = []	
 		qtyarr.push 0
+		qtyconsumed = []
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
-			if occurrence == true && expected == true
+			if occurrence == true && (expected == true || expected == false)
+				qtyconsumed = []
 				date = val.occurrence
-				occurrenceArr.push date
-				consumed++
-				console.log val.meta_value
 				qtyconsumed = HomeX2OView::getCount(val.meta_value)
 				qtyarr.push qtyconsumed[0]
+				occurrenceArr.push qtyconsumed[1]
+				
 
 
-			if occurrence == true && expected == false
-				bonusArr++
+			if occurrence == true && (expected == true || expected == false) && qtyconsumed[0] ==  1
+				consumed++
+				
 			
 		if occurrenceArr.length != 0 
 			recent = _.last occurrenceArr
 			d = new Date(recent)
 			timestamp = d.getTime()
 			data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A")
-			data.bonus = bonusArr
+			
 			data.occurr = occurrenceArr.length
 		howmuchqty = _.last qtyarr
-		console.log howmuch = parseFloat(howmuchqty) * 100
+		howmuch = parseFloat(howmuchqty) * 100
+		if(parseInt(@model.get('occurrence').length) == parseInt(consumed)) && qtyconsumed[0] ==  1
+				howmuch = 'bonus'
+		
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
@@ -382,9 +387,9 @@ class HomeX2OView extends Marionette.ItemView
 			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
-		console.log timeslot
+		
 		$.each per , (ind,val)->
-			if parseInt(val) == parseInt(howmuch)
+			if val == howmuch
 				texmsg = Messages[val+'_'+timeslot]
 		$.each per1 , (ind,val)->
 			temp = val.split('_')
@@ -452,7 +457,7 @@ class HomeX2OView extends Marionette.ItemView
 							count += parseFloat val2.qty
 							time.push val2.date
 
-		console.log time
+		
 		lasttime = _.last time
 		[count, lasttime]	
 
@@ -500,9 +505,10 @@ class HomeX2OView extends Marionette.ItemView
 		doughnutData = []
 		$.each data, (ind,val)->
 			console.log occurrence = HomeX2OView::get_occurrence(val)
-			msg = "No change in consumption(in ml)"
+			
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0 
+				msg = ""
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
 				actualtime = occurrence['time']
@@ -511,7 +517,7 @@ class HomeX2OView extends Marionette.ItemView
 				time = moment(timestamp).zone(timezone).format('h:mm A')
 			
 				
-				msg = "Bottle "+ i+ ' consumed(in ml) at '+ time
+				msg = "Bottle "+ i+ ' consumed(%) at '+ time
 			doughnutData.push 
 					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']
@@ -680,23 +686,24 @@ class ProductChildView extends Marionette.ItemView
 				
 			response = reponse[0]
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
-			data.no_servings =  no_servings
-			data.serving_size = temp.length
-		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		data.no_servings =  no_servings
+		data.serving_size = temp.length
+		howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
 			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
 
-			time = _.last timearray
+			console.log time = _.last timearray
 			d = moment().format('YYYY-MM-DD')
 			d0 = new Date(t0)
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)
 			timestamp1 = d1.getTime()
-			time1 = moment(timestamp0).zone(timezone).format("x")
-			time2 = moment(timestamp1).zone(timezone).format("x")
+			console.log time1 = moment(timestamp0).zone(timezone).format("x")
+			console.log time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
+				console.log "hhhhhhhh"
 				timeslot = Messages[val]
 		console.log timeslot
 		$.each per , (ind,val)->
@@ -772,7 +779,7 @@ class ProductChildView extends Marionette.ItemView
 					<h6 class="text-center text-primary '+classname+'">'+time+'</h6></li>'
 		else
 			html += '<li><a >
-                  <h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
+                  <h3 ><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
                </a>'
 			html +=	'<i class="fa fa-clock-o center-block status"></i>
                      <h6 class="text-center text-primary">'+serving_text+'</h6></li>'
@@ -804,7 +811,7 @@ class ProductChildView extends Marionette.ItemView
 			time = "Skipped"
 		html = ""
 		newClass = product_type+'_occurred_class'
-		html += '<li><a><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty+'</h3></a>'
+		html += '<li><a><h3><div class="cap '+newClass+'"></div>'+qty+'</h3></a>'
 		html +=	'<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">'+time+'</h6></li>'
 		qty  = val.meta_value.qty
 		schedule_id = val.schedule_id
