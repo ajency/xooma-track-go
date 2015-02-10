@@ -181,7 +181,7 @@ ProductChildView = (function(_super) {
       data.newClass = 'text-muted';
       data.servings_text = 'Serivngs out of stock';
       data.hidden = 'hidden';
-      data.frown = '';
+      data.frown = 'hidden';
     } else if (parseInt(servingsleft) <= parseInt(totalservings) && parseInt(servingsleft) !== 0) {
       data.newClass = 'text-warning';
     } else if (parseInt(servingsleft) >= parseInt(totalservings) && parseInt(servingsleft) !== 0) {

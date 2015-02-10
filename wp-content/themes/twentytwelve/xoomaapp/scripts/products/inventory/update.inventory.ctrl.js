@@ -196,11 +196,7 @@ EditInventoryView = (function(_super) {
       App.useProductColl.add(model, {
         merge: true
       });
-      window.removeMsg();
-      this.ui.responseMessage.addClass('alert alert-success').text("Inventory updated!");
-      return $('html, body').animate({
-        scrollTop: 0
-      }, 'slow');
+      return App.navigate("#/profile/my-products", true);
     } else {
       return this.errorMsg();
     }

@@ -142,13 +142,15 @@ var Messages = <?php echo json_encode(load());?>;
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/settings/settings.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/history/history.measurements.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/loading/loading.ctrl.js"></script>
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/loading/workflow.ctrl.js"></script>
 
 <!-- endbuild -->
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/owl.carousel.min.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/slick.min.js"></script>   
+
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
+
     <!-- Frontpage Demo -->
 
 <script type="text/javascript">

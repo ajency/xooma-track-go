@@ -164,11 +164,7 @@ class EditInventoryView extends Marionette.ItemView
 			model = new UserProductModel 
 			model.set response[0]
 			App.useProductColl.add model , {merge: true}
-			window.removeMsg()
-			@ui.responseMessage.addClass('alert alert-success').text("Inventory updated!")
-			$('html, body').animate({
-							scrollTop: 0
-							}, 'slow')
+			App.navigate "#/profile/my-products" , true
 		else
 			@errorMsg()
 

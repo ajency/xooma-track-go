@@ -1,5 +1,4 @@
 <script id="login-template" type="text/template">
-<div class="login-page">
 	<div class="topheader">
 		<nav class="navbar " role="navigation">
 			<div class="container">
@@ -58,8 +57,6 @@
 			</div>
 			<br>
 			<button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
-	<br>
-	</div>
 	</div>
 </script>
 <script id="404-template" type="text/template">
@@ -480,14 +477,14 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				</div>-->
 
 		<div class="aj-response-message no-tab"> </div>
-	 <div class="row section-nm">
+	 <div class="row section-home">
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
 		 <div class="panel panel-default panel-mobile">
 				  <div class="panel-body  ">
 					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/><input type="text"  id="update" class="home-datepicker " >
-				<a id="showHome">( Apply ) </a> <img src="<?php echo get_template_directory_uri(); ?>/images/morning.gif" class="pull-right"/>
+				<a id="showHome">( Show ) </a> <img src="" class="daynightclass pull-right"/>
 
 				  </div>
 			</div>
@@ -887,7 +884,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	<label for="inputPassword3" class="col-sm-6 col-xs-7 control-label">Set reminder</label>
 	<div class="col-sm-6 col-xs-5">
 	 <div class="btn-group" role="group" aria-label="...">
-	  <button type="button" data-reminder="1" class="btn  {{primary}} reminder_button">  Yes</button>
+	  <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
 	  <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
 	  <input type="hidden" name="reminder" id="reminder" value="0" /> 
 	</div>

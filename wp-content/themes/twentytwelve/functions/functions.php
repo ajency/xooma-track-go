@@ -1856,7 +1856,10 @@ function cron_job_reminders($args)
 {
 
 
+
 	global $wpdb;
+
+
 
 	
 	$table = $wpdb->prefix . "product_main";
@@ -1869,12 +1872,13 @@ function cron_job_reminders($args)
 
 
 
+
 	$start_dt = date('Y-m-d H:i:s', $last_cron);
 
 
 	$current_date = strtotime($start_dt);
 
-	$nextdate = $current_date+(60*intval($args));
+	$nextdate = $current_date+(60*intval(600));
 
 	$end_date = date('Y-m-d H:i:s',$nextdate);
 	
@@ -1887,19 +1891,19 @@ function cron_job_reminders($args)
 
 	foreach ($occurrences as $key => $value) {
 
-		$next_occurrence = strtotime($value['next_occurrence']);
-
+		$next_occurrence = strtotime($value->next_occurrence);
+		
 		if($next_occurrence < $current_date)
 		{
 			update_occurrence($value);
 		}
-		else if( $next_occurrence > $current_date)
+		if( $next_occurrence > $current_date)
 		{
-			$user = $wpdb->get_row("SELECT * from $table where id=".$value['object_id']);
+			$user = $wpdb->get_row("SELECT * from $table where id=".$value->object_id);
 
 			$stock = get_stock_count_user($user->user_id,$user->product_id);
-
-			$product_name = get_products($user->product_id);
+			$ProductList = new ProductList();
+			$product_name = $ProductList->get_products($user->product_id);
 			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 			
 			//build push array 
@@ -1922,15 +1926,9 @@ function cron_job_reminders($args)
 	
 	// function call
 	// // //parse
-	// // 	use Parse\ParseClient;
-		 
-	// // 	ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
-
-
-	// // 	use Parse\ParseCloud;
-
 		
-	//$result = ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+		
+		$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
 
 

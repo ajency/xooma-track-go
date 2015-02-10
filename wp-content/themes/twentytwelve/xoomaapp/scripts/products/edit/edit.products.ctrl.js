@@ -253,6 +253,7 @@ EditProductsView = (function(_super) {
   EditProductsView.prototype.showReminders = function() {
     var html1, i, servings;
     if (parseInt($('#reminder').val()) === 1) {
+      $('.reminder_div').show();
       $(this.ui.servings_diff).prop('disabled', false);
       $('#reminder_time0').removeAttr('disabled');
       servings = $('.servings_per_day').val();
@@ -272,6 +273,7 @@ EditProductsView = (function(_super) {
         return val.id = 'reminder_time' + ind;
       });
     } else {
+      $('.reminder_div').hide();
       $('#reminder_time0').attr('disabled', true);
       html1 = '<div class="reminder">' + $('.reminder').first().html() + '</div>';
       $('#reminder_time0').attr('disabled', true);
@@ -424,7 +426,8 @@ EditProductsView = (function(_super) {
       this.showAnytimeData(this.model);
     }
     if ($.inArray(product, products) === -1) {
-      return $('.remove').hide();
+      $('.remove').hide();
+      return $('.reminder_div').hide();
     }
   };
 
