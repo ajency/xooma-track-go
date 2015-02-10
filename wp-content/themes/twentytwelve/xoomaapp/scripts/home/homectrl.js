@@ -807,7 +807,7 @@ ProductChildView = (function(_super) {
     }
     newClass = product_type + '_expected_class';
     if (parseInt(count) === 0) {
-      html += '<li><a href="#/products/' + product + '/consume/' + date + '" id="original"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
+      html += '<li><a href="#/products/' + product + '/consume/' + date + '" id="original"><span class="circle-btn"><img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></span></a> <h6 class="text-center margin-none">Tap to take </h6> <h6 class="text-center text-primary ' + classname + '">' + time + '</h6></li>';
     } else {
       html += '<li><a > <h3 ><div class="cap ' + newClass + '"></div>' + qty[key].qty + '</h3> </a>';
       html += '<i class="fa fa-clock-o center-block status"></i> <h6 class="text-center text-primary">' + serving_text + '</h6></li>';

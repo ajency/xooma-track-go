@@ -746,7 +746,9 @@ function send_notifications_to_admin($user_id){
 		'email'           => $user['user_email'],
 		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
 		'registered'      => $user['user_registered'],
-		'siteurl'         => site_url().'/wp-admin'
+		'siteurl'         => site_url().'/wp-admin',
+		'loginurl'		  => site_url().'/xooma-app/#login',
+		'img'			  => site_url().'/assets/logo.png'
 
 
 		);
@@ -801,7 +803,13 @@ function send_notifications_to_user($user_id){
 	$user = login_response($user_id);
 
 	$meta = array(
-		'siteurl'         => site_url().'/wp-admin'
+		'username'        => $user['display_name'],
+		'email'           => $user['user_email'],
+		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
+		'registered'      => $user['user_registered'],
+		'siteurl'         => site_url().'/xooma-app/#profile/personal-info',
+		'loginurl'		  => site_url().'/xooma-app/#login',
+		'img'			  => site_url().'/assets/logo.png'
 
 
 		);
@@ -2039,6 +2047,11 @@ function send_stock_reminders()
 
 	global $wpdb;
 
+	global $user;
+
+	$usersToBeNotified = array();
+
+	$productList = new ProductList();
 	
 	$table = $wpdb->prefix . "product_main";
 
@@ -2046,19 +2059,47 @@ function send_stock_reminders()
 
 	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
 
-	$settings = $wpdb->get_results("SELECT * from $defaults where type='settings'");
+	$settings = $wpdb->get_row("SELECT * from $defaults where type='settings'");
 
-		
-	// $object = json_decode($settings->value);
-	// print_r($object);
+	
+	$object = json_decode($settings->value);
+	
+	
+
 
 	foreach ($results as $key => $value) {
 		//available count of the user//
 		$available = get_stock_count_user($value->user_id,$value->product_id);
+		
 
-		//settings value
+		$data  = $productList->get_products($value->product_id);
+	
+		$servings_left = $object->no_of_days;
 
+		$servings_low = intval($data[0]['total']) * intval($servings_left);
+
+		$userdata  = get_userdata( $user->user_id );
+		$name = $userdata->display_name;
+		$product_name = $data[0]['name'];
+
+		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
+
+		eval("\$msg = \"$msg\";");
+		if(intval($available) <= intval($servings_low))
+		{
+
+				$usersToBeNotified[] = array(
+						'ID' => $value->user_id,
+						'message' => $msg,
+						'product' => $product_name
+
+					);
+
+		}
 		
 	}
+
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
 
 }

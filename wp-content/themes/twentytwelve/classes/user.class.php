@@ -293,7 +293,7 @@ class User
 
         global $user;
 
-        global $productList;
+        $productList = new ProductList();
 
         $user = new User();
 
@@ -316,13 +316,12 @@ class User
         $sub = array();
         $pr_main = array();
        
-        
+      
         
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
-           
-        
+                   
             $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($val[0]['id'], 'product_type', true)." and type='product_type'");
                     
             $sub_query2 = $wpdb->get_results("SELECT * FROM $product_meta_table WHERE `key`='reminders' and main_id = ".$term->id);

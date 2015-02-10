@@ -1440,12 +1440,18 @@ function dba_add_communication_components($defined_comm_components){
 
 		);
 
+	$defined_comm_components['stock_emails'] = array(
+				'stock_low_email' => array('preference'=>1),
+				'stock_over_email'  => array('preference'=>1)
+
+		);
+
 	return $defined_comm_components;
 }
 add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 
 add_action('CRON_SCHEDULE_SEND_REMINDERS', 'cron_job_reminders', 2,1);
-//add_action('admin_init', 'cron_job_reminders', 2, 1);
+//add_action('admin_init', 'send_stock_reminders', 2, 1);
 
 
 
