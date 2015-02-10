@@ -2035,6 +2035,10 @@ function get_path($type){
 		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_low.txt';
 		break;
 
+		case 'stock_over':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_over.txt';
+		break;
+
 	}
 
 	return $path;
@@ -2088,7 +2092,7 @@ function send_stock_reminders_over(){
 		$name = $userdata->display_name;
 		$product_name = $data[0]['name'];
 
-		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
+		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
 
 		eval("\$msg = \"$msg\";");
 		if(intval($available) == 0)
