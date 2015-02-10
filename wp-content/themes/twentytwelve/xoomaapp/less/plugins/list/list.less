@@ -139,13 +139,15 @@ border:0px;
 
 }
 .cbp-vm-image {
-	display: block;
-	margin: 0 auto;
-	height: 160px;
-	overflow: hidden;
+		display: block;
+		margin: 0 auto;
+		overflow: hidden;
+		width: 33%;
+		float: left;
+		margin-right: 10px;
+		height: 120px;
 	    @media (max-width: @screen-sm-min) {
-        height: 135px;
-        margin-bottom:15px;
+        height: 88px;
  	}
 }
 
@@ -167,13 +169,10 @@ border:0px;
 }
 
 .cbp-vm-add {
-	color: #fff;
-	background: #47a3da;
 	padding: 10px 20px;
-	border-radius: 2px;
-	margin: 20px 0 0;
-	display: inline-block;
-	transition: background 0.2s;
+	display: block;
+	border-top: 1px solid #ccc;
+	text-align: center;
 }
 
 .cbp-vm-add:hover {
@@ -217,15 +216,14 @@ border:0px;
 }
 
 .cbp-vm-view-grid ul li {
-	width: 23%;
-	text-align: center;
-	padding: 20px;
-	margin: 20px 8px 0;
-	display: inline-block;
-	min-height: 420px;
-	vertical-align: top;
-	background: #fff;
-	border: 1px solid #EFEFEF;
+width: 31%;
+text-align: left;
+padding: 0px;
+margin: 20px 8px 0;
+display: inline-block;
+vertical-align: top;
+background: #fff;
+border: 1px solid #EFEFEF;
 @media (max-width: @screen-sm-min) {
        	margin: 9px 4px 0;
  }
@@ -233,6 +231,7 @@ border:0px;
 
 .cbp-vm-view-grid .cbp-vm-title {
 	font-size: 1.5em;
+	margin-top: 5px;
 	    @media (max-width: @screen-sm-min) {
        font-size: 1.2em;
  }
@@ -240,11 +239,16 @@ border:0px;
 
 .cbp-vm-view-grid .cbp-vm-details {
 	max-width: 300px;
-	min-height: 90px;
-	margin: 10px auto;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 4em;
+min-height: 40px;
+margin: 10px auto 4px;
+height: 67px;
+overflow: hidden;
+text-overflow: ellipsis;
+font-size: .9em;
+COLOR: #7C7C7C;
+@media screen and (max-width: 47.375em) {
+height: 53px;
+	}
 } 
 
 .cbp-vm-view-grid .cbp-vm-price {
@@ -270,6 +274,7 @@ border:0px;
 
 .cbp-vm-view-list .cbp-vm-image {
 	width: 10%;
+	float:none;
 }
 
 .cbp-vm-view-list .cbp-vm-title {
@@ -293,10 +298,12 @@ border:0px;
 	text-overflow: ellipsis;
 	height: 3em;
 	line-height:21px;
+
 }
 
 .cbp-vm-view-list .cbp-vm-add {
 	margin: 0;
+	border:0px;
 }
 
 @media screen and (max-width: 66.7em) {
@@ -338,8 +345,6 @@ border:0px;
 
 @media screen and (max-width: 40.125em) {
 	.cbp-vm-view-grid ul li {
-		width: 47%;
-		padding: 9px;
-		min-height: 330px;
+		width: 97%;
 	}
 }

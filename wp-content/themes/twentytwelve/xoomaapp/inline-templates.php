@@ -480,7 +480,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				</div>-->
 
 		<div class="aj-response-message no-tab"> </div>
-	 <div class="row section-home">
+	 <div class="row section-nm">
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
@@ -887,7 +887,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	<label for="inputPassword3" class="col-sm-6 col-xs-7 control-label">Set reminder</label>
 	<div class="col-sm-6 col-xs-5">
 	 <div class="btn-group" role="group" aria-label="...">
-	  <button type="button" data-reminder="1" class="btn  {{success}} reminder_button">  Yes</button>
+	  <button type="button" data-reminder="1" class="btn  {{primary}} reminder_button">  Yes</button>
 	  <button type="button" data-reminder="0" class="btn {{default}} reminder_button"> No</button>
 	  <input type="hidden" name="reminder" id="reminder" value="0" /> 
 	</div>
