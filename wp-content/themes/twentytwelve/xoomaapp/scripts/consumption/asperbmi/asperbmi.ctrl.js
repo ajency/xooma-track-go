@@ -35,6 +35,7 @@ AsperbmiView = (function(_super) {
       meta_id = this.$el.find('#meta_id').val();
       qty = (this.originalBottleRemaining - this.bottleRemaining) / 100;
       if (qty === 0) {
+        $('.loadingconusme').html("");
         window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-danger').text("No change in the quantity!");
         $('html, body').animate({
@@ -65,11 +66,17 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.saveHandler = function(response, status, xhr) {
-    var cnt, index, model, msg, occurResponse, tempColl;
+    var cnt, count1, index, model, msg, occurResponse, tempColl;
     $('.loadingconusme').html("");
+    count1 = 0;
     if (xhr.status === 201) {
       occurResponse = _.map(response.occurrence, function(occurrence) {
+        var occur;
         occurrence.meta_id = parseInt(occurrence.meta_id);
+        occur = _.has(occurrence, "occurrence");
+        if (occur === true) {
+          count1++;
+        }
         return occurrence;
       });
       this.model.set('occurrence', occurResponse);
@@ -83,6 +90,9 @@ AsperbmiView = (function(_super) {
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
       msg = this.showMessage(cnt);
+      if ((parseInt(response.occurrence.length) === parseInt(count1)) && parseInt(cnt) === 1) {
+        $('.bonus').text('(Bonus)');
+      }
       $('.msg').html(msg);
       if (parseInt(cnt) === 1) {
         cnt = 0;
@@ -154,14 +164,16 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.generate = function(data) {
-    var bonus, count1, ind, occur;
+    var bonus, count, count1, ind, occur;
     occur = data;
     bonus = 0;
     count1 = 0;
+    count = 0;
+    console.log(this.model);
     console.log(this.model.get('occurrence').length);
     $.each(occur, (function(_this) {
       return function(ind, val) {
-        var count, expected, meta_id, occurrence;
+        var expected, meta_id, occurrence;
         occurrence = _.has(val, "occurrence");
         expected = _.has(val, "expected");
         meta_id = val.meta_id;
@@ -170,7 +182,7 @@ AsperbmiView = (function(_super) {
           count1++;
           return true;
         } else if (occurrence === true && (expected === true || expected === false) && count !== 1) {
-          _this.update_occurrences(val, ind);
+          _this.update_occurrences(val, ind, occur);
           return false;
         } else {
           _this.create_occurrences(ind);
@@ -201,14 +213,29 @@ AsperbmiView = (function(_super) {
     return this.bottle = new EAProgressVertical(this.$el.find('.bottle'), this.bottleRemaining, 'empty', 10000, [25, 50, 75]);
   };
 
-  AsperbmiView.prototype.update_occurrences = function(data, ind) {
-    var count, meta_value, msg;
-    $('#add').hide();
-    $('.serving').text('Serving ' + (parseInt(ind) + 1));
-    $('#meta_id').val(parseInt(data.meta_id));
+  AsperbmiView.prototype.update_occurrences = function(data, ind, occur) {
+    var consumed, count, meta_value, msg;
     count = 0;
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
+    consumed = 0;
+    $.each(occur, (function(_this) {
+      return function(ind, val) {
+        var occurrence;
+        occurrence = _.has(val, "occurrence");
+        if (occurrence === true) {
+          return consumed++;
+        }
+      };
+    })(this));
+    if ((parseInt(occur.length) === parseInt(consumed)) && parseInt(count) !== 1) {
+      ind = 'bonus';
+      $('.bonus').text('(Bonus)');
+      ind = parseInt(occur.length);
+    }
+    $('#add').hide();
+    $('.serving').text('Serving ' + (parseInt(ind)));
+    $('#meta_id').val(parseInt(data.meta_id));
     $('.bottlecnt').text(count);
     msg = this.showMessage(count);
     $('.msg').html(msg);

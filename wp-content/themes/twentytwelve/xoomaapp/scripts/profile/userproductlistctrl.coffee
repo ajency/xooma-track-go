@@ -40,6 +40,7 @@ class ProductChildView extends Marionette.ItemView
                           
                        
                         </ul>
+                        <div class="end-bar"></div>
                         </li>
                         <li class="col-md-1 col-xs-1 hidden-xs">
                     <h4>    <i class="fa fa-random text-muted"></i></h4>
@@ -199,7 +200,7 @@ class ProductChildView extends Marionette.ItemView
 			data.newClass = 'text-muted'
 			data.servings_text =  'Serivngs out of stock'
 			data.hidden = 'hidden'
-			data.frown = ''
+			data.frown = 'hidden'
 		else if parseInt(servingsleft) <= parseInt(totalservings) && parseInt(servingsleft) != 0
 			data.newClass = 'text-warning'
 		else if parseInt(servingsleft) >= parseInt(totalservings) && parseInt(servingsleft) != 0

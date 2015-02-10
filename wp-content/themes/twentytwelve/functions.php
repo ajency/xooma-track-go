@@ -94,7 +94,18 @@ require( get_template_directory() . '/inc/custom-function.php' );
 
 #load all the classes
 require_once (get_template_directory().'/vendor/autoload.php');
+
+
+
 require_once (get_template_directory().'/parse-php-sdk/autoload.php');
+
+use Parse\ParseClient;
+ 
+ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
+
+
+use Parse\ParseCloud;
+
 require_once (get_template_directory().'/vendor/vlucas/valitron/src/Valitron/Validator.php');
 require_once (get_template_directory().'/classes/product.class.php');
 require_once (get_template_directory().'/classes/productList.class.php');
@@ -109,12 +120,7 @@ require_once (get_template_directory().'/api/class.product.api.php');
 require_once (get_template_directory().'/api/class.user.api.php');
 #load all the apis
 //parse
-use Parse\ParseClient;
- 
-ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
 
-
-use Parse\ParseCloud;
 
 
 
@@ -1434,12 +1440,20 @@ function dba_add_communication_components($defined_comm_components){
 
 		);
 
+	$defined_comm_components['stock_emails'] = array(
+				'stock_low_email' => array('preference'=>1),
+				'stock_over_email'  => array('preference'=>1)
+
+		);
+
 	return $defined_comm_components;
 }
 add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 
 add_action('CRON_SCHEDULE_SEND_REMINDERS', 'cron_job_reminders', 2,1);
-//add_action('admin_init', 'cron_job_reminders', 2, 1);
+add_action('CRON_SCHEDULE_LOW_STOCK', 'send_stock_reminders', 2,0);
+add_action('CRON_SCHEDULE_OVER_STOCK', 'send_stock_reminders_over', 2,0);
+//add_action('admin_init', 'send_stock_reminders', 2, 1);
 
 
 

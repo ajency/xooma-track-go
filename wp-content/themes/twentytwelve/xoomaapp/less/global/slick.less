@@ -196,6 +196,7 @@
 .slick-prev
 {
     left: -25px;
+    display:none !important;
 }
 [dir='rtl'] .slick-prev
 {
@@ -214,6 +215,7 @@
 .slick-next
 {
     right: -25px;
+    display:none !important;
 }
 [dir='rtl'] .slick-next
 {
@@ -336,4 +338,16 @@
 {
     opacity: .75;
     color: black;
+}
+.end-bar{
+    background:url(../images/layer.png) right no-repeat;
+    width: 130px;
+    height: 70px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+      @media (max-width: @screen-sm-min) {
+    width: 36px;
+    height: 65px;
+    }
 }

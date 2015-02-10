@@ -746,7 +746,9 @@ function send_notifications_to_admin($user_id){
 		'email'           => $user['user_email'],
 		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
 		'registered'      => $user['user_registered'],
-		'siteurl'         => site_url().'/wp-admin'
+		'siteurl'         => site_url().'/wp-admin',
+		'loginurl'		  => site_url().'/xooma-app/#login',
+		'img'			  => site_url().'/assets/logo.png'
 
 
 		);
@@ -801,7 +803,13 @@ function send_notifications_to_user($user_id){
 	$user = login_response($user_id);
 
 	$meta = array(
-		'siteurl'         => site_url().'/wp-admin'
+		'username'        => $user['display_name'],
+		'email'           => $user['user_email'],
+		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
+		'registered'      => $user['user_registered'],
+		'siteurl'         => site_url().'/xooma-app/#profile/personal-info',
+		'loginurl'		  => site_url().'/xooma-app/#login',
+		'img'			  => site_url().'/assets/logo.png'
 
 
 		);
@@ -919,12 +927,12 @@ function get_user_products($id){
 
 		return $product_arr;
 }
-
 function login_response($user_id){
 
 		global $user_ID,  $wp_roles ;
 		$user = array();
 		$user_info = get_userdata($user_id);
+		
 		$usermeta = get_user_meta($user_id);
 		$user['status'] = 'true';
 		$user['id'] = $user_id;
@@ -1856,6 +1864,7 @@ function cron_job_reminders($args)
 {
 
 
+
 	global $wpdb;
 
 
@@ -1877,7 +1886,7 @@ function cron_job_reminders($args)
 
 	$current_date = strtotime($start_dt);
 
-	$nextdate = $current_date+(60*intval(600));
+	$nextdate = $current_date+(60*intval($args));
 
 	$end_date = date('Y-m-d H:i:s',$nextdate);
 	
@@ -1898,13 +1907,33 @@ function cron_job_reminders($args)
 		}
 		if( $next_occurrence > $current_date)
 		{
+			
 			$user = $wpdb->get_row("SELECT * from $table where id=".$value->object_id);
 
 			$stock = get_stock_count_user($user->user_id,$user->product_id);
 			$ProductList = new ProductList();
-			$product_name = $ProductList->get_products($user->product_id);
+			$product = $ProductList->get_products($user->product_id);
+			$user_details = get_user_meta($user->user_id,'user_details',true);
+			$details = maybe_unserialize($user_details);
+			$userdata  = get_userdata( $user->user_id );
+			$name = $userdata->display_name;
+			$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+					
+					
+			$UTC = new DateTimeZone("UTC");
+			$newTZ = new DateTimeZone($details['timezone']);
+			$date = new DateTime( $date);
+			$todaydate = $date->setTimezone( $newTZ );
+			$t  = $todaydate->format('Y-m-d H:i:s');
+			$date1 = new DateTime($t);
+			$date1->setTimezone( $UTC );
+			$time = $date1->format('H:i A');
+			$product_name = $product[0]['name'];
 			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 			
+			eval("\$msg = \"$msg\";");
+
+
 			//build push array 
 			if (intval($stock) != 0)
 			{
@@ -1912,7 +1941,7 @@ function cron_job_reminders($args)
 
 						'ID' => $user->user_id,
 						'message' => $msg,
-						'product' => $product_name[0]['name']
+						'product' => $product[0]['name']
 					);
 
 			}
@@ -1923,15 +1952,14 @@ function cron_job_reminders($args)
 	}
 
 	
-	// function call
-	// // //parse
+	
 		
 		
-		$result = ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
 
 
-	// // //parse
+	
 	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
 
 }
@@ -1946,21 +1974,13 @@ function update_occurrence($schedule){
  	
 	
 
-
 function send_message($user_id,$product_id,$type,$time=0)
 {
 
-	switch($type){
+	
 
-		case 'reminder':
-		$path = get_template_directory_uri().'/xoomaapp/json/php/reminder.txt';
-		break;
 
-		case 'stock_low':
-		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_low.txt';
-		break;
-
-	}
+	$path = get_path($type);
 
 	$file = file($path);
 
@@ -1976,13 +1996,14 @@ function send_message($user_id,$product_id,$type,$time=0)
 		$temp = explode('=>', $value);
 
 
-		array_push($arr, $temp[0]);
+		array_push($arr, intval($temp[0]));
 		array_push($arr, $temp[1]);
 
 		
 
-		if(in_array($product_id, $arr))
+		if(in_array(intval($product_id), $arr))
 		{
+			
 			$msg = $arr[1];
 			break;
 		}
@@ -1993,12 +2014,108 @@ function send_message($user_id,$product_id,$type,$time=0)
 		
 	}
 
-	
+	$msg;
 	
 	return $msg;
 	
 	
 }
+
+function get_path($type){
+
+		$path = "";
+
+		switch($type){
+
+		case 'reminder':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/reminder.txt';
+		break;
+
+		case 'stock_low':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_low.txt';
+		break;
+
+		case 'stock_over':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_over.txt';
+		break;
+
+	}
+
+	return $path;
+
+}
+
+function send_stock_reminders_over(){
+
+	global $wpdb;
+
+	global $user;
+
+	$usersToBeNotified = array();
+
+	$productList = new ProductList();
+	
+	$table = $wpdb->prefix . "product_main";
+
+	$defaults = $wpdb->prefix . "defaults";
+
+	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
+
+	$settings = $wpdb->get_row("SELECT * from $defaults where type='settings'");
+
+	
+	
+	
+	
+
+
+	foreach ($results as $key => $value) {
+		//available count of the user//
+		$available = get_stock_count_user($value->user_id,$value->product_id);
+		$include = array($value->user_id);
+		$blogusers = get_users(array('include'=>$include));
+		
+		
+		if(count($blogusers)!= 0)
+		{
+		
+			
+		
+
+		$data  = $productList->get_products($value->product_id);
+	
+		
+		
+		$userdata  = get_userdata( $value->user_id );
+
+		
+		$name = $userdata->display_name;
+		$product_name = $data[0]['name'];
+
+		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
+
+		eval("\$msg = \"$msg\";");
+		if(intval($available) == 0)
+		{
+				
+				notifications_low_stock($value->user_id,$product_name,$available,'stock_over_email');
+				$usersToBeNotified[] = array(
+						'ID' => $value->user_id,
+						'message' => $msg,
+						'product' => $product_name
+
+					);
+
+		}
+		
+	}
+
+}
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
+	
+}
+
 
 
 function send_stock_reminders()
@@ -2006,21 +2123,120 @@ function send_stock_reminders()
 
 	global $wpdb;
 
+	global $user;
+
+	$usersToBeNotified = array();
+
+	$productList = new ProductList();
 	
 	$table = $wpdb->prefix . "product_main";
 
-	$defualts = $wpdb->prefix . "defualts";
+	$defaults = $wpdb->prefix . "defaults";
 
 	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
+
+	$settings = $wpdb->get_row("SELECT * from $defaults where type='settings'");
+
+	
+	$object = json_decode($settings->value);
+	
+	
+
 
 	foreach ($results as $key => $value) {
 		//available count of the user//
 		$available = get_stock_count_user($value->user_id,$value->product_id);
+		$include = array($value->user_id);
+		$blogusers = get_users(array('include'=>$include));
+		
+		
+		if(count($blogusers)!= 0)
+		{
+		
+			
+		
 
-		//settings value
-		$settings = $wpdb->get_results("SELECT * from $defaults where type='settings'");
+		$data  = $productList->get_products($value->product_id);
+	
+		$servings_left = $object->no_of_days;
+
+		$servings_low = intval($data[0]['total']) * intval($servings_left);
+		
+		$userdata  = get_userdata( $value->user_id );
 
 		
+		$name = $userdata->display_name;
+		$product_name = $data[0]['name'];
+
+		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
+
+		eval("\$msg = \"$msg\";");
+		if(intval($available) <= intval($servings_low))
+		{
+				
+				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email');
+				$usersToBeNotified[] = array(
+						'ID' => $value->user_id,
+						'message' => $msg,
+						'product' => $product_name
+
+					);
+
+		}
+		
 	}
+
+}
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
+	
+}
+
+
+function notifications_low_stock($user_id,$product_name,$available,$type){
+
+	
+	global $aj_comm;
+
+	$args = array(
+		'component'             => 'stock_emails',
+		'communication_type'    => $type,
+		'user_id'               => $user_id
+
+		);
+	// user data
+	$user  = login_response( $user_id );
+
+	$meta = array(
+		'username'        => $user['display_name'],
+		'product_name'    => $product_name,
+		'available'       => $available,
+		'loginurl'		  => site_url().'/xooma-app/#login',
+		'img'			  => site_url().'/assets/logo.png'
+
+
+		);
+
+	
+
+	$recipients_args = array(
+			array(
+				'user_id'     => $user_id,
+				'type'        => 'email',
+				'value'       =>  $user['user_email']
+
+			)
+
+	);
+
+	
+
+	$aj_comm->create_communication($args,$meta,$recipients_args);
+
+	$aj_comm->cron_process_communication_queue("stock_emails",$type);
+
+
+	return true;
+
 
 }

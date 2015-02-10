@@ -37,7 +37,13 @@ class HomeLayoutView extends Marionette.LayoutView
 				date =  moment().subtract(id, 'days')
 				previous = date.format('YYYY-MM-DD')
 				@ui.start_date.val previous
-			today = moment().format('YYYY-MM-DD')
+			timezone = App.currentUser.get('timezone')
+			tt = moment().format('YYYY-MM-DD HH:mm:ss')
+			d = new Date()
+			timestamp = d.getTime()
+		
+			
+			today = moment(timestamp).zone(timezone).format('YYYY-MM-DD')
 			@ui.end_date.val today
 			if $(e.target).val() == 'bmi'
 				@ui.time_period.hide()
@@ -59,7 +65,13 @@ class HomeLayoutView extends Marionette.LayoutView
 			id = $(e.target).val()
 			date =  moment().subtract(id, 'days')
 			previous = date.format('YYYY-MM-DD')
-			today = moment().format('YYYY-MM-DD')
+			timezone = App.currentUser.get('timezone')
+			tt = moment().format('YYYY-MM-DD HH:mm:ss')
+			d = new Date()
+			timestamp = d.getTime()
+		
+			
+			today = moment(timestamp).zone(timezone).format('YYYY-MM-DD')
 			@ui.start_date.val previous
 			
 			
@@ -136,24 +148,35 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
-
-		$('#update').val moment().format('YYYY-MM-DD')
-		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
-		 	$('#update').val App.currentUser.get('homeDate')
+		timezone = App.currentUser.get('timezone')
+		tt = moment().format('YYYY-MM-DD HH:mm:ss')
+		d = new Date()
+		timestamp = d.getTime()
+		
+		curr =  moment(timestamp).zone(timezone).format("YYYY-MM-DD HH:mm:ss")
+		current = new Date(curr)
+		day_night = current.getHours()
+		if(day_night<=12)
+			$('.daynightclass').attr('src', _SITEURL+'/wp-content/themes/twentytwelve/images/morning.gif')
 		else
-			date = moment().format('YYYY-MM-DD')
-			App.currentUser.set 'homeDate' , date
-			$('#update').val date
+			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
+		$('#update').val App.currentUser.get('homeDate')
+
+		if App.currentUser.get('homeDate') == moment(timestamp).zone(timezone).format('YYYY-MM-DD')
+			$('#update').val 'TODAY'
+		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
-			    dateFormat : 'yy-mm-dd'
-			    changeYear: true,
-			    changeMonth: true,
-			    maxDate: new Date()
-			    minDate : new Date(reg_date)
-			    onSelect: (dateText, inst)->
-			    	App.currentUser.set 'homeDate' , dateText
-			    	
+				dateFormat : 'yy-mm-dd'
+				changeYear: true,
+				changeMonth: true,
+				maxDate: new Date()
+				minDate : new Date(reg_date)
+				onSelect: (dateText, inst)->
+					App.currentUser.set 'homeDate' , dateText
+					if App.currentUser.get('homeDate') == moment(timestamp).zone(timezone).format('YYYY-MM-DD')
+						$('#update').val 'TODAY'
+					
 
 		)
 
@@ -240,7 +263,7 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
-		console.log state = App.currentUser.get 'state'
+		state = App.currentUser.get 'state'
 		if App.useProductColl.length == 0 && state == '/home'
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
@@ -281,10 +304,10 @@ class HomeX2OView extends Marionette.ItemView
 			
 				  <div class="fill-bottle"> 
 				 <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
-                        <img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
-                             
+						<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
+							 
 
-                        <h6 class="text-center texmsg">{{texmsg}}</h6> </a>         
+						<h6 class="text-center texmsg">{{texmsg}}</h6> </a>         
 					
 				  </div>
 					 <div id="canvas-holder">
@@ -294,13 +317,12 @@ class HomeX2OView extends Marionette.ItemView
 			</div>
 		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6
 
-		</div></div>'
+		<br/></div></div>'
 	ui :
 		liquid : '.liquid'
 
 	events:
 		'click #original':(e)->
-			console.log @model.get 'available'
 			available = @model.get 'available'
 
 			if parseInt(available) <= 0
@@ -315,7 +337,7 @@ class HomeX2OView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		per = [0,25,50,75,100]
+		per = [0,25,50,75,100,'bonus']
 		per1 = ['25_50','50_75']
 		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
 		
@@ -330,7 +352,7 @@ class HomeX2OView extends Marionette.ItemView
 		timezone = n
 		if App.currentUser.get('timezone') != null
 			timezone = App.currentUser.get('timezone')
-		console.log tt = moment().format('YYYY-MM-DD HH:mm:ss')
+		tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		d = new Date()
 		timestamp = d.getTime()
 		
@@ -339,41 +361,45 @@ class HomeX2OView extends Marionette.ItemView
 		bonusArr = 0
 		recent = '--'
 		data.time = recent
-		data.bonus = 0
+		
 		consumed = 0	
 		qtyarr = []	
 		qtyarr.push 0
+		qtyconsumed = []
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
-			if occurrence == true && expected == true
+			if occurrence == true && (expected == true || expected == false)
+				qtyconsumed = []
 				date = val.occurrence
-				occurrenceArr.push date
-				consumed++
-				console.log val.meta_value
 				qtyconsumed = HomeX2OView::getCount(val.meta_value)
 				qtyarr.push qtyconsumed[0]
+				occurrenceArr.push qtyconsumed[1]
+				
 
 
-			if occurrence == true && expected == false
-				bonusArr++
+			if occurrence == true && (expected == true || expected == false) && qtyconsumed[0] ==  1
+				consumed++
+				
 			
 		if occurrenceArr.length != 0 
 			recent = _.last occurrenceArr
 			d = new Date(recent)
 			timestamp = d.getTime()
 			data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A")
-			data.bonus = bonusArr
+			
 			data.occurr = occurrenceArr.length
 		howmuchqty = _.last qtyarr
-		console.log howmuch = parseFloat(howmuchqty) * 100
+		howmuch = parseFloat(howmuchqty) * 100
+		if(parseInt(@model.get('occurrence').length) == parseInt(consumed)) && qtyconsumed[0] ==  1
+				howmuch = 'bonus'
+		
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
 			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
 
 			time = _.last timearray
-			d = moment().format('YYYY-MM-DD')
 			d0 = new Date(t0)
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)
@@ -382,9 +408,9 @@ class HomeX2OView extends Marionette.ItemView
 			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
-		console.log timeslot
+		
 		$.each per , (ind,val)->
-			if parseInt(val) == parseInt(howmuch)
+			if val == howmuch
 				texmsg = Messages[val+'_'+timeslot]
 		$.each per1 , (ind,val)->
 			temp = val.split('_')
@@ -431,7 +457,7 @@ class HomeX2OView extends Marionette.ItemView
 
 
 	getCount:(val)->
-		console.log val
+		
 		count = 0
 		time = []
 		if!(_.isArray(val)) 
@@ -452,7 +478,7 @@ class HomeX2OView extends Marionette.ItemView
 							count += parseFloat val2.qty
 							time.push val2.date
 
-		console.log time
+		
 		lasttime = _.last time
 		[count, lasttime]	
 
@@ -466,7 +492,7 @@ class HomeX2OView extends Marionette.ItemView
 		value = 0
 		arr = []
 		qty = 0
-		console.log qty = HomeX2OView::getCount(data.meta_value)
+		qty = HomeX2OView::getCount(data.meta_value)
 
 		if qty[1] == undefined
 			qty[1] = []		
@@ -499,10 +525,11 @@ class HomeX2OView extends Marionette.ItemView
 			timezone = App.currentUser.get('timezone')
 		doughnutData = []
 		$.each data, (ind,val)->
-			console.log occurrence = HomeX2OView::get_occurrence(val)
-			msg = "No change in consumption(in ml)"
+			occurrence = HomeX2OView::get_occurrence(val)
+			
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0 
+				msg = ""
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
 				actualtime = occurrence['time']
@@ -511,7 +538,7 @@ class HomeX2OView extends Marionette.ItemView
 				time = moment(timestamp).zone(timezone).format('h:mm A')
 			
 				
-				msg = "Bottle "+ i+ ' consumed(in ml) at '+ time
+				msg = "Bottle "+ i+ ' consumed(%) at '+ time
 			doughnutData.push 
 					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']
@@ -561,7 +588,7 @@ class ProductChildView extends Marionette.ItemView
 			  <ul class="list-inline dotted-line  text-center row m-t-20 panel-product">
 								  <li class="col-md-8 col-xs-12"> 
 							 <ul class="list-inline no-dotted">
-							 					{{#no_servings}}
+												{{#no_servings}}
 					
 				 
 									  
@@ -600,7 +627,6 @@ class ProductChildView extends Marionette.ItemView
 
 	events:
 		'click #original':(e)->
-			console.log @model.get 'available'
 			available = @model.get 'available'
 
 			if parseInt(available) <= 0
@@ -680,16 +706,15 @@ class ProductChildView extends Marionette.ItemView
 				
 			response = reponse[0]
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
-			data.no_servings =  no_servings
-			data.serving_size = temp.length
-		console.log howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		data.no_servings =  no_servings
+		data.serving_size = temp.length
+		howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
 			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
 
 			time = _.last timearray
-			d = moment().format('YYYY-MM-DD')
 			d0 = new Date(t0)
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)
@@ -698,7 +723,7 @@ class ProductChildView extends Marionette.ItemView
 			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
-		console.log timeslot
+		
 		$.each per , (ind,val)->
 			if parseInt(val) == parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
@@ -713,7 +738,7 @@ class ProductChildView extends Marionette.ItemView
 		
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
-				console.log time = _.last timearray
+				time = _.last timearray
 				d = new Date(val.next_occurrence)
 				timestamp = d.getTime()
 				time1 = moment(timestamp).zone(timezone).format("x")
@@ -721,7 +746,7 @@ class ProductChildView extends Marionette.ItemView
 				if parseInt(time) < parseInt(time1)
 					$('#bell'+model.get('id')).removeClass 'fa-bell-slash no-remiander'
 					$('#bell'+model.get('id')).addClass 'fa-bell-o element-animation'
-					console.log timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
+					timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
 					msg = 'Your next reminder is at '+timedisplay
 					return false
 		data.texmsg = texmsg
@@ -767,15 +792,15 @@ class ProductChildView extends Marionette.ItemView
 
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
-			html += '<li><a href="#/products/'+product+'/consume/'+date+'" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
+			html += '<li><a href="#/products/'+product+'/consume/'+date+'" id="original"><span class="circle-btn"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></span></a>
 					<h6 class="text-center margin-none">Tap to take </h6>
 					<h6 class="text-center text-primary '+classname+'">'+time+'</h6></li>'
 		else
 			html += '<li><a >
-                  <h3 class="bold"><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
-               </a>'
+				  <h3 ><div class="cap '+newClass+'"></div>'+qty[key].qty+'</h3>
+			   </a>'
 			html +=	'<i class="fa fa-clock-o center-block status"></i>
-                     <h6 class="text-center text-primary">'+serving_text+'</h6></li>'
+					 <h6 class="text-center text-primary">'+serving_text+'</h6></li>'
 		qty  = qty[key].qty
 		$('#qty'+model.get('id')).val qty
 		
@@ -785,7 +810,6 @@ class ProductChildView extends Marionette.ItemView
 		temp
 	
 	occurredfunc:(val,key,model)->
-		console.log val
 		temp = []
 		i = 0
 		d = new Date()
@@ -799,12 +823,12 @@ class ProductChildView extends Marionette.ItemView
 			
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase() 
-		console.log qty = val.meta_value.qty
+		qty = val.meta_value.qty
 		if parseInt(qty) == 0
 			time = "Skipped"
 		html = ""
 		newClass = product_type+'_occurred_class'
-		html += '<li><a><h3 class="bold"><div class="cap '+newClass+'"></div>'+qty+'</h3></a>'
+		html += '<li><a><h3><div class="cap '+newClass+'"></div>'+qty+'</h3></a>'
 		html +=	'<i class="fa fa-check center-block status"></i><h6 class="text-center text-primary">'+time+'</h6></li>'
 		qty  = val.meta_value.qty
 		schedule_id = val.schedule_id

@@ -1,9 +1,9 @@
 {
 			"0"   : "Swipe down the bottle to consume",
-			"0.25"   : "Great start pal, you just consumed 25% of the X2O. ",
+			"0.25"   : "Great start pal, you consumed 25% of the X2O. ",
 			"0.5"   : "Half full half empty 50% of the bottle consumed.",
-			"0.75"   : "Wow, you are about to finish!  75% of the bottle now consumed.",
-			"1"   : "Woolaa! You just finished a bottle.Go ahead grab the next.",
+			"0.75"   : "Wow, you are about to finish!  75% of the bottle consumed.",
+			"1"   : "Woolaa! You finished a bottle.Go ahead grab the next.",
 			"2AM-11AM" : "timeslot1",
 			"11AM-4PM" : "timeslot2",
 			"4PM-9PM" : "timeslot3" ,
