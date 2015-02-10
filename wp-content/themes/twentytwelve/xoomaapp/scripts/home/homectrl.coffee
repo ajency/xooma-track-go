@@ -317,7 +317,7 @@ class HomeX2OView extends Marionette.ItemView
 			</div>
 		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6
 
-		<div class="clearfix"></div></div></div>'
+		<br/></div></div>'
 	ui :
 		liquid : '.liquid'
 
@@ -792,7 +792,7 @@ class ProductChildView extends Marionette.ItemView
 
 		newClass = product_type+'_expected_class'
 		if parseInt(count) == 0
-			html += '<li><a href="#/products/'+product+'/consume/'+date+'" id="original"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></a>
+			html += '<li><a href="#/products/'+product+'/consume/'+date+'" id="original"><span class="circle-btn"><img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/btn_03.png" width="70px"></span></a>
 					<h6 class="text-center margin-none">Tap to take </h6>
 					<h6 class="text-center text-primary '+classname+'">'+time+'</h6></li>'
 		else

@@ -40,6 +40,7 @@ class ProductChildView extends Marionette.ItemView
                           
                        
                         </ul>
+                        <div class="end-bar"></div>
                         </li>
                         <li class="col-md-1 col-xs-1 hidden-xs">
                     <h4>    <i class="fa fa-random text-muted"></i></h4>
