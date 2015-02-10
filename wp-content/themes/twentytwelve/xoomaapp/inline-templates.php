@@ -1276,7 +1276,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
            <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-default  " > <i class="fa fa-angle-double-right"></i> Skip </button>
                 <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
-      <div class="loadingconusme"></div></div>
+     <div class="loadingconusme pull-left m-t-10"></div></div>
       <div class="col-sm-4 col-xs-1"></div>
     </div>
 

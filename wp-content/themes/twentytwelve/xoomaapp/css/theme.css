@@ -6665,6 +6665,7 @@ text {
 }
 .mid-title {
   position: relative;
+  font-weight: 500;
 }
 .mid-title span {
   font-size: 0.6em;
@@ -7301,17 +7302,20 @@ packet_expected_class {
 .fill-bottle {
   display: block;
   margin: auto;
-  position: absolute;
-  top: 195px;
+  margin-bottom: -295px;
   text-align: center;
   left: 0%;
   right: 0%;
   width: 150px;
   z-index: 9;
+  margin-top: 78px;
+  z-index: 999;
+  position: relative;
 }
 @media (max-width: 768px) {
   .fill-bottle {
-    top: 84px;
+    margin-top: 48px;
+    margin-bottom: -225px;
   }
   .fill-bottle img {
     width: 70%;
@@ -7409,6 +7413,9 @@ packet_expected_class {
   html body {
     font-size: 12px !important;
   }
+  html body div#mcTooltipWrapper {
+    left: 20% !important;
+  }
   html body .panel-product {
     margin-top: 0px;
   }
@@ -7458,7 +7465,7 @@ packet_expected_class {
     padding: 3px;
   }
   html body .home-sub-header li {
-    opacity: .4;
+    opacity: .3;
   }
   html body .home-sub-header li.selected {
     opacity: .9;
@@ -7510,7 +7517,7 @@ packet_expected_class {
   height: 100%;
   position: fixed;
   width: 100%;
-  top: 9%;
+  top: 6%;
 }
 .blur-background .sub-header {
   background: rgba(0, 0, 0, 0.26);
@@ -7999,6 +8006,7 @@ packet_expected_class {
 #timeline.viewHistory .labels {
   position: relative !important;
   top: 9px;
+  z-index: -1px;
 }
 #timeline.viewHistory .date {
   margin-top: -11px;
