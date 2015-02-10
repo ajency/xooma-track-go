@@ -230,24 +230,36 @@ border: 1px solid #EFEFEF;
 }
 
 .cbp-vm-view-grid .cbp-vm-title {
-	font-size: 1.5em;
-	margin-top: 5px;
+		max-width: 300px;
+		min-height: 40px;
+		margin: 10px auto 4px;
+		height: 16px;
+		overflow: hidden;
+		line-height: 19px;
+		text-overflow: ellipsis;
+		font-size: 1.2em;
+		COLOR: #7C7C7C;
+		margin-top: 5px;
+		font-weight: 400;
 	    @media (max-width: @screen-sm-min) {
-       font-size: 1.2em;
+       
  }
 }
 
 .cbp-vm-view-grid .cbp-vm-details {
 	max-width: 300px;
-min-height: 40px;
-margin: 10px auto 4px;
-height: 67px;
-overflow: hidden;
-text-overflow: ellipsis;
-font-size: .9em;
-COLOR: #7C7C7C;
-@media screen and (max-width: 47.375em) {
-height: 53px;
+	min-height: 40px;
+	margin: 10px auto 4px;
+	height: 67px;
+	overflow: hidden;
+	line-height: 17px;
+	text-overflow: ellipsis;
+	font-size: .9em;
+	COLOR: #7C7C7C;
+	@media (max-width: @screen-sm-min) {
+		margin: 1px auto 4px;
+		height: 34px;
+		line-height: 13px;
 	}
 } 
 
@@ -306,11 +318,7 @@ height: 53px;
 	border:0px;
 }
 
-@media screen and (max-width: 66.7em) {
-	.cbp-vm-view-list .cbp-vm-details  {
-		width: 30%;
-	}
-} 
+
 
 @media screen and (max-width: 57em) {
 	.cbp-vm-view-grid ul li {

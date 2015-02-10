@@ -477,14 +477,14 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				</div>-->
 
 		<div class="aj-response-message no-tab"> </div>
-	 <div class="row section-home">
+	 <div class="row section-nm">
 			<div class="col-md-2"> 
 			</div>
 		 <div class="col-md-8"> 
 		 <div class="panel panel-default panel-mobile">
 				  <div class="panel-body  ">
 					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/><input type="text"  id="update" class="home-datepicker " >
-				<a id="showHome">( Show ) </a> <img src="" class="daynightclass pull-right"/>
+				<a id="showHome">( Apply ) </a> <img src="" class="daynightclass pull-right"/>
 
 				  </div>
 			</div>
@@ -1202,14 +1202,14 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		</div>
 		 <input type="hidden" name="date" id="date" value="" / >
 	   <div class="row m-t-20">
-	   		<div class="col-sm-5 col-xs-4"> </div>
-			<div class="col-sm-2 col-xs-4"><div class="loadingconusme pull-left m-t-10" ></div>
+	   		<div class="col-sm-5 col-xs-3"> </div>
+			<div class="col-sm-2 col-xs-6"><div class="loadingconusme pull-left m-t-10" ></div>
 				<input type="hidden" name="percentage" id="percentage" value="0" / >
 				<input type="hidden" name="meta_id" id="meta_id" value="" / >
 			  	<button type="submit" data-count="0" id="confirm" class="change-progress btn btn-primary  center-block" > Confirm </button>
               	
 			</div>
-			<div class="col-sm-5 col-xs-4"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
+			<div class="col-sm-5 col-xs-3"><button class="reset-progress btn-link pull-left" type="button"> <i class="fa fa-refresh"></i> Reset</button></div>
 		</div>
   </div>
 	<br>
