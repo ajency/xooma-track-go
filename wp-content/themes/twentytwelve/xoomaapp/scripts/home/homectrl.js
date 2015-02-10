@@ -51,7 +51,7 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.events = {
     'change @ui.param': function(e) {
-      var date, id, previous, reg_date, today;
+      var d, date, id, previous, reg_date, timestamp, timezone, today, tt;
       if ($('.time_period').val() === '' || $('.time_period').val() === 'all') {
         reg_date = App.graph.get('reg_date');
         this.ui.start_date.val(reg_date);
@@ -61,7 +61,11 @@ HomeLayoutView = (function(_super) {
         previous = date.format('YYYY-MM-DD');
         this.ui.start_date.val(previous);
       }
-      today = moment().format('YYYY-MM-DD');
+      timezone = App.currentUser.get('timezone');
+      tt = moment().format('YYYY-MM-DD HH:mm:ss');
+      d = new Date();
+      timestamp = d.getTime();
+      today = moment(timestamp).zone(timezone).format('YYYY-MM-DD');
       this.ui.end_date.val(today);
       if ($(e.target).val() === 'bmi') {
         return this.ui.time_period.hide();
@@ -78,11 +82,15 @@ HomeLayoutView = (function(_super) {
       return App.navigate('#/profile/measurements', true);
     },
     'change @ui.time_period': function(e) {
-      var date, id, previous, reg_date, today;
+      var d, date, id, previous, reg_date, timestamp, timezone, today, tt;
       id = $(e.target).val();
       date = moment().subtract(id, 'days');
       previous = date.format('YYYY-MM-DD');
-      today = moment().format('YYYY-MM-DD');
+      timezone = App.currentUser.get('timezone');
+      tt = moment().format('YYYY-MM-DD HH:mm:ss');
+      d = new Date();
+      timestamp = d.getTime();
+      today = moment(timestamp).zone(timezone).format('YYYY-MM-DD');
       this.ui.start_date.val(previous);
       if (id === 'all') {
         reg_date = App.graph.get('reg_date');
@@ -167,15 +175,23 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
-    var date, reg_date;
+    var curr, current, d, day_night, reg_date, timestamp, timezone, tt;
     App.trigger('cordova:hide:splash:screen');
-    $('#update').val(moment().format('YYYY-MM-DD'));
-    if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
-      $('#update').val(App.currentUser.get('homeDate'));
+    timezone = App.currentUser.get('timezone');
+    tt = moment().format('YYYY-MM-DD HH:mm:ss');
+    d = new Date();
+    timestamp = d.getTime();
+    curr = moment(timestamp).zone(timezone).format("YYYY-MM-DD HH:mm:ss");
+    current = new Date(curr);
+    day_night = current.getHours();
+    if (day_night <= 12) {
+      $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/morning.gif');
     } else {
-      date = moment().format('YYYY-MM-DD');
-      App.currentUser.set('homeDate', date);
-      $('#update').val(date);
+      $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/night.gif');
+    }
+    $('#update').val(App.currentUser.get('homeDate'));
+    if (App.currentUser.get('homeDate') === moment(timestamp).zone(timezone).format('YYYY-MM-DD')) {
+      $('#update').val('TODAY');
     }
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
@@ -185,7 +201,10 @@ HomeLayoutView = (function(_super) {
       maxDate: new Date(),
       minDate: new Date(reg_date),
       onSelect: function(dateText, inst) {
-        return App.currentUser.set('homeDate', dateText);
+        App.currentUser.set('homeDate', dateText);
+        if (App.currentUser.get('homeDate') === moment(timestamp).zone(timezone).format('YYYY-MM-DD')) {
+          return $('#update').val('TODAY');
+        }
       }
     });
     $('.history').attr('href', '#/measurements/' + App.currentUser.get('ID') + '/history');
@@ -273,7 +292,7 @@ App.HomeCtrl = (function(_super) {
 
   HomeCtrl.prototype.initialize = function() {
     var state;
-    console.log(state = App.currentUser.get('state'));
+    state = App.currentUser.get('state');
     if (App.useProductColl.length === 0 && state === '/home') {
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     } else {
@@ -318,7 +337,6 @@ HomeX2OView = (function(_super) {
   HomeX2OView.prototype.events = {
     'click #original': function(e) {
       var available;
-      console.log(this.model.get('available'));
       available = this.model.get('available');
       if (parseInt(available) <= 0) {
         e.preventDefault();
@@ -350,7 +368,7 @@ HomeX2OView = (function(_super) {
     if (App.currentUser.get('timezone') !== null) {
       timezone = App.currentUser.get('timezone');
     }
-    console.log(tt = moment().format('YYYY-MM-DD HH:mm:ss'));
+    tt = moment().format('YYYY-MM-DD HH:mm:ss');
     d = new Date();
     timestamp = d.getTime();
     timearray.push(moment(timestamp).zone(timezone).format("x"));
@@ -395,7 +413,6 @@ HomeX2OView = (function(_super) {
       t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss');
       t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss');
       time = _.last(timearray);
-      d = moment().format('YYYY-MM-DD');
       d0 = new Date(t0);
       timestamp0 = d0.getTime();
       d1 = new Date(t1);
@@ -458,7 +475,6 @@ HomeX2OView = (function(_super) {
 
   HomeX2OView.prototype.getCount = function(val) {
     var count, lasttime, time;
-    console.log(val);
     count = 0;
     time = [];
     if (!(_.isArray(val))) {
@@ -496,7 +512,7 @@ HomeX2OView = (function(_super) {
     value = 0;
     arr = [];
     qty = 0;
-    console.log(qty = HomeX2OView.prototype.getCount(data.meta_value));
+    qty = HomeX2OView.prototype.getCount(data.meta_value);
     if (qty[1] === void 0) {
       qty[1] = [];
     }
@@ -527,7 +543,7 @@ HomeX2OView = (function(_super) {
     doughnutData = [];
     $.each(data, function(ind, val) {
       var actualtime, i, msg, occurrence, time, timestamp;
-      console.log(occurrence = HomeX2OView.prototype.get_occurrence(val));
+      occurrence = HomeX2OView.prototype.get_occurrence(val);
       i = parseInt(ind) + 1;
       if (occurrence['value'] === 0) {
         msg = "";
@@ -604,7 +620,6 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.events = {
     'click #original': function(e) {
       var available;
-      console.log(this.model.get('available'));
       available = this.model.get('available');
       if (parseInt(available) <= 0) {
         e.preventDefault();
@@ -707,20 +722,17 @@ ProductChildView = (function(_super) {
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss');
       t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss');
-      console.log(time = _.last(timearray));
-      d = moment().format('YYYY-MM-DD');
+      time = _.last(timearray);
       d0 = new Date(t0);
       timestamp0 = d0.getTime();
       d1 = new Date(t1);
       timestamp1 = d1.getTime();
-      console.log(time1 = moment(timestamp0).zone(timezone).format("x"));
-      console.log(time2 = moment(timestamp1).zone(timezone).format("x"));
+      time1 = moment(timestamp0).zone(timezone).format("x");
+      time2 = moment(timestamp1).zone(timezone).format("x");
       if (parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)) {
-        console.log("hhhhhhhh");
         return timeslot = Messages[val];
       }
     });
-    console.log(timeslot);
     $.each(per, function(ind, val) {
       if (parseInt(val) === parseInt(howmuch)) {
         return texmsg = Messages[val + '_' + timeslot];
@@ -739,14 +751,14 @@ ProductChildView = (function(_super) {
     if (this.model.get('upcoming').length !== 0) {
       $.each(this.model.get('upcoming'), function(ind, val) {
         var time1, timedisplay;
-        console.log(time = _.last(timearray));
+        time = _.last(timearray);
         d = new Date(val.next_occurrence);
         timestamp = d.getTime();
         time1 = moment(timestamp).zone(timezone).format("x");
         if (parseInt(time) < parseInt(time1)) {
           $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
           $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
-          console.log(timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A'));
+          timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A');
           msg = 'Your next reminder is at ' + timedisplay;
           return false;
         }
@@ -815,7 +827,6 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.occurredfunc = function(val, key, model) {
     var d, html, i, meta_id, n, newClass, product_type, qty, schedule_id, temp, time, timestamp, timezone;
-    console.log(val);
     temp = [];
     i = 0;
     d = new Date();
@@ -829,7 +840,7 @@ ProductChildView = (function(_super) {
     time = moment(timestamp).zone(timezone).format("h:mm A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
-    console.log(qty = val.meta_value.qty);
+    qty = val.meta_value.qty;
     if (parseInt(qty) === 0) {
       time = "Skipped";
     }

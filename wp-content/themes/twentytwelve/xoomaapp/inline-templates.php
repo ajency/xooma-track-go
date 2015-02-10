@@ -484,7 +484,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		 <div class="panel panel-default panel-mobile">
 				  <div class="panel-body  ">
 					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/><input type="text"  id="update" class="home-datepicker " >
-				<a id="showHome">( Show ) </a> <img src="<?php echo get_template_directory_uri(); ?>/images/morning.gif" class="pull-right"/>
+				<a id="showHome">( Show ) </a> <img src="" class="daynightclass pull-right"/>
 
 				  </div>
 			</div>
