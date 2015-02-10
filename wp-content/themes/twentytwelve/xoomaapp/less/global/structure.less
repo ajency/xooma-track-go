@@ -267,6 +267,7 @@ display:none !important;
 
 .mid-title{
     position: relative;
+    font-weight:500;
     span{
       font-size:0.6em;
     }
@@ -732,17 +733,21 @@ img {
       }
 } 
       .fill-bottle{
-         display: block;
+          
+          display: block;
           margin: auto;
-          position: absolute;
-          top: 195px;
+          margin-bottom: -295px;
           text-align: center;
           left: 0%;
           right: 0%;
           width: 150px;
-          z-index:9;
+          z-index: 9;
+          margin-top: 78px;
+          z-index: 999;
+          position: relative;
           @media (max-width: @screen-sm-min) {
-                 top: 84px;
+                 margin-top: 48px;
+                 margin-bottom: -225px;
                  img{
                     width:70%;
                  }
@@ -827,6 +832,9 @@ img {
 @media (max-width: @screen-sm-min) {
     html body{
       font-size: 12px !important;
+     div#mcTooltipWrapper {
+      left:20% !important;
+     }
       .panel-product{
         margin-top:0px;
         li{
@@ -834,9 +842,6 @@ img {
         }
       }
       .list-inline{
-        h3{
-        font-size: 15px;
-        }
         small{
         font-size: 82%;
         }
@@ -877,7 +882,7 @@ img {
     background:@gray-darker;
     padding:3px;
       li{
-          opacity:.4;
+          opacity:.3;
       }
       li.selected{
           opacity:.9;
@@ -889,6 +894,9 @@ img {
         .col-md-4{
           font-size:11px;
           text-align: center;
+            h3{
+        font-size: 15px;
+        }
           h2{
             font-size: 18px;
           }
@@ -917,6 +925,15 @@ img {
             }
         }
     } */
+    .panel-mobile{
+        .panel-body {
+           
+            img{
+                width: 10%;
+            }
+          
+        }
+    }
        .section-list .alert.alert-success, .section-list .alert.alert-danger {
              top: 45px !important;
            
@@ -935,7 +952,7 @@ img {
   height:100%;
   position: fixed;
   width:100%;
-  top:9%;
+  top:6%;
      .sub-header{
     background:rgba(0, 0, 0, 0.26);
     }

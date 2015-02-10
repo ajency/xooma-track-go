@@ -6665,6 +6665,7 @@ text {
 }
 .mid-title {
   position: relative;
+  font-weight: 500;
 }
 .mid-title span {
   font-size: 0.6em;
@@ -7301,17 +7302,20 @@ packet_expected_class {
 .fill-bottle {
   display: block;
   margin: auto;
-  position: absolute;
-  top: 195px;
+  margin-bottom: -295px;
   text-align: center;
   left: 0%;
   right: 0%;
   width: 150px;
   z-index: 9;
+  margin-top: 78px;
+  z-index: 999;
+  position: relative;
 }
 @media (max-width: 768px) {
   .fill-bottle {
-    top: 84px;
+    margin-top: 48px;
+    margin-bottom: -225px;
   }
   .fill-bottle img {
     width: 70%;
@@ -7409,14 +7413,14 @@ packet_expected_class {
   html body {
     font-size: 12px !important;
   }
+  html body div#mcTooltipWrapper {
+    left: 20% !important;
+  }
   html body .panel-product {
     margin-top: 0px;
   }
   html body .panel-product li {
     border-right: 0px;
-  }
-  html body .list-inline h3 {
-    font-size: 15px;
   }
   html body .list-inline small {
     font-size: 82%;
@@ -7458,7 +7462,7 @@ packet_expected_class {
     padding: 3px;
   }
   html body .home-sub-header li {
-    opacity: .4;
+    opacity: .3;
   }
   html body .home-sub-header li.selected {
     opacity: .9;
@@ -7466,6 +7470,9 @@ packet_expected_class {
   .userproducts .col-md-4 {
     font-size: 11px;
     text-align: center;
+  }
+  .userproducts .col-md-4 h3 {
+    font-size: 15px;
   }
   .userproducts .col-md-4 h2 {
     font-size: 18px;
@@ -7493,6 +7500,9 @@ packet_expected_class {
             }
         }
     } */
+  .panel-mobile .panel-body img {
+    width: 10%;
+  }
   .section-list .alert.alert-success,
   .section-list .alert.alert-danger {
     top: 45px !important;
@@ -7510,7 +7520,7 @@ packet_expected_class {
   height: 100%;
   position: fixed;
   width: 100%;
-  top: 9%;
+  top: 6%;
 }
 .blur-background .sub-header {
   background: rgba(0, 0, 0, 0.26);
@@ -7999,9 +8009,17 @@ packet_expected_class {
 #timeline.viewHistory .labels {
   position: relative !important;
   top: 9px;
+  z-index: -1 !important;
 }
 #timeline.viewHistory .date {
   margin-top: -11px;
+}
+.sprite:before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  border-color: transparent transparent #000000 transparent;
 }
 /* Slider */
 .slick-slider {
@@ -11524,6 +11542,9 @@ input.cmn-toggle-round-flat:checked + label:after {
 .history-calender .ui-datepicker select.ui-datepicker-year {
   border-radius: 0px!important;
   height: 39px!important;
+  margin: 4px;
+  background: #fff;
+  border: 0px;
 }
 .history-calender .ui-datepicker .ui-datepicker-prev,
 .history-calender .ui-datepicker .ui-datepicker-next {
@@ -11580,6 +11601,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 #ui-datepicker-div.ui-datepicker {
   border-radius: 0px !important;
   font-weight: 100;
+  z-index: 999!important;
 }
 #ui-datepicker-div.ui-datepicker .ui-corner-all {
   border-radius: 0px !important;
