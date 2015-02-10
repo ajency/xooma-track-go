@@ -9,6 +9,9 @@ html, body{
       cursor:pointer;
     }
 }
+.login-page{
+    background: #F9F9F9;
+}
 a:hover{
     text-decoration:none;
 }
@@ -20,7 +23,7 @@ a:hover{
 
 }
 body{
-      background: #F9F9F9;
+      background:#F4F4F4;
 //    background-image: radial-gradient(circle farthest-corner at center, lighten(@yellow, 40%) 0%, @yellow 80%);
 //    background: @gray-lighter;
     & > .container{
@@ -366,7 +369,7 @@ display:none !important;
 /** Bottle **/
   
         #canvas-holder{
-                width:50%;
+                width:350px;
                 margin: auto;
                 @media (max-width: @screen-sm-min) {
                  width:95%!important;
@@ -637,13 +640,13 @@ img {
   z-index: 3;
 }
 .water-25{
-    bottom:19%;
+    bottom:16%;
 }
 .water-50{
-    bottom:38%;
+    bottom:35%;
 }
 .water-75{
-    bottom:55%;
+    bottom:53%;
 }
 .water-100{
     bottom:73%;
@@ -896,6 +899,10 @@ img {
             }
         }
     }
+       .section-list .alert.alert-success, .section-list .alert.alert-danger {
+             top: 45px
+           
+    }
 }
 
 .badge-primary {
@@ -949,4 +956,7 @@ img {
 
 .loadingconusme img{
     width:20px !important;
+}
+.panel-default{
+    border:0px;
 }
