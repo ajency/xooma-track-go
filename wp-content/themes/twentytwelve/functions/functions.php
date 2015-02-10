@@ -1878,7 +1878,7 @@ function cron_job_reminders($args)
 
 	$current_date = strtotime($start_dt);
 
-	$nextdate = $current_date+(60*intval(600));
+	$nextdate = $current_date+(60*intval($args));
 
 	$end_date = date('Y-m-d H:i:s',$nextdate);
 	
@@ -1899,13 +1899,33 @@ function cron_job_reminders($args)
 		}
 		if( $next_occurrence > $current_date)
 		{
+			
 			$user = $wpdb->get_row("SELECT * from $table where id=".$value->object_id);
 
 			$stock = get_stock_count_user($user->user_id,$user->product_id);
 			$ProductList = new ProductList();
-			$product_name = $ProductList->get_products($user->product_id);
+			$product = $ProductList->get_products($user->product_id);
+			$user_details = get_user_meta($user->user_id,'user_details',true);
+			$details = maybe_unserialize($user_details);
+			$userdata  = get_userdata( $user->user_id );
+			$name = $userdata->display_name;
+			$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+					
+					
+			$UTC = new DateTimeZone("UTC");
+			$newTZ = new DateTimeZone($details['timezone']);
+			$date = new DateTime( $date);
+			$todaydate = $date->setTimezone( $newTZ );
+			$t  = $todaydate->format('Y-m-d H:i:s');
+			$date1 = new DateTime($t);
+			$date1->setTimezone( $UTC );
+			$time = $date1->format('H:i A');
+			$product_name = $product[0]['name'];
 			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 			
+			eval("\$msg = \"$msg\";");
+
+
 			//build push array 
 			if (intval($stock) != 0)
 			{
@@ -1913,7 +1933,7 @@ function cron_job_reminders($args)
 
 						'ID' => $user->user_id,
 						'message' => $msg,
-						'product' => $product_name[0]['name']
+						'product' => $product[0]['name']
 					);
 
 			}
@@ -1924,15 +1944,14 @@ function cron_job_reminders($args)
 	}
 
 	
-	// function call
-	// // //parse
+	
 		
 		
-		$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
 
 
-	// // //parse
+	
 	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
 
 }
@@ -1947,21 +1966,13 @@ function update_occurrence($schedule){
  	
 	
 
-
 function send_message($user_id,$product_id,$type,$time=0)
 {
 
-	switch($type){
+	
 
-		case 'reminder':
-		$path = get_template_directory_uri().'/xoomaapp/json/php/reminder.txt';
-		break;
 
-		case 'stock_low':
-		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_low.txt';
-		break;
-
-	}
+	$path = get_path($type);
 
 	$file = file($path);
 
@@ -1977,13 +1988,14 @@ function send_message($user_id,$product_id,$type,$time=0)
 		$temp = explode('=>', $value);
 
 
-		array_push($arr, $temp[0]);
+		array_push($arr, intval($temp[0]));
 		array_push($arr, $temp[1]);
 
 		
 
-		if(in_array($product_id, $arr))
+		if(in_array(intval($product_id), $arr))
 		{
+			
 			$msg = $arr[1];
 			break;
 		}
@@ -1994,11 +2006,31 @@ function send_message($user_id,$product_id,$type,$time=0)
 		
 	}
 
-	
+	$msg;
 	
 	return $msg;
 	
 	
+}
+
+function get_path($type){
+
+		$path = "";
+
+		switch($type){
+
+		case 'reminder':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/reminder.txt';
+		break;
+
+		case 'stock_low':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_low.txt';
+		break;
+
+	}
+
+	return $path;
+
 }
 
 
@@ -2010,16 +2042,21 @@ function send_stock_reminders()
 	
 	$table = $wpdb->prefix . "product_main";
 
-	$defualts = $wpdb->prefix . "defualts";
+	$defaults = $wpdb->prefix . "defaults";
 
 	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
+
+	$settings = $wpdb->get_results("SELECT * from $defaults where type='settings'");
+
+		
+	// $object = json_decode($settings->value);
+	// print_r($object);
 
 	foreach ($results as $key => $value) {
 		//available count of the user//
 		$available = get_stock_count_user($value->user_id,$value->product_id);
 
 		//settings value
-		$settings = $wpdb->get_results("SELECT * from $defaults where type='settings'");
 
 		
 	}
