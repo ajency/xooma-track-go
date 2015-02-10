@@ -5126,8 +5126,8 @@ a.list-group-item-danger.active:focus {
   margin-bottom: 23px;
   border: 1px solid transparent;
   border-radius: 0;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
   background: #fff;
 }
 .panel-body {
@@ -6416,7 +6416,7 @@ a:hover {
   }
 }
 body {
-  background: #f5f5f5;
+  background: #f4f4f4;
 }
 body > .container {
   padding: 0;
@@ -6512,6 +6512,12 @@ body > .container {
   background: none;
   font-size: 1.7em;
   width: 18%;
+}
+@media (max-width: 768px) {
+  .home-datepicker {
+    font-size: 1.3em;
+    width: 33%;
+  }
 }
 .section {
   padding: 70px 0px 10px 0px;
@@ -7197,6 +7203,11 @@ packet_expected_class {
   position: absolute;
   z-index: 3;
 }
+@media (max-width: 768px) {
+  .water-marker {
+    left: 52px;
+  }
+}
 .water-25 {
   bottom: 16%;
 }
@@ -7207,7 +7218,7 @@ packet_expected_class {
   bottom: 53%;
 }
 .water-100 {
-  bottom: 73%;
+  bottom: 71%;
 }
 .bottle-bg {
   width: 218px;
@@ -7404,6 +7415,12 @@ packet_expected_class {
   html body .panel-product li {
     border-right: 0px;
   }
+  html body .list-inline h3 {
+    font-size: 15px;
+  }
+  html body .list-inline small {
+    font-size: 82%;
+  }
   html body .hr-mobile {
     margin: 0px;
   }
@@ -7438,7 +7455,7 @@ packet_expected_class {
     top: inherit;
     bottom: 0px;
     background: #4d4d4d;
-    padding: 0px;
+    padding: 3px;
   }
   html body .home-sub-header li {
     opacity: .4;
@@ -7542,6 +7559,49 @@ packet_expected_class {
 }
 .panel-default {
   border: 0px;
+}
+/* Card Animation */
+@keyframes a1 {
+  0% {
+    transform: scale(0.8);
+    opacity: .5;
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.8);
+  }
+}
+@-webkit-keyframes a1 {
+  0% {
+    -webkit-transform: scale(0.8);
+  }
+  50% {
+    -webkit-transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.8);
+  }
+}
+@-moz-keyframes a1 {
+  0% {
+    -moz-transform: scale(0.8);
+  }
+  50% {
+    -moz-transform: scale(1);
+  }
+  100% {
+    -moz-transform: scale(0.8);
+  }
+}
+.circle-btn {
+  animation: a1 1.5s infinite;
+  /* IE 10+ */
+  -webkit-animation: a1 1.5s infinite;
+  /* IE 10+ */
+  -moz-animation: a1 1.5s infinite;
+  /* IE 10+ */
 }
 /* Top - Header */
 .topheader {
@@ -8192,6 +8252,20 @@ packet_expected_class {
 .slick-dots li.slick-active button:before {
   opacity: .75;
   color: black;
+}
+.end-bar {
+  background: url(../images/layer.png) right no-repeat;
+  width: 130px;
+  height: 70px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+@media (max-width: 768px) {
+  .end-bar {
+    width: 36px;
+    height: 65px;
+  }
 }
 /* Site Elements */
 @font-face {
@@ -11005,13 +11079,17 @@ packet_expected_class {
   }
 }
 .cbp-vm-view-grid .cbp-vm-title {
-  font-size: 1.5em;
+  max-width: 300px;
+  min-height: 40px;
+  margin: 10px auto 4px;
+  height: 16px;
+  overflow: hidden;
+  line-height: 19px;
+  text-overflow: ellipsis;
+  font-size: 1.2em;
+  COLOR: #7C7C7C;
   margin-top: 5px;
-}
-@media (max-width: 768px) {
-  .cbp-vm-view-grid .cbp-vm-title {
-    font-size: 1.2em;
-  }
+  font-weight: 400;
 }
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
@@ -11019,13 +11097,16 @@ packet_expected_class {
   margin: 10px auto 4px;
   height: 67px;
   overflow: hidden;
+  line-height: 17px;
   text-overflow: ellipsis;
   font-size: .9em;
   COLOR: #7C7C7C;
 }
-@media screen and (max-width: 47.375em) {
+@media (max-width: 768px) {
   .cbp-vm-view-grid .cbp-vm-details {
-    height: 53px;
+    margin: 1px auto 4px;
+    height: 34px;
+    line-height: 13px;
   }
 }
 .cbp-vm-view-grid .cbp-vm-price {
@@ -11072,11 +11153,6 @@ packet_expected_class {
 .cbp-vm-view-list .cbp-vm-add {
   margin: 0;
   border: 0px;
-}
-@media screen and (max-width: 66.7em) {
-  .cbp-vm-view-list .cbp-vm-details {
-    width: 30%;
-  }
 }
 @media screen and (max-width: 57em) {
   .cbp-vm-view-grid ul li {

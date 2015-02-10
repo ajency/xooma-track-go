@@ -23,7 +23,7 @@ a:hover{
 
 }
 body{
-      background:#f5f5f5;
+      background:#f4f4f4;
 //    background-image: radial-gradient(circle farthest-corner at center, lighten(@yellow, 40%) 0%, @yellow 80%);
 //    background: @gray-lighter;
     & > .container{
@@ -118,6 +118,10 @@ body{
     background:none;
     font-size:1.7em;
     width:18%;
+       @media (max-width: @screen-sm-min) {
+             font-size: 1.3em;
+              width: 33%;
+            }
 }
 .section{
     padding:70px 0px 10px 0px;
@@ -641,6 +645,9 @@ img {
 .water-marker{
   position: absolute;
   z-index: 3;
+   @media (max-width: @screen-sm-min) {
+            left:52px;
+            }
 }
 .water-25{
     bottom:16%;
@@ -652,7 +659,7 @@ img {
     bottom:53%;
 }
 .water-100{
-    bottom:73%;
+    bottom:71%;
 }
       .bottle-bg{
                width: 218px;
@@ -826,6 +833,14 @@ img {
           border-right:0px;
         }
       }
+      .list-inline{
+        h3{
+        font-size: 15px;
+        }
+        small{
+        font-size: 82%;
+        }
+      }
         .hr-mobile{
           margin:0px;
         }
@@ -860,7 +875,7 @@ img {
     top: inherit;
     bottom: 0px;
     background:@gray-darker;
-    padding:0px;
+    padding:3px;
       li{
           opacity:.4;
       }
@@ -962,4 +977,49 @@ img {
 }
 .panel-default{
     border:0px;
+}
+
+/* Card Animation */
+
+
+
+@keyframes a1 {
+  0%   {
+    transform: scale(.8);
+    opacity: .5;
+  }
+  50% { 
+    transform: scale(1);
+  }
+  100% { 
+    transform: scale(.8);
+  }
+}
+ @-webkit-keyframes a1 {
+  0%   {
+    -webkit-transform: scale(.8);
+  }
+   50% { 
+    -webkit-transform: scale(1);
+  }
+  100% { 
+    -webkit-transform: scale(.8);
+  }
+    }
+    @-moz-keyframes a1 {
+      0%   {
+    -moz-transform: scale(.8);
+    
+  }
+   50% { 
+     -moz-transform: scale(1);
+  }
+  100% { 
+     -moz-transform: scale(.8);
+  }
+    }
+.circle-btn {
+  animation: a1 1.5s infinite; /* IE 10+ */
+  -webkit-animation: a1 1.5s infinite; /* IE 10+ */
+  -moz-animation: a1 1.5s infinite; /* IE 10+ */
 }
