@@ -28,21 +28,22 @@
 <!-- end inline-template -->
 
 <script type="text/javascript">
+window.ParsleyConfig = {
+  validators: {
+    equalTo: {
+      fn: function (value, requirement) {
+      	return value.length == requirement;
+      }
+    }
+  },
+  i18n: {
+    en: {
+      equalTo: 'Enter valid 6 digits Xooma ID'
+    }
+  }
+};
 
-	window.ParsleyConfig = {
-	  	validators: {
-			equalTo: {
-		  		fn: function (value, requirement) {
-					return value.length == requirement;
-		  		}
-			}
-	  	},
-	  	i18n: {
-			en: {
-		  		equalTo: 'Enter valid 6 digits Xooma ID'
-			}
-	  	}
-	};
+
 
 </script>
 
@@ -138,32 +139,42 @@
 <script type="text/javascript" src="scripts/cordova/parse-cloud-auth.js"></script>
 <!-- end cordova -->
 
-<script type="text/javascript" src="scripts/app.js"></script>
 <!-- endbuild -->
-
-
 <script type="text/javascript" src="scripts/cordova/lib/tooltip.js"></script>
 <script type="text/javascript" src="scripts/cordova/lib/owl.carousel.min.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/slick.min.js"></script>
 
+<script type="text/javascript" src="scripts/app.js"></script>
+
+<!-- Frontpage Demo -->
 
 <script type="text/javascript">
+      $(function() {
+        $('nav#menu').mmenu({
+         onClick: {
+       close: true,
+       preventDefault: false,
+       setSelected: true
+    }
 
-	$(function() {
-		$('nav#menu').mmenu({
-			onClick: {
-				close: true,
-				preventDefault: false,
-				setSelected: true
-			}
-		});
-	});
+    });
+     });   
+window.ParsleyValidator
+  .addValidator('equalTo', function (value, requirement) {
+  	return value.length == requirement;
+  })
+  .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
+$(document).ready(function() {
+$('.single-item').slick({
+dots: true,
+infinite: true,
+speed: 500,
+slidesToShow: 1,
+slidesToScroll: 1
+});
+});
 
-	window.ParsleyValidator
-		.addValidator('equalTo', function (value, requirement) {
-			return value.length == requirement;
-		})
-		.addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
-  
+ 
 </script>
 
 </body> 
