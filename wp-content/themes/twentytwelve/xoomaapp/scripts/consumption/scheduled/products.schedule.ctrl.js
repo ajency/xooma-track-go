@@ -158,7 +158,6 @@ ScheduleView = (function(_super) {
         return false;
       }
     });
-    console.log(new Date(curr));
     $('#date').val(date);
     $('.js__timepicker').pickatime({
       interval: 15,

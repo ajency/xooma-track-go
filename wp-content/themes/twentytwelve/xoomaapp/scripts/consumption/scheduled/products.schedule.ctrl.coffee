@@ -137,7 +137,7 @@ class ScheduleView extends Marionette.ItemView
 				console.log qty[ind].qty
 				ScheduleView::create_occurrences(qty[ind].qty)
 				return false
-		console.log new Date(curr)
+		
 		$('#date').val date
 		$('.js__timepicker').pickatime(
 			interval: 15
