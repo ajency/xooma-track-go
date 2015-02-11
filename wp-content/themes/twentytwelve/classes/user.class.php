@@ -384,8 +384,8 @@ class User
                     $UTC = new DateTimeZone("UTC");
                     $newTZ = new DateTimeZone($details['timezone']);
 
-                    $date = new DateTime( $start_dt);
-                    $todaydate = $date->setTimezone( $newTZ );
+                    $datee = new DateTime( $start_dt);
+                    $todaydate = $datee->setTimezone( $newTZ );
                     $t  = $todaydate->format('Y-m-d H:i:s');
                     $date1 = new DateTime($t);
                     $date1->setTimezone( $UTC );
