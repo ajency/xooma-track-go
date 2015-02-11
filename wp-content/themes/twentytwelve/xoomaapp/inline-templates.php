@@ -1033,7 +1033,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 					<div class="pull-right">
 					<input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
 						  <input type="hidden" name="total" value="{{total}}" / >
-					 <button type="button" class="  btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button>	
+					 <a href="#/profile/my-products" class="btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</a>	
 					  <button type="submit" class="btn btn-primary aj-submit-button save pull-right" name="save"><i class="fa fa-check"></i> Save</button>
 					  <!-- <a href="#/inventory/{{id}}/view" class="btn btn-link  " >View History</a>-->	
                       <div class="clearfix"></div> <br>

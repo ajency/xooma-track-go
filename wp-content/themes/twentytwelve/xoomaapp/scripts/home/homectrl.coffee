@@ -315,7 +315,7 @@ class HomeX2OView extends Marionette.ItemView
 					</div>
 			
 			</div>
-		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6
+		</div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6>
 
 		<br/></div></div>'
 	ui :
