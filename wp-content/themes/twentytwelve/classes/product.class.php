@@ -40,7 +40,7 @@ class Product
 			add_term_meta($term['term_id'], 'BMI',$args['bmi']);
 			
 
-
+			notifications_add_product($term['term_id'],$term['name'],$term['description']);
 			$response =  array('status' => 201 ,'response' => $term);
 			
 		} 
@@ -95,6 +95,15 @@ class Product
 			
 
 			$response =  array('status' => 200 ,'response' => $term);
+
+			// $t = get_term_meta($term['term_id'], 'time_set', true);
+			// $s = explode('|',get_term_meta($term['term_id'], 'serving_size', true));
+			// $w = explode('|',get_term_meta($term['term_id'], 'when', true));
+
+			// if($time_set != $t || $s[0] != $args['serving_size'] || $s[1] != $clone_serving || $w[0] != $args['when'] || $w[1] != $clone_when  )
+			// {
+			// 	notifications_update_product($term['term_id'],$term['name'],$term['description'],$time_set);
+			// }
 			
 			
 		} 
