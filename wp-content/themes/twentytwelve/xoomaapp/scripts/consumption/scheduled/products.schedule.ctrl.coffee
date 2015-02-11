@@ -108,7 +108,11 @@ class ScheduleView extends Marionette.ItemView
 			
 
 	saveHandler:(response,status,xhr)=>
-		@model.set 'occurrence' , response.occurrence
+		console.log response
+		@model.set 'occurrence' , response.occurrence[0].occurrence
+		model = new UserProductModel 
+		model.set response.occurrence[0]
+		App.useProductColl.add model , {merge: true}
 		App.navigate "#/home" , true
 		
 		

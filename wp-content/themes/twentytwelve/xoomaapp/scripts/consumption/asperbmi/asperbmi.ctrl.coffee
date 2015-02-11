@@ -54,13 +54,17 @@ class AsperbmiView extends Marionette.ItemView
 		$('.loadingconusme').html ""
 		count1 = 0
 		if xhr.status == 201
-			occurResponse = _.map response.occurrence, (occurrence)->
+			occurResponse = _.map response.occurrence[0].occurrence, (occurrence)->
 				occurrence.meta_id = parseInt occurrence.meta_id
 				occur = _.has(occurrence, "occurrence")
 				if occur == true
 					count1++
 				occurrence
-			@model.set 'occurrence' , occurResponse
+			console.log response
+			@model.set 'occurrence' , response.occurrence[0].occurrence
+			model = new UserProductModel 
+			model.set response.occurrence[0]
+			App.useProductColl.add model , {merge: true}
 			@$el.find('#meta_id').val response.meta_id		
 			tempColl = new Backbone.Collection occurResponse
 			model = tempColl.findWhere

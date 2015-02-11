@@ -126,7 +126,14 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
-    this.model.set('occurrence', response.occurrence);
+    var model;
+    console.log(response);
+    this.model.set('occurrence', response.occurrence[0].occurrence);
+    model = new UserProductModel;
+    model.set(response.occurrence[0]);
+    App.useProductColl.add(model, {
+      merge: true
+    });
     return App.navigate("#/home", true);
   };
 

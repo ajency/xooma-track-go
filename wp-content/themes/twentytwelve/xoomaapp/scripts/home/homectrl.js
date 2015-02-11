@@ -624,7 +624,7 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.events = {
     'click #original': function(e) {
       var available;
-      available = this.model.get('available');
+      console.log(available = this.model.get('available'));
       if (parseInt(available) <= 0) {
         e.preventDefault();
         $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");

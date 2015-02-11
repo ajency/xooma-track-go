@@ -1525,11 +1525,10 @@ function store_consumption_details($args){
 					$meta_id = $args['meta_id'];
 				}
 
-				$occurrence = get_occurrence_date($args['pid'],$args['id'],$args['date']);
+				$user = new USer();
+				$product = $user->get_user_home_products($args['id'],$args['pid'],$args['date']);
 
-
-
-				return array('occurrence'=> $occurrence, 'meta_id'=>$meta_id);
+				return array('occurrence'=> $product['response'], 'meta_id'=>$meta_id);
 
 
 

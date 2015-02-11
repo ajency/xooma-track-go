@@ -632,7 +632,7 @@ class ProductChildView extends Marionette.ItemView
 
 	events:
 		'click #original':(e)->
-			available = @model.get 'available'
+			console.log available = @model.get 'available'
 
 			if parseInt(available) <= 0
 				e.preventDefault()
