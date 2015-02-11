@@ -26,6 +26,15 @@ class AsperbmiView extends Marionette.ItemView
 									scrollTop: 0
 									}, 'slow')
 				return
+			if parseInt(@model.get('available')) <= 0
+				$('.loadingconusme').html ""
+				window.removeMsg()
+				@ui.responseMessage.addClass('alert alert-danger').text("Produt out of stock!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return
+
 			product = @model.get('id')
 			date = App.currentUser.get('homeDate')
 			time  = moment().format("HH:mm:ss")
@@ -54,13 +63,17 @@ class AsperbmiView extends Marionette.ItemView
 		$('.loadingconusme').html ""
 		count1 = 0
 		if xhr.status == 201
-			occurResponse = _.map response.occurrence, (occurrence)->
+			occurResponse = _.map response.occurrence[0].occurrence, (occurrence)->
 				occurrence.meta_id = parseInt occurrence.meta_id
 				occur = _.has(occurrence, "occurrence")
 				if occur == true
 					count1++
 				occurrence
-			@model.set 'occurrence' , occurResponse
+			console.log response
+			@model.set 'occurrence' , response.occurrence[0].occurrence
+			model = new UserProductModel 
+			model.set response.occurrence[0]
+			App.useProductColl.add model , {merge: true}
 			@$el.find('#meta_id').val response.meta_id		
 			tempColl = new Backbone.Collection occurResponse
 			model = tempColl.findWhere

@@ -371,9 +371,34 @@ class User
 
            
 
-            
+            $user_details = get_user_meta($user_id,'user_details',true);
+
+                    
+
+            $details = maybe_unserialize($user_details);
 
            $end_date = date("Y-m-d 23:59:59", strtotime($date));
+
+
+                        
+                    $UTC = new DateTimeZone("UTC");
+                    $newTZ = new DateTimeZone($details['timezone']);
+
+                    $datee = new DateTime( $start_dt);
+                    $todaydate = $datee->setTimezone( $newTZ );
+                    $t  = $todaydate->format('Y-m-d H:i:s');
+                    $date1 = new DateTime($t);
+                    $date1->setTimezone( $UTC );
+                   $today_date = $date1->format('Y-m-d H:i:s');
+
+                    $dat = new DateTime( $end_date);
+                    $enddate = $dat->setTimezone( $newTZ );
+                    $t1  = $enddate->format('Y-m-d H:i:s');
+                    $date11 = new DateTime($t1);
+                    $date11->setTimezone( $UTC );
+                    $endate = $date11->format('Y-m-d H:i:s');
+
+
 
             $occurrence = get_occurrence_date($term->product_id,$id,$date);
 
@@ -385,7 +410,7 @@ class User
             //get users_timezone
 
             $occurrences = \ajency\ScheduleReminder\Occurrence::
-                    get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id);
+                    get_upcoming_occurrences($object_type,$endate,$today_date,$object_id);
 
 
 

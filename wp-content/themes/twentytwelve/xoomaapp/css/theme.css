@@ -2818,14 +2818,15 @@ button:hover {
 }
 @media (max-width: 768px) {
   .checkbox input {
-    -ms-transform: scale(3);
+    -ms-transform: scale(1);
     /* IE */
-    -moz-transform: scale(3);
+    -moz-transform: scale(1);
     /* FF */
-    -webkit-transform: scale(3);
+    -webkit-transform: scale(1);
     /* Safari and Chrome */
-    -o-transform: scale(3);
+    -o-transform: scale(1);
     /* Opera */
+    margin-left: 5px;
   }
 }
 .btn {
@@ -3155,6 +3156,7 @@ fieldset[disabled] .btn-danger.active {
   color: #3099ea;
   font-weight: normal;
   border-radius: 0;
+  margin-top: 10px;
 }
 .btn-link,
 .btn-link:active,
@@ -5157,6 +5159,10 @@ a.list-group-item-danger.active:focus {
   border-top: 1px solid #dddddd;
   border-bottom-right-radius: -1;
   border-bottom-left-radius: -1;
+  word-wrap: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .panel > .list-group,
 .panel > .panel-collapse > .list-group {
@@ -6511,12 +6517,12 @@ body > .container {
   border: 0px;
   background: none;
   font-size: 1.7em;
-  width: 18%;
+  width: 20%;
 }
 @media (max-width: 768px) {
   .home-datepicker {
     font-size: 1.3em;
-    width: 33%;
+    width: 90px;
   }
 }
 .section {
@@ -6626,7 +6632,7 @@ body > .container {
   position: relative;
 }
 .no-dotted li a {
-  color: #ccc;
+  color: #000000;
   text-decoration: none;
 }
 @media (max-width: 768px) {
@@ -6681,91 +6687,7 @@ text {
 }
 @media (max-width: 768px) {
   .mid-title div {
-    width: 78%;
-  }
-}
-.element-animation {
-  animation: animationFrames ease-in 2s;
-  animation-iteration-count: infinite;
-  transform-origin: 50% 50%;
-  animation-fill-mode: forwards;
-  /*when the spec is finished*/
-  -webkit-animation: animationFrames ease-in 2s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-transform-origin: 50% 50%;
-  -webkit-animation-fill-mode: forwards;
-  /*Chrome 16+, Safari 4+*/
-  -moz-animation: animationFrames ease-in 2s;
-  -moz-animation-iteration-count: infinite;
-  -moz-transform-origin: 50% 50%;
-  -moz-animation-fill-mode: forwards;
-  /*FF 5+*/
-  -o-animation: animationFrames ease-in 2s;
-  -o-animation-iteration-count: infinite;
-  -o-transform-origin: 50% 50%;
-  -o-animation-fill-mode: forwards;
-  /*Not implemented yet*/
-  -ms-animation: animationFrames ease-in 2s;
-  -ms-animation-iteration-count: infinite;
-  -ms-transform-origin: 50% 50%;
-  -ms-animation-fill-mode: forwards;
-  /*IE 10+*/
-  color: #3099ea;
-  font-size: 1.4em !important;
-}
-@keyframes animationFrames {
-  0% {
-    transform: rotate(34deg);
-  }
-  50% {
-    transform: rotate(-35deg);
-  }
-  100% {
-    transform: rotate(35deg);
-  }
-}
-@-moz-keyframes animationFrames {
-  0% {
-    -moz-transform: rotate(34deg);
-  }
-  50% {
-    -moz-transform: rotate(-35deg);
-  }
-  100% {
-    -moz-transform: rotate(35deg);
-  }
-}
-@-webkit-keyframes animationFrames {
-  0% {
-    -webkit-transform: rotate(34deg);
-  }
-  50% {
-    -webkit-transform: rotate(-35deg);
-  }
-  100% {
-    -webkit-transform: rotate(35deg);
-  }
-}
-@-o-keyframes animationFrames {
-  0% {
-    -o-transform: rotate(34deg);
-  }
-  50% {
-    -o-transform: rotate(-35deg);
-  }
-  100% {
-    -o-transform: rotate(35deg);
-  }
-}
-@-ms-keyframes animationFrames {
-  0% {
-    -ms-transform: rotate(34deg);
-  }
-  50% {
-    -ms-transform: rotate(-35deg);
-  }
-  100% {
-    -ms-transform: rotate(35deg);
+    width: 76%;
   }
 }
 /** Bottle **/
@@ -6775,7 +6697,7 @@ text {
 }
 @media (max-width: 768px) {
   #canvas-holder {
-    width: 95%!important;
+    width: 270px;
   }
 }
 .popover-content .close {
@@ -7302,7 +7224,7 @@ packet_expected_class {
 .fill-bottle {
   display: block;
   margin: auto;
-  margin-bottom: -295px;
+  margin-bottom: -288px;
   text-align: center;
   left: 0%;
   right: 0%;
@@ -7314,7 +7236,7 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .fill-bottle {
-    margin-top: 48px;
+    margin-top: 60px;
     margin-bottom: -225px;
   }
   .fill-bottle img {
@@ -7417,7 +7339,7 @@ packet_expected_class {
     left: 20% !important;
   }
   html body .panel-product {
-    margin-top: 0px;
+    margin-top: 5px;
   }
   html body .panel-product li {
     border-right: 0px;
@@ -7501,7 +7423,7 @@ packet_expected_class {
         }
     } */
   .panel-mobile .panel-body img {
-    width: 10%;
+    width: 27px;
   }
   .section-list .alert.alert-success,
   .section-list .alert.alert-danger {
@@ -7612,6 +7534,16 @@ packet_expected_class {
   /* IE 10+ */
   -moz-animation: a1 1.5s infinite;
   /* IE 10+ */
+}
+.top-panel-picker {
+  position: relative;
+}
+.top-panel-picker img {
+  position: absolute;
+  right: 20px;
+  bottom: 0px;
+  height: 10px !important;
+  width: 10px!important;
 }
 /* Top - Header */
 .topheader {
@@ -8281,8 +8213,8 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .end-bar {
-    width: 36px;
-    height: 65px;
+    width: 28px;
+    height: 55px;
   }
 }
 /* Site Elements */
@@ -11090,6 +11022,8 @@ packet_expected_class {
   vertical-align: top;
   background: #fff;
   border: 1px solid #EFEFEF;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
 @media (max-width: 768px) {
   .cbp-vm-view-grid ul li {
@@ -11548,7 +11482,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 .history-calender .ui-datepicker .ui-datepicker-prev,
 .history-calender .ui-datepicker .ui-datepicker-next {
-  height: 2.8em;
+  height: 3.2em;
 }
 .history-calender .ui-datepicker .ui-state-highlight,
 .history-calender .ui-datepicker .ui-widget-content .ui-state-highlight,
@@ -11669,7 +11603,7 @@ h6.brand {
     font-size: 26px;
   }
   h3 {
-    font-size: 24px;
+    font-size: 20px;
   }
   h6 {
     font-size: 12px;

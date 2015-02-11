@@ -1446,6 +1446,12 @@ function dba_add_communication_components($defined_comm_components){
 
 		);
 
+	$defined_comm_components['admin_config_emails'] = array(
+				'add_product_email' => array('preference'=>1),
+				'edit_product_email'  => array('preference'=>1)
+
+		);
+
 	return $defined_comm_components;
 }
 add_filter('add_commponents_filter','dba_add_communication_components',10,1);

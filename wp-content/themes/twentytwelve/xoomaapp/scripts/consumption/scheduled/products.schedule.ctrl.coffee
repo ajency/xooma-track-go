@@ -108,12 +108,24 @@ class ScheduleView extends Marionette.ItemView
 			
 
 	saveHandler:(response,status,xhr)=>
-		@model.set 'occurrence' , response.occurrence
+		console.log response
+		@model.set 'occurrence' , response.occurrence[0].occurrence
+		model = new UserProductModel 
+		model.set response.occurrence[0]
+		App.useProductColl.add model , {merge: true}
 		App.navigate "#/home" , true
 		
 		
 
 	onShow:->
+		timezone = App.currentUser.get('timezone')
+		tt = moment().format('YYYY-MM-DD HH:mm:ss')
+		d = new Date()
+		timestamp = d.getTime()
+		currentime = []
+		currentime.push moment(timestamp).format("HH")
+		currentime.push moment(timestamp).format("mm")
+		
 		date  = Marionette.getOption( @, 'date')
 		occurr = @model.get('occurrence')
 		temp = []
@@ -129,10 +141,11 @@ class ScheduleView extends Marionette.ItemView
 				console.log qty[ind].qty
 				ScheduleView::create_occurrences(qty[ind].qty)
 				return false
-
+		
 		$('#date').val date
 		$('.js__timepicker').pickatime(
 			interval: 15
+			max : true
 			onSet : (context)->
 
 				$('.now').text $('#consume_time').val()

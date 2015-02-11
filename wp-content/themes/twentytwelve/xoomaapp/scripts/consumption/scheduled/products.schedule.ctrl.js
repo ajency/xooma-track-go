@@ -125,12 +125,26 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.saveHandler = function(response, status, xhr) {
-    this.model.set('occurrence', response.occurrence);
+    var model;
+    console.log(response);
+    this.model.set('occurrence', response.occurrence[0].occurrence);
+    model = new UserProductModel;
+    model.set(response.occurrence[0]);
+    App.useProductColl.add(model, {
+      merge: true
+    });
     return App.navigate("#/home", true);
   };
 
   ScheduleView.prototype.onShow = function() {
-    var date, occurr, qty, temp;
+    var currentime, d, date, occurr, qty, temp, timestamp, timezone, tt;
+    timezone = App.currentUser.get('timezone');
+    tt = moment().format('YYYY-MM-DD HH:mm:ss');
+    d = new Date();
+    timestamp = d.getTime();
+    currentime = [];
+    currentime.push(moment(timestamp).format("HH"));
+    currentime.push(moment(timestamp).format("mm"));
     date = Marionette.getOption(this, 'date');
     occurr = this.model.get('occurrence');
     temp = [];
@@ -153,6 +167,7 @@ ScheduleView = (function(_super) {
     $('#date').val(date);
     $('.js__timepicker').pickatime({
       interval: 15,
+      max: true,
       onSet: function(context) {
         return $('.now').text($('#consume_time').val());
       }

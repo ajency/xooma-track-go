@@ -13,13 +13,15 @@ Ajency.LoginView.prototype.onShow = this.showslick;
 
 _.extend(Ajency.LoginView.prototype, {
   onShow: function() {
-    console.log("ssss");
     return $('.single-item').slick({
       dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      autoplay: true
+    }, {
+      autoplaySpeed: 2000
     });
   }
 });

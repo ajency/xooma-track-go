@@ -69,7 +69,10 @@ class Product_API
         //getting all the BMI values
         $bmi = array();
         $count = $_REQUEST['count'];
-        for ($i=0; $i <= $count; $i++) { 
+        $clone_serving = isset($args['serving_size_clone']) ? $args['serving_size_clone'] : 0 ;
+        $clone_when = isset($args['when_clone']) ? $args['when_clone'] : 0 ;
+            
+        for ($i=0; $i < $count; $i++) { 
             if($_REQUEST['hide'.$i] == 0 && isset($_REQUEST['hide'.$i]))
             {
                 $from           = $_REQUEST['weight_from'.$i];
@@ -96,9 +99,9 @@ class Product_API
 		$data['serving_per_day_anytime'] 	= $_REQUEST['serving_per_day_anytime'];
 		$data['serving_per_day_scheduled'] 	= $_REQUEST['serving_per_day_scheduled'];
 		$data['when'] 						= $_REQUEST['when'];
-        $data['when_clone']                 = $_REQUEST['when_clone'];
+        $data['when_clone']                 = $clone_when;
 		$data['serving_size'] 				= $_REQUEST['serving_size'];
-        $data['serving_size_clone']         = $_REQUEST['serving_size_clone'];
+        $data['serving_size_clone']         = $clone_serving;
 		$data['serving_per_container'] 		= $_REQUEST['serving_per_container'];
 		$data['attachment_id'] 				= $_REQUEST['attachment_id'];
 		$data['active'] 					= $_REQUEST['active'];
@@ -149,7 +152,7 @@ class Product_API
         $bmi = array();
         $count = $data['count'];
 
-        for ($i=0; $i <= $count; $i++) { 
+        for ($i=0; $i < $count; $i++) { 
             if($data['hide'.$i] == 0 && isset($data['hide'.$i])) 
             {
                 $from           = $data['weight_from'.$i];

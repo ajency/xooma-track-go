@@ -767,7 +767,7 @@ function send_notifications_to_admin($user_id){
 
 		$recipients_args = array(
 							array(
-							'user_id'     => $user_id,
+							'user_id'     => $value->ID,
 							'type'        => 'email',
 							'value'       => $value->user_email
 
@@ -1055,7 +1055,7 @@ function store_reminders($main_id,$servings,$reminder){
 					$date1->setTimezone( $UTC );
 					$today_date = $date1->format('Y-m-d H:i:s');
 
-					$interval = 24/intval($servings);
+					$interval = 24;
 					$schedule_data = array(
 								'object_type' => 'user_product_reminder',
 								'object_id' => $main_id,
@@ -1173,17 +1173,40 @@ function store_add_schedule($args){
 
 
 
-			
+			global $wpdb;
+
+					$table = $wpdb->prefix . "product_main";
+
+					$user = $wpdb->get_row("SELECT * from $table where id=".$args['main_id']);
 
 
-				date_default_timezone_set("UTC");
+					$user_details = get_user_meta($user->user_id,'user_details',true);
+
+					
+
+					$details = maybe_unserialize($user_details);
+					
+
+					$today = strtotime('00:00:00');
+					$start = date("Y-m-d 00:00:00");
+						
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $start);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
+
+				
 						$interval = 24/intval($args['time_set']);
-						$today = strtotime('00:00:00');
-					 $start = date("Y-m-d 00:00:00");
+						
 						$schedule_data = array(
 								'object_type' => 'user_product',
 								'object_id' => $args['main_id'],
-								'start_dt'  => $start,
+								'start_dt'  => $today_date,
 								'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
 						);
 				
@@ -1502,11 +1525,10 @@ function store_consumption_details($args){
 					$meta_id = $args['meta_id'];
 				}
 
-				$occurrence = get_occurrence_date($args['pid'],$args['id'],$args['date']);
+				$user = new USer();
+				$product = $user->get_user_home_products($args['id'],$args['pid'],$args['date']);
 
-
-
-				return array('occurrence'=> $occurrence, 'meta_id'=>$meta_id);
+				return array('occurrence'=> $product['response'], 'meta_id'=>$meta_id);
 
 
 
@@ -1900,6 +1922,8 @@ function cron_job_reminders($args)
 	foreach ($occurrences as $key => $value) {
 
 		$next_occurrence = strtotime($value->next_occurrence);
+
+
 		
 		if($next_occurrence < $current_date)
 		{
@@ -1910,43 +1934,49 @@ function cron_job_reminders($args)
 			
 			$user = $wpdb->get_row("SELECT * from $table where id=".$value->object_id);
 
-			$stock = get_stock_count_user($user->user_id,$user->product_id);
-			$ProductList = new ProductList();
-			$product = $ProductList->get_products($user->product_id);
-			$user_details = get_user_meta($user->user_id,'user_details',true);
-			$details = maybe_unserialize($user_details);
-			$userdata  = get_userdata( $user->user_id );
-			$name = $userdata->display_name;
-			$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
-					
-					
-			$UTC = new DateTimeZone("UTC");
-			$newTZ = new DateTimeZone($details['timezone']);
-			$date = new DateTime( $date);
-			$todaydate = $date->setTimezone( $newTZ );
-			$t  = $todaydate->format('Y-m-d H:i:s');
-			$date1 = new DateTime($t);
-			$date1->setTimezone( $UTC );
-			$time = $date1->format('H:i A');
-			$product_name = $product[0]['name'];
-			$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
-			
-			eval("\$msg = \"$msg\";");
-
-
-			//build push array 
-			if (intval($stock) != 0)
+			$include = array($user->user_id);
+			$blogusers = get_users(array('include'=>$include));
+		
+		
+			if(count($blogusers)!= 0)
 			{
-				$usersToBeNotified[] = array(
+				$stock = get_stock_count_user($user->user_id,$user->product_id);
+				$ProductList = new ProductList();
+				$product = $ProductList->get_products($user->product_id);
+				$user_details = get_user_meta($user->user_id,'user_details',true);
+				$details = maybe_unserialize($user_details);
+				$userdata  = get_userdata( $user->user_id );
+				$name = $userdata->display_name;
+				$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+						
+						
+				$UTC = new DateTimeZone("UTC");
+				$newTZ = new DateTimeZone($details['timezone']);
+				$date = new DateTime( $date);
+				$todaydate = $date->setTimezone( $newTZ );
+				$t  = $todaydate->format('Y-m-d H:i:s');
+				$date1 = new DateTime($t);
+				$date1->setTimezone( $UTC );
+				$time = $date1->format('H:i A');
+				$product_name = $product[0]['name'];
+				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
+				
+				eval("\$msg = \"$msg\";");
 
-						'ID' => $user->user_id,
-						'message' => $msg,
-						'product' => $product[0]['name']
-					);
+				$notifications_flag = get_user_meta($user->user_id,'notification' , true);
+				//build push array 
+				if (intval($stock) != 0 && $notifications_flag == 1)
+				{
+					$usersToBeNotified[] = array(
 
+							'ID' => $user->user_id,
+							'message' => $msg,
+							'product' => $product[0]['name']
+						);
+
+				}
+				
 			}
-			
-		}
 		
 
 	}
@@ -1957,7 +1987,7 @@ function cron_job_reminders($args)
 		
 	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
 
-
+}
 
 	
 	update_option('last_cron_job' , strtotime(date('Y-m-d H:i:s')));
@@ -2039,6 +2069,10 @@ function get_path($type){
 		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_over.txt';
 		break;
 
+		case 'add_product':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/add_product.txt';
+		break;
+
 	}
 
 	return $path;
@@ -2095,9 +2129,11 @@ function send_stock_reminders_over(){
 		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
 
 		eval("\$msg = \"$msg\";");
-		if(intval($available) == 0)
+		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
+		$email_flag = get_user_meta($user->user_id,'emails' , true);
+		if(intval($available) == 0 && $notifications_flag == 1 )
 		{
-				
+				if($email_flag == 1)
 				notifications_low_stock($value->user_id,$product_name,$available,'stock_over_email');
 				$usersToBeNotified[] = array(
 						'ID' => $value->user_id,
@@ -2171,9 +2207,12 @@ function send_stock_reminders()
 		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
 
 		eval("\$msg = \"$msg\";");
-		if(intval($available) <= intval($servings_low))
+		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
+		$email_flag = get_user_meta($user->user_id,'emails' , true);
+		
+		if(intval($available) <= intval($servings_low) && $notifications_flag == 1)
 		{
-				
+				if($email_flag == 1)
 				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email');
 				$usersToBeNotified[] = array(
 						'ID' => $value->user_id,
@@ -2188,6 +2227,7 @@ function send_stock_reminders()
 
 }
 	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
 
 	
 }
@@ -2239,4 +2279,93 @@ function notifications_low_stock($user_id,$product_name,$available,$type){
 	return true;
 
 
+}
+
+function notifications_add_product($product_id,$product_name,$description){
+
+	
+	global $aj_comm;
+
+	$args = array(
+		'component'             => 'admin_config_emails',
+		'communication_type'    => 'add_product_email',
+		'user_id'               => $product_id
+
+		);
+	// user data
+	
+
+	$meta = array(
+		'product_name'    => $product_name,
+		'description'       => $description,
+		'loginurl'		  => site_url().'/xooma-app/#login',
+		'img'			  => site_url().'/assets/logo.png'
+
+
+		);
+
+	
+
+	
+	//get all the admins
+	$arguments = array(
+				'role' => 'Subscriber',
+				'orderby' => 'ID',
+				'order' => 'ASC',
+				'offset' => 0,
+				'number' => 0
+		);
+	$admins = get_users($arguments);
+
+	foreach ((array) $admins as $value) {
+
+		$recipients_args = array(
+							array(
+							'user_id'     =>  $value->ID,
+							'type'        => 'email',
+							'value'       => $value->user_email
+
+						)
+
+			);
+		$email_flag = get_user_meta($value->ID,'emails' , true);
+		if($email_flag == 1)
+		$aj_comm->create_communication($args,$meta,$recipients_args);
+
+		}
+	
+	send_add_product_notification($admins,$product_id,$product_name,$description);
+
+	
+
+	$aj_comm->cron_process_communication_queue("admin_config_emails",'add_product_email');
+
+
+	return true;
+
+
+}
+
+function send_add_product_notification($users,$product_id,$product_name,$description){
+
+	$usersToBeNotified = array();
+	foreach ($users as $key => $value) {
+		$name = $value->display_name;
+		$product_name = $product_name;
+
+		$msg = send_message($value->ID,$product_id,'add_product',$time=0);
+
+		eval("\$msg = \"$msg\";");
+		$notifications_flag = get_user_meta($value->ID,'notification' , true);
+	
+		if($notifications_flag == 1)	
+		$usersToBeNotified[] = array(
+						'ID' => $value->ID,
+						'message' => $msg,
+						'product' => $product_name
+
+					);
+	}
+
+	
 }

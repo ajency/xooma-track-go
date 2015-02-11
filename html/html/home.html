@@ -19,7 +19,22 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
       <style type="text/css">
-
+      .line-graph{
+        position:relative;
+      }
+#y-axis{
+  -webkit-transform: rotate(270deg);
+-moz-transform: rotate(271deg);
+-o-transform: rotate(271deg);
+writing-mode: rl-tb;
+text-align: center;
+position: absolute;
+top: 0%;
+bottom: 0%;
+text-align: center;
+width: 244px;
+left: 20%;
+}
     /*#chart-area{
       height: auto !important;
       z-index: -1;
@@ -291,9 +306,13 @@
                       
       <div class="clearfix"></div><br>
       <div style="width:100%">
-  			<div>
-  				<canvas id="canvas" height="450" width="600"></canvas>
-  			</div>
+  	
+      <div class="line-graph">
+        <canvas id="canvas" height="450" width="600"></canvas>
+         <div id="y-axis" class="text-center"><b>Weight</b></div>
+         <div id="x-axis" class="text-center"><b>Time</b></div>
+      </div>
+     
   		</div>
             </div>
   </div>
@@ -419,8 +438,7 @@
   <script type="text/javascript" src="assets/js/slick.min.js"></script>
       <script src="assets/js/owl.carousel.min.js"></script>
             <SCRIPT src='assets/js/chart.js'></script>
-        <SCRIPT src='assets/js/ChartNew.js'></script>
-      <SCRIPT src='assets/js/stats.js'></script>
+  
 
       <!-- Mobile menu & popover -->
               <script>
@@ -512,89 +530,52 @@ $('.responsive').slick({
 
 
       </script>
-      <SCRIPT>
+  <script>
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData = {
+      labels : ["January","February","March","April","May","June","July"],
+      datasets : [
+       {
+            label: "My First dataset",
+            fillColor: "000000",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [105, 105, 105, 105, 105, 105, 105]
+        },
+        {
+            label: "My Second dataset",
+            fillColor: "#ffffff",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [80, 80, 80, 80, 80, 80, 80]
+        }, {
+            label: "My Second dataset",
+            fillColor: "#ffffff",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [60, 60, 60, 60, 60, 60, 60]
+        }
+        
+      ]
+    }
 
-function setColor(area,data,config,i,j,animPct,value)
-{
-  if(value > 35)return("rgba(220,0,0,"+animPct);
-  else return("rgba(0,220,0,"+animPct);
-  
-}
-
-var charJSPersonnalDefaultOptions = { decimalSeparator : "," , thousandSeparator : ".", roundNumber : "none", graphTitleFontSize: 2 };
-
-defCanvasWidth=500;
-defCanvasHeight=200;
-
-var mydata2 = [
-  {
-    value : 30,
-    color: "#6bbfff",
-    title : "Bottle1",
-	label : "1pm"
-  },
-  {
-    value : 100,
-    color: "#6bbfff",
-    title : "Bottle2",
-	label : "1pm"
-  },
-  {
-    value :100,
-    color: "#6bbfff",
-    title : "Bottle3",
-	label : "1pm"
-  },
-  {
-    value : 100,
-    color: "#6bbfff",
-    title : "Bottle4",
-	label : "1pm"
-      }
-];
-
-
-var startWithDataset =1;
-var startWithData =1;
-
-var opt1 = {
-      animationStartWithDataset : startWithDataset,
-      animationStartWithData : startWithData,
-      animateRotate : false,
-      animateScale : false,
-      animationByData : false,
-      animationSteps : 50,
-      inGraphDataShow : true,
-      animationEasing: "linear",
-      annotateDisplay : true,
-      spaceBetweenBar : 2,
-      graphTitleFontSize: 18,
-      percentageInnerCutout : 80 ,
+  window.onload = function(){
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myLine = new Chart(ctx).Line(lineChartData, {
       responsive: true
-
-}
-
-
-
-
-  
-
-
-</SCRIPT>
-    <script>
-
- 
-   
-   
-
-window.onload = function() {
-
-
-    var myDoughnut = new Chart(document.getElementById("canvas_Doughnut1").getContext("2d")).Doughnut(mydata2,opt1);
-
+    });
   }
+  </script>
 
-    </script>
 
   </body>
 

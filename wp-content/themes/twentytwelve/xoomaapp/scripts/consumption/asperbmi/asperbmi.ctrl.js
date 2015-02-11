@@ -43,6 +43,15 @@ AsperbmiView = (function(_super) {
         }, 'slow');
         return;
       }
+      if (parseInt(this.model.get('available')) <= 0) {
+        $('.loadingconusme').html("");
+        window.removeMsg();
+        this.ui.responseMessage.addClass('alert alert-danger').text("Produt out of stock!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return;
+      }
       product = this.model.get('id');
       date = App.currentUser.get('homeDate');
       time = moment().format("HH:mm:ss");
@@ -70,7 +79,7 @@ AsperbmiView = (function(_super) {
     $('.loadingconusme').html("");
     count1 = 0;
     if (xhr.status === 201) {
-      occurResponse = _.map(response.occurrence, function(occurrence) {
+      occurResponse = _.map(response.occurrence[0].occurrence, function(occurrence) {
         var occur;
         occurrence.meta_id = parseInt(occurrence.meta_id);
         occur = _.has(occurrence, "occurrence");
@@ -79,7 +88,13 @@ AsperbmiView = (function(_super) {
         }
         return occurrence;
       });
-      this.model.set('occurrence', occurResponse);
+      console.log(response);
+      this.model.set('occurrence', response.occurrence[0].occurrence);
+      model = new UserProductModel;
+      model.set(response.occurrence[0]);
+      App.useProductColl.add(model, {
+        merge: true
+      });
       this.$el.find('#meta_id').val(response.meta_id);
       tempColl = new Backbone.Collection(occurResponse);
       model = tempColl.findWhere({
