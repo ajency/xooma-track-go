@@ -756,8 +756,8 @@ ProductChildView = (function(_super) {
         timestamp = d.getTime();
         time1 = moment(timestamp).zone(timezone).format("x");
         if (parseInt(time) < parseInt(time1)) {
-          $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
-          $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
+          $('#bell' + model.get('id')).removeClass('fa fa-bell-slash no-remiander');
+          $('#bell' + model.get('id')).addClass('fa fa-bell-o element-animation');
           timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A');
           msg = 'Your next reminder is at ' + timedisplay;
           return false;
