@@ -26,6 +26,15 @@ class AsperbmiView extends Marionette.ItemView
 									scrollTop: 0
 									}, 'slow')
 				return
+			if parseInt(@model.get('available')) <= 0
+				$('.loadingconusme').html ""
+				window.removeMsg()
+				@ui.responseMessage.addClass('alert alert-danger').text("Produt out of stock!")
+				$('html, body').animate({
+									scrollTop: 0
+									}, 'slow')
+				return
+
 			product = @model.get('id')
 			date = App.currentUser.get('homeDate')
 			time  = moment().format("HH:mm:ss")
