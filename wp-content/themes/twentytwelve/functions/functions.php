@@ -1173,17 +1173,40 @@ function store_add_schedule($args){
 
 
 
-			
+			global $wpdb;
+
+					$table = $wpdb->prefix . "product_main";
+
+					$user = $wpdb->get_row("SELECT * from $table where id=".$args['main_id']);
 
 
-				date_default_timezone_set("UTC");
+					$user_details = get_user_meta($user->user_id,'user_details',true);
+
+					
+
+					$details = maybe_unserialize($user_details);
+					
+
+					$today = strtotime('00:00:00');
+					$start = date("Y-m-d 00:00:00");
+						
+					$UTC = new DateTimeZone("UTC");
+					$newTZ = new DateTimeZone($details['timezone']);
+					$date = new DateTime( $start);
+					$todaydate = $date->setTimezone( $newTZ );
+					$t  = $todaydate->format('Y-m-d H:i:s');
+					$date1 = new DateTime($t);
+					$date1->setTimezone( $UTC );
+					$today_date = $date1->format('Y-m-d H:i:s');
+
+
+				
 						$interval = 24/intval($args['time_set']);
-						$today = strtotime('00:00:00');
-					 $start = date("Y-m-d 00:00:00");
+						
 						$schedule_data = array(
 								'object_type' => 'user_product',
 								'object_id' => $args['main_id'],
-								'start_dt'  => $start,
+								'start_dt'  => $today_date,
 								'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
 						);
 				
@@ -2047,6 +2070,10 @@ function get_path($type){
 		$path = get_template_directory_uri().'/xoomaapp/json/php/stock_over.txt';
 		break;
 
+		case 'add_product':
+		$path = get_template_directory_uri().'/xoomaapp/json/php/add_product.txt';
+		break;
+
 	}
 
 	return $path;
@@ -2275,16 +2302,7 @@ function notifications_add_product($product_id,$product_name,$description){
 
 	
 
-	$recipients_args = array(
-			array(
-				'user_id'     => $user_id,
-				'type'        => 'email',
-				'value'       =>  $user['user_email']
-
-			)
-
-	);
-
+	
 	//get all the admins
 	$arguments = array(
 				'role' => 'Subscriber',
@@ -2299,7 +2317,7 @@ function notifications_add_product($product_id,$product_name,$description){
 
 		$recipients_args = array(
 							array(
-							'user_id'     => $user_id,
+							'user_id'     =>  $value->ID,
 							'type'        => 'email',
 							'value'       => $value->user_email
 
@@ -2314,7 +2332,7 @@ function notifications_add_product($product_id,$product_name,$description){
 
 	$aj_comm->create_communication($args,$meta,$recipients_args);
 
-	$aj_comm->cron_process_communication_queue("admin_config_emails",$type);
+	$aj_comm->cron_process_communication_queue("admin_config_emails",'add_product_email');
 
 
 	return true;
@@ -2326,15 +2344,15 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 
 	$usersToBeNotified = array();
 	foreach ($users as $key => $value) {
-		$name = $value['display_name'];
+		$name = $value->display_name;
 		$product_name = $product_name;
 
-		$msg = send_message($value->user_id,$product_id,'add_product',$time=0);
+		$msg = send_message($value->ID,$product_id,'add_product',$time=0);
 
 		eval("\$msg = \"$msg\";");
 
 		$usersToBeNotified[] = array(
-						'ID' => $value->user_id,
+						'ID' => $value->ID,
 						'message' => $msg,
 						'product' => $product_name
 

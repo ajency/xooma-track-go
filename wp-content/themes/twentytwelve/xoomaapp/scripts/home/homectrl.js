@@ -221,6 +221,7 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {
     var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    $('#canvasregion').show();
     dates = [response['st_date'], response['et_date']];
     bmi_start_ht = parseFloat(response['st_height']) * 12;
     bmi_end_ht = parseFloat(response['et_height']) * 12;
@@ -251,10 +252,13 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param;
+    $('#canvasregion').show();
     dates = App.graph.get('dates');
     param = App.graph.get('param');
     if (dates.length === 0 && param.length === 0) {
       $('.loadinggraph').html("<li>No data found</li>");
+      $('#canvasregion').hide();
+      return false;
     }
     lineChartData = {
       labels: dates,
@@ -371,7 +375,7 @@ HomeX2OView = (function(_super) {
     tt = moment().format('YYYY-MM-DD HH:mm:ss');
     d = new Date();
     timestamp = d.getTime();
-    timearray.push(moment(timestamp).zone(timezone).format("x"));
+    timearray.push(moment(timestamp).format("x"));
     occurrenceArr = [];
     bonusArr = 0;
     recent = '--';
@@ -686,7 +690,7 @@ ProductChildView = (function(_super) {
     }
     d = new Date();
     timestamp = d.getTime();
-    timearray.push(moment(timestamp).zone(timezone).format("x"));
+    timearray.push(moment(timestamp).format("x"));
     $.each(this.model.get('occurrence'), function(ind, val) {
       if (qty[ind] !== void 0) {
         return temp.push(val);

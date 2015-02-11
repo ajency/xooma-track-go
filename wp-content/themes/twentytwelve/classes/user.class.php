@@ -389,7 +389,7 @@ class User
                     $t  = $todaydate->format('Y-m-d H:i:s');
                     $date1 = new DateTime($t);
                     $date1->setTimezone( $UTC );
-                    $today_date = $date1->format('Y-m-d H:i:s');
+                   $today_date = $date1->format('Y-m-d H:i:s');
 
                     $dat = new DateTime( $end_date);
                     $enddate = $dat->setTimezone( $newTZ );

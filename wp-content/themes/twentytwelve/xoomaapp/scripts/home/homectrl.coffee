@@ -200,6 +200,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	)
 
 	generateBMIGraph:(response)->
+		$('#canvasregion').show()
 		dates = [response['st_date'],response['et_date']]
 
 		bmi_start_ht = parseFloat(response['st_height']) *  12
@@ -230,10 +231,13 @@ class HomeLayoutView extends Marionette.LayoutView
 		);
 
 	generateGraph:->
+		$('#canvasregion').show()
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'
 		if dates.length == 0 && param.length == 0
 			$('.loadinggraph').html "<li>No data found</li>"
+			$('#canvasregion').hide()
+			return false
 		lineChartData = 
 			labels : dates,
 			datasets : [
@@ -356,7 +360,7 @@ class HomeX2OView extends Marionette.ItemView
 		d = new Date()
 		timestamp = d.getTime()
 		
-		timearray.push moment(timestamp).zone(timezone).format("x")
+		timearray.push moment(timestamp).format("x")
 		occurrenceArr = []
 		bonusArr = 0
 		recent = '--'
@@ -686,7 +690,7 @@ class ProductChildView extends Marionette.ItemView
 			timezone = App.currentUser.get 'timezone'
 		d = new Date()
 		timestamp = d.getTime()
-		timearray.push moment(timestamp).zone(timezone).format("x")	
+		timearray.push moment(timestamp).format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
