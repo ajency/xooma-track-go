@@ -40,7 +40,7 @@ class Product
 			add_term_meta($term['term_id'], 'BMI',$args['bmi']);
 			
 
-			notifications_add_product($term['term_id'],$term['name'],$term['description']);
+			notifications_add_product($term['term_id'],urldecode($args['name']),urldecode($args['short_desc']));
 			$response =  array('status' => 201 ,'response' => $term);
 			
 		} 

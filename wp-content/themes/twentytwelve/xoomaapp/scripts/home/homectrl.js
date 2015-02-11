@@ -221,6 +221,7 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {
     var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    $('#canvasregion').show();
     dates = [response['st_date'], response['et_date']];
     bmi_start_ht = parseFloat(response['st_height']) * 12;
     bmi_end_ht = parseFloat(response['et_height']) * 12;
@@ -251,10 +252,13 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param;
+    $('#canvasregion').show();
     dates = App.graph.get('dates');
     param = App.graph.get('param');
     if (dates.length === 0 && param.length === 0) {
       $('.loadinggraph').html("<li>No data found</li>");
+      $('#canvasregion').hide();
+      return false;
     }
     lineChartData = {
       labels: dates,
@@ -328,7 +332,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -340,6 +344,7 @@ HomeX2OView = (function(_super) {
       available = this.model.get('available');
       if (parseInt(available) <= 0) {
         e.preventDefault();
+        window.removeMsg();
         $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");
         $('html, body').animate({
           scrollTop: 0
@@ -371,7 +376,7 @@ HomeX2OView = (function(_super) {
     tt = moment().format('YYYY-MM-DD HH:mm:ss');
     d = new Date();
     timestamp = d.getTime();
-    timearray.push(moment(timestamp).zone(timezone).format("x"));
+    timearray.push(moment(timestamp).format("x"));
     occurrenceArr = [];
     bonusArr = 0;
     recent = '--';
@@ -611,7 +616,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{username}}! {{msg}}</div>';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -620,9 +625,10 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.events = {
     'click #original': function(e) {
       var available;
-      available = this.model.get('available');
+      console.log(available = this.model.get('available'));
       if (parseInt(available) <= 0) {
         e.preventDefault();
+        window.removeMsg();
         $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");
         $('html, body').animate({
           scrollTop: 0
@@ -657,10 +663,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var bonusArr, consumed, count, d, data, howmuch, model, msg, n, no_servings, occurrenceArr, per, per1, product_type, qty, recent, reponse, temp, texmsg, time, timearr, timearray, timeslot, timestamp, timezone;
-    per = [0, 25, 50, 75, 100];
-    per1 = ['25_50', '50_75'];
-    timearr = ["2AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-2AM"];
+    var bonusArr, consumed, count, d, data, howmuch, model, msg, n, no_servings, occurrenceArr, product_type, qty, recent, reponse, skip, temp, texmsg, time, timearray, timeslot, timestamp, timezone;
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
@@ -686,7 +689,7 @@ ProductChildView = (function(_super) {
     }
     d = new Date();
     timestamp = d.getTime();
-    timearray.push(moment(timestamp).zone(timezone).format("x"));
+    timearray.push(moment(timestamp).format("x"));
     $.each(this.model.get('occurrence'), function(ind, val) {
       if (qty[ind] !== void 0) {
         return temp.push(val);
@@ -701,7 +704,9 @@ ProductChildView = (function(_super) {
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
-        consumed++;
+        if (parseInt(val.meta_value.qty) !== 0) {
+          consumed++;
+        }
       } else if (occurrence === false && expected === true) {
         reponse = ProductChildView.prototype.expectedfunc(val, ind, count, model);
         count++;
@@ -716,9 +721,77 @@ ProductChildView = (function(_super) {
     });
     data.no_servings = no_servings;
     data.serving_size = temp.length;
-    howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100;
+    console.log(skip = this.checkSkip(temp));
+    if (skip[0].length !== 0) {
+      texmsg = skip[1];
+    } else {
+      howmuch = parseFloat(parseInt(consumed) / parseInt(temp.length)) * 100;
+      texmsg = this.checkStatus(howmuch);
+    }
+    msg = "Time set for reminders has already elapsed";
+    if (parseInt(model.get('reminder').length) === 0) {
+      msg = "No reminders set";
+    }
+    data.remindermsg = 'fa fa-bell-slash no-remiander';
+    if (this.model.get('upcoming').length !== 0) {
+      $.each(this.model.get('upcoming'), function(ind, val) {
+        var time1, timedisplay;
+        time = _.last(timearray);
+        d = new Date(val.next_occurrence);
+        timestamp = d.getTime();
+        time1 = moment(timestamp).zone(timezone).format("x");
+        console.log($('#bell' + model.get('id')));
+        if (parseInt(time) < parseInt(time1)) {
+          data.remindermsg = 'fa fa-bell-o element-animation';
+          timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A');
+          msg = 'Your next reminder is at ' + timedisplay;
+          return false;
+        }
+      });
+    }
+    data.texmsg = texmsg;
+    data.username = App.currentUser.get('display_name');
+    data.msg = msg;
+    return data;
+  };
+
+  ProductChildView.prototype.checkSkip = function(temp) {
+    var msg, skip_arr;
+    skip_arr = [];
+    $.each(temp, function(ind, val) {
+      var expected, occurrence, qty;
+      occurrence = _.has(val, "occurrence");
+      expected = _.has(val, "expected");
+      if (occurrence === true && expected === true) {
+        qty = val.meta_value.qty;
+        if (parseInt(qty) === 0) {
+          return skip_arr.push(qty);
+        } else {
+          return skip_arr = [];
+        }
+      }
+    });
+    msg = 'Oops! Not good! Try not to repeat';
+    if (skip_arr.length === temp.length) {
+      msg = 'Aww! Thats bad..';
+    }
+    return [skip_arr, msg];
+  };
+
+  ProductChildView.prototype.checkStatus = function(howmuch) {
+    var d, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
+    per = [0, 25, 50, 75, 100];
+    per1 = ['25_50', '50_75'];
+    timearr = ["2AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-2AM"];
+    timearray = [];
+    timezone = App.currentUser.get('timezone');
+    d = new Date();
+    timestamp = d.getTime();
+    timeslot = "";
+    texmsg = "";
+    timearray.push(moment(timestamp).format("x"));
     $.each(timearr, function(ind, val) {
-      var d0, d1, t0, t1, time1, time2, timestamp0, timestamp1;
+      var d0, d1, t0, t1, temp, time, time1, time2, timestamp0, timestamp1;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss');
       t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss');
@@ -739,35 +812,13 @@ ProductChildView = (function(_super) {
       }
     });
     $.each(per1, function(ind, val) {
+      var temp;
       temp = val.split('_');
       if (parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
-    msg = "Time set for reminders has already elapsed";
-    if (parseInt(model.get('reminder').length) === 0) {
-      msg = "No reminders set";
-    }
-    if (this.model.get('upcoming').length !== 0) {
-      $.each(this.model.get('upcoming'), function(ind, val) {
-        var time1, timedisplay;
-        time = _.last(timearray);
-        d = new Date(val.next_occurrence);
-        timestamp = d.getTime();
-        time1 = moment(timestamp).zone(timezone).format("x");
-        if (parseInt(time) < parseInt(time1)) {
-          $('#bell' + model.get('id')).removeClass('fa-bell-slash no-remiander');
-          $('#bell' + model.get('id')).addClass('fa-bell-o element-animation');
-          timedisplay = moment(val.next_occurrence + timezone, "HH:mm Z").format('h:mm A');
-          msg = 'Your next reminder is at ' + timedisplay;
-          return false;
-        }
-      });
-    }
-    data.texmsg = texmsg;
-    data.username = App.currentUser.get('display_name');
-    data.msg = msg;
-    return data;
+    return texmsg;
   };
 
   ProductChildView.prototype.expectedfunc = function(val, key, count, model) {
