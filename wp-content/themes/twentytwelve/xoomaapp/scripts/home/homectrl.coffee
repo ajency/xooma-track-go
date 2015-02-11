@@ -297,7 +297,8 @@ class HomeX2OView extends Marionette.ItemView
 					</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h5 class="margin-none mid-title ">{{name}}<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+				 <h5 class=" mid-title margin-none"><div> {{name}}</div>
+					<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
@@ -578,7 +579,7 @@ class ProductChildView extends Marionette.ItemView
 	className : 'panel panel-default'
 
 	template  : '<div class="panel-body">
-			<h5 class="margin-none mid-title ">{{name}}<span>( {{serving_size}}  Serving/ Day )</span><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+			 <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						
@@ -590,7 +591,7 @@ class ProductChildView extends Marionette.ItemView
 					
 
 			  <ul class="list-inline dotted-line  text-center row m-t-20 panel-product">
-								  <li class="col-md-8 col-xs-12"> 
+								  <li class="col-md-8 col-xs-12 col-sm-8"> 
 							 <ul class="list-inline no-dotted">
 												{{#no_servings}}
 					
@@ -613,7 +614,7 @@ class ProductChildView extends Marionette.ItemView
 </ul>                          
 								  </li>
 								   
-									<li class="col-md-4 col-xs-12 mobile-status">
+									<li class="col-md-4 col-xs-12 col-sm-4 mobile-status">
 										<h5 class="text-center hidden-xs">Status</h5>
 											<i class="fa fa-smile-o"></i>  
 										<h6 class="text-center margin-none status">{{texmsg}}</h6>
@@ -663,9 +664,6 @@ class ProductChildView extends Marionette.ItemView
 
 
 	serializeData:->
-		per = [0,25,50,75,100]
-		per1 = ['25_50','50_75']
-		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
 		data = super()
 		recent = '--'
 		data.occur = 0
@@ -702,7 +700,8 @@ class ProductChildView extends Marionette.ItemView
 			expected = _.has(val, "expected")
 			if occurrence == true && expected == true
 				reponse = ProductChildView::occurredfunc(val,ind,model)
-				consumed++
+				if parseInt(val.meta_value.qty) != 0
+					consumed++
 				
 			else if occurrence == false && expected == true 
 				reponse = ProductChildView::expectedfunc(val,ind,count,model)
@@ -712,7 +711,62 @@ class ProductChildView extends Marionette.ItemView
 			no_servings.push servings : response.html , schedule : response.schedule_id , meta_id : response.meta_id ,qty :response.qty
 		data.no_servings =  no_servings
 		data.serving_size = temp.length
-		howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+		console.log skip = @checkSkip(temp)
+		if skip[0].length != 0 
+			texmsg = skip[1]
+		else
+			howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
+			texmsg = @checkStatus(howmuch)
+		
+		msg = "Time set for reminders has already elapsed"
+		if parseInt(model.get('reminder').length) == 0
+			msg = "No reminders set"
+		data.remindermsg = 'fa fa-bell-slash no-remiander'
+		if @model.get('upcoming').length != 0
+			$.each @model.get('upcoming') , (ind,val)->
+				time = _.last timearray
+				d = new Date(val.next_occurrence)
+				timestamp = d.getTime()
+				time1 = moment(timestamp).zone(timezone).format("x")
+				console.log $('#bell'+model.get('id'))
+				if parseInt(time) < parseInt(time1)
+					data.remindermsg = 'fa fa-bell-o element-animation'
+					timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
+					msg = 'Your next reminder is at '+timedisplay
+					return false
+		data.texmsg = texmsg
+		data.username = App.currentUser.get('display_name')
+		data.msg = msg
+		data
+
+	checkSkip:(temp)->
+		skip_arr  = []
+		$.each temp , (ind,val)->
+			occurrence = _.has(val, "occurrence")
+			expected = _.has(val, "expected")
+			if occurrence == true && expected == true
+				qty = val.meta_value.qty
+				if parseInt(qty) == 0 
+					skip_arr.push qty
+				else
+					skip_arr  = []
+		msg = 'Oops! Not good! Try not to repeat'
+		if skip_arr.length == temp.length
+			msg = 'Aww! Thats bad..'
+
+		[skip_arr,msg]
+
+	checkStatus:(howmuch)->
+		per = [0,25,50,75,100]
+		per1 = ['25_50','50_75']
+		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
+		timearray = []
+		timezone = App.currentUser.get 'timezone'
+		d = new Date()
+		timestamp = d.getTime()
+		timeslot = ""
+		texmsg = ""
+		timearray.push moment(timestamp).format("x")	
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
@@ -735,27 +789,9 @@ class ProductChildView extends Marionette.ItemView
 			temp = val.split('_')
 			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
 				texmsg = Messages[val+'_'+timeslot]
-		
-		msg = "Time set for reminders has already elapsed"
-		if parseInt(model.get('reminder').length) == 0
-			msg = "No reminders set"
-		data.remindermsg = 'fa fa-bell-slash no-remiander'
-		if @model.get('upcoming').length != 0
-			$.each @model.get('upcoming') , (ind,val)->
-				time = _.last timearray
-				d = new Date(val.next_occurrence)
-				timestamp = d.getTime()
-				time1 = moment(timestamp).zone(timezone).format("x")
-				console.log $('#bell'+model.get('id'))
-				if parseInt(time) < parseInt(time1)
-					data.remindermsg = 'fa fa-bell-o element-animation'
-					timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
-					msg = 'Your next reminder is at '+timedisplay
-					return false
-		data.texmsg = texmsg
-		data.username = App.currentUser.get('display_name')
-		data.msg = msg
-		data
+
+		texmsg
+
 
 	expectedfunc:(val,key,count,model)->
 		

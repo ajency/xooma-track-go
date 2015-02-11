@@ -767,7 +767,7 @@ function send_notifications_to_admin($user_id){
 
 		$recipients_args = array(
 							array(
-							'user_id'     => $user_id,
+							'user_id'     => $value->ID,
 							'type'        => 'email',
 							'value'       => $value->user_email
 
@@ -1964,9 +1964,9 @@ function cron_job_reminders($args)
 				
 				eval("\$msg = \"$msg\";");
 
-
+				$notifications_flag = get_user_meta($user->user_id,'notification' , true);
 				//build push array 
-				if (intval($stock) != 0)
+				if (intval($stock) != 0 && $notifications_flag == 1)
 				{
 					$usersToBeNotified[] = array(
 
@@ -2130,9 +2130,11 @@ function send_stock_reminders_over(){
 		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
 
 		eval("\$msg = \"$msg\";");
-		if(intval($available) == 0)
+		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
+		$email_flag = get_user_meta($user->user_id,'emails' , true);
+		if(intval($available) == 0 && $notifications_flag == 1 )
 		{
-				
+				if($email_flag == 1)
 				notifications_low_stock($value->user_id,$product_name,$available,'stock_over_email');
 				$usersToBeNotified[] = array(
 						'ID' => $value->user_id,
@@ -2206,9 +2208,12 @@ function send_stock_reminders()
 		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
 
 		eval("\$msg = \"$msg\";");
-		if(intval($available) <= intval($servings_low))
+		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
+		$email_flag = get_user_meta($user->user_id,'emails' , true);
+		
+		if(intval($available) <= intval($servings_low) && $notifications_flag == 1)
 		{
-				
+				if($email_flag == 1)
 				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email');
 				$usersToBeNotified[] = array(
 						'ID' => $value->user_id,
@@ -2324,13 +2329,15 @@ function notifications_add_product($product_id,$product_name,$description){
 						)
 
 			);
-
+		$email_flag = get_user_meta($value->ID,'emails' , true);
+		if($email_flag == 1)
 		$aj_comm->create_communication($args,$meta,$recipients_args);
 
 		}
+	
 	send_add_product_notification($admins,$product_id,$product_name,$description);
 
-	$aj_comm->create_communication($args,$meta,$recipients_args);
+	
 
 	$aj_comm->cron_process_communication_queue("admin_config_emails",'add_product_email');
 
@@ -2350,7 +2357,9 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 		$msg = send_message($value->ID,$product_id,'add_product',$time=0);
 
 		eval("\$msg = \"$msg\";");
-
+		$notifications_flag = get_user_meta($value->ID,'notification' , true);
+	
+		if($notifications_flag == 1)	
 		$usersToBeNotified[] = array(
 						'ID' => $value->ID,
 						'message' => $msg,
