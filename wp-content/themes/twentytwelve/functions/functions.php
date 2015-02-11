@@ -1059,7 +1059,7 @@ function store_reminders($main_id,$servings,$reminder){
 					$schedule_data = array(
 								'object_type' => 'user_product_reminder',
 								'object_id' => $main_id,
-								'start_dt'  => $start,
+								'start_dt'  => $today_date,
 								'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO"
 						);
 						
