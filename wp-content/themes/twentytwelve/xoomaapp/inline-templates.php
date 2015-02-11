@@ -1,7 +1,7 @@
 <script id="login-template" type="text/template">
 	<div class="topheader">
 		<nav class="navbar " role="navigation">
-			<div class="container">
+			<div class="container mobile-container">
 				<div class="row">
 					<div class="col-sm-3 col-xs-6">
 						<div class="navbar-header">

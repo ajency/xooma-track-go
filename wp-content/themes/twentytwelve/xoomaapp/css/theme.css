@@ -6517,7 +6517,7 @@ body > .container {
 @media (max-width: 768px) {
   .home-datepicker {
     font-size: 1.3em;
-    width: 33%;
+    width: 80px;
   }
 }
 .section {
@@ -7418,7 +7418,7 @@ packet_expected_class {
         }
     } */
   .panel-mobile .panel-body img {
-    width: 10%;
+    width: 27px;
   }
   .section-list .alert.alert-success,
   .section-list .alert.alert-danger {
