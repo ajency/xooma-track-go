@@ -712,6 +712,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 	<div class="container "> 
 	<div class="aj-response-message"></div>
 		<h3 class="bold margin-none">{{name}}</h3>
+
 		  <div class="row " >
 			<div class="col-md-6 col-xs-12">
 				  <div class="row">
@@ -725,6 +726,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 				<br>
 			</div>
 			<form id="edit_product" class="form-horizontal" role="form" method="POST">
+			<input type="hidden" name="homeDate" id="homeDate" value="" / >
 			<input type="hidden" name="frequency_type" value="{{frequency_value}}" />
 			<div class="col-md-6 col-xs-12">
 				<!--<b>Choose the consumption of {{name}}</b>

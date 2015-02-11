@@ -150,8 +150,8 @@ ProductChildView = (function(_super) {
       newClass = product_type + '_default_class';
       if (name.toUpperCase() === 'X2O') {
         newClass = 'x2o_default_class';
-        totalqty += parseInt(value.qty);
       }
+      totalqty += parseInt(value.qty);
       return servings.push({
         classname: newClass,
         qty: value.qty
@@ -169,12 +169,11 @@ ProductChildView = (function(_super) {
     if (parseInt(reminder.length) === 0) {
       remind = 'No Reminder is set';
     }
-    console.log(available = this.model.get('available'));
-    console.log(qty.length);
+    available = this.model.get('available');
     total = this.model.get('total');
     containers = parseInt(available) / parseInt(total);
     contacount = Math.ceil(containers);
-    servingsleft = parseInt(available) * parseInt(qty.length) / parseInt(totalqty);
+    servingsleft = Math.round(parseInt(available) * parseInt(qty.length) / parseInt(totalqty));
     totalservings = parseInt(servingsleft) / 2;
     data.servings_text = 'Servings left';
     data.hidden = '';

@@ -343,7 +343,7 @@ class EditProductsView extends Marionette.ItemView
 	onShow:->
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
-		
+		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
 		$('.js__timepicker').pickatime(
 			interval: 15

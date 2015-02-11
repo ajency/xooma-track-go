@@ -377,6 +377,7 @@ EditProductsView = (function(_super) {
     var container, product, products, qty, reminder_flag, weight, weightbmi;
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
+    $('#homeDate').val(App.currentUser.get('homeDate'));
     this.checkMode();
     $('.js__timepicker').pickatime({
       interval: 15

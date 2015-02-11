@@ -233,18 +233,18 @@ class User
 
     }
 
-    public function update_user_product_details($id,$pid,$data){
+    public function update_user_product_details($id,$pid,$data,$date){
 
         
 
         if($data['frequency_type']==2){
             //function to update schedule users details
-            $response = update_schedule_product_details($id,$pid,$data);
+            $response = update_schedule_product_details($id,$pid,$data,$date);
         }
         else
         {
             //function to update Anytime users details
-            $response = update_anytime_product_details($id,$pid,$data);
+            $response = update_anytime_product_details($id,$pid,$data,$date);
         }
 
         return $response;
