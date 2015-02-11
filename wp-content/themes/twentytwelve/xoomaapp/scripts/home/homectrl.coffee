@@ -617,7 +617,7 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		  <div class="panel-footer"><i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> Hey {{username}}! {{msg}}</div>
+		  <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
 
 
 				 '
@@ -735,17 +735,16 @@ class ProductChildView extends Marionette.ItemView
 		msg = "Time set for reminders has already elapsed"
 		if parseInt(model.get('reminder').length) == 0
 			msg = "No reminders set"
-		
+		data.remindermsg = 'fa fa-bell-slash no-remiander'
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
 				time = _.last timearray
 				d = new Date(val.next_occurrence)
 				timestamp = d.getTime()
 				time1 = moment(timestamp).zone(timezone).format("x")
-			
+				console.log $('#bell'+model.get('id'))
 				if parseInt(time) < parseInt(time1)
-					$('#bell'+model.get('id')).removeClass 'fa fa-bell-slash no-remiander'
-					$('#bell'+model.get('id')).addClass 'fa fa-bell-o element-animation'
+					data.remindermsg = 'fa fa-bell-o element-animation'
 					timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
 					msg = 'Your next reminder is at '+timedisplay
 					return false
