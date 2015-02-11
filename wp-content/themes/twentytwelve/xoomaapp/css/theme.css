@@ -2818,14 +2818,15 @@ button:hover {
 }
 @media (max-width: 768px) {
   .checkbox input {
-    -ms-transform: scale(3);
+    -ms-transform: scale(1);
     /* IE */
-    -moz-transform: scale(3);
+    -moz-transform: scale(1);
     /* FF */
-    -webkit-transform: scale(3);
+    -webkit-transform: scale(1);
     /* Safari and Chrome */
-    -o-transform: scale(3);
+    -o-transform: scale(1);
     /* Opera */
+    margin-left: 5px;
   }
 }
 .btn {
@@ -7535,7 +7536,7 @@ packet_expected_class {
 }
 .top-panel-picker img {
   position: absolute;
-  right: 7px;
+  right: 20px;
   bottom: 0px;
   height: 10px !important;
   width: 10px!important;
