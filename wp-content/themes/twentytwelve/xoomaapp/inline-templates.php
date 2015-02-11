@@ -483,7 +483,11 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 		 <div class="col-md-8"> 
 		 <div class="panel panel-default panel-mobile">
 				  <div class="panel-body  ">
-					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/><input type="text"  id="update" class="home-datepicker " >
+					<img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/>
+						<span class="top-panel-picker ">
+					<img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" />
+					<input type="text"  id="update" class="home-datepicker " >
+					</span>
 				<a id="showHome">( Apply ) </a> <img src="" class="daynightclass pull-right"/>
 
 				  </div>
@@ -547,11 +551,11 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 					<br/>
 					<button type="button" name="generate" class="aj-submit-button  btn-link" >Generate Graph</button>
 	<div class="clearfix"></div><br><div class="loadinggraph"></div> 
-				<div style="width:100%">
+			
 								<div>
 									<canvas id="canvas" height="450" width="600"></canvas>
 								</div>
-					</div>
+					
 		  	
 		  	</div>
 

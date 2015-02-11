@@ -6512,12 +6512,12 @@ body > .container {
   border: 0px;
   background: none;
   font-size: 1.7em;
-  width: 18%;
+  width: 20%;
 }
 @media (max-width: 768px) {
   .home-datepicker {
     font-size: 1.3em;
-    width: 80px;
+    width: 90px;
   }
 }
 .section {
@@ -6627,7 +6627,7 @@ body > .container {
   position: relative;
 }
 .no-dotted li a {
-  color: #ccc;
+  color: #000000;
   text-decoration: none;
 }
 @media (max-width: 768px) {
@@ -7529,6 +7529,16 @@ packet_expected_class {
   /* IE 10+ */
   -moz-animation: a1 1.5s infinite;
   /* IE 10+ */
+}
+.top-panel-picker {
+  position: relative;
+}
+.top-panel-picker img {
+  position: absolute;
+  right: 7px;
+  bottom: 0px;
+  height: 10px !important;
+  width: 10px!important;
 }
 /* Top - Header */
 .topheader {
