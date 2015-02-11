@@ -344,6 +344,7 @@ HomeX2OView = (function(_super) {
       available = this.model.get('available');
       if (parseInt(available) <= 0) {
         e.preventDefault();
+        window.removeMsg();
         $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");
         $('html, body').animate({
           scrollTop: 0
@@ -627,6 +628,7 @@ ProductChildView = (function(_super) {
       console.log(available = this.model.get('available'));
       if (parseInt(available) <= 0) {
         e.preventDefault();
+        window.removeMsg();
         $('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!");
         $('html, body').animate({
           scrollTop: 0

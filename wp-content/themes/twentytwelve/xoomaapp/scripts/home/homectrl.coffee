@@ -332,6 +332,7 @@ class HomeX2OView extends Marionette.ItemView
 
 			if parseInt(available) <= 0
 				e.preventDefault()
+				window.removeMsg()
 				$('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!")
 				$('html, body').animate({
 									scrollTop: 0
@@ -636,6 +637,7 @@ class ProductChildView extends Marionette.ItemView
 
 			if parseInt(available) <= 0
 				e.preventDefault()
+				window.removeMsg()
 				$('.aj-response-message').addClass('alert alert-danger').text("Product out of stock!")
 				$('html, body').animate({
 									scrollTop: 0
