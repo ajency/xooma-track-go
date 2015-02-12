@@ -221,6 +221,7 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {
     var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    $('#y-axis').text('BMI Ratio');
     $('#canvasregion').show();
     dates = [response['st_date'], response['et_date']];
     bmi_start_ht = parseFloat(response['st_height']) * 12;
@@ -234,13 +235,40 @@ HomeLayoutView = (function(_super) {
       datasets: [
         {
           label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
+          fillColor: "#ffffff",
           strokeColor: "rgba(151,187,205,1)",
           pointColor: "rgba(151,187,205,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
           data: [bmi_start, bmi_end]
+        }, {
+          label: "My First dataset",
+          fillColor: "#fb4600",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [24.9, 24.9]
+        }, {
+          label: "My Second dataset",
+          fillColor: "#ffffff",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [18.5, 18.5]
+        }, {
+          label: "My Second dataset",
+          fillColor: "#ffffff",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [0, 0]
         }
       ]
     };
@@ -251,7 +279,12 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.generateGraph = function() {
-    var ctdx, dates, lineChartData, param;
+    var ctdx, dates, lineChartData, param, units;
+    units = 'inches';
+    if ($('#param').val() === 'weight') {
+      units = 'pounds';
+    }
+    $('#y-axis').text('Size(' + units + ')');
     $('#canvasregion').show();
     dates = App.graph.get('dates');
     param = App.graph.get('param');
@@ -265,7 +298,7 @@ HomeLayoutView = (function(_super) {
       datasets: [
         {
           label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
+          fillColor: "#ffffff",
           strokeColor: "rgba(151,187,205,1)",
           pointColor: "rgba(151,187,205,1)",
           pointStrokeColor: "#fff",
