@@ -15,7 +15,6 @@ jQuery(document).ready(function($) {
     }
   });
   App.onBeforeStart = function() {
-    console.log(App.currentUser);
     App.currentUser.set(userData);
     if (!App.currentUser.isLoggedIn()) {
       return App.currentUser.setNotLoggedInCapabilities();
@@ -23,6 +22,8 @@ jQuery(document).ready(function($) {
   };
   App.currentUser.on('user:auth:success', function() {
     App.trigger('fb:status:connected');
+    App.currentUser.set('homeDate', moment().format('YYYY-MM-DD'));
+    console.log(App.currentUser.get('homeDate'));
     return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {

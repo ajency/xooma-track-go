@@ -17,13 +17,14 @@ jQuery(document).ready ($)->
 			
 
 	App.onBeforeStart = ->
-		console.log App.currentUser
 		App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
+		App.currentUser.set 'homeDate' , moment().format('YYYY-MM-DD')
+		console.log App.currentUser.get 'homeDate'
 		App.navigate '#'+App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
