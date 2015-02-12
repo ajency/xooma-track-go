@@ -557,7 +557,7 @@ Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url
 								<div>
 									<canvas id="canvas" height="450" width="600"></canvas>
 								<div id="y-axis" class="text-center"><b></b></div>
-         <div id="x-axis" class="text-center"><b>Date</b></div>
+         <div id="x-axis" class="text-center">Date</div>
 
 								</div>
 					
