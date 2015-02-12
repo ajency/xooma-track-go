@@ -42,7 +42,7 @@
                     <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
                     </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
- <h5 class="text-center">One screen where download to app link <br>(ios and android ) available</h5>
+ <h5 class="text-center"></h5>
                     </div>
                    
                 </div>
