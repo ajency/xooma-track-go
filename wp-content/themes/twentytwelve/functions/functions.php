@@ -1354,6 +1354,7 @@ function get_history_user_product($id,$product_id){
 			 } 
 
 			 $transaction_data = array_unique($transaction_dates);
+			 arsort($transaction_data);
 			 $i = 0 ;
 			 
 			 foreach ($transaction_data as $value) {

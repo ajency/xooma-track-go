@@ -41,7 +41,7 @@ ScheduleView = (function(_super) {
     'click .reset': function(e) {
       var qty;
       qty = $('#org_qty').val();
-      this.ui.rangeSliders.val(qty);
+      this.ui.rangeSliders.val(parseInt(qty));
       this.ui.rangeSliders.parent().find("output").html(qty);
       $('#consume_time').val("");
       return $('.now').text('Now');

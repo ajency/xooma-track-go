@@ -209,7 +209,9 @@ class HomeLayoutView extends Marionette.LayoutView
 		st_square = parseFloat(bmi_start_ht) * parseFloat(bmi_start_ht)
 		et_square = parseFloat(bmi_end_ht) * parseFloat(bmi_end_ht)
 		bmi_start = (parseFloat(response['st_weight'])/parseFloat(st_square))* 703
+		bmi_start = bmi_start.toFixed(2)
 		bmi_end = (parseFloat(response['et_weight'])/parseFloat(et_square))* 703
+		bmi_end = bmi_end.toFixed(2)
 		lineChartData = 
 			labels : dates,
 			datasets : [
