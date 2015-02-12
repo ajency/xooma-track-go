@@ -2237,7 +2237,7 @@ function send_stock_reminders()
 			
 		
 
-		$data  = $productList->get_products($value->product_id);
+		$data  = $$user->get_user_home_products($value->user_id,$value->product_id,$date="");
 	
 		$servings_left = $object->no_of_days;
 
@@ -2245,7 +2245,12 @@ function send_stock_reminders()
 		
 		$userdata  = get_userdata( $value->user_id );
 
-		
+		$qty_size = 0;
+		foreach ($data[0]['qty'] as $key => $value) {
+			$qty_size = $qty_size + $value->qty;
+		}
+
+		$serv = round(intval($available) * intval($servings)/intval($qty_size));
 		$name = $userdata->display_name;
 		$product_name = $data[0]['name'];
 
@@ -2255,7 +2260,7 @@ function send_stock_reminders()
 		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
 		$email_flag = get_user_meta($user->user_id,'emails' , true);
 		
-		if(intval($available) <= intval($servings_low) && $notifications_flag == 1)
+		if(intval($serv) <= intval($servings_low) && $notifications_flag == 1)
 		{
 				if($email_flag == 1)
 				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email');

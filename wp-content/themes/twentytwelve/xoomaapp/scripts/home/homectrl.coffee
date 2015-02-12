@@ -228,7 +228,7 @@ class HomeLayoutView extends Marionette.LayoutView
 				{
 		     
 		            label: "My First dataset",
-		            fillColor: "#fb4600",
+		            fillColor: "##63c8ed",
 		            strokeColor: "rgba(151,187,205,1)",
 		            pointColor: "rgba(151,187,205,1)",
 		            pointStrokeColor: "#fff",
