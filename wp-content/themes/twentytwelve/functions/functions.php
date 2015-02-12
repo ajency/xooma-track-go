@@ -2417,21 +2417,23 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 
 function get_next_occurrence($object_id)
 {
+	
 	global $wpdb;
 
 	$aj_schedules = $wpdb->prefix . "aj_schedules";
 
 	$query = $wpdb->get_results("SELECT * from $aj_schedules where object_id=".$object_id." 
-		and object_type='product_type_reminder'");
+		and object_type='user_product_reminder'");
 
+	
 	$occurrences = [];
 	if($query)
 		foreach ($query as $key => $value) {
 			$occurrences[] = array(
-				'next' => $value->next_occurrence;
+				'next' => $value->next_occurrence,
 				);
 		}
-		
+
 	return $occurrences;
 	
 }

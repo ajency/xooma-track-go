@@ -735,7 +735,7 @@ class ProductChildView extends Marionette.ItemView
 			timezone = App.currentUser.get 'timezone'
 		d = new Date()
 		timestamp = d.getTime()
-		timearray.push moment(timestamp).format("x")	
+		timearray.push moment(timestamp).zone(timezone).format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -772,13 +772,13 @@ class ProductChildView extends Marionette.ItemView
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
 				time = _.last timearray
-				d = new Date(val.next_occurrence)
+				d = new Date(val.next)
 				timestamp = d.getTime()
 				time1 = moment(timestamp).zone(timezone).format("x")
-				console.log $('#bell'+model.get('id'))
+				
 				if parseInt(time) < parseInt(time1)
 					data.remindermsg = 'fa fa-bell-o element-animation'
-					timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
+					timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
 					msg = 'Your next reminder is at '+timedisplay
 					return false
 		data.texmsg = texmsg
