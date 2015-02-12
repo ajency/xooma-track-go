@@ -190,7 +190,7 @@ class AsperbmiView extends Marionette.ItemView
 			count = 0
 			meta_value = data.meta_value
 			count = @getCount(data.meta_value)
-			
+			ind = ind + 1
 			consumed = 0
 			$.each occur , (ind,val)=>
 				occurrence = _.has(val, "occurrence")

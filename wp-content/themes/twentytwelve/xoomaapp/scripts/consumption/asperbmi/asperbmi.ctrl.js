@@ -234,6 +234,7 @@ AsperbmiView = (function(_super) {
     count = 0;
     meta_value = data.meta_value;
     count = this.getCount(data.meta_value);
+    ind = ind + 1;
     consumed = 0;
     $.each(occur, (function(_this) {
       return function(ind, val) {
