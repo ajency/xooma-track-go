@@ -2424,8 +2424,14 @@ function get_next_occurrence($object_id)
 	$query = $wpdb->get_results("SELECT * from $aj_schedules where object_id=".$object_id." 
 		and object_type='product_type_reminder'");
 
+	$occurrences = [];
 	if($query)
-		return array('next'=>$query->next_occurrence);
-	else
-		return array();
+		foreach ($query as $key => $value) {
+			$occurrences[] = array(
+				'next' => $value->next_occurrence;
+				);
+		}
+		
+	return $occurrences;
+	
 }

@@ -358,7 +358,8 @@ class HomeX2OView extends Marionette.ItemView
 
 						<h6 class="text-center texmsg">{{texmsg}}</h6> </a>         
 					
-				  </div>
+				  </div><div id="rays"></div>
+
 					 <div id="canvas-holder">
 						<canvas id="chart-area" width="500" height="500"/>
 					</div>

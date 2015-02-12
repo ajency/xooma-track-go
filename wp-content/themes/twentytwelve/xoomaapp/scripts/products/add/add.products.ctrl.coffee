@@ -7,7 +7,7 @@ class ProductChildView extends Marionette.ItemView
 
 	tagName : 'li'
 
-	template : '<a class="cbp-vm-image" href="#"><img src="{{image}}"></a>
+	template : '<div class="cbp-vm-image" ><img src="{{image}}"></div>
 							<h3 class="cbp-vm-title">{{name}}</h3>
 							<div class="cbp-vm-details">
 								{{description}}
