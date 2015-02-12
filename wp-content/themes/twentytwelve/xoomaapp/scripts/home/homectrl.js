@@ -181,7 +181,7 @@ HomeLayoutView = (function(_super) {
     tt = moment().format('YYYY-MM-DD HH:mm:ss');
     d = new Date();
     timestamp = d.getTime();
-    curr = moment(timestamp).zone(timezone).format("YYYY-MM-DD HH:mm:ss");
+    curr = moment(timestamp).format("YYYY-MM-DD HH:mm:ss");
     current = new Date(curr);
     day_night = current.getHours();
     if (day_night <= 12) {
@@ -190,7 +190,7 @@ HomeLayoutView = (function(_super) {
       $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/night.gif');
     }
     $('#update').val(App.currentUser.get('homeDate'));
-    if (App.currentUser.get('homeDate') === moment(timestamp).zone(timezone).format('YYYY-MM-DD')) {
+    if (App.currentUser.get('homeDate') === moment(timestamp).format('YYYY-MM-DD')) {
       $('#update').val('TODAY');
     }
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
@@ -202,7 +202,7 @@ HomeLayoutView = (function(_super) {
       minDate: new Date(reg_date),
       onSelect: function(dateText, inst) {
         App.currentUser.set('homeDate', dateText);
-        if (App.currentUser.get('homeDate') === moment(timestamp).zone(timezone).format('YYYY-MM-DD')) {
+        if (App.currentUser.get('homeDate') === moment(timestamp).format('YYYY-MM-DD')) {
           return $('#update').val('TODAY');
         }
       }
@@ -221,6 +221,7 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {
     var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    $('#y-axis').text('BMI Ratio');
     $('#canvasregion').show();
     dates = [response['st_date'], response['et_date']];
     bmi_start_ht = parseFloat(response['st_height']) * 12;
@@ -234,13 +235,40 @@ HomeLayoutView = (function(_super) {
       datasets: [
         {
           label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
+          fillColor: "#ffffff",
           strokeColor: "rgba(151,187,205,1)",
           pointColor: "rgba(151,187,205,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
           data: [bmi_start, bmi_end]
+        }, {
+          label: "My First dataset",
+          fillColor: "#fb4600",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [24.9, 24.9]
+        }, {
+          label: "My Second dataset",
+          fillColor: "#ffffff",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [18.5, 18.5]
+        }, {
+          label: "My Second dataset",
+          fillColor: "#ffffff",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [0, 0]
         }
       ]
     };
@@ -251,7 +279,12 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.generateGraph = function() {
-    var ctdx, dates, lineChartData, param;
+    var ctdx, dates, lineChartData, param, units;
+    units = 'inches';
+    if ($('#param').val() === 'weight') {
+      units = 'pounds';
+    }
+    $('#y-axis').text('Size(' + units + ')');
     $('#canvasregion').show();
     dates = App.graph.get('dates');
     param = App.graph.get('param');
@@ -265,7 +298,7 @@ HomeLayoutView = (function(_super) {
       datasets: [
         {
           label: "My Second dataset",
-          fillColor: "rgba(151,187,205,0.2)",
+          fillColor: "#ffffff",
           strokeColor: "rgba(151,187,205,1)",
           pointColor: "rgba(151,187,205,1)",
           pointStrokeColor: "#fff",
@@ -332,7 +365,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div><div id="rays"></div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -376,7 +409,7 @@ HomeX2OView = (function(_super) {
     tt = moment().format('YYYY-MM-DD HH:mm:ss');
     d = new Date();
     timestamp = d.getTime();
-    timearray.push(moment(timestamp).format("x"));
+    timearray.push(moment(timestamp).zone(timezone).format("x"));
     occurrenceArr = [];
     bonusArr = 0;
     recent = '--';
@@ -422,8 +455,8 @@ HomeX2OView = (function(_super) {
       timestamp0 = d0.getTime();
       d1 = new Date(t1);
       timestamp1 = d1.getTime();
-      time1 = moment(timestamp0).zone(timezone).format("x");
-      time2 = moment(timestamp1).zone(timezone).format("x");
+      time1 = moment(timestamp0).format("x");
+      time2 = moment(timestamp1).format("x");
       if (parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)) {
         return timeslot = Messages[val];
       }

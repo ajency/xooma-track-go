@@ -167,14 +167,15 @@ class ProductChildView extends Marionette.ItemView
 		
 		servings = []
 		reminderArr = []
+		totalqty = 0
 		$.each qty , (index,value)->
 			servingsqty = []
 			newClass = product_type+'_default_class'
 			if  name.toUpperCase() == 'X2O'
 				newClass = 'x2o_default_class'
-				
+			totalqty += parseInt(value.qty)
 			servings.push classname : newClass , qty : value.qty
-
+		console.log totalqty
 		$.each reminder , (ind,val)->
 			d = new Date(val.time)
 			timestamp = d.getTime()
@@ -186,10 +187,11 @@ class ProductChildView extends Marionette.ItemView
 		if parseInt(reminder.length) == 0 
 			remind = 'No Reminder is set'
 		available = @model.get 'available'
+		
 		total = @model.get 'total'
 		containers = parseInt(available)/parseInt(total)
 		contacount = Math.ceil containers
-		servingsleft = parseInt(available)/parseInt(qty.length)
+		servingsleft = Math.round(parseInt(available)*parseInt(qty.length)/parseInt(totalqty))
 		totalservings  = parseInt(servingsleft) / 2
 		data.servings_text = 'Servings left'
 		data.hidden = ''

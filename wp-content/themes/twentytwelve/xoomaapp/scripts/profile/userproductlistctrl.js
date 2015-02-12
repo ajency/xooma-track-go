@@ -126,7 +126,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var available, contacount, containers, d, data, n, name, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalservings, type;
+    var available, contacount, containers, d, data, n, name, product_type, qty, remind, reminder, reminderArr, servings, servingsleft, settings, timezone, total, totalqty, totalservings, type;
     data = ProductChildView.__super__.serializeData.call(this);
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
@@ -143,6 +143,7 @@ ProductChildView = (function(_super) {
     }
     servings = [];
     reminderArr = [];
+    totalqty = 0;
     $.each(qty, function(index, value) {
       var newClass, servingsqty;
       servingsqty = [];
@@ -150,11 +151,13 @@ ProductChildView = (function(_super) {
       if (name.toUpperCase() === 'X2O') {
         newClass = 'x2o_default_class';
       }
+      totalqty += parseInt(value.qty);
       return servings.push({
         classname: newClass,
         qty: value.qty
       });
     });
+    console.log(totalqty);
     $.each(reminder, function(ind, val) {
       var time, timestamp;
       d = new Date(val.time);
@@ -170,7 +173,7 @@ ProductChildView = (function(_super) {
     total = this.model.get('total');
     containers = parseInt(available) / parseInt(total);
     contacount = Math.ceil(containers);
-    servingsleft = parseInt(available) / parseInt(qty.length);
+    servingsleft = Math.round(parseInt(available) * parseInt(qty.length) / parseInt(totalqty));
     totalservings = parseInt(servingsleft) / 2;
     data.servings_text = 'Servings left';
     data.hidden = '';

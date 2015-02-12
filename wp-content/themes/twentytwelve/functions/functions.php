@@ -124,7 +124,7 @@ function save_anytime_product_details($id,$data){
 
 
 
-function update_anytime_product_details($id,$pid,$data){
+function update_anytime_product_details($id,$pid,$data,$homedate){
 
 		global $wpdb;
 
@@ -414,7 +414,7 @@ function update_anytime_product_details($id,$pid,$data){
 
 		if($main){
 
-				$date = date('Y-m-d');
+				$date = $homedate;
 				$product = $user->get_user_home_products($id,$pid,$date);
 				return $product['response'];
 
@@ -432,7 +432,7 @@ function update_anytime_product_details($id,$pid,$data){
 
 
 
-function update_schedule_product_details($id,$pid,$data){
+function update_schedule_product_details($id,$pid,$data,$homedate){
 
 		global $wpdb;
 
@@ -709,7 +709,7 @@ function update_schedule_product_details($id,$pid,$data){
 
 
 		if($main){
-				$date = date('Y-m-d');
+				$date = $homedate;
 				$product = $user->get_user_home_products($id,$pid,$date);
 				return $product['response'];
 
@@ -1225,23 +1225,68 @@ function store_add_schedule($args){
 function update_schedule($args){
 
 	$main_id = $args['main_id'];
-
 	global $wpdb;
 
+	$table = $wpdb->prefix . "product_main";
+
+	$user = $wpdb->get_row("SELECT * from $table where id=".$args['main_id']);
+
+
+	$user_details = get_user_meta($user->user_id,'user_details',true);
+
+	
+
+	$details = maybe_unserialize($user_details);
+	
+
+	$today = strtotime('00:00:00');
+	$start = date("Y-m-d 00:00:00");
+		
+	$UTC = new DateTimeZone("UTC");
+	$newTZ = new DateTimeZone($details['timezone']);
+	$date = new DateTime( $start);
+	$todaydate = $date->setTimezone( $newTZ );
+	$t  = $todaydate->format('Y-m-d H:i:s');
+	$date1 = new DateTime($t);
+	$date1->setTimezone( $UTC );
+	$today_date = $date1->format('Y-m-d H:i:s');
+
+
+				
+	$interval = 24/intval($args['time_set']);
+
+	$rrule = "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO";
+						
 	$schedules = $wpdb->prefix . "aj_schedules";
 
 	$occurrence_meta = $wpdb->prefix . "aj_occurrence_meta";
+				
+				
+				
+	//echo "UPDATE $schedules SET rrule='".$rrule."' and start_dt='".$today_date."' where object_id=".$main_id." and object_type='user_product'";
+	
+	
+	
+	$sqlquery = $wpdb->get_row("SELECT * from $schedules where object_id=".$main_id." and object_type='user_product'");
 
-	$sqlquery = $wpdb->get_row("SELECT * from $schedules where object_id=".$main_id);
+	//$query = $wpdb->query("UPDATE $schedules SET rrule='".$rrule."' and start_dt='".$today_date."' where object_id=".$main_id." and object_type='user_product'");
 
-	$query = $wpdb->query("DELETE from $schedules where object_id=".$main_id);
-
+	$wpdb->update($schedules, 
+					  array( 'rrule' => "FREQ=HOURLY;INTERVAL=".$interval.";WKST=MO",
+					  		 'start_dt'=> $today_date,
+					   ),
+					  array( 'id' => $sqlquery->id ));
 	// if( $sqlquery)
-	// $query = $wpdb->query("DELETE from $occurrence_meta where schedule_id=".$sqlquery->id);
+	$query = $wpdb->query("DELETE from $schedules where object_id=".$main_id." and object_type='user_product_reminder'");
 
-	$id = store_add_schedule($args);
+	$schedule = \ajency\ScheduleReminder\Schedule::get($sqlquery->id);
+				
+	$scheduleobj = (object)$schedule;
+	$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
 
-	return $id;
+
+
+	return $main_id;
 
 }
 function get_stock_count_user($id,$product_id){
@@ -2367,5 +2412,26 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 					);
 	}
 
+	
+}
+
+function get_next_occurrence($object_id)
+{
+	global $wpdb;
+
+	$aj_schedules = $wpdb->prefix . "aj_schedules";
+
+	$query = $wpdb->get_results("SELECT * from $aj_schedules where object_id=".$object_id." 
+		and object_type='product_type_reminder'");
+
+	$occurrences = [];
+	if($query)
+		foreach ($query as $key => $value) {
+			$occurrences[] = array(
+				'next' => $value->next_occurrence;
+				);
+		}
+		
+	return $occurrences;
 	
 }

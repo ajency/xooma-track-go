@@ -242,7 +242,7 @@ class User_API
         global $user;
 
         $data = array();
-        
+        $date = $_REQUEST['homeDate'];
         $data['frequency_type'] = $_REQUEST['frequency_type'];
         if($_REQUEST['timeset'] =="Once" || $_REQUEST['timeset'] =="Twice")
         {
@@ -313,7 +313,7 @@ class User_API
         
 
 
-        $response = $user->update_user_product_details($id,$pid,$data);
+        $response = $user->update_user_product_details($id,$pid,$data,$date);
 
         if(empty($response)){
             $response = new WP_JSON_Response( $response );

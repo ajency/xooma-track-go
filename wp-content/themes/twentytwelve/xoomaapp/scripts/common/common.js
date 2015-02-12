@@ -130,7 +130,13 @@ _.extend(Ajency.CurrentUser.prototype, {
   },
   getUserProducts: function() {
     var date, _successHandler;
-    date = moment().format('YYYY-MM-DD');
+    date = "";
+    if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
+      date = App.currentUser.get('homeDate');
+    } else {
+      date = moment().format('YYYY-MM-DD');
+      App.currentUser.set('homeDate', date);
+    }
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param, products;

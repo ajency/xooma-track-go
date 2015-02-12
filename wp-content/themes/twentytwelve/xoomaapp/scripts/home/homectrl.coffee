@@ -153,7 +153,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		d = new Date()
 		timestamp = d.getTime()
 		
-		curr =  moment(timestamp).zone(timezone).format("YYYY-MM-DD HH:mm:ss")
+		curr =  moment(timestamp).format("YYYY-MM-DD HH:mm:ss")
 		current = new Date(curr)
 		day_night = current.getHours()
 		if(day_night<=12)
@@ -162,7 +162,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		$('#update').val App.currentUser.get('homeDate')
 
-		if App.currentUser.get('homeDate') == moment(timestamp).zone(timezone).format('YYYY-MM-DD')
+		if App.currentUser.get('homeDate') == moment(timestamp).format('YYYY-MM-DD')
 			$('#update').val 'TODAY'
 		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
@@ -174,7 +174,7 @@ class HomeLayoutView extends Marionette.LayoutView
 				minDate : new Date(reg_date)
 				onSelect: (dateText, inst)->
 					App.currentUser.set 'homeDate' , dateText
-					if App.currentUser.get('homeDate') == moment(timestamp).zone(timezone).format('YYYY-MM-DD')
+					if App.currentUser.get('homeDate') == moment(timestamp).format('YYYY-MM-DD')
 						$('#update').val 'TODAY'
 					
 
@@ -200,6 +200,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	)
 
 	generateBMIGraph:(response)->
+		$('#y-axis').text 'BMI Ratio'
 		$('#canvasregion').show()
 		dates = [response['st_date'],response['et_date']]
 
@@ -213,8 +214,9 @@ class HomeLayoutView extends Marionette.LayoutView
 			labels : dates,
 			datasets : [
 				
+				{
 					label: "My Second dataset",
-					fillColor : "rgba(151,187,205,0.2)",
+					fillColor : "#ffffff",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
@@ -222,8 +224,46 @@ class HomeLayoutView extends Marionette.LayoutView
 					pointHighlightStroke : "rgba(151,187,205,1)",
 					data : [bmi_start,bmi_end]
 				
+				},
+				{
+		     
+		            label: "My First dataset",
+		            fillColor: "#fb4600",
+		            strokeColor: "rgba(151,187,205,1)",
+		            pointColor: "rgba(151,187,205,1)",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(220,220,220,1)",
+		            data: [24.9,24.9]
+		        },
+		        {
+		        
+		            label: "My Second dataset",
+		            fillColor: "#ffffff",
+		            strokeColor: "rgba(151,187,205,1)",
+		            pointColor: "rgba(151,187,205,1)",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(151,187,205,1)",
+		            data: [18.5,18.5]
+
+		        },
+		        {
+		       
+		            label: "My Second dataset",
+		            fillColor: "#ffffff",
+		            strokeColor: "rgba(151,187,205,1)",
+		            pointColor: "rgba(151,187,205,1)",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(151,187,205,1)",
+		            data: [0, 0]
+
+		        }
+		       
 				
 			]
+
 
 		ctdx = document.getElementById("canvas").getContext("2d");
 		window.myLine = new Chart(ctdx).Line(lineChartData, 
@@ -231,6 +271,10 @@ class HomeLayoutView extends Marionette.LayoutView
 		);
 
 	generateGraph:->
+		units = 'inches'
+		if $('#param').val() == 'weight'
+			units = 'pounds'
+		$('#y-axis').text 'Size('+units+')'
 		$('#canvasregion').show()
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'
@@ -244,7 +288,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			
 				
 					label: "My Second dataset",
-					fillColor : "rgba(151,187,205,0.2)",
+					fillColor : "#ffffff",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
@@ -314,7 +358,8 @@ class HomeX2OView extends Marionette.ItemView
 
 						<h6 class="text-center texmsg">{{texmsg}}</h6> </a>         
 					
-				  </div>
+				  </div><div id="rays"></div>
+
 					 <div id="canvas-holder">
 						<canvas id="chart-area" width="500" height="500"/>
 					</div>
@@ -362,7 +407,7 @@ class HomeX2OView extends Marionette.ItemView
 		d = new Date()
 		timestamp = d.getTime()
 		
-		timearray.push moment(timestamp).format("x")
+		timearray.push moment(timestamp).zone(timezone).format("x")
 		occurrenceArr = []
 		bonusArr = 0
 		recent = '--'
@@ -410,8 +455,8 @@ class HomeX2OView extends Marionette.ItemView
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)
 			timestamp1 = d1.getTime()
-			time1 = moment(timestamp0).zone(timezone).format("x")
-			time2 = moment(timestamp1).zone(timezone).format("x")
+			time1 = moment(timestamp0).format("x")
+			time2 = moment(timestamp1).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
 		

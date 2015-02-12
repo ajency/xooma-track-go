@@ -90,7 +90,12 @@ _.extend Ajency.CurrentUser::,
 			success: _successHandler
 
 	getUserProducts : ->
-		date = moment().format('YYYY-MM-DD')
+		date = ""
+		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
+		 	date = App.currentUser.get('homeDate')
+		else
+			date = moment().format('YYYY-MM-DD')
+			App.currentUser.set 'homeDate' , date
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
 				data = response.response
