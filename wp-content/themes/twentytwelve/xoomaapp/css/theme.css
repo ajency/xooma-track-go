@@ -7609,6 +7609,9 @@ packet_expected_class {
 #rays:hover {
   /* -webkit-animation-duration: 10000ms; 10 seconds - speed it up on hover! */
 }
+#canvasregion {
+  position: relative;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
