@@ -272,9 +272,11 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	generateGraph:->
 		units = 'inches'
+		size = 'Size'
 		if $('#param').val() == 'weight'
 			units = 'pounds'
-		$('#y-axis').text 'Size('+units+')'
+			size = 'Weight'
+		$('#y-axis').text size+'('+units+')'
 		$('#canvasregion').show()
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'

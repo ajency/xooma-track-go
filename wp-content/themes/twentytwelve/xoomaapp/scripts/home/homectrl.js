@@ -279,12 +279,14 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.generateGraph = function() {
-    var ctdx, dates, lineChartData, param, units;
+    var ctdx, dates, lineChartData, param, size, units;
     units = 'inches';
+    size = 'Size';
     if ($('#param').val() === 'weight') {
       units = 'pounds';
+      size = 'Weight';
     }
-    $('#y-axis').text('Size(' + units + ')');
+    $('#y-axis').text(size + '(' + units + ')');
     $('#canvasregion').show();
     dates = App.graph.get('dates');
     param = App.graph.get('param');
