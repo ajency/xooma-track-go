@@ -409,8 +409,7 @@ class User
 
             //get users_timezone
 
-            $occurrences = \ajency\ScheduleReminder\Occurrence::
-                    get_upcoming_occurrences($object_type,$endate,$today_date,$object_id);
+           $occurrences = get_next_occurrence($object_id);
 
 
 

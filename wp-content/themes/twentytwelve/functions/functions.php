@@ -2414,3 +2414,18 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 
 	
 }
+
+function get_next_occurrence($object_id)
+{
+	global $wpdb;
+
+	$aj_schedules = $wpdb->prefix . "aj_schedules";
+
+	$query = $wpdb->get_results("SELECT * from $aj_schedules where object_id=".$object_id." 
+		and object_type='product_type_reminder'");
+
+	if($query)
+		return array('next'=>$query->next_occurrence);
+	else
+		return array();
+}
