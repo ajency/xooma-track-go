@@ -7461,7 +7461,7 @@ packet_expected_class {
 }
 .blur-background {
   color: #ffffff;
-  background: url(../../images/23.jpg) no-repeat;
+  background: url(../images/23.jpg) no-repeat;
   height: 100%;
   position: fixed;
   width: 100%;

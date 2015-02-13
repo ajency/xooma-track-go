@@ -9,7 +9,7 @@
 	onNotificationAPN = (e)->
 
 		console.log 'Received notification for iOS'
-		alert JSON.stringify(e)
+		console.log e
 
 
 	Push = 

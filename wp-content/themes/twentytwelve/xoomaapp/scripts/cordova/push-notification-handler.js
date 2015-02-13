@@ -7,7 +7,7 @@ onNotificationGCM = function(e) {
 
 onNotificationAPN = function(e) {
   console.log('Received notification for iOS');
-  return alert(JSON.stringify(e));
+  return console.log(e);
 };
 
 Push = {

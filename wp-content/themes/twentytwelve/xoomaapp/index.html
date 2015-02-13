@@ -18,21 +18,22 @@
 <div ui-region></div>
 <div id="fb-root"></div>
 
-<!-- inline-template -->
+
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 
+<!-- Templates -->
 <div id="inlineTemplate"></div> 
 <script> 
     $(function(){ $("#inlineTemplate").load("inline-templates.html"); });
 </script>
-<!-- end inline-template -->
+<!-- Templates -->
 
 <script type="text/javascript">
 window.ParsleyConfig = {
   validators: {
     equalTo: {
       fn: function (value, requirement) {
-      	return value.length == requirement;
+        return value.length == requirement;
       }
     }
   },
@@ -87,7 +88,7 @@ window.ParsleyConfig = {
 <!-- cordova -->
 <script type="text/javascript" src="scripts/cordova/storage.js"></script>
 <script type="text/javascript" src="scripts/cordova/lib/global.js"></script>
-
+<!-- end cordova -->
 
 <script type="text/javascript">
 
@@ -101,7 +102,7 @@ window.ParsleyConfig = {
 	$(window).bind('load',isWebView);
 	$(window).bind('load',removeMsg);
 
-	userData 			  = CordovaStorage.getUserData();
+	userData 			        = CordovaStorage.getUserData();
 	App                   = new Marionette.Application();
 	App.LoginCtrl         = Ajency.LoginCtrl;
 	App.NothingFoundCtrl  = Ajency.NothingFoundCtrl;
@@ -134,7 +135,9 @@ window.ParsleyConfig = {
 <!-- cordova -->
 <script type="text/javascript" src="../cordova.js"></script>
 <script type="text/javascript" src="scripts/cordova/lib/parse.sdk.min.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/usage.js"></script>
 <script type="text/javascript" src="scripts/cordova/cordova-app.js"></script>
+<script type="text/javascript" src="scripts/cordova/local-notification-handler.js"></script>
 <script type="text/javascript" src="scripts/cordova/push-notification-handler.js"></script>
 <script type="text/javascript" src="scripts/cordova/parse-cloud-auth.js"></script>
 <!-- end cordova -->
