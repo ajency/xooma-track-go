@@ -2,8 +2,6 @@ App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
-Ajency.LoginView::onShow = @showslick
-
 
 _.extend Ajency.LoginView::,
 
@@ -24,6 +22,15 @@ class Ajency.FormView extends Marionette.LayoutView
 			behaviorClass : Ajency.FormBehavior
 
 _.extend Ajency.CurrentUser::,
+
+	loginCheck:->
+		_successHandler= (resp)=>
+			console.log "aaaaaaaaa"
+		$.ajax
+			method : 'POST'
+			url : _SITEURL+'/wp-content/themes/twentytwelve/xooma-template.php?action=logout_user'
+			success: _successHandler
+
 
 	_getUrl : (property)->
 		"#{APIURL}/users/#{App.currentUser.get('ID')}/#{property}"
@@ -94,7 +101,8 @@ _.extend Ajency.CurrentUser::,
 		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
 		 	date = App.currentUser.get('homeDate')
 		else
-			date = moment().format('YYYY-MM-DD')
+			timezone = App.currentUser.get('timezone')
+			console.log date =  moment().zone(timezone).format('YYYY-MM-DD')
 			App.currentUser.set 'homeDate' , date
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
@@ -125,7 +133,8 @@ _.extend Ajency.CurrentUser::,
 		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
 		 	date = App.currentUser.get('homeDate')
 		else
-			console.log date = moment().format('YYYY-MM-DD')
+			timezone = App.currentUser.get('timezone')
+			console.log date =  moment().zone(timezone).format('YYYY-MM-DD')
 			App.currentUser.set 'homeDate' , date
 
 		console.log date

@@ -111,6 +111,17 @@ var App  = new Marionette.Application()
 
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
+<?php
+
+function logout_user(){
+
+  wp_logout();
+}
+
+
+?> 
+
+
 
 var Messages = <?php echo json_encode(load());?>;
 

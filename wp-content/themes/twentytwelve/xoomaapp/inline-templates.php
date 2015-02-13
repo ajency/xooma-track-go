@@ -3,7 +3,7 @@
 <head>
 
     <script id="login-template" type="text/template">
-<div class="topheader">
+<div class="topheader" id="logintemplate">
         <nav class="navbar " role="navigation">
             <div class="container mobile-container">
                 <div class="row">
@@ -329,13 +329,32 @@
                                                         <label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
                                                         <div class="col-sm-9 col-xs-8">
                                                                 <select class="form-control" name="profile[timezone]" id="timezone]">
+                                                                        <option value="America/New York">America/New York</option>
+                                                                        <option value="America/Adak">America/Adak</option>
+                                                                        <option value="America/Mexico_city">America/Mexico_city</option>
+                                                                        <option value="America/Chicago">America/Chicago</option>
+                                                                        <option value="America/Los_Angeles">America/Los_Angeles</option>
+                                                                        <option value="Europe/ London">Europe/ London</option>
+                                                                        <option value="Europe/Paris">Europe/Paris</option>
+                                                                        <option value="Europe/Istanbul">Europe/Istanbul</option>
+                                                                        <option value="Europe/Zagreb">Europe/Zagreb</option>
+                                                                        <option value="Europe/Moscow">Europe/Moscow</option>
                                                                         <option value="Asia/Kolkata">Asia/Kolkata</option>
-                                                                        <option value="EST">Eastern Time Zone (UTC-05:00)</option>
-                                                                        <option value="Central Time Zone (UTC-06:00)">Central Time Zone (UTC-06:00)</option>
-                                                                        <option value="Mountain Time Zone (UTC-07:00)">Mountain Time Zone (UTC-07:00)</option>
-                                                                        <option value="UTC-08:00">Pacific Time Zone (UTC-08:00)</option>
-                                                                        <option value="Pacific Time Zone (UTC-08:00)">Alaska Time Zone (UTC-09:00)</option>
-                                                                        <option value="Hawaii-Aleutian Time Zone (UTC-10:00)">Hawaii-Aleutian Time Zone (UTC-10:00)</option>
+                                                                        <option value="Asia/Karachi">Asia/Karachi</option>
+                                                                        <option value="Asia/Singapore">Asia/Singapore</option>
+                                                                        <option value="Asia/Tokyo">Asia/Tokyo</option>
+                                                                        <option value="Asia/Dubai">Asia/Dubai</option>
+                                                                        <option value="Africa/Johannesburg">Africa/Johannesburg</option>
+                                                                        <option value="Africa/Dakar">Africa/Dakar</option>
+                                                                        <option value="Africa/Kampala">Africa/Kampala</option>
+                                                                        <option value="Africa/Freetown">Africa/Freetown</option>
+                                                                        <option value="Africa/Algiers">Africa/Algiers</option>
+                                                                        <option value="Australia/Sydney">Australia/Sydney</option>
+                                                                        <option value="Australia/Adelaide">Australia/Adelaide</option>
+                                                                        <option value="Australia/Brisbane">Australia/Brisbane</option>
+                                                                        <option value="Australia/Perth">Australia/Perth</option>
+                                                                        <option value="Australia/Auckland">Australia/Auckland</option>
+
                                                                         
                                                                 </select>
                                                         </div>
@@ -357,7 +376,7 @@
     <div id="measuremnt" class="section-list">
                 
                 <div class="container ">
-                <h5 class="text-center bold margin-none">Set your measurements <span class="measurements_update top-panel-picker "><img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /><input type="text"  id="update" class="home-datepicker-sub" placeholder="&#xf073;"></span></h5>
+                <h5 class="text-center bold margin-none">Set your measurements for  <span class="measurements_update top-panel-picker "><img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /><input type="text"  id="update" class="home-datepicker-sub" placeholder="&#xf073;"></span></h5>
                 <p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your body needs on a daily basis 
     </p>                <!--<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
                   <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
@@ -474,9 +493,10 @@
                                                                 <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-7">
-                                                                <h4 class="text-left"> <output></output><small> Ft/inches</small></h4>
+                                                                <h4 class="text-left"> <output class="heightcms"></output><small> Ft/inches</small></h4>
                                                         </div>
-                                                        <input type="range" min="4" max="9" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
+                                                        <input type="range" min="4.0" max="9.0" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
+                                                <div class="convertheight"></div>
                                                 </div>
                                                 </br>
                                                 </br>
@@ -485,11 +505,11 @@
                                                                 <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-7 ">
-                                                                <h4 class="text-left"> <output></output><small> pounds</small></h4>
+                                                                <h4 class="text-left"> <output class="weightcms"></output><small> pounds</small></h4>
                                                         </div>
 
                                                         <input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
-
+                                                        <div class="convertweight"></div>
                                                 </div>
                              					 </br>
                                                 </br>

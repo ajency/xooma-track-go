@@ -1574,6 +1574,13 @@ function store_consumption_details($args){
 				$user = new USer();
 				$product = $user->get_user_home_products($args['id'],$args['pid'],$args['date']);
 
+				$scheduledata = \ajency\ScheduleReminder\Schedule::get($schedule);
+
+
+				$scheduleobj = (object)$scheduledata;
+
+				$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
+
 				return array('occurrence'=> $product['response'], 'meta_id'=>$meta_id);
 
 

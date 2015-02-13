@@ -5,6 +5,7 @@ jQuery(document).ready ($)->
 
 		.state 'xooma',
 				url : '/'
+
 		.state 'home',
 				url : '/home'
 				parent : 'xooma'
@@ -18,18 +19,21 @@ jQuery(document).ready ($)->
 
 	App.onBeforeStart = ->
 		App.currentUser.set userData
+		
+		
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
-		App.currentUser.set 'homeDate' , moment().format('YYYY-MM-DD')
-		console.log App.currentUser.get 'homeDate'
 		App.navigate '#'+App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
-		App.navigate '/login', true
+		App.currentUser.set {}
 		`userData = {}`
+		App.currentUser.loginCheck()
+		App.navigate '/login', true
+		
 
 
 	App.state 'settings',
@@ -58,6 +62,9 @@ jQuery(document).ready ($)->
 
 	App.on 'cordova:hide:splash:screen', ->
 		console.log "triggered"
+
+	
+		
 
 
 	App.start()

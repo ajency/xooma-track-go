@@ -22,13 +22,13 @@ jQuery(document).ready(function($) {
   };
   App.currentUser.on('user:auth:success', function() {
     App.trigger('fb:status:connected');
-    App.currentUser.set('homeDate', moment().format('YYYY-MM-DD'));
-    console.log(App.currentUser.get('homeDate'));
     return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
-    App.navigate('/login', true);
-    return userData = {};
+    App.currentUser.set({});
+    userData = {};
+    App.currentUser.loginCheck();
+    return App.navigate('/login', true);
   });
   App.state('settings', {
     url: '/settings',

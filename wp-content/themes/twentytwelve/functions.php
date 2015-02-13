@@ -1424,12 +1424,33 @@ function settings(){
 
 function test_modify_user_table( $column ) {
     $column['xooma_id'] = 'XoomaID';
+    $column['products'] = 'Products';
 
     return $column;
 }
 
 add_filter( 'manage_users_columns', 'test_modify_user_table' );
+add_action('manage_users_custom_column','custom_manage_users_custom_column',10,3);
 
+function custom_manage_users_custom_column($custom_column,$column_name,$user_id) {
+    if ($column_name=='xooma_id') {
+        $user_info = get_user_meta($user_id,'xooma_member_id' , true);
+       
+        $custom_column = "\t{$user_info}\n";
+    }
+    if ($column_name=='products') {
+        
+        global $wpdb;
+
+		$table = $wpdb->prefix . "product_main";
+
+		$user = $wpdb->get_row("SELECT *,count(product_id) as products from $table where user_id=".$user_id." and deleted_flag=0");
+       
+       	$products = $user->products;
+        $custom_column = "\t{$products}\n";
+    }
+    return $custom_column;
+}
 
 //communication module//
 function dba_add_communication_components($defined_comm_components){

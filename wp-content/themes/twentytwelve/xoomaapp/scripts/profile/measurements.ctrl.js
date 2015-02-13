@@ -61,12 +61,11 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, meaurement_date, obj, state;
+    var date, obj, state, timezone;
     App.trigger('cordova:hide:splash:screen');
-    if (App.currentUser.has('measurements')) {
-      meaurement_date = App.currentUser.get('measurements').date;
-      $('#update').val(moment(meaurement_date).format('YYYY-MM-DD'));
-    }
+    timezone = App.currentUser.get('timezone');
+    $('#date_field').val(moment().zone(timezone).format('YYYY-MM-DD'));
+    $('#update').val('TODAY');
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
       dateFormat: 'yy-mm-dd',
@@ -173,7 +172,24 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.valueOutput = function(element) {
-    return $(element).parent().find("output").html($(element).val());
+    var cms, ftcm, inchcm, onepound, pounds, temparr, xpound;
+    if (element.id === 'height') {
+      temparr = $(element).val().split('.');
+      if (temparr.length === 1) {
+        temparr.push(0);
+      }
+      $('.heightcms').text(temparr[0] + "'" + temparr[1] + '"');
+      ftcm = 30.48 * parseFloat(temparr[0]);
+      inchcm = 2.54 * parseFloat(temparr[1]);
+      cms = parseFloat(ftcm) + parseFloat(inchcm);
+      return $('.convertheight').text(cms.toFixed(2) + ' Cms');
+    } else {
+      pounds = $(element).val();
+      onepound = 0.4535;
+      xpound = parseFloat(onepound) * parseFloat(pounds);
+      $('.convertweight').text(xpound.toFixed(2) + ' Kgs');
+      return $('.weightcms').text($(element).val());
+    }
   };
 
   return ProfileMeasurementsView;
