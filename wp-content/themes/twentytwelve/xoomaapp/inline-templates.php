@@ -402,7 +402,6 @@
             <div id="demo2_tip">
                 <b>Neck(inches)</b><br />
            <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5" tabindex=1/> 
-            <a  onclick="tooltip.pop(this, '#demo3_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
             </div>
 
         </div>
@@ -414,8 +413,7 @@
             <div id="demo3_tip">
                 <b>Chest(inches)</b><br />
            <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"  tabindex=2/>
-             <a  onclick="tooltip.pop(this, '#demo4_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
-            </div>
+             </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -424,8 +422,7 @@
             <div id="demo4_tip">
                 <b>Arm(inches)</b><br />
            <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-            <a onclick="tooltip.pop(this, '#demo5_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
-            </div>
+             </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -434,7 +431,6 @@
             <div id="demo5_tip">
                 <b>Abdomen(inches)</b><br />
            <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            <a onclick="tooltip.pop(this, '#demo6_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
@@ -444,7 +440,6 @@
             <div id="demo6_tip">
                 <b>Waist(inches)</b><br />
            <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-            <a onclick="tooltip.pop(this, '#demo7_tip', {sticky:true})"class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
@@ -455,7 +450,6 @@
             <div id="demo7_tip">
                 <b>Hips(inches)</b><br />
            <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            <a href="#"onclick="tooltip.pop(this, '#demo8_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
@@ -465,7 +459,6 @@
             <div id="demo8_tip">
                 <b>Thigh(inches)</b><br />
            <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-             <a onclick="tooltip.pop(this, '#demo9_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
@@ -476,8 +469,7 @@
             <div id="demo9_tip">
                 <b>Midcalf(inches)</b><br />
            <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-             <a onclick="tooltip.pop(this, '#demo2_tip', {sticky:true})" class="btn-link"> Next <i class="fa fa-arrow-right"></i></a>
-            </div>
+             </div>
         </div> 
           
 
