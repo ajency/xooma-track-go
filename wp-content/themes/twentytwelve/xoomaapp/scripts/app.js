@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+document.addEventListener("deviceready", function() {
   App.state('login').state('xooma', {
     url: '/'
   }).state('home', {
@@ -23,12 +23,26 @@ jQuery(document).ready(function($) {
   };
   App.currentUser.on('user:auth:success', function() {
     App.trigger('fb:status:connected');
-    return App.navigate('#' + App.currentUser.get('state'), true);
+    CordovaStorage.setUserData(App.currentUser.toJSON());
+    return ParseCloud.register().then(function() {
+      return App.navigate('#' + App.currentUser.get('state'), {
+        replace: true,
+        trigger: true
+      });
+    });
   });
   App.currentUser.on('user:logged:out', function() {
-    App.currentUser.set({});
-    App.currentUser.loginCheck();
-    return App.navigate('/login', true);
+    return CordovaApp.facebookLogout().then(function() {
+      return ParseCloud.deregister().then(function() {
+        CordovaStorage.clear();
+        App.currentUser.set({});
+        App.currentUser.loginCheck();
+        return App.navigate('/login', {
+          replace: true,
+          trigger: true
+        });
+      });
+    });
   });
   App.state('settings', {
     url: '/settings',
@@ -46,7 +60,27 @@ jQuery(document).ready(function($) {
     }
   });
   App.addInitializer(function() {
-    return Backbone.history.start();
+    Backbone.history.start();
+    Usage.notify.on('$usage:notification', function(event, data) {
+      console.log('Event triggered');
+      return console.log(data);
+    });
+    Usage.track();
+    return Push.register().then(function() {
+      if (!App.currentUser.isLoggedIn()) {
+        App.navigate('/login', {
+          replace: true,
+          trigger: true
+        });
+        return App.trigger('cordova:hide:splash:screen');
+      } else {
+        App.trigger('fb:status:connected');
+        return App.navigate('#' + App.currentUser.get('state'), {
+          replace: true,
+          trigger: true
+        });
+      }
+    });
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {
@@ -54,7 +88,9 @@ jQuery(document).ready(function($) {
     }
   });
   App.on('cordova:hide:splash:screen', function() {
-    return console.log("triggered");
+    if (window.isWebView()) {
+      return CordovaApp.hideSplashscreen();
+    }
   });
   return App.start();
-});
+}, false);
