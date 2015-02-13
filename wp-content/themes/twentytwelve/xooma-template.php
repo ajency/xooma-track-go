@@ -57,7 +57,23 @@ window.ParsleyConfig = {
 
 
 </script>
-
+      <nav id="menu">
+          <ul>
+             <li>
+                <a><h5 class="margin-none"> Richard Simon</h5>
+                 <small> Richard@gmail.com</small></a>
+              </li>
+              <li><a href="#home"><i class="fa fa-home"></i> Home</a>
+              </li>
+              <li><a href="#settings"><i class="fa fa-cog"></i> Setting</a>
+                  
+              </li>
+              <li><a href="#contact"><i class="fa fa-bullhorn"></i> About Xooma</a>
+              </li>
+              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
+              </li>
+          </ul>
+      </nav>
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
