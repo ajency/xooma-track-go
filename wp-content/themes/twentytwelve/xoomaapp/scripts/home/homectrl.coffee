@@ -147,23 +147,24 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
-		timezone = App.currentUser.get('timezone')
-		tt = moment().format('YYYY-MM-DD HH:mm:ss')
+		console.log timezone = App.currentUser.get('timezone')
+		tt = moment().format('x')
+		selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
 		d = new Date()
 		timestamp = d.getTime()
-		
-		curr =  moment(timestamp).zone(timezone).format("YYYY-MM-DD HH:mm:ss")
-		current = new Date(curr)
-		day_night = current.getHours()
-		if(day_night<=12)
+		console.log c = moment(selectedtimestamp).zone(timezone).format('x')
+		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
+		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
+		console.log current = new Date(parseInt(c))
+		console.log day_night = current.getHours()
+		if(parseInt(day_night)<=12)
 			$('.daynightclass').attr('src', _SITEURL+'/wp-content/themes/twentytwelve/images/morning.gif')
 		else
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
-		$('#update').val App.currentUser.get('homeDate')
-
-		if App.currentUser.get('homeDate') == moment(timestamp).zone(timezone).format('YYYY-MM-DD')
-			$('#update').val 'TODAY'
+		
+		$('#update').val 'TODAY'
 		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
@@ -173,8 +174,11 @@ class HomeLayoutView extends Marionette.LayoutView
 				maxDate: new Date()
 				minDate : new Date(reg_date)
 				onSelect: (dateText, inst)->
+					$('#showHome').show()
 					App.currentUser.set 'homeDate' , dateText
-					if App.currentUser.get('homeDate') == moment(timestamp).zone(timezone).format('YYYY-MM-DD')
+					console.log time = moment(App.currentUser.get('homeDate')).zone(timezone).format('x')
+					console.log actual_time
+					if parseInt(actual_time) == parseInt(time)
 						$('#update').val 'TODAY'
 					
 
@@ -200,6 +204,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	)
 
 	generateBMIGraph:(response)->
+		$('#y-axis').text 'BMI Ratio'
 		$('#canvasregion').show()
 		dates = [response['st_date'],response['et_date']]
 
@@ -208,13 +213,16 @@ class HomeLayoutView extends Marionette.LayoutView
 		st_square = parseFloat(bmi_start_ht) * parseFloat(bmi_start_ht)
 		et_square = parseFloat(bmi_end_ht) * parseFloat(bmi_end_ht)
 		bmi_start = (parseFloat(response['st_weight'])/parseFloat(st_square))* 703
+		bmi_start = bmi_start.toFixed(2)
 		bmi_end = (parseFloat(response['et_weight'])/parseFloat(et_square))* 703
+		bmi_end = bmi_end.toFixed(2)
 		lineChartData = 
 			labels : dates,
 			datasets : [
 				
+				{
 					label: "My Second dataset",
-					fillColor : "rgba(151,187,205,0.2)",
+					fillColor : "#ffffff",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
@@ -222,8 +230,46 @@ class HomeLayoutView extends Marionette.LayoutView
 					pointHighlightStroke : "rgba(151,187,205,1)",
 					data : [bmi_start,bmi_end]
 				
+				},
+				{
+		     
+		            label: "My First dataset",
+		            fillColor: "##63c8ed",
+		            strokeColor: "rgba(151,187,205,1)",
+		            pointColor: "rgba(151,187,205,1)",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(220,220,220,1)",
+		            data: [24.9,24.9]
+		        },
+		        {
+		        
+		            label: "My Second dataset",
+		            fillColor: "#ffffff",
+		            strokeColor: "rgba(151,187,205,1)",
+		            pointColor: "rgba(151,187,205,1)",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(151,187,205,1)",
+		            data: [18.5,18.5]
+
+		        },
+		        {
+		       
+		            label: "My Second dataset",
+		            fillColor: "#ffffff",
+		            strokeColor: "rgba(151,187,205,1)",
+		            pointColor: "rgba(151,187,205,1)",
+		            pointStrokeColor: "#fff",
+		            pointHighlightFill: "#fff",
+		            pointHighlightStroke: "rgba(151,187,205,1)",
+		            data: [0, 0]
+
+		        }
+		       
 				
 			]
+
 
 		ctdx = document.getElementById("canvas").getContext("2d");
 		window.myLine = new Chart(ctdx).Line(lineChartData, 
@@ -231,6 +277,12 @@ class HomeLayoutView extends Marionette.LayoutView
 		);
 
 	generateGraph:->
+		units = 'inches'
+		size = 'Size'
+		if $('#param').val() == 'weight'
+			units = 'pounds'
+			size = 'Weight'
+		$('#y-axis').text size+'('+units+')'
 		$('#canvasregion').show()
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'
@@ -244,7 +296,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			
 				
 					label: "My Second dataset",
-					fillColor : "rgba(151,187,205,0.2)",
+					fillColor : "#ffffff",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
@@ -268,7 +320,14 @@ class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
 		state = App.currentUser.get 'state'
-		if App.useProductColl.length == 0 && state == '/home'
+		if state != '/home'
+			window.removeMsg()
+			$('.aj-response-message').addClass('alert alert-danger').text("Complete your Profile first!")
+			$('html, body').animate({
+								scrollTop: 0
+								}, 'slow')
+			return false
+		if App.useProductColl.length == 0 
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
 			@show new HomeLayoutView
@@ -314,7 +373,8 @@ class HomeX2OView extends Marionette.ItemView
 
 						<h6 class="text-center texmsg">{{texmsg}}</h6> </a>         
 					
-				  </div>
+				  </div><div id="rays"></div>
+
 					 <div id="canvas-holder">
 						<canvas id="chart-area" width="500" height="500"/>
 					</div>
@@ -343,49 +403,32 @@ class HomeX2OView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		per = [0,25,50,75,100,'bonus']
-		per1 = ['25_50','50_75']
-		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
-		
-		temp = []
 		texmsg = ""
-		timeslot = ""
-		time = ""
-		timearray = []
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get('timezone')
-		tt = moment().format('YYYY-MM-DD HH:mm:ss')
-		d = new Date()
-		timestamp = d.getTime()
-		
-		timearray.push moment(timestamp).format("x")
+		timezone = App.currentUser.get('timezone')
 		occurrenceArr = []
 		bonusArr = 0
 		recent = '--'
 		data.time = recent
 		
 		consumed = 0	
-		qtyarr = []	
-		qtyarr.push 0
+		qtyarr = 0
 		qtyconsumed = []
+		totalservings = 0
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
 			if occurrence == true && (expected == true || expected == false)
-				qtyconsumed = []
-				date = val.occurrence
 				qtyconsumed = HomeX2OView::getCount(val.meta_value)
-				qtyarr.push qtyconsumed[0]
 				occurrenceArr.push qtyconsumed[1]
-				
-
-
-			if occurrence == true && (expected == true || expected == false) && qtyconsumed[0] ==  1
+			if occurrence == true && expected == false
 				consumed++
+
+			if occurrence == true && expected == true
+				qtyconsumed = HomeX2OView::getCount(val.meta_value)
+				qtyarr = parseFloat(qtyconsumed[0]) * 100
+				q = parseInt(qtyarr) / 25
+				totalservings += q
+				
 				
 			
 		if occurrenceArr.length != 0 
@@ -395,11 +438,38 @@ class HomeX2OView extends Marionette.ItemView
 			data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A")
 			
 			data.occurr = occurrenceArr.length
-		howmuchqty = _.last qtyarr
-		howmuch = parseFloat(howmuchqty) * 100
-		if(parseInt(@model.get('occurrence').length) == parseInt(consumed)) && qtyconsumed[0] ==  1
-				howmuch = 'bonus'
+		console.log howmuchqty = parseInt(@model.get('occurrence').length) * 4
+		console.log totalservings
+		howmuch = parseInt(totalservings) / parseInt(howmuchqty)
+		tt = moment().format('x')
+		selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
+		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
+		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
+		texmsg = "The day has passed by"
+		if parseInt(actual_time) == parseInt(selected_time)
+			texmsg = @generateStatus(consumed,howmuch)
 		
+		data.texmsg = texmsg
+		data.remianing = occurrenceArr.length
+		data.dateval = App.currentUser.get('homeDate')
+		data.qty = @model.get('qty').length
+		data
+
+	generateStatus:(consumed,howmuch)->
+		timezone = App.currentUser.get('timezone')
+		texmsg = ""
+		timeslot = ""
+		timearray = []
+		d = new Date()
+		timestamp = d.getTime()
+		timearray.push moment().zone(timezone).format("x")
+		per = [0,25,50,75,100,'bonus']
+		per1 = ['0_25','25_50','50_75','75_100']
+		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
+		
+		if parseInt(consumed) >= 1
+				howmuch = 'bonus'
+		console.log howmuch
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
@@ -420,13 +490,12 @@ class HomeX2OView extends Marionette.ItemView
 				texmsg = Messages[val+'_'+timeslot]
 		$.each per1 , (ind,val)->
 			temp = val.split('_')
-			if parseInt(temp[0]) < parseInt(howmuch) && parseInt(temp[1]) > parseInt(howmuch)
+			console.log how = howmuch.toFixed(2) * 100
+			if parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)
 				texmsg = Messages[val+'_'+timeslot]
-		data.texmsg = texmsg
-		data.remianing = occurrenceArr.length
-		data.dateval = App.currentUser.get('homeDate')
-		data.qty = @model.get('qty').length
-		data
+		
+		texmsg
+
 
 	onShow:->
 		occurrenceArr = []
@@ -683,14 +752,10 @@ class ProductChildView extends Marionette.ItemView
 		timeslot = ""
 		time = ""
 		timearray = []
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'timezone'
 		d = new Date()
 		timestamp = d.getTime()
-		timearray.push moment(timestamp).format("x")	
+		timearray.push moment().zone(timezone).format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -714,9 +779,14 @@ class ProductChildView extends Marionette.ItemView
 		data.no_servings =  no_servings
 		data.serving_size = temp.length
 		console.log skip = @checkSkip(temp)
-		if skip[0].length != 0 
+		tt = moment().format('x')
+		selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
+		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
+		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
+		texmsg = "The day has passed by"
+		if skip[0].length != 0 && parseInt(actual_time) == parseInt(selected_time)
 			texmsg = skip[1]
-		else
+		else if skip[0].length == 0 && parseInt(actual_time) == parseInt(selected_time)
 			howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
 			texmsg = @checkStatus(howmuch)
 		
@@ -727,13 +797,13 @@ class ProductChildView extends Marionette.ItemView
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
 				time = _.last timearray
-				d = new Date(val.next_occurrence)
+				d = new Date(val.next)
 				timestamp = d.getTime()
 				time1 = moment(timestamp).zone(timezone).format("x")
-				console.log $('#bell'+model.get('id'))
+				
 				if parseInt(time) < parseInt(time1)
 					data.remindermsg = 'fa fa-bell-o element-animation'
-					timedisplay = moment(val.next_occurrence+timezone, "HH:mm Z").format('h:mm A')
+					timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
 					msg = 'Your next reminder is at '+timedisplay
 					return false
 		data.texmsg = texmsg
@@ -761,14 +831,14 @@ class ProductChildView extends Marionette.ItemView
 	checkStatus:(howmuch)->
 		per = [0,25,50,75,100]
 		per1 = ['25_50','50_75']
-		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
+		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
 		timearray = []
 		timezone = App.currentUser.get 'timezone'
-		d = new Date()
-		timestamp = d.getTime()
 		timeslot = ""
 		texmsg = ""
-		timearray.push moment(timestamp).format("x")	
+		d = new Date()
+		timestamp = d.getTime()
+		timearray.push moment().zone(timezone).format("x")
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
@@ -801,11 +871,7 @@ class ProductChildView extends Marionette.ItemView
 		i = 0
 		html = ""
 		d = new Date()
-		n = -(d.getTimezoneOffset())
-		
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'timezone'
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase()
 		qty = model.get 'qty'
@@ -853,11 +919,7 @@ class ProductChildView extends Marionette.ItemView
 	occurredfunc:(val,key,model)->
 		temp = []
 		i = 0
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'timezone'
 		d = new Date(val.meta_value.date)
 		timestamp = d.getTime()
 		time = moment(timestamp).zone(timezone).format("h:mm A")

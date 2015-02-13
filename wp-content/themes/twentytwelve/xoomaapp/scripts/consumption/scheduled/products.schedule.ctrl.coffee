@@ -24,7 +24,7 @@ class ScheduleView extends Marionette.ItemView
 
 		'click .reset' :(e)->
 			qty  = $('#org_qty').val()
-			@ui.rangeSliders.val qty
+			@ui.rangeSliders.val parseInt(qty)
 			@ui.rangeSliders.parent().find("output").html qty
 			$('#consume_time').val ""
 			$('.now').text 'Now'

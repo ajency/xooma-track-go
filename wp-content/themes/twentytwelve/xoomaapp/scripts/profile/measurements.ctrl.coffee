@@ -44,12 +44,11 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	onShow:->
 		
 
-			
-
 		App.trigger 'cordova:hide:splash:screen'
-		if App.currentUser.has 'measurements'
-			meaurement_date = App.currentUser.get('measurements').date
-			$('#update').val moment(meaurement_date).format('YYYY-MM-DD')
+			
+		timezone = App.currentUser.get('timezone')
+		$('#date_field').val moment().zone(timezone).format('YYYY-MM-DD')
+		$('#update').val 'TODAY'
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 		    dateFormat : 'yy-mm-dd'
@@ -143,7 +142,23 @@ class ProfileMeasurementsView extends Marionette.ItemView
 							}, 'slow')
 
 	valueOutput : (element) =>
-		$(element).parent().find("output").html $(element).val()
+		if element.id == 'height'
+
+			temparr = $(element).val().split('.')
+			if temparr.length == 1
+				temparr.push 0
+			$('.heightcms').text temparr[0]+"'"+temparr[1]+'"'
+			
+			ftcm = 30.48 * parseFloat(temparr[0])
+			inchcm = 2.54 * parseFloat(temparr[1])
+			cms  = parseFloat(ftcm) + parseFloat(inchcm)
+			$('.convertheight').text cms.toFixed(2)+ ' Cms'
+		else
+			pounds = $(element).val()
+			onepound = 0.4535
+			xpound = parseFloat(onepound) * parseFloat(pounds)
+			$('.convertweight').text xpound.toFixed(2)+' Kgs'
+			$('.weightcms').text $(element).val()
 
 
 class App.UserMeasurementCtrl extends Ajency.RegionController

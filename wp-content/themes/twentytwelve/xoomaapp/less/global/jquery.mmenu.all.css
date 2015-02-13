@@ -85,7 +85,9 @@
   .mm-list a:hover {
     text-decoration: none; }
   .mm-list > li {
-    position: relative; }
+    position: relative; 
+padding: 10px 10px 10px 20px;
+  }
     .mm-list > li > a,
     .mm-list > li > span {
       text-overflow: ellipsis;
@@ -94,7 +96,7 @@
       color: inherit;
       line-height: 20px;
       display: block;
-      padding: 10px 10px 10px 20px;
+      
       margin: 0; }
   .mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-search):not(.mm-noresults):after {
     content: '';
@@ -107,7 +109,6 @@
     left: 0; }
   .mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-search):not(.mm-noresults):after {
     width: auto;
-    margin-left: 20px;
     position: relative;
     left: auto; }
   .mm-list a.mm-subopen {

@@ -18,6 +18,13 @@ class XoomaAppRootView extends Marionette.LayoutView
 			App.navigate computed_url ,  true
 
 
+	serializeData:->
+		data = super()
+		data.display_name = App.currentUser.get 'display_name'
+		data.user_email  = App.currentUser.get 'user_email'
+		data
+
+
 	onShow:->
 		state = App.currentUser.get 'state'
 		if state != '/home'

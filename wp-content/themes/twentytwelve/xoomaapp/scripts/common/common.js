@@ -9,8 +9,6 @@ Ajency.CurrentUserView.prototype.template = '#current-user-template';
 
 Ajency.LoginView.prototype.template = '#login-template';
 
-Ajency.LoginView.prototype.onShow = this.showslick;
-
 _.extend(Ajency.LoginView.prototype, {
   onShow: function() {
     return $('.single-item').slick({
@@ -44,6 +42,19 @@ Ajency.FormView = (function(_super) {
 })(Marionette.LayoutView);
 
 _.extend(Ajency.CurrentUser.prototype, {
+  loginCheck: function() {
+    var _successHandler;
+    _successHandler = (function(_this) {
+      return function(resp) {
+        return console.log("aaaaaaaaa");
+      };
+    })(this);
+    return $.ajax({
+      method: 'POST',
+      url: _SITEURL + '/wp-content/themes/twentytwelve/xooma-template.php?action=logout_user',
+      success: _successHandler
+    });
+  },
   _getUrl: function(property) {
     return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
   },
@@ -128,8 +139,15 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getUserProducts: function() {
-    var date, _successHandler;
-    date = moment().format('YYYY-MM-DD');
+    var date, timezone, _successHandler;
+    date = "";
+    if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
+      date = App.currentUser.get('homeDate');
+    } else {
+      timezone = App.currentUser.get('timezone');
+      console.log(date = moment().zone(timezone).format('YYYY-MM-DD'));
+      App.currentUser.set('homeDate', date);
+    }
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param, products;
@@ -159,13 +177,14 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getHomeProducts: function() {
-    var date, deferred, _successHandler;
+    var date, deferred, timezone, _successHandler;
     deferred = Marionette.Deferred();
     date = "";
     if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
       date = App.currentUser.get('homeDate');
     } else {
-      console.log(date = moment().format('YYYY-MM-DD'));
+      timezone = App.currentUser.get('timezone');
+      console.log(date = moment().zone(timezone).format('YYYY-MM-DD'));
       App.currentUser.set('homeDate', date);
     }
     console.log(date);

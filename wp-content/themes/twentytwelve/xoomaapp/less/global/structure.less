@@ -120,7 +120,16 @@ body{
     width:20%;
        @media (max-width: @screen-sm-min) {
              font-size: 1.3em;
-              width: 90px;
+              width: 100px;
+            }
+}
+.home-datepicker-sub {
+    border:0px;
+     background: none;
+    font-size: .9em;
+    width: 140px;
+       @media (max-width: @screen-sm-min) {
+              width: 110px;
             }
 }
 .section{
@@ -319,8 +328,6 @@ div#mcTooltip
     border-color:#BBBBBB;
     padding:20px;
     font-size: 12px;
-    font-family: Verdana, Arial;
-    border-radius:6px; /*Rounded corners. N/A for IE 8 and below.*/
     box-shadow: 0 1px 4px #AAAAAA; /*Drop shadow. N/A for IE 8 and below.*/
 }
 
@@ -331,14 +338,20 @@ div#mcTooltip, div.mcTooltipInner
 
 /* For hyperlink within tooltip */
 div#mcTooltip a { color:#36c; }
-
+div#mcTooltip input{ float:left; width:60%; margin-right:10px;}
 /*Close button. Available when sticky or overlay has been set to true, or is on iPhone, iPad, Android, BlackBerry, or IEMobile devices. */
 div#mcttCloseButton 
 {
-    width:14px;height:14px;position:absolute;background-image:url(../../assets/images/closeBtn.gif);cursor:pointer; overflow:hidden;
+    width:20px;height:20px;position:absolute;background-image:url(../images/cross.png);cursor:pointer; overflow:hidden;
     top:12px; right:12px; left:auto;
 }
-
+div#mcttCloseButton:hover {
+transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+-webkit-transform: rotate(360deg);
+-webkit-transition: -webkit-transform .2s;
+transition: transform .2s;
+}
 /*Give the close button a bigger size in smaller devices*/
 @media only screen and (max-width: 1024px) {
     div#mcttCloseButton 
@@ -499,19 +512,19 @@ img {
     margin-bottom: -8px;
     margin-right: 3px;
 }
-.stickpack_default_class{
+.stick.pack_default_class{
   .sprite-6;
    background-position: -1px -216px;
 }
-.stickpack_bonus_class{
+.stick.pack_bonus_class{
   .sprite-6;
  background-position: -105px -216px;
 }
-.stickpack_occurred_class{
+.stick.pack_occurred_class{
     .sprite-6;
     background-position: -54px -216px;
 }
-.stickpack_expected_class{
+.stick.pack_expected_class{
   .sprite-6;
    background-position: -105px -216px;
 }
@@ -645,21 +658,20 @@ img {
       }
 } 
       .fill-bottle{
-          
-          display: block;
+  
+           display: block;
           margin: auto;
-          margin-bottom: -288px;
           text-align: center;
           left: 0%;
           right: 0%;
           width: 150px;
           z-index: 9;
-          margin-top: 78px;
           z-index: 999;
-          position: relative;
+          position: absolute;
+          top: 200px;
+
           @media (max-width: @screen-sm-min) {
-                 margin-top: 60px;
-                 margin-bottom: -225px;
+               top: 175px;
                  img{
                     width:70%;
                  }
@@ -791,13 +803,24 @@ img {
    .home-sub-header{
     top: inherit;
     bottom: 0px;
-    background:@gray-darker;
-    padding:3px;
+    background:@blue;
+    padding:0px;
       li{
-          opacity:.3;
+          width: 30%;
+         padding: 8px 0px;
       }
       li.selected{
-          opacity:.9;
+          a{
+            color:@white;
+            border-top: 2px solid #FFFFFF;
+          }
+
+      }
+       li.done{
+          a{
+            color:@gray-base;
+          }
+          
       }
     }
 
@@ -966,3 +989,81 @@ img {
 
 }
 
+
+
+  @-webkit-keyframes spin {
+      from {
+        -webkit-transform: rotate(0deg);
+      }
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    
+    @-moz-keyframes spin {
+      from {
+        -moz-transform: rotate(0deg);
+      }
+      to {
+        -moz-transform: rotate(360deg);
+      }
+    }
+    
+    @-ms-keyframes spin {
+      from {
+        -ms-transform: rotate(0deg);
+      }
+      to {
+        -ms-transform: rotate(360deg);
+      }
+    }
+    
+
+   
+    #rays { 
+      background: url(../images/rays-main.png) 0 0 no-repeat; 
+      position: absolute; 
+      right: 0%; 
+      left: 0%; 
+      width: 320px; 
+      height: 320px; 
+      margin:auto;
+      top: 153px;
+      -webkit-animation-name: spin; 
+      -webkit-animation-duration: 40000ms; /* 40 seconds */
+      -webkit-animation-iteration-count: infinite; 
+      -webkit-animation-timing-function: linear;
+      
+      -moz-animation-name: spin; 
+      -moz-animation-duration: 40000ms; /* 40 seconds */
+      -moz-animation-iteration-count: infinite; 
+      -moz-animation-timing-function: linear;
+      
+      -ms-animation-name: spin; 
+      -ms-animation-duration: 40000ms; /* 40 seconds */
+      -ms-animation-iteration-count: infinite; 
+      -ms-animation-timing-function: linear;
+      
+      /* boooo opera */
+      -o-transition: rotate(3600deg); /* works */
+        @media (max-width: @screen-sm-min)    {
+          width: 255px;
+          height: 255px;
+          margin: auto;
+          top: 133px;
+          background-size: 100%;
+      }
+    }
+    
+    #rays:hover {
+      /* -webkit-animation-duration: 10000ms; 10 seconds - speed it up on hover! */
+    }
+    #canvasregion{
+      position: relative;
+    }
+.picker__box{
+  margin-top:40px;
+}
+.picker__list{
+  padding: 0.75em 0 1.2em !important;
+}

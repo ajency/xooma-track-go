@@ -87,7 +87,7 @@ class AsperbmiView extends Marionette.ItemView
 			cnt = @getCount model.get 'meta_value'
 			@originalBottleRemaining = @bottleRemaining
 			msg = @showMessage(cnt)
-			if((parseInt(response.occurrence.length) == parseInt(count1)) && parseInt(cnt) == 1)
+			if((parseInt(response.occurrence[0].occurrence.length) == parseInt(count1)) && parseInt(cnt) == 1)
 				$('.bonus').text '(Bonus)'
 			$('.msg').html msg
 			if parseInt(cnt) is 1
@@ -190,7 +190,7 @@ class AsperbmiView extends Marionette.ItemView
 			count = 0
 			meta_value = data.meta_value
 			count = @getCount(data.meta_value)
-			
+			ind = ind + 1
 			consumed = 0
 			$.each occur , (ind,val)=>
 				occurrence = _.has(val, "occurrence")

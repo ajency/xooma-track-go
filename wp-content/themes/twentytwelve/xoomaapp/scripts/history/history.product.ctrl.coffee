@@ -130,7 +130,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 				arr++
 				html += '<li class="work'+meta_id+'"><div class="relative">
 				      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
-				      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""> ('+fromnow+' ) </small></span>
+				      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""></small></span>
                     <span class="circle"></span>
 				    </div><li>'
 			else
@@ -148,7 +148,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 					arr++
 					html += '<li class="work'+meta_id+'"><div class="relative">
 					      <label class="labels" class="m-t-20" for="work'+meta_id+'">'+qty+' CONSUMED</label>
-					      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""> ('+fromnow+' ) </small></span>
+					      <span class="date"><i class="fa fa-clock-o"></i> '+time+' <small class=""></small></span>
 	                    <span class="circle"></span>
 					    </div><li>'
 
@@ -156,7 +156,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 
 
 		if arr == 0
-			html = '<li>No Consumption found for the current date.<li>'
+			html = '<li>No consumption found for the selected date.<li>'
 		$('.viewHistory').html html
 				
 		

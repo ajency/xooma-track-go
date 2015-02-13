@@ -67,12 +67,18 @@ class MeasurementHistoryView extends Marionette.ItemView
 			classarr = []
 			$.each coll , (ind,val)->
 				classarr[ind] = ""
+				if ind == 'height'
+
+					temparr = coll[ind].split('.')
+					if temparr.length == 1
+						temparr.push 0
+					coll[ind]  = temparr[0]+"'"+temparr[1]+'"'
 				if coll[ind] == ""
 					coll[ind] = 'No data available'
 					classarr[ind] = 'hidden'
 			
 			html = ""
-			html += '<li><span class="circle"></span><span>Height : </span>'+coll.height+ '<span class="'+classarr['height']+'"> inches</span>'
+			html += '<li><span class="circle"></span><span>Height : </span>'+coll.height+ '<span class="'+classarr['height']+'"> Ft/inches</span>'
 			html += '<li><span class="circle"></span><span>Weight : </span>'+coll.weight+ '<span class="'+classarr['weight']+'"> lb</span></span>'
 			html += '<li><span class="circle"></span><span>Neck : </span>'+coll.neck+ '<span class="'+classarr['neck']+'"> inches</span>'
 			html += '<li><span class="circle"></span><span>Chest : </span>'+coll.chest+ '<span class="'+classarr['chest']+'"> inches</span>'

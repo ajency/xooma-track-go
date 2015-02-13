@@ -6522,7 +6522,18 @@ body > .container {
 @media (max-width: 768px) {
   .home-datepicker {
     font-size: 1.3em;
-    width: 90px;
+    width: 100px;
+  }
+}
+.home-datepicker-sub {
+  border: 0px;
+  background: none;
+  font-size: .9em;
+  width: 140px;
+}
+@media (max-width: 768px) {
+  .home-datepicker-sub {
+    width: 110px;
   }
 }
 .section {
@@ -6721,9 +6732,6 @@ div#mcTooltip {
   border-color: #BBBBBB;
   padding: 20px;
   font-size: 12px;
-  font-family: Verdana, Arial;
-  border-radius: 6px;
-  /*Rounded corners. N/A for IE 8 and below.*/
   box-shadow: 0 1px 4px #AAAAAA;
   /*Drop shadow. N/A for IE 8 and below.*/
 }
@@ -6735,17 +6743,29 @@ div.mcTooltipInner {
 div#mcTooltip a {
   color: #36c;
 }
+div#mcTooltip input {
+  float: left;
+  width: 60%;
+  margin-right: 10px;
+}
 /*Close button. Available when sticky or overlay has been set to true, or is on iPhone, iPad, Android, BlackBerry, or IEMobile devices. */
 div#mcttCloseButton {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   position: absolute;
-  background-image: url(../images/closeBtn.gif);
+  background-image: url(../images/cross.png);
   cursor: pointer;
   overflow: hidden;
   top: 12px;
   right: 12px;
   left: auto;
+}
+div#mcttCloseButton:hover {
+  transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: transform .2s;
 }
 /*Give the close button a bigger size in smaller devices*/
 @media only screen and (max-width: 1024px) {
@@ -7030,7 +7050,7 @@ packet_expected_class {
   margin-bottom: -8px;
   margin-right: 3px;
 }
-.stickpack_default_class {
+.stick.pack_default_class {
   background: url(../images/sprite-new.png) no-repeat;
   width: 34px;
   height: 43px;
@@ -7039,7 +7059,7 @@ packet_expected_class {
   margin-right: 3px;
   background-position: -1px -216px;
 }
-.stickpack_bonus_class {
+.stick.pack_bonus_class {
   background: url(../images/sprite-new.png) no-repeat;
   width: 34px;
   height: 43px;
@@ -7048,7 +7068,7 @@ packet_expected_class {
   margin-right: 3px;
   background-position: -105px -216px;
 }
-.stickpack_occurred_class {
+.stick.pack_occurred_class {
   background: url(../images/sprite-new.png) no-repeat;
   width: 34px;
   height: 43px;
@@ -7057,7 +7077,7 @@ packet_expected_class {
   margin-right: 3px;
   background-position: -54px -216px;
 }
-.stickpack_expected_class {
+.stick.pack_expected_class {
   background: url(../images/sprite-new.png) no-repeat;
   width: 34px;
   height: 43px;
@@ -7224,20 +7244,18 @@ packet_expected_class {
 .fill-bottle {
   display: block;
   margin: auto;
-  margin-bottom: -288px;
   text-align: center;
   left: 0%;
   right: 0%;
   width: 150px;
   z-index: 9;
-  margin-top: 78px;
   z-index: 999;
-  position: relative;
+  position: absolute;
+  top: 200px;
 }
 @media (max-width: 768px) {
   .fill-bottle {
-    margin-top: 60px;
-    margin-bottom: -225px;
+    top: 175px;
   }
   .fill-bottle img {
     width: 70%;
@@ -7380,14 +7398,19 @@ packet_expected_class {
   html body .home-sub-header {
     top: inherit;
     bottom: 0px;
-    background: #4d4d4d;
-    padding: 3px;
+    background: #3099ea;
+    padding: 0px;
   }
   html body .home-sub-header li {
-    opacity: .3;
+    width: 30%;
+    padding: 8px 0px;
   }
-  html body .home-sub-header li.selected {
-    opacity: .9;
+  html body .home-sub-header li.selected a {
+    color: #ffffff;
+    border-top: 2px solid #FFFFFF;
+  }
+  html body .home-sub-header li.done a {
+    color: #000000;
   }
   .userproducts .col-md-4 {
     font-size: 11px;
@@ -7438,7 +7461,7 @@ packet_expected_class {
 }
 .blur-background {
   color: #ffffff;
-  background: url(../images/23.jpg) no-repeat;
+  background: url(../../images/23.jpg) no-repeat;
   height: 100%;
   position: fixed;
   width: 100%;
@@ -7545,6 +7568,79 @@ packet_expected_class {
   height: 10px !important;
   width: 10px!important;
 }
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+#rays {
+  background: url(../images/rays-main.png) 0 0 no-repeat;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 320px;
+  height: 320px;
+  margin: auto;
+  top: 153px;
+  -webkit-animation-name: spin;
+  -webkit-animation-duration: 40000ms;
+  /* 40 seconds */
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 40000ms;
+  /* 40 seconds */
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 40000ms;
+  /* 40 seconds */
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+  /* boooo opera */
+  -o-transition: rotate(3600deg);
+  /* works */
+}
+@media (max-width: 768px) {
+  #rays {
+    width: 255px;
+    height: 255px;
+    margin: auto;
+    top: 133px;
+    background-size: 100%;
+  }
+}
+#rays:hover {
+  /* -webkit-animation-duration: 10000ms; 10 seconds - speed it up on hover! */
+}
+#canvasregion {
+  position: relative;
+}
+.picker__box {
+  margin-top: 40px;
+}
+.picker__list {
+  padding: 0.75em 0 1.2em !important;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
@@ -7576,7 +7672,7 @@ packet_expected_class {
 }
 .topheader .navbar i {
   color: #ffffff;
-  line-height: 18px;
+  line-height: 48px;
   margin-right: 6px;
 }
 .topheader .navbar > li > a {
@@ -7781,8 +7877,8 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .sub-header ul li a {
-    padding: 0px !important;
-    font-size: 2em;
+    padding: 8px 0px !important;
+    font-size: .7em;
   }
 }
 .sub-header ul li.selected a,
@@ -11046,7 +11142,7 @@ packet_expected_class {
 .cbp-vm-view-grid .cbp-vm-details {
   max-width: 300px;
   min-height: 40px;
-  margin: 10px auto 4px;
+  margin: 10px 4px 4px;
   height: 67px;
   overflow: hidden;
   line-height: 17px;
@@ -11575,6 +11671,23 @@ input.cmn-toggle-round-flat:checked + label:after {
 .input-time {
   color: #000;
   margin-left: 10px;
+}
+#y-axis {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(271deg);
+  -o-transform: rotate(271deg);
+  writing-mode: rl-tb;
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  text-align: center;
+  width: 244px;
+  left: 20%;
+}
+@media (max-width: 768px) {
+  #y-axis {
+    left: -20px;
+  }
 }
 h1.special,
 h2.special,

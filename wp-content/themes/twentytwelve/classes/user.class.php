@@ -233,18 +233,18 @@ class User
 
     }
 
-    public function update_user_product_details($id,$pid,$data){
+    public function update_user_product_details($id,$pid,$data,$date){
 
         
 
         if($data['frequency_type']==2){
             //function to update schedule users details
-            $response = update_schedule_product_details($id,$pid,$data);
+            $response = update_schedule_product_details($id,$pid,$data,$date);
         }
         else
         {
             //function to update Anytime users details
-            $response = update_anytime_product_details($id,$pid,$data);
+            $response = update_anytime_product_details($id,$pid,$data,$date);
         }
 
         return $response;
@@ -409,8 +409,7 @@ class User
 
             //get users_timezone
 
-            $occurrences = \ajency\ScheduleReminder\Occurrence::
-                    get_upcoming_occurrences($object_type,$endate,$today_date,$object_id);
+           $occurrences = get_next_occurrence($object_id);
 
 
 

@@ -57,7 +57,7 @@ window.ParsleyConfig = {
 
 
 </script>
-
+     
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
@@ -111,6 +111,17 @@ var App  = new Marionette.Application()
 
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
+<?php
+
+function logout_user(){
+
+  wp_logout();
+}
+
+
+?> 
+
+
 
 var Messages = <?php echo json_encode(load());?>;
 

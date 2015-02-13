@@ -155,7 +155,7 @@ ViewProductHistoryView = (function(_super) {
         fromnow = moment(time1).fromNow();
         qty = meta_value.qty;
         arr++;
-        return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
+        return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""></small></span> <span class="circle"></span> </div><li>';
       } else {
         i = 0;
         data = ViewProductHistoryView.prototype.getCount(index.get('meta_value'));
@@ -169,12 +169,12 @@ ViewProductHistoryView = (function(_super) {
           qty = val.qty;
           meta_id = parseInt(index.get('meta_id')) + parseInt(i);
           arr++;
-          return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""> (' + fromnow + ' ) </small></span> <span class="circle"></span> </div><li>';
+          return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""></small></span> <span class="circle"></span> </div><li>';
         });
       }
     });
     if (arr === 0) {
-      html = '<li>No Consumption found for the current date.<li>';
+      html = '<li>No consumption found for the selected date.<li>';
     }
     return $('.viewHistory').html(html);
   };
