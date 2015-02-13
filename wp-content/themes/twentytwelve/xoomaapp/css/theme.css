@@ -7244,20 +7244,18 @@ packet_expected_class {
 .fill-bottle {
   display: block;
   margin: auto;
-  margin-bottom: -276px;
   text-align: center;
   left: 0%;
   right: 0%;
   width: 150px;
   z-index: 9;
-  margin-top: 100px;
   z-index: 999;
-  position: relative;
+  position: absolute;
+  top: 200px;
 }
 @media (max-width: 768px) {
   .fill-bottle {
-    margin-top: 75px;
-    margin-bottom: -225px;
+    top: 175px;
   }
   .fill-bottle img {
     width: 70%;
