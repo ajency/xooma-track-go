@@ -149,20 +149,22 @@ class HomeLayoutView extends Marionette.LayoutView
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
 		timezone = App.currentUser.get('timezone')
-		tt = moment().format('YYYY-MM-DD HH:mm:ss')
+		tt = moment().format('x')
+		console.log selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
 		d = new Date()
 		timestamp = d.getTime()
-		
-		curr =  moment(timestamp).format("YYYY-MM-DD HH:mm:ss")
-		current = new Date(curr)
-		day_night = current.getHours()
-		if(day_night<=12)
+		console.log c = moment().zone(timezone).format('x')
+		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
+		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
+		console.log current = new Date(parseInt(c))
+		console.log day_night = current.getHours()
+		if(parseInt(day_night)<=12)
 			$('.daynightclass').attr('src', _SITEURL+'/wp-content/themes/twentytwelve/images/morning.gif')
 		else
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		$('#update').val App.currentUser.get('homeDate')
 
-		if App.currentUser.get('homeDate') == moment(timestamp).format('YYYY-MM-DD')
+		if parseInt(actual_time) == parseInt(selected_time)
 			$('#update').val 'TODAY'
 		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
@@ -174,7 +176,9 @@ class HomeLayoutView extends Marionette.LayoutView
 				minDate : new Date(reg_date)
 				onSelect: (dateText, inst)->
 					App.currentUser.set 'homeDate' , dateText
-					if App.currentUser.get('homeDate') == moment(timestamp).format('YYYY-MM-DD')
+					console.log time = moment(App.currentUser.get('homeDate')).zone(timezone).format('x')
+					console.log actual_time
+					if parseInt(actual_time) == parseInt(time)
 						$('#update').val 'TODAY'
 					
 
@@ -394,24 +398,18 @@ class HomeX2OView extends Marionette.ItemView
 		data = super()
 		per = [0,25,50,75,100,'bonus']
 		per1 = ['25_50','50_75']
-		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
+		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
 		
 		temp = []
 		texmsg = ""
 		timeslot = ""
 		time = ""
 		timearray = []
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get('timezone')
+		timezone = App.currentUser.get('timezone')
 		tt = moment().format('YYYY-MM-DD HH:mm:ss')
 		d = new Date()
 		timestamp = d.getTime()
-		
-		timearray.push moment(timestamp).zone(timezone).format("x")
+		timearray.push moment().zone(timezone).format("x")
 		occurrenceArr = []
 		bonusArr = 0
 		recent = '--'
@@ -419,22 +417,24 @@ class HomeX2OView extends Marionette.ItemView
 		
 		consumed = 0	
 		qtyarr = []	
-		qtyarr.push 0
+		qtyarr = 0
 		qtyconsumed = []
+		totalservings = 0
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
 			if occurrence == true && (expected == true || expected == false)
-				qtyconsumed = []
-				date = val.occurrence
 				qtyconsumed = HomeX2OView::getCount(val.meta_value)
-				qtyarr.push qtyconsumed[0]
 				occurrenceArr.push qtyconsumed[1]
-				
-
-
-			if occurrence == true && (expected == true || expected == false) && qtyconsumed[0] ==  1
+			if occurrence == true && expected == false
 				consumed++
+
+			if occurrence == true && expected == true
+				qtyconsumed = HomeX2OView::getCount(val.meta_value)
+				qtyarr = parseFloat(qtyconsumed[0]) * 100
+				q = parseInt(qtyarr) / 25
+				totalservings += q
+				
 				
 			
 		if occurrenceArr.length != 0 
@@ -444,9 +444,9 @@ class HomeX2OView extends Marionette.ItemView
 			data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A")
 			
 			data.occurr = occurrenceArr.length
-		howmuchqty = _.last qtyarr
-		howmuch = parseFloat(howmuchqty) * 100
-		if(parseInt(@model.get('occurrence').length) == parseInt(consumed)) && qtyconsumed[0] ==  1
+		howmuchqty = parseInt(@model.get('occurrence').length) * 4
+		howmuch = parseInt(totalservings) * parseInt(howmuchqty)
+		if parseInt(consumed) >= 1
 				howmuch = 'bonus'
 		
 		$.each timearr , (ind,val)->
@@ -459,8 +459,8 @@ class HomeX2OView extends Marionette.ItemView
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)
 			timestamp1 = d1.getTime()
-			time1 = moment(timestamp0).format("x")
-			time2 = moment(timestamp1).format("x")
+			time1 = moment(timestamp0).zone(timezone).format("x")
+			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
 				timeslot = Messages[val]
 		
@@ -732,14 +732,10 @@ class ProductChildView extends Marionette.ItemView
 		timeslot = ""
 		time = ""
 		timearray = []
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'timezone'
 		d = new Date()
 		timestamp = d.getTime()
-		timearray.push moment(timestamp).zone(timezone).format("x")	
+		timearray.push moment().zone(timezone).format("x")	
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -810,14 +806,14 @@ class ProductChildView extends Marionette.ItemView
 	checkStatus:(howmuch)->
 		per = [0,25,50,75,100]
 		per1 = ['25_50','50_75']
-		timearr = ["2AM-11AM","11AM-4PM","4PM-9PM","9PM-2AM"]
+		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
 		timearray = []
 		timezone = App.currentUser.get 'timezone'
-		d = new Date()
-		timestamp = d.getTime()
 		timeslot = ""
 		texmsg = ""
-		timearray.push moment(timestamp).format("x")	
+		d = new Date()
+		timestamp = d.getTime()
+		timearray.push moment().zone(timezone).format("x")
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
@@ -850,11 +846,7 @@ class ProductChildView extends Marionette.ItemView
 		i = 0
 		html = ""
 		d = new Date()
-		n = -(d.getTimezoneOffset())
-		
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'timezone'
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase()
 		qty = model.get 'qty'
@@ -902,11 +894,7 @@ class ProductChildView extends Marionette.ItemView
 	occurredfunc:(val,key,model)->
 		temp = []
 		i = 0
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'timezone'
 		d = new Date(val.meta_value.date)
 		timestamp = d.getTime()
 		time = moment(timestamp).zone(timezone).format("h:mm A")
