@@ -463,7 +463,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.generateStatus = function(consumed, howmuch) {
-    var d, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
+    var d, how, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
     timezone = App.currentUser.get('timezone');
     texmsg = "";
     timeslot = "";
@@ -474,10 +474,10 @@ HomeX2OView = (function(_super) {
     per = [0, 25, 50, 75, 100, 'bonus'];
     per1 = ['0_25', '25_50', '50_75', '75_100'];
     timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
+    how = howmuch.toFixed(2) * 100;
     if (parseInt(consumed) >= 1) {
-      howmuch = 'bonus';
+      how = 'bonus';
     }
-    console.log(howmuch);
     $.each(timearr, function(ind, val) {
       var d0, d1, t0, t1, temp, time, time1, time2, timestamp0, timestamp1;
       temp = val.split('-');
@@ -495,14 +495,13 @@ HomeX2OView = (function(_super) {
       }
     });
     $.each(per, function(ind, val) {
-      if (val === howmuch) {
+      if (val === how) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
     $.each(per1, function(ind, val) {
-      var how, temp;
+      var temp;
       temp = val.split('_');
-      console.log(how = howmuch.toFixed(2) * 100);
       if (parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)) {
         return texmsg = Messages[val + '_' + timeslot];
       }

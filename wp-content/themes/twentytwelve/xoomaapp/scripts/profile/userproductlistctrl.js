@@ -160,9 +160,9 @@ ProductChildView = (function(_super) {
     console.log(totalqty);
     $.each(reminder, function(ind, val) {
       var time, timestamp;
-      console.log(d = new Date(val.time));
-      console.log(timestamp = d.getTime());
-      console.log(time = moment(timestamp).zone(timezone).format("h:mm A"));
+      d = new Date(val.time);
+      timestamp = d.getTime();
+      time = moment(timestamp).zone(timezone).format("h:mm A");
       return reminderArr.push(time);
     });
     remind = reminderArr.join(',');
