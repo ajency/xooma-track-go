@@ -80,10 +80,11 @@ AsperbmiView = (function(_super) {
     count1 = 0;
     if (xhr.status === 201) {
       occurResponse = _.map(response.occurrence[0].occurrence, function(occurrence) {
-        var occur;
+        var expected, occur;
         occurrence.meta_id = parseInt(occurrence.meta_id);
         occur = _.has(occurrence, "occurrence");
-        if (occur === true) {
+        expected = _.has(occurrence, "expected");
+        if (occur === true && expected === false) {
           count1++;
         }
         return occurrence;
@@ -105,7 +106,7 @@ AsperbmiView = (function(_super) {
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
       msg = this.showMessage(cnt);
-      if ((parseInt(response.occurrence[0].occurrence.length) === parseInt(count1)) && parseInt(cnt) === 1) {
+      if (parseInt(count1) >= 1) {
         $('.bonus').text('(Bonus)');
       }
       $('.msg').html(msg);
@@ -237,14 +238,15 @@ AsperbmiView = (function(_super) {
     consumed = 0;
     $.each(occur, (function(_this) {
       return function(ind, val) {
-        var occurrence;
+        var expected, occurrence;
         occurrence = _.has(val, "occurrence");
-        if (occurrence === true) {
+        expected = _.has(val, "expected");
+        if (occurrence === true && expected === false) {
           return consumed++;
         }
       };
     })(this));
-    if ((parseInt(occur.length) === parseInt(consumed)) && parseInt(count) !== 1) {
+    if (parseInt(consumed) >= 1) {
       ind = 'bonus';
       $('.bonus').text('(Bonus)');
       ind = parseInt(occur.length);

@@ -45,6 +45,19 @@ XoomaAppRootView = (function(_super) {
 
   XoomaAppRootView.prototype.onShow = function() {
     var state;
+    $('nav#menu').mmenu({
+      onClick: {
+        close: true,
+        preventDefault: false,
+        setSelected: true
+      }
+    });
+    if (window.location.hash === '') {
+      App.currentUser.set({});
+      this.ui.link.hide();
+      $('.user-data').hide();
+      App.navigate('#/login', true);
+    }
     state = App.currentUser.get('state');
     if (state !== '/home') {
       this.ui.link.hide();

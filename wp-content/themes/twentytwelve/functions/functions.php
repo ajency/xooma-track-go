@@ -186,11 +186,11 @@ function update_anytime_product_details($id,$pid,$data,$homedate){
 
 					$details = maybe_unserialize($user_details);
 					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
-					$date = date("Y-m-d $today ");
+					$datee = date("Y-m-d $today ");
 					
 					$UTC = new DateTimeZone("UTC");
 					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $date);
+					$date = new DateTime( $datee);
 					$todaydate = $date->setTimezone( $newTZ );
 					$t  = $todaydate->format('Y-m-d H:i:s');
 					$date1 = new DateTime($t);

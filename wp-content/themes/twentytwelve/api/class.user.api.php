@@ -151,7 +151,9 @@ class User_API
             $response = new WP_JSON_Response( $response );
             }
             $response->set_status( 201 );
-
+            $user_data = $user->get_user_details($id);
+           
+            $response->set_data($user_data);
         }
 
         return $response;

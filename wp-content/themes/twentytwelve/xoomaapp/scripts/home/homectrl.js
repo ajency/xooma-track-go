@@ -462,7 +462,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.generateStatus = function(consumed, howmuch) {
-    var d, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
+    var d, how, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
     timezone = App.currentUser.get('timezone');
     texmsg = "";
     timeslot = "";
@@ -473,10 +473,10 @@ HomeX2OView = (function(_super) {
     per = [0, 25, 50, 75, 100, 'bonus'];
     per1 = ['0_25', '25_50', '50_75', '75_100'];
     timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
+    how = howmuch.toFixed(2) * 100;
     if (parseInt(consumed) >= 1) {
-      howmuch = 'bonus';
+      how = 'bonus';
     }
-    console.log(howmuch);
     $.each(timearr, function(ind, val) {
       var d0, d1, t0, t1, temp, time, time1, time2, timestamp0, timestamp1;
       temp = val.split('-');
@@ -494,14 +494,13 @@ HomeX2OView = (function(_super) {
       }
     });
     $.each(per, function(ind, val) {
-      if (val === howmuch) {
+      if (val === how) {
         return texmsg = Messages[val + '_' + timeslot];
       }
     });
     $.each(per1, function(ind, val) {
-      var how, temp;
+      var temp;
       temp = val.split('_');
-      console.log(how = howmuch.toFixed(2) * 100);
       if (parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)) {
         return texmsg = Messages[val + '_' + timeslot];
       }
@@ -679,7 +678,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'

@@ -57,7 +57,7 @@ window.ParsleyConfig = {
 
 
 </script>
-     
+    
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
@@ -164,16 +164,7 @@ var Messages = <?php echo json_encode(load());?>;
     <!-- Frontpage Demo -->
 
 <script type="text/javascript">
-      $(function() {
-        $('nav#menu').mmenu({
-         onClick: {
-       close: true,
-       preventDefault: false,
-       setSelected: true
-    }
-
-    });
-     });   
+        
 window.ParsleyValidator
   .addValidator('equalTo', function (value, requirement) {
   	return value.length == requirement;

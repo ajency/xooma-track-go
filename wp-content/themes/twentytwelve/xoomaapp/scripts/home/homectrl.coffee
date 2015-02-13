@@ -466,10 +466,9 @@ class HomeX2OView extends Marionette.ItemView
 		per = [0,25,50,75,100,'bonus']
 		per1 = ['0_25','25_50','50_75','75_100']
 		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
-		
+		how = howmuch.toFixed(2) * 100
 		if parseInt(consumed) >= 1
-				howmuch = 'bonus'
-		console.log howmuch
+				how = 'bonus'
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
@@ -486,11 +485,10 @@ class HomeX2OView extends Marionette.ItemView
 				timeslot = Messages[val]
 		
 		$.each per , (ind,val)->
-			if val == howmuch
+			if val == how
 				texmsg = Messages[val+'_'+timeslot]
 		$.each per1 , (ind,val)->
 			temp = val.split('_')
-			console.log how = howmuch.toFixed(2) * 100
 			if parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)
 				texmsg = Messages[val+'_'+timeslot]
 		
@@ -692,7 +690,7 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		  <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
+		  <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
 
 
 				 '

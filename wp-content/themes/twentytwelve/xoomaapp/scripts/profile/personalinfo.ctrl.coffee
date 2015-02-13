@@ -91,6 +91,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 							}, 'slow')
 				
 			else
+				App.currentUser.set 'profile', response
+				App.currentUser.set 'timezone', response.timezone
 				App.currentUser.set 'state' , '/profile/measurements'
 				App.navigate '#'+App.currentUser.get('state') , true
 		
