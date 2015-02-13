@@ -1,6 +1,6 @@
 #start of the Application
 jQuery(document).ready ($)->
-	
+
 	App.state 'login'
 
 		.state 'xooma',
@@ -15,10 +15,10 @@ jQuery(document).ready ($)->
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
 						
-			
+	
 
 	App.onBeforeStart = ->
-		if window.location.hash != '#login'
+		if window.location.hash != '#login' && window.location.hash != ''
 			App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
@@ -62,7 +62,7 @@ jQuery(document).ready ($)->
 		console.log "triggered"
 
 	
-		
+	
 
 
 	App.start()

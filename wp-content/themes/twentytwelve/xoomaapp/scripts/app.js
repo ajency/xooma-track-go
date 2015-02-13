@@ -15,7 +15,7 @@ jQuery(document).ready(function($) {
     }
   });
   App.onBeforeStart = function() {
-    if (window.location.hash !== '#login') {
+    if (window.location.hash !== '#login' && window.location.hash !== '') {
       App.currentUser.set(userData);
     }
     if (!App.currentUser.isLoggedIn()) {
