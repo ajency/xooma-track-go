@@ -5,9 +5,9 @@ Xooma Cordova Plugins
 3) org.apache.cordova.splashscreen
 4) https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
 5) org.apache.cordova.network-information
-6) https://github.com/brodysoft/Cordova-SQLitePlugin
-7) https://github.com/avivais/phonegap-parse-plugin
-8) https://github.com/phonegap-build/PushPlugin
+6) https://github.com/avivais/phonegap-parse-plugin.git
+7) https://github.com/phonegap-build/PushPlugin
+8) org.apache.cordova.device
 
 #Facebook Plugin
 cordova -d plugin add  https://github.com/Wizcorp/phonegap-facebook-plugin/ --variable APP_ID="355178387994693" --variable APP_NAME="Xooma Local"

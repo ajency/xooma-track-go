@@ -161,7 +161,7 @@ window.ParsleyConfig = {
      });   
 window.ParsleyValidator
   .addValidator('equalTo', function (value, requirement) {
-  	return value.length == requirement;
+    return value.length == requirement;
   })
   .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
 $(document).ready(function() {
@@ -170,7 +170,9 @@ dots: true,
 infinite: true,
 speed: 500,
 slidesToShow: 1,
-slidesToScroll: 1
+slidesToScroll: 1,
+ autoplay: true,
+  autoplaySpeed: 2000
 });
 });
 
