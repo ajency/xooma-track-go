@@ -592,7 +592,7 @@
                                 <input type="hidden"  id="end_date" name="end_date">
                         
                         
-                           <label for="exampleInputFile " class="time_period">Select</label>
+                           <label for="exampleInputFile " class="time_period">Duration</label>
                                 <select class="form-control time_period ">
                                   <option value="">--Select--</option>
                                   <option value="7">Last 7 days</option>
