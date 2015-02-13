@@ -123,6 +123,15 @@ body{
               width: 100px;
             }
 }
+.home-datepicker-sub {
+    border:0px;
+     background: none;
+    font-size: .9em;
+    width: 140px;
+       @media (max-width: @screen-sm-min) {
+              width: 110px;
+            }
+}
 .section{
     padding:70px 0px 10px 0px;
      @media (max-width: @screen-sm-min) {
@@ -319,8 +328,6 @@ div#mcTooltip
     border-color:#BBBBBB;
     padding:20px;
     font-size: 12px;
-    font-family: Verdana, Arial;
-    border-radius:6px; /*Rounded corners. N/A for IE 8 and below.*/
     box-shadow: 0 1px 4px #AAAAAA; /*Drop shadow. N/A for IE 8 and below.*/
 }
 
@@ -331,14 +338,20 @@ div#mcTooltip, div.mcTooltipInner
 
 /* For hyperlink within tooltip */
 div#mcTooltip a { color:#36c; }
-
+div#mcTooltip input{ float:left; width:60%; margin-right:10px;}
 /*Close button. Available when sticky or overlay has been set to true, or is on iPhone, iPad, Android, BlackBerry, or IEMobile devices. */
 div#mcttCloseButton 
 {
-    width:14px;height:14px;position:absolute;background-image:url(../../assets/images/closeBtn.gif);cursor:pointer; overflow:hidden;
+    width:20px;height:20px;position:absolute;background-image:url(../images/cross.png);cursor:pointer; overflow:hidden;
     top:12px; right:12px; left:auto;
 }
-
+div#mcttCloseButton:hover {
+transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+-webkit-transform: rotate(360deg);
+-webkit-transition: -webkit-transform .2s;
+transition: transform .2s;
+}
 /*Give the close button a bigger size in smaller devices*/
 @media only screen and (max-width: 1024px) {
     div#mcttCloseButton 
@@ -648,13 +661,13 @@ img {
           
           display: block;
           margin: auto;
-          margin-bottom: -288px;
-          text-align: center;
-          left: 0%;
-          right: 0%;
-          width: 150px;
+         margin-bottom: -276px;
+        text-align: center;
+        left: 0%;
+        right: 0%;
+        width: 150px;
           z-index: 9;
-          margin-top: 78px;
+          margin-top: 100px;
           z-index: 999;
           position: relative;
           @media (max-width: @screen-sm-min) {
@@ -791,13 +804,24 @@ img {
    .home-sub-header{
     top: inherit;
     bottom: 0px;
-    background:@gray-darker;
-    padding:3px;
+    background:@blue;
+    padding:0px;
       li{
-          opacity:.3;
+          width: 30%;
+         padding: 8px 0px;
       }
       li.selected{
-          opacity:.9;
+          a{
+            color:@white;
+            border-top: 2px solid #FFFFFF;
+          }
+
+      }
+       li.done{
+          a{
+            color:@gray-base;
+          }
+          
       }
     }
 
