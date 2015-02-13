@@ -111,7 +111,8 @@
                                 </div>
                         </div>
                 </nav>
-                 <nav id="menu">
+
+            <nav id="menu">
           <ul>
              <li>
                 <a><h5 class="margin-none">{{display_name}}</h5>
@@ -122,12 +123,13 @@
               <li class="link"><a  href="#settings"><i class="fa fa-cog"></i> Setting</a>
                   
               </li>
-              <li><a href="#contact"><i class="fa fa-bullhorn"></i> About Xooma</a>
+              <li><a href="http://xooma.com/" target="_blank"><i class="fa fa-bullhorn"></i> About Xooma</a>
               </li>
               <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
           </ul>
-      </nav>
+      </nav> 
+                 
         </div>
 
         <div class="clearfix"></div>
