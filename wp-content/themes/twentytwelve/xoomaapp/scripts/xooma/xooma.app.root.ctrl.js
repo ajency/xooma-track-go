@@ -36,6 +36,14 @@ XoomaAppRootView = (function(_super) {
     }
   };
 
+  XoomaAppRootView.prototype.serializeData = function() {
+    var data;
+    data = XoomaAppRootView.__super__.serializeData.call(this);
+    data.display_name = App.currentUser.get('display_name');
+    data.user_email = App.currentUser.get('user_email');
+    return data;
+  };
+
   XoomaAppRootView.prototype.onShow = function() {
     var state;
     state = App.currentUser.get('state');

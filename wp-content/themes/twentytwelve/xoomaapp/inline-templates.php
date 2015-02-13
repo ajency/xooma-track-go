@@ -96,7 +96,7 @@
                                                
                                         </div>
                                         <div class="col-sm-3 col-xs-3">
-                                           <div ui-region="currentUser" class="pull-right user-data hidden">
+                                           <div ui-region="currentUser" class="pull-right user-data ">
 
                                             </div>
                                          <!--    <a class="link" href="#settings">
@@ -111,6 +111,23 @@
                                 </div>
                         </div>
                 </nav>
+                 <nav id="menu">
+          <ul>
+             <li>
+                <a><h5 class="margin-none">{{display_name}}</h5>
+                 <small>{{user_email}}</small></a>
+              </li>
+              <li class="link"><a  href="#home"><i class="fa fa-home"></i> Home</a>
+              </li>
+              <li class="link"><a  href="#settings"><i class="fa fa-cog"></i> Setting</a>
+                  
+              </li>
+              <li><a href="#contact"><i class="fa fa-bullhorn"></i> About Xooma</a>
+              </li>
+              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
+              </li>
+          </ul>
+      </nav>
         </div>
 
         <div class="clearfix"></div>
