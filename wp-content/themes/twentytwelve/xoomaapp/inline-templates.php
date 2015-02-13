@@ -496,7 +496,7 @@
                                                                 <h4 class="text-left"> <output class="heightcms"></output><small> Ft/inches</small></h4>
                                                         </div>
                                                         <input type="range" min="4.0" max="9.0" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
-                                                <div class="convertheight"></div>
+                                                <div class="convertheight text-center m-t-30 text-muted"></div>
                                                 </div>
                                                 </br>
                                                 </br>
@@ -509,7 +509,7 @@
                                                         </div>
 
                                                         <input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
-                                                        <div class="convertweight"></div>
+                                                        <div class="convertweight text-center m-t-30 text-muted"></div>
                                                 </div>
                              					 </br>
                                                 </br>
