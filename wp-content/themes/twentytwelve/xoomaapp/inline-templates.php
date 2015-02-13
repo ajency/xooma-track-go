@@ -329,12 +329,12 @@
                                                         <label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
                                                         <div class="col-sm-9 col-xs-8">
                                                                 <select class="form-control" name="profile[timezone]" id="timezone]">
-                                                                        <option value="America/New York">America/New York</option>
+                                                                        <option value="America/New_York">America/New York</option>
                                                                         <option value="America/Adak">America/Adak</option>
                                                                         <option value="America/Mexico_city">America/Mexico_city</option>
                                                                         <option value="America/Chicago">America/Chicago</option>
                                                                         <option value="America/Los_Angeles">America/Los_Angeles</option>
-                                                                        <option value="Europe/ London">Europe/ London</option>
+                                                                        <option value="Europe/London">Europe/ London</option>
                                                                         <option value="Europe/Paris">Europe/Paris</option>
                                                                         <option value="Europe/Istanbul">Europe/Istanbul</option>
                                                                         <option value="Europe/Zagreb">Europe/Zagreb</option>

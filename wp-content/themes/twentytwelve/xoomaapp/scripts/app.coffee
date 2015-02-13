@@ -19,8 +19,6 @@ jQuery(document).ready ($)->
 
 	App.onBeforeStart = ->
 		App.currentUser.set userData
-		
-		
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 

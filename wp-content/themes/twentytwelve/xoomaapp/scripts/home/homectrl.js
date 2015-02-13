@@ -178,12 +178,12 @@ HomeLayoutView = (function(_super) {
     var actual_time, c, current, d, day_night, reg_date, selected_time, selectedtimestamp, timestamp, timezone, tt;
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
-    timezone = App.currentUser.get('timezone');
+    console.log(timezone = App.currentUser.get('timezone'));
     tt = moment().format('x');
     selectedtimestamp = moment(tt, "x").format('YYYY-MM-DD');
     d = new Date();
     timestamp = d.getTime();
-    console.log(c = moment().zone(timezone).format('x'));
+    console.log(c = moment(selectedtimestamp).zone(timezone).format('x'));
     actual_time = moment(selectedtimestamp).zone(timezone).format('x');
     selected_time = moment(App.currentUser.get('homeDate')).zone(timezone).format('x');
     console.log(current = new Date(parseInt(c)));
