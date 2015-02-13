@@ -177,9 +177,9 @@ class ProductChildView extends Marionette.ItemView
 			servings.push classname : newClass , qty : value.qty
 		console.log totalqty
 		$.each reminder , (ind,val)->
-			d = new Date(val.time)
-			timestamp = d.getTime()
-			time = moment(timestamp).zone(timezone).format("h:mm A")
+			console.log d = new Date(val.time)
+			console.log timestamp = d.getTime()
+			console.log time = moment(timestamp).zone(timezone).format("h:mm A")
 			
 			reminderArr.push time
 
