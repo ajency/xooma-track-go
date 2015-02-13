@@ -101,6 +101,8 @@ ProfilePersonalInfoView = (function(_super) {
           scrollTop: 0
         }, 'slow');
       } else {
+        App.currentUser.set('profile', response);
+        App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('state', '/profile/measurements');
         return App.navigate('#' + App.currentUser.get('state'), true);
       }
