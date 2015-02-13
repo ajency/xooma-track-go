@@ -18,7 +18,8 @@ jQuery(document).ready ($)->
 			
 
 	App.onBeforeStart = ->
-		App.currentUser.set userData
+		if window.location.hash != '#login'
+			App.currentUser.set userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
@@ -28,7 +29,6 @@ jQuery(document).ready ($)->
 
 	App.currentUser.on 'user:logged:out', ->
 		App.currentUser.set {}
-		`userData = {}`
 		App.currentUser.loginCheck()
 		App.navigate '/login', true
 		

@@ -15,7 +15,9 @@ jQuery(document).ready(function($) {
     }
   });
   App.onBeforeStart = function() {
-    App.currentUser.set(userData);
+    if (window.location.hash !== '#login') {
+      App.currentUser.set(userData);
+    }
     if (!App.currentUser.isLoggedIn()) {
       return App.currentUser.setNotLoggedInCapabilities();
     }
@@ -26,7 +28,6 @@ jQuery(document).ready(function($) {
   });
   App.currentUser.on('user:logged:out', function() {
     App.currentUser.set({});
-    userData = {};
     App.currentUser.loginCheck();
     return App.navigate('/login', true);
   });
