@@ -29,6 +29,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 	events:
 		'change @ui.param':(e)->
+			window.param = $(e.target).val()
 			if $('.time_period').val() == '' || $('.time_period').val() == 'all'
 				reg_date = App.graph.get 'reg_date'
 				@ui.start_date.val reg_date
@@ -62,6 +63,7 @@ class HomeLayoutView extends Marionette.LayoutView
 			
 
 		'change @ui.time_period':(e)->
+			window.time_period = $(e.target).val()
 			id = $(e.target).val()
 			date =  moment().subtract(id, 'days')
 			previous = date.format('YYYY-MM-DD')
@@ -147,25 +149,22 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		$('#param option[value="'+window.param+'"]').prop("selected",true)
+		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#showHome').hide()
+		d = new Date(App.currentUser.get('today'))
+		actual_time = d.getTime()
 		App.trigger 'cordova:hide:splash:screen'
-		console.log timezone = App.currentUser.get('timezone')
-		tt = moment().format('x')
-		selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
-		d = new Date()
-		timestamp = d.getTime()
-		console.log c = moment(selectedtimestamp).zone(timezone).format('x')
-		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
-		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
-		console.log current = new Date(parseInt(c))
-		console.log day_night = current.getHours()
+		timezone = App.currentUser.get('timezone')
+		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		current = new Date(actual_time)
+		day_night = current.getHours()
 		if(parseInt(day_night)<=12)
 			$('.daynightclass').attr('src', _SITEURL+'/wp-content/themes/twentytwelve/images/morning.gif')
 		else
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		
 		$('#update').val 'TODAY'
-		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 				dateFormat : 'yy-mm-dd'
@@ -176,9 +175,10 @@ class HomeLayoutView extends Marionette.LayoutView
 				onSelect: (dateText, inst)->
 					$('#showHome').show()
 					App.currentUser.set 'homeDate' , dateText
-					console.log time = moment(App.currentUser.get('homeDate')).zone(timezone).format('x')
-					console.log actual_time
-					if parseInt(actual_time) == parseInt(time)
+					selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
+					selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+		
+					if parseInt(actual_time) == parseInt(selected_time)
 						$('#update').val 'TODAY'
 					
 
@@ -328,6 +328,9 @@ class App.HomeCtrl extends Ajency.RegionController
 								}, 'slow')
 			return false
 		if App.useProductColl.length == 0 
+			window.param = 'weight'
+			window.time_period = 'all'
+		
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
 			@show new HomeLayoutView
@@ -441,10 +444,9 @@ class HomeX2OView extends Marionette.ItemView
 		console.log howmuchqty = parseInt(@model.get('occurrence').length) * 4
 		console.log totalservings
 		howmuch = parseInt(totalservings) / parseInt(howmuchqty)
-		tt = moment().format('x')
-		selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
-		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
-		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
+		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss")
+		actual_time = moment().zone(timezone).format('x')
+		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		texmsg = "The day has passed by"
 		if parseInt(actual_time) == parseInt(selected_time)
 			texmsg = @generateStatus(consumed,howmuch)
@@ -777,10 +779,10 @@ class ProductChildView extends Marionette.ItemView
 		data.no_servings =  no_servings
 		data.serving_size = temp.length
 		console.log skip = @checkSkip(temp)
-		tt = moment().format('x')
-		selectedtimestamp = moment(tt ,"x").format('YYYY-MM-DD')
-		actual_time = moment(selectedtimestamp).zone(timezone).format('x')
-		selected_time = moment((App.currentUser.get('homeDate'))).zone(timezone).format('x')
+		tt = moment().zone(timezone).format('x')
+		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss")
+		actual_time = moment().zone(timezone).format('x')
+		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		texmsg = "The day has passed by"
 		if skip[0].length != 0 && parseInt(actual_time) == parseInt(selected_time)
 			texmsg = skip[1]

@@ -166,12 +166,8 @@ ScheduleView = (function(_super) {
       }
     });
     $('#date').val(date);
-    $('.js__timepicker').pickatime({
-      interval: 15,
-      max: true,
-      onSet: function(context) {
-        return $('.now').text($('#consume_time').val());
-      }
+    $('.input-small').timepicker({
+      defaultTime: false
     });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {

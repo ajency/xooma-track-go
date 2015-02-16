@@ -181,21 +181,11 @@ function update_anytime_product_details($id,$pid,$data,$homedate){
 
 				for($i=0;$i<$data['reminders_length'];$i++){
 
-						//savings reminders
-					$user_details = get_user_meta($id,'user_details',true);
-
-					$details = maybe_unserialize($user_details);
-					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
-					$datee = date("Y-m-d $today ");
+					$today = date('Y-m-d');
+					$time = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$datee = date("$today $time ");
 					
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $datee);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+					$today_date = get_timezone_date($id,$datee);
 					
 					$meta_id = $wpdb->insert(
 									$product_meta_table,
@@ -343,21 +333,16 @@ function update_anytime_product_details($id,$pid,$data,$homedate){
 						//savings reminders
 
 
-					$user_details = get_user_meta($id,'user_details',true);
+					
+					
+					$today = date('Y-m-d');
+					$time = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$datee = date("$today $time ");
 
-					$details = maybe_unserialize($user_details);
+					$today_date = get_timezone_date($id,$datee);
 					
-					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
-					$date = date("Y-m-d $today ");
 					
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $date);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+					
 
 					 $meta_id = $wpdb->insert(
 									$product_meta_table,
@@ -490,23 +475,13 @@ function update_schedule_product_details($id,$pid,$data,$homedate){
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
-					$user_details = get_user_meta($id,'user_details',true);
-
-					$details = maybe_unserialize($user_details);
+					$today = date('Y-m-d');
+					$time = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$datee = date("$today $time ");
 					
-					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
-					$date = date("Y-m-d $today ");
-					
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $date);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+					$today_date = get_timezone_date($id,$datee);
 
-					 $meta_id = $wpdb->insert(
+					$meta_id = $wpdb->insert(
 									$product_meta_table,
 									array(
 										'main_id'                     => $main_id,
@@ -639,21 +614,11 @@ function update_schedule_product_details($id,$pid,$data,$homedate){
 				for($i=0;$i<$data['reminders_length'];$i++){
 
 						//savings reminders
-					$user_details = get_user_meta($id,'user_details',true);
-
-					$details = maybe_unserialize($user_details);
+					$today = date('Y-m-d');
+					$time = date("H:i:s", strtotime($data['reminder_time'.$i]));
+					$datee = date("$today $time ");
 					
-					$today = date("H:i:s", strtotime($data['reminder_time'.$i]));
-					$date = date("Y-m-d $today ");
-					
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $date);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+					$today_date = get_timezone_date($id,$datee);
 
 					 $meta_id = $wpdb->insert(
 									$product_meta_table,
@@ -1036,24 +1001,10 @@ function store_reminders($main_id,$servings,$reminder){
 					$user = $wpdb->get_row("SELECT * from $table where id=".$main_id);
 
 
-					$user_details = get_user_meta($user->user_id,'user_details',true);
-
-					
-
-					$details = maybe_unserialize($user_details);
-					
-
 					$today = date("H:i:s", strtotime($reminder));
 					$start = date("Y-m-d $today ");
 						
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $start);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+					$today_date = get_timezone_date($user->user_id,$start);
 
 					$interval = 24;
 					$schedule_data = array(
@@ -1180,24 +1131,10 @@ function store_add_schedule($args){
 					$user = $wpdb->get_row("SELECT * from $table where id=".$args['main_id']);
 
 
-					$user_details = get_user_meta($user->user_id,'user_details',true);
-
-					
-
-					$details = maybe_unserialize($user_details);
-					
-
 					$today = strtotime('00:00:00');
 					$start = date("Y-m-d 00:00:00");
 						
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $start);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+					$today_date = get_timezone_date($user->user_id,$start);
 
 
 				
@@ -1232,24 +1169,10 @@ function update_schedule($args){
 	$user = $wpdb->get_row("SELECT * from $table where id=".$args['main_id']);
 
 
-	$user_details = get_user_meta($user->user_id,'user_details',true);
-
-	
-
-	$details = maybe_unserialize($user_details);
-	
-
 	$today = strtotime('00:00:00');
 	$start = date("Y-m-d 00:00:00");
 		
-	$UTC = new DateTimeZone("UTC");
-	$newTZ = new DateTimeZone($details['timezone']);
-	$date = new DateTime( $start);
-	$todaydate = $date->setTimezone( $newTZ );
-	$t  = $todaydate->format('Y-m-d H:i:s');
-	$date1 = new DateTime($t);
-	$date1->setTimezone( $UTC );
-	$today_date = $date1->format('Y-m-d H:i:s');
+	$today_date = get_timezone_date($user->user_id,$start);
 
 
 				
@@ -1495,22 +1418,12 @@ function store_consumption_details($args){
 		}
 		$id = $args['id'];
 
-		$user_details = get_user_meta($id,'user_details',true);
-
-		$details = maybe_unserialize($user_details);
 		$today = $args['date'];
 		$time = date("H:i:s", strtotime($args['time']));
         $start = date("$today $time");
 		
 						
-					$UTC = new DateTimeZone("UTC");
-					$newTZ = new DateTimeZone($details['timezone']);
-					$date = new DateTime( $start);
-					$todaydate = $date->setTimezone( $newTZ );
-					$t  = $todaydate->format('Y-m-d H:i:s');
-					$date1 = new DateTime($t);
-					$date1->setTimezone( $UTC );
-					$today_date = $date1->format('Y-m-d H:i:s');
+		$today_date = get_timezone_date($id,$start);
 
 		
 		
@@ -2003,14 +1916,9 @@ function cron_job_reminders($args)
 				$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
 						
 						
-				$UTC = new DateTimeZone("UTC");
-				$newTZ = new DateTimeZone($details['timezone']);
-				$date = new DateTime( $date);
-				$todaydate = $date->setTimezone( $newTZ );
-				$t  = $todaydate->format('Y-m-d H:i:s');
-				$date1 = new DateTime($t);
-				$date1->setTimezone( $UTC );
-				$time = $date1->format('H:i A');
+				date_default_timezone_set($details['timezone']);
+				$datestring = $date;  //Pulled in from somewhere
+				$time = date('H:i A',strtotime($datestring));
 				$product_name = $product[0]['name'];
 				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 				
@@ -2449,4 +2357,18 @@ function get_next_occurrence($object_id)
 
 	return $occurrences;
 	
+}
+
+function get_timezone_date($id,$date)
+{
+
+	$user_details = get_user_meta($id,'user_details',true);
+
+	$details = maybe_unserialize($user_details);
+	date_default_timezone_set($details['timezone']);
+	$datestring = $date;  //Pulled in from somewhere
+	$date = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
+	
+
+	return $date;
 }

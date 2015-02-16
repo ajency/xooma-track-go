@@ -371,32 +371,19 @@ class User
 
            
 
+            
+            $end_date = date("Y-m-d 23:59:59", strtotime($date));
+
+            $today = date('Y-m-d H:i:s');
+
             $user_details = get_user_meta($user_id,'user_details',true);
 
-                    
-
             $details = maybe_unserialize($user_details);
+            date_default_timezone_set($details['timezone']);
+            $datestring = $today;  //Pulled in from somewhere
+            $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
 
-           $end_date = date("Y-m-d 23:59:59", strtotime($date));
-
-
-                        
-                    $UTC = new DateTimeZone("UTC");
-                    $newTZ = new DateTimeZone($details['timezone']);
-
-                    $datee = new DateTime( $start_dt);
-                    $todaydate = $datee->setTimezone( $newTZ );
-                    $t  = $todaydate->format('Y-m-d H:i:s');
-                    $date1 = new DateTime($t);
-                    $date1->setTimezone( $UTC );
-                   $today_date = $date1->format('Y-m-d H:i:s');
-
-                    $dat = new DateTime( $end_date);
-                    $enddate = $dat->setTimezone( $newTZ );
-                    $t1  = $enddate->format('Y-m-d H:i:s');
-                    $date11 = new DateTime($t1);
-                    $date11->setTimezone( $UTC );
-                    $endate = $date11->format('Y-m-d H:i:s');
+           
 
 
 
@@ -507,7 +494,8 @@ class User
 
 
    
-    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight']);
+    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight'],
+                'today' => $today_date);
         
 
     }

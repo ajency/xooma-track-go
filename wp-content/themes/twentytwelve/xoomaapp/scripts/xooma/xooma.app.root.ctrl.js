@@ -53,21 +53,21 @@ XoomaAppRootView = (function(_super) {
         setSelected: true
       }
     });
-    if (window.location.hash === '') {
-      App.currentUser.set({});
-      this.ui.link.hide();
-      $('.user-data').hide();
-      App.navigate('#/login', true);
-    }
     state = App.currentUser.get('state');
     if (state !== '/home') {
       this.ui.link.hide();
     } else {
       this.ui.link.show();
     }
-    return this.currentUserRegion.show(new Ajency.CurrentUserView({
+    this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser
     }));
+    if (window.location.hash === '') {
+      App.currentUser.set({});
+      this.ui.link.hide();
+      $('.user-data').hide();
+      return App.navigate('#login', true);
+    }
   };
 
   return XoomaAppRootView;

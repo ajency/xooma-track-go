@@ -591,21 +591,20 @@ class User_API
         
 
 
+        $timee = date("H:i:s", strtotime($time));
+        $start = date("$date $timee");
+
         $user_details = get_user_meta($id,'user_details',true);
 
         $details = maybe_unserialize($user_details);
-        $timee = date("H:i:s", strtotime($time));
-        $start = date("$date $timee");
+        date_default_timezone_set($details['timezone']);
+        $datestring = $start;  //Pulled in from somewhere
+        $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
         
                         
-        $UTC = new DateTimeZone("UTC");
-        $newTZ = new DateTimeZone($details['timezone']);
-        $dat = new DateTime( $start);
-        $todaydate = $dat->setTimezone( $newTZ );
-        $t  = $todaydate->format('Y-m-d H:i:s');
-        $date1 = new DateTime($t);
-        $date1->setTimezone( $UTC );
-        $today_date = $date1->format('Y-m-d H:i:s');
+       
+
+       
 
         $args = array(
 

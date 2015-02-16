@@ -574,6 +574,7 @@
                             <div class="col-md-6 col-xs-6"> 
                                 <label for="exampleInputFile">Select</label>
                                     <select class="form-control" aj-field-required="true" id="param" name="param">
+                                              <option value="">Please select</option>
                                               <option value="weight">Weight</option>
                                               <option value="neck">Neck</option>
                                               <option value="chest">Chest</option>
@@ -952,9 +953,9 @@
     <div class="reminder">
     <div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
-    <div class="col-sm-6 col-xs-7 ">
-     <input name="reminder_time0" id="reminder_time0" disabled class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}">
-    </div>
+    <div class="col-sm-6 col-xs-7 input-append bootstrap-timepicker ">
+     <input name="reminder_time0" id="reminder_time0" disabled class="input-small" type="text" value="{{reminder}}">
+    <span class="add-on"><i class="icon-time"></i></span></div>
     </div>
     </div>
     </div>
@@ -1314,7 +1315,9 @@
                  <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div id="consume_time" name="consume_time" class="fa fa-pencil-square-o input-time text-muetd fieldset__input js__timepicker "> </div></small><input type="button" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd fieldset__input js__timepicker hidden" /></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div  class="fa fa-pencil-square-o input-time text-muetd "> <span class="add-on">
+                <i class="icon-time"></i>
+            </span> </div></small><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small " /></h5>
             </div>
             <div class="col-md-3">
          
