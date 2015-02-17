@@ -177,7 +177,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
-    var actual_time, current, currentime, d, day_night, reg_date, timezone;
+    var actual_time, current, currentime, d, day_night, reg_date, selected_time, selectedtimestamp, timezone;
     $('#param option[value="' + window.param + '"]').prop("selected", true);
     $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
     $('#showHome').hide();
@@ -193,7 +193,12 @@ HomeLayoutView = (function(_super) {
     } else {
       $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/night.gif');
     }
-    $('#update').val('TODAY');
+    $('#update').val(App.currentUser.get('homeDate'));
+    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+    selected_time = moment(selectedtimestamp).zone(timezone).format('x');
+    if (parseInt(actual_time) === parseInt(selected_time)) {
+      $('#update').val('TODAY');
+    }
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
       dateFormat: 'yy-mm-dd',
@@ -202,7 +207,6 @@ HomeLayoutView = (function(_super) {
       maxDate: new Date(),
       minDate: new Date(reg_date),
       onSelect: function(dateText, inst) {
-        var selected_time, selectedtimestamp;
         $('#showHome').show();
         App.currentUser.set('homeDate', dateText);
         selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");

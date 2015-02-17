@@ -164,7 +164,12 @@ class HomeLayoutView extends Marionette.LayoutView
 		else
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		
-		$('#update').val 'TODAY'
+		$('#update').val App.currentUser.get('homeDate')
+		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
+		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+		
+		if parseInt(actual_time) == parseInt(selected_time)
+			$('#update').val 'TODAY'
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 		$('#update').datepicker(
 				dateFormat : 'yy-mm-dd'
