@@ -57,7 +57,7 @@
     .mm-menu > .mm-panel.mm-highest {
       z-index: 1; }
   .mm-menu .mm-list {
-    padding: 20px 0; }
+    padding: 0px 0; }
   .mm-menu > .mm-list {
     padding-bottom: 0; }
     .mm-menu > .mm-list:after {
@@ -86,8 +86,13 @@
     text-decoration: none; }
   .mm-list > li {
     position: relative; 
-padding: 10px 10px 10px 20px;
   }
+   .mm-list > li > a > i {
+     font-size: 1.7em;
+    color: #FFF;
+    float: left;
+    margin-right: 19px;
+      }
     .mm-list > li > a,
     .mm-list > li > span {
       text-overflow: ellipsis;
@@ -96,21 +101,11 @@ padding: 10px 10px 10px 20px;
       color: inherit;
       line-height: 20px;
       display: block;
-      
-      margin: 0; }
-  .mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-search):not(.mm-noresults):after {
-    content: '';
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    display: block;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0; }
-  .mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-search):not(.mm-noresults):after {
-    width: auto;
-    position: relative;
-    left: auto; }
+  padding: 20px 20px 20px;
+margin: 0;
+border-bottom: 1px solid #2c2c2c;
+}
+  
   .mm-list a.mm-subopen {
     background: rgba(3, 2, 1, 0);
     width: 40px;
