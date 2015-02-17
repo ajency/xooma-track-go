@@ -108,25 +108,28 @@ function removeMsg()
 }
 $(window).bind('load',isWebView);
 $(window).bind('load',removeMsg)
-
 var App  = new Marionette.Application()
 
+  
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
 <?php
 
 function logout_user(){
 
-  wp_logout();
+ 
+add_action('wp_logout', 'clear_transient_on_logout');
 }
 
-
+function clear_transient_on_logout() {
+    delete_transient('transient_name');
+}
 ?> 
 
 
 
 var Messages = <?php echo json_encode(load());?>;
-
+var x2oMessages = <?php echo json_encode(load_x2o());?>;
 
 
 </script>

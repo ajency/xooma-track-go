@@ -490,15 +490,15 @@ class HomeX2OView extends Marionette.ItemView
 			time1 = moment(timestamp0).zone(timezone).format("x")
 			time2 = moment(timestamp1).zone(timezone).format("x")
 			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
-				timeslot = Messages[val]
+				timeslot = x2oMessages[val]
 		
 		$.each per , (ind,val)->
 			if val == how
-				texmsg = Messages[val+'_'+timeslot]
+				texmsg = x2oMessages[val+'_'+timeslot]
 		$.each per1 , (ind,val)->
 			temp = val.split('_')
 			if parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)
-				texmsg = Messages[val+'_'+timeslot]
+				texmsg = x2oMessages[val+'_'+timeslot]
 		
 		texmsg
 

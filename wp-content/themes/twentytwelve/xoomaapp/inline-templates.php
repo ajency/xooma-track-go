@@ -596,8 +596,8 @@
                            <label for="exampleInputFile " class="time_period">Duration</label>
                                 <select class="form-control time_period ">
                                   <option value="">--Select--</option>
-                                  <option value="7">Last 7 days</option>
                                   <option value="30">Last 30 days</option>
+                                  <option value="60">Last 60 days</option>
                                   <option value="all">All time</option>
                                 </select>
                             </div>
@@ -745,7 +745,7 @@
                 <div class="hidden popover-content">
                     <div class="text-center">
                         <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-                        <a class="btn btn-small logout-button" >Logout</a>
+                        <a href="<?php echo wp_logout_url(site_url().'/xooma/#login'); ?>" class="btn btn-small logout-button" >Logout</a>
                     </div>
                 </div>
     </script>

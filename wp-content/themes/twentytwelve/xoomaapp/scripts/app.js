@@ -15,10 +15,7 @@ jQuery(document).ready(function($) {
     }
   });
   App.onBeforeStart = function() {
-    console.log(window.location.hash);
-    if (window.location.hash !== '#login' && window.location.hash !== '') {
-      App.currentUser.set(userData);
-    }
+    App.currentUser.set(window.userData);
     if (!App.currentUser.isLoggedIn()) {
       return App.currentUser.setNotLoggedInCapabilities();
     }
@@ -28,10 +25,10 @@ jQuery(document).ready(function($) {
     return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
-    App.currentUser.set({});
-    window.userData = {};
-    App.currentUser.loginCheck();
-    return App.navigate('/login', true);
+    var arr;
+    arr = [];
+    App.useProductColl.reset(arr);
+    return delete window.userData;
   });
   App.state('settings', {
     url: '/settings',

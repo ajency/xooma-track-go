@@ -496,19 +496,19 @@ HomeX2OView = (function(_super) {
       time1 = moment(timestamp0).zone(timezone).format("x");
       time2 = moment(timestamp1).zone(timezone).format("x");
       if (parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)) {
-        return timeslot = Messages[val];
+        return timeslot = x2oMessages[val];
       }
     });
     $.each(per, function(ind, val) {
       if (val === how) {
-        return texmsg = Messages[val + '_' + timeslot];
+        return texmsg = x2oMessages[val + '_' + timeslot];
       }
     });
     $.each(per1, function(ind, val) {
       var temp;
       temp = val.split('_');
       if (parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)) {
-        return texmsg = Messages[val + '_' + timeslot];
+        return texmsg = x2oMessages[val + '_' + timeslot];
       }
     });
     return texmsg;

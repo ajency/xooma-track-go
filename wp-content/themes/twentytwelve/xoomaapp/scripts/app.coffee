@@ -18,9 +18,7 @@ jQuery(document).ready ($)->
 	
 
 	App.onBeforeStart = ->
-		console.log window.location.hash
-		if window.location.hash != '#login' && window.location.hash != ''
-			App.currentUser.set userData
+		App.currentUser.set window.userData
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
@@ -29,10 +27,11 @@ jQuery(document).ready ($)->
 		App.navigate '#'+App.currentUser.get('state'), true
 
 	App.currentUser.on 'user:logged:out', ->
-		App.currentUser.set {}
-		window.userData = {}
-		App.currentUser.loginCheck()
-		App.navigate '/login', true
+		arr = []
+		App.useProductColl.reset arr
+		delete window.userData
+		
+		
 		
 
 

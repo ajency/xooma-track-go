@@ -62,11 +62,13 @@ XoomaAppRootView = (function(_super) {
     this.currentUserRegion.show(new Ajency.CurrentUserView({
       model: App.currentUser
     }));
-    if (window.location.hash === '') {
+    if (window.location.hash === '' && App.currentUser.get('ID') === void 0) {
       App.currentUser.set({});
       this.ui.link.hide();
       $('.user-data').hide();
       return App.navigate('#login', true);
+    } else {
+      return App.navigate('#home', true);
     }
   };
 
