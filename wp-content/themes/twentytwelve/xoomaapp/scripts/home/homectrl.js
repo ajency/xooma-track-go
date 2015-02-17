@@ -409,7 +409,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.serializeData = function() {
-    var actual_time, bonusArr, consumed, d, data, howmuch, howmuchqty, occurrenceArr, qtyarr, qtyconsumed, recent, selected_time, selectedtimestamp, texmsg, timestamp, timezone, totalservings;
+    var actual_time, actualtime, bonusArr, consumed, currentime, d, data, howmuch, howmuchqty, occurrenceArr, qtyarr, qtyconsumed, recent, selected_time, selectedtimestamp, texmsg, timestamp, timezone, totalservings;
     data = HomeX2OView.__super__.serializeData.call(this);
     texmsg = "";
     timezone = App.currentUser.get('timezone');
@@ -450,7 +450,11 @@ HomeX2OView = (function(_super) {
     console.log(totalservings);
     howmuch = parseInt(totalservings) / parseInt(howmuchqty);
     selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss");
-    actual_time = moment().zone(timezone).format('x');
+    d = new Date(App.currentUser.get('today'));
+    actualtime = d.getTime();
+    actual_time = moment(actualtime).zone(timezone).format('x');
+    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
     selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     texmsg = "The day has passed by";
     if (parseInt(actual_time) === parseInt(selected_time)) {
@@ -727,7 +731,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var actual_time, bonusArr, consumed, count, d, data, howmuch, model, msg, no_servings, occurrenceArr, product_type, qty, recent, reponse, selected_time, selectedtimestamp, skip, temp, texmsg, time, timearray, timeslot, timestamp, timezone, tt;
+    var actual_time, actualtime, bonusArr, consumed, count, currentime, d, data, howmuch, model, msg, no_servings, occurrenceArr, product_type, qty, recent, reponse, selected_time, selectedtimestamp, skip, temp, texmsg, time, timearray, timeslot, timestamp, timezone, tt;
     data = ProductChildView.__super__.serializeData.call(this);
     recent = '--';
     data.occur = 0;
@@ -762,6 +766,7 @@ ProductChildView = (function(_super) {
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
+        occurrenceArr.push(val);
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
         if (parseInt(val.meta_value.qty) !== 0) {
           consumed++;
@@ -782,8 +787,11 @@ ProductChildView = (function(_super) {
     data.serving_size = temp.length;
     console.log(skip = this.checkSkip(temp));
     tt = moment().zone(timezone).format('x');
-    selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss");
-    actual_time = moment().zone(timezone).format('x');
+    d = new Date(App.currentUser.get('today'));
+    actualtime = d.getTime();
+    actual_time = moment(actualtime).zone(timezone).format('x');
+    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
     selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     texmsg = "The day has passed by";
     if (skip[0].length !== 0 && parseInt(actual_time) === parseInt(selected_time)) {
@@ -797,14 +805,17 @@ ProductChildView = (function(_super) {
       msg = "No reminders set";
     }
     data.remindermsg = 'fa fa-bell-slash no-remiander';
+    recent = _.last(occurrenceArr);
     if (this.model.get('upcoming').length !== 0) {
       $.each(this.model.get('upcoming'), function(ind, val) {
-        var time1, timedisplay;
-        time = _.last(timearray);
+        var d1, rec, time1, timedisplay, timestamp1;
+        d1 = new Date(recent);
+        timestamp1 = d1.getTime();
+        rec = moment(timestamp1).zone(timezone).format("x");
         d = new Date(val.next);
         timestamp = d.getTime();
         time1 = moment(timestamp).zone(timezone).format("x");
-        if (parseInt(time) < parseInt(time1)) {
+        if (parseInt(rec) < parseInt(time1)) {
           data.remindermsg = 'fa fa-bell-o element-animation';
           timedisplay = moment(val.next + timezone, "HH:mm Z").format('h:mm A');
           msg = 'Your next reminder is at ' + timedisplay;

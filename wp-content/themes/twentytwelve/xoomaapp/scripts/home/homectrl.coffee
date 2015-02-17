@@ -445,8 +445,14 @@ class HomeX2OView extends Marionette.ItemView
 		console.log totalservings
 		howmuch = parseInt(totalservings) / parseInt(howmuchqty)
 		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss")
-		actual_time = moment().zone(timezone).format('x')
+		d = new Date(App.currentUser.get('today'))
+		actualtime = d.getTime()
+
+		actual_time = moment(actualtime).zone(timezone).format('x')
+		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
 		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+		
 		texmsg = "The day has passed by"
 		if parseInt(actual_time) == parseInt(selected_time)
 			texmsg = @generateStatus(consumed,howmuch)
@@ -766,6 +772,7 @@ class ProductChildView extends Marionette.ItemView
 			occurrence = _.has(val, "occurrence")
 			expected = _.has(val, "expected")
 			if occurrence == true && expected == true
+				occurrenceArr.push val
 				reponse = ProductChildView::occurredfunc(val,ind,model)
 				if parseInt(val.meta_value.qty) != 0
 					consumed++
@@ -780,8 +787,12 @@ class ProductChildView extends Marionette.ItemView
 		data.serving_size = temp.length
 		console.log skip = @checkSkip(temp)
 		tt = moment().zone(timezone).format('x')
-		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss")
-		actual_time = moment().zone(timezone).format('x')
+		d = new Date(App.currentUser.get('today'))
+		actualtime = d.getTime()
+
+		actual_time = moment(actualtime).zone(timezone).format('x')
+		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
 		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		texmsg = "The day has passed by"
 		if skip[0].length != 0 && parseInt(actual_time) == parseInt(selected_time)
@@ -794,14 +805,17 @@ class ProductChildView extends Marionette.ItemView
 		if parseInt(model.get('reminder').length) == 0
 			msg = "No reminders set"
 		data.remindermsg = 'fa fa-bell-slash no-remiander'
+		recent = _.last occurrenceArr
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
-				time = _.last timearray
+				d1 = new Date(recent)
+				timestamp1 = d1.getTime()
+				rec = moment(timestamp1).zone(timezone).format("x")
 				d = new Date(val.next)
 				timestamp = d.getTime()
 				time1 = moment(timestamp).zone(timezone).format("x")
 				
-				if parseInt(time) < parseInt(time1)
+				if parseInt(rec) < parseInt(time1)
 					data.remindermsg = 'fa fa-bell-o element-animation'
 					timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
 					msg = 'Your next reminder is at '+timedisplay

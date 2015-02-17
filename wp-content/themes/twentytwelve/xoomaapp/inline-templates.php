@@ -930,7 +930,7 @@
     </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hidden">
 
     <label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Samples given to the prospective customer</label>
      <div class="col-sm-6 col-xs-7">
