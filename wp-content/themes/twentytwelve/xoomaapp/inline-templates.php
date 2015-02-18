@@ -132,7 +132,8 @@
               </li>
               <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
-              <li><a href="#contact"><i class="fa fa-unlock-alt"></i> Logout</a>
+              <li><a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
+
               </li>
           </ul>
       </nav> 
@@ -603,8 +604,8 @@
                            <label for="exampleInputFile " class="time_period">Duration</label>
                                 <select class="form-control time_period ">
                                   <option value="">--Select--</option>
-                                  <option value="7">Last 7 days</option>
                                   <option value="30">Last 30 days</option>
+                                  <option value="60">Last 60 days</option>
                                   <option value="all">All time</option>
                                 </select>
                             </div>
@@ -750,11 +751,11 @@
                 </div>
     </script>
     <script id="current-user-template" type="text/template">
-<div data-placement="bottom" data-toggle="popover" title="Welcome to xooma {{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
+<div class="hidden" data-placement="bottom" data-toggle="popover" title="Welcome to xooma {{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
                 <div class="hidden popover-content">
                     <div class="text-center">
                         <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-                        <a class="btn btn-small logout-button" >Logout</a>
+                        <a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="btn btn-small logout-button" >Logout</a>
                     </div>
                 </div>
     </script>
@@ -916,7 +917,7 @@
     </div>
     </div>
     <div class="noofcontainer">
-    <div class="form-group">
+    <div class="form-group hidden">
 
     <label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Number of 
 
@@ -939,7 +940,7 @@
     </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hidden">
 
     <label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Samples given to the prospective customer</label>
      <div class="col-sm-6 col-xs-7">
@@ -1011,7 +1012,7 @@
 
      <form id="inventory" class="form-horizontal" role="form" method="POST">
       <div class="form-group">
-        <label for="inputPassword3" class="col-sm-6  col-xs-8 control-label">How many containers do I have ?</label>
+        <label for="inputPassword3" class="col-sm-6  col-xs-8 control-label">Inventory in hand</label>
         <div class="col-sm-6 col-xs-4">
           <b id="container_label" class="bold-sum text-primary"></b>
         </div>
@@ -1042,7 +1043,7 @@
         <div class="form-group record_new">
        
             <label for="inputPassword3" class="col-sm-6  col-xs-6 control-label">
-            Number of new containers
+            Add inventory
             </label>
             <div class="col-sm-6 col-xs-6">
                 <select class="form-control" name="containers" id="containers">
@@ -1322,11 +1323,7 @@
                 <h3 class="text-center margin-none text-muted"> <div class="{{classname}}"></div>{{name}}</h3>
                  <h6 class="text-center text-muted">{{serving}}</h6>
                  <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
-          <div class="range-button">     
-                <input type='button' value='-' class='qtyminus btn ' field='quantity' />
-                <input type='text' name='quantity' value='0' class='qty' />
-                <input type='button' value='+' class='qtyplus btn' field='quantity' />
-          </div>
+          
 
 
 

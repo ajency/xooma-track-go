@@ -60,6 +60,8 @@ window.ParsleyConfig = {
 </script>
     
 <!-- build:js({.js}) scripts/vendors.js -->
+<?php if ( is_development_environment() ) { ?>
+
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -94,39 +96,29 @@ window.ParsleyConfig = {
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
+<?php 
+ }
+?>
 
+<?php if (! is_development_environment() ) {?>
 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/dist/plugins.min.js"></script>
+
+<?php }
+ 
+?>
 <script type="text/javascript">
-function isWebView(){
-    return !(!window.cordova && !window.PhoneGap && !window.phonegap)
-
-}
-
-function removeMsg()
-{
-  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
-}
-$(window).bind('load',isWebView);
-$(window).bind('load',removeMsg)
-
 var App  = new Marionette.Application()
 
+  
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
-<?php
-
-function logout_user(){
-
-  wp_logout();
-}
-
-
-?> 
+ 
 
 
 
 var Messages = <?php echo json_encode(load());?>;
-
+var x2oMessages = <?php echo json_encode(load_x2o());?>;
 
 
 </script>
@@ -135,6 +127,7 @@ var Messages = <?php echo json_encode(load());?>;
 
  
 <!-- build:js(*.js) application.js -->
+<?php if ( is_development_environment() ) { ?>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.ctrl.js"></script>
@@ -162,10 +155,33 @@ var Messages = <?php echo json_encode(load());?>;
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/slick.min.js"></script>   
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
+<?php 
+}
+
+?>
+<?php if (! is_development_environment() ) {?>
+
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/dist/appliction.min.js"></script>
+
+<?php }
+ 
+?>
+
 
     <!-- Frontpage Demo -->
 
 <script type="text/javascript">
+function isWebView(){
+    return !(!window.cordova && !window.PhoneGap && !window.phonegap)
+
+}
+
+function removeMsg()
+{
+  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
+}
+$(window).bind('load',isWebView);
+$(window).bind('load',removeMsg)
         
 window.ParsleyValidator
   .addValidator('equalTo', function (value, requirement) {

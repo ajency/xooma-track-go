@@ -42,11 +42,14 @@ class XoomaAppRootView extends Marionette.LayoutView
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
 
-		if window.location.hash == ''
+
+		if window.location.hash == '' && App.currentUser.get('ID') == undefined
 			App.currentUser.set {}
 			@ui.link.hide()
 			$('.user-data').hide()
 			App.navigate('#login',true)		
+		else
+			App.navigate('#home',true)	
 	
 		
 		

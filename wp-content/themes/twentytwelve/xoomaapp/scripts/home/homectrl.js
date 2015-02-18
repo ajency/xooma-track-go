@@ -177,12 +177,13 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
-    var actual_time, current, currentime, d, day_night, reg_date, timezone;
+    var actual_time, current, currentime, d, day_night, reg_date, selected_time, selectedtimestamp, timezone;
     $('#param option[value="' + window.param + '"]').prop("selected", true);
     $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
     $('#showHome').hide();
-    d = new Date(App.currentUser.get('today'));
-    actual_time = d.getTime();
+    console.log(moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD'));
+    console.log(d = new Date(App.currentUser.get('today')));
+    console.log(actual_time = d.getTime());
     App.trigger('cordova:hide:splash:screen');
     timezone = App.currentUser.get('timezone');
     currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
@@ -193,7 +194,12 @@ HomeLayoutView = (function(_super) {
     } else {
       $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/night.gif');
     }
-    $('#update').val('TODAY');
+    $('#update').val(App.currentUser.get('homeDate'));
+    console.log(selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss"));
+    console.log(selected_time = moment(selectedtimestamp).zone(timezone).format('x'));
+    if (parseInt(actual_time) === parseInt(selected_time)) {
+      $('#update').val('TODAY');
+    }
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     $('#update').datepicker({
       dateFormat: 'yy-mm-dd',
@@ -202,7 +208,6 @@ HomeLayoutView = (function(_super) {
       maxDate: new Date(),
       minDate: new Date(reg_date),
       onSelect: function(dateText, inst) {
-        var selected_time, selectedtimestamp;
         $('#showHome').show();
         App.currentUser.set('homeDate', dateText);
         selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
@@ -384,7 +389,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div><div id="rays"></div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center">Hydrate!</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div><div id="rays"></div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -409,7 +414,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.serializeData = function() {
-    var actual_time, bonusArr, consumed, d, data, howmuch, howmuchqty, occurrenceArr, qtyarr, qtyconsumed, recent, selected_time, selectedtimestamp, texmsg, timestamp, timezone, totalservings;
+    var actual_time, actualtime, bonusArr, consumed, currentime, d, data, howmuch, howmuchqty, occurrenceArr, qtyarr, qtyconsumed, recent, selected_time, selectedtimestamp, texmsg, timestamp, timezone, totalservings;
     data = HomeX2OView.__super__.serializeData.call(this);
     texmsg = "";
     timezone = App.currentUser.get('timezone');
@@ -450,7 +455,11 @@ HomeX2OView = (function(_super) {
     console.log(totalservings);
     howmuch = parseInt(totalservings) / parseInt(howmuchqty);
     selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss");
-    actual_time = moment().zone(timezone).format('x');
+    d = new Date(App.currentUser.get('today'));
+    actualtime = d.getTime();
+    actual_time = moment(actualtime).zone(timezone).format('x');
+    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
     selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     texmsg = "The day has passed by";
     if (parseInt(actual_time) === parseInt(selected_time)) {
@@ -492,19 +501,19 @@ HomeX2OView = (function(_super) {
       time1 = moment(timestamp0).zone(timezone).format("x");
       time2 = moment(timestamp1).zone(timezone).format("x");
       if (parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)) {
-        return timeslot = Messages[val];
+        return timeslot = x2oMessages[val];
       }
     });
     $.each(per, function(ind, val) {
       if (val === how) {
-        return texmsg = Messages[val + '_' + timeslot];
+        return texmsg = x2oMessages[val + '_' + timeslot];
       }
     });
     $.each(per1, function(ind, val) {
       var temp;
       temp = val.split('_');
       if (parseInt(temp[0]) < parseInt(how) && parseInt(temp[1]) > parseInt(how)) {
-        return texmsg = Messages[val + '_' + timeslot];
+        return texmsg = x2oMessages[val + '_' + timeslot];
       }
     });
     return texmsg;
@@ -727,11 +736,9 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.serializeData = function() {
-    var actual_time, bonusArr, consumed, count, d, data, howmuch, model, msg, no_servings, occurrenceArr, product_type, qty, recent, reponse, selected_time, selectedtimestamp, skip, temp, texmsg, time, timearray, timeslot, timestamp, timezone, tt;
+    var actual_time, actualtime, bonusArr, consumed, count, currentime, d, data, howmuch, model, msg, no_servings, occurrenceArr, product_type, qty, recent, reponse, selected_time, selectedtimestamp, skip, temp, texmsg, time, timearray, timeslot, timestamp, timezone, tt;
     data = ProductChildView.__super__.serializeData.call(this);
-    recent = '--';
     data.occur = 0;
-    data.time = recent;
     data.bonus = 0;
     occurrenceArr = [];
     no_servings = [];
@@ -762,6 +769,7 @@ ProductChildView = (function(_super) {
       occurrence = _.has(val, "occurrence");
       expected = _.has(val, "expected");
       if (occurrence === true && expected === true) {
+        occurrenceArr.push(val);
         reponse = ProductChildView.prototype.occurredfunc(val, ind, model);
         if (parseInt(val.meta_value.qty) !== 0) {
           consumed++;
@@ -782,8 +790,11 @@ ProductChildView = (function(_super) {
     data.serving_size = temp.length;
     console.log(skip = this.checkSkip(temp));
     tt = moment().zone(timezone).format('x');
-    selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss");
-    actual_time = moment().zone(timezone).format('x');
+    d = new Date(App.currentUser.get('today'));
+    actualtime = d.getTime();
+    actual_time = moment(actualtime).zone(timezone).format('x');
+    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
     selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     texmsg = "The day has passed by";
     if (skip[0].length !== 0 && parseInt(actual_time) === parseInt(selected_time)) {
@@ -797,14 +808,23 @@ ProductChildView = (function(_super) {
       msg = "No reminders set";
     }
     data.remindermsg = 'fa fa-bell-slash no-remiander';
+    recent = _.last(occurrenceArr);
     if (this.model.get('upcoming').length !== 0) {
       $.each(this.model.get('upcoming'), function(ind, val) {
-        var time1, timedisplay;
-        time = _.last(timearray);
+        var d1, rec, time1, timedisplay, timestamp1;
+        if (recent === void 0) {
+          data.remindermsg = 'fa fa-bell-o element-animation';
+          timedisplay = moment(val.next + timezone, "HH:mm Z").format('h:mm A');
+          msg = 'Your next reminder is at ' + timedisplay;
+          return false;
+        }
+        d1 = new Date(recent);
+        timestamp1 = d1.getTime();
+        rec = moment(timestamp1).zone(timezone).format("x");
         d = new Date(val.next);
         timestamp = d.getTime();
         time1 = moment(timestamp).zone(timezone).format("x");
-        if (parseInt(time) < parseInt(time1)) {
+        if (parseInt(rec) < parseInt(time1)) {
           data.remindermsg = 'fa fa-bell-o element-animation';
           timedisplay = moment(val.next + timezone, "HH:mm Z").format('h:mm A');
           msg = 'Your next reminder is at ' + timedisplay;

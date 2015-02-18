@@ -2342,6 +2342,7 @@ function get_next_occurrence($object_id)
 	global $wpdb;
 
 	$aj_schedules = $wpdb->prefix . "aj_schedules";
+	$aj_occurrence_meta = $wpdb->prefix . "aj_occurrence_meta";
 
 	$query = $wpdb->get_results("SELECT * from $aj_schedules where object_id=".$object_id." 
 		and object_type='user_product_reminder'");
@@ -2350,9 +2351,21 @@ function get_next_occurrence($object_id)
 	$occurrences = [];
 	if($query)
 		foreach ($query as $key => $value) {
+
+			//$squery = $wpdb->get_row("SELECT * from $aj_occurrence_meta where schedule_id=".$value->id."");
+			
+			// if(is_null($squery)) 
+			// {
+			// 	$occurrences[] = array(
+			// 	'next' => $value->next_occurrence,
+			// 	);
+			// 	break;
+			// }
+
 			$occurrences[] = array(
 				'next' => $value->next_occurrence,
-				);
+			 	);
+			
 		}
 
 	return $occurrences;

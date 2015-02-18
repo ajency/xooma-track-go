@@ -6,7 +6,7 @@ function getvars_stock_low_email($recipients_email,$comm_data){
     
 	$template_data['name'] = 'stock_low_email'; // [slug] name or slug of a template that exists in the user's mandrill account
 	$template_data['subject'] = 'Stock Low Ntification';
-	$template_data['from_email'] = 'no-reply@ajency.in';
+	$template_data['from_email'] = 'noreply@xooma.com';
 	$template_data['from_name'] = 'Xooma';
 
 	$username   = $aj_comm->get_communication_meta($comm_data['id'],'username');

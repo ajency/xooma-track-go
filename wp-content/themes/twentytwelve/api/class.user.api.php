@@ -96,6 +96,11 @@ class User_API
             array( array( $this, 'xooma_store_emails'), WP_JSON_Server::CREATABLE),
             
         );
+        // product messages
+        $routes['/messages'] = array(
+            array( array( $this, 'xooma_get_messages'), WP_JSON_Server::READABLE),
+            
+        );
        
 
 
@@ -779,6 +784,14 @@ class User_API
         }
 
         return $response;
+    }
+
+    public function xooma_get_messages(){
+
+        $status_other = json_encode(load());
+        $status  = json_encode(load_x2o());
+
+        return array('x2o' => $status ,'other'=>$status_other);
     }
 
     

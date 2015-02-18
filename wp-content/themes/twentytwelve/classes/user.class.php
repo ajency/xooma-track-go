@@ -316,7 +316,14 @@ class User
         $sub = array();
         $pr_main = array();
        
-      
+        $today = date('Y-m-d H:i:s');
+
+        $user_details = get_user_meta($id,'user_details',true);
+
+        $details = maybe_unserialize($user_details);
+        date_default_timezone_set($details['timezone']);
+        $datestring = $today; 
+        $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
         
         foreach ($sql_query as $key => $term) {
 
@@ -366,22 +373,9 @@ class User
 
            
 
-            $start_dt = date("Y-m-d 00:00:00", strtotime($date));
-        
-
-           
+            
 
             
-            $end_date = date("Y-m-d 23:59:59", strtotime($date));
-
-            $today = date('Y-m-d H:i:s');
-
-            $user_details = get_user_meta($user_id,'user_details',true);
-
-            $details = maybe_unserialize($user_details);
-            date_default_timezone_set($details['timezone']);
-            $datestring = $today;  //Pulled in from somewhere
-            $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
 
            
 
@@ -397,6 +391,28 @@ class User
             //get users_timezone
 
            $occurrences = get_next_occurrence($object_id);
+
+           // $object_type = 'user_product_reminder';
+
+           // $start_dt = date("Y-m-d 00:00:00", strtotime($date));
+
+
+           //  $datestring = $start_dt;  
+           //  $sdate = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
+        
+
+           
+
+            
+           //  $end_date = date("Y-m-d 23:59:59", strtotime($date));
+
+           //  $datestring = $end_date;  
+           //  $edate = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
+
+
+           //  $occurrences = \ajency\ScheduleReminder\Occurrence::
+           //          get_upcoming_occurrences($object_type,$edate,$sdate,$object_id = 0);
+
 
 
 
@@ -437,65 +453,7 @@ class User
     $data = USER::get_user_measurement_details($id,$date="");
     
   
-
-    
-    
-        
-
-       
-            
-
-           
-                
-                // foreach ($sql_query as $key => $term) {
-
-                //     $value = $productList->get_products($term->product_id);
-                  
-                //     $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($value[0]['id'], 'product_type', true)." and type='product_type'");
-                //     $frequency = (get_term_meta($value[0]['id'], 'frequency', true) == 1) ? 'Anytime' : 'Scheduled';
-                //     $time_set = get_term_meta($value[0]['id'], 'time_set', true);
-                    
-
-                //     if($frequency == $val && $time_set != 'asperbmi'){
-                        
-                        
-                       
-                //         $meta_arr = array();
-                //         $user_id = $id;
-                        
-                //         $occurrence = get_occurrence_date($term->product_id,$user_id,$date="");
-                //         $response = $user->get_user_product_details($id,$term->product_id);
-                //         //get stock count of the user//
-                //         $stock_count = get_stock_count_user($id,$term->product_id);
-                //         $sub[] = array(
-
-
-                //             'id'            => intval($term->product_id),
-                //             'name'          => $value[0]['name'],
-                //             'qty'           => $response['qty'],
-                //             'servings'      => count($response['qty']),
-                //             'product_type'  => $product_type->value,
-                //             'occurrence'    => $occurrence,
-                //             'available'     => $stock_count,
-                //             'total'         => $value[0]['total']
-
-
-                //             );
-                        
-
-                //     }
-                    
-
-                // }
-
-               
-
-              
-
-
-   
-    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight'],
-                'today' => $today_date);
+    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight'],'today'=>$today_date);
         
 
     }
