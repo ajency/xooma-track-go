@@ -70,6 +70,7 @@ document.addEventListener "deviceready", ->
 		#Device
 		CordovaApp.updateXoomaMessages()
 
+		
 		# CordovaNotification.schedule 'X2O', '17:00'
 
 		# Usage.notify.on  '$usage:notification', (event, data)->
