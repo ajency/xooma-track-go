@@ -1,5 +1,5 @@
 {
-			"0"   : "Swipe down the bottle to consume",
+			"0"   : "Press on the bottle to hydrate",
 			"0.25"   : "Great start pal, you consumed 25% of the X2O. ",
 			"0.5"   : "Half full half empty 50% of the bottle consumed.",
 			"0.75"   : "Wow, you are about to finish!  75% of the bottle consumed.",
