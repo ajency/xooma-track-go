@@ -7569,6 +7569,15 @@ packet_expected_class {
   border-bottom: 1px solid #fff;
   height: 32px;
 }
+.top-panel-picker .inputcss {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 41px;
+  border-radius: 6px;
+}
+.add-on {
+  display: none;
+}
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0deg);

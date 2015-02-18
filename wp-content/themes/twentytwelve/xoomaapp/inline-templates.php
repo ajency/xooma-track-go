@@ -1122,7 +1122,7 @@
     <div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
     <div class="col-sm-6 col-xs-7 input-append bootstrap-timepicker ">
-     <input name="reminder_time0" id="reminder_time0" disabled class="input-small" type="text" value="{{reminder}}">
+    <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /> <input name="reminder_time0" id="reminder_time0" disabled class="input-small inputcss" type="text" value="{{reminder}}" ></span>
     <span class="add-on"><i class="icon-time"></i></span></div>
     </div>
     </div>
