@@ -17,6 +17,11 @@ class XoomaAppRootView extends Marionette.LayoutView
 			computed_url = '#'+window.location.hash.split('#')[1]
 			App.navigate computed_url ,  true
 
+		'click nav#menu >li.logout-button':(e)->
+			console.log "aaaaaaaaaa"
+			e.preventDefault()
+			
+
 
 	serializeData:->
 		data = super()
@@ -24,16 +29,27 @@ class XoomaAppRootView extends Marionette.LayoutView
 		data.user_email  = App.currentUser.get 'user_email'
 		data
 
+	_successHandler:(response, status,xhr)=>
+		App.currentUser.logout()
+
 
 	onShow:->
 		$('nav#menu').mmenu(
-	        onClick:
-	        	close: true,
-	        	preventDefault : false
-	        	setSelected: true
+			onClick:
+				close: true,
+				preventDefault : false
+				setSelected: true
 			   
 
-	    )
+		)
+		$('.logout-button').on('click', (e)->
+			e.preventDefault()
+			$.ajax
+				method : 'GET'
+				url : "#{APIURL}/logout"
+				success: XoomaAppRootView::_successHandler
+
+		)
 		state = App.currentUser.get 'state'
 		if state != '/home' 
 			@ui.link.hide()

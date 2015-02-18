@@ -811,10 +811,9 @@ function get_all_timezones(){
 		}
 }
 
-//filter to check workflow process
+
 add_filter( 'aj_user_model', 'check_workflow' );
 
-//send emails
 add_action( 'user_register', 'send_emails', 10, 1 );
 
 function send_emails($user_id){
@@ -1500,7 +1499,6 @@ function store_consumption_details($args){
 
 
 }
-//generate_dates('2014-01-01','2015-01-01',186,'weight');
 
 function generate_dates($start_dt,$end_dt,$user_id,$parameter){
 
@@ -2384,4 +2382,13 @@ function get_timezone_date($id,$date)
 	
 
 	return $date;
+}
+
+function my_logout(){
+  
+
+    
+
+    wp_redirect(site_url().'/xooma/#login');
+    die();
 }

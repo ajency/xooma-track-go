@@ -27,6 +27,25 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	events :
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
+		'change #height':(e)->
+			console.log temparr = $(e.target).val().split('.')
+			if temparr.length == 1
+				temparr.push 0
+			$('.heightcms').text temparr[0]+"'"+temparr[1]+'"'
+			
+			ftcm = 30.48 * parseFloat(temparr[0])
+			inchcm = 2.54 * parseFloat(temparr[1])
+			cms  = parseFloat(ftcm) + parseFloat(inchcm)
+			$('.convertheight').text cms.toFixed(2)+ ' Cms'
+
+		'change #weight':(e)->
+			pounds = $(e.target).val()
+			onepound = 0.4535
+			xpound = parseFloat(onepound) * parseFloat(pounds)
+			$('.convertweight').text xpound.toFixed(2)+' Kgs'
+			$('.weightcms').text $(e.target).val()
+
+
 	keydown:(e)->
 		if  e.charCode == 46
 			inputVal = $(e.target).val().split('.').length
@@ -42,7 +61,13 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onShow:->
-		
+		if App.currentUser.get('measurements') != undefined
+			height = App.currentUser.get('measurements').height
+			weight = App.currentUser.get('measurements').weight
+			$('#height option[value="'+height+'"]').prop("selected",true)
+			$('#weight option[value="'+weight+'"]').prop("selected",true)
+			$( '#height' ).trigger( "change" )
+			$( '#weight').trigger( "change" )
 
 		App.trigger 'cordova:hide:splash:screen'
 			

@@ -112,6 +112,7 @@ require_once (get_template_directory().'/classes/productList.class.php');
 require_once (get_template_directory().'/classes/setting.class.php');
 require_once (get_template_directory().'/classes/user.class.php');
 require_once (get_template_directory().'/functions/functions.php');
+
 #load all the classes
 
 
@@ -1505,4 +1506,4 @@ function wpse_11244_restrict_admin() {
         wp_die( __('You are not allowed to access this part of the site') );
     }
 }
-//add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );
+add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );

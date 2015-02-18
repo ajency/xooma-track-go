@@ -132,7 +132,7 @@
               </li>
               <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
-              <li><a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
+              <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
 
               </li>
           </ul>
@@ -489,7 +489,7 @@
                                     <div class="col-sm-6 ">
                                     			<div class="panel-default panel">
                                     			<div class="panel-body ">
-                                                <div class="row">
+                                              <!--  <div class="row">
                                                 <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
                                                         <div class="col-md-5 col-xs-5">
                                                                 <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
@@ -500,6 +500,49 @@
                                                         <input type="range" min="4.0" max="9.0" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
                                                 <div class="convertheight text-center m-t-30 text-muted"></div>
                                                 </div>
+                                                        <fieldset>
+            <label for="valueA">Height:</label>
+            <select value="{{measurements.height}}" id="height" name="height">
+               <option value="4">4&rsquo;</option>
+                    <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="4.2;">4&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="4.3">4&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="4.4">4&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="4.5">4&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="4.6">4&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="4.7">4&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="4.8">4&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="4.9">4&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="4.10">4&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="4.11">4&rsquo;&nbsp;11&rdquo;</option>
+               <option value="5">5&rsquo;</option>
+                    <option value="5.1">5&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="5.2">5&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="5.3">5&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="5.4">5&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="5.5">5&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="5.6">5&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="5.7">5&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="5.8">5&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="5.9">5&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="5.10">5&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="5.11">5&rsquo;&nbsp;11&rdquo;</option>
+                <option value="6">6&rsquo;</option>
+                    <option value="6.1">6&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="6.2">6&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="6.3">6&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="6.4">6&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="6.5">6&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="6.6">6&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="6.7">6&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="6.8">6&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="6.9">6&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="6.10">6&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="6.11">6&rsquo;&nbsp;11&rdquo;</option>
+                
+            </select>
+    
+        </fieldset>
                                                 </br>
                                                 </br>
                                                 <div class="row">
@@ -510,11 +553,165 @@
                                                                 <h4 class="text-left"> <output class="weightcms"></output><small> pounds</small></h4>
                                                         </div>
 
-                                                        <input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
+                                                        <input type="range" min="111" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
                                                         <div class="convertweight text-center m-t-30 text-muted"></div>
                                                 </div>
                              					 </br>
+                                                </br>-->
+
+                                     <div class="row">
+                                                <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
+                                                        <div class="col-md-3 col-xs-3">
+                                                                <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                                <h4 class="text-left">
+             <label for="valueA" class="pull-right"><small> Ft/inches</small></label>
+            <select value="{{measurements.height}}" id="height" name="height" class="default-select">
+                <option value="4">4&rsquo;</option>
+                    <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="4.2;">4&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="4.3">4&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="4.4">4&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="4.5">4&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="4.6">4&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="4.7">4&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="4.8">4&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="4.9">4&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="4.10">4&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="4.11">4&rsquo;&nbsp;11&rdquo;</option>
+                <option value="5">5&rsquo;</option>
+                    <option value="5.1">5&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="5.2">5&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="5.3">5&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="5.4">5&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="5.5">5&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="5.6">5&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="5.7">5&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="5.8">5&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="5.9">5&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="5.10">5&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="5.11">5&rsquo;&nbsp;11&rdquo;</option>
+                <option value="6">6&rsquo;</option>
+                    <option value="6.1">6&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="6.2">6&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="6.3">6&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="6.4">6&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="6.5">6&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="6.6">6&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="6.7">6&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="6.8">6&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="6.9">6&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="6.10">6&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="6.11">6&rsquo;&nbsp;11&rdquo;</option>
+            </select>
+            </h4>
+    </div>
+       <div class="col-md-4 col-xs-12">
+                                                         <div class="convertheight text-center m-t-20 text-muted">123cm</div>
+                                                        </div>                                               
+    
+                                                </div>
+                          </br>
                                                 </br>
+                                                <div class="row">
+                                                        <div class="col-md-3 col-xs-3">
+                                                                <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
+                                                        </div>
+                                                        <div class="col-md-5 ">
+                                                                <h4 class="text-left">  <label for="valueA" class="pull-right"><small>pounds</small></label>
+            <select value="{{measurements.weight}}" id="weight" name="weight" class="default-select">
+                    <option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+<option value="33">33</option>
+<option value="34">34</option>
+<option value="35">35</option>
+<option value="36">36</option>
+<option value="37">37</option>
+<option value="38">38</option>
+<option value="39">39</option>
+<option value="40">40</option>
+<option value="41">41</option>
+<option value="42">42</option>
+<option value="43">43</option>
+<option value="44">44</option>
+<option value="45">45</option>
+<option value="46">46</option>
+<option value="47">47</option>
+<option value="48">48</option>
+<option value="49">49</option>
+<option value="50">50</option>
+<option value="51">51</option>
+<option value="52">52</option>
+<option value="53">53</option>
+<option value="54">54</option>
+<option value="55">55</option>
+<option value="56">56</option>
+<option value="57">57</option>
+<option value="58">58</option>
+<option value="59">59</option>
+<option value="60">60</option>
+<option value="61">61</option>
+<option value="62">62</option>
+<option value="63">63</option>
+<option value="64">64</option>
+<option value="65">65</option>
+<option value="66">66</option>
+<option value="67">67</option>
+<option value="68">68</option>
+<option value="69">69</option>
+<option value="70">70</option>
+<option value="71">71</option>
+<option value="72">72</option>
+<option value="73">73</option>
+<option value="74">74</option>
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
+<option value="80">80</option>
+<option value="81">81</option>
+<option value="82">82</option>
+<option value="83">83</option>
+<option value="84">84</option>
+<option value="85">85</option>
+<option value="86">86</option>
+<option value="87">87</option>
+<option value="88">88</option>
+<option value="89">89</option>
+<option value="90">90</option>
+<option value="91">91</option>
+<option value="92">92</option>
+<option value="93">93</option>
+<option value="94">94</option>
+<option value="95">95</option>
+<option value="96">96</option>
+<option value="97">97</option>
+<option value="98">98</option>
+<option value="99">99</option>
+<option value="100">100</option>
+<option value="101">101</option>
+<option value="102">102</option>
+<option value="103">103</option>
+<option value="104">104</option>
+<option value="105">105</option>
+<option value="106">106</option>
+<option value="107">107</option>
+<option value="108">108</option>
+<option value="109">109</option>
+<option value="110">110</option>
+            </select></h4>
+                                                        </div>
+
+                                                  <div class="col-md-4 col-xs-12">
+                                                               <div class="convertweight text-center m-t-20 text-muted">3.46kg</div>
+                                                        </div>     
+                                                        
+                                                </div>
+                                                 </br>
+                                                </br>  
                                         </div>
                                          </div>
                                         
@@ -964,7 +1161,7 @@
     <div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
     <div class="col-sm-6 col-xs-7 input-append bootstrap-timepicker ">
-     <input name="reminder_time0" id="reminder_time0" disabled class="input-small" type="text" value="{{reminder}}">
+    <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /> <input name="reminder_time0" id="reminder_time0" disabled class="input-small inputcss" type="text" value="{{reminder}}" ></span>
     <span class="add-on"><i class="icon-time"></i></span></div>
     </div>
     </div>
@@ -1330,9 +1527,7 @@
 
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div  class="fa fa-pencil-square-o input-time text-muetd "> <span class="add-on">
-                <i class="icon-time"></i>
-            </span> </div></small><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small " /></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i> <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small home-datepicker  hasDatepicker" /></span></h5>
             </div>
             <div class="col-md-3">
          
