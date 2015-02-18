@@ -102,7 +102,7 @@ window.ParsleyConfig = {
 	$(window).bind('load',isWebView);
 	$(window).bind('load',removeMsg);
 
-	userData 			        = CordovaStorage.getUserData();
+	userData 			  = CordovaStorage.getUserData();
 	App                   = new Marionette.Application();
 	App.LoginCtrl         = Ajency.LoginCtrl;
 	App.NothingFoundCtrl  = Ajency.NothingFoundCtrl;
@@ -152,16 +152,7 @@ window.ParsleyConfig = {
 <!-- Frontpage Demo -->
 
 <script type="text/javascript">
-      $(function() {
-        $('nav#menu').mmenu({
-         onClick: {
-       close: true,
-       preventDefault: false,
-       setSelected: true
-    }
-
-    });
-     });   
+        
 window.ParsleyValidator
   .addValidator('equalTo', function (value, requirement) {
     return value.length == requirement;

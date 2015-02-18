@@ -61,11 +61,6 @@ document.addEventListener("deviceready", function() {
   });
   App.addInitializer(function() {
     Backbone.history.start();
-    Usage.notify.on('$usage:notification', function(event, data) {
-      console.log('Event triggered');
-      return console.log(data);
-    });
-    Usage.track();
     return Push.register().then(function() {
       if (!App.currentUser.isLoggedIn()) {
         App.navigate('/login', {

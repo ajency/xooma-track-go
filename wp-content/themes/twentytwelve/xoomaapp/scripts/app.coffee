@@ -63,13 +63,17 @@ document.addEventListener "deviceready", ->
 	App.addInitializer ->
 		Backbone.history.start()
 
-		Usage.notify.on '$usage:notification', (event, data)->
-			console.log 'Event triggered'
-			console.log data
-
-		Usage.track()
 
 		#Device
+		# CordovaNotification.schedule 'X2O', '17:00'
+
+		# Usage.notify.on  '$usage:notification', (event, data)->
+		# 	console.log 'Event triggered'
+		# 	console.log data.notificationTime
+		# 	#Check condition for user login
+
+		# Usage.track()
+		
 		Push.register()
 		.then ->
 			if not App.currentUser.isLoggedIn()
