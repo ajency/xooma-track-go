@@ -704,7 +704,7 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		  <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
+		  <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
 
 
 				 '
