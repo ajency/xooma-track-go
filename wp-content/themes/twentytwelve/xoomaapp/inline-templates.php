@@ -46,7 +46,12 @@
                     <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
                     </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
-    <h5 class="text-center"></h5>
+          
+                        <div class="row app-link">
+                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/google-btn.png" alt="" class="center-block "  ></a></div>
+                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/apple-btn.png" alt="" class="center-block "  ></a></div>
+                        </div>
+                 
                     </div>
                    
                 </div>
@@ -127,6 +132,8 @@
               </li>
               <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
+              <li><a href="#contact"><i class="fa fa-unlock-alt"></i> Logout</a>
+              </li>
           </ul>
       </nav> 
                  
@@ -148,15 +155,15 @@
                         <div class="row">
                                 <div class="col-sm-12">
                                         <ul class="list-inline">
-                                                <li class="tag"><a  id="profile" href="#/profile/personal-info"><img class="hidden-xs" src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
-                                                        <span > My Personal Info</span></a>
+                                                <li class="tag"><a  id="profile" href="#/profile/personal-info"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
+                                                        <span class="hidden-xs"> My Personal Info</span></a>
                                                 </li>
-                                                <li class="tag"><a id="measurement" href="#/profile/measurements"><img class="hidden-xs" src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
-                                                        <span > My Measurements</span></a>
+                                                <li class="tag"><a id="measurement" href="#/profile/measurements"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
+                                                        <span  class="hidden-xs"> My Measurements</span></a>
                                                 </li>
-                                                <li class="tag"><a id="product" href="#/profile/my-products"><img class="hidden-xs" src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
+                                                <li class="tag"><a id="product" href="#/profile/my-products"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
 
-                                                        <span >My Products</span></a>
+                                                        <span class="hidden-xs" >My Products</span></a>
 
                                                         
 
@@ -571,7 +578,7 @@
                                       </h5>
                     <form id="generate_graph" method="POST"  role="form">
                         <div class="row m-t-30">
-                            <div class="col-md-6 col-xs-6"> 
+                            <div class="col-md-4 col-xs-6"> 
                                 <label for="exampleInputFile">Select</label>
                                     <select class="form-control" aj-field-required="true" id="param" name="param">
                                               <option value="">Please select</option>
@@ -588,7 +595,7 @@
                                     </select>
 
                             </div>
-                            <div class="col-md-6 col-xs-6"> 
+                            <div class="col-md-4 col-xs-6"> 
          <input type="hidden" id="start_date" name="start_date" >
                                 <input type="hidden"  id="end_date" name="end_date">
                         
@@ -601,11 +608,13 @@
                                   <option value="all">All time</option>
                                 </select>
                             </div>
-                        </div>            
-                    
-                
-                    <br/>
-                    <button type="button" name="generate" class="aj-submit-button  btn-link" >Generate Graph</button>
+                               
+                       <div class="col-md-4 col-xs-12"> <br>
+   <button type="button" name="generate" class="aj-submit-button  btn-link" >Generate Graph <i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>  
+        
+                 
     <div class="clearfix"></div><br><div class="loadinggraph"></div> 
 
                 <div id="canvasregion" style="width:100%">
@@ -1313,6 +1322,15 @@
                 <h3 class="text-center margin-none text-muted"> <div class="{{classname}}"></div>{{name}}</h3>
                  <h6 class="text-center text-muted">{{serving}}</h6>
                  <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
+          <div class="range-button">     
+                <input type='button' value='-' class='qtyminus btn ' field='quantity' />
+                <input type='text' name='quantity' value='0' class='qty' />
+                <input type='button' value='+' class='qtyplus btn' field='quantity' />
+          </div>
+
+
+
+
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
                  <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div  class="fa fa-pencil-square-o input-time text-muetd "> <span class="add-on">
@@ -1324,8 +1342,8 @@
             </div>
         </div>
            <div class="row m-t-20">
-        <div class="col-sm-5 col-xs-4"></div>
-      <div class="col-sm-5 col-xs-8">
+        <div class="col-sm-5 col-xs-2"></div>
+      <div class="col-sm-5 col-xs-10">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >

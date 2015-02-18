@@ -128,6 +128,8 @@ body{
      background: none;
     font-size: .9em;
     width: 140px;
+    color:@blue;
+    outline: none;
        @media (max-width: @screen-sm-min) {
               width: 110px;
             }
@@ -338,7 +340,7 @@ div#mcTooltip, div.mcTooltipInner
 
 /* For hyperlink within tooltip */
 div#mcTooltip a { color:#36c; }
-div#mcTooltip input{ float:left; width:60%; margin-right:10px;}
+div#mcTooltip input{ float:left; }
 /*Close button. Available when sticky or overlay has been set to true, or is on iPhone, iPad, Android, BlackBerry, or IEMobile devices. */
 div#mcttCloseButton 
 {
@@ -616,7 +618,7 @@ img {
 
             }
             .ea-full{
-                background : @green;
+                background : @blue;
                z-index:-1;
                position:absolute;
                 width:218px;
@@ -803,25 +805,23 @@ img {
    .home-sub-header{
     top: inherit;
     bottom: 0px;
-    background:@blue;
+    background: #444C54;
     padding:0px;
       li{
           width: 30%;
-         padding: 8px 0px;
-      }
-      li.selected{
-          a{
-            color:@white;
-            border-top: 2px solid #FFFFFF;
-          }
+        img{
+          opacity:0.4;
 
+        }
       }
-       li.done{
-          a{
-            color:@gray-base;
-          }
+     li.selected{
+         
+        img{
+          opacity:9;
           
+        }
       }
+    
     }
 
     }
@@ -1028,7 +1028,7 @@ img {
       width: 320px; 
       height: 320px; 
       margin:auto;
-      top: 153px;
+      top: 171px;
       -webkit-animation-name: spin; 
       -webkit-animation-duration: 40000ms; /* 40 seconds */
       -webkit-animation-iteration-count: infinite; 
@@ -1061,9 +1061,15 @@ img {
     #canvasregion{
       position: relative;
     }
-.picker__box{
-  margin-top:40px;
-}
-.picker__list{
-  padding: 0.75em 0 1.2em !important;
-}
+    .picker__box{
+      margin-top:40px;
+    }
+    .picker__list{
+      padding: 0.75em 0 1.2em !important;
+    }
+
+    /* slider */
+
+  .app-link{
+    margin-top:-70px;
+  }  
