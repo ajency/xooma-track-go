@@ -152,8 +152,9 @@ class HomeLayoutView extends Marionette.LayoutView
 		$('#param option[value="'+window.param+'"]').prop("selected",true)
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#showHome').hide()
-		d = new Date(App.currentUser.get('today'))
-		actual_time = d.getTime()
+		console.log moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
+		console.log d = new Date(App.currentUser.get('today'))
+		console.log actual_time = d.getTime()
 		App.trigger 'cordova:hide:splash:screen'
 		timezone = App.currentUser.get('timezone')
 		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
@@ -165,8 +166,8 @@ class HomeLayoutView extends Marionette.LayoutView
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		
 		$('#update').val App.currentUser.get('homeDate')
-		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+		console.log selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
+		console.log selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		
 		if parseInt(actual_time) == parseInt(selected_time)
 			$('#update').val 'TODAY'
@@ -375,7 +376,7 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="row">
 			
 				  <div class="fill-bottle"> 
-				 <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center"> Tap to Consume</h6>   
+				 <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center">Hydrate!</h6>   
 						<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/>
 							 
 

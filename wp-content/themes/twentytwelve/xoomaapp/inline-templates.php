@@ -745,7 +745,7 @@
                 <div class="hidden popover-content">
                     <div class="text-center">
                         <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-                        <a href="<?php echo wp_logout_url(site_url().'/xooma/#login'); ?>" class="btn btn-small logout-button" >Logout</a>
+                        <a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="btn btn-small logout-button" >Logout</a>
                     </div>
                 </div>
     </script>
@@ -1033,7 +1033,7 @@
         <div class="form-group record_new">
        
             <label for="inputPassword3" class="col-sm-6  col-xs-6 control-label">
-            Number of new containers
+            Add inventory
             </label>
             <div class="col-sm-6 col-xs-6">
                 <select class="form-control" name="containers" id="containers">
