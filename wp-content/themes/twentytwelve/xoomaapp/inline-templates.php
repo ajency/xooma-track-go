@@ -132,7 +132,7 @@
               </li>
               <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
-              <li><a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
+              <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
 
               </li>
           </ul>

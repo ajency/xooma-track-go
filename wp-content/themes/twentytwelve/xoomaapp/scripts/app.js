@@ -28,7 +28,8 @@ jQuery(document).ready(function($) {
     var arr;
     arr = [];
     App.useProductColl.reset(arr);
-    return delete window.userData;
+    delete window.userData;
+    return App.navigate('#login', true);
   });
   App.state('settings', {
     url: '/settings',

@@ -30,6 +30,8 @@ jQuery(document).ready ($)->
 		arr = []
 		App.useProductColl.reset arr
 		delete window.userData
+		App.navigate('#login',true)
+		
 		
 		
 		

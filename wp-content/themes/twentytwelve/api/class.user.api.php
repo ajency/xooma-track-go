@@ -101,6 +101,13 @@ class User_API
             array( array( $this, 'xooma_get_messages'), WP_JSON_Server::READABLE),
             
         );
+
+        // product messages
+        $routes['/logout'] = array(
+            array( array( $this, 'xooma_logout'), WP_JSON_Server::READABLE),
+            
+        );
+       
        
 
 
@@ -793,6 +800,12 @@ class User_API
 
         return array('x2o' => $status ,'other'=>$status_other);
     }
+
+    public function xooma_logout(){
+
+        wp_logout();
+    }
+
 
     
 }
