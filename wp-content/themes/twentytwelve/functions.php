@@ -1506,4 +1506,4 @@ function wpse_11244_restrict_admin() {
         wp_die( __('You are not allowed to access this part of the site') );
     }
 }
-//add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );
+add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );

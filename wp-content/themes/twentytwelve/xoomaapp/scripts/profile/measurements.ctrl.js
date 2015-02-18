@@ -42,6 +42,26 @@ ProfileMeasurementsView = (function(_super) {
   ProfileMeasurementsView.prototype.events = {
     'change @ui.rangeSliders': function(e) {
       return this.valueOutput(e.currentTarget);
+    },
+    'change #height': function(e) {
+      var cms, ftcm, inchcm, temparr;
+      console.log(temparr = $(e.target).val().split('.'));
+      if (temparr.length === 1) {
+        temparr.push(0);
+      }
+      $('.heightcms').text(temparr[0] + "'" + temparr[1] + '"');
+      ftcm = 30.48 * parseFloat(temparr[0]);
+      inchcm = 2.54 * parseFloat(temparr[1]);
+      cms = parseFloat(ftcm) + parseFloat(inchcm);
+      return $('.convertheight').text(cms.toFixed(2) + ' Cms');
+    },
+    'change #weight': function(e) {
+      var onepound, pounds, xpound;
+      pounds = $(e.target).val();
+      onepound = 0.4535;
+      xpound = parseFloat(onepound) * parseFloat(pounds);
+      $('.convertweight').text(xpound.toFixed(2) + ' Kgs');
+      return $('.weightcms').text($(e.target).val());
     }
   };
 
@@ -61,7 +81,15 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, obj, state, timezone;
+    var date, height, obj, state, timezone, weight;
+    if (App.currentUser.get('measurements') !== void 0) {
+      height = App.currentUser.get('measurements').height;
+      weight = App.currentUser.get('measurements').weight;
+      $('#height option[value="' + height + '"]').prop("selected", true);
+      $('#weight option[value="' + weight + '"]').prop("selected", true);
+      $('#height').trigger("change");
+      $('#weight').trigger("change");
+    }
     App.trigger('cordova:hide:splash:screen');
     timezone = App.currentUser.get('timezone');
     $('#date_field').val(moment().zone(timezone).format('YYYY-MM-DD'));

@@ -51,7 +51,7 @@ XoomaAppRootView = (function(_super) {
   };
 
   XoomaAppRootView.prototype._successHandler = function(response, status, xhr) {
-    return App.currentUser.trigger('user:logged:out');
+    return App.currentUser.logout();
   };
 
   XoomaAppRootView.prototype.onShow = function() {

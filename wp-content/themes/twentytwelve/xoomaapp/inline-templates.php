@@ -503,8 +503,7 @@
                                                         <fieldset>
             <label for="valueA">Height:</label>
             <select value="{{measurements.height}}" id="height" name="height">
-                <optgroup label="4&rsquo;">
-                    <option value="4">4&rsquo;</option>
+               <option value="4">4&rsquo;</option>
                     <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
                     <option value="4.2;">4&rsquo;&nbsp;2&rdquo;</option>
                     <option value="4.3">4&rsquo;&nbsp;3&rdquo;</option>
@@ -516,9 +515,7 @@
                     <option value="4.9">4&rsquo;&nbsp;9&rdquo;</option>
                     <option value="4.10">4&rsquo;&nbsp;10&rdquo;</option>
                     <option value="4.11">4&rsquo;&nbsp;11&rdquo;</option>
-                </optgroup>
-                <optgroup label="5&rsquo;"> selected="selected"
-                    <option value="5">5&rsquo;</option>
+               <option value="5">5&rsquo;</option>
                     <option value="5.1">5&rsquo;&nbsp;1&rdquo;</option>
                     <option value="5.2">5&rsquo;&nbsp;2&rdquo;</option>
                     <option value="5.3">5&rsquo;&nbsp;3&rdquo;</option>
@@ -530,9 +527,7 @@
                     <option value="5.9">5&rsquo;&nbsp;9&rdquo;</option>
                     <option value="5.10">5&rsquo;&nbsp;10&rdquo;</option>
                     <option value="5.11">5&rsquo;&nbsp;11&rdquo;</option>
-                </optgroup>
-                <optgroup label="6&rsquo;">
-                    <option value="6">6&rsquo;</option>
+                <option value="6">6&rsquo;</option>
                     <option value="6.1">6&rsquo;&nbsp;1&rdquo;</option>
                     <option value="6.2">6&rsquo;&nbsp;2&rdquo;</option>
                     <option value="6.3">6&rsquo;&nbsp;3&rdquo;</option>
@@ -544,7 +539,7 @@
                     <option value="6.9">6&rsquo;&nbsp;9&rdquo;</option>
                     <option value="6.10">6&rsquo;&nbsp;10&rdquo;</option>
                     <option value="6.11">6&rsquo;&nbsp;11&rdquo;</option>
-                </optgroup>
+                
             </select>
     
         </fieldset>

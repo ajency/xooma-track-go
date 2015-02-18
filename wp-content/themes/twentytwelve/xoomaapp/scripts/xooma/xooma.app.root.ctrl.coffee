@@ -30,7 +30,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 		data
 
 	_successHandler:(response, status,xhr)=>
-		App.currentUser.trigger 'user:logged:out'
+		App.currentUser.logout()
 
 
 	onShow:->

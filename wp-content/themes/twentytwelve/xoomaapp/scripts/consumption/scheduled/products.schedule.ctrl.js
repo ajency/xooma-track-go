@@ -88,7 +88,7 @@ ScheduleView = (function(_super) {
       data = $('#schduleid').val();
       product = this.model.get('id');
       date = App.currentUser.get('homeDate');
-      t = $('#consume_time').val();
+      console.log(t = $('#consume_time').val());
       time = moment(t, "HH:mm a").format("HH:mm:ss");
       if (t === "") {
         time = moment().format("HH:mm:ss");
@@ -167,7 +167,7 @@ ScheduleView = (function(_super) {
     });
     $('#date').val(date);
     $('.input-small').timepicker({
-      defaultTime: false
+      defaultTime: 'current'
     });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
