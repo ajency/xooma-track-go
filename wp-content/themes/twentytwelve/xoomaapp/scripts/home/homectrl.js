@@ -689,7 +689,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'
@@ -738,9 +738,7 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.serializeData = function() {
     var actual_time, actualtime, bonusArr, consumed, count, currentime, d, data, howmuch, model, msg, no_servings, occurrenceArr, product_type, qty, recent, reponse, selected_time, selectedtimestamp, skip, temp, texmsg, time, timearray, timeslot, timestamp, timezone, tt;
     data = ProductChildView.__super__.serializeData.call(this);
-    recent = '--';
     data.occur = 0;
-    data.time = recent;
     data.bonus = 0;
     occurrenceArr = [];
     no_servings = [];
@@ -814,6 +812,12 @@ ProductChildView = (function(_super) {
     if (this.model.get('upcoming').length !== 0) {
       $.each(this.model.get('upcoming'), function(ind, val) {
         var d1, rec, time1, timedisplay, timestamp1;
+        if (recent === void 0) {
+          data.remindermsg = 'fa fa-bell-o element-animation';
+          timedisplay = moment(val.next + timezone, "HH:mm Z").format('h:mm A');
+          msg = 'Your next reminder is at ' + timedisplay;
+          return false;
+        }
         d1 = new Date(recent);
         timestamp1 = d1.getTime();
         rec = moment(timestamp1).zone(timezone).format("x");

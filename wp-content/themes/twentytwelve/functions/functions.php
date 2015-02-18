@@ -2352,15 +2352,19 @@ function get_next_occurrence($object_id)
 	if($query)
 		foreach ($query as $key => $value) {
 
-			$squery = $wpdb->get_row("SELECT * from $aj_occurrence_meta where schedule_id=".$value->id."");
+			//$squery = $wpdb->get_row("SELECT * from $aj_occurrence_meta where schedule_id=".$value->id."");
 			
-			if(is_null($squery)) 
-			{
-				$occurrences[] = array(
+			// if(is_null($squery)) 
+			// {
+			// 	$occurrences[] = array(
+			// 	'next' => $value->next_occurrence,
+			// 	);
+			// 	break;
+			// }
+
+			$occurrences[] = array(
 				'next' => $value->next_occurrence,
-				);
-				break;
-			}
+			 	);
 			
 		}
 

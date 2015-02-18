@@ -704,7 +704,7 @@ class ProductChildView extends Marionette.ItemView
 								</ul>
 			  
 			  </div>
-		  <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
+		  <div class="panel-footer"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>
 
 
 				 '
@@ -748,9 +748,7 @@ class ProductChildView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		recent = '--'
 		data.occur = 0
-		data.time = recent
 		data.bonus = 0
 		occurrenceArr = []
 		no_servings  = []
@@ -814,6 +812,12 @@ class ProductChildView extends Marionette.ItemView
 		recent = _.last occurrenceArr
 		if @model.get('upcoming').length != 0
 			$.each @model.get('upcoming') , (ind,val)->
+				if recent == undefined
+					data.remindermsg = 'fa fa-bell-o element-animation'
+					timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
+					msg = 'Your next reminder is at '+timedisplay
+					return false
+
 				d1 = new Date(recent)
 				timestamp1 = d1.getTime()
 				rec = moment(timestamp1).zone(timezone).format("x")

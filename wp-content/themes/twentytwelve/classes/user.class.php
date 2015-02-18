@@ -392,26 +392,26 @@ class User
 
            $occurrences = get_next_occurrence($object_id);
 
-           $object_type = 'user_product_reminder';
+           // $object_type = 'user_product_reminder';
 
-           $start_dt = date("Y-m-d 00:00:00", strtotime($date));
+           // $start_dt = date("Y-m-d 00:00:00", strtotime($date));
 
 
-            $datestring = $start_dt;  
-            $sdate = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
+           //  $datestring = $start_dt;  
+           //  $sdate = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
         
 
            
 
             
-            $end_date = date("Y-m-d 23:59:59", strtotime($date));
+           //  $end_date = date("Y-m-d 23:59:59", strtotime($date));
 
-            $datestring = $end_date;  
-            $edate = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
+           //  $datestring = $end_date;  
+           //  $edate = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
 
 
-            $occurrences = \ajency\ScheduleReminder\Occurrence::
-                    get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id = 0);
+           //  $occurrences = \ajency\ScheduleReminder\Occurrence::
+           //          get_upcoming_occurrences($object_type,$edate,$sdate,$object_id = 0);
 
 
 
