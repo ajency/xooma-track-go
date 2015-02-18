@@ -489,7 +489,7 @@
                                     <div class="col-sm-6 ">
                                     			<div class="panel-default panel">
                                     			<div class="panel-body ">
-                                                <div class="row">
+                                              <!--  <div class="row">
                                                 <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
                                                         <div class="col-md-5 col-xs-5">
                                                                 <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
@@ -500,6 +500,54 @@
                                                         <input type="range" min="4.0" max="9.0" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
                                                 <div class="convertheight text-center m-t-30 text-muted"></div>
                                                 </div>
+                                                        <fieldset>
+            <label for="valueA">Height:</label>
+            <select value="{{measurements.height}}" id="height" name="height">
+                <optgroup label="4&rsquo;">
+                    <option value="4">4&rsquo;</option>
+                    <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="4.2;">4&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="4.3">4&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="4.4">4&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="4.5">4&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="4.6">4&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="4.7">4&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="4.8">4&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="4.9">4&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="4.10">4&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="4.11">4&rsquo;&nbsp;11&rdquo;</option>
+                </optgroup>
+                <optgroup label="5&rsquo;"> selected="selected"
+                    <option value="5">5&rsquo;</option>
+                    <option value="5.1">5&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="5.2">5&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="5.3">5&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="5.4">5&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="5.5">5&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="5.6">5&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="5.7">5&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="5.8">5&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="5.9">5&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="5.10">5&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="5.11">5&rsquo;&nbsp;11&rdquo;</option>
+                </optgroup>
+                <optgroup label="6&rsquo;">
+                    <option value="6">6&rsquo;</option>
+                    <option value="6.1">6&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="6.2">6&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="6.3">6&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="6.4">6&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="6.5">6&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="6.6">6&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="6.7">6&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="6.8">6&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="6.9">6&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="6.10">6&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="6.11">6&rsquo;&nbsp;11&rdquo;</option>
+                </optgroup>
+            </select>
+    
+        </fieldset>
                                                 </br>
                                                 </br>
                                                 <div class="row">
@@ -510,11 +558,121 @@
                                                                 <h4 class="text-left"> <output class="weightcms"></output><small> pounds</small></h4>
                                                         </div>
 
-                                                        <input type="range" min="100" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
+                                                        <input type="range" min="111" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
                                                         <div class="convertweight text-center m-t-30 text-muted"></div>
                                                 </div>
                              					 </br>
+                                                </br>-->
+
+                                     <div class="row">
+                                                <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
+                                                        <div class="col-md-3 col-xs-3">
+                                                                <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                                <h4 class="text-left">
+             <label for="valueA" class="pull-right"><small> Ft/inches</small></label>
+            <select value="{{measurements.height}}" id="height" name="height" class="default-select">
+                <optgroup label="4&rsquo;">
+                    <option value="4">4&rsquo;</option>
+                    <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="4.2;">4&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="4.3">4&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="4.4">4&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="4.5">4&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="4.6">4&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="4.7">4&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="4.8">4&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="4.9">4&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="4.10">4&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="4.11">4&rsquo;&nbsp;11&rdquo;</option>
+                </optgroup>
+                <optgroup label="5&rsquo;"> 
+                    <option value="5">5&rsquo;</option>
+                    <option value="5.1">5&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="5.2">5&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="5.3">5&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="5.4">5&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="5.5">5&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="5.6">5&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="5.7">5&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="5.8">5&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="5.9">5&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="5.10">5&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="5.11">5&rsquo;&nbsp;11&rdquo;</option>
+                </optgroup>
+                <optgroup label="6&rsquo;">
+                    <option value="6">6&rsquo;</option>
+                    <option value="6.1">6&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="6.2">6&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="6.3">6&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="6.4">6&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="6.5">6&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="6.6">6&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="6.7">6&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="6.8">6&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="6.9">6&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="6.10">6&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="6.11">6&rsquo;&nbsp;11&rdquo;</option>
+            </select>
+            </h4>
+    </div>
+       <div class="col-md-4 col-xs-12">
+                                                         <div class="convertheight text-center m-t-20 text-muted">123cm</div>
+                                                        </div>                                               
+    
+                                                </div>
+                          </br>
                                                 </br>
+                                                <div class="row">
+                                                        <div class="col-md-3 col-xs-3">
+                                                                <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
+                                                        </div>
+                                                        <div class="col-md-5 ">
+                                                                <h4 class="text-left">  <label for="valueA" class="pull-right"><small>pounds</small></label>
+            <select value="{{measurements.weight}}" id="weight" name="weight" class="default-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                     <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                     <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                     <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                     <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                     <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                     <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                     <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+            </select></h4>
+                                                        </div>
+
+                                                  <div class="col-md-4 col-xs-12">
+                                                               <div class="convertweight text-center m-t-20 text-muted">3.46kg</div>
+                                                        </div>     
+                                                        
+                                                </div>
+                                                 </br>
+                                                </br>  
                                         </div>
                                          </div>
                                         
