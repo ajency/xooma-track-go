@@ -68,3 +68,6 @@ var Messages = {
 	"100_timeslot4": "Applause! Well done",
 	"bonus_timeslot4": "You might be awestruck at your self"
 }
+
+
+var x2oMessages = []
