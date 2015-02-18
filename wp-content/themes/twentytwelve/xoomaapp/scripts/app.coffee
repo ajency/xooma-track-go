@@ -1,5 +1,5 @@
 #start of the Application
-jQuery(document).ready ($)->
+document.addEventListener "deviceready", ->
 
 	App.state 'login'
 
@@ -27,16 +27,24 @@ jQuery(document).ready ($)->
 			window.userData = App.currentUser.toJSON()
 
 		App.trigger 'fb:status:connected'
-		App.navigate '#'+App.currentUser.get('state'), true
+		
+		#Device
+		CordovaStorage.setUserData window.userData 
+		ParseCloud.register()
+		.then ->
+			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
 	App.currentUser.on 'user:logged:out', ->
-		arr = []
-		App.useProductColl.reset arr
-		delete window.userData
-		App.navigate('#login',true)
-		
-		
-		
+		#Device
+		CordovaApp.facebookLogout()
+		.then ->
+			ParseCloud.deregister()
+			.then ->
+				CordovaStorage.clear()
+				arr = []
+				App.useProductColl.reset arr
+				delete window.userData
+				App.navigate '/login', replace: true, trigger: true
 		
 
 
@@ -59,17 +67,41 @@ jQuery(document).ready ($)->
 	App.addInitializer ->
 		Backbone.history.start()
 
+		#Device
+		CordovaApp.updateXoomaMessages()
+
+		# CordovaNotification.schedule 'X2O', '17:00'
+
+		# Usage.notify.on  '$usage:notification', (event, data)->
+		# 	console.log 'Event triggered'
+		# 	console.log data.notificationTime
+		# 	#Check condition for user login
+
+		# Usage.track()
+		
+		Push.register()
+		# .then ->
+		# 	if not App.currentUser.isLoggedIn()
+		# 		App.navigate '/login', replace: true, trigger: true
+		# 		App.trigger 'cordova:hide:splash:screen'
+		# 	else
+		# 		App.trigger 'fb:status:connected'
+		# 		App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+
 
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
 	App.on 'cordova:hide:splash:screen', ->
-		console.log "triggered"
+		CordovaApp.hideSplashscreen() if window.isWebView()
 
 	
 	
 
 
 	App.start()
+
+, false
+
 

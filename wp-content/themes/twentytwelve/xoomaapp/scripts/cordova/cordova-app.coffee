@@ -34,15 +34,17 @@
 				update = true if difference > 7
 
 			if update
-				$.get APIURL + "/messages", (messages)->
-					console.log 'Xooma Messages Updated'
-					# CordovaStorage.setMessages
-					# 	other: messages.other
-					# 	x2o: messages.x2o
-					# 	date: moment().format 'DD/MM/YYYY'
+				console.log 'Xooma Messages Updated'
+				$.get "#{APIURL}/messages", (messages)->
+					other = JSON.parse messages.other
+					x2o = JSON.parse messages.x2o
+					CordovaStorage.setMessages
+						other: other
+						x2o: x2o
+						date: moment().format 'DD/MM/YYYY'
 
-					# window.Messages = messages.other
-					# window.x2oMessages = messages.x2o
+					window.Messages = other
+					window.x2oMessages = x2o
 
 
 		facebookLogout : ->

@@ -43,8 +43,18 @@ CordovaApp = {
       }
     }
     if (update) {
-      return $.get(APIURL + "/messages", function(messages) {
-        return console.log('Xooma Messages Updated');
+      console.log('Xooma Messages Updated');
+      return $.get("" + APIURL + "/messages", function(messages) {
+        var other, x2o;
+        other = JSON.parse(messages.other);
+        x2o = JSON.parse(messages.x2o);
+        CordovaStorage.setMessages({
+          other: other,
+          x2o: x2o,
+          date: moment().format('DD/MM/YYYY')
+        });
+        window.Messages = other;
+        return window.x2oMessages = x2o;
       });
     }
   },
