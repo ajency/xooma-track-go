@@ -333,7 +333,7 @@ class App.HomeCtrl extends Ajency.RegionController
 								scrollTop: 0
 								}, 'slow')
 			return false
-		if App.useProductColl.length == 0 
+		if App.useProductColl.length == 0 || App.currentUser.hasChanged("timezone");
 			window.param = 'weight'
 			window.time_period = 'all'
 		

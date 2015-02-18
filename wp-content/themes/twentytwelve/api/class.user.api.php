@@ -399,6 +399,10 @@ class User_API
 
         $date = $_REQUEST['date'];
 
+        if($date == "")
+            $date = date('Y-m-d');
+
+
         $response = $user->get_user_home_products($id,$pid="",$date);
 
         if(count($response) == 0){
