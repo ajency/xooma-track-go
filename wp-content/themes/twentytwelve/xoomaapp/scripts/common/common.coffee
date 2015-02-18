@@ -114,6 +114,7 @@ _.extend Ajency.CurrentUser::,
 				App.graph.set 'dates' , dates
 				App.graph.set 'param' , param
 				App.graph.set 'reg_date' , response.reg_date
+				App.currentUser.set 'today', response.today
 				products = []
 				$.each data , (ind,val)->
 					products.push parseInt(val.id)
@@ -148,6 +149,7 @@ _.extend Ajency.CurrentUser::,
 			App.graph.set 'dates' , dates
 			App.graph.set 'param' , param
 			App.graph.set 'reg_date' , response.reg_date
+			App.currentUser.set 'today', response.today
 			if xhr.status is 200
 				$.each data, (index,value)->
 					App.useProductColl.add value

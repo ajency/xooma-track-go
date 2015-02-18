@@ -10,7 +10,7 @@
 /* TODO: Move this function to proper file */
 function aj_get_global_js_vars(){
 	ob_start(); ?>
-	userData = <?php echo json_encode(aj_get_user_model(get_current_user_id()));?>;
+	window.userData = <?php echo json_encode(aj_get_user_model(get_current_user_id()));?>;
 	var notLoggedInCaps = <?php echo json_encode(aj_get_not_logged_in_caps()[0]);?>;
     var allSystemCaps = <?php echo json_encode(aj_get_all_caps()); ?>;
 	var APIURL = '<?php echo esc_url_raw( get_json_url()) ?>';

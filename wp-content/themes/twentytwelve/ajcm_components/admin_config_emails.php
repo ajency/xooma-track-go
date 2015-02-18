@@ -6,7 +6,7 @@ function getvars_add_product_email($recipients_email,$comm_data){
     
 	$template_data['name'] = 'add_product_email'; // [slug] name or slug of a template that exists in the user's mandrill account
 	$template_data['subject'] = 'Add Product Ntification';
-	$template_data['from_email'] = 'no-reply@ajency.in';
+	$template_data['from_email'] = 'noreply@xooma.com';
 	$template_data['from_name'] = 'Xooma';
 
 	$product_name   = $aj_comm->get_communication_meta($comm_data['id'],'product_name');

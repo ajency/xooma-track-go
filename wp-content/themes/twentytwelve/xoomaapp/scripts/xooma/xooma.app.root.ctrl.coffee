@@ -34,13 +34,6 @@ class XoomaAppRootView extends Marionette.LayoutView
 			   
 
 	    )
-		if window.location.hash == ''
-			App.currentUser.set {}
-			@ui.link.hide()
-			$('.user-data').hide()
-			App.navigate('#/login',true)		
-	
-		
 		state = App.currentUser.get 'state'
 		if state != '/home' 
 			@ui.link.hide()
@@ -48,6 +41,18 @@ class XoomaAppRootView extends Marionette.LayoutView
 			@ui.link.show()
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
+
+
+		if window.location.hash == '' && App.currentUser.get('ID') == undefined
+			App.currentUser.set {}
+			@ui.link.hide()
+			$('.user-data').hide()
+			App.navigate('#login',true)		
+		else
+			App.navigate('#home',true)	
+	
+		
+		
 		
 
 	

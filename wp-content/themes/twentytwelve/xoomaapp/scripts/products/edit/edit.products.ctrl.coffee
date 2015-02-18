@@ -22,7 +22,8 @@ class EditProductsView extends Marionette.ItemView
 	events:
 		'click .save_another':(e)->
 			e.preventDefault()
-			$('.save').trigger( "click" )
+			$(e.target).attr("clicked", "true")
+			@saveEdit()
 
 		'keypress @ui.subtract':(e)->
 			e.charCode >= 48 && e.charCode <= 57 ||	e.charCode == 44 
@@ -42,7 +43,7 @@ class EditProductsView extends Marionette.ItemView
 			html1 = '<div class="reminder">'+$('.reminder').first().html()+'</div>'
 			$('.reminder_div').text ""
 			$('.reminder_div').append html1
-			$('.js__timepicker').each (ind,val)->
+			$('.input-small').each (ind,val)->
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
 			#$( @ui.servings_per_day ).trigger( "change" )
@@ -52,40 +53,10 @@ class EditProductsView extends Marionette.ItemView
 
 		'click .save':(e)->
 			e.preventDefault()
-			product = parseInt @model.get('id')
-			products = App.currentUser.get 'products'
-			if $.inArray( product, products ) > -1
-				@saveData(@model)
-				return
-			check = @checkreminder()
-			if check == false
-				window.removeMsg()
-				@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
-				$('html, body').animate({
-							scrollTop: 0
-							}, 'slow')
-				return 
-			sub = @ui.subtract.val()
-			if sub == ""
-				sub = 0
-			if parseInt($('#available').val()) >  parseInt(sub) 
-				data = @ui.form.serialize()
-				product = @model.get('id')
-				$.ajax
-					method : 'POST'
-					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
-					data : data
-					success : @successSave
-					error : @errorSave
-			else
+			$(e.target).attr("clicked", "true")
+			@saveEdit()
 
 			
-					window.removeMsg()
-					@ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!")
-					$('html, body').animate({
-								scrollTop: 0
-								}, 'slow')
-
 
 		
 
@@ -148,7 +119,7 @@ class EditProductsView extends Marionette.ItemView
 				$('.qty_per_servings').each (ind,val)->
 					val.name = 'qty_per_servings'+ind
 					val.id = 'qty_per_servings'+ind
-				$('.js__timepicker').each (ind,val)->
+				$('.input-small').each (ind,val)->
 					val.name = 'reminder_time'+ind
 					val.id = 'reminder_time'+ind
 
@@ -157,16 +128,51 @@ class EditProductsView extends Marionette.ItemView
 				@showReminders()
 				
 			@loadCheckedData()
-			$('.js__timepicker').pickatime(
-				interval : 15
-
-				)
+			$('.input-small').timepicker(
+				defaultTime : false
+			);
 
 
 		'change .no_of_container':(e)->
 			cnt = parseInt($(e.target).val()) * parseInt(@model.get('total'))
 			$('#available').val cnt
 			$('.available').text cnt
+
+	saveEdit:->
+		product = parseInt @model.get('id')
+		products = App.currentUser.get 'products'
+		if $.inArray( product, products ) > -1
+			@saveData(@model)
+			return
+		check = @checkreminder()
+		if check == false
+			window.removeMsg()
+			@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
+			$('html, body').animate({
+						scrollTop: 0
+						}, 'slow')
+			return 
+		sub = @ui.subtract.val()
+		if sub == ""
+			sub = 0
+		if parseInt($('#available').val()) >  parseInt(sub) 
+			data = @ui.form.serialize()
+			product = @model.get('id')
+			$.ajax
+				method : 'POST'
+				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+				data : data
+				success : @successSave
+				error : @errorSave
+		else
+
+		
+				window.removeMsg()
+				@ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!")
+				$('html, body').animate({
+							scrollTop: 0
+							}, 'slow')
+
 
 	saveData:(model)->
 		check = @checkreminder()
@@ -240,7 +246,7 @@ class EditProductsView extends Marionette.ItemView
 				
 				$('.reminder_div').text ""
 				$('.reminder_div').append html1
-				$('.js__timepicker').each (ind,val)->
+				$('.input-small').each (ind,val)->
 					val.name = 'reminder_time'+ind
 					val.id = 'reminder_time'+ind
 				
@@ -252,16 +258,14 @@ class EditProductsView extends Marionette.ItemView
 			$('#reminder_time0').attr 'disabled' , true			
 			$('.reminder_div').text ""
 			$('.reminder_div').append html1
-			$('.js__timepicker').each (ind,val)->
+			$('.input-small').each (ind,val)->
 				val.name = 'reminder_time'+ind
 				val.id = 'reminder_time'+ind
 				val.value = ""
 
-		$('.js__timepicker').pickatime(
-			interval : 15
-
-			)
-
+		$('.input-small').timepicker(
+			defaultTime : false
+		);
 
 
 	
@@ -278,10 +282,10 @@ class EditProductsView extends Marionette.ItemView
 				model = new UserProductModel 
 				model.set response[0]
 				App.useProductColl.add model , {merge: true}
-		if document.activeElement.name == "save"
-			App.navigate '#/profile/my-products', true
-		else
+		if $(".save_another").attr('clicked')
 			App.navigate '#/products', true
+		else
+			App.navigate '#/profile/my-products', true
 
 
 	errorSave :(response,status,xhr)=>
@@ -345,11 +349,9 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
-		$('.js__timepicker').pickatime(
-			interval: 15
-
-			)
-		
+		$('.input-small').timepicker(
+			defaultTime : false
+		);
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
@@ -384,7 +386,7 @@ class EditProductsView extends Marionette.ItemView
 			else
 				qty = @model.get 'qty'
 				weight = qty.length
-			console.log $('#servings_per_day_value').val weight
+			
 			@showReminders()
 			@showAnytimeData(@model)
 

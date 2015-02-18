@@ -158,12 +158,7 @@ class ProductChildView extends Marionette.ItemView
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
 		name = @model.get('name')
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-		
-		timezone = n
-		if @model.get('timezone') != null
-			timezone = @model.get('timezone')
+		timezone = @model.get('timezone')
 		
 		servings = []
 		reminderArr = []
@@ -175,8 +170,9 @@ class ProductChildView extends Marionette.ItemView
 				newClass = 'x2o_default_class'
 			totalqty += parseInt(value.qty)
 			servings.push classname : newClass , qty : value.qty
-		console.log totalqty
+		console.log reminder
 		$.each reminder , (ind,val)->
+			console.log val.time
 			d = new Date(val.time)
 			timestamp = d.getTime()
 			time = moment(timestamp).zone(timezone).format("h:mm A")

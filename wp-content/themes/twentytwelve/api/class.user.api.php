@@ -96,6 +96,11 @@ class User_API
             array( array( $this, 'xooma_store_emails'), WP_JSON_Server::CREATABLE),
             
         );
+        // product messages
+        $routes['/messages'] = array(
+            array( array( $this, 'xooma_get_messages'), WP_JSON_Server::READABLE),
+            
+        );
        
 
 
@@ -591,21 +596,20 @@ class User_API
         
 
 
+        $timee = date("H:i:s", strtotime($time));
+        $start = date("$date $timee");
+
         $user_details = get_user_meta($id,'user_details',true);
 
         $details = maybe_unserialize($user_details);
-        $timee = date("H:i:s", strtotime($time));
-        $start = date("$date $timee");
+        date_default_timezone_set($details['timezone']);
+        $datestring = $start;  //Pulled in from somewhere
+        $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
         
                         
-        $UTC = new DateTimeZone("UTC");
-        $newTZ = new DateTimeZone($details['timezone']);
-        $dat = new DateTime( $start);
-        $todaydate = $dat->setTimezone( $newTZ );
-        $t  = $todaydate->format('Y-m-d H:i:s');
-        $date1 = new DateTime($t);
-        $date1->setTimezone( $UTC );
-        $today_date = $date1->format('Y-m-d H:i:s');
+       
+
+       
 
         $args = array(
 
@@ -780,6 +784,14 @@ class User_API
         }
 
         return $response;
+    }
+
+    public function xooma_get_messages(){
+
+        $status_other = json_encode(load());
+        $status  = json_encode(load_x2o());
+
+        return array('x2o' => $status ,'other'=>$status_other);
     }
 
     

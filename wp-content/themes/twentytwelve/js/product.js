@@ -313,7 +313,7 @@ jQuery(document).ready(function($) {
             $(".widefat").find('#clone').append($('<td>').append(tetbox_tet),
     		$('<td>').append(tetbox)
 			);
-			$('#count').val(1);
+			$('#count').val(0);
 		  }
 		  $( "#serving_size_clone" ).trigger( "change" );
 			$( "#serving_per_container" ).trigger( "change" );
@@ -357,7 +357,7 @@ jQuery(document).ready(function($) {
 	$('#add').live('click',function(event){
 
 		i = $("table .add_rows tr").length - 1;
-		$('#count').val(i);
+		$('#count').val(parseInt(i)+ 1);
 		
 		row1 = '<input type="textbox"  class="check_number" required id="weight_from'+i+'" name="weight_from'+i+'" value="">';
 		row2 = '<input type="textbox"  class="check_number" required id="weight_to'+i+'" name="weight_to'+i+'" value="">';
@@ -488,7 +488,7 @@ jQuery(document).ready(function($) {
 		if(!(jQuery.isEmptyObject(bmi)))
 		{
 			bmi_display = "";
-			bmi_text = '<td><input type="button" name="add" id="add" value="Add Values for BMI" ></td><td><table class="add_rows">';
+			bmi_text = '<td><input type="button" name="add" id="add" value="Add Values for BMI" ></td><td><table class="add_rows"><tr><td><label>From</label></td><td><label>To</label></td><td><label>Quantity</label></td></tr>';
 			$.each(bmi,function(inde,value) {
 				console.log(value);
 				range = value.range;
@@ -499,7 +499,7 @@ jQuery(document).ready(function($) {
 				console.log(quantity);
 				i = inde
 				bmi_text += 
-		    	'<tr><td><label>From</label></td><td><label>To</label></td><td><label>Quantity</label></td></tr><tr id="row'+i+'"><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
+		    	'<tr id="row'+i+'"><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
 				'<td><input type="textbox" class="check_number" required id="weight_to'+i+'" name="weight_to'+i+'" value="'+range_arr[1]+'"></td>'+
 				'<td><input type="textbox" class="check_number" required id="quantity'+i+'" name="quantity'+i+'" value="'+quantity+'"></td>'+
 				'<td><input type="button" class="del" data-del="'+i+'" name="del'+i+'" id="del'+i+'" value="Del" ></td>'+
@@ -533,7 +533,7 @@ jQuery(document).ready(function($) {
 			when_selected = parseInt(when[0]) == parseInt(index) + 1 ? 'selected' : "";
 			when_selected = parseInt(response[0].frequency_value) == 2 ? when_selected : "";
 			when_text += '<option value="'+(parseInt(index) + 1)+'" '+when_selected+'>'+value+'</option>';
-			if(when[1] !="")
+			if(when[1] !="" && parseInt(when[1]) != 0 )
 			{
 				when_selected_clone = parseInt(when[1]) == parseInt(index) + 1 ? 'selected' : "";
 				when_selected_clone = parseInt(response[0].frequency_value) == 2 ? when_selected_clone : "";

@@ -1,4 +1,4 @@
-document.addEventListener("deviceready", function() {
+jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
   }).state('home', {
@@ -14,35 +14,20 @@ document.addEventListener("deviceready", function() {
     }
   });
   App.onBeforeStart = function() {
-    if (window.location.hash !== '#login' && window.location.hash !== '') {
-      App.currentUser.set(userData);
-    }
+    App.currentUser.set(window.userData);
     if (!App.currentUser.isLoggedIn()) {
       return App.currentUser.setNotLoggedInCapabilities();
     }
   };
   App.currentUser.on('user:auth:success', function() {
     App.trigger('fb:status:connected');
-    CordovaStorage.setUserData(App.currentUser.toJSON());
-    return ParseCloud.register().then(function() {
-      return App.navigate('#' + App.currentUser.get('state'), {
-        replace: true,
-        trigger: true
-      });
-    });
+    return App.navigate('#' + App.currentUser.get('state'), true);
   });
   App.currentUser.on('user:logged:out', function() {
-    return CordovaApp.facebookLogout().then(function() {
-      return ParseCloud.deregister().then(function() {
-        CordovaStorage.clear();
-        App.currentUser.set({});
-        App.currentUser.loginCheck();
-        return App.navigate('/login', {
-          replace: true,
-          trigger: true
-        });
-      });
-    });
+    var arr;
+    arr = [];
+    App.useProductColl.reset(arr);
+    return delete window.userData;
   });
   App.state('settings', {
     url: '/settings',
@@ -60,22 +45,7 @@ document.addEventListener("deviceready", function() {
     }
   });
   App.addInitializer(function() {
-    Backbone.history.start();
-    return Push.register().then(function() {
-      if (!App.currentUser.isLoggedIn()) {
-        App.navigate('/login', {
-          replace: true,
-          trigger: true
-        });
-        return App.trigger('cordova:hide:splash:screen');
-      } else {
-        App.trigger('fb:status:connected');
-        return App.navigate('#' + App.currentUser.get('state'), {
-          replace: true,
-          trigger: true
-        });
-      }
-    });
+    return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {
@@ -83,9 +53,7 @@ document.addEventListener("deviceready", function() {
     }
   });
   App.on('cordova:hide:splash:screen', function() {
-    if (window.isWebView()) {
-      return CordovaApp.hideSplashscreen();
-    }
+    return console.log("triggered");
   });
   return App.start();
-}, false);
+});

@@ -26,7 +26,8 @@
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/themes/default.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
-   
+   <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+
 
 
 
@@ -59,6 +60,8 @@ window.ParsleyConfig = {
 </script>
     
 <!-- build:js({.js}) scripts/vendors.js -->
+<?php if ( is_development_environment() ) { ?>
+
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/underscore/underscore.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -85,6 +88,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment-timezone/moment-timezone.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 
 <!-- endbuild -->
 
@@ -92,39 +96,29 @@ window.ParsleyConfig = {
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/marionette.state/dist/marionette.state.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js"></script>
 <!-- endbuild -->
+<?php 
+ }
+?>
 
+<?php if (! is_development_environment() ) {?>
 
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/dist/plugins.min.js"></script>
+
+<?php }
+ 
+?>
 <script type="text/javascript">
-function isWebView(){
-    return !(!window.cordova && !window.PhoneGap && !window.phonegap)
-
-}
-
-function removeMsg()
-{
-  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
-}
-$(window).bind('load',isWebView);
-$(window).bind('load',removeMsg)
-
 var App  = new Marionette.Application()
 
+  
 <?php echo  aj_get_global_js_vars(); ?>
 <?php echo aj_get_facebook_js(); ?>
-<?php
-
-function logout_user(){
-
-  wp_logout();
-}
-
-
-?> 
+ 
 
 
 
 var Messages = <?php echo json_encode(load());?>;
-
+var x2oMessages = <?php echo json_encode(load_x2o());?>;
 
 
 </script>
@@ -133,6 +127,7 @@ var Messages = <?php echo json_encode(load());?>;
 
  
 <!-- build:js(*.js) application.js -->
+<?php if ( is_development_environment() ) { ?>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.ctrl.js"></script>
@@ -160,10 +155,33 @@ var Messages = <?php echo json_encode(load());?>;
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/slick.min.js"></script>   
 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
+<?php 
+}
+
+?>
+<?php if (! is_development_environment() ) {?>
+
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/dist/appliction.min.js"></script>
+
+<?php }
+ 
+?>
+
 
     <!-- Frontpage Demo -->
 
 <script type="text/javascript">
+function isWebView(){
+    return !(!window.cordova && !window.PhoneGap && !window.phonegap)
+
+}
+
+function removeMsg()
+{
+  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
+}
+$(window).bind('load',isWebView);
+$(window).bind('load',removeMsg)
         
 window.ParsleyValidator
   .addValidator('equalTo', function (value, requirement) {
@@ -183,6 +201,47 @@ slidesToScroll: 1,
 });
 
  
+</script>
+<script type="text/javascript">
+//plugin bootstrap minus and plus
+//http://jsfiddle.net/laelitenetwork/puJ6G/
+jQuery(document).ready(function(){
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
+
 </script>
 
 <?php wp_footer(); ?>

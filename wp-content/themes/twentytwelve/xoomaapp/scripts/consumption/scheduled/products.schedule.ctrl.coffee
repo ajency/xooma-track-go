@@ -143,17 +143,9 @@ class ScheduleView extends Marionette.ItemView
 				return false
 		
 		$('#date').val date
-		$('.js__timepicker').pickatime(
-			interval: 15
-			max : true
-			onSet : (context)->
-
-				$('.now').text $('#consume_time').val()
-			
-
-			 
-
-		)
+		$('.input-small').timepicker(
+			defaultTime : false
+		);
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 

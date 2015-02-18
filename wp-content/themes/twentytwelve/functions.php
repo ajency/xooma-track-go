@@ -1492,9 +1492,17 @@ function load()
   return $proper_data;
 
 }
+function load_x2o()
+{
+  $data = file_get_contents(get_template_directory_uri().'/xoomaapp/json/php/x2o_status.txt');
+  $proper_data = json_decode($data, true);
+
+  return $proper_data;
+
+}
 function wpse_11244_restrict_admin() {
     if ( ! current_user_can( 'manage_options' ) ) {
         wp_die( __('You are not allowed to access this part of the site') );
     }
 }
-add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );
+//add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );
