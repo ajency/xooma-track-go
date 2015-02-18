@@ -21,6 +21,9 @@ jQuery(document).ready(function($) {
     }
   };
   App.currentUser.on('user:auth:success', function() {
+    if (window.isWebView()) {
+      window.userData = App.currentUser.toJSON();
+    }
     App.trigger('fb:status:connected');
     return App.navigate('#' + App.currentUser.get('state'), true);
   });

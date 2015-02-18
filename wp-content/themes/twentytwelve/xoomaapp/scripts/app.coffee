@@ -23,6 +23,9 @@ jQuery(document).ready ($)->
 			App.currentUser.setNotLoggedInCapabilities()
 
 	App.currentUser.on 'user:auth:success', ->
+		if window.isWebView()
+			window.userData = App.currentUser.toJSON()
+
 		App.trigger 'fb:status:connected'
 		App.navigate '#'+App.currentUser.get('state'), true
 
