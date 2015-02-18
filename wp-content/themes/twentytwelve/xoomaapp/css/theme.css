@@ -7560,10 +7560,14 @@ packet_expected_class {
 }
 .top-panel-picker img {
   position: absolute;
-  right: 20px;
+  right: 11px;
   bottom: 0px;
   height: 10px !important;
   width: 10px!important;
+}
+.top-panel-picker input {
+  border-bottom: 1px solid #fff;
+  height: 32px;
 }
 @-webkit-keyframes spin {
   from {
@@ -11777,6 +11781,22 @@ input.qtyminus {
   font-size: 2.5rem !important;
   font-weight: 600;
   border: 0;
+}
+.bootstrap-timepicker-widget table td a i {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "\f078";
+}
+.bootstrap-timepicker-widget table td a .icon-chevron-up:before {
+  content: "\f077";
+}
+.bootstrap-timepicker-widget table td a .icon-chevron-down:before {
+  content: "\f078";
 }
 h1.special,
 h2.special,

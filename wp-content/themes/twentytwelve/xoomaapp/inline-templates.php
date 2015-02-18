@@ -1483,9 +1483,7 @@
 
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div  class="fa fa-pencil-square-o input-time text-muetd "> <span class="add-on">
-                <i class="icon-time"></i>
-            </span> </div></small><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small " /></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i> <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small home-datepicker  hasDatepicker" /></span></h5>
             </div>
             <div class="col-md-3">
          
