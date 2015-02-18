@@ -46,7 +46,12 @@
                     <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
                     </div>
                     <div><h3> <img src="./images/platform.png" alt="" class="center-block img-responsive"  ></h3>
-    <h5 class="text-center"></h5>
+          
+                        <div class="row app-link">
+                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="./images/google-btn.png" alt="" class="center-block "  ></a></div>
+                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="./images/apple-btn.png" alt="" class="center-block "  ></a></div>
+                        </div>
+                 
                     </div>
                    
                 </div>
@@ -127,6 +132,9 @@
               </li>
               <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
+              <li><a class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
+
+              </li>
           </ul>
       </nav> 
                  
@@ -148,15 +156,15 @@
                         <div class="row">
                                 <div class="col-sm-12">
                                         <ul class="list-inline">
-                                                <li class="tag"><a  id="profile" href="#/profile/personal-info"><img class="hidden-xs" src="<./images/icon3.png"/>
-                                                        <span > My Personal Info</span></a>
+                                                <li class="tag"><a  id="profile" href="#/profile/personal-info"><img  src="./images/icon3.png"/>
+                                                        <span class="hidden-xs"> My Personal Info</span></a>
                                                 </li>
-                                                <li class="tag"><a id="measurement" href="#/profile/measurements"><img class="hidden-xs" src="./images/icon2.png"/>
-                                                        <span > My Measurements</span></a>
+                                                <li class="tag"><a id="measurement" href="#/profile/measurements"><img  src="./images/icon2.png"/>
+                                                        <span  class="hidden-xs"> My Measurements</span></a>
                                                 </li>
-                                                <li class="tag"><a id="product" href="#/profile/my-products"><img class="hidden-xs" src="<./images/icon1.png"/>
+                                                <li class="tag"><a id="product" href="#/profile/my-products"><img  src="./images/icon1.png"/>
 
-                                                        <span >My Products</span></a>
+                                                        <span class="hidden-xs" >My Products</span></a>
 
                                                         
 
@@ -571,9 +579,10 @@
                                       </h5>
                     <form id="generate_graph" method="POST"  role="form">
                         <div class="row m-t-30">
-                            <div class="col-md-6 col-xs-6"> 
+                            <div class="col-md-4 col-xs-6"> 
                                 <label for="exampleInputFile">Select</label>
                                     <select class="form-control" aj-field-required="true" id="param" name="param">
+                                              <option value="">Please select</option>
                                               <option value="weight">Weight</option>
                                               <option value="neck">Neck</option>
                                               <option value="chest">Chest</option>
@@ -587,7 +596,7 @@
                                     </select>
 
                             </div>
-                            <div class="col-md-6 col-xs-6"> 
+                            <div class="col-md-4 col-xs-6"> 
          <input type="hidden" id="start_date" name="start_date" >
                                 <input type="hidden"  id="end_date" name="end_date">
                         
@@ -595,16 +604,18 @@
                            <label for="exampleInputFile " class="time_period">Duration</label>
                                 <select class="form-control time_period ">
                                   <option value="">--Select--</option>
-                                  <option value="7">Last 7 days</option>
                                   <option value="30">Last 30 days</option>
+                                  <option value="60">Last 60 days</option>
                                   <option value="all">All time</option>
                                 </select>
                             </div>
-                        </div>            
-                    
-                
-                    <br/>
-                    <button type="button" name="generate" class="aj-submit-button  btn-link" >Generate Graph</button>
+                               
+                       <div class="col-md-4 col-xs-12"> <br>
+   <button type="button" name="generate" class="aj-submit-button  btn-link" >Generate Graph <i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>  
+        
+                 
     <div class="clearfix"></div><br><div class="loadinggraph"></div> 
 
                 <div id="canvasregion" style="width:100%">
@@ -740,11 +751,11 @@
                 </div>
     </script>
     <script id="current-user-template" type="text/template">
-<div data-placement="bottom" data-toggle="popover" title="Welcome to xooma {{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
+<div class="hidden" data-placement="bottom" data-toggle="popover" title="Welcome to xooma {{display_name}}" ><img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 30px;height:30px;"></div>
                 <div class="hidden popover-content">
                     <div class="text-center">
                         <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-                        <a class="btn btn-small logout-button" >Logout</a>
+                        <a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="btn btn-small logout-button" >Logout</a>
                     </div>
                 </div>
     </script>
@@ -906,7 +917,7 @@
     </div>
     </div>
     <div class="noofcontainer">
-    <div class="form-group">
+    <div class="form-group hidden">
 
     <label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Number of 
 
@@ -929,7 +940,7 @@
     </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hidden">
 
     <label for="inputPassword3" class="col-sm-6  col-xs-5 control-label">Samples given to the prospective customer</label>
      <div class="col-sm-6 col-xs-7">
@@ -952,9 +963,9 @@
     <div class="reminder">
     <div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
-    <div class="col-sm-6 col-xs-7 ">
-     <input name="reminder_time0" id="reminder_time0" disabled class="fieldset__input js__timepicker form-control" type="text" value="{{reminder}}">
-    </div>
+    <div class="col-sm-6 col-xs-7 input-append bootstrap-timepicker ">
+     <input name="reminder_time0" id="reminder_time0" disabled class="input-small" type="text" value="{{reminder}}">
+    <span class="add-on"><i class="icon-time"></i></span></div>
     </div>
     </div>
     </div>
@@ -1001,7 +1012,7 @@
 
      <form id="inventory" class="form-horizontal" role="form" method="POST">
       <div class="form-group">
-        <label for="inputPassword3" class="col-sm-6  col-xs-8 control-label">How many containers do I have ?</label>
+        <label for="inputPassword3" class="col-sm-6  col-xs-8 control-label">Inventory in hand</label>
         <div class="col-sm-6 col-xs-4">
           <b id="container_label" class="bold-sum text-primary"></b>
         </div>
@@ -1032,7 +1043,7 @@
         <div class="form-group record_new">
        
             <label for="inputPassword3" class="col-sm-6  col-xs-6 control-label">
-            Number of new containers
+            Add inventory
             </label>
             <div class="col-sm-6 col-xs-6">
                 <select class="form-control" name="containers" id="containers">
@@ -1312,17 +1323,24 @@
                 <h3 class="text-center margin-none text-muted"> <div class="{{classname}}"></div>{{name}}</h3>
                  <h6 class="text-center text-muted">{{serving}}</h6>
                  <h5 class="text-center text-muted m-t-20">How many {{product_type}}(s) did you have ?</h5>
+          
+
+
+
+
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div id="consume_time" name="consume_time" class="fa fa-pencil-square-o input-time text-muetd fieldset__input js__timepicker "> </div></small><input type="button" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd fieldset__input js__timepicker hidden" /></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i>  <span class="now">Now</span> <small><div  class="fa fa-pencil-square-o input-time text-muetd "> <span class="add-on">
+                <i class="icon-time"></i>
+            </span> </div></small><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small " /></h5>
             </div>
             <div class="col-md-3">
          
             </div>
         </div>
            <div class="row m-t-20">
-        <div class="col-sm-5 col-xs-4"></div>
-      <div class="col-sm-5 col-xs-8">
+        <div class="col-sm-5 col-xs-2"></div>
+      <div class="col-sm-5 col-xs-10">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >

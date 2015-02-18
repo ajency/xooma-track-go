@@ -9,8 +9,9 @@
 
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
-	<link rel="stylesheet" href="bower_components/pickadate/lib/compressed/themes/default.css">
+	<link rel="stylesheet" href="bower_components/pickadate/lib/themes/default.css">
 	<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
 
 </head>
 
@@ -18,22 +19,15 @@
 <div ui-region></div>
 <div id="fb-root"></div>
 
-
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-
 <!-- Templates -->
 <div id="inlineTemplate"></div> 
-<script> 
-    $(function(){ $("#inlineTemplate").load("inline-templates.html"); });
-</script>
-<!-- Templates -->
 
 <script type="text/javascript">
 window.ParsleyConfig = {
   validators: {
     equalTo: {
       fn: function (value, requirement) {
-        return value.length == requirement;
+      	return value.length == requirement;
       }
     }
   },
@@ -50,6 +44,7 @@ window.ParsleyConfig = {
 
 <!-- build:js({.js}) scripts/vendors.js -->
 <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
 <script type="text/javascript" src="bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
@@ -74,6 +69,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
 <script type="text/javascript" src="bower_components/moment-timezone/moment-timezone.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 <!-- endbuild -->
 
 <!-- build:js({*.js}) scripts/ajency.js -->
@@ -85,24 +81,8 @@ window.ParsleyConfig = {
 <!-- facebook -->
 <script "text/javascript" src="scripts/common/facebook.js"></script>
 
-<!-- cordova -->
-<script type="text/javascript" src="scripts/cordova/storage.js"></script>
-<script type="text/javascript" src="scripts/cordova/lib/global.js"></script>
-<!-- end cordova -->
-
 <script type="text/javascript">
-
-	function isWebView(){
-    	return !(!window.cordova && !window.PhoneGap && !window.phonegap)
-	}
-
-	function removeMsg(){
-	  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
-	}
-	$(window).bind('load',isWebView);
-	$(window).bind('load',removeMsg);
-
-	userData 			  = CordovaStorage.getUserData();
+	
 	App                   = new Marionette.Application();
 	App.LoginCtrl         = Ajency.LoginCtrl;
 	App.NothingFoundCtrl  = Ajency.NothingFoundCtrl;
@@ -111,6 +91,19 @@ window.ParsleyConfig = {
 
 
 <!-- build:js(*.js) application.js -->
+
+<!-- cordova -->
+<script type="text/javascript" src="../cordova.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/parse.sdk.min.js"></script>
+<script type="text/javascript" src="scripts/cordova/lib/usage.js"></script>
+<script type="text/javascript" src="scripts/cordova/storage.js"></script>
+<script type="text/javascript" src="scripts/cordova/cordova-global.js"></script>
+<script type="text/javascript" src="scripts/cordova/cordova-app.js"></script>
+<script type="text/javascript" src="scripts/cordova/local-notification-handler.js"></script>
+<script type="text/javascript" src="scripts/cordova/push-notification-handler.js"></script>
+<script type="text/javascript" src="scripts/cordova/parse-cloud-auth.js"></script>
+<!-- end cordova -->
+
 <script type="text/javascript" src="scripts/common/common.js"></script>
 <script type="text/javascript" src="scripts/xooma/xooma.app.root.ctrl.js"></script>
 <script type="text/javascript" src="scripts/profile/profile.ctrl.js"></script>
@@ -132,30 +125,31 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="scripts/loading/loading.ctrl.js"></script>
 <script type="text/javascript" src="scripts/loading/workflow.ctrl.js"></script>
 
-<!-- cordova -->
-<script type="text/javascript" src="../cordova.js"></script>
-<script type="text/javascript" src="scripts/cordova/lib/parse.sdk.min.js"></script>
-<script type="text/javascript" src="scripts/cordova/lib/usage.js"></script>
-<script type="text/javascript" src="scripts/cordova/cordova-app.js"></script>
-<script type="text/javascript" src="scripts/cordova/local-notification-handler.js"></script>
-<script type="text/javascript" src="scripts/cordova/push-notification-handler.js"></script>
-<script type="text/javascript" src="scripts/cordova/parse-cloud-auth.js"></script>
-<!-- end cordova -->
-
 <!-- endbuild -->
-<script type="text/javascript" src="scripts/cordova/lib/tooltip.js"></script>
-<script type="text/javascript" src="scripts/cordova/lib/owl.carousel.min.js"></script>
-<script type="text/javascript" src="scripts/cordova/lib/slick.min.js"></script>
+<script type="text/javascript" src="js/tooltip.js"></script>
+<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="js/slick.min.js"></script>
 
 <script type="text/javascript" src="scripts/app.js"></script>
 
 <!-- Frontpage Demo -->
 
 <script type="text/javascript">
+function isWebView(){
+    return !(!window.cordova && !window.PhoneGap && !window.phonegap)
+
+}
+
+function removeMsg()
+{
+  setTimeout(function(){ $('.aj-response-message').removeClass('alert alert-danger');$('.aj-response-message').removeClass('alert alert-success');$('.aj-response-message').text(""); }, 3000);
+}
+$(window).bind('load',isWebView);
+$(window).bind('load',removeMsg)
         
 window.ParsleyValidator
   .addValidator('equalTo', function (value, requirement) {
-    return value.length == requirement;
+  	return value.length == requirement;
   })
   .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
 $(document).ready(function() {
@@ -171,6 +165,47 @@ slidesToScroll: 1,
 });
 
  
+</script>
+<script type="text/javascript">
+//plugin bootstrap minus and plus
+//http://jsfiddle.net/laelitenetwork/puJ6G/
+jQuery(document).ready(function(){
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
+
 </script>
 
 </body> 

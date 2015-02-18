@@ -24,6 +24,7 @@ document.addEventListener "deviceready", ->
 
 	App.currentUser.on 'user:auth:success', ->
 		App.trigger 'fb:status:connected'
+
 		#Device
 		CordovaStorage.setUserData App.currentUser.toJSON() 
 		ParseCloud.register()
@@ -41,8 +42,6 @@ document.addEventListener "deviceready", ->
 		# 	ParseCloud.deregister()
 		# 	.then ->
 		# 		CordovaStorage.clear()
-		# 		App.currentUser.set {}
-		# 		App.currentUser.loginCheck()
 		# 		App.navigate '/login', replace: true, trigger: true
 		
 		
@@ -69,6 +68,9 @@ document.addEventListener "deviceready", ->
 		Backbone.history.start()
 
 		#Device
+		CordovaApp.updateXoomaMessages()
+
+
 		# CordovaNotification.schedule 'X2O', '17:00'
 
 		# Usage.notify.on  '$usage:notification', (event, data)->
@@ -79,13 +81,14 @@ document.addEventListener "deviceready", ->
 		# Usage.track()
 		
 		Push.register()
-		.then ->
-			if not App.currentUser.isLoggedIn()
-				App.navigate '/login', replace: true, trigger: true
-				App.trigger 'cordova:hide:splash:screen'
-			else
-				App.trigger 'fb:status:connected'
-				App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+		# .then ->
+		# 	if not App.currentUser.isLoggedIn()
+		# 		App.navigate '/login', replace: true, trigger: true
+		# 		App.trigger 'cordova:hide:splash:screen'
+		# 	else
+		# 		App.trigger 'fb:status:connected'
+		# 		App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+
 
 
 	App.on 'fb:status:connected', ->

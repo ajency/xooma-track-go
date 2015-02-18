@@ -14,7 +14,6 @@
 
 	Push = 
 
-
 		register : ->
 
 			defer = $.Deferred()

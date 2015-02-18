@@ -52,21 +52,8 @@ document.addEventListener("deviceready", function() {
   });
   App.addInitializer(function() {
     Backbone.history.start();
-    return Push.register().then(function() {
-      if (!App.currentUser.isLoggedIn()) {
-        App.navigate('/login', {
-          replace: true,
-          trigger: true
-        });
-        return App.trigger('cordova:hide:splash:screen');
-      } else {
-        App.trigger('fb:status:connected');
-        return App.navigate('#' + App.currentUser.get('state'), {
-          replace: true,
-          trigger: true
-        });
-      }
-    });
+    CordovaApp.updateXoomaMessages();
+    return Push.register();
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {
