@@ -476,7 +476,8 @@ class HomeX2OView extends Marionette.ItemView
 		timearray = []
 		d = new Date()
 		timestamp = d.getTime()
-		timearray.push moment().zone(timezone).format("x")
+		console.log currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		time = moment(currentime).format("x")
 		per = [0,25,50,75,100,'bonus']
 		per1 = ['0_25','25_50','50_75','75_100']
 		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
@@ -488,7 +489,6 @@ class HomeX2OView extends Marionette.ItemView
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
 			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
 
-			time = _.last timearray
 			d0 = new Date(t0)
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)
@@ -863,12 +863,15 @@ class ProductChildView extends Marionette.ItemView
 		d = new Date()
 		timestamp = d.getTime()
 		timearray.push moment().zone(timezone).format("x")
+		console.log currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		time = moment(currentime).format("x")
+
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
 			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
 			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
 
-			time = _.last timearray
+			
 			d0 = new Date(t0)
 			timestamp0 = d0.getTime()
 			d1 = new Date(t1)

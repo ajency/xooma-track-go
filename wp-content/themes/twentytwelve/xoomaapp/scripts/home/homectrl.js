@@ -473,14 +473,15 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.generateStatus = function(consumed, howmuch) {
-    var d, how, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
+    var currentime, d, how, per, per1, texmsg, time, timearr, timearray, timeslot, timestamp, timezone;
     timezone = App.currentUser.get('timezone');
     texmsg = "";
     timeslot = "";
     timearray = [];
     d = new Date();
     timestamp = d.getTime();
-    timearray.push(moment().zone(timezone).format("x"));
+    console.log(currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+    time = moment(currentime).format("x");
     per = [0, 25, 50, 75, 100, 'bonus'];
     per1 = ['0_25', '25_50', '50_75', '75_100'];
     timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
@@ -489,11 +490,10 @@ HomeX2OView = (function(_super) {
       how = 'bonus';
     }
     $.each(timearr, function(ind, val) {
-      var d0, d1, t0, t1, temp, time, time1, time2, timestamp0, timestamp1;
+      var d0, d1, t0, t1, temp, time1, time2, timestamp0, timestamp1;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss');
       t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss');
-      time = _.last(timearray);
       d0 = new Date(t0);
       timestamp0 = d0.getTime();
       d1 = new Date(t1);
@@ -862,7 +862,7 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.checkStatus = function(howmuch) {
-    var d, per, per1, texmsg, timearr, timearray, timeslot, timestamp, timezone;
+    var currentime, d, per, per1, texmsg, time, timearr, timearray, timeslot, timestamp, timezone;
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
     timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
@@ -873,12 +873,13 @@ ProductChildView = (function(_super) {
     d = new Date();
     timestamp = d.getTime();
     timearray.push(moment().zone(timezone).format("x"));
+    console.log(currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+    time = moment(currentime).format("x");
     $.each(timearr, function(ind, val) {
-      var d0, d1, t0, t1, temp, time, time1, time2, timestamp0, timestamp1;
+      var d0, d1, t0, t1, temp, time1, time2, timestamp0, timestamp1;
       temp = val.split('-');
       t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss');
       t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss');
-      time = _.last(timearray);
       d0 = new Date(t0);
       timestamp0 = d0.getTime();
       d1 = new Date(t1);
