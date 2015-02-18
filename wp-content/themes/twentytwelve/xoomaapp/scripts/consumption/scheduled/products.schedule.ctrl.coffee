@@ -67,7 +67,7 @@ class ScheduleView extends Marionette.ItemView
 				data = $('#schduleid').val()
 				product = @model.get('id')
 				date = App.currentUser.get('homeDate')
-				t = $('#consume_time').val()
+				console.log t = $('#consume_time').val()
 				time  = moment(t,"HH:mm a").format("HH:mm:ss")
 				if t == ""
 					time  = moment().format("HH:mm:ss")
@@ -144,7 +144,7 @@ class ScheduleView extends Marionette.ItemView
 		
 		$('#date').val date
 		$('.input-small').timepicker(
-			defaultTime : false
+			defaultTime : 'current'
 		);
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
