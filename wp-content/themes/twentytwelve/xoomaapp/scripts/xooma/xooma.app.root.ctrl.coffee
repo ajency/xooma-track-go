@@ -64,7 +64,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 			@ui.link.hide()
 			$('.user-data').hide()
 			App.navigate('#login',true)		
-		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == 'home'
+		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
 			App.navigate('#home',true)	
 	
 		

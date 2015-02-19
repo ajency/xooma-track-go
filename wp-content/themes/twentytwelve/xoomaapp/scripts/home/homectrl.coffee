@@ -151,13 +151,15 @@ class HomeLayoutView extends Marionette.LayoutView
 	onShow:->
 		$('#param option[value="'+window.param+'"]').prop("selected",true)
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
+		todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
-		console.log moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
-		console.log d = new Date(App.currentUser.get('today'))
-		console.log actual_time = d.getTime()
 		App.trigger 'cordova:hide:splash:screen'
 		timezone = App.currentUser.get('timezone')
 		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		console.log d = new Date(s)
+		console.log actual_time = d.getTime()
+		
 		current = new Date(actual_time)
 		day_night = current.getHours()
 		if(parseInt(day_night)<=12)
@@ -333,10 +335,10 @@ class App.HomeCtrl extends Ajency.RegionController
 								scrollTop: 0
 								}, 'slow')
 			return false
-		if App.useProductColl.length == 0 || App.currentUser.hasChanged("timezone");
+		if App.useProductColl.length == 0 || App.currentUser.hasChanged('timezone')
 			window.param = 'weight'
 			window.time_period = 'all'
-		
+			App.currentUser.set 'homeDate' , ""
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 		else
 			@show new HomeLayoutView
@@ -452,10 +454,11 @@ class HomeX2OView extends Marionette.ItemView
 		howmuch = parseInt(totalservings) / parseInt(howmuchqty)
 		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss")
 		d = new Date(App.currentUser.get('today'))
-		actualtime = d.getTime()
-
-		actual_time = moment(actualtime).zone(timezone).format('x')
+		todays_date = moment().format('YYYY-MM-DD')
 		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		d = new Date(s)
+		actual_time = d.getTime()
 		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
 		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		
@@ -476,6 +479,7 @@ class HomeX2OView extends Marionette.ItemView
 		timearray = []
 		d = new Date()
 		timestamp = d.getTime()
+		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
 		console.log currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
 		time = moment(currentime).format("x")
 		per = [0,25,50,75,100,'bonus']
@@ -486,8 +490,8 @@ class HomeX2OView extends Marionette.ItemView
 				how = 'bonus'
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
-			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
-			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
+			console.log t0 = moment(s+temp[0], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
+			console.log t1 = moment(s+temp[1], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
 
 			d0 = new Date(t0)
 			timestamp0 = d0.getTime()
@@ -791,11 +795,11 @@ class ProductChildView extends Marionette.ItemView
 		data.serving_size = temp.length
 		console.log skip = @checkSkip(temp)
 		tt = moment().zone(timezone).format('x')
-		d = new Date(App.currentUser.get('today'))
-		actualtime = d.getTime()
-
-		actual_time = moment(actualtime).zone(timezone).format('x')
+		todays_date = moment().format('YYYY-MM-DD')
 		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		d = new Date(s)
+		actual_time = d.getTime()
 		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
 		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		texmsg = "The day has passed by"
@@ -863,13 +867,14 @@ class ProductChildView extends Marionette.ItemView
 		d = new Date()
 		timestamp = d.getTime()
 		timearray.push moment().zone(timezone).format("x")
+		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
 		console.log currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
 		time = moment(currentime).format("x")
 
 		$.each timearr , (ind,val)->
 			temp = val.split('-')
-			t0 = moment(temp[0], "hA").format('YYYY-MM-DD HH:mm:ss')
-			t1 = moment(temp[1], "hA").format('YYYY-MM-DD HH:mm:ss')
+			t0 = moment(s+temp[0], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
+			t1 = moment(s+temp[1], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
 
 			
 			d0 = new Date(t0)

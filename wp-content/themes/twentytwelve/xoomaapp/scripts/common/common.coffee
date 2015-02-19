@@ -101,8 +101,9 @@ _.extend Ajency.CurrentUser::,
 		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
 		 	date = App.currentUser.get('homeDate')
 		else
-			date =  ""
-			
+			timezone = App.currentUser.get('timezone')
+			console.log date =  moment().zone(timezone).format('YYYY-MM-DD')
+			App.currentUser.set 'homeDate' , date
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
 				data = response.response
@@ -114,7 +115,6 @@ _.extend Ajency.CurrentUser::,
 				App.graph.set 'param' , param
 				App.graph.set 'reg_date' , response.reg_date
 				App.currentUser.set 'today', response.today
-				App.currentUser.set 'homeDate' , response.homeDate
 				products = []
 				$.each data , (ind,val)->
 					products.push parseInt(val.id)
@@ -134,8 +134,9 @@ _.extend Ajency.CurrentUser::,
 		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
 		 	date = App.currentUser.get('homeDate')
 		else
-			date =  ""
-			
+			timezone = App.currentUser.get('timezone')
+			console.log date =  moment().zone(timezone).format('YYYY-MM-DD')
+			App.currentUser.set 'homeDate' , date
 
 		console.log date
 			
@@ -149,7 +150,6 @@ _.extend Ajency.CurrentUser::,
 			App.graph.set 'param' , param
 			App.graph.set 'reg_date' , response.reg_date
 			App.currentUser.set 'today', response.today
-			App.currentUser.set 'homeDate' , response.homeDate
 			if xhr.status is 200
 				$.each data, (index,value)->
 					App.useProductColl.add value

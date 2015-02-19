@@ -85,7 +85,7 @@ XoomaAppRootView = (function(_super) {
       this.ui.link.hide();
       $('.user-data').hide();
       return App.navigate('#login', true);
-    } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === 'home') {
+    } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === '/home') {
       return App.navigate('#home', true);
     }
   };

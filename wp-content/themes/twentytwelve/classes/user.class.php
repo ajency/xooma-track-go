@@ -450,12 +450,11 @@ class User
     $reg_date = get_user_measurement_date($id);
     $graph = generate_dates($reg_date,date('Y-m-d'),$id,'weight');
 
-    $sendDate = $date;
     $data = USER::get_user_measurement_details($id,$date="");
     
-    
+  
     return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,
-        'weight'=>$data['response']['weight'],'today'=>$today_date,'homeDate' => $sendDate);
+        'weight'=>$data['response']['weight'],'today'=>$today_date);
         
 
     }

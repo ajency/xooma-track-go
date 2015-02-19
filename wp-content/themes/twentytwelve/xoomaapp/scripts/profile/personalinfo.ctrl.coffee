@@ -85,6 +85,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		else
 			if state == '/home'
 				window.removeMsg()
+				App.currentUser.set 'profile', response
+				App.currentUser.set 'timezone', response.timezone
+				
 				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 				$('html, body').animate({
 							scrollTop: 0
