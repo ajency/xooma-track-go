@@ -16,6 +16,7 @@ _SITEURL = 'http://www.xooma.ajency.in';
 
 notLoggedInCaps = {
   'access_login': true,
+  'access_xooma': true,
   'level_0': true
 };
 

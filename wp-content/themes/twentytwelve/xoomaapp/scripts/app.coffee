@@ -69,7 +69,7 @@ document.addEventListener "deviceready", ->
 
 		#Device
 		CordovaApp.updateXoomaMessages()
-
+		Push.register()
 		
 		# CordovaNotification.schedule 'X2O', '17:00'
 
@@ -80,14 +80,7 @@ document.addEventListener "deviceready", ->
 
 		# Usage.track()
 		
-		Push.register()
-		# .then ->
-		# 	if not App.currentUser.isLoggedIn()
-		# 		App.navigate '/login', replace: true, trigger: true
-		# 		App.trigger 'cordova:hide:splash:screen'
-		# 	else
-		# 		App.trigger 'fb:status:connected'
-		# 		App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+		
 
 
 	App.on 'fb:status:connected', ->

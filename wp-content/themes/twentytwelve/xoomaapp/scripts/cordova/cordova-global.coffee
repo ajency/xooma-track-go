@@ -19,6 +19,7 @@ _SITEURL = 'http://www.xooma.ajency.in'
 #User capabilities
 notLoggedInCaps = 
 	'access_login': true
+	'access_xooma': true
 	'level_0': true
 
 
