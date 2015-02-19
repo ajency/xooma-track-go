@@ -2216,7 +2216,8 @@ function notifications_low_stock($user_id,$product_name,$available,$type){
 		'product_name'    => $product_name,
 		'available'       => $available,
 		'loginurl'		  => site_url().'/xooma-app/#login',
-		'img'			  => site_url().'/assets/logo.png'
+		'img'			  => site_url().'/assets/logo.png',
+		'siteurl'			  => site_url()
 
 
 		);
@@ -2263,7 +2264,8 @@ function notifications_add_product($product_id,$product_name,$description){
 		'product_name'    => $product_name,
 		'description'       => $description,
 		'loginurl'		  => site_url().'/xooma-app/#login',
-		'img'			  => site_url().'/assets/logo.png'
+		'img'			  => site_url().'/assets/logo.png',
+		'siteurl'			  => site_url()
 
 
 		);
