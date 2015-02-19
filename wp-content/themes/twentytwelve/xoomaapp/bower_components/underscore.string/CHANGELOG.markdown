@@ -1,6 +1,17 @@
 
 # Changelog
 
+### 3.0.3
+
+* Provide `dist` in npm package [#402](https://github.com/epeli/underscore.string/pull/402)
+* [Full changelog](https://github.com/epeli/underscore.string/compare/3.0.2...3.0.3)
+
+### 3.0.2
+
+* Fix .gitignore for bower [#400](https://github.com/epeli/underscore.string/issues/400)
+* Some docs cleanup
+* [Full changelog](https://github.com/epeli/underscore.string/compare/3.0.1...3.0.2)
+
 ### 3.0.1
 
 * Minor fixes in the documentation [#390](https://github.com/epeli/underscore.string/pull/390) and [5135cb9](https://github.com/epeli/underscore.string/commit/5135cb9026034e9ea206c2ed8588db1eeb3ce95a)

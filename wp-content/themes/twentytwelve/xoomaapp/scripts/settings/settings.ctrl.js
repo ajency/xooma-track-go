@@ -18,8 +18,6 @@ SettingsView = (function(_super) {
     return SettingsView.__super__.constructor.apply(this, arguments);
   }
 
-  SettingsView.prototype.className = 'animated fadeIn';
-
   SettingsView.prototype.template = '#settings-template';
 
   SettingsView.prototype.ui = {

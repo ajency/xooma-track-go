@@ -1,6 +1,6 @@
 {
   "name": "knockout-bootstrap",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": [
     "./build/knockout-bootstrap.min.js"
   ],
@@ -10,19 +10,19 @@
     ".travis.yml"
   ],
   "dependencies": {
-    "jquery": ">= 1.9.0",
-    "bootstrap": ">= 2.1.1",
-    "knockout": ">= 3.1.0"
+    "jquery": ">= 1.9.1",
+    "bootstrap": ">= 3.3.1",
+    "knockout": ">= 3.1.0",
+    "typeahead.js": ">= v0.10.5"
   },
   "homepage": "https://github.com/billpull/knockout-bootstrap",
-  "_release": "0.3.1",
+  "_release": "0.3.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.1",
-    "commit": "6a6e8d296d91810cf75cdff17701267319ebf623"
+    "tag": "v0.3.2",
+    "commit": "3a64b2040aa99907412902abeec39d49ccb4e2d5"
   },
   "_source": "git://github.com/billpull/knockout-bootstrap.git",
   "_target": "~0.3.1",
-  "_originalSource": "knockout-bootstrap",
-  "_direct": true
+  "_originalSource": "knockout-bootstrap"
 }

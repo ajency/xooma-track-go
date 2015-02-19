@@ -20,6 +20,9 @@ class XoomaAppRootView extends Marionette.LayoutView
 		'click nav#menu >li.logout-button':(e)->
 			console.log "aaaaaaaaaa"
 			e.preventDefault()
+
+	
+
 			
 
 
@@ -34,6 +37,19 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
 	onShow:->
+		if window.location.hash == '' && App.currentUser.get('ID') == undefined
+			App.currentUser.set {}
+			@ui.link.hide()
+			$('.user-data').hide()
+			App.navigate '#login', replace: true, trigger: true
+			
+		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
+			App.navigate '#home', replace: true, trigger: true
+			
+	
+		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state != '/home'
+			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+
 		$('nav#menu').mmenu(
 			onClick:
 				close: true,
@@ -50,25 +66,17 @@ class XoomaAppRootView extends Marionette.LayoutView
 				success: XoomaAppRootView::_successHandler
 
 		)
-		state = App.currentUser.get 'state'
+		console.log state = App.currentUser.get 'state'
 		if state != '/home' 
 			@ui.link.hide()
 		else
-			@ui.link.show()
+			$('.link').show()
 		@currentUserRegion.show new Ajency.CurrentUserView
 											model : App.currentUser
 
 
-		if window.location.hash == '' && App.currentUser.get('ID') == undefined
-			App.currentUser.set {}
-			@ui.link.hide()
-			$('.user-data').hide()
-			App.navigate('#login',true)		
-		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
-			App.navigate('#home',true)	
-	
 		
-		
+
 		
 
 	

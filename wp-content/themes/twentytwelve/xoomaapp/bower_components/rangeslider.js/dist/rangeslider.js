@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.3.7 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.3.9 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -27,7 +27,6 @@
     }
 
     var pluginName = 'rangeslider',
-        pluginInstances = [],
         pluginIdentifier = 0,
         inputrange = supportsRange(),
         defaults = {
@@ -85,10 +84,13 @@
      * @return {Boolean}
      */
     function isHidden(element) {
-        if (element.offsetWidth !== 0 || element.offsetHeight !== 0) {
-            return false;
+        if (element.offsetWidth === 0 ||
+            element.offsetHeight === 0 ||
+            // Also Consider native `<details>` elements.
+            element.open === false) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -121,6 +123,13 @@
             displayProperty         = [],
             dimension               = element[key];
 
+        // Used for native `<details>` elements
+        function toggleOpenProperty(element) {
+            if (typeof element.open !== 'undefined') {
+                element.open = (element.open) ? false : true;
+            }
+        }
+
         if (hiddenParentNodesLength) {
             for (var i = 0; i < hiddenParentNodesLength; i++) {
                 // Cache the display property to restore it later.
@@ -130,11 +139,13 @@
                 hiddenParentNodes[i].style.height = '0';
                 hiddenParentNodes[i].style.overflow = 'hidden';
                 hiddenParentNodes[i].style.visibility = 'hidden';
+                toggleOpenProperty(hiddenParentNodes[i]);
             }
 
             dimension = element[key];
 
             for (var j = 0; j < hiddenParentNodesLength; j++) {
+                toggleOpenProperty(hiddenParentNodes[j]);
                 hiddenParentNodes[j].style.display = displayProperty[j];
                 hiddenParentNodes[j].style.height = '';
                 hiddenParentNodes[j].style.overflow = '';
@@ -154,11 +165,6 @@
         this.$document  = $(document);
         this.$element   = $(element);
         this.options    = $.extend( {}, defaults, options );
-        this._defaults  = defaults;
-        this._name      = pluginName;
-        this.startEvent = this.options.startEvent.join('.' + pluginName + ' ') + '.' + pluginName;
-        this.moveEvent  = this.options.moveEvent.join('.' + pluginName + ' ') + '.' + pluginName;
-        this.endEvent   = this.options.endEvent.join('.' + pluginName + ' ') + '.' + pluginName;
         this.polyfill   = this.options.polyfill;
         this.onInit     = this.options.onInit;
         this.onSlide    = this.options.onSlide;
@@ -171,6 +177,9 @@
         }
 
         this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
+        this.startEvent = this.options.startEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
+        this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
+        this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
         this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
         this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
@@ -198,7 +207,7 @@
 
         // Attach Events
         var _this = this;
-        this.$window.on('resize' + '.' + pluginName, debounce(function() {
+        this.$window.on('resize' + '.' + this.identifier, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
@@ -206,8 +215,8 @@
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
 
         // Listen to programmatic value changes
-        this.$element.on('change' + '.' + pluginName, function(e, data) {
-            if (data && data.origin === pluginName) {
+        this.$element.on('change' + '.' + this.identifier, function(e, data) {
+            if (data && data.origin === _this.identifier) {
                 return;
             }
 
@@ -352,26 +361,22 @@
 
     Plugin.prototype.setValue = function(value) {
         if (value !== this.value) {
-            this.$element.val(value).trigger('change', {origin: pluginName});
+            this.$element.val(value).trigger('change', {origin: this.identifier});
         }
     };
 
     Plugin.prototype.destroy = function() {
-        this.$document.off(this.startEvent, '#' + this.identifier, this.handleDown);
+        this.$document.off('.' + this.identifier);
+        this.$window.off('.' + this.identifier);
+
         this.$element
-            .off('.' + pluginName)
+            .off('.' + this.identifier)
             .removeAttr('style')
             .removeData('plugin_' + pluginName);
 
         // Remove the generated markup
         if (this.$range && this.$range.length) {
             this.$range[0].parentNode.removeChild(this.$range[0]);
-        }
-
-        // Remove global events if there isn't any instance anymore.
-        pluginInstances.splice(pluginInstances.indexOf(this.$element[0]),1);
-        if (!pluginInstances.length) {
-            this.$window.off('.' + pluginName);
         }
     };
 
@@ -385,7 +390,6 @@
             // Create a new instance.
             if (!data) {
                 $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
-                pluginInstances.push(this);
             }
 
             // Make it possible to access methods from public.

@@ -34,21 +34,6 @@ jQuery(document).ready(function($) {
     delete window.userData;
     return App.navigate('#login', true);
   });
-  App.state('settings', {
-    url: '/settings',
-    parent: 'xooma'
-  }).state('home', {
-    url: '/home',
-    parent: 'xooma',
-    sections: {
-      'x2o': {
-        ctrl: 'HomeX2OCtrl'
-      },
-      'other-products': {
-        ctrl: 'HomeOtherProductsCtrl'
-      }
-    }
-  });
   App.addInitializer(function() {
     return Backbone.history.start();
   });
