@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/themes/default.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
-   <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+   <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/bootstrap-timepicker.min.css">
 
 
 
