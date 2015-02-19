@@ -195,6 +195,9 @@ class EditProductsView extends Marionette.ItemView
 
 	checkreminder:->
 		servings = $('.servings_per_day').val()
+		
+		if $('.servings_per_day').val() == ""
+			servings = $('#servings_per_day_value').val()
 		i = 0
 		while i < servings
 			if $('#reminder_time'+i).val() == "" && parseInt($('#reminder').val()) == 1
