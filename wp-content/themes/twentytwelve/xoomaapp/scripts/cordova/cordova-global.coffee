@@ -44,3 +44,6 @@ do ->
 	storedMessages = CordovaStorage.getMessages()
 	Messages = storedMessages.other
 	x2oMessages = storedMessages.x2o
+
+
+	

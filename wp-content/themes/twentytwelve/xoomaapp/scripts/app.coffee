@@ -34,6 +34,7 @@ document.addEventListener "deviceready", ->
 		.then ->
 			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
 
+	
 	App.currentUser.on 'user:logged:out', ->
 		#Device
 		CordovaApp.facebookLogout()
