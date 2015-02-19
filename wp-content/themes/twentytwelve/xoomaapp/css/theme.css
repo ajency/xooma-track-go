@@ -7557,11 +7557,12 @@ packet_expected_class {
 }
 .top-panel-picker {
   position: relative;
+  display: inline-block;
 }
 .top-panel-picker img {
   position: absolute;
-  right: 11px;
-  bottom: 0px;
+  right: 2px;
+  bottom: 2px;
   height: 10px !important;
   width: 10px!important;
 }
@@ -7654,6 +7655,9 @@ packet_expected_class {
 /* slider */
 .app-link {
   margin-top: -70px;
+}
+.panel-mobile .top-panel-picker {
+  display: initial;
 }
 /* Top - Header */
 .topheader {
