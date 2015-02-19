@@ -219,7 +219,7 @@ EditProductsView = (function(_super) {
     var i, servings;
     servings = $('.servings_per_day').val();
     if ($('.servings_per_day').val() === "") {
-      servings = $('#servings_per_day_value').val();
+      servings = $('#x2o').val;
     }
     i = 0;
     while (i < servings) {
@@ -267,8 +267,8 @@ EditProductsView = (function(_super) {
       $(this.ui.servings_diff).prop('disabled', false);
       $('#reminder_time0').removeAttr('disabled');
       servings = $('.servings_per_day').val();
-      if ($('#servings_per_day_value').val() !== "") {
-        servings = $('#servings_per_day_value').val();
+      if ($('#servings_per_day').val() !== "") {
+        servings = $('#x2o').val();
       }
       html1 = "";
       i = 1;
