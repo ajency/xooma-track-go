@@ -258,6 +258,7 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.showReminders = function() {
     var html1, i, servings;
+    console.log($('.servings_per_day').val());
     if (parseInt($('#reminder').val()) === 1) {
       $('.reminder_div').show();
       $(this.ui.servings_diff).prop('disabled', false);

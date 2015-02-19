@@ -229,6 +229,7 @@ class EditProductsView extends Marionette.ItemView
 			
 
 	showReminders:()->
+		console.log $('.servings_per_day').val()
 		if parseInt($('#reminder').val()) == 1
 				$('.reminder_div').show()
 				$(@ui.servings_diff).prop 'disabled' , false
