@@ -48,9 +48,9 @@ document.addEventListener("deviceready", function() {
     });
   });
   App.addInitializer(function() {
-    Backbone.history.start();
     CordovaApp.updateXoomaMessages();
-    return Push.register();
+    Push.register();
+    return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {

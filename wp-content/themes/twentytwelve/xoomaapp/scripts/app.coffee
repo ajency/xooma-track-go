@@ -54,7 +54,6 @@ document.addEventListener "deviceready", ->
 				
 
 	App.addInitializer ->
-		Backbone.history.start()
 
 		#Device
 		CordovaApp.updateXoomaMessages()
@@ -68,6 +67,8 @@ document.addEventListener "deviceready", ->
 		# 	#Check condition for user login
 
 		# Usage.track()
+
+		Backbone.history.start()
 		
 		
 
