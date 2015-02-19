@@ -453,7 +453,8 @@ class User
     $data = USER::get_user_measurement_details($id,$date="");
     
   
-    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,'weight'=>$data['response']['weight'],'today'=>$today_date);
+    return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,
+        'weight'=>$data['response']['weight'],'today'=>$today_date);
         
 
     }

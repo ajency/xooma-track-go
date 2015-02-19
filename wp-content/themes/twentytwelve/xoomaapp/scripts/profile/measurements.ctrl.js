@@ -80,7 +80,14 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, height, obj, state, timezone, weight;
+    var date, height, i, obj, select, state, timezone, weight;
+    select = document.getElementById('weight');
+    select.options.length = 0;
+    i = 30;
+    while (i <= 500) {
+      select.options.add(new Option(i, i));
+      i++;
+    }
     if (App.currentUser.get('measurements') !== void 0) {
       height = App.currentUser.get('measurements').height;
       weight = App.currentUser.get('measurements').weight;

@@ -61,6 +61,13 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onShow:->
+		select = document.getElementById('weight')
+		select.options.length = 0
+		i = 30
+		while (i <= 500)
+			select.options.add(new Option(i,i))
+			i++
+		
 		if App.currentUser.get('measurements') != undefined
 			height = App.currentUser.get('measurements').height
 			weight = App.currentUser.get('measurements').weight

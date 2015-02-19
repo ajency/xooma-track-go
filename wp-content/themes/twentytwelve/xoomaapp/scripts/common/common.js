@@ -11,6 +11,7 @@ Ajency.LoginView.prototype.template = '#login-template';
 
 _.extend(Ajency.LoginView.prototype, {
   onShow: function() {
+    App.trigger('cordova:hide:splash:screen');
     return $('.single-item').slick({
       dots: true,
       infinite: true,

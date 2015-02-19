@@ -47,21 +47,6 @@ document.addEventListener("deviceready", function() {
       });
     });
   });
-  App.state('settings', {
-    url: '/settings',
-    parent: 'xooma'
-  }).state('home', {
-    url: '/home',
-    parent: 'xooma',
-    sections: {
-      'x2o': {
-        ctrl: 'HomeX2OCtrl'
-      },
-      'other-products': {
-        ctrl: 'HomeOtherProductsCtrl'
-      }
-    }
-  });
   App.addInitializer(function() {
     Backbone.history.start();
     CordovaApp.updateXoomaMessages();

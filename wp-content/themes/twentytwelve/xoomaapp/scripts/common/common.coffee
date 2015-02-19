@@ -6,6 +6,7 @@ Ajency.LoginView::template = '#login-template'
 _.extend Ajency.LoginView::,
 
 	onShow:->
+		App.trigger 'cordova:hide:splash:screen'
 		$('.single-item').slick(
 			dots: true,
 			infinite: true,

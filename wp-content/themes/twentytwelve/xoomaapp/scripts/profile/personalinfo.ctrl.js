@@ -95,6 +95,8 @@ ProfilePersonalInfoView = (function(_super) {
     } else {
       if (state === '/home') {
         window.removeMsg();
+        App.currentUser.set('profile', response);
+        App.currentUser.set('timezone', response.timezone);
         this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
         return $('html, body').animate({
           scrollTop: 0

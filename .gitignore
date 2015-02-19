@@ -1,5 +1,6 @@
 wp-config.php
 wp-content/themes/twentytwelve/bower_components
+wp-content/themes/twentytwelve/xoomaapp/bower_components
 .htaccess
 wp-content/debug.log
 node_modules

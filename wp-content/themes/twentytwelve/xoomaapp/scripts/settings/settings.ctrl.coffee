@@ -3,7 +3,6 @@ App.state 'Settings',
 					parent : 'xooma'
 
 class SettingsView extends Marionette.ItemView
-	className : 'animated fadeIn'
 	template : '#settings-template'
 
 	ui :
