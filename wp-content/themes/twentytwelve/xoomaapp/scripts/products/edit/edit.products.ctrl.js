@@ -623,12 +623,7 @@ App.EditProductsCtrl = (function(_super) {
   };
 
   EditProductsCtrl.prototype.erroraHandler = function(response, status, xhr) {
-    this.region = new Marionette.Region({
-      el: '#404-template'
-    });
-    return new Ajency.HTTPRequestCtrl({
-      region: this.region
-    });
+    return App.navigate("#/products", true);
   };
 
   return EditProductsCtrl;

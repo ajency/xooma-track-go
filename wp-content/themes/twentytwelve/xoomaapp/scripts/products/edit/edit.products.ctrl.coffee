@@ -557,5 +557,4 @@ class App.EditProductsCtrl extends Ajency.RegionController
 			new Ajency.NothingFoundCtrl region : @region
 
 	erroraHandler:(response,status,xhr)=>
-		@region =  new Marionette.Region el : '#404-template'
-		new Ajency.HTTPRequestCtrl region : @region
+		App.navigate "#/products" , true
