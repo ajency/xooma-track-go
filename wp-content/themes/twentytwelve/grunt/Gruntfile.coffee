@@ -31,7 +31,6 @@ module.exports = (grunt) ->
 		'../xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js'
 		'../xoomaapp/bower_components/moment-timezone/moment-timezone.js'
 		'../xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
-		'../xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
 		'../xoomaapp/bower_components/marionette.state/dist/marionette.state.js'
 		'../xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js'
 	]
