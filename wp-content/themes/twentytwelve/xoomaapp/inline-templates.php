@@ -1080,9 +1080,11 @@
     <div class="reminder">
     <div class="form-group reminder_data">
     <label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
-    <div class="col-sm-6 col-xs-7 input-append bootstrap-timepicker ">
+    <div class="col-sm-6 col-xs-7 input-append  ">
+    <div class="bootstrap-timepicker">
     <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /> <input name="reminder_time0" id="reminder_time0" disabled class="input-small inputcss" type="text" value="{{reminder}}" ></span>
     <span class="add-on"><i class="icon-time"></i></span></div>
+    </div>
     </div>
     </div>
     </div>
@@ -1331,7 +1333,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>Bottle Consumption</b>
+                   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>Consumption</b>
                 </div>
             </div>
         </div>
@@ -1421,7 +1423,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-           <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b> Consumption Capsule</b>
+           <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b> Consumption </b>
         </div>
       </div>
     </div>
@@ -1454,7 +1456,7 @@
             </div>
         </div>
            <div class="row m-t-20">
-        <div class="col-sm-5 col-xs-2"></div>
+        <div class="col-sm-5 col-xs-2"> <div class="loadingconusme pull-right m-t-10 m-r-10"></div></div>
       <div class="col-sm-5 col-xs-10">
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
@@ -1463,7 +1465,7 @@
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
            <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-default  " > <i class="fa fa-angle-double-right"></i> Skip </button>
                 <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
-     <div class="loadingconusme pull-left m-t-10 m-r-10"></div></div>
+    </div>
       <div class="col-sm-4 col-xs-1"></div>
     </div>
 
