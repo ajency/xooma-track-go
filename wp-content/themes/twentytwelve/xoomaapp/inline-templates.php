@@ -929,7 +929,7 @@
                         <div class="col-sm-6 col-xs-5 range-inventory">
                 <h3 class=" bold-sum margin-none "> <output class="text-primary"></output> <small>Bottle(s)</small></h3>
                  <div class="clearfix"></div>
-                    <input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
+                    <input class="pull-left" type="range" id="x2o" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
                     </div>
     </div>
            </div>
@@ -944,7 +944,7 @@
           <option value="3">3</option>
           
         </select>
-        <input type="hidden" name="servings_per_day_value" id="servings_per_day_value" value="" />
+        <input type="hidden" name="servings_per_day_value" id="servings_per_day_value" value="{{defaultbmi}}" />
     </div>
     </div>
 
