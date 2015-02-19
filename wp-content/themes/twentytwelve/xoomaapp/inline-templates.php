@@ -939,12 +939,13 @@
     <label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Serving(s) per day</label>
     <div class="col-sm-6 col-xs-7 ">
       <select class="form-control servings_per_day " name="servings_per_day">
+          <option value="">Please Select</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           
         </select>
-        <input type="hidden" name="servings_per_day_value" id="servings_per_day_value" value="{{defaultbmi}}" />
+        <input type="hidden" name="servings_per_day_value" id="servings_per_day_value" value="" />
     </div>
     </div>
 
