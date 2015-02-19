@@ -23,9 +23,8 @@
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
       <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/favicon.png">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/theme.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/animate.css/animate.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/pickadate/lib/themes/default.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/animate.min.css">
+   <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/jquery-ui.min.css">
    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/xoomaapp/css/bootstrap-timepicker.css">
 
 
