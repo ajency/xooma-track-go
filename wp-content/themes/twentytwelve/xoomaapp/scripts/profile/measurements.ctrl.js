@@ -252,13 +252,9 @@ App.UserMeasurementCtrl = (function(_super) {
 
   UserMeasurementCtrl.prototype.initialize = function(options) {
     var xhr;
-    if (CordovaApp.isDeviceOnline()) {
-      this.show(this.parent().parent().getLLoadingView());
-      xhr = this._get_measurement_details();
-      return xhr.done(this._showView).fail(this.errorHandler);
-    } else {
-      return window.plugins.toast.showLongBottom("Please check your internet connection.");
-    }
+    this.show(this.parent().parent().getLLoadingView());
+    xhr = this._get_measurement_details();
+    return xhr.done(this._showView).fail(this.errorHandler);
   };
 
   UserMeasurementCtrl.prototype._showView = function() {

@@ -96,7 +96,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			    	$('#date_field').val dateText
 			)
 
-
 		#Changes for Mobile
 		if window.isWebView()
 			$('#update').val moment().format 'YYYY-MM-DD'
@@ -209,13 +208,10 @@ class ProfileMeasurementsView extends Marionette.ItemView
 class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
-		#Device
-		if CordovaApp.isDeviceOnline()
-			@show @parent().parent().getLLoadingView()
-			xhr = @_get_measurement_details()
-			xhr.done(@_showView).fail @errorHandler
-		else 
-			window.plugins.toast.showLongBottom("Please check your internet connection.")
+		@show @parent().parent().getLLoadingView()
+		xhr = @_get_measurement_details()
+		xhr.done(@_showView).fail @errorHandler
+
 	
 
 	_showView :=>
