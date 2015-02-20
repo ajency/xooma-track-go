@@ -50,7 +50,8 @@ ProfilePersonalInfoView = (function(_super) {
         dateFormat: 'yy-mm-dd',
         changeYear: true,
         changeMonth: true,
-        maxDate: new Date()
+        maxDate: new Date(),
+        yearRange: "-100:+0"
       });
     }
   };
@@ -63,7 +64,8 @@ ProfilePersonalInfoView = (function(_super) {
         dateFormat: 'yy-mm-dd',
         changeYear: true,
         changeMonth: true,
-        maxDate: new Date()
+        maxDate: new Date(),
+        yearRange: "-100:+0"
       });
     }
     state = App.currentUser.get('state');
