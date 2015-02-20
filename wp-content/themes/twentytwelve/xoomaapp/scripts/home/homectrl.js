@@ -197,13 +197,11 @@ HomeLayoutView = (function(_super) {
     $('#update').val(App.currentUser.get('homeDate'));
     console.log(selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss"));
     console.log(selected_time = moment(selectedtimestamp).zone(timezone).format('x'));
+    reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     if (!window.isWebView()) {
       if (parseInt(actual_time) === parseInt(selected_time)) {
         $('#update').val('TODAY');
       }
-    }
-    reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
-    if (!window.isWebView()) {
       $('#update').datepicker({
         dateFormat: 'yy-mm-dd',
         changeYear: true,
