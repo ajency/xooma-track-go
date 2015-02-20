@@ -195,6 +195,9 @@ class EditProductsView extends Marionette.ItemView
 
 	checkreminder:->
 		servings = $('.servings_per_day').val()
+		
+		if $('.servings_per_day').val() == ""
+			servings = $('#x2o').val()
 		i = 0
 		while i < servings
 			if $('#reminder_time'+i).val() == "" && parseInt($('#reminder').val()) == 1
@@ -229,14 +232,16 @@ class EditProductsView extends Marionette.ItemView
 			
 
 	showReminders:()->
+		console.log $('.servings_per_day').val()
 		if parseInt($('#reminder').val()) == 1
 				$('.reminder_div').show()
 				$(@ui.servings_diff).prop 'disabled' , false
 				$('#reminder_time0').removeAttr 'disabled'
 
 				servings = $('.servings_per_day').val()
-				if $('#servings_per_day_value').val() != "" 
-					servings = $('#servings_per_day_value').val()
+				if $('.servings_per_day').val() == "" 
+					servings = $('#x2o').val()
+				console.log servings
 				html1 = ""
 				i = 1
 				while(i <= servings)
@@ -537,6 +542,7 @@ class App.EditProductsCtrl extends Ajency.RegionController
 
 
 	_showView:(productModel)->
+		console.log productModel
 		@show new EditProductsView
 					model : productModel
 
@@ -551,5 +557,4 @@ class App.EditProductsCtrl extends Ajency.RegionController
 			new Ajency.NothingFoundCtrl region : @region
 
 	erroraHandler:(response,status,xhr)=>
-		@region =  new Marionette.Region el : '#404-template'
-		new Ajency.HTTPRequestCtrl region : @region
+		App.navigate "#/products" , true

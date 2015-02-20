@@ -66,14 +66,12 @@ class XoomaAppRootView extends Marionette.LayoutView
 				success: XoomaAppRootView::_successHandler
 
 		)
-		console.log state = App.currentUser.get 'state'
+		state = App.currentUser.get 'state'
 		if state != '/home' 
 			@ui.link.hide()
 		else
 			$('.link').show()
-		@currentUserRegion.show new Ajency.CurrentUserView
-											model : App.currentUser
-
+		
 
 		
 

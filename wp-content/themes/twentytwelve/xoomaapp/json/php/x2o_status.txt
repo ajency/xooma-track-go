@@ -7,7 +7,7 @@
                         "12AM-11AM" : "timeslot1",
                         "11AM-4PM" : "timeslot2",
                         "4PM-9PM" : "timeslot3" ,
-                        "9PM-12PM" : "timeslot4" ,
+                        "9PM-12AM" : "timeslot4" ,
                         "0_timeslot1" : "Start your day the healthy way with X2O",
                         "25_timeslot1" : "Cool! You're off to a great start",
                         "0_25_timeslot1" : "Cool! You're off to a great start",

@@ -922,7 +922,7 @@
                         <div class="col-sm-6 col-xs-5 range-inventory">
                 <h3 class=" bold-sum margin-none "> <output class="text-primary"></output> <small>Bottle(s)</small></h3>
                  <div class="clearfix"></div>
-                    <input class="pull-left" type="range" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
+                    <input class="pull-left" type="range" id="x2o" name="x2o" min="1" max="9" step="1" value="{{defaultbmi}}" data-rangeslider>
                     </div>
     </div>
            </div>
@@ -932,6 +932,7 @@
     <label for="inputEmail3" class="col-sm-6 col-xs-5  control-label">Serving(s) per day</label>
     <div class="col-sm-6 col-xs-7 ">
       <select class="form-control servings_per_day " name="servings_per_day">
+          <option value="">Please Select</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>

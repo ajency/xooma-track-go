@@ -218,6 +218,9 @@ EditProductsView = (function(_super) {
   EditProductsView.prototype.checkreminder = function() {
     var i, servings;
     servings = $('.servings_per_day').val();
+    if ($('.servings_per_day').val() === "") {
+      servings = $('#x2o').val();
+    }
     i = 0;
     while (i < servings) {
       if ($('#reminder_time' + i).val() === "" && parseInt($('#reminder').val()) === 1) {
@@ -258,14 +261,16 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.showReminders = function() {
     var html1, i, servings;
+    console.log($('.servings_per_day').val());
     if (parseInt($('#reminder').val()) === 1) {
       $('.reminder_div').show();
       $(this.ui.servings_diff).prop('disabled', false);
       $('#reminder_time0').removeAttr('disabled');
       servings = $('.servings_per_day').val();
-      if ($('#servings_per_day_value').val() !== "") {
-        servings = $('#servings_per_day_value').val();
+      if ($('.servings_per_day').val() === "") {
+        servings = $('#x2o').val();
       }
+      console.log(servings);
       html1 = "";
       i = 1;
       while (i <= servings) {
@@ -593,6 +598,7 @@ App.EditProductsCtrl = (function(_super) {
   };
 
   EditProductsCtrl.prototype._showView = function(productModel) {
+    console.log(productModel);
     return this.show(new EditProductsView({
       model: productModel
     }));
@@ -617,12 +623,7 @@ App.EditProductsCtrl = (function(_super) {
   };
 
   EditProductsCtrl.prototype.erroraHandler = function(response, status, xhr) {
-    this.region = new Marionette.Region({
-      el: '#404-template'
-    });
-    return new Ajency.HTTPRequestCtrl({
-      region: this.region
-    });
+    return App.navigate("#/products", true);
   };
 
   return EditProductsCtrl;

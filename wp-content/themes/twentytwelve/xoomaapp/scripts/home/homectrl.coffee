@@ -481,27 +481,25 @@ class HomeX2OView extends Marionette.ItemView
 		timestamp = d.getTime()
 		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
 		console.log currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
-		time = moment(currentime).format("x")
+		console.log time = moment(currentime).format("x")
 		per = [0,25,50,75,100,'bonus']
 		per1 = ['0_25','25_50','50_75','75_100']
 		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
+		timearry = ["12:00:00 AM-10:59:59 AM","11:00:00 AM-3:59:59 PM","4:00:00 PM-8:59:59 PM","9:00:00 PM-11:59:59 PM"]
 		how = howmuch.toFixed(2) * 100
 		if parseInt(consumed) >= 1
 				how = 'bonus'
-		$.each timearr , (ind,val)->
+		$.each timearry , (ind,val)->
+			console.log v = timearr[ind]
 			temp = val.split('-')
-			console.log t0 = moment(s+temp[0], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
-			console.log t1 = moment(s+temp[1], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
-
-			d0 = new Date(t0)
-			timestamp0 = d0.getTime()
-			d1 = new Date(t1)
-			timestamp1 = d1.getTime()
-			time1 = moment(timestamp0).zone(timezone).format("x")
-			time2 = moment(timestamp1).zone(timezone).format("x")
-			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
-				timeslot = x2oMessages[val]
-		
+			
+			d0 = new Date(s+' '+temp[0])
+			console.log timestamp0 = d0.getTime()
+			d1 = new Date(s+' '+temp[1])
+			console.log timestamp1 = d1.getTime()
+			if parseInt(timestamp0) <= parseInt(time) && parseInt(timestamp1) >= parseInt(time)
+				timeslot = x2oMessages[v]
+		console.log timeslot
 		$.each per , (ind,val)->
 			if val == how
 				texmsg = x2oMessages[val+'_'+timeslot]
@@ -860,6 +858,8 @@ class ProductChildView extends Marionette.ItemView
 		per = [0,25,50,75,100]
 		per1 = ['25_50','50_75']
 		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
+		timearry = ["12:00:00 AM-10:59:59 AM","11:00:00 AM-3:59:59 PM","4:00:00 PM-8:59:59 PM","9:00:00 PM-11:59:59 PM"]
+		
 		timearray = []
 		timezone = App.currentUser.get 'timezone'
 		timeslot = ""
@@ -869,22 +869,17 @@ class ProductChildView extends Marionette.ItemView
 		timearray.push moment().zone(timezone).format("x")
 		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
 		console.log currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
-		time = moment(currentime).format("x")
+		console.log time = moment(currentime).format("x")
 
-		$.each timearr , (ind,val)->
+		$.each timearry , (ind,val)->
+			v = timearr[ind]
 			temp = val.split('-')
-			t0 = moment(s+temp[0], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
-			t1 = moment(s+temp[1], "YYYY-MM-DD hA").format('YYYY-MM-DD HH:mm:ss')
-
-			
-			d0 = new Date(t0)
-			timestamp0 = d0.getTime()
-			d1 = new Date(t1)
-			timestamp1 = d1.getTime()
-			time1 = moment(timestamp0).zone(timezone).format("x")
-			time2 = moment(timestamp1).zone(timezone).format("x")
-			if parseInt(time1) < parseInt(time) && parseInt(time2) > parseInt(time)
-				timeslot = Messages[val]
+			d0 = new Date(s+' '+temp[0])
+			console.log timestamp0 = d0.getTime()
+			d1 = new Date(s+' '+temp[1])
+			console.log timestamp1 = d1.getTime()
+			if parseInt(timestamp0) <= parseInt(time) && parseInt(timestamp1) >= parseInt(time)
+				timeslot = Messages[v]
 		
 		$.each per , (ind,val)->
 			if parseInt(val) == parseInt(howmuch)
