@@ -89,15 +89,12 @@ XoomaAppRootView = (function(_super) {
         success: XoomaAppRootView.prototype._successHandler
       });
     });
-    console.log(state = App.currentUser.get('state'));
+    state = App.currentUser.get('state');
     if (state !== '/home') {
-      this.ui.link.hide();
+      return this.ui.link.hide();
     } else {
-      $('.link').show();
+      return $('.link').show();
     }
-    return this.currentUserRegion.show(new Ajency.CurrentUserView({
-      model: App.currentUser
-    }));
   };
 
   return XoomaAppRootView;

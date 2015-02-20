@@ -7,18 +7,11 @@
         <nav class="navbar " role="navigation">
             <div class="container mobile-container">
                 <div class="row">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="navbar-header">
-                            <a href="#">
-                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="tp-img-align img-responsive" width="200px">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-sm-9 col-xs-6">
-                    <!--    <a href="#menu">
-                            <h5><i class="fa fa-cog pull-right "></i></h5>
-                        </a>-->
-                      
+                    <div class="col-sm-12 col-xs-12">
+                   
+                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="tp-img-align  center-block" width="200px">
+                         
+                        
                     </div>
                 </div>
             </div>
@@ -613,7 +606,7 @@
     
                                                 </div>
                           </br>
-                                                </br>
+                                               
                                                 <div class="row">
                                                         <div class="col-md-3 col-xs-3">
                                                                 <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
@@ -631,7 +624,7 @@
                                                         
                                                 </div>
                                                  </br>
-                                                </br>  
+                                               
                                         </div>
                                          </div>
                                         
@@ -819,7 +812,7 @@
         
     <div class="userproducts"></div>
      <a href="#/products" class="btn btn-primary pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
-     <button type="button" class="btn btn-primary  pull-right save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
+     <button type="button" class="btn btn-primary  center-block save_products"><i class="fa fa-check"></i>Congrats! Get started right away!</button>               
                   </div>
                   <div class="col-md-2"></div>
               </div>
