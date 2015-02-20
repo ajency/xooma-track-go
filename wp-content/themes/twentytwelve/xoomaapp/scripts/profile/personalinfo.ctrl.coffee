@@ -30,9 +30,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			    changeMonth: true,
 			    maxDate: new Date(),
 			    yearRange: "-100:+0",
-				     
-				   
-			    
 			});
 
 
