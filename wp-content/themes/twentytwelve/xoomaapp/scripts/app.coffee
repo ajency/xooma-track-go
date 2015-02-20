@@ -22,6 +22,7 @@ document.addEventListener "deviceready", ->
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
+	
 	App.currentUser.on 'user:auth:success', ->
 		if window.isWebView()
 			window.userData = App.currentUser.toJSON()
@@ -46,11 +47,6 @@ document.addEventListener "deviceready", ->
 				App.useProductColl.reset arr
 				delete window.userData
 				App.navigate '/login', replace: true, trigger: true
-		
-
-
-	
-		
 				
 
 	App.addInitializer ->
@@ -58,19 +54,21 @@ document.addEventListener "deviceready", ->
 		#Device
 		CordovaApp.updateXoomaMessages()
 		Push.register()
-		
-		# CordovaNotification.schedule 'X2O', '17:00'
 
 		# Usage.notify.on  '$usage:notification', (event, data)->
 		# 	console.log 'Event triggered'
 		# 	console.log data.notificationTime
 		# 	#Check condition for user login
+		# 	CordovaNotification.schedule 'Test Local Notification Based on App Usage', data.notificationTime
 
 		# Usage.track()
 
+		# Offline.options = 
+		# 	checks: 
+		# 		xhr: 
+		# 			url: "#{_SITEURL}"
+
 		Backbone.history.start()
-		
-		
 
 
 	App.on 'fb:status:connected', ->
@@ -79,9 +77,6 @@ document.addEventListener "deviceready", ->
 
 	App.on 'cordova:hide:splash:screen', ->
 		CordovaApp.hideSplashscreen() if window.isWebView()
-
-	
-	
 
 
 	App.start()

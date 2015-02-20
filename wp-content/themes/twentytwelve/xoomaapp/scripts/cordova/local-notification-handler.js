@@ -27,5 +27,8 @@ CordovaNotification = {
       date = moment("" + nextDate + " " + time, 'DD/MM/YYYY HH:mm');
     }
     return date.toDate();
+  },
+  cancelAll: function() {
+    return window.plugin.notification.local.cancelAll();
   }
 };

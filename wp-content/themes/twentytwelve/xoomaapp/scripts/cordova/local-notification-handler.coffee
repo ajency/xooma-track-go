@@ -31,3 +31,9 @@
 				date = moment "#{nextDate} #{time}", 'DD/MM/YYYY HH:mm'
 
 			date.toDate()
+
+
+		cancelAll : ->
+
+			window.plugin.notification.local.cancelAll()
+
