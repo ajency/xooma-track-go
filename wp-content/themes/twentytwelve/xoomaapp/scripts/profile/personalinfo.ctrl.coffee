@@ -109,12 +109,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
-		#Device
-		if CordovaApp.isDeviceOnline()
-			@show @parent().parent().getLLoadingView()
-			App.currentUser.getProfile().done(@_showView).fail @errorHandler
-		else
-			window.plugins.toast.showLongBottom("Please check your internet connection.")
+		@show @parent().parent().getLLoadingView()
+		App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView

@@ -134,12 +134,8 @@ App.UserPersonalInfoCtrl = (function(_super) {
   }
 
   UserPersonalInfoCtrl.prototype.initialize = function(options) {
-    if (CordovaApp.isDeviceOnline()) {
-      this.show(this.parent().parent().getLLoadingView());
-      return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
-    } else {
-      return window.plugins.toast.showLongBottom("Please check your internet connection.");
-    }
+    this.show(this.parent().parent().getLLoadingView());
+    return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
   };
 
   UserPersonalInfoCtrl.prototype._showView = function(userModel) {

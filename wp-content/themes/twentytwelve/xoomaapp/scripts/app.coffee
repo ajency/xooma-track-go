@@ -34,19 +34,34 @@ document.addEventListener "deviceready", ->
 		ParseCloud.register()
 		.then ->
 			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+		, (error)->
+			console.log 'ParseCloud Register Error'
+			App.currentUser.logout()
 
 	
 	App.currentUser.on 'user:logged:out', ->
 		#Device
-		CordovaApp.facebookLogout()
-		.then ->
+		onLogout = ->
+			CordovaStorage.clearUserData()
+			arr = []
+			App.useProductColl.reset arr
+			delete window.userData
+
+		if App.getCurrentRoute() is 'login'
+			CordovaApp.facebookLogout().then onLogout
+		else
 			ParseCloud.deregister()
 			.then ->
-				CordovaStorage.clear()
-				arr = []
-				App.useProductColl.reset arr
-				delete window.userData
-				App.navigate '/login', replace: true, trigger: true
+				CordovaApp.facebookLogout()
+				.then ->
+					onLogout()
+					App.navigate '/login', replace: true, trigger: true
+
+
+	Usage.notify.on  '$usage:notification', (event, data)->
+		console.log 'Event triggered'
+		console.log data.notificationTime
+		CordovaNotification.schedule 'Test Local Notification Based on App Usage', data.notificationTime
 				
 
 	App.addInitializer ->
@@ -54,14 +69,7 @@ document.addEventListener "deviceready", ->
 		#Device
 		CordovaApp.updateXoomaMessages()
 		Push.register()
-
-		# Usage.notify.on  '$usage:notification', (event, data)->
-		# 	console.log 'Event triggered'
-		# 	console.log data.notificationTime
-		# 	#Check condition for user login
-		# 	CordovaNotification.schedule 'Test Local Notification Based on App Usage', data.notificationTime
-
-		# Usage.track()
+		Usage.track()
 
 		# Offline.options = 
 		# 	checks: 

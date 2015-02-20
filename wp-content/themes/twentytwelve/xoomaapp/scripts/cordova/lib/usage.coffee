@@ -5,7 +5,7 @@ do ->
 
 	window.Usage    = window.Usage || {}
 	_storage        = $.localStorage
-	_track_for_days = 15
+	_track_for_days = 5
 
 	getCurrentHour = ->
 		moment().format 'HH'
@@ -23,7 +23,7 @@ do ->
 		statistics = _storage.get 'usage_statistics'
 		lastDay = moment _.last(statistics).date, 'DD/MM/YYYY'
 		today = moment getCurrentDate(), 'DD/MM/YYYY'
-		# today = moment '26/02/2015', 'DD/MM/YYYY'
+		# today = moment '07/03/2015', 'DD/MM/YYYY'
 		before = today.isBefore lastDay
 		same = today.isSame lastDay
 		before or same
@@ -154,7 +154,7 @@ do ->
 		if _.isNull lastTriggerDate
 			notify()
 		else
-			#Notify user every 2 days with the best time of the day 
+			#Notify user every 3 days with the best time of the day 
 			#based on usage statistics
 			lastDate = moment lastTriggerDate, 'DD/MM/YYYY'
 			currentDate = moment getCurrentDate(), 'DD/MM/YYYY'

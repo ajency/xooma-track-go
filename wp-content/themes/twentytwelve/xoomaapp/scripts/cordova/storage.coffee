@@ -8,11 +8,11 @@
 		getUserData : ->
 			$.localStorage.get 'user_data'
 
+		clearUserData : ->
+			$.localStorage.remove 'user_data'
+
 		setMessages : (data)->
 			$.localStorage.set 'xooma_messages', data
 
 		getMessages : ->
 			$.localStorage.get 'xooma_messages'
-
-		clear : ->
-			$.localStorage.removeAll()

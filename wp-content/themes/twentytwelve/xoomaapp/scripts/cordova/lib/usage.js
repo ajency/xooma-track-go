@@ -2,7 +2,7 @@
   var addInstances, checkTimeSlot, end, formatHour, get3MaxTimeSlots, getBestTimes, getCurrentDate, getCurrentHour, getDate, i, inSlot, inTrackingPeriod, notify, setTimeSlot, start, timeSlots, triggerUsageEvent, updateTimeSlot, _i, _storage, _track_for_days;
   window.Usage = window.Usage || {};
   _storage = $.localStorage;
-  _track_for_days = 15;
+  _track_for_days = 5;
   getCurrentHour = function() {
     return moment().format('HH');
   };
