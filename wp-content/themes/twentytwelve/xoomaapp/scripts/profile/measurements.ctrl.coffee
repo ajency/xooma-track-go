@@ -80,22 +80,35 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			
 		timezone = App.currentUser.get('timezone')
 		$('#date_field').val moment().zone(timezone).format('YYYY-MM-DD')
-		$('#update').val 'TODAY'
+
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
-		$('#update').datepicker(
-		    dateFormat : 'yy-mm-dd'
-		    changeYear: true,
-		    changeMonth: true,
-		    maxDate: new Date()
-		    minDate : new Date(date)
-		    onSelect: (dateText, inst)->
-		    	$('#date_field').val dateText
+
+		if !window.isWebView()
+			$('#update').val 'TODAY'
+			
+			$('#update').datepicker(
+			    dateFormat : 'yy-mm-dd'
+			    changeYear: true,
+			    changeMonth: true,
+			    maxDate: new Date()
+			    minDate : new Date(date)
+			    onSelect: (dateText, inst)->
+			    	$('#date_field').val dateText
+			)
 
 
-		     
-		   
-	    
-		)
+		#Changes for Mobile
+		if window.isWebView()
+			$('#update').val moment().format 'YYYY-MM-DD'
+
+			$('#update')
+			.attr
+				max: moment().format 'YYYY-MM-DD'
+				min: date
+			.change ->
+				$('#date_field').val $('#update').val()
+
+
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
