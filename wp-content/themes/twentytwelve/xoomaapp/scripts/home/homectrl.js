@@ -197,26 +197,39 @@ HomeLayoutView = (function(_super) {
     $('#update').val(App.currentUser.get('homeDate'));
     console.log(selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss"));
     console.log(selected_time = moment(selectedtimestamp).zone(timezone).format('x'));
-    if (parseInt(actual_time) === parseInt(selected_time)) {
-      $('#update').val('TODAY');
-    }
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
-    $('#update').datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeYear: true,
-      changeMonth: true,
-      maxDate: new Date(),
-      minDate: new Date(reg_date),
-      onSelect: function(dateText, inst) {
-        $('#showHome').show();
-        App.currentUser.set('homeDate', dateText);
-        selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
-        selected_time = moment(selectedtimestamp).zone(timezone).format('x');
-        if (parseInt(actual_time) === parseInt(selected_time)) {
-          return $('#update').val('TODAY');
-        }
+    if (!window.isWebView()) {
+      if (parseInt(actual_time) === parseInt(selected_time)) {
+        $('#update').val('TODAY');
       }
-    });
+      $('#update').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeYear: true,
+        changeMonth: true,
+        maxDate: new Date(),
+        minDate: new Date(reg_date),
+        onSelect: function(dateText, inst) {
+          $('#showHome').show();
+          App.currentUser.set('homeDate', dateText);
+          selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+          selected_time = moment(selectedtimestamp).zone(timezone).format('x');
+          if (parseInt(actual_time) === parseInt(selected_time)) {
+            return $('#update').val('TODAY');
+          }
+        }
+      });
+    }
+    if (window.isWebView()) {
+      $('#update').attr({
+        max: moment().format('YYYY-MM-DD'),
+        min: reg_date
+      }).change(function() {
+        $('#showHome').show();
+        App.currentUser.set('homeDate', $('#update').val());
+        selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+        return selected_time = moment(selectedtimestamp).zone(timezone).format('x');
+      });
+    }
     $('.history').attr('href', '#/measurements/' + App.currentUser.get('ID') + '/history');
     $('.update').attr('href', '#/profile/measurements');
     if (parseInt(App.useProductColl.length) === 0) {
