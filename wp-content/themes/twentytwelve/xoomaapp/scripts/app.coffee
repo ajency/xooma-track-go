@@ -40,19 +40,7 @@ jQuery(document).ready ($)->
 		
 
 
-	App.state 'settings',
-				url : '/settings'
-				parent : 'xooma'
-
-		.state 'home',
-				url : '/home'
-				parent : 'xooma'
-				sections : 
-					'x2o' : 
-						ctrl : 'HomeX2OCtrl'
-					'other-products' : 
-						ctrl : 'HomeOtherProductsCtrl'
-
+	
 		
 				
 

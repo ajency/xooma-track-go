@@ -81,7 +81,7 @@
                                 <div class="row">
 
                                         <div class="col-sm-3 col-xs-3">
-                                              <a class="link " href="#menu">
+                                              <a  href="#menu">
                                                      <h4 class="margin-none"><i class="fa fa-bars "></i></h4>
                                                 </a>
                                             
