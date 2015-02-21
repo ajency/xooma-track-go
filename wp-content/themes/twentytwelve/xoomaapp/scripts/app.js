@@ -65,8 +65,11 @@ document.addEventListener("deviceready", function() {
   });
   App.addInitializer(function() {
     CordovaApp.updateXoomaMessages();
+    CordovaNotification.registerPermission();
     Push.register();
-    Usage.track();
+    Usage.track({
+      days: 5
+    });
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {

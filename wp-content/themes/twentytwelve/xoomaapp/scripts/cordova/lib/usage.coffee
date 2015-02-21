@@ -5,7 +5,7 @@ do ->
 
 	window.Usage    = window.Usage || {}
 	_storage        = $.localStorage
-	_track_for_days = 5
+	_track_for_days = 10 #Default
 
 	getCurrentHour = ->
 		moment().format 'HH'
@@ -23,7 +23,7 @@ do ->
 		statistics = _storage.get 'usage_statistics'
 		lastDay = moment _.last(statistics).date, 'DD/MM/YYYY'
 		today = moment getCurrentDate(), 'DD/MM/YYYY'
-		# today = moment '07/03/2015', 'DD/MM/YYYY'
+		# today = moment '07/03/2015', 'DD/MM/YYYY' #Testing
 		before = today.isBefore lastDay
 		same = today.isSame lastDay
 		before or same
@@ -78,7 +78,6 @@ do ->
 				statistics[index].timeSlots[slot].instances = count+1
 
 		Usage.reset()
-		console.log statistics
 		_storage.set 'usage_statistics', statistics
 
 	
@@ -150,7 +149,7 @@ do ->
 
 	triggerUsageEvent = ->
 		lastTriggerDate = _storage.get 'usage_trigger_date'
-		# lastTriggerDate = '09/02/2015'
+		# lastTriggerDate = '09/02/2015' #Testing
 		if _.isNull lastTriggerDate
 			notify()
 		else
@@ -175,8 +174,12 @@ do ->
 
 	do (Usage)->
 
-		Usage.track = ->
+		Usage.track = (options={})->
 			console.log 'Tracking Application Usage'
+			days = options.days
+			if days and (days is parseInt days, 10) and days isnt 0
+				_track_for_days = options.days
+			
 			checkTimeSlot()
 
 

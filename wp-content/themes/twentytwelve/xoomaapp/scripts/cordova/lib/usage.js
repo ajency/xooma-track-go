@@ -2,7 +2,7 @@
   var addInstances, checkTimeSlot, end, formatHour, get3MaxTimeSlots, getBestTimes, getCurrentDate, getCurrentHour, getDate, i, inSlot, inTrackingPeriod, notify, setTimeSlot, start, timeSlots, triggerUsageEvent, updateTimeSlot, _i, _storage, _track_for_days;
   window.Usage = window.Usage || {};
   _storage = $.localStorage;
-  _track_for_days = 5;
+  _track_for_days = 10;
   getCurrentHour = function() {
     return moment().format('HH');
   };
@@ -72,7 +72,6 @@
       }
     });
     Usage.reset();
-    console.log(statistics);
     return _storage.set('usage_statistics', statistics);
   };
   addInstances = function(obj) {
@@ -174,8 +173,16 @@
     }
   };
   return (function(Usage) {
-    Usage.track = function() {
+    Usage.track = function(options) {
+      var days;
+      if (options == null) {
+        options = {};
+      }
       console.log('Tracking Application Usage');
+      days = options.days;
+      if (days && (days === parseInt(days, 10)) && days !== 0) {
+        _track_for_days = options.days;
+      }
       return checkTimeSlot();
     };
     Usage.reset = function() {

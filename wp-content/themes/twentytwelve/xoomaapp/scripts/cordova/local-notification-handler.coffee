@@ -3,18 +3,18 @@
 	CordovaNotification = 
 
 		schedule : (message, time)->
-
-			window.plugin.notification.local.schedule
-				id: '111'
-				message: message
-				date: @triggerDate time
-				autoCancel: true
-				icon: 'icon'
-				smallIcon: 'icon'
+			@hasPermission().done (granted)=>
+				if granted
+					window.plugin.notification.local.schedule
+						id: '111'
+						message: message
+						date: @triggerDate time
+						autoCancel: true
+						icon: 'icon'
+						smallIcon: 'icon'
 
 
 		triggerDate : (time)->
-
 			date = null
 			hr = moment().hours()
 			min = moment().minutes()
@@ -33,7 +33,20 @@
 			date.toDate()
 
 
-		cancelAll : ->
+		registerPermission : ->
+			@hasPermission().done (granted)->
+				if not granted
+					window.plugin.notification.local.registerPermission (registered)->
+						console.log "Permission has been granted: #{registered}"
 
+
+		hasPermission : ->
+			defer = $.Deferred()
+			window.plugin.notification.local.hasPermission (granted)->
+				defer.resolve granted
+			defer.promise()
+
+
+		cancelAll : ->
 			window.plugin.notification.local.cancelAll()
 

@@ -58,6 +58,7 @@ document.addEventListener "deviceready", ->
 					App.navigate '/login', replace: true, trigger: true
 
 
+	#Device
 	Usage.notify.on  '$usage:notification', (event, data)->
 		console.log 'Event triggered'
 		console.log data.notificationTime
@@ -68,8 +69,9 @@ document.addEventListener "deviceready", ->
 
 		#Device
 		CordovaApp.updateXoomaMessages()
+		CordovaNotification.registerPermission()
 		Push.register()
-		Usage.track()
+		Usage.track days:5
 
 		# Offline.options = 
 		# 	checks: 
