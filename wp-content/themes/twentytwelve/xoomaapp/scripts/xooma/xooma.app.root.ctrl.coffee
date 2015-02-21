@@ -37,19 +37,6 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
 	onShow:->
-		if window.location.hash == '' && App.currentUser.get('ID') == undefined
-			App.currentUser.set {}
-			@ui.link.hide()
-			$('.user-data').hide()
-			App.navigate '#login', replace: true, trigger: true
-			
-		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
-			App.navigate '#home', replace: true, trigger: true
-			
-	
-		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state != '/home'
-			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
-
 		$('nav#menu').mmenu(
 			onClick:
 				close: true,
@@ -58,6 +45,20 @@ class XoomaAppRootView extends Marionette.LayoutView
 			   
 
 		)
+		if window.location.hash == '' && App.currentUser.get('ID') == undefined
+			App.currentUser.set {}
+			@ui.link.hide()
+			$('.user-data').hide()
+			App.navigate '#login', true
+			
+		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
+			App.navigate '#home', true
+			
+	
+		else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state != '/home'
+			App.navigate '#'+App.currentUser.get('state'),  true
+
+		
 		$('.logout-button').on('click', (e)->
 			e.preventDefault()
 			$.ajax
