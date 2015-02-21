@@ -731,7 +731,8 @@
                 <div id="canvasregion" style="width:100%">
 
                                 <div>
-                                    <canvas id="canvas" height="450" width="600"></canvas>
+                                <div id="graph-container">
+                                    <canvas id="canvas" height="450" width="600"></canvas></div>
                                 <div id="y-axis" class="text-center"><b></b></div>
          <div id="x-axis" class="text-center">Date</div>
 

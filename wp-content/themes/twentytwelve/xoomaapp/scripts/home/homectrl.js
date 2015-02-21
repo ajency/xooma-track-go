@@ -247,6 +247,7 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {
     var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    this.reset();
     $('#y-axis').text('BMI Ratio');
     $('#canvasregion').show();
     dates = [response['st_date'], response['et_date']];
@@ -306,8 +307,19 @@ HomeLayoutView = (function(_super) {
     });
   };
 
+  HomeLayoutView.prototype.reset = function() {
+    var canvas, ctx;
+    $('#canvas').remove();
+    $('#graph-container').append('<canvas id="canvas"><canvas>');
+    canvas = document.querySelector('#canvas');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = "600";
+    return ctx.canvas.height = "450";
+  };
+
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param, size, units;
+    this.reset();
     units = 'inches';
     size = 'Size';
     if ($('#param').val() === 'weight') {

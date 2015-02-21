@@ -229,6 +229,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	)
 
 	generateBMIGraph:(response)->
+		@reset()
 		$('#y-axis').text 'BMI Ratio'
 		$('#canvasregion').show()
 		dates = [response['st_date'],response['et_date']]
@@ -301,7 +302,18 @@ class HomeLayoutView extends Marionette.LayoutView
 			responsive: true
 		);
 
+	reset:->
+		$('#canvas').remove(); 
+		$('#graph-container').append('<canvas id="canvas"><canvas>');
+		canvas = document.querySelector('#canvas');
+		ctx = canvas.getContext('2d');
+		ctx.canvas.width = "600";
+		ctx.canvas.height = "450"; 
+		
+
+
 	generateGraph:->
+		@reset()
 		units = 'inches'
 		size = 'Size'
 		if $('#param').val() == 'weight'

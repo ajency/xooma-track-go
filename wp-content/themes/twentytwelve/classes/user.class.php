@@ -324,7 +324,7 @@ class User
         date_default_timezone_set($details['timezone']);
         $datestring = $today; 
         $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
-        
+        $todaydate = date('Y-m-d');
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
@@ -448,7 +448,7 @@ class User
 
     //get graph data 
     $reg_date = get_user_measurement_date($id);
-    $graph = generate_dates($reg_date,date('Y-m-d'),$id,'weight');
+    $graph = generate_dates($reg_date,$todaydate,$id,'weight');
 
     $data = USER::get_user_measurement_details($id,$date="");
     
