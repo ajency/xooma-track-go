@@ -69,6 +69,7 @@ class ProductList
 			get_term_meta($term_data->term_id, 'attachment_id', $single);
 			$attachment_id = get_term_meta($term_data->term_id, 'attachment_id', $single);
 			$images = wp_get_attachment_image_src( $attachment_id );
+			
     		$image = is_array( $images ) && count( $images ) > 1 ? $images[ 0 ] : get_template_directory_uri() .
         	'/img/placeholder.jpg';
         	$product_type_name= "";
