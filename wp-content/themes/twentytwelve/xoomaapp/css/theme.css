@@ -6709,7 +6709,7 @@ text {
 }
 @media (max-width: 768px) {
   #canvas-holder {
-    width: 270px;
+    width: 290px;
   }
 }
 .popover-content .close {
@@ -7231,13 +7231,13 @@ packet_expected_class {
   position: relative;
   height: 25%;
   vertical-align: middle;
-  padding: 20px 33px;
+  padding: 10px 33px;
   color: #000;
   z-index: -1;
 }
 @media (max-width: 768px) {
   .bottle-msg {
-    padding: 16px 40px;
+    padding: 10px 40px;
   }
 }
 .fill-bottle {
@@ -7743,6 +7743,53 @@ packet_expected_class {
   }
   100% {
     -ms-transform: rotate(35deg);
+  }
+}
+.bounce-arrow {
+  position: absolute;
+  text-align: center;
+  left: 0%;
+  right: 0%;
+  top: 40%;
+  font-size: 4em;
+  color: #ffffff;
+  opacity: .5;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: arrow-down;
+  animation-name: arrow-down;
+  z-index: 1;
+}
+@-webkit-keyframes arrow-down {
+  0% {
+    -webkit-transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(15px);
+  }
+  60% {
+    -webkit-transform: translateY(30px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes arrow-down {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(15px);
+  }
+  60% {
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 0;
   }
 }
 /* Top - Header */
