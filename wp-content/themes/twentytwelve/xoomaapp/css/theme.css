@@ -11818,21 +11818,28 @@ input.cmn-toggle-round-flat:checked + label:after {
   margin-left: 10px;
 }
 #y-axis {
-  -webkit-transform: rotate(270deg);
-  -moz-transform: rotate(271deg);
-  -o-transform: rotate(271deg);
-  writing-mode: rl-tb;
+  -ms-writing-mode: tb-lr;
+  -webkit-writing-mode: vertical-lr;
+  -moz-writing-mode: vertical-lr;
+  -ms-writing-mode: vertical-lr;
+  writing-mode: vertical-lr;
   position: absolute;
   top: 0%;
   bottom: 0%;
   text-align: center;
-  width: 244px;
-  left: 20%;
+  width: 10px;
+  left: 0%;
 }
 @media (max-width: 768px) {
   #y-axis {
     left: -20px;
   }
+}
+#bmi {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 50%;
 }
 /* Minus Plus Button */
 .range-button {
