@@ -247,6 +247,8 @@ HomeLayoutView = (function(_super) {
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {
     var bmi_end, bmi_end_ht, bmi_start, bmi_start_ht, ctdx, dates, et_square, lineChartData, st_square;
+    $('#bmi').show();
+    this.reset();
     $('#y-axis').text('BMI Ratio');
     $('#canvasregion').show();
     dates = [response['st_date'], response['et_date']];
@@ -306,8 +308,20 @@ HomeLayoutView = (function(_super) {
     });
   };
 
+  HomeLayoutView.prototype.reset = function() {
+    var canvas, ctx;
+    $('#canvas').remove();
+    $('#graph-container').append('<canvas id="canvas"><canvas>');
+    canvas = document.querySelector('#canvas');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = "600";
+    return ctx.canvas.height = "450";
+  };
+
   HomeLayoutView.prototype.generateGraph = function() {
     var ctdx, dates, lineChartData, param, size, units;
+    $('#bmi').hide();
+    this.reset();
     units = 'inches';
     size = 'Size';
     if ($('#param').val() === 'weight') {
@@ -406,7 +420,7 @@ HomeX2OView = (function(_super) {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
   }
 
-  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> <li><a href="#/product/{{id}}/edit">Edit product</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center">Hydrate!</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div><div id="rays"></div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
+  HomeX2OView.prototype.template = '<div class="row"> <div class="col-md-4 col-xs-4"></div> </div> <div class="panel panel-default"> <div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> <li><a href="#/product/{{id}}/edit">Edit product</a></li> </ul> </h5> <div class="row"> <div class="fill-bottle"> <a id="original" href="#/products/{{id}}/bmi/{{dateval}}" > <h6 class="text-center">Hydrate!</h6> <img src="' + _SITEURL + '/wp-content/themes/twentytwelve/images/xooma-bottle.gif"/> <h6 class="text-center texmsg">{{texmsg}}</h6> </a> </div><div id="rays"></div> <div id="canvas-holder"> <canvas id="chart-area" width="500" height="500"/> </div> </div> </div><h6 class="text-primary text-center"><i class="fa fa-clock-o "></i> Last consumed at {{time}}</h6> <br/></div></div>';
 
   HomeX2OView.prototype.ui = {
     liquid: '.liquid'
@@ -653,7 +667,7 @@ HomeX2OView = (function(_super) {
         d = new Date(actualtime);
         timestamp = d.getTime();
         time = moment(timestamp).zone(timezone).format('h:mm A');
-        msg = "Bottle " + i + ' consumed(%) at ' + time;
+        msg = "Bottle " + i + ' consumed(%) at </br>' + time;
       }
       return doughnutData.push({
         value: parseFloat(occurrence['value']) * 100,
@@ -710,7 +724,7 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.className = 'panel panel-default';
 
-  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> <li><a href="#/product/{{id}}/edit">Edit product</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
+  ProductChildView.prototype.template = '<div class="panel-body"> <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li><a href="#/product/{{id}}/history">Consumption History</a></li> <li><a href="#/product/{{id}}/edit">Edit product</a></li> </ul> </h5> <input type="hidden" name="qty{{id}}"  id="qty{{id}}" value="" /> <input type="hidden" name="meta_id{{id}}"  id="meta_id{{id}}" value="" /> <ul class="list-inline dotted-line  text-center row m-t-20 panel-product"> <li class="col-md-8 col-xs-12 col-sm-8"> <ul class="list-inline no-dotted"> {{#no_servings}} {{{servings}}} {{/no_servings}} </ul> </li> <li class="col-md-4 col-xs-12 col-sm-4 mobile-status"> <h5 class="text-center hidden-xs">Status</h5> <i class="fa fa-smile-o"></i> <h6 class="text-center margin-none status">{{texmsg}}</h6> </li> </ul> </div> <div class="panel-footer hidden"><i id="bell{{id}}" class="{{remindermsg}}"></i> Hey {{username}}! {{msg}}</div>';
 
   ProductChildView.prototype.ui = {
     anytime: '.anytime'

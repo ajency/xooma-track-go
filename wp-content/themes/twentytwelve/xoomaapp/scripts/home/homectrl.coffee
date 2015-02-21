@@ -229,6 +229,8 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	)
 
 	generateBMIGraph:(response)->
+		$('#bmi').show()
+		@reset()
 		$('#y-axis').text 'BMI Ratio'
 		$('#canvasregion').show()
 		dates = [response['st_date'],response['et_date']]
@@ -301,7 +303,19 @@ class HomeLayoutView extends Marionette.LayoutView
 			responsive: true
 		);
 
+	reset:->
+		$('#canvas').remove(); 
+		$('#graph-container').append('<canvas id="canvas"><canvas>');
+		canvas = document.querySelector('#canvas');
+		ctx = canvas.getContext('2d');
+		ctx.canvas.width = "600";
+		ctx.canvas.height = "450"; 
+		
+
+
 	generateGraph:->
+		$('#bmi').hide()
+		@reset()
 		units = 'inches'
 		size = 'Size'
 		if $('#param').val() == 'weight'
@@ -385,7 +399,7 @@ class HomeX2OView extends Marionette.ItemView
 		<div class="panel panel-default">
 			<div class="panel-body">
 				 <h5 class=" mid-title margin-none"><div> {{name}}</div>
-					<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+					<i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						<li><a href="#/product/{{id}}/edit">Edit product</a></li>
@@ -646,7 +660,7 @@ class HomeX2OView extends Marionette.ItemView
 				time = moment(timestamp).zone(timezone).format('h:mm A')
 			
 				
-				msg = "Bottle "+ i+ ' consumed(%) at '+ time
+				msg = "Bottle "+ i+ ' consumed(%) at </br>'+ time
 			doughnutData.push 
 					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']
@@ -682,7 +696,7 @@ class ProductChildView extends Marionette.ItemView
 	className : 'panel panel-default'
 
 	template  : '<div class="panel-body">
-			 <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+			 <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
 						<li><a href="#/product/{{id}}/edit">Edit product</a></li>

@@ -27,16 +27,16 @@
 
     <div class="slider single-item">
                     <div><h3><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
-                        <h5 class="text-center">Fun and Easy way to keep track  <br>of your Xooma product usage</h5>
+                        <h5 class="text-center">Easy and intuitive way to keep track of your <br>Xooma products intake.</h5>
                     </div>
                     <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
-                    <h5 class="text-center">Timely notification and email reminders<br> to support your product use and health goals</h5>
+                    <h5 class="text-center">App offers timely notification and email reminders<br> making sure you never miss a dose!</h5>
                     </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" ></h3>
-                    <h5 class="text-center">Measure the improvements<br>in your shape and shapes</h5>
+                    <h5 class="text-center">Measure your fitness with Progress chart</h5>
                     </div>
                     <div><h3>  <img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
-                    <h5 class="text-center">Get notified when you're running low <br>on your favorite Xooma products</h5>
+                    <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
                     </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
           
@@ -681,7 +681,7 @@
 
     <div class="panel panel-default">
           <div class="panel-body">
-            <h5 class=" margin-none mid-title ">Progress Chart <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+            <h5 class=" margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li><a href="#" class="update">Update Measurements</a></li>
                         <li><a href="#" class="history">Measurements History</a></li>
@@ -731,10 +731,11 @@
                 <div id="canvasregion" style="width:100%">
 
                                 <div>
-                                    <canvas id="canvas" height="450" width="600"></canvas>
+                                <div id="graph-container">
+                                    <canvas id="canvas" height="450" width="600"></canvas></div>
                                 <div id="y-axis" class="text-center"><b></b></div>
-                                    <div id="x-axis" class="text-center">Date</div>
-                                <div id="bmi" class="text-center">Normal</div>
+         <div id="x-axis" class="text-center">Date</div>
+ <div id="bmi" class="text-center">Normal</div>
                                 </div>
                     
             
