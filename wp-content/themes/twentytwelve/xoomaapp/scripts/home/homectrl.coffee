@@ -151,6 +151,8 @@ class HomeLayoutView extends Marionette.LayoutView
 	onShow:->
 		$('#param option[value="'+window.param+'"]').prop("selected",true)
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
+		$('#param').trigger( "change" )
+		$('.time_period').trigger( "change" )
 		todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
@@ -386,7 +388,7 @@ class HomeX2OView extends Marionette.ItemView
 					<i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
-						
+						<li><a href="#/product/{{id}}/edit">Edit product</a></li>
 						
 					  </ul>
 			  </h5>
@@ -428,6 +430,7 @@ class HomeX2OView extends Marionette.ItemView
 				return true
 
 	serializeData:->
+		console.log @model
 		data = super()
 		texmsg = ""
 		timezone = App.currentUser.get('timezone')
@@ -440,6 +443,7 @@ class HomeX2OView extends Marionette.ItemView
 		qtyarr = 0
 		qtyconsumed = []
 		totalservings = 0
+		console.log @model.get('occurrence')
 		$.each @model.get('occurrence'), (ind,val)->
 			occurrence = _.has(val, "occurrence");
 			expected = _.has(val, "expected");
@@ -681,6 +685,7 @@ class ProductChildView extends Marionette.ItemView
 			 <h5 class=" mid-title margin-none"><div> {{name}}<span>( {{serving_size}}  Serving/ Day )</span></div><i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
 					 <ul class="dropdown-menu pull-right" role="menu">
 						<li><a href="#/product/{{id}}/history">Consumption History</a></li>
+						<li><a href="#/product/{{id}}/edit">Edit product</a></li>
 						
 						
 					  </ul>

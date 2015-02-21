@@ -253,7 +253,7 @@ class UserProductListView extends Marionette.CompositeView
 		
 	onRender:->
 		if App.currentUser.get('state') == '/home'
-			@ui.saveProducts.hide()
+			# @ui.saveProducts.hide()
 			$('#product').parent().removeClass 'done'
 			$('#product').parent().addClass 'selected'
 			$('#product').parent().siblings().removeClass 'selected'
