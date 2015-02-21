@@ -942,7 +942,7 @@ function get_occurrence_date($product_id,$user_id,$date){
 			$occurrences = \ajency\ScheduleReminder\Occurrence::
 			get_occurrences($schedule, $start_datetime, $end_datetime); 
 			
-
+			// $occurrences = arsort($occurrences);
 
 			return $occurrences;
 

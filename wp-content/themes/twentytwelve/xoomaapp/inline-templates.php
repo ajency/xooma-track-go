@@ -27,16 +27,17 @@
 
     <div class="slider single-item">
                     <div><h3><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
-                        <h5 class="text-center">Easy and intuitive way to keep track of your <br>Xooma products intake.</h5>
+                        <h5 class="text-center">Fun and Easy way to keep track <br>of your Xooma product usage</h5>
                     </div>
-                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
-                    <h5 class="text-center">App offers timely notification and email reminders<br> making sure you never miss a dose!</h5>
+                     <div><h3>  <img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
+                    <h5 class="text-center">Get notified when you're running low<br>on your xooma products</h5>
                     </div>
+                    
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/chart.png" alt="" class="center-block img-responsive" ></h3>
-                    <h5 class="text-center">Measure your fitness with Progress chart</h5>
+                    <h5 class="text-center">Measure the improvements <br> in your shape and size</h5>
                     </div>
-                    <div><h3>  <img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
-                    <h5 class="text-center">Know when your stock is running out and <br>order in time</h5>
+                   <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
+                    <h5 class="text-center">Timely notification and email reminders<br>to support your product use and health goals</h5>
                     </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
           
@@ -271,9 +272,9 @@
 
                         <div class="aj-response-message"> </div>
                         <form class="form-horizontal update_user_details" role="form">
-    <h5 class="text-center bold margin-none">Let us know something about you.</h5>
+    <h5 class="text-center bold margin-none">Tell us a little about yourself.</h5>
                                 
-                                <p class="text-center">Fill in your details and click on save
+                                <p class="text-center">Fill in your details and click on save.
     Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs" width="150px" height="150px">
                                 <br>
                                 <div class="row">
@@ -401,9 +402,9 @@
            </a>
         <div style="display:none;">
             <div id="demo2_tip">
-                <b>Neck(inches)</b><br />
+                <b>Neck (inches)</b><br />
            <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5" tabindex=1/> 
-            </div>
+           <small>Press enter when done</small></div>
 
         </div>
 
@@ -412,36 +413,36 @@
           </a>
         <div style="display:none;">
             <div id="demo3_tip">
-                <b>Chest(inches)</b><br />
+                <b>Chest (inches)</b><br />
            <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"  tabindex=2/>
-             </div>
+            <small >Press enter when done</small> </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
            </a>
            <div style="display:none;">
             <div id="demo4_tip">
-                <b>Arm(inches)</b><br />
+                <b>Arm (inches)</b><br />
            <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-             </div>
+            <small >Press enter when done</small> </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
            </a>
         <div style="display:none;">
             <div id="demo5_tip">
-                <b>Abdomen(inches)</b><br />
+                <b>Abdomen (inches)</b><br />
            <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            </div>
+            <small >Press enter when done</small></div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
 
            </a>
          <div style="display:none;">
             <div id="demo6_tip">
-                <b>Waist(inches)</b><br />
+                <b>Waist (inches)</b><br />
            <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-            </div>
+           <small >Press enter when done</small></div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -449,18 +450,18 @@
            </a>
                           <div style="display:none;">
             <div id="demo7_tip">
-                <b>Hips(inches)</b><br />
+                <b>Hips (inches)</b><br />
            <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            </div>
+            <small >Press enter when done</small></div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
                <i class="fa fa-dot-circle-o"></i>
            </a>
                           <div style="display:none;">
             <div id="demo8_tip">
-                <b>Thigh(inches)</b><br />
+                <b>Thigh (inches)</b><br />
            <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-            </div>
+            <small >Press enter when done</small></div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
                <i class="fa fa-dot-circle-o"></i>
@@ -468,16 +469,16 @@
 
                          <div style="display:none;">
             <div id="demo9_tip">
-                <b>Midcalf(inches)</b><br />
+                <b>Midcalf (inches)</b><br />
            <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-             </div>
+            <small >Press enter when done</small></div>
         </div> 
           
 
 
 
            <img id="body" src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
-                                        <small>Click on the blinking red spot to enter the measurement of selected part of the body in inches.</small><br><br>
+                                        <small>Click on the blinking red spot to enter the measurement of the selected part of the body in inches.</small><br><br>
                                         </div>
                                     <div class="col-sm-6 ">
                                     			<div class="panel-default panel">
@@ -731,10 +732,11 @@
                 <div id="canvasregion" style="width:100%">
 
                                 <div>
-                                    <canvas id="canvas" height="450" width="600"></canvas>
+                                <div id="graph-container">
+                                    <canvas id="canvas" height="450" width="600"></canvas></div>
                                 <div id="y-axis" class="text-center"><b></b></div>
          <div id="x-axis" class="text-center">Date</div>
-
+ <div id="bmi" class="text-center">Normal</div>
                                 </div>
                     
             
@@ -1340,6 +1342,7 @@
 
 
         <h5 class=" text-center"><span class="serving"></span><small class="bonus"></small></h5>
+           <small class="text-center center-block msg bottle-msg text-warning"></small> 
     <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->
         <div class="row">
             
@@ -1362,10 +1365,12 @@
                 </div>
             <!--- Bottle UI -->
 
-                <div> <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
+                <div> 
+                
+                <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
                 <div class="bottle-bg">
                         <div class="bottle"></div>
-                        <small class="text-center center-block msg bottle-msg "></small>    
+                        
                         
                  </div>
 
@@ -1379,6 +1384,7 @@
              <div class="col-md-4 ">
             </div>
         </div>
+
          <input type="hidden" name="date" id="date" value="" / >
        <div class="row m-t-20">
             <div class="col-sm-5 col-xs-4"> <div class="loadingconusme pull-right m-t-10" ></div></div>

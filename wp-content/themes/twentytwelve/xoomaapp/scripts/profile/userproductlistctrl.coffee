@@ -17,7 +17,7 @@ class ProductChildView extends Marionette.ItemView
 	template  : '
           <div class="panel-body ">
             <h5 class=" mid-title margin-none"><div> {{name}}</div>
-              <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+              <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
@@ -253,7 +253,7 @@ class UserProductListView extends Marionette.CompositeView
 		
 	onRender:->
 		if App.currentUser.get('state') == '/home'
-			@ui.saveProducts.hide()
+			# @ui.saveProducts.hide()
 			$('#product').parent().removeClass 'done'
 			$('#product').parent().addClass 'selected'
 			$('#product').parent().siblings().removeClass 'selected'
