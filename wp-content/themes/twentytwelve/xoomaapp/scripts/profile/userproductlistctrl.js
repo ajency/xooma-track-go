@@ -260,7 +260,6 @@ UserProductListView = (function(_super) {
 
   UserProductListView.prototype.onRender = function() {
     if (App.currentUser.get('state') === '/home') {
-      this.ui.saveProducts.hide();
       $('#product').parent().removeClass('done');
       $('#product').parent().addClass('selected');
       $('#product').parent().siblings().removeClass('selected');

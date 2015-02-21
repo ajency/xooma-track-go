@@ -218,7 +218,7 @@ class AsperbmiView extends Marionette.ItemView
 		msg = ""
 		$.each temp , (ind,val)->
 			if parseFloat(count) == parseFloat(val)
-				console.log msg = Messages[val]
+				console.log msg = x2oMessages[val]
 
 
 		msg

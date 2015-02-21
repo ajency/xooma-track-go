@@ -270,7 +270,7 @@ AsperbmiView = (function(_super) {
     msg = "";
     $.each(temp, function(ind, val) {
       if (parseFloat(count) === parseFloat(val)) {
-        return console.log(msg = Messages[val]);
+        return console.log(msg = x2oMessages[val]);
       }
     });
     return msg;

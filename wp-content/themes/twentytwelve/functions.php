@@ -1507,3 +1507,17 @@ function wpse_11244_restrict_admin() {
     }
 }
 add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );
+
+function my_custom_action_link($actions, $user_object) { 
+
+	global $wp_roles; 
+
+	$userRole = new WP_User( $user_object->ID ); 
+	 
+	$profileurl= site_url()."/xooma-app/#profile/user_id/$user_object->ID"; 
+
+
+	$actions['view'] = "<a class='cgc_ub_edit_badges' target='_blank' href='" .$profileurl. "'>" . __( 'View', 'cgc_ub' ) . "</a>"; 
+	return $actions; 
+} 
+add_filter('user_row_actions', 'my_custom_action_link', 10, 2);
