@@ -68,6 +68,8 @@ class XoomaAppRootView extends Marionette.LayoutView
             
         else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
             App.navigate '#home', trigger:true
+            App.stop()
+            App.start()
 
             
     
