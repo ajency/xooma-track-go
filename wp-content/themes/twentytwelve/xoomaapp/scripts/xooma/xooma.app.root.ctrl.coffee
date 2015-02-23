@@ -37,17 +37,11 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
     onShow:->
-        @showViews()
+        $('.display_name').text App.currentUser.get 'display_name'
+        $('.user_email').text App.currentUser.get 'user_email'
          
-        $('nav#menu').mmenu(
-            onClick:
-                close: true,
-                preventDefault : false
-                setSelected: true
-               
-
-        )
-        
+       
+        @showViews()
         
         $('.logout-button').on('click', (e)->
             e.preventDefault()

@@ -202,8 +202,38 @@ slidesToScroll: 1,
 
  
 </script>
-<script type="text/javascript">
 
+<nav id="menu">
+          <ul>
+             <li>
+                <a><h5 class="margin-none display_name">{{display_name}}</h5>
+                 <small class="user_email">{{user_email}}</small></a>
+              </li>
+              <li class="link"><a  href="#home"><i class="fa fa-home"></i> Home</a>
+              </li>
+              <li class="link"><a  href="#settings"><i class="fa fa-cog"></i> Setting</a>
+                  
+              </li>
+              <li><a href="http://xooma.com/" target="_blank"><i class="fa fa-bullhorn"></i> About Xooma</a>
+              </li>
+              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
+              </li>
+              <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
+
+              </li>
+          </ul>
+      </nav> 
+<script type="text/javascript">
+$('nav#menu').mmenu({
+            onClick:
+            {
+                close: true,
+                preventDefault : false,
+                setSelected: true
+            }
+            }   
+
+        )
 </script>
 
 <?php wp_footer(); ?>

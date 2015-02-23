@@ -56,14 +56,9 @@ XoomaAppRootView = (function(_super) {
 
   XoomaAppRootView.prototype.onShow = function() {
     var state;
+    $('.display_name').text(App.currentUser.get('display_name'));
+    $('.user_email').text(App.currentUser.get('user_email'));
     this.showViews();
-    $('nav#menu').mmenu({
-      onClick: {
-        close: true,
-        preventDefault: false,
-        setSelected: true
-      }
-    });
     $('.logout-button').on('click', function(e) {
       e.preventDefault();
       return $.ajax({
