@@ -56,6 +56,7 @@ XoomaAppRootView = (function(_super) {
 
   XoomaAppRootView.prototype.onShow = function() {
     var state;
+    this.showViews();
     $('nav#menu').mmenu({
       onClick: {
         close: true,
@@ -63,16 +64,6 @@ XoomaAppRootView = (function(_super) {
         setSelected: true
       }
     });
-    if (window.location.hash === '' && App.currentUser.get('ID') === void 0) {
-      App.currentUser.set({});
-      this.ui.link.hide();
-      $('.user-data').hide();
-      App.navigate('#login', true);
-    } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === '/home') {
-      App.navigate('#home', true);
-    } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state !== '/home') {
-      App.navigate('#' + App.currentUser.get('state'), true);
-    }
     $('.logout-button').on('click', function(e) {
       e.preventDefault();
       return $.ajax({
@@ -86,6 +77,25 @@ XoomaAppRootView = (function(_super) {
       return this.ui.link.hide();
     } else {
       return $('.link').show();
+    }
+  };
+
+  XoomaAppRootView.prototype.showViews = function() {
+    var state;
+    state = App.currentUser.get('state');
+    if (window.location.hash === '' && App.currentUser.get('ID') === void 0) {
+      App.currentUser.set({});
+      $('.link').hide();
+      $('.user-data').hide();
+      return App.navigate('#login', true);
+    } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === '/home') {
+      return App.navigate('#home', {
+        trigger: true
+      });
+    } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state !== '/home') {
+      return App.navigate('#' + App.currentUser.get('state'), {
+        trigger: true
+      });
     }
   };
 

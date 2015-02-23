@@ -25,31 +25,36 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		if !window.isWebView()
 			$('#birth_date').datepicker({
-			    dateFormat : 'yy-mm-dd'
-			    changeYear: true,
-			    changeMonth: true,
-			    maxDate: new Date(),
-			    yearRange: "-100:+0",
-				     
+				dateFormat : 'yy-mm-dd'
+				changeYear: true,
+				changeMonth: true,
+				maxDate: new Date(),
+				yearRange: "-100:+0",
+					 
 				   
-			    
+				
 			});
 
 
 
 	onShow:->
-
+		console.log @model
+		$('.data1').hide()
+		if App.currentUser.get('caps').administrator == true
+			$('.tabelements').attr('disabled', true)
+			$('.data').hide()
+			$('.data1').show()
 		App.trigger 'cordova:hide:splash:screen'
 		if !window.isWebView()
 			$('#birth_date').datepicker({
-			    dateFormat : 'yy-mm-dd'
-			    changeYear: true,
-			    changeMonth: true,
-			    maxDate: new Date(),
-			    yearRange: "-100:+0",
-				     
+				dateFormat : 'yy-mm-dd'
+				changeYear: true,
+				changeMonth: true,
+				maxDate: new Date(),
+				yearRange: "-100:+0",
+					 
 				   
-			    
+				
 			});
 		state = App.currentUser.get 'state'
 		if state == '/home'
@@ -64,7 +69,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 		
 		
-		    
+			
 		
 
 
@@ -72,9 +77,26 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>
-		@model.saveProfile _formData['profile']
-			.done @successHandler
-			.fail @errorHandler
+		console.log APIURL
+		if App.currentUser.get('caps').administrator == true
+			console.log id = @model.get('profile').user_id
+		
+			$.ajax
+				method : 'PUT'
+				url : APIURL+'/users/'+id+'/profile'
+				data : JSON.stringify _formData['profile']
+				success:@_successHandler
+		else
+			@model.saveProfile _formData['profile']
+				.done @successHandler
+				.fail @errorHandler
+
+	_successHandler:(response, status,xhr)=>
+		@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
+		$('html, body').animate({
+						scrollTop: 0
+						}, 'slow')
+		
 
 	successHandler:(response, status,xhr)=>
 		state = App.currentUser.get 'state'
@@ -85,7 +107,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 							scrollTop: 0
 							}, 'slow')
 		else
-			if state == '/home'
+			if state == '/home' 
 				window.removeMsg()
 				App.currentUser.set 'profile', response
 				App.currentUser.set 'timezone', response.timezone

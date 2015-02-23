@@ -6,14 +6,12 @@ jQuery(document).ready ($)->
 		.state 'xooma',
 				url : '/'
 
-		.state 'home',
-				url : '/home'
-				parent : 'xooma'
-				sections : 
-					'x2o' : 
-						ctrl : 'HomeX2OCtrl'
-					'other-products' : 
-						ctrl : 'HomeOtherProductsCtrl'
+		
+
+
+
+
+	
 						
 	
 

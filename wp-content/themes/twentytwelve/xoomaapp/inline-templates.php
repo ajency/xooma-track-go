@@ -271,10 +271,11 @@
 
                         <div class="aj-response-message"> </div>
                         <form class="form-horizontal update_user_details" role="form">
-    <h5 class="text-center bold margin-none">Tell us a little about yourself.</h5>
+                        <h5 class="text-center bold margin-none data1">User details.</h5>
+    <h5 class="text-center bold margin-none data">Tell us a little about yourself.</h5>
                                 
-                                <p class="text-center">Fill in your details and click on save.
-    Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs" width="150px" height="150px">
+                                <p class="text-center data">Fill in your details and click on save.
+    Fields marked * are mandatory</p><img src="{{profile_picture.sizes.thumbnail.url}}" alt="{{display_name}}" class="img-circle center-block profile-picture hidden-xs data" width="150px" height="150px">
                                 <br>
                                 <div class="row">
                                         <div class="col-sm-offset-3 col-sm-6">
@@ -289,7 +290,7 @@
                                                 <div class="form-group">
                                                         <label for="text2" class=" col-sm-3 col-xs-4 control-label">Name</label>
                                                         <div class="col-sm-9  col-xs-8">
-                                                                <input type="text"  readonly class="form-control" name="display_name">
+                                                                <input type="text"  readonly class="form-control " name="display_name">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
@@ -301,7 +302,7 @@
                                                 <div class="form-group">
                                                         <label for="text4" class="col-sm-3 col-xs-4  control-label">Phone</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" aj-field-type="number" class="form-control" name="profile[phone_no]">
+                                                                <input type="text" aj-field-type="number" class="form-control tabelements" name="profile[phone_no]">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
@@ -309,12 +310,12 @@
                                                         <div class="col-sm-9 col-xs-8">
                                                                 <div class="rd-gender">
                                                                         <label class="wrap pull-left">
-                                                                                <input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="male" />
+                                                                                <input type="radio" aj-field-required="true" name="profile[gender]" class="radio tabelements" value="male" />
                                                                                 <span class="rd-visual male" title="Male"></span>
                                                                         </label>
 
                                                                         <label class="wrap pull-left">
-                                                                                <input type="radio" aj-field-required="true" name="profile[gender]" class="radio" value="female" />
+                                                                                <input type="radio" aj-field-required="true" name="profile[gender]" class="radio tabelements" value="female" />
 
                                                                                 <span class="rd-visual female" title="Female"></span>
                                                                         </label>
@@ -325,13 +326,13 @@
                                                         <label for="text7" class=" col-sm-3 col-xs-4  control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                                         <div class="col-sm-9 col-xs-8">
 
-                                                                <input class="form-control" type="text" id="birth_date" name="profile[birth_date]" required />
+                                                                <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required />
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <select class="form-control" name="profile[timezone]" id="timezone]">
+                                                                <select class="form-control tabelements" name="profile[timezone]" id="timezone]">
                                                                         <option value="America/New_York">America/New York</option>
                                                                         <option value="America/Adak">America/Adak</option>
                                                                         <option value="America/Mexico_city">America/Mexico_city</option>
@@ -1473,8 +1474,34 @@
     </div>
     </script>
  <script id="admin-template" type="text/template">
- Admin view hwere
+    <div class="sub-header home-sub-header">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-sm-12">
+                                        <ul class="list-inline">
+                                                <li class="tag"><a  id="profile" class="link" href="#"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
+                                                        <span class="hidden-xs"> My Personal Info</span></a>
+                                                </li>
+                                                <li class="tag"><a id="measurement" class="link" href="#"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
+                                                        <span  class="hidden-xs"> My Measurements</span></a>
+                                                </li>
+                                                <li class="tag"><a id="product" class="link" href="#"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
+
+                                                        <span class="hidden-xs" >My Products</span></a>
+
+                                                        
+
+                                                </li>
+                                        </ul>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <div class="clearfix"></div>
+        
+ 
   </script>
+
     <title></title>
 </head>
 

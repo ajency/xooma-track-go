@@ -7,6 +7,7 @@ App.state 'home',
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
 
+
 class HomeLayoutView extends Marionette.LayoutView
 
 	template : '#home-template'
