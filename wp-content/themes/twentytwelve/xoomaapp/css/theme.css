@@ -6520,8 +6520,8 @@ body > .container {
 }
 @media (max-width: 768px) {
   .home-datepicker {
-    font-size: 1.3em;
-    width: 100px;
+    font-size: 1.2em;
+    width: 110px;
   }
 }
 .home-datepicker-sub {
