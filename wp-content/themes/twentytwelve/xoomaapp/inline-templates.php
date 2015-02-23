@@ -682,7 +682,7 @@
 
     <div class="panel panel-default">
           <div class="panel-body">
-            <h5 class=" margin-none mid-title ">Progress Chart <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+            <h5 class=" margin-none mid-title ">Progress Chart <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                      <ul class="dropdown-menu pull-right" role="menu">
                         <li><a href="#" class="update">Update Measurements</a></li>
                         <li><a href="#" class="history">Measurements History</a></li>
