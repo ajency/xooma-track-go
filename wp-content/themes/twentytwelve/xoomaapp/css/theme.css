@@ -7792,6 +7792,39 @@ packet_expected_class {
     opacity: 0;
   }
 }
+/* FAQ */
+.faq-list .panel-heading {
+  padding: 12px 46px;
+  position: relative;
+}
+.faq-list .panel-heading:before {
+  background-color: transparent;
+  color: #ff3333;
+  font-size: 25px;
+  font-style: normal;
+  height: auto;
+  margin: 0 6px 0 0;
+  padding: 0;
+  width: auto;
+  position: absolute;
+  left: 6px;
+  line-height: .7em;
+  content: "Q: ";
+}
+.faq-list .panel-body .dropcap.simple {
+  font-size: 35px;
+  color: #71b8ec;
+}
+.faq-list .panel-body .dropcap.simple {
+  float: left;
+  width: auto;
+  height: auto;
+  padding: 0;
+  line-height: .6em;
+  margin: 0 6px 0 0;
+  font-style: normal;
+  background-color: transparent;
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
