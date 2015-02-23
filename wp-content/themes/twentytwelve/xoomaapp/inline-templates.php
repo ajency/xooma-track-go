@@ -111,26 +111,7 @@
                         </div>
                 </nav>
 
-            <nav id="menu">
-          <ul>
-             <li>
-                <a><h5 class="margin-none">{{display_name}}</h5>
-                 <small>{{user_email}}</small></a>
-              </li>
-              <li class="link"><a  href="#home"><i class="fa fa-home"></i> Home</a>
-              </li>
-              <li class="link"><a  href="#settings"><i class="fa fa-cog"></i> Setting</a>
-                  
-              </li>
-              <li><a href="http://xooma.com/" target="_blank"><i class="fa fa-bullhorn"></i> About Xooma</a>
-              </li>
-              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
-              </li>
-              <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
-
-              </li>
-          </ul>
-      </nav> 
+            
                  
         </div>
 

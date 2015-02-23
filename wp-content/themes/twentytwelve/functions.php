@@ -1386,7 +1386,7 @@ function settings(){
 		</td>
 
 	</tr>
-	<tr>
+	<!--<tr>
 		<td>
 			<label for="serving_per_container">Morning Time</label>
 		</td>
@@ -1407,7 +1407,7 @@ function settings(){
 
 		</td>
 
-	</tr>
+	</tr>-->
 
 </table>
 <br/>
