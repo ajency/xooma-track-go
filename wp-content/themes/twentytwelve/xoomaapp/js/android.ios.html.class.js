@@ -10,11 +10,11 @@ var iOS = ua.match(/(iphone|ipod|ipad)/);
 	}
 var iPad = ua.match(/(ipad)/);
 	if(iPad) {
-		$('html').addClass('ipad');
+		$('html').addClass('ios');
 	}
-var iPhone = ua.match(/(iphone|ipod)/);
+var iPhone = ua.match(/(ios)/);
 	if(iPhone) {
-		$('html').addClass('iphone');
+		$('html').addClass('ios');
 	}
 var android = ua.indexOf("android") > -1; 
 	if(android) {

@@ -8023,6 +8023,12 @@ packet_expected_class {
   .alert-msg {
     line-height: 24px;
   }
+  .ios .topheader .navbar {
+    padding-top: 10px !important;
+  }
+  .ios #homeregion {
+    margin-top: 10px;
+  }
 }
 @media (max-width: 768px) {
   .mobile-container {
