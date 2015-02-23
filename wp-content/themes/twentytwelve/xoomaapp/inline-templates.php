@@ -729,7 +729,7 @@
         </div>
 
     </div>
-<!-- faq
+<!--
 <div class="panel-group faq-list" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
