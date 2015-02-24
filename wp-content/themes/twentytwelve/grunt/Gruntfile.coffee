@@ -35,6 +35,8 @@ module.exports = (grunt) ->
 	appcode = [
 		'../js/tooltip.js'
 		'../js/slick.min.js'
+		'../js/offline.min.js'
+		'../js/android.ios.html.class.js'
 		'../xoomaapp/js/jquery.ui.timepicker.js'
 		'../xoomaapp/scripts/common/common.js'
 		'../xoomaapp/scripts/xooma/xooma.app.root.ctrl.js'
@@ -57,6 +59,7 @@ module.exports = (grunt) ->
 		'../xoomaapp/scripts/loading/loading.ctrl.js'
 		'../xoomaapp/scripts/loading/workflow.ctrl.js'
 		'../xoomaapp/scripts/admin/admin.ctrl.js'
+		'../xoomaapp/scripts/faq/faq.ctrl.js'
 		'../xoomaapp/scripts/app.js'		
 	]
 
