@@ -6400,6 +6400,20 @@ html,
 body {
   height: 100%;
 }
+.product-medium {
+  width: 60px;
+}
+.dotted {
+  border-left: 1px dotted #cccccc;
+}
+@media (max-width: 768px) {
+  .dotted {
+    text-align: center;
+  }
+  .dotted h3 {
+    margin: 0px !important;
+  }
+}
 .link {
   cursor: pointer;
 }
