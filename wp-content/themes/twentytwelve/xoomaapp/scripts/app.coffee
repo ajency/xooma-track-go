@@ -10,8 +10,6 @@ jQuery(document).ready ($)->
 				url : 'faq'
 				parent : 'xooma'
 
-		
-
 
 
 

@@ -624,7 +624,18 @@
         </div>
     </script>
     <script id="home-template" type="text/template">
+<!--<div class="error-connection">
+    <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center text-muted m-t-30">
+               <h2 > <i class="fa fa-wifi"></i></h2>
+                        <h4 > No Connection Found</h4>
+                        Your connection to the wireless network is turned off.<br> Restore your connection and try again
+                </div>
 
+        </div>
+    </div>
+</div>-->
         <div class="container" id="homeregion"> 
         <!--<div class="alert alert-warning alert-msg measurements_update text-center" role="alert">
                   <i class="fa fa-bullhorn"></i>  Pick up a date here and update your consumptions for that day
