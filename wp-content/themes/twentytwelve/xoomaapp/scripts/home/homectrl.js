@@ -100,7 +100,12 @@ HomeLayoutView = (function(_super) {
       return this.ui.end_date.val(today);
     },
     'click #showHome': function(e) {
-      $('.loading').html('Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">');
+      if (!window.isWebView()) {
+        $('.loading').html('Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">');
+      }
+      if (window.isWebView()) {
+        $('.loading').html('Loading data<img src="./images/lodaing.GIF" width="70px">');
+      }
       return App.currentUser.getHomeProducts().done(this._showView).fail(this.errorHandler);
     }
   };
@@ -138,7 +143,12 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onFormSubmit = function(_formData) {
-    $('.loadinggraph').html('Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">');
+    if (!window.isWebView()) {
+      $('.loadinggraph').html('Loading data<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">');
+    }
+    if (window.isWebView()) {
+      $('.loadinggraph').html('Loading data<img src="./images/lodaing.GIF" width="70px">');
+    }
     return $.ajax({
       method: 'GET',
       data: _formData,
