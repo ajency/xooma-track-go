@@ -317,7 +317,7 @@ class User
         
         $sub = array();
         $pr_main = array();
-       
+        $t = date('Y-m-d');
         $today = date('Y-m-d H:i:s');
 
         $user_details = get_user_meta($id,'user_details',true);
@@ -450,7 +450,7 @@ class User
 
     //get graph data 
     $reg_date = get_user_measurement_date($id);
-    $graph = generate_dates($reg_date,$todaydate,$id,'weight');
+    $graph = generate_dates($reg_date,$t,$id,'weight');
 
     $data = USER::get_user_measurement_details($id,$date="");
     
