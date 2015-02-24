@@ -53,7 +53,7 @@ class XoomaAppRootView extends Marionette.LayoutView
         )
         state = App.currentUser.get 'state'
         if state != '/home' 
-            @ui.link.hide()
+            $('.link').hide()
         else
             $('.link').show()
 

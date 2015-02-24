@@ -97,9 +97,9 @@ ProfileMeasurementsView = (function(_super) {
       weight = App.currentUser.get('measurements').weight;
       $('#height option[value="' + height + '"]').prop("selected", true);
       $('#weight option[value="' + weight + '"]').prop("selected", true);
-      $('#height').trigger("change");
-      $('#weight').trigger("change");
     }
+    $('#height').trigger("change");
+    $('#weight').trigger("change");
     App.trigger('cordova:hide:splash:screen');
     timezone = App.currentUser.get('timezone');
     $('#date_field').val(moment().zone(timezone).format('YYYY-MM-DD'));
@@ -144,7 +144,6 @@ ProfileMeasurementsView = (function(_super) {
       'thigh': '',
       'hips': ''
     };
-    console.log(App.currentUser.get('measurements'));
     if (App.currentUser.get('measurements') !== void 0) {
       obj = App.currentUser.get('measurements');
       this.measurements.arm = obj.arm;
@@ -155,7 +154,6 @@ ProfileMeasurementsView = (function(_super) {
       this.measurements.thigh = obj.thigh;
       this.measurements.hips = obj.hips;
     }
-    console.log(this.measurements);
     state = App.currentUser.get('state');
     if (state === '/home') {
       $('.measurements_update').removeClass('hidden');

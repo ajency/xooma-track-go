@@ -69,7 +69,7 @@ XoomaAppRootView = (function(_super) {
     });
     state = App.currentUser.get('state');
     if (state !== '/home') {
-      return this.ui.link.hide();
+      return $('.link').hide();
     } else {
       return $('.link').show();
     }
