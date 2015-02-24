@@ -10,21 +10,21 @@ var iOS = ua.match(/(iphone|ipod|ipad)/);
 	}
 var iPad = ua.match(/(ipad)/);
 	if(iPad) {
-		$('html').addClass('ios');
+		$('html').addClass('ipad');
 	}
-var iPhone = ua.match(/(ios)/);
+var iPhone = ua.match(/(iphone|ipod)/);
 	if(iPhone) {
-		$('html').addClass('ios');
+		$('html').addClass('iphone');
 	}
 var android = ua.indexOf("android") > -1; 
 	if(android) {
 		$('html').addClass('android');
 	}
-var android4 = ua.indexOf("android") > -1; 
+var android4 = ua.indexOf("android4") > -1; 
 	if(android4) {
 		$('html').addClass('android');
 	}
-var android2 = ua.indexOf("android") > -1; 
+var android2 = ua.indexOf("android2") > -1; 
 	if(android2) {
 		$('html').addClass('android');
 	}
