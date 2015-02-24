@@ -37,7 +37,6 @@ module.exports = (grunt) ->
 		'../js/slick.min.js'
 		'../js/offline.min.js'
 		'../js/android.ios.html.class.js'
-		'../xoomaapp/js/jquery.ui.timepicker.js'
 		'../xoomaapp/scripts/common/common.js'
 		'../xoomaapp/scripts/xooma/xooma.app.root.ctrl.js'
 		'../xoomaapp/scripts/profile/profile.ctrl.js'
