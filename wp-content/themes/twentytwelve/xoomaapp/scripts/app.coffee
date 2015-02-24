@@ -6,9 +6,9 @@ jQuery(document).ready ($)->
 		.state 'xooma',
 				url : '/'
 
-
-
-	
+		.state 'faq',
+				url : 'faq'
+				parent : 'xooma'
 						
 	
 
@@ -28,17 +28,24 @@ jQuery(document).ready ($)->
 		App.useProductColl.reset arr
 		delete window.userData
 		App.navigate '#login',trigger:true , replace :true
-		
-		
-		
-		
 
 
+	Offline.on 'confirmed-up', ->
+		$('.error-connection').hide()
 	
-		
+	Offline.on 'confirmed-down', ->
+		$('.error-connection').show()
 				
 
 	App.addInitializer ->
+
+		Offline.options = 
+			interceptRequests: true
+			requests: true
+			checks: 
+				xhr: 
+					url: _SITEURL
+
 		Backbone.history.start();
 
 
@@ -49,9 +56,7 @@ jQuery(document).ready ($)->
 	App.on 'cordova:hide:splash:screen', ->
 		console.log "triggered"
 
-	
-	
 
-
+	
 	App.start()
 

@@ -33,6 +33,19 @@
 
 </head>
 <body class="gradient">
+
+<div class="error-connection">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-muted m-t-30">
+      <h2 > <i class="fa fa-wifi"></i></h2>
+      <h4 > No Connection Found</h4>
+      Your connection to the wireless network is turned off.<br> Restore your connection and try again
+      </div>
+    </div>
+  </div>
+</div>
+
 <div ui-region></div>
 <div id="fb-root"></div>
 <!-- Templates -->
@@ -148,11 +161,13 @@ var x2oMessages = <?php echo json_encode(load_x2o());?>;
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/loading/loading.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/loading/workflow.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/admin/admin.ctrl.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/faq/faq.ctrl.js"></script>
 <!-- endbuild -->
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/owl.carousel.min.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/slick.min.js"></script>   
-<script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/android.ios.html.class.js"></script>  
+<script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/android.ios.html.class.js"></script>
+<script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/offline.min.js"></script> 
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/app.js"></script>
 <?php 
 }
