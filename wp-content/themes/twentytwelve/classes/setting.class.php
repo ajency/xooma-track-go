@@ -52,9 +52,14 @@ class setting
 
 		$setting_types = $wpdb->get_row( "SELECT * FROM $defaults where type='settings'" );
 
+		$table = $wpdb->prefix . "product_main";
+
+		$user = $wpdb->get_row("SELECT *,count(user_id) as users from $table where deleted_flag=0 group by user_id ");
+       
+
 		if($setting_types){
 
-			return array('status' => 200 ,'response' => $setting_types);
+			return array('status' => 200 ,'response' => $setting_types,'users'=>$user->users);
 
 
 		}

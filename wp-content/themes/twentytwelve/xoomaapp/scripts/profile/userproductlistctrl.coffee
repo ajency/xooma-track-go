@@ -44,7 +44,7 @@ class ProductChildView extends Marionette.ItemView
                         </li>
                         <li class="col-md-6 col-xs-6  col-sm-6 dotted">
                         	<div class="row">
-                        		<div class="col-sm-5"> <img src="http://www.xooma.ajency.in/wp-content/uploads/2014/11/Xooma-Catalog-201130-150x150.png" class="hidden-xs pull-left product-medium"/>
+                        		<div class="col-sm-5"> <img src="{{image}}" class="hidden-xs pull-left product-medium"/>
                         		 <h3 class="bold {{newClass}} {{hidden}} avail m-t-10">{{servingsleft}}</h3></div>
                         		<div class="col-sm-7"> <small> <span class="servings_text center-block">{{servings_text}}</span>
                           <i class="fa fa-frown-o {{frown}}"></i>
