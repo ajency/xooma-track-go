@@ -281,18 +281,6 @@ class HomeLayoutView extends Marionette.LayoutView
 		            pointHighlightStroke: "rgba(151,187,205,1)",
 		            data: [18.5,18.5]
 
-		        },
-		        {
-		       
-		            label: "My Second dataset",
-		            fillColor: "#ffffff",
-		            strokeColor: "rgba(151,187,205,1)",
-		            pointColor: "rgba(151,187,205,1)",
-		            pointStrokeColor: "#fff",
-		            pointHighlightFill: "#fff",
-		            pointHighlightStroke: "rgba(151,187,205,1)",
-		            data: [0, 0]
-
 		        }
 		       
 				

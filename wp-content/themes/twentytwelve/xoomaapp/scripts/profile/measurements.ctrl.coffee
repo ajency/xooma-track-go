@@ -77,9 +77,10 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			weight = App.currentUser.get('measurements').weight
 			$('#height option[value="'+height+'"]').prop("selected",true)
 			$('#weight option[value="'+weight+'"]').prop("selected",true)
-			$( '#height' ).trigger( "change" )
-			$( '#weight').trigger( "change" )
+			
 
+		$( '#height' ).trigger( "change" )
+		$( '#weight').trigger( "change" )
 		App.trigger 'cordova:hide:splash:screen'
 			
 		timezone = App.currentUser.get('timezone')
@@ -115,7 +116,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
-		console.log App.currentUser.get('measurements')
+		
 		if App.currentUser.get('measurements') != undefined
 			obj = App.currentUser.get('measurements')
 			@measurements.arm = obj.arm
@@ -125,7 +126,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			@measurements.midcalf = obj.midcalf
 			@measurements.thigh = obj.thigh
 			@measurements.hips = obj.hips
-		console.log @measurements
+		
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'
