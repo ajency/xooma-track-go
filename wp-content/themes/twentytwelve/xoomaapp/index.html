@@ -28,7 +28,7 @@ window.ParsleyConfig = {
   validators: {
     equalTo: {
       fn: function (value, requirement) {
-      	return value.length == requirement;
+        return value.length == requirement;
       }
     }
   },
@@ -93,6 +93,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
+<script type="text/javascript" src="js/android.ios.html.class.js"></script> 
 <!-- <script type="text/javascript" src="js/offline.min.js"></script> -->
 
 <script type="text/javascript" src="scripts/app.js"></script>
@@ -133,46 +134,39 @@ slidesToScroll: 1,
 
  
 </script>
-<script type="text/javascript">
-//plugin bootstrap minus and plus
-//http://jsfiddle.net/laelitenetwork/puJ6G/
-jQuery(document).ready(function(){
-    // This button will increment the value
-    $('.qtyplus').click(function(e){
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If is not undefined
-        if (!isNaN(currentVal)) {
-            // Increment
-            $('input[name='+fieldName+']').val(currentVal + 1);
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
-    // This button will decrement the value till 0
-    $(".qtyminus").click(function(e) {
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If it isn't undefined or its greater than 0
-        if (!isNaN(currentVal) && currentVal > 0) {
-            // Decrement one
-            $('input[name='+fieldName+']').val(currentVal - 1);
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
-});
 
+<nav id="menu">
+          <ul>
+             <li>
+                <a><h5 class="margin-none display_name">{{display_name}}</h5>
+                 <small class="user_email">{{user_email}}</small></a>
+              </li>
+              <li class="link"><a  href="#home"><i class="fa fa-home"></i> Home</a>
+              </li>
+              <li class="link"><a  href="#settings"><i class="fa fa-cog"></i> Setting</a>
+                  
+              </li>
+              <li><a href="http://xooma.com/" target="_blank"><i class="fa fa-bullhorn"></i> About Xooma</a>
+              </li>
+              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
+              </li>
+              <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
+
+              </li>
+          </ul>
+      </nav> 
+<script type="text/javascript">
+
+$('nav#menu').mmenu({
+            onClick:
+            {
+                close: true,
+                preventDefault : false,
+                setSelected: true
+            }
+            }   
+
+        )
 </script>
 
 </body> 
