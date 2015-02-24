@@ -44,7 +44,7 @@ ProfileMeasurementsView = (function(_super) {
     },
     'change #height': function(e) {
       var cms, ftcm, inchcm, temparr;
-      console.log(temparr = $(e.target).val().split('.'));
+      temparr = $(e.target).val().split('.');
       if (temparr.length === 1) {
         temparr.push(0);
       }
@@ -66,13 +66,16 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.keydown = function(e) {
     var inputVal;
+    if (e.charCode === 13) {
+      $('#mcttCloseButton').trigger('click');
+    }
     if (e.charCode === 46) {
       inputVal = $(e.target).val().split('.').length;
       if (parseInt(inputVal) >= 2) {
         return false;
       }
     }
-    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46;
+    return e.charCode >= 48 && e.charCode <= 57 || e.charCode === 46 || e.charCode === 8;
   };
 
   ProfileMeasurementsView.prototype.keyup = function(e) {

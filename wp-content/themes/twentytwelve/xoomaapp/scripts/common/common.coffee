@@ -68,7 +68,8 @@ _.extend Ajency.CurrentUser::,
 	saveProfile : (profile)->
 
 		_successHandler = (resp)=>
-			@set 'profile', profile
+			if App.currentUser.get('caps').administrator == undefined
+				@set 'profile', profile
 
 		$.ajax
 			method : 'PUT'

@@ -99,7 +99,9 @@ _.extend(Ajency.CurrentUser.prototype, {
     var _successHandler;
     _successHandler = (function(_this) {
       return function(resp) {
-        return _this.set('profile', profile);
+        if (App.currentUser.get('caps').administrator === void 0) {
+          return _this.set('profile', profile);
+        }
       };
     })(this);
     return $.ajax({

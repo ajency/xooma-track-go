@@ -5,15 +5,6 @@ document.addEventListener "deviceready", ->
 
 		.state 'xooma',
 				url : '/'
-
-		.state 'home',
-				url : '/home'
-				parent : 'xooma'
-				sections : 
-					'x2o' : 
-						ctrl : 'HomeX2OCtrl'
-					'other-products' : 
-						ctrl : 'HomeOtherProductsCtrl'
 						
 	
 
@@ -22,18 +13,16 @@ document.addEventListener "deviceready", ->
 		if not App.currentUser.isLoggedIn()
 			App.currentUser.setNotLoggedInCapabilities()
 
-	
 	App.currentUser.on 'user:auth:success', ->
 		if window.isWebView()
 			window.userData = App.currentUser.toJSON()
-
 		App.trigger 'fb:status:connected'
 		
 		#Device
 		CordovaStorage.setUserData window.userData 
 		ParseCloud.register()
 		.then ->
-			App.navigate '#'+App.currentUser.get('state'), replace: true, trigger: true
+			App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
 		, (error)->
 			console.log 'ParseCloud Register Error'
 			App.currentUser.logout()
@@ -55,14 +44,16 @@ document.addEventListener "deviceready", ->
 				CordovaApp.facebookLogout()
 				.then ->
 					onLogout()
-					App.navigate '/login', replace: true, trigger: true
+					App.navigate '#login', trigger:true , replace :true
+
 
 
 	#Device
 	Usage.notify.on  '$usage:notification', (event, data)->
 		console.log "$usage:notification triggered at #{data.notificationTime}"
 		CordovaNotification.schedule 'Get hydrated with X2O', data.notificationTime
-				
+
+
 
 	App.addInitializer ->
 
@@ -91,5 +82,6 @@ document.addEventListener "deviceready", ->
 	App.start()
 
 , false
+
 
 

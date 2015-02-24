@@ -20,7 +20,9 @@ class User
 				'birth_date'		        => $user_details['birth_date'],
 				'timezone'			        => $user_details['timezone'],
 				'display_name'              => $user->display_name,
-                'user_products'             => $user_products
+                'user_products'             => $user_products,
+                'user_email'                => $user->user_email,
+                'user_id'                   => $id
 			);
 
 			

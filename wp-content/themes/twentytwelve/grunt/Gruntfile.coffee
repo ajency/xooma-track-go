@@ -55,6 +55,7 @@ module.exports = (grunt) ->
 		'../xoomaapp/scripts/history/history.measurements.ctrl.js'
 		'../xoomaapp/scripts/loading/loading.ctrl.js'
 		'../xoomaapp/scripts/loading/workflow.ctrl.js'
+		'../xoomaapp/scripts/admin/admin.ctrl.js'
 		'../xoomaapp/scripts/app.js'		
 	]
 

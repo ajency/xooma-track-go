@@ -7,6 +7,7 @@ App.state 'home',
 					'other-products' : 
 						ctrl : 'HomeOtherProductsCtrl'
 
+
 class HomeLayoutView extends Marionette.LayoutView
 
 	template : '#home-template'
@@ -660,7 +661,7 @@ class HomeX2OView extends Marionette.ItemView
 				time = moment(timestamp).zone(timezone).format('h:mm A')
 			
 				
-				msg = "Bottle "+ i+ ' consumed(%) at </br>'+ time
+				msg = "(%) of Bottle "+ i+ ' consumed '
 			doughnutData.push 
 					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']

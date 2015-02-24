@@ -1,17 +1,6 @@
 document.addEventListener("deviceready", function() {
   App.state('login').state('xooma', {
     url: '/'
-  }).state('home', {
-    url: '/home',
-    parent: 'xooma',
-    sections: {
-      'x2o': {
-        ctrl: 'HomeX2OCtrl'
-      },
-      'other-products': {
-        ctrl: 'HomeOtherProductsCtrl'
-      }
-    }
   });
   App.onBeforeStart = function() {
     App.currentUser.set(window.userData);
@@ -27,8 +16,8 @@ document.addEventListener("deviceready", function() {
     CordovaStorage.setUserData(window.userData);
     return ParseCloud.register().then(function() {
       return App.navigate('#' + App.currentUser.get('state'), {
-        replace: true,
-        trigger: true
+        trigger: true,
+        replace: true
       });
     }, function(error) {
       console.log('ParseCloud Register Error');
@@ -50,9 +39,9 @@ document.addEventListener("deviceready", function() {
       return ParseCloud.deregister().then(function() {
         return CordovaApp.facebookLogout().then(function() {
           onLogout();
-          return App.navigate('/login', {
-            replace: true,
-            trigger: true
+          return App.navigate('#login', {
+            trigger: true,
+            replace: true
           });
         });
       });

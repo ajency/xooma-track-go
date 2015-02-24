@@ -2380,7 +2380,8 @@ function get_timezone_date($id,$date)
 	$details = maybe_unserialize($user_details);
 	date_default_timezone_set($details['timezone']);
 	$datestring = $date;  //Pulled in from somewhere
-	$date = date('Y-m-d H:i:s T',strtotime($datestring . ' UTC'));
+	//date("Y-m-d\TH:i:s.000\Z", strtotime($datestring . ' UTC'));
+	$date = date("Y-m-d\TH:i:s", strtotime($datestring));
 	
 
 	return $date;

@@ -9,6 +9,7 @@ ProfilePersonalInfoView = (function(_super) {
   function ProfilePersonalInfoView() {
     this.errorHandler = __bind(this.errorHandler, this);
     this.successHandler = __bind(this.successHandler, this);
+    this._successHandler = __bind(this._successHandler, this);
     this.onFormSubmit = __bind(this.onFormSubmit, this);
     return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
   }
@@ -58,6 +59,12 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
+    $('.data1').hide();
+    if (App.currentUser.get('caps').administrator === true) {
+      $('.tabelements').attr('disabled', true);
+      $('.data').hide();
+      $('.data1').show();
+    }
     App.trigger('cordova:hide:splash:screen');
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
@@ -82,7 +89,26 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
-    return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
+    var id;
+    console.log(APIURL);
+    if (App.currentUser.get('caps').administrator === true) {
+      console.log(id = this.model.get('profile').user_id);
+      return $.ajax({
+        method: 'PUT',
+        url: APIURL + '/users/' + id + '/profile',
+        data: JSON.stringify(_formData['profile']),
+        success: this._successHandler
+      });
+    } else {
+      return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
+    }
+  };
+
+  ProfilePersonalInfoView.prototype._successHandler = function(response, status, xhr) {
+    this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
   };
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status, xhr) {

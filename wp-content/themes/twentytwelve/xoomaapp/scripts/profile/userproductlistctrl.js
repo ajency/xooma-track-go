@@ -211,7 +211,7 @@ EmptyView = (function(_super) {
 
   EmptyView.prototype.onShow = function() {
     $('.save_products').hide();
-    $('.aj-response-message').addClass('alert alert-danger').text("Sorry!No products added");
+    $('.aj-response-message').addClass('alert alert-danger').text("Please add your products");
     return $('html, body').animate({
       scrollTop: 0
     }, 'slow');
