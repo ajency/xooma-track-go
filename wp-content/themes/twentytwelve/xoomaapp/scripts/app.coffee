@@ -6,9 +6,6 @@ jQuery(document).ready ($)->
 		.state 'xooma',
 				url : '/'
 
-		
-
-
 
 
 	
