@@ -23,15 +23,14 @@ jQuery(document).ready ($)->
 	App.currentUser.on 'user:auth:success', ->
 		if window.isWebView()
 			window.userData = App.currentUser.toJSON()
-
 		App.trigger 'fb:status:connected'
-		App.navigate '#'+App.currentUser.get('state'), true
+		App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
 
 	App.currentUser.on 'user:logged:out', ->
 		arr = []
 		App.useProductColl.reset arr
 		delete window.userData
-		App.navigate('#login',true)
+		App.navigate '#login',trigger:true , replace :true
 		
 		
 		
@@ -43,7 +42,7 @@ jQuery(document).ready ($)->
 				
 
 	App.addInitializer ->
-		Backbone.history.start()
+		Backbone.history.start();
 
 
 	App.on 'fb:status:connected', ->

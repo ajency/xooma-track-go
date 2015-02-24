@@ -28,7 +28,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		'change @ui.rangeSliders' : (e)-> @valueOutput e.currentTarget
 
 		'change #height':(e)->
-			console.log temparr = $(e.target).val().split('.')
+			temparr = $(e.target).val().split('.')
 			if temparr.length == 1
 				temparr.push 0
 			$('.heightcms').text temparr[0]+"'"+temparr[1]+'"'
@@ -47,11 +47,15 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 
 	keydown:(e)->
+		if (e.charCode == 13)
+			$('#mcttCloseButton').trigger('click')
+		
+
 		if  e.charCode == 46
 			inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
 				return  false
-		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 
+		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 || e.charCode == 8
 	
 
 

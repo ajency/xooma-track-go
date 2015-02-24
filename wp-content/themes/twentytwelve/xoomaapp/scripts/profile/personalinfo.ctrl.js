@@ -60,7 +60,6 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
-    console.log(this.model);
     $('.data1').hide();
     if (App.currentUser.get('caps').administrator === true) {
       $('.tabelements').attr('disabled', true);
