@@ -25,7 +25,10 @@ class MeasurementHistoryView extends Marionette.ItemView
 		    dateFormat : 'yy-mm-dd'
 		    changeYear: true,
 		    changeMonth: true,
-		    maxDate: new Date()
+		    maxDate: new Date(),
+		    onChangeMonthYear: (y, m, i)->
+		    	d = i.selectedDay
+		    	$('#picker_inline_fixed').datepicker('setDate', new Date(y, m - 1, d));
 			     
 			   
 		    

@@ -65,6 +65,10 @@ class XoomaAppRootView extends Marionette.LayoutView
             $('.link').hide()
             $('.user-data').hide()
             App.navigate '#login', trigger:true , replace :true
+            App.stop()
+            App.start()
+            
+            
             
         else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state == '/home'
             App.navigate '#home', trigger:true , replace :true
@@ -75,7 +79,9 @@ class XoomaAppRootView extends Marionette.LayoutView
     
         else if window.location.hash == '' && App.currentUser.get('ID') != undefined && state != '/home'
             App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
-
+            App.stop()
+            App.start()
+            
             
         
 

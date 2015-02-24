@@ -90,7 +90,12 @@ ViewProductHistoryView = (function(_super) {
       dateFormat: 'yy-mm-dd',
       changeYear: true,
       changeMonth: true,
-      maxDate: new Date()
+      maxDate: new Date(),
+      onChangeMonthYear: function(y, m, i) {
+        var d;
+        d = i.selectedDay;
+        return $('#picker_inline_fixed').datepicker('setDate', new Date(y, m - 1, d));
+      }
     });
   };
 
