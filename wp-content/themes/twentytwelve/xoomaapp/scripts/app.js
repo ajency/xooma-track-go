@@ -14,14 +14,20 @@ jQuery(document).ready(function($) {
       window.userData = App.currentUser.toJSON();
     }
     App.trigger('fb:status:connected');
-    return App.navigate('#' + App.currentUser.get('state'), true);
+    return App.navigate('#' + App.currentUser.get('state'), {
+      trigger: true,
+      replace: true
+    });
   });
   App.currentUser.on('user:logged:out', function() {
     var arr;
     arr = [];
     App.useProductColl.reset(arr);
     delete window.userData;
-    return App.navigate('#login', true);
+    return App.navigate('#login', {
+      trigger: true,
+      replace: true
+    });
   });
   App.addInitializer(function() {
     return Backbone.history.start();

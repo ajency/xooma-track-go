@@ -38,7 +38,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 
 	onShow:->
-		console.log @model
 		$('.data1').hide()
 		if App.currentUser.get('caps').administrator == true
 			$('.tabelements').attr('disabled', true)

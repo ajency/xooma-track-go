@@ -667,7 +667,7 @@ HomeX2OView = (function(_super) {
         d = new Date(actualtime);
         timestamp = d.getTime();
         time = moment(timestamp).zone(timezone).format('h:mm A');
-        msg = "Bottle " + i + ' consumed(%) at </br>' + time;
+        msg = "(%) of Bottle " + i + ' consumed ';
       }
       return doughnutData.push({
         value: parseFloat(occurrence['value']) * 100,

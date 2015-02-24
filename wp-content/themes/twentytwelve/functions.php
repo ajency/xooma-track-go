@@ -1375,6 +1375,7 @@ function settings(){
 <h2>Settings</h2></br/>
 <form id="settings_form" enctype="multipart/form-data" action="" method="post">
 <div id="response_msg"></div>
+<div>For stock reminders</div>
 <table>
 	<tr>
 		<td>
