@@ -1765,7 +1765,6 @@ This is available under Menu>Settings>Email alerts.
     </div>
   </div>
 </div>
--->
                 </div>
         </div>
         <div class="clearfix"></div>

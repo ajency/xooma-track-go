@@ -1,7 +1,6 @@
-App.state 'Admin',
-				url : '/user_id/:id'
-				parent : 'xooma'
-				
+App.state 'faq',
+				url : 'faq'
+				parent : 'xooma'			
 
 
 class FaqView extends Marionette.ItemView

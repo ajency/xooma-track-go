@@ -6,9 +6,7 @@ jQuery(document).ready ($)->
 		.state 'xooma',
 				url : '/'
 
-		.state 'faq',
-				url : 'faq'
-				parent : 'xooma'
+		
 						
 	
 
