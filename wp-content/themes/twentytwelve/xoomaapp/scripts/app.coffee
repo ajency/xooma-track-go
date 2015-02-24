@@ -48,6 +48,13 @@ document.addEventListener "deviceready", ->
 
 
 
+	Offline.on 'confirmed-up', ->
+		$('.error-connection').hide()
+
+	Offline.on 'confirmed-down', ->
+		$('.error-connection').show()
+
+
 	#Device
 	Usage.notify.on  '$usage:notification', (event, data)->
 		console.log "$usage:notification triggered at #{data.notificationTime}"
@@ -63,10 +70,12 @@ document.addEventListener "deviceready", ->
 		Push.register()
 		Usage.track days:5
 
-		# Offline.options = 
-		# 	checks: 
-		# 		xhr: 
-		# 			url: "#{_SITEURL}"
+		Offline.options = 
+			interceptRequests: true
+			requests: true
+			checks: 
+				xhr: 
+					url: "#{_SITEURL}"
 
 		Backbone.history.start()
 

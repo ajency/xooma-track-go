@@ -47,6 +47,12 @@ document.addEventListener("deviceready", function() {
       });
     }
   });
+  Offline.on('confirmed-up', function() {
+    return $('.error-connection').hide();
+  });
+  Offline.on('confirmed-down', function() {
+    return $('.error-connection').show();
+  });
   Usage.notify.on('$usage:notification', function(event, data) {
     console.log("$usage:notification triggered at " + data.notificationTime);
     return CordovaNotification.schedule('Get hydrated with X2O', data.notificationTime);
@@ -58,6 +64,15 @@ document.addEventListener("deviceready", function() {
     Usage.track({
       days: 5
     });
+    Offline.options = {
+      interceptRequests: true,
+      requests: true,
+      checks: {
+        xhr: {
+          url: "" + _SITEURL
+        }
+      }
+    };
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {

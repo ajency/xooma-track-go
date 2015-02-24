@@ -11,12 +11,23 @@
 	<link rel="stylesheet" href="css/animate.min.css">
 	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/bootstrap-timepicker.css">
-  <!-- <link rel="stylesheet" href="css/offline/offline-theme-slide.css">
-  <link rel="stylesheet" href="css/offline/offline-language-english.css"> -->
 
 </head>
 
 <body class="gradient">
+
+<div class="error-connection">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center text-muted m-t-30">
+      <h2 > <i class="fa fa-wifi"></i></h2>
+      <h4 > No Connection Found</h4>
+      Your connection to the wireless network is turned off.<br> Restore your connection and try again
+      </div>
+    </div>
+  </div>
+</div>
+  
 <div ui-region></div>
 <div id="fb-root"></div>
 
@@ -95,7 +106,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="js/slick.min.js"></script>
 <script type="text/javascript" src="js/android.ios.html.class.js"></script> 
-<!-- <script type="text/javascript" src="js/offline.min.js"></script> -->
+<script type="text/javascript" src="js/offline.min.js"></script>
 
 <script type="text/javascript" src="scripts/app.js"></script>
 
