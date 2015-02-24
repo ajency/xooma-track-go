@@ -84,9 +84,16 @@ class HomeLayoutView extends Marionette.LayoutView
 			@ui.end_date.val today
 
 		'click #showHome':(e)->
-			$('.loading').html 'Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">'
+			if !window.isWebView()
+				$('.loading').html 'Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">'
+			
+			#Changes for Mobile
+			if window.isWebView()
+				$('.loading').html 'Loading data<img src="./images/lodaing.GIF" width="70px">'
+			
 			App.currentUser.getHomeProducts().done(@_showView).fail(@errorHandler)
 
+	
 	_showView:(collection)=>
 		$('.loading').html ""
 		response = collection.response
@@ -115,8 +122,13 @@ class HomeLayoutView extends Marionette.LayoutView
 		region.show listview1	
 
 	onFormSubmit: (_formData)=>
-		$('.loadinggraph').html 'Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">'
-			
+		if !window.isWebView()
+			$('.loadinggraph').html 'Loading data<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/lodaing.GIF" width="70px">'
+		
+		#Changes for Mobile
+		if window.isWebView()
+			$('.loadinggraph').html 'Loading data<img src="./images/lodaing.GIF" width="70px">'	
+		
 		$.ajax
 			method : 'GET'
 			data : _formData

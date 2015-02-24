@@ -7845,7 +7845,7 @@ packet_expected_class {
   position: fixed;
   width: 100%;
   top: 0%;
-  z-index: 1000;
+  z-index: 999999;
 }
 .topheader .navbar {
   margin-bottom: 0px;
@@ -8041,7 +8041,7 @@ packet_expected_class {
     padding-top: 10px !important;
   }
   .ios #homeregion {
-    margin-top: 10px;
+    padding-top: 10px;
   }
 }
 @media (max-width: 768px) {
@@ -8557,6 +8557,14 @@ packet_expected_class {
     width: 28px;
     height: 55px;
   }
+}
+.error-connection {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.74);
+  z-index: 9999;
 }
 /* Site Elements */
 @font-face {
@@ -11918,17 +11926,16 @@ input.cmn-toggle-round-flat:checked + label:after {
   margin-left: 10px;
 }
 #y-axis {
-  -ms-writing-mode: tb-lr;
-  -webkit-writing-mode: vertical-lr;
-  -moz-writing-mode: vertical-lr;
-  -ms-writing-mode: vertical-lr;
-  writing-mode: vertical-lr;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
   position: absolute;
-  top: 0%;
+  top: 50%;
   bottom: 0%;
   text-align: center;
   width: 10px;
   left: 0%;
+  height: 10px;
 }
 @media (max-width: 768px) {
   #y-axis {
