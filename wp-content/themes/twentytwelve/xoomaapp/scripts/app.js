@@ -28,7 +28,22 @@ jQuery(document).ready(function($) {
       replace: true
     });
   });
+  Offline.on('confirmed-up', function() {
+    return $('.error-connection').hide();
+  });
+  Offline.on('confirmed-down', function() {
+    return $('.error-connection').show();
+  });
   App.addInitializer(function() {
+    Offline.options = {
+      interceptRequests: true,
+      requests: true,
+      checks: {
+        xhr: {
+          url: _SITEURL
+        }
+      }
+    };
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
