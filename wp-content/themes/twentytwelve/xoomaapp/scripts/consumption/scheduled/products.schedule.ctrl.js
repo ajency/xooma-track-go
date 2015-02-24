@@ -154,7 +154,7 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.onShow = function() {
-    var date, occurr, qty, temp, timezone;
+    var currentime, date, occurr, qty, s, temp, timezone, todays_date;
     timezone = App.currentUser.get('timezone');
     date = Marionette.getOption(this, 'date');
     occurr = this.model.get('occurrence');
@@ -176,8 +176,11 @@ ScheduleView = (function(_super) {
       }
     });
     $('#date').val(date);
+    todays_date = moment().format('YYYY-MM-DD');
+    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
     $('.input-small').timepicker({
-      defaultTime: 'current'
+      defaultTime: s
     });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
