@@ -59,9 +59,8 @@ document.addEventListener("deviceready", function() {
     }
   });
   Usage.notify.on('$usage:notification', function(event, data) {
-    console.log('Event triggered');
-    console.log(data.notificationTime);
-    return CordovaNotification.schedule('Test Local Notification Based on App Usage', data.notificationTime);
+    console.log("$usage:notification triggered at " + data.notificationTime);
+    return CordovaNotification.schedule('Get hydrated with X2O', data.notificationTime);
   });
   App.addInitializer(function() {
     CordovaApp.updateXoomaMessages();
