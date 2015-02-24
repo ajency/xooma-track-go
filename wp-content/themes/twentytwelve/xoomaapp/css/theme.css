@@ -8565,6 +8565,7 @@ packet_expected_class {
   text-align: center;
   background: rgba(0, 0, 0, 0.74);
   z-index: 9999;
+  padding-top: 80px;
 }
 /* Site Elements */
 @font-face {
