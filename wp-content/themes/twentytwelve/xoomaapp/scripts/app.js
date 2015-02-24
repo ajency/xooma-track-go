@@ -1,6 +1,9 @@
 jQuery(document).ready(function($) {
   App.state('login').state('xooma', {
     url: '/'
+  }).state('faq', {
+    url: 'faq',
+    parent: 'xooma'
   });
   App.onBeforeStart = function() {
     App.currentUser.set(window.userData);

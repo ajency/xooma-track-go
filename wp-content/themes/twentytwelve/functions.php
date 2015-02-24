@@ -1179,7 +1179,7 @@ function register_menu() {
     'manage_options', 'product_settings', 'set_product_settings');
   add_submenu_page( 'product_settings', 'Settings page title', 'Products',
     'manage_options', 'theme-op-settings', 'show_list_products');
-  add_submenu_page( 'product_settings', 'Settings', 'Settings',
+  add_submenu_page( 'product_settings', 'Settings', 'Settings and Usage',
     'manage_options', 'theme-op-faq', 'settings');
 
 }
@@ -1358,6 +1358,7 @@ function settings(){
 	$morning_to ="";
 	$evening_from ="";
 	$evening_to ="";
+	$user = 0 ;
 	if(is_array($response))
 	{
 		$object = json_decode($response['response']->value);
@@ -1367,25 +1368,34 @@ function settings(){
 		$evening_from = $object->evening_from;
 		$evening_to = $object->evening_to;
 		$id = $response['response']->id;
+		$user = $response['users'];
 	}
 
 
 ?>
 <html>
-<h2>Settings</h2></br/>
+<h2>Settings and Usage</h2></br/>
 <form id="settings_form" enctype="multipart/form-data" action="" method="post">
 <div id="response_msg"></div>
-<div>For stock reminders</div>
+
 <table>
 	<tr>
 		<td>
-			<label for="serving_per_container">No of Days Left</label>
+			<label for="serving_per_container">Stock reminder sent when stock left in hand for </label>
 		</td>
 		<td>
-			<input type="text" required  id="no_of_days" name="no_of_days" value="<?php echo $no_of_days ;?>" class="small-text" />
+			<input type="text" required  id="no_of_days" name="no_of_days" value="<?php echo $no_of_days ;?>" class="small-text" /><label> days.</label>
 			<input type="hidden" id="settings_id" name="settings_id" value="<?php echo $id;?>" />
 		</td>
 
+	</tr>
+	<tr>
+		<td>
+			<label for="user">No. of App users (Web/Mobile)</label>
+		</td>
+		<td>
+			<label for="user"><?php echo $user;?></label>
+		</td>
 	</tr>
 	<!--<tr>
 		<td>
