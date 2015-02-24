@@ -119,13 +119,14 @@ class ScheduleView extends Marionette.ItemView
 
 	onShow:->
 		timezone = App.currentUser.get('timezone')
-		tt = moment().format('YYYY-MM-DD HH:mm:ss')
-		d = new Date()
-		timestamp = d.getTime()
-		currentime = []
-		currentime.push moment(timestamp).format("HH")
-		currentime.push moment(timestamp).format("mm")
-		
+		todays_date = moment().format('YYYY-MM-DD')
+		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		d = new Date(s)
+		actual_time = d.getTime()
+		current = new Date(actual_time)
+		console.log hours = current.getHours()
+		console.log minutes = current.getMinutes()
 		date  = Marionette.getOption( @, 'date')
 		occurr = @model.get('occurrence')
 		temp = []
@@ -143,9 +144,13 @@ class ScheduleView extends Marionette.ItemView
 				return false
 		
 		$('#date').val date
+		
 		$('.input-small').timepicker(
-			defaultTime : 'current'
-		);
+	        maxTime: 
+	        	hour: hours
+	        	minute: minutes 
+	       
+	    )
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 

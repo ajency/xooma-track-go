@@ -129,8 +129,8 @@ class EditProductsView extends Marionette.ItemView
 				
 			@loadCheckedData()
 			$('.input-small').timepicker(
-				defaultTime : false
-			);
+		        showHours: true 
+		    )
 
 
 		'change .no_of_container':(e)->
@@ -269,8 +269,8 @@ class EditProductsView extends Marionette.ItemView
 				val.value = ""
 
 		$('.input-small').timepicker(
-			defaultTime : false
-		);
+	        showHours: true 
+	    )
 
 
 	
@@ -355,8 +355,9 @@ class EditProductsView extends Marionette.ItemView
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
 		$('.input-small').timepicker(
-			defaultTime : false
-		);
+	        showHours: true 
+	    )
+	       
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')

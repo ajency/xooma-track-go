@@ -1,6 +1,9 @@
 document.addEventListener("deviceready", function() {
   App.state('login').state('xooma', {
     url: '/'
+  }).state('faq', {
+    url: 'faq',
+    parent: 'xooma'
   });
   App.onBeforeStart = function() {
     App.currentUser.set(window.userData);
@@ -58,21 +61,22 @@ document.addEventListener("deviceready", function() {
     return CordovaNotification.schedule('Get hydrated with X2O', data.notificationTime);
   });
   App.addInitializer(function() {
+    $('.error-connection').hide();
+    Offline.options = {
+      interceptRequests: true,
+      requests: true,
+      checks: {
+        xhr: {
+          url: _SITEURL
+        }
+      }
+    };
     CordovaApp.updateXoomaMessages();
     CordovaNotification.registerPermission();
     Push.register();
     Usage.track({
       days: 5
     });
-    Offline.options = {
-      interceptRequests: true,
-      requests: true,
-      checks: {
-        xhr: {
-          url: "" + _SITEURL
-        }
-      }
-    };
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {

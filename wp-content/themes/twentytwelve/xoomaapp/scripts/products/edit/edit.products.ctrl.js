@@ -141,7 +141,7 @@ EditProductsView = (function(_super) {
       }
       this.loadCheckedData();
       return $('.input-small').timepicker({
-        defaultTime: false
+        showHours: true
       });
     },
     'change .no_of_container': function(e) {
@@ -296,7 +296,7 @@ EditProductsView = (function(_super) {
       });
     }
     return $('.input-small').timepicker({
-      defaultTime: false
+      showHours: true
     });
   };
 
@@ -390,7 +390,7 @@ EditProductsView = (function(_super) {
     $('#homeDate').val(App.currentUser.get('homeDate'));
     this.checkMode();
     $('.input-small').timepicker({
-      defaultTime: false
+      showHours: true
     });
     $('#timeset').val(this.model.get('time_set'));
     container = this.model.get('no_of_container');

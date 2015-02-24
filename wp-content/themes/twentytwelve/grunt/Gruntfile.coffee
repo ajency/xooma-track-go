@@ -35,6 +35,7 @@ module.exports = (grunt) ->
 	appcode = [
 		'../js/tooltip.js'
 		'../js/slick.min.js'
+		'../xoomaapp/js/jquery.ui.timepicker.js'
 		'../xoomaapp/scripts/common/common.js'
 		'../xoomaapp/scripts/xooma/xooma.app.root.ctrl.js'
 		'../xoomaapp/scripts/profile/profile.ctrl.js'

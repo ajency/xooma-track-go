@@ -1,10 +1,14 @@
 #start of the Application
 document.addEventListener "deviceready", ->
-
+	
 	App.state 'login'
 
 		.state 'xooma',
 				url : '/'
+
+		.state 'faq',
+				url : 'faq'
+				parent : 'xooma'
 						
 	
 
@@ -64,21 +68,24 @@ document.addEventListener "deviceready", ->
 
 	App.addInitializer ->
 
-		#Device
-		CordovaApp.updateXoomaMessages()
-		CordovaNotification.registerPermission()
-		Push.register()
-		Usage.track days:5
+		$('.error-connection').hide()
 
 		Offline.options = 
 			interceptRequests: true
 			requests: true
 			checks: 
 				xhr: 
-					url: "#{_SITEURL}"
+					url: _SITEURL
+
+		#Device
+		CordovaApp.updateXoomaMessages()
+		CordovaNotification.registerPermission()
+		Push.register()
+		Usage.track days:5
+
 
 		Backbone.history.start()
-
+		
 
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
@@ -87,8 +94,9 @@ document.addEventListener "deviceready", ->
 	App.on 'cordova:hide:splash:screen', ->
 		CordovaApp.hideSplashscreen() if window.isWebView()
 
-
+	
 	App.start()
+
 
 , false
 
