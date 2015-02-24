@@ -82,10 +82,12 @@ XoomaAppRootView = (function(_super) {
       App.currentUser.set({});
       $('.link').hide();
       $('.user-data').hide();
-      return App.navigate('#login', {
+      App.navigate('#login', {
         trigger: true,
         replace: true
       });
+      App.stop();
+      return App.start();
     } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === '/home') {
       App.navigate('#home', {
         trigger: true,
@@ -94,10 +96,12 @@ XoomaAppRootView = (function(_super) {
       App.stop();
       return App.start();
     } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state !== '/home') {
-      return App.navigate('#' + App.currentUser.get('state'), {
+      App.navigate('#' + App.currentUser.get('state'), {
         trigger: true,
         replace: true
       });
+      App.stop();
+      return App.start();
     }
   };
 
