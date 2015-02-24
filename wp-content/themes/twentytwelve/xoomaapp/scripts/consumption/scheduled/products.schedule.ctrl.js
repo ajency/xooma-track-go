@@ -80,22 +80,28 @@ ScheduleView = (function(_super) {
       return ScheduleView.prototype.create_occurrences(first);
     },
     'click .intake': function(e) {
-      var current, currentime, d1, data, date, meta_id, product, qty, s, seltime, t, teimstamp, time, timestamp1, timezone, todays_date;
+      var current, currentime, d1, data, date, meta_id, product, qty, s, seltime, t, time, timezone, todays_date;
       timezone = App.currentUser.get('timezone');
       todays_date = moment().format('YYYY-MM-DD');
       currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
-      console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-      current = new Date(s);
-      teimstamp = current.getTime();
+      console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A'));
+      console.log(current = new Date(Date.parse(s)));
       console.log(t = $('#consume_time').val());
-      console.log(seltime = moment(todays_date + t, "HH:mm a").format('YYYY-MM-DD HH:mm:ss'));
+      console.log(seltime = moment(t, "HH:mm a").format('YYYY-MM-DD hh:mm A'));
       time = moment(t, "HH:mm a").format("HH:mm:ss");
       if (t === "") {
         time = moment().format("HH:mm:ss");
-        seltime = moment().format('YYYY-MM-DD HH:mm:ss');
+        seltime = moment().format('YYYY-MM-DD hh:mm A');
       }
-      d1 = new Date(seltime);
-      timestamp1 = d1.getTime();
+      console.log(d1 = new Date(Date.parse(seltime)));
+      if (d1 > current) {
+        window.removeMsg();
+        this.ui.responseMessage.addClass('alert alert-danger').text("Cannot select future time!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return false;
+      }
       $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = $('#meta_id').val();

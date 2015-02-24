@@ -233,7 +233,7 @@ slidesToScroll: 1,
               </li>
               <li><a href="http://xooma.com/" target="_blank"><i class="fa fa-bullhorn"></i> About Xooma</a>
               </li>
-              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
+              <li><a href="#faq"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
               <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
 

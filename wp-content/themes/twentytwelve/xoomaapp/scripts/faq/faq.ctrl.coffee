@@ -1,6 +1,7 @@
-App.state 'faq',
-				url : 'faq'
-				parent : 'xooma'			
+App.state 'Faq',
+				url : '/faq'
+				parent : 'xooma'
+							
 
 
 class FaqView extends Marionette.ItemView
@@ -29,7 +30,7 @@ class FaqView extends Marionette.ItemView
 
 class App.FaqCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-
+		console.log "aaaaaaaaaaaaaaaa"
 		@show new FaqView
 						
 

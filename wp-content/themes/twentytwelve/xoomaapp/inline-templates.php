@@ -1330,7 +1330,7 @@
     <br>
     <br>
     <div class="container"> 
-    <div class="aj-response-message"></div>
+    <div class="tab aj-response-message"></div>
 
 
 
@@ -1497,7 +1497,7 @@
   <script id="faq-template" type="text/template">
     <div class="sub-header home-sub-header">
                 <div class="container">
-                        <!--
+                        
 <div class="panel-group faq-list" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
