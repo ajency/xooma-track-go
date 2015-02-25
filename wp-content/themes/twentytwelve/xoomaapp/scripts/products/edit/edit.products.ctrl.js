@@ -141,7 +141,9 @@ EditProductsView = (function(_super) {
         this.showReminders();
       }
       this.loadCheckedData();
-      return $('.input-small').timepicker();
+      return $('.input-small').timepicker({
+        defaultTime: false
+      });
     },
     'change .no_of_container': function(e) {
       var cnt;
@@ -294,7 +296,9 @@ EditProductsView = (function(_super) {
         return val.value = "";
       });
     }
-    return $('.input-small').timepicker();
+    return $('.input-small').timepicker({
+      defaultTime: false
+    });
   };
 
   EditProductsView.prototype.successSave = function(response, status, xhr) {
@@ -386,7 +390,9 @@ EditProductsView = (function(_super) {
     products = App.currentUser.get('products');
     $('#homeDate').val(App.currentUser.get('homeDate'));
     this.checkMode();
-    $('.input-small').timepicker();
+    $('.input-small').timepicker({
+      defaultTime: false
+    });
     $('#timeset').val(this.model.get('time_set'));
     container = this.model.get('no_of_container');
     reminder_flag = this.model.get('reminder_flag');

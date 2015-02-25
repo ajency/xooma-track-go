@@ -23,7 +23,7 @@ class ProductChildView extends Marionette.ItemView
                         <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
                         <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li>
                         <li class="divider"></li>
-                        <li><a href="#" class="remove hidden">Remove the product</a></li>
+                        <li class="remove hidden">Remove the product</li>
                       </ul>
               </h5>
                       <ul class="list-inline  ">

@@ -101,6 +101,7 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/chartjs/Chart.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment-timezone/moment-timezone.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 
 <!-- endbuild -->
 
@@ -166,7 +167,6 @@ var x2oMessages = <?php echo json_encode(load_x2o());?>;
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/tooltip.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/owl.carousel.min.js"></script>
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/slick.min.js"></script> 
-<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/js/jquery.ui.timepicker.js"></script>    
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/android.ios.html.class.js"></script>  
 <script "text/javascript" src="<?php echo site_url(); ?>/wp-content/themes/twentytwelve/js/offline.min.js"></script> 
 
@@ -233,7 +233,7 @@ slidesToScroll: 1,
               </li>
               <li><a href="http://xooma.com/" target="_blank"><i class="fa fa-bullhorn"></i> About Xooma</a>
               </li>
-              <li><a href="#contact"><i class="fa fa-question-circle"></i> FAQ</a>
+              <li><a target="_blank" href="#faq"><i class="fa fa-question-circle"></i> FAQ</a>
               </li>
               <li><a href="#" class="logout-button" ><i class="fa fa-unlock-alt"></i> Logout</a>
 

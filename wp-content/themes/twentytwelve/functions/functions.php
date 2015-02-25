@@ -1916,7 +1916,8 @@ function cron_job_reminders($args)
 						
 				date_default_timezone_set($details['timezone']);
 				$datestring = $date;  //Pulled in from somewhere
-				$time = date('H:i A',strtotime($datestring));
+				$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+				$time = date('H:i A',strtotime($today_date));
 				$product_name = $product[0]['name'];
 				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 				
