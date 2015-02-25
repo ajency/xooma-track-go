@@ -165,7 +165,7 @@ class ScheduleView extends Marionette.ItemView
 		console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
 			
 		$('.input-small').timepicker(
-	        defaultTime : false
+	        defaultTime : 'current'
 	    )
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
