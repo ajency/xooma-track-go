@@ -37,7 +37,7 @@ class AsperbmiView extends Marionette.ItemView
 
 			product = @model.get('id')
 			date = App.currentUser.get('homeDate')
-			todays_date = moment().format('YYYY-MM-DD')
+			todays_date = moment().format('YYYY/MM/DD')
 			currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
 			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
 			
@@ -101,7 +101,7 @@ class AsperbmiView extends Marionette.ItemView
 			$('.bottlecnt').text cnt
 			
 			window.removeMsg()
-			@ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!")
+			@ui.responseMessage.addClass('alert alert-success').text("Consumption saved!")
 			$('html, body').animate({
 								scrollTop: 0
 								}, 'slow')
