@@ -7847,6 +7847,27 @@ packet_expected_class {
     top: 67px;
   }
 }
+.bottle-msg {
+  -webkit-animation: color-blue 2s linear infinite;
+  -moz-animation: color-blue 2s linear infinite;
+  font-size: 1em;
+}
+@-webkit-keyframes color-blue {
+  0% {
+    color: #3099ea;
+  }
+  100% {
+    color: #9ad41e;
+  }
+}
+@-moz-keyframes color-blue {
+  0% {
+    color: #3099ea;
+  }
+  100% {
+    color: #9ad41e;
+  }
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
