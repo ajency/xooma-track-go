@@ -1422,8 +1422,8 @@
     </div>
     </div>
     <div class="container"> 
-    <div class="section "> 
-    <div class="aj-response-message"></div>
+    <div class="section section-normal"> 
+    <div class="aj-response-message" ></div>
     <form id="consume" class="form-horizontal" role="form" method="POST">
     <br>
 
