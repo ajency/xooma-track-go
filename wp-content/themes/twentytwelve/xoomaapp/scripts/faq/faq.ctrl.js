@@ -17,9 +17,7 @@ FaqView = (function(_super) {
 
   FaqView.prototype.template = '#faq-template';
 
-  FaqView.prototype.onShow = function() {
-    return $('.menulink').hide();
-  };
+  FaqView.prototype.onShow = function() {};
 
   return FaqView;
 
