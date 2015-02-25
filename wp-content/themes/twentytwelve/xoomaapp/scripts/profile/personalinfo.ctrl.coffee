@@ -64,8 +64,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('#profile').parent().nextAll().addClass 'done'
 		
 		if App.currentUser.get('timezone') == null
-			$('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
-
+			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
+			# $("#timezone").val($("#timezone option:first").val());
 		
 		
 			

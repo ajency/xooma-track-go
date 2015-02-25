@@ -8,11 +8,16 @@ class User
 		//get user meta for the user
         $data = array();
 		$user  = get_userdata( $id );
-		$user_details = get_user_meta($id,'user_details',true);
+		$userdetails = get_user_meta($id,'user_details',true);
 		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
         $user_products = get_user_meta($id,'user_products',true);
         if($user){
-			$user_details =   unserialize($user_details);
+            $user_details =   unserialize($userdetails);
+
+              
+        
+            
+            
             $data = array(
 				'xooma_member_id'	        => $xooma_member_id,
 				'phone_no'			        => $user_details['phone_no'],

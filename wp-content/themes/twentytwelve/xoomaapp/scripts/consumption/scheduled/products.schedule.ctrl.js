@@ -180,7 +180,7 @@ ScheduleView = (function(_super) {
     currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
     console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
     $('.input-small').timepicker({
-      defaultTime: s
+      defaultTime: false
     });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {
