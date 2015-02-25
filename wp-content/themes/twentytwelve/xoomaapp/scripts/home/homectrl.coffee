@@ -361,11 +361,8 @@ class App.HomeCtrl extends Ajency.RegionController
 	initialize:->
 		state = App.currentUser.get 'state'
 		if state != '/home'
-			window.removeMsg()
 			$('.aj-response-message').addClass('alert alert-danger').text("Complete your Profile first!")
-			$('html, body').animate({
-								scrollTop: 0
-								}, 'slow')
+			
 			return false
 		if App.useProductColl.length == 0 || App.currentUser.hasChanged('timezone')
 			window.param = 'weight'
