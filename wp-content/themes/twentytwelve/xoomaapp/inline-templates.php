@@ -1495,7 +1495,17 @@
  
   </script>
   <script id="faq-template" type="text/template">
-    <div class="sub-header home-sub-header">
+  <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>FAQ</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
                 <div class="container">
                         
 <div class="panel-group faq-list" id="accordion" role="tablist" aria-multiselectable="true">
@@ -1766,7 +1776,7 @@ This is available under Menu>Settings>Email alerts.
   </div>
 </div>
                 </div>
-        </div>
+       
         <div class="clearfix"></div>
         
  
