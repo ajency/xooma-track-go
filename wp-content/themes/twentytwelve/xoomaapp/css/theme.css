@@ -7839,6 +7839,14 @@ packet_expected_class {
   font-style: normal;
   background-color: transparent;
 }
+.section-normal .alert {
+  top: 76px;
+}
+@media (max-width: 768px) {
+  .section-normal .alert {
+    top: 67px;
+  }
+}
 /* Top - Header */
 .topheader {
   background-color: #3099ea;
@@ -8042,6 +8050,9 @@ packet_expected_class {
   }
   .ios #homeregion {
     padding-top: 10px;
+  }
+  .ios .sub-header {
+    top: 60px;
   }
 }
 @media (max-width: 768px) {
@@ -12123,6 +12134,23 @@ hr {
   50% {
     color: tomato;
   }
+}
+.dropdown-menu > li > div {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.7;
+  color: #787878;
+  white-space: nowrap;
+  width: 100%;
+  cursor: pointer;
+  margin: 0px;
+}
+.dropdown-menu > li > div:hover {
+  text-decoration: none;
+  color: #6b6b6b;
+  background-color: #f5f5f5;
 }
 .block-link {
   padding: 120px 15px 15px;

@@ -733,6 +733,7 @@ img {
     width: 50px;
     text-align: right;
  }
+
    .alert.alert-success, .alert.alert-danger {
         position: absolute;
         z-index: 3;
@@ -1271,3 +1272,11 @@ margin: 0 6px 0 0;
 font-style: normal;
 background-color: transparent;
 }
+ .section-normal{
+    .alert{
+      top:76px;
+      @media (max-width: @screen-sm-min) {
+        top:67px;
+      }
+    }
+ }
