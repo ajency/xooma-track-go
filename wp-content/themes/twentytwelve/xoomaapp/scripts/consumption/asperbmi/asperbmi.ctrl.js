@@ -55,10 +55,10 @@ AsperbmiView = (function(_super) {
       }
       product = this.model.get('id');
       date = App.currentUser.get('homeDate');
-      todays_date = moment().format('YYYY-MM-DD');
+      todays_date = moment().format('YYYY/MM/DD');
       currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
       s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
-      time = s;
+      time = moment().format('hh:mm A');
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
@@ -120,7 +120,7 @@ AsperbmiView = (function(_super) {
       }
       $('.bottlecnt').text(cnt);
       window.removeMsg();
-      this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
+      this.ui.responseMessage.addClass('alert alert-success').text("Consumption saved!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');

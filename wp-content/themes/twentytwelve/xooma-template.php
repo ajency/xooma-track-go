@@ -121,6 +121,7 @@ window.ParsleyConfig = {
  
 ?>
 <script type="text/javascript">
+$('.error-connection').hide()
 var App  = new Marionette.Application()
 
   

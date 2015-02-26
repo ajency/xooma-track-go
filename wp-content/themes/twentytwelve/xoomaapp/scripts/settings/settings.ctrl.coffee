@@ -46,7 +46,7 @@ class SettingsView extends Marionette.ItemView
 		window.removeMsg()
 		if xhr.status == 201
 			App.currentUser.set 'notifications' , parseInt(response.notifications)
-			@ui.responseMessage.addClass('alert alert-success').text("Notifications data saved!")
+			@ui.responseMessage.addClass('alert alert-success').text("Notification alerts saved!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
@@ -69,7 +69,7 @@ class SettingsView extends Marionette.ItemView
 		window.removeMsg()
 		if xhr.status == 201
 			App.currentUser.set 'emails' , parseInt(response.emails)
-			@ui.responseMessage.addClass('alert alert-success').text("Emails data saved!")
+			@ui.responseMessage.addClass('alert alert-success').text("Email alerts saved!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
