@@ -17,8 +17,6 @@ FaqView = (function(_super) {
 
   FaqView.prototype.template = '#faq-template';
 
-  FaqView.prototype.onShow = function() {};
-
   return FaqView;
 
 })(Marionette.ItemView);
