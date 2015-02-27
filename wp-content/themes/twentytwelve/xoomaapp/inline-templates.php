@@ -1342,10 +1342,10 @@
             <div class="col-md-4 "> 
             </div>
             <div class="col-md-4 col-xs-12">
-            
+                
                 <div class="water-100 water-marker"> 
                     100% ---
-
+                    <div>Press and hold to log your hydration process</div>
                 </div>
                 <div class="water-75 water-marker"> 
                     75% ---
@@ -1362,7 +1362,7 @@
                 
                 <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
                 <div class="bottle-bg">
-                        <div class="bottle"></div>
+                        <div class="bottle">/div>
                         
                         
                  </div>
