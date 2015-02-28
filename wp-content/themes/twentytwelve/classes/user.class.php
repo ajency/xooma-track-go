@@ -330,7 +330,7 @@ class User
         $details = maybe_unserialize($user_details);
         date_default_timezone_set($details['timezone']);
         $datestring = $today; 
-        $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+        $today_date = date("Y-m-d H:i:s", strtotime($datestring));
         $todaydate = date('Y-m-d');
         foreach ($sql_query as $key => $term) {
 
