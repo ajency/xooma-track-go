@@ -1361,7 +1361,7 @@
                 
                 <div class="water-100 water-marker"> 
                     100% ---
-                    <div>Press and hold to log your hydration process</div>
+                    
                 </div>
                 <div class="water-75 water-marker"> 
                     75% ---
