@@ -37,11 +37,9 @@ jQuery(document).ready ($)->
 
 
 	Offline.on 'up', ->
-		console.log "online"
 		$('.error-connection').hide()
 	
 	Offline.on 'down', ->
-		console.log "offline"
 		$('.error-connection').show()
 				
 

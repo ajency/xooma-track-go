@@ -39,11 +39,9 @@ jQuery(document).ready(function($) {
     }
   };
   Offline.on('up', function() {
-    console.log("online");
     return $('.error-connection').hide();
   });
   Offline.on('down', function() {
-    console.log("offline");
     return $('.error-connection').show();
   });
   App.addInitializer(function() {

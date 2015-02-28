@@ -126,7 +126,7 @@
         </div>
     </script>
     <script id="profile-template" type="text/template">
-    <div class="sub-header home-sub-header">
+    <div class="sub-header home-sub-header profile-template">
                 <div class="container">
                         <div class="row">
                                 <div class="col-sm-12">
@@ -206,6 +206,7 @@
               
               
               </div>
+              <div class="loadingconusme"></div>
             <div class="col-md-2">
          </div>
         </div>
@@ -347,6 +348,7 @@
                                                 </div>
 
                                                 <div class="row">
+                                                <div class="loadingconusme"></div>
                                                         <div class="col-sm-12">
                                                                 <button type="submit" id="add_user" name="add_user" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
                                                         </div>
@@ -616,6 +618,7 @@
     <button type="button" id="save_measure" name="save_measure" class="btn btn-primary center-block aj-submit-button hidden-xs"><i class="fa fa-check"></i> Save Measurements</button>
                                </div>   </div>
                                 <div class="row">
+                                 <div class="loadingconusme"></div>
                                                 <div class="col-sm-12"><hr>
                                                         <button type="button" id="save_measure" name="save_measure" class="btn btn-primary center-block aj-submit-button visible-xs"><i class="fa fa-check"></i> Save Measurements</button>
                                                 </div>
@@ -817,6 +820,16 @@
     </script>
     <script id="add-product-template" type="h-template">
 <div id="listproduct" >
+<div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>My Xooma products</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
     <div class="container">
         <div class="aj-response-message"></div> 
               <div class="row">
@@ -1078,6 +1091,7 @@
     </div>
     </div>
     <div class="form-group">
+    <div class="loadingconusme"></div>
     <div class="col-sm-offset-2 col-sm-10">
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
@@ -1207,6 +1221,8 @@
 
                 <div class="">
                     <div class="pull-right">
+                    <div class="loadingconusme"></div>
+                                 
                     <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
                           <input type="hidden" name="total" value="{{total}}" / >
                      <a href="#/profile/my-products" class="btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</a> 
@@ -1342,10 +1358,10 @@
             <div class="col-md-4 "> 
             </div>
             <div class="col-md-4 col-xs-12">
-            
+                
                 <div class="water-100 water-marker"> 
                     100% ---
-
+                    
                 </div>
                 <div class="water-75 water-marker"> 
                     75% ---
@@ -1362,7 +1378,7 @@
                 
                 <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
                 <div class="bottle-bg">
-                        <div class="bottle"></div>
+                        <div class="bottle">/div>
                         
                         
                  </div>

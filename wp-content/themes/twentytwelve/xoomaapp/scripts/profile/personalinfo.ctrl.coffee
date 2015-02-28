@@ -76,7 +76,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>
-		console.log APIURL
+		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		if App.currentUser.get('caps').administrator == true
 			console.log id = @model.get('profile').user_id
 		
@@ -91,6 +91,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				.fail @errorHandler
 
 	_successHandler:(response, status,xhr)=>
+		$('.loadingconusme').html ""
 		@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 		$('html, body').animate({
 						scrollTop: 0
@@ -98,6 +99,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	successHandler:(response, status,xhr)=>
+		$('.loadingconusme').html ""
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
 			window.removeMsg()
@@ -124,6 +126,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	errorHandler:(error)=>
+		$('.loadingconusme').html ""
 		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({

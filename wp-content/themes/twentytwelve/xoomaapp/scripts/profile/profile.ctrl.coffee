@@ -37,6 +37,12 @@ class ProfileCtrlView extends Marionette.LayoutView
 		$(evt.target).closest('li').siblings().removeClass 'selected'
 
 	onShow:->
+		if App.currentUser.get('ID') == undefined
+            console.log "aaaaaaaa"
+            $('.profile-template').hide()
+            $('.menulink').hide()
+
+        
 		@handleMenu
 		# evt.preventDefault()
 

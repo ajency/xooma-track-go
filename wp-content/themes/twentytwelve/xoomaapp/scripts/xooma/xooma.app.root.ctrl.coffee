@@ -21,6 +21,9 @@ class XoomaAppRootView extends Marionette.LayoutView
             console.log "aaaaaaaaaa"
             e.preventDefault()
 
+
+    
+
     
 
             
