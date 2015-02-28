@@ -259,6 +259,7 @@ UserProductListView = (function(_super) {
   };
 
   UserProductListView.prototype.onRender = function() {
+    this.trigger("remove:loader");
     if (App.currentUser.get('state') === '/home') {
       $('#product').parent().removeClass('done');
       $('#product').parent().addClass('selected');
@@ -307,11 +308,12 @@ App.UserProductListCtrl = (function(_super) {
 
   function UserProductListCtrl() {
     this._showView = __bind(this._showView, this);
+    this.removeLoader = __bind(this.removeLoader, this);
     return UserProductListCtrl.__super__.constructor.apply(this, arguments);
   }
 
   UserProductListCtrl.prototype.initialize = function() {
-    this.show(this.parent().parent().getLLoadingView());
+    this.listenTo(this, "remove:loader", this.removeLoader);
     if (App.useProductColl.length === 0) {
       return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
     } else {
@@ -319,6 +321,10 @@ App.UserProductListCtrl = (function(_super) {
         collection: App.useProductColl
       }));
     }
+  };
+
+  UserProductListCtrl.prototype.removeLoader = function() {
+    return this.show(this.parent().getLLoadingView());
   };
 
   UserProductListCtrl.prototype._showView = function(collection) {
