@@ -2242,7 +2242,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 		 $res = 0;
 
 
-	echo $res;
+	return $res;
 
 
 }
