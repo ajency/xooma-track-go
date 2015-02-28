@@ -46,6 +46,12 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
+    $('.data1').hide();
+    if (App.currentUser.get('caps').administrator === true) {
+      $('.tabelements').attr('disabled', true);
+      $('.data').hide();
+      $('.data1').show();
+    }
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     if (!window.isWebView()) {
       return $('#birth_date').datepicker({
