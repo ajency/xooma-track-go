@@ -45,6 +45,7 @@ class AddProductsView extends Marionette.CompositeView
     		e.preventDefault()
 
     onShow:->
+    	@trigger "remove:loader"
 	    $.getScript(_SITEURL+"/html/html/assets/js/cbpViewModeSwitch.js", (item)->
 	        )
 
@@ -56,11 +57,16 @@ class AddProductsView extends Marionette.CompositeView
 
 class App.AddProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		@show @parent().getLLoadingView()
+
+		@listenTo @, "remove:loader" , @removeLoader
 		if App.productCollection.length is 0
 			App.productCollection.fetch().done(@_showProducts).fail(@errorHandler)
 		else
 			@_showProducts()
+
+	removeLoader:=>
+		@show @parent().getLLoadingView()
+		
 
 	_showProducts : =>
 		userProducts = App.currentUser.get 'products'

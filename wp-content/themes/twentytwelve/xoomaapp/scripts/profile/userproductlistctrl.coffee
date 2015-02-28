@@ -194,7 +194,7 @@ class ProductChildView extends Marionette.ItemView
 			data.newClass = 'text-danger'
 		else if parseInt(servingsleft) == 0
 			data.newClass = 'text-muted'
-			data.servings_text =  'Serivngs out of stock'
+			data.servings_text =  'Servings out of stock'
 			data.hidden = 'hidden'
 			data.frown = 'hidden'
 		else if parseInt(servingsleft) <= parseInt(totalservings) && parseInt(servingsleft) != 0

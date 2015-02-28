@@ -13,6 +13,7 @@ class SettingsView extends Marionette.ItemView
 
 	events:
 		'click @ui.notification':(e)->
+			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 			if $(e.target).prop('checked') == true
 				$(e.target).val '1'
 				$(e.target).prop('checked',true)
@@ -28,6 +29,8 @@ class SettingsView extends Marionette.ItemView
 					error : @errornotiSave
 
 		'click @ui.emails':(e)->
+			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
+		
 			if $(e.target).prop('checked') == true
 				$(e.target).val '1'
 				$(e.target).prop('checked',true)
@@ -43,6 +46,8 @@ class SettingsView extends Marionette.ItemView
 					error : @errorSave
 
 	successnotiSave:(response,status,xhr)=>
+		$('.loadingconusme').html ''
+		
 		window.removeMsg()
 		if xhr.status == 201
 			App.currentUser.set 'notifications' , parseInt(response.notifications)
@@ -57,6 +62,7 @@ class SettingsView extends Marionette.ItemView
 			@showErr()
 
 	showErr:->
+		$('.loadingconusme').html ''
 		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Data couldn't be saved!")
 		$('html, body').animate({
@@ -66,6 +72,7 @@ class SettingsView extends Marionette.ItemView
 		
 
 	successSave:(response,status,xhr)=>
+		$('.loadingconusme').html ''
 		window.removeMsg()
 		if xhr.status == 201
 			App.currentUser.set 'emails' , parseInt(response.emails)

@@ -91,7 +91,7 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
     var id;
-    console.log(APIURL);
+    $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     if (App.currentUser.get('caps').administrator === true) {
       console.log(id = this.model.get('profile').user_id);
       return $.ajax({
@@ -106,6 +106,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype._successHandler = function(response, status, xhr) {
+    $('.loadingconusme').html("");
     this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
     return $('html, body').animate({
       scrollTop: 0
@@ -114,6 +115,7 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status, xhr) {
     var state;
+    $('.loadingconusme').html("");
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
       window.removeMsg();
@@ -140,6 +142,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
+    $('.loadingconusme').html("");
     window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({

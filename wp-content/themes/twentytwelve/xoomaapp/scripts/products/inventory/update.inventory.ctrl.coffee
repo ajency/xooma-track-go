@@ -102,6 +102,8 @@ class EditInventoryView extends Marionette.ItemView
 			e.charCode >= 48 && e.charCode <= 57 ||	e.charCode == 44 
 
 		'click @ui.save':(e)->
+			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
+		
 			e.preventDefault()
 			data = @ui.form.serialize()
 			product = @model.get('id')
@@ -160,6 +162,7 @@ class EditInventoryView extends Marionette.ItemView
 		@ui.container_label.text contacount
 
 	successSave:(response,status,xhr)=>
+		$('.loadingconusme').html ""
 		if xhr.status == 201
 			model = new UserProductModel 
 			model.set response[0]
@@ -169,6 +172,7 @@ class EditInventoryView extends Marionette.ItemView
 			@errorMsg()
 
 	errorSave:(response,status,xhr)=>
+		$('.loadingconusme').html ""
 		@errorMsg()
 
 	errorMsg:->
