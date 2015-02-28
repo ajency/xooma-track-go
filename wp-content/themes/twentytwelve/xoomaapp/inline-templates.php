@@ -825,7 +825,7 @@
                     <div>
                     <div class="row m-t-10">
                         <div class="col-sm-6 col-xs-6">
-                                <h5 class="bold margin-none"> Add Products</h5>
+                                <h5 class="bold margin-none"> List of products</h5>
                          </div> 
                             <div class="col-sm-6 col-xs-6">
                                 <div class="cbp-vm-options">
@@ -1759,14 +1759,14 @@ b. Go to the progress chart card , click on menu on the card and select the opti
     </div>
   </div>
    <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
+    <div class="panel-heading" role="tab" id="heading16">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse16" aria-expanded="false" aria-controls="collapseTwo">
          How can i get email notifications?
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+    <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <span class="dropcap simple">A: </span>An option ‘Email alerts’ is available for the same.You have to  put it on, to get email alerts.
 This is available under Menu>Settings>Email alerts.
