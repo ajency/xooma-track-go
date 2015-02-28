@@ -39,6 +39,21 @@
                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
                     <h5 class="text-center"> Get notified when you're running low<br>on your xooma products </h5>
                     </div>
+                    
+                           <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <h6 class="text-center"> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and 
+
+additionally help you properly maintain your personal regime of Xooma’s entire supplement line. </h6>
+                    </div>
+                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-2.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <h6 class="text-center"> As you may already know, Xooma’s X2O helps you get the most out of your water by increasing the 
+
+alkalinity (pH) of your water, optimizing hydration, and revitalizing your body with 70+ essential trace 
+
+minerals.  Now “Xooma Track & Go” can help you get the most out of your X2O and other Xooma 
+
+Products.</h6>
+                    </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
           
                         <div class="row app-link">
