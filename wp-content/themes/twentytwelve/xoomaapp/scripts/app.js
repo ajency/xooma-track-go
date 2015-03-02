@@ -38,10 +38,14 @@ jQuery(document).ready(function($) {
     }
   };
   Offline.on('up', function() {
-    return $('.error-connection').hide();
+    return $('.error-connection').css({
+      display: 'none'
+    });
   });
   Offline.on('down', function() {
-    return $('.error-connection').show();
+    return $('.error-connection').css({
+      display: 'block'
+    });
   });
   App.addInitializer(function() {
     return Backbone.history.start();
@@ -50,6 +54,9 @@ jQuery(document).ready(function($) {
     if (!App.currentUser.hasProfilePicture()) {
       return App.currentUser.getFacebookPicture();
     }
+  });
+  App.on('cordova:register:push:notification', function() {
+    return console.log("registered");
   });
   App.on('cordova:hide:splash:screen', function() {
     return console.log("triggered");

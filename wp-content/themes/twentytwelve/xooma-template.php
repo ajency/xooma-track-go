@@ -35,7 +35,7 @@
 </head>
 <body class="gradient">
 
-<div class="error-connection">
+<div class="error-connection" style="display:none">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center text-muted m-t-30">
@@ -121,7 +121,6 @@ window.ParsleyConfig = {
  
 ?>
 <script type="text/javascript">
-$('.error-connection').hide()
 var App  = new Marionette.Application()
 
   

@@ -37,10 +37,10 @@ jQuery(document).ready ($)->
 
 
 	Offline.on 'up', ->
-		$('.error-connection').hide()
+		$('.error-connection').css display: 'none'
 	
 	Offline.on 'down', ->
-		$('.error-connection').show()
+		$('.error-connection').css display: 'block'
 				
 
 	App.addInitializer ->
@@ -50,6 +50,9 @@ jQuery(document).ready ($)->
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
+
+	App.on 'cordova:register:push:notification', ->
+		console.log "registered"
 
 	App.on 'cordova:hide:splash:screen', ->
 		console.log "triggered"
