@@ -1,5 +1,5 @@
 #start of the Application
-jQuery(document).ready ($)->
+document.addEventListener "deviceready", ->
 	
 	App.state 'login'
 
@@ -19,13 +19,34 @@ jQuery(document).ready ($)->
 		if window.isWebView()
 			window.userData = App.currentUser.toJSON()
 		App.trigger 'fb:status:connected'
-		App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
+		
+		#Device
+		CordovaStorage.setUserData window.userData 
+		ParseCloud.register()
+		.then ->
+			App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
+		, (error)->
+			console.log 'ParseCloud Register Error'
+			App.currentUser.logout()
 
+	
 	App.currentUser.on 'user:logged:out', ->
-		arr = []
-		App.useProductColl.reset arr
-		delete window.userData
-		App.navigate '#login',trigger:true , replace :true
+		#Device
+		onLogout = ->
+			CordovaStorage.clearUserData()
+			arr = []
+			App.useProductColl.reset arr
+			delete window.userData
+
+		if App.getCurrentRoute() is 'login'
+			CordovaApp.facebookLogout().then onLogout
+		else
+			ParseCloud.deregister()
+			.then ->
+				CordovaApp.facebookLogout()
+				.then ->
+					onLogout()
+					App.navigate '#login', trigger:true , replace :true
 
 
 	Offline.options = 
@@ -41,9 +62,21 @@ jQuery(document).ready ($)->
 	
 	Offline.on 'down', ->
 		$('.error-connection').css display: 'block'
+
+
+	#Device
+	Usage.notify.on  '$usage:notification', (event, data)->
+		console.log "$usage:notification triggered at #{data.notificationTime}"
+		CordovaNotification.schedule 'Get hydrated with X2O', data.notificationTime
 				
 
 	App.addInitializer ->
+
+		#Device
+		CordovaApp.updateXoomaMessages()
+		CordovaNotification.registerPermission()
+		Usage.track days:5
+
 		Backbone.history.start();
 
 
@@ -52,12 +85,16 @@ jQuery(document).ready ($)->
 			App.currentUser.getFacebookPicture()
 
 	App.on 'cordova:register:push:notification', ->
-		console.log "registered"
+		Push.register() if window.isWebView()
 
 	App.on 'cordova:hide:splash:screen', ->
-		console.log "triggered"
+		CordovaApp.hideSplashscreen() if window.isWebView()
 
 
 	
 	App.start()
+
+
+, false
+
 

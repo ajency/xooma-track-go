@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+document.addEventListener("deviceready", function() {
   App.state('login').state('xooma', {
     url: '/'
   });
@@ -13,20 +13,39 @@ jQuery(document).ready(function($) {
       window.userData = App.currentUser.toJSON();
     }
     App.trigger('fb:status:connected');
-    return App.navigate('#' + App.currentUser.get('state'), {
-      trigger: true,
-      replace: true
+    CordovaStorage.setUserData(window.userData);
+    return ParseCloud.register().then(function() {
+      return App.navigate('#' + App.currentUser.get('state'), {
+        trigger: true,
+        replace: true
+      });
+    }, function(error) {
+      console.log('ParseCloud Register Error');
+      return App.currentUser.logout();
     });
   });
   App.currentUser.on('user:logged:out', function() {
-    var arr;
-    arr = [];
-    App.useProductColl.reset(arr);
-    delete window.userData;
-    return App.navigate('#login', {
-      trigger: true,
-      replace: true
-    });
+    var onLogout;
+    onLogout = function() {
+      var arr;
+      CordovaStorage.clearUserData();
+      arr = [];
+      App.useProductColl.reset(arr);
+      return delete window.userData;
+    };
+    if (App.getCurrentRoute() === 'login') {
+      return CordovaApp.facebookLogout().then(onLogout);
+    } else {
+      return ParseCloud.deregister().then(function() {
+        return CordovaApp.facebookLogout().then(function() {
+          onLogout();
+          return App.navigate('#login', {
+            trigger: true,
+            replace: true
+          });
+        });
+      });
+    }
   });
   Offline.options = {
     interceptRequests: true,
@@ -47,7 +66,16 @@ jQuery(document).ready(function($) {
       display: 'block'
     });
   });
+  Usage.notify.on('$usage:notification', function(event, data) {
+    console.log("$usage:notification triggered at " + data.notificationTime);
+    return CordovaNotification.schedule('Get hydrated with X2O', data.notificationTime);
+  });
   App.addInitializer(function() {
+    CordovaApp.updateXoomaMessages();
+    CordovaNotification.registerPermission();
+    Usage.track({
+      days: 5
+    });
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
@@ -56,10 +84,14 @@ jQuery(document).ready(function($) {
     }
   });
   App.on('cordova:register:push:notification', function() {
-    return console.log("registered");
+    if (window.isWebView()) {
+      return Push.register();
+    }
   });
   App.on('cordova:hide:splash:screen', function() {
-    return console.log("triggered");
+    if (window.isWebView()) {
+      return CordovaApp.hideSplashscreen();
+    }
   });
   return App.start();
-});
+}, false);
