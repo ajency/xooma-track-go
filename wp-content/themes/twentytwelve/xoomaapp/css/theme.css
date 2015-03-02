@@ -6703,6 +6703,9 @@ text {
 .mid-title span {
   font-size: 0.6em;
 }
+.mid-title i:hover {
+  cursor: pointer;
+}
 .mid-title div {
   width: 88%;
   float: left;
