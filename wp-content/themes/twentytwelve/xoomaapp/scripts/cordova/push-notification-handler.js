@@ -2,7 +2,12 @@ var Push, onNotificationAPN, onNotificationGCM;
 
 onNotificationGCM = function(e) {
   console.log('Received notification for Android');
-  return console.log(e);
+  console.log(e);
+  if (e.event === 'message') {
+    if (!e.foreground) {
+      return App.navigate('#settings', true);
+    }
+  }
 };
 
 onNotificationAPN = function(e) {

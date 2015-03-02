@@ -4,6 +4,9 @@
 
 		console.log 'Received notification for Android'
 		console.log e
+		if e.event is 'message'
+			if not e.foreground
+				App.navigate '#settings', true
 
 
 	onNotificationAPN = (e)->
