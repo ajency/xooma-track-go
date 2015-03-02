@@ -67,7 +67,7 @@ document.addEventListener "deviceready", ->
 	#Device
 	Usage.notify.on  '$usage:notification', (event, data)->
 		console.log "$usage:notification triggered at #{data.notificationTime}"
-		CordovaNotification.schedule 'Get hydrated with X2O', data.notificationTime
+		CordovaNotification.schedule "Hey user achieve your today's health goal.", data.notificationTime
 				
 
 	App.addInitializer ->

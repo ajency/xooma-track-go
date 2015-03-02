@@ -7,7 +7,6 @@
 	ParseCloud = 
 
 		register : ->
-
 			defer = $.Deferred()
 			userData = CordovaStorage.getUserData()
 			
@@ -32,7 +31,6 @@
 
 
 		deregister : ->
-
 			defer = $.Deferred()
 			userData = CordovaStorage.getUserData()
 
@@ -55,7 +53,6 @@
 
 
 		getInstallationId : ->
-
 			defer = $.Deferred()
 
 			parsePlugin.getInstallationId (installationId)-> 

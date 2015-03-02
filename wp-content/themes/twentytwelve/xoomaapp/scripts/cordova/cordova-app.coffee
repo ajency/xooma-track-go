@@ -48,7 +48,6 @@
 
 
 		facebookLogout : ->
-
 			defer = $.Deferred()
 
 			facebookConnectPlugin.logout (success)->
