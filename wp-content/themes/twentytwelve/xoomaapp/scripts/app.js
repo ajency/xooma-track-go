@@ -51,10 +51,14 @@ document.addEventListener("deviceready", function() {
     }
   });
   Offline.on('confirmed-up', function() {
-    return $('.error-connection').hide();
+    return $('.error-connection').css({
+      display: 'none'
+    });
   });
   Offline.on('confirmed-down', function() {
-    return $('.error-connection').show();
+    return $('.error-connection').css({
+      display: 'block'
+    });
   });
   Usage.notify.on('$usage:notification', function(event, data) {
     console.log("$usage:notification triggered at " + data.notificationTime);

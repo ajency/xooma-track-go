@@ -53,10 +53,14 @@ document.addEventListener "deviceready", ->
 
 
 	Offline.on 'confirmed-up', ->
-		$('.error-connection').hide()
+		# $('.error-connection').hide()
+		$('.error-connection').css
+			display: 'none'
 
 	Offline.on 'confirmed-down', ->
-		$('.error-connection').show()
+		# $('.error-connection').show()
+		$('.error-connection').css
+			display: 'block'
 
 
 	#Device
