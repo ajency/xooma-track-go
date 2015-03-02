@@ -29,11 +29,11 @@ jQuery(document).ready ($)->
 
 
 	Offline.options = 
-			interceptRequests: true
-			requests: true
-			checks: 
-				xhr: 
-					url: _SITEURL+'/'
+		interceptRequests: true
+		requests: true
+		checks: 
+			xhr: 
+				url: _SITEURL+'/'
 
 
 	Offline.on 'up', ->
