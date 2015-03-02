@@ -71,7 +71,7 @@ class AsperbmiView extends Marionette.ItemView
 				occurrence.meta_id = parseInt occurrence.meta_id
 				occur = _.has(occurrence, "occurrence")
 				expected = _.has(occurrence, "expected")
-				if occur == true && expected == false
+				if occur == true && expected == true
 					count1++
 				occurrence
 			console.log response
@@ -86,13 +86,13 @@ class AsperbmiView extends Marionette.ItemView
 
 			
 				
-				
+			
 			index = tempColl.indexOf(model);
 			index = parseInt(index) + 1
 			cnt = @getCount model.get 'meta_value'
 			@originalBottleRemaining = @bottleRemaining
 			msg = @showMessage(cnt)
-			if parseInt(count1) >=1
+			if parseInt(count1) <=	parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) == 1
 				$('.bonus').text '(Bonus)'
 			$('.msg').html msg
 			if parseInt(cnt) is 1

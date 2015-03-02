@@ -617,7 +617,7 @@ class User_API
         $datestring = $start;  //Pulled in from somewhere
         $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
 
-        // $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+        //$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
         
                         
        

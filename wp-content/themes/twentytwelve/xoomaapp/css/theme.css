@@ -6401,7 +6401,8 @@ body {
   height: 100%;
 }
 .product-medium {
-  width: 60px;
+  width: 55px;
+  margin-right: 5px;
 }
 .dotted {
   border-left: 1px dotted #cccccc;
@@ -6701,6 +6702,9 @@ text {
 }
 .mid-title span {
   font-size: 0.6em;
+}
+.mid-title i:hover {
+  cursor: pointer;
 }
 .mid-title div {
   width: 88%;

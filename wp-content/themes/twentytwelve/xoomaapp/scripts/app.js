@@ -1,5 +1,4 @@
 jQuery(document).ready(function($) {
-  $('.error-connection').hide();
   App.state('login').state('xooma', {
     url: '/'
   });
@@ -39,11 +38,9 @@ jQuery(document).ready(function($) {
     }
   };
   Offline.on('up', function() {
-    console.log("online");
     return $('.error-connection').hide();
   });
   Offline.on('down', function() {
-    console.log("offline");
     return $('.error-connection').show();
   });
   App.addInitializer(function() {

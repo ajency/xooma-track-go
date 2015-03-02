@@ -1,6 +1,6 @@
 #start of the Application
 jQuery(document).ready ($)->
-	$('.error-connection').hide()
+	
 	App.state 'login'
 
 		.state 'xooma',
@@ -37,23 +37,13 @@ jQuery(document).ready ($)->
 
 
 	Offline.on 'up', ->
-		console.log "online"
 		$('.error-connection').hide()
 	
 	Offline.on 'down', ->
-		console.log "offline"
 		$('.error-connection').show()
 				
 
 	App.addInitializer ->
-
-		# Offline.options = 
-		# 	interceptRequests: true
-		# 	requests: true
-		# 	checks: 
-		# 		xhr: 
-		# 			url: _SITEURL
-
 		Backbone.history.start();
 
 

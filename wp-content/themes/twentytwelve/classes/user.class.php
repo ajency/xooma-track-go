@@ -330,11 +330,12 @@ class User
         $details = maybe_unserialize($user_details);
         date_default_timezone_set($details['timezone']);
         $datestring = $today; 
-        $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+        $today_date = date("Y-m-d H:i:s", strtotime($datestring));
         $todaydate = date('Y-m-d');
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
+           
                    
             $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($val[0]['id'], 'product_type', true)." and type='product_type'");
                     
@@ -529,6 +530,7 @@ class User
         $reminder =  count($reminders) == 0 ? array(array('time' => ""),array('time' => "")) : $reminders;
        
         global $productList;
+        $productList = new ProductList();
         $all_terms = $productList->get_products($pid);
         
 

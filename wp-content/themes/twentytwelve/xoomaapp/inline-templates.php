@@ -39,6 +39,21 @@
                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
                     <h5 class="text-center"> Get notified when you're running low<br>on your xooma products </h5>
                     </div>
+                    
+                           <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <h6 class="text-center"> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and 
+
+additionally help you properly maintain your personal regime of Xooma’s entire supplement line. </h6>
+                    </div>
+                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-2.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <h6 class="text-center"> As you may already know, Xooma’s X2O helps you get the most out of your water by increasing the 
+
+alkalinity (pH) of your water, optimizing hydration, and revitalizing your body with 70+ essential trace 
+
+minerals.  Now “Xooma Track & Go” can help you get the most out of your X2O and other Xooma 
+
+Products.</h6>
+                    </div>
                     <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
           
                         <div class="row app-link">
@@ -126,7 +141,7 @@
         </div>
     </script>
     <script id="profile-template" type="text/template">
-    <div class="sub-header home-sub-header">
+    <div class="sub-header home-sub-header profile-template">
                 <div class="container">
                         <div class="row">
                                 <div class="col-sm-12">
@@ -206,6 +221,7 @@
               
               
               </div>
+              <div class="loadingconusme"></div>
             <div class="col-md-2">
          </div>
         </div>
@@ -347,6 +363,7 @@
                                                 </div>
 
                                                 <div class="row">
+                                                <div class="loadingconusme"></div>
                                                         <div class="col-sm-12">
                                                                 <button type="submit" id="add_user" name="add_user" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
                                                         </div>
@@ -616,6 +633,7 @@
     <button type="button" id="save_measure" name="save_measure" class="btn btn-primary center-block aj-submit-button hidden-xs"><i class="fa fa-check"></i> Save Measurements</button>
                                </div>   </div>
                                 <div class="row">
+                                 <div class="loadingconusme"></div>
                                                 <div class="col-sm-12"><hr>
                                                         <button type="button" id="save_measure" name="save_measure" class="btn btn-primary center-block aj-submit-button visible-xs"><i class="fa fa-check"></i> Save Measurements</button>
                                                 </div>
@@ -817,6 +835,16 @@
     </script>
     <script id="add-product-template" type="h-template">
 <div id="listproduct" >
+<div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>My Xooma products</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
     <div class="container">
         <div class="aj-response-message"></div> 
               <div class="row">
@@ -825,7 +853,7 @@
                     <div>
                     <div class="row m-t-10">
                         <div class="col-sm-6 col-xs-6">
-                                <h5 class="bold margin-none"> Add Products</h5>
+                                <h5 class="bold margin-none"> List of products</h5>
                          </div> 
                             <div class="col-sm-6 col-xs-6">
                                 <div class="cbp-vm-options">
@@ -1078,6 +1106,7 @@
     </div>
     </div>
     <div class="form-group">
+    <div class="loadingconusme"></div>
     <div class="col-sm-offset-2 col-sm-10">
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
@@ -1207,6 +1236,8 @@
 
                 <div class="">
                     <div class="pull-right">
+                    <div class="loadingconusme"></div>
+                                 
                     <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
                           <input type="hidden" name="total" value="{{total}}" / >
                      <a href="#/profile/my-products" class="btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</a> 
@@ -1342,10 +1373,10 @@
             <div class="col-md-4 "> 
             </div>
             <div class="col-md-4 col-xs-12">
-            
+                
                 <div class="water-100 water-marker"> 
                     100% ---
-
+                    
                 </div>
                 <div class="water-75 water-marker"> 
                     75% ---
@@ -1362,7 +1393,7 @@
                 
                 <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
                 <div class="bottle-bg">
-                        <div class="bottle"></div>
+                        <div class="bottle">/div>
                         
                         
                  </div>
@@ -1759,14 +1790,14 @@ b. Go to the progress chart card , click on menu on the card and select the opti
     </div>
   </div>
    <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
+    <div class="panel-heading" role="tab" id="heading16">
       <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse16" aria-expanded="false" aria-controls="collapseTwo">
          How can i get email notifications?
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+    <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <span class="dropcap simple">A: </span>An option ‘Email alerts’ is available for the same.You have to  put it on, to get email alerts.
 This is available under Menu>Settings>Email alerts.

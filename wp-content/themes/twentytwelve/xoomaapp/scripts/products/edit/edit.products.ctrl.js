@@ -154,6 +154,7 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.saveEdit = function() {
     var check, data, product, products, sub;
+    $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
     if ($.inArray(product, products) > -1) {
@@ -162,6 +163,7 @@ EditProductsView = (function(_super) {
     }
     check = this.checkreminder();
     if (check === false) {
+      $('.loadingconusme').html("");
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
       $('html, body').animate({
@@ -184,6 +186,7 @@ EditProductsView = (function(_super) {
         error: this.errorSave
       });
     } else {
+      $('.loadingconusme').html("");
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!");
       return $('html, body').animate({
@@ -196,6 +199,7 @@ EditProductsView = (function(_super) {
     var check, data, product;
     check = this.checkreminder();
     if (check === false) {
+      $('.loadingconusme').html("");
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!");
       $('html, body').animate({
@@ -302,6 +306,7 @@ EditProductsView = (function(_super) {
 
   EditProductsView.prototype.successSave = function(response, status, xhr) {
     var model, product, products;
+    $('.loadingconusme').html("");
     if (xhr.status === 201) {
       product = parseInt(response[0].id);
       products = App.currentUser.get('products');
@@ -324,6 +329,7 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.errorSave = function(response, status, xhr) {
+    $('.loadingconusme').html("");
     window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({

@@ -79,21 +79,22 @@ ScheduleView = (function(_super) {
       return ScheduleView.prototype.create_occurrences(first);
     },
     'click .intake': function(e) {
-      var current, currentime, d1, data, date, meta_id, product, qty, s, seltime, t, time, timezone, todays_date;
+      var current, currentime, d1, data, date, meta_id, product, qty, s, sel_date, seltime, t, time, timezone, todays_date;
       timezone = App.currentUser.get('timezone');
       todays_date = moment().format('YYYY-MM-DD');
+      sel_date = App.currentUser.get('homeDate');
       currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
       console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A'));
       console.log(current = new Date(Date.parse(s)));
       console.log(t = $('#consume_time').val());
-      console.log(seltime = moment(t, "HH:mm a").format('YYYY-MM-DD hh:mm A'));
+      console.log(seltime = moment(t, "HH:mm a").zone(timezone).format('YYYY-MM-DD hh:mm A'));
       time = moment(t, "HH:mm a").format("HH:mm:ss");
       if (t === "") {
         time = moment().format("HH:mm:ss");
         seltime = moment().format('YYYY-MM-DD hh:mm A');
       }
       console.log(d1 = new Date(Date.parse(seltime)));
-      if (d1 > current) {
+      if (d1 > current && todays_date === sel_date) {
         window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-danger').text("Cannot select future time!");
         $('html, body').animate({

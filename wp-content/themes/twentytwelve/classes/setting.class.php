@@ -54,12 +54,24 @@ class setting
 
 		$table = $wpdb->prefix . "product_main";
 
-		$user = $wpdb->get_row("SELECT *,count(user_id) as users from $table where deleted_flag=0 group by user_id ");
+
+		$user = $wpdb->get_results("SELECT *,count(user_id) as users from $table where deleted_flag=0 group by user_id ");
        
+       	$count = 0 ;
+       	foreach ($user as $key => $value) {
+       		$include = array($value->user_id);
+			$blogusers = get_users(array('include'=>$include));
+			
+			
+			if(count($blogusers)!= 0)
+			{
+				$count = intval($count) + 1;
+			}
+       	}
 
 		if($setting_types){
 
-			return array('status' => 200 ,'response' => $setting_types,'users'=>$user->users);
+			return array('status' => 200 ,'response' => $setting_types,'users'=>$count);
 
 
 		}

@@ -139,6 +139,8 @@ class EditProductsView extends Marionette.ItemView
 			$('.available').text cnt
 
 	saveEdit:->
+		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
+		
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
 		if $.inArray( product, products ) > -1
@@ -146,6 +148,8 @@ class EditProductsView extends Marionette.ItemView
 			return
 		check = @checkreminder()
 		if check == false
+			$('.loadingconusme').html ""
+		
 			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
 			$('html, body').animate({
@@ -166,7 +170,7 @@ class EditProductsView extends Marionette.ItemView
 				error : @errorSave
 		else
 
-		
+				$('.loadingconusme').html ""
 				window.removeMsg()
 				@ui.responseMessage.addClass('alert alert-danger').text("Samples given to the customer should be less than the available size!")
 				$('html, body').animate({
@@ -175,8 +179,10 @@ class EditProductsView extends Marionette.ItemView
 
 
 	saveData:(model)->
+
 		check = @checkreminder()
 		if check == false
+			$('.loadingconusme').html ""
 			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Reminders data not saved!")
 			$('html, body').animate({
@@ -277,6 +283,7 @@ class EditProductsView extends Marionette.ItemView
 
 
 	successSave: (response,status,xhr)=>
+		$('.loadingconusme').html ""
 		if xhr.status is 201
 				product = parseInt response[0].id
 				products = App.currentUser.get 'products'
@@ -294,6 +301,7 @@ class EditProductsView extends Marionette.ItemView
 
 
 	errorSave :(response,status,xhr)=>
+		$('.loadingconusme').html ""
 		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({

@@ -116,6 +116,7 @@ EditInventoryView = (function(_super) {
     },
     'click @ui.save': function(e) {
       var data, product;
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       data = this.ui.form.serialize();
       product = this.model.get('id');
@@ -189,6 +190,7 @@ EditInventoryView = (function(_super) {
 
   EditInventoryView.prototype.successSave = function(response, status, xhr) {
     var model;
+    $('.loadingconusme').html("");
     if (xhr.status === 201) {
       model = new UserProductModel;
       model.set(response[0]);
@@ -202,6 +204,7 @@ EditInventoryView = (function(_super) {
   };
 
   EditInventoryView.prototype.errorSave = function(response, status, xhr) {
+    $('.loadingconusme').html("");
     return this.errorMsg();
   };
 

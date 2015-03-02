@@ -21,6 +21,9 @@ class XoomaAppRootView extends Marionette.LayoutView
             console.log "aaaaaaaaaa"
             e.preventDefault()
 
+
+    
+
     
 
             
@@ -37,8 +40,16 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
     onShow:->
+
         $('.display_name').text App.currentUser.get 'display_name'
         $('.user_email').text App.currentUser.get 'user_email'
+        if App.currentUser.get('ID') == undefined
+            console.log "aaaaaaaa"
+            $('.profile-template').hide()
+            $('.menulink').hide()
+
+        
+        
          
        
         @showViews()

@@ -141,12 +141,15 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 
 	onFormSubmit : (_formData)=>
+		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
+		
 		count = 0
 		$.each @measurements , (ind,val)->
 			if (!($.isNumeric(val))) && val!="" && ind != 'date' 
 				count++ 
+				$('.loadingconusme').html ""
 				window.removeMsg()
-				$('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!")
+				$('.aj-response-message').addClass('alert alert-danger').text("Measurement entered for part of the body is incorrect")
 				$('html, body').animate({
 								scrollTop: 0
 								}, 'slow')
@@ -163,6 +166,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	    
 
 	successHandler : (response, status,xhr)=>
+		$('.loadingconusme').html ""
 		if xhr.status is 404
 			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
@@ -183,6 +187,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			
 
 	errorHandler : (error)=>
+		$('.loadingconusme').html ""
 		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			

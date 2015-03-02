@@ -166,12 +166,14 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
     var count, formdata;
+    $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     count = 0;
     $.each(this.measurements, function(ind, val) {
       if ((!($.isNumeric(val))) && val !== "" && ind !== 'date') {
         count++;
+        $('.loadingconusme').html("");
         window.removeMsg();
-        $('.aj-response-message').addClass('alert alert-danger').text("Data entered in tooltips is not in the proper format!");
+        $('.aj-response-message').addClass('alert alert-danger').text("Measurement entered for part of the body is incorrect");
         $('html, body').animate({
           scrollTop: 0
         }, 'slow');
@@ -188,6 +190,7 @@ ProfileMeasurementsView = (function(_super) {
 
   ProfileMeasurementsView.prototype.successHandler = function(response, status, xhr) {
     var state;
+    $('.loadingconusme').html("");
     if (xhr.status === 404) {
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
@@ -210,6 +213,7 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.errorHandler = function(error) {
+    $('.loadingconusme').html("");
     window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({

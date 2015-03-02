@@ -57,6 +57,11 @@ XoomaAppRootView = (function(_super) {
     var state;
     $('.display_name').text(App.currentUser.get('display_name'));
     $('.user_email').text(App.currentUser.get('user_email'));
+    if (App.currentUser.get('ID') === void 0) {
+      console.log("aaaaaaaa");
+      $('.profile-template').hide();
+      $('.menulink').hide();
+    }
     this.showViews();
     $('.logout-button').on('click', function(e) {
       e.preventDefault();

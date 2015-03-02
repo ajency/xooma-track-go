@@ -13,7 +13,7 @@ class FaqView extends Marionette.ItemView
 
 	
 				
-	onShow:->
+	
 		
 
 
