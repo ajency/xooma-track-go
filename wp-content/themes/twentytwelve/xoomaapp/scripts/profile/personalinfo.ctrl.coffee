@@ -22,6 +22,12 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	
 		
 	onRender:->
+		$('.data1').hide()
+		if App.currentUser.get('caps').administrator == true
+			$('.tabelements').attr('disabled', true)
+			$('.data').hide()
+			$('.data1').show()
+		
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		if !window.isWebView()
 			$('#birth_date').datepicker({

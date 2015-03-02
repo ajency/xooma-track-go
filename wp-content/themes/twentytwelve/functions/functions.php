@@ -2206,7 +2206,7 @@ function send_stock_reminders()
 	
 }
 
-
+check_email_sent('stock_low_email',220,3);
 function check_email_sent($object_type,$user_id,$product_id){
 
 
@@ -2214,16 +2214,14 @@ function check_email_sent($object_type,$user_id,$product_id){
 
 	$communication = $wpdb->prefix . "ajcm_communications";
 	$communication_meta = $wpdb->prefix . "ajcm_communication_meta";
-
 	$results = $wpdb->get_results("SELECT * from $communication where communication_type=
 		'".$object_type."' and user_id=".$user_id."");
 
 	$comm_id = 0;
 	$date = date('Y-m-d H:i:s') ;
 	foreach ($results as $key => $value) {
-
 		$row = $wpdb->get_row("SELECT * from $communication_meta where meta_key=
-		'product_id' and communication_id=".$value->id." meta_value=".$product_id."");
+		'product_id' and communication_id=".$value->id." and meta_value=".$product_id."");
 
 		if(!is_null($row))
 		{
@@ -2234,15 +2232,17 @@ function check_email_sent($object_type,$user_id,$product_id){
 
 		
 	}
+	
 	$last_seven = strtotime( '-7 days' , strtotime ( $date ) );
+	$d1 = strtotime(date('Y-m-d H:i:s',$last_seven));
 	$res = "";
-	if( strtotime($date) < strtotime($last_seven) && intval($comm_id) != 0)
-		 $res =  0;
+	if( intval($d1) > intval($last_seven) && intval($comm_id) == 0)
+		 $res =  1;
 	else
-		 $res = 1;
+		 $res = 0;
 
 
-	return $res;
+	echo $res;
 
 
 }

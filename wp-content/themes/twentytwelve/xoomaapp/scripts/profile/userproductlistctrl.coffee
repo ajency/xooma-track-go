@@ -250,6 +250,8 @@ class UserProductListView extends Marionette.CompositeView
 
 		
 	onRender:->
+		@trigger "remove:loader"
+	    
 		if App.currentUser.get('state') == '/home'
 			# @ui.saveProducts.hide()
 			$('#product').parent().removeClass 'done'
@@ -295,7 +297,8 @@ class UserProductListView extends Marionette.CompositeView
 class App.UserProductListCtrl extends Ajency.RegionController
 
 	initialize:->
-		@show @parent().parent().getLLoadingView()
+		@listenTo @, "remove:loader" , @removeLoader
+		
 		if App.useProductColl.length == 0
 			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
 		else
@@ -303,6 +306,9 @@ class App.UserProductListCtrl extends Ajency.RegionController
 						collection : App.useProductColl
 
 
+	removeLoader:=>
+		@show @parent().getLLoadingView()
+	
 	_showView:(collection)=>
 		collection = collection.response
 		productcollection = new Backbone.Collection collection

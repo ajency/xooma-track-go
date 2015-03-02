@@ -88,7 +88,7 @@ AsperbmiView = (function(_super) {
         occurrence.meta_id = parseInt(occurrence.meta_id);
         occur = _.has(occurrence, "occurrence");
         expected = _.has(occurrence, "expected");
-        if (occur === true && expected === false) {
+        if (occur === true && expected === true) {
           count1++;
         }
         return occurrence;
@@ -110,7 +110,7 @@ AsperbmiView = (function(_super) {
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
       msg = this.showMessage(cnt);
-      if (parseInt(count1) >= 1) {
+      if (parseInt(count1) <= parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) === 1) {
         $('.bonus').text('(Bonus)');
       }
       $('.msg').html(msg);
