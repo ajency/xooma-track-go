@@ -29,7 +29,7 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
-      var date, meta_id, product, qty, time;
+      var currentime, date, meta_id, product, qty, s, time, todays_date;
       $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
@@ -54,7 +54,10 @@ AsperbmiView = (function(_super) {
       }
       product = this.model.get('id');
       date = App.currentUser.get('homeDate');
-      time = moment().format("HH:mm:ss");
+      todays_date = moment().format('YYYY/MM/DD');
+      currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+      s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
+      time = moment().format('hh:mm A');
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
@@ -84,7 +87,7 @@ AsperbmiView = (function(_super) {
         occurrence.meta_id = parseInt(occurrence.meta_id);
         occur = _.has(occurrence, "occurrence");
         expected = _.has(occurrence, "expected");
-        if (occur === true && expected === false) {
+        if (occur === true && expected === true) {
           count1++;
         }
         return occurrence;
@@ -106,7 +109,7 @@ AsperbmiView = (function(_super) {
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
       msg = this.showMessage(cnt);
-      if (parseInt(count1) >= 1) {
+      if (parseInt(count1) <= parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) === 1) {
         $('.bonus').text('(Bonus)');
       }
       $('.msg').html(msg);
@@ -116,7 +119,7 @@ AsperbmiView = (function(_super) {
       }
       $('.bottlecnt').text(cnt);
       window.removeMsg();
-      this.ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!");
+      this.ui.responseMessage.addClass('alert alert-success').text("Consumption saved!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');

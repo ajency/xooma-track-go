@@ -28,6 +28,7 @@ SettingsView = (function(_super) {
   SettingsView.prototype.events = {
     'click @ui.notification': function(e) {
       var data;
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       if ($(e.target).prop('checked') === true) {
         $(e.target).val('1');
         $(e.target).prop('checked', true);
@@ -46,6 +47,7 @@ SettingsView = (function(_super) {
     },
     'click @ui.emails': function(e) {
       var data;
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       if ($(e.target).prop('checked') === true) {
         $(e.target).val('1');
         $(e.target).prop('checked', true);
@@ -65,10 +67,11 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.successnotiSave = function(response, status, xhr) {
+    $('.loadingconusme').html('');
     window.removeMsg();
     if (xhr.status === 201) {
       App.currentUser.set('notifications', parseInt(response.notifications));
-      this.ui.responseMessage.addClass('alert alert-success').text("Notifications data saved!");
+      this.ui.responseMessage.addClass('alert alert-success').text("Notification alerts saved!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
@@ -78,6 +81,7 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.showErr = function() {
+    $('.loadingconusme').html('');
     window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Data couldn't be saved!");
     return $('html, body').animate({
@@ -86,10 +90,11 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.successSave = function(response, status, xhr) {
+    $('.loadingconusme').html('');
     window.removeMsg();
     if (xhr.status === 201) {
       App.currentUser.set('emails', parseInt(response.emails));
-      this.ui.responseMessage.addClass('alert alert-success').text("Emails data saved!");
+      this.ui.responseMessage.addClass('alert alert-success').text("Email alerts saved!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');

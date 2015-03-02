@@ -37,7 +37,11 @@ class AsperbmiView extends Marionette.ItemView
 
 			product = @model.get('id')
 			date = App.currentUser.get('homeDate')
-			time  = moment().format("HH:mm:ss")
+			todays_date = moment().format('YYYY/MM/DD')
+			currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
+			
+			time  = moment().format('hh:mm A')
 			$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
@@ -67,7 +71,7 @@ class AsperbmiView extends Marionette.ItemView
 				occurrence.meta_id = parseInt occurrence.meta_id
 				occur = _.has(occurrence, "occurrence")
 				expected = _.has(occurrence, "expected")
-				if occur == true && expected == false
+				if occur == true && expected == true
 					count1++
 				occurrence
 			console.log response
@@ -82,13 +86,13 @@ class AsperbmiView extends Marionette.ItemView
 
 			
 				
-				
+			
 			index = tempColl.indexOf(model);
 			index = parseInt(index) + 1
 			cnt = @getCount model.get 'meta_value'
 			@originalBottleRemaining = @bottleRemaining
 			msg = @showMessage(cnt)
-			if parseInt(count1) >=1
+			if parseInt(count1) <=	parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) == 1
 				$('.bonus').text '(Bonus)'
 			$('.msg').html msg
 			if parseInt(cnt) is 1
@@ -97,7 +101,7 @@ class AsperbmiView extends Marionette.ItemView
 			$('.bottlecnt').text cnt
 			
 			window.removeMsg()
-			@ui.responseMessage.addClass('alert alert-success').text("Consumption data saved!")
+			@ui.responseMessage.addClass('alert alert-success').text("Consumption saved!")
 			$('html, body').animate({
 								scrollTop: 0
 								}, 'slow')

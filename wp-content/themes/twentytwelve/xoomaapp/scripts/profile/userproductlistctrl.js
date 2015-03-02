@@ -28,7 +28,7 @@ ProductChildView = (function(_super) {
     return this.$el.prop("id", 'cart' + this.model.get("id"));
   };
 
-  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li><a href="#" class="remove hidden">Remove the product</a></li> </ul> </h5> <ul class="list-inline  "> <li class="col-md-6 col-xs-6 col-sm-6 dotted-line"> <ul class="list-inline no-dotted responsive"> {{#servings}} <li> <h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3> </li> {{/servings}} </ul> <div class="end-bar"></div> </li> <li class="col-md-6 col-xs-6  col-sm-6 dotted"> <div class="row"> <div class="col-sm-5"> <img src="{{image}}" class="hidden-xs pull-left product-medium"/> <h3 class="bold {{newClass}} {{hidden}} avail m-t-10">{{servingsleft}}</h3></div> <div class="col-sm-7"> <small> <span class="servings_text center-block">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div> </div> </li> </ul> </div> <div class="panel-footer"> <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
+  ProductChildView.prototype.template = '<div class="panel-body "> <h5 class=" mid-title margin-none"><div> {{name}}</div> <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i> <ul class="dropdown-menu pull-right" role="menu"> <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li> <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li> <li class="divider"></li> <li class="remove hidden"><div>Remove</div></li> </ul> </h5> <ul class="list-inline  "> <li class="col-md-6 col-xs-6 col-sm-6 dotted-line"> <ul class="list-inline no-dotted responsive"> {{#servings}} <li> <h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3> </li> {{/servings}} </ul> <div class="end-bar"></div> </li> <li class="col-md-6 col-xs-6  col-sm-6 dotted"> <div class="row"> <div class="col-sm-5"> <img src="{{image}}" class="hidden-xs pull-left product-medium"/> <h3 class="bold {{newClass}} {{hidden}} avail m-t-10">{{servingsleft}}</h3></div> <div class="col-sm-7"> <small> <span class="servings_text center-block">{{servings_text}}</span> <i class="fa fa-frown-o {{frown}}"></i> <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div> </div> </li> </ul> </div> <div class="panel-footer"> <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> {{reminder}} </div>';
 
   ProductChildView.prototype.events = {
     'click .remove': function(e) {
@@ -177,7 +177,7 @@ ProductChildView = (function(_super) {
       data.newClass = 'text-danger';
     } else if (parseInt(servingsleft) === 0) {
       data.newClass = 'text-muted';
-      data.servings_text = 'Serivngs out of stock';
+      data.servings_text = 'Servings out of stock';
       data.hidden = 'hidden';
       data.frown = 'hidden';
     } else if (parseInt(servingsleft) <= parseInt(totalservings) && parseInt(servingsleft) !== 0) {
@@ -258,6 +258,7 @@ UserProductListView = (function(_super) {
   };
 
   UserProductListView.prototype.onRender = function() {
+    this.trigger("remove:loader");
     if (App.currentUser.get('state') === '/home') {
       $('#product').parent().removeClass('done');
       $('#product').parent().addClass('selected');
@@ -306,11 +307,12 @@ App.UserProductListCtrl = (function(_super) {
 
   function UserProductListCtrl() {
     this._showView = __bind(this._showView, this);
+    this.removeLoader = __bind(this.removeLoader, this);
     return UserProductListCtrl.__super__.constructor.apply(this, arguments);
   }
 
   UserProductListCtrl.prototype.initialize = function() {
-    this.show(this.parent().parent().getLLoadingView());
+    this.listenTo(this, "remove:loader", this.removeLoader);
     if (App.useProductColl.length === 0) {
       return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
     } else {
@@ -318,6 +320,10 @@ App.UserProductListCtrl = (function(_super) {
         collection: App.useProductColl
       }));
     }
+  };
+
+  UserProductListCtrl.prototype.removeLoader = function() {
+    return this.show(this.parent().getLLoadingView());
   };
 
   UserProductListCtrl.prototype._showView = function(collection) {

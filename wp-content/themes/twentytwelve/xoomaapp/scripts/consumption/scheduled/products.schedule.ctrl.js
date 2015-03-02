@@ -79,7 +79,29 @@ ScheduleView = (function(_super) {
       return ScheduleView.prototype.create_occurrences(first);
     },
     'click .intake': function(e) {
-      var data, date, meta_id, product, qty, t, time;
+      var current, currentime, d1, data, date, meta_id, product, qty, s, sel_date, seltime, t, time, timezone, todays_date;
+      timezone = App.currentUser.get('timezone');
+      todays_date = moment().format('YYYY-MM-DD');
+      sel_date = App.currentUser.get('homeDate');
+      currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+      console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A'));
+      console.log(current = new Date(Date.parse(s)));
+      console.log(t = $('#consume_time').val());
+      console.log(seltime = moment(t, "HH:mm a").zone(timezone).format('YYYY-MM-DD hh:mm A'));
+      time = moment(t, "HH:mm a").format("HH:mm:ss");
+      if (t === "") {
+        time = moment().format("HH:mm:ss");
+        seltime = moment().format('YYYY-MM-DD hh:mm A');
+      }
+      console.log(d1 = new Date(Date.parse(seltime)));
+      if (d1 > current && todays_date === sel_date) {
+        window.removeMsg();
+        this.ui.responseMessage.addClass('alert alert-danger').text("Cannot select future time!");
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+        return false;
+      }
       $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = $('#meta_id').val();
@@ -87,11 +109,6 @@ ScheduleView = (function(_super) {
       data = $('#schduleid').val();
       product = this.model.get('id');
       date = App.currentUser.get('homeDate');
-      console.log(t = $('#consume_time').val());
-      time = moment(t, "HH:mm a").format("HH:mm:ss");
-      if (t === "") {
-        time = moment().format("HH:mm:ss");
-      }
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
@@ -137,16 +154,8 @@ ScheduleView = (function(_super) {
   };
 
   ScheduleView.prototype.onShow = function() {
-    var actual_time, current, currentime, d, date, hours, minutes, occurr, qty, s, temp, timezone, todays_date;
+    var currentime, date, occurr, qty, s, temp, timezone, todays_date;
     timezone = App.currentUser.get('timezone');
-    todays_date = moment().format('YYYY-MM-DD');
-    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
-    s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-    d = new Date(s);
-    actual_time = d.getTime();
-    current = new Date(actual_time);
-    console.log(hours = current.getHours());
-    console.log(minutes = current.getMinutes());
     date = Marionette.getOption(this, 'date');
     occurr = this.model.get('occurrence');
     temp = [];
@@ -167,11 +176,11 @@ ScheduleView = (function(_super) {
       }
     });
     $('#date').val(date);
+    todays_date = moment().format('YYYY-MM-DD');
+    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
     $('.input-small').timepicker({
-      maxTime: {
-        hour: hours,
-        minute: minutes
-      }
+      defaultTime: 'current'
     });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {

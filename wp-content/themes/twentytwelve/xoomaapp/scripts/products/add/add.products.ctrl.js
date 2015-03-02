@@ -68,6 +68,7 @@ AddProductsView = (function(_super) {
   };
 
   AddProductsView.prototype.onShow = function() {
+    this.trigger("remove:loader");
     return $.getScript(_SITEURL + "/html/html/assets/js/cbpViewModeSwitch.js", function(item) {});
   };
 
@@ -80,6 +81,7 @@ App.AddProductsCtrl = (function(_super) {
 
   function AddProductsCtrl() {
     this._showProducts = __bind(this._showProducts, this);
+    this.removeLoader = __bind(this.removeLoader, this);
     return AddProductsCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -87,12 +89,16 @@ App.AddProductsCtrl = (function(_super) {
     if (options == null) {
       options = {};
     }
-    this.show(this.parent().getLLoadingView());
+    this.listenTo(this, "remove:loader", this.removeLoader);
     if (App.productCollection.length === 0) {
       return App.productCollection.fetch().done(this._showProducts).fail(this.errorHandler);
     } else {
       return this._showProducts();
     }
+  };
+
+  AddProductsCtrl.prototype.removeLoader = function() {
+    return this.show(this.parent().getLLoadingView());
   };
 
   AddProductsCtrl.prototype._showProducts = function() {

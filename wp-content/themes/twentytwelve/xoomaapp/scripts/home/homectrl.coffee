@@ -169,6 +169,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'cordova:register:push:notification'
 		timezone = App.currentUser.get('timezone')
 		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
 		console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
@@ -361,11 +362,8 @@ class App.HomeCtrl extends Ajency.RegionController
 	initialize:->
 		state = App.currentUser.get 'state'
 		if state != '/home'
-			window.removeMsg()
 			$('.aj-response-message').addClass('alert alert-danger').text("Complete your Profile first!")
-			$('html, body').animate({
-								scrollTop: 0
-								}, 'slow')
+			
 			return false
 		if App.useProductColl.length == 0 || App.currentUser.hasChanged('timezone')
 			window.param = 'weight'

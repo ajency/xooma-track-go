@@ -45,6 +45,12 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
+    $('.data1').hide();
+    if (App.currentUser.get('caps').administrator === true) {
+      $('.tabelements').attr('disabled', true);
+      $('.data').hide();
+      $('.data1').show();
+    }
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     if (!window.isWebView()) {
       return $('#birth_date').datepicker({
@@ -84,13 +90,13 @@ ProfilePersonalInfoView = (function(_super) {
       $('#profile').parent().nextAll().addClass('done');
     }
     if (App.currentUser.get('timezone') === null) {
-      return $('#timezone option[value="' + $('#timezone').val() + '"]').prop("selected", true);
+      return this.$el.find('#timezone option[value="' + $('#timezone').val() + '"]').prop("selected", true);
     }
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
     var id;
-    console.log(APIURL);
+    $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     if (App.currentUser.get('caps').administrator === true) {
       console.log(id = this.model.get('profile').user_id);
       return $.ajax({
@@ -105,6 +111,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype._successHandler = function(response, status, xhr) {
+    $('.loadingconusme').html("");
     this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
     return $('html, body').animate({
       scrollTop: 0
@@ -113,6 +120,7 @@ ProfilePersonalInfoView = (function(_super) {
 
   ProfilePersonalInfoView.prototype.successHandler = function(response, status, xhr) {
     var state;
+    $('.loadingconusme').html("");
     state = App.currentUser.get('state');
     if (xhr.status === 404) {
       window.removeMsg();
@@ -139,6 +147,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.errorHandler = function(error) {
+    $('.loadingconusme').html("");
     window.removeMsg();
     this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
     return $('html, body').animate({

@@ -55,6 +55,11 @@ ProfileCtrlView = (function(_super) {
   };
 
   ProfileCtrlView.prototype.onShow = function() {
+    if (App.currentUser.get('ID') === void 0) {
+      console.log("aaaaaaaa");
+      $('.profile-template').hide();
+      $('.menulink').hide();
+    }
     return this.handleMenu;
   };
 

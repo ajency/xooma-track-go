@@ -1916,7 +1916,8 @@ function cron_job_reminders($args)
 						
 				date_default_timezone_set($details['timezone']);
 				$datestring = $date;  //Pulled in from somewhere
-				$time = date('H:i A',strtotime($datestring));
+				$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+				$time = date('H:i A',strtotime($today_date));
 				$product_name = $product[0]['name'];
 				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 				
@@ -2088,12 +2089,16 @@ function send_stock_reminders_over(){
 		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
 
 		eval("\$msg = \"$msg\";");
-		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
-		$email_flag = get_user_meta($user->user_id,'emails' , true);
-		if(intval($available) == 0 && $notifications_flag == 1 )
+		$notifications_flag = get_user_meta($value->user_id,'notification' , true);
+		$email_flag = get_user_meta($value->user_id,'emails' , true);
+		$check_email_sent = check_email_sent('stock_low_email',$value->user_id,$value->product_id);
+
+		if(intval($available) == 0 && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
-				notifications_low_stock($value->user_id,$product_name,$available,'stock_over_email');
+				notifications_low_stock($value->user_id,$product_name,$available,'stock_over_email',$value->product_id);
+				
+				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
 						'ID' => $value->user_id,
 						'message' => $msg,
@@ -2119,6 +2124,8 @@ function send_stock_reminders()
 	global $wpdb;
 
 	global $user;
+
+	$user = new User();
 
 	$usersToBeNotified = array();
 
@@ -2151,7 +2158,7 @@ function send_stock_reminders()
 			
 		
 
-		$data  = $$user->get_user_home_products($value->user_id,$value->product_id,$date="");
+		$data  = $user->get_user_home_products($value->user_id,$value->product_id,$date="");
 	
 		$servings_left = $object->no_of_days;
 
@@ -2171,19 +2178,22 @@ function send_stock_reminders()
 		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
 
 		eval("\$msg = \"$msg\";");
-		$notifications_flag = get_user_meta($user->user_id,'notification' , true);
-		$email_flag = get_user_meta($user->user_id,'emails' , true);
+		$notifications_flag = get_user_meta($value->user_id,'notification' , true);
+		$email_flag = get_user_meta($value->user_id,'emails' , true);
 		
-		if(intval($serv) <= intval($servings_low) && $notifications_flag == 1)
+		$check_email_sent = check_email_sent('stock_low_email',$value->user_id,$value->product_id);
+		if(intval($serv) <= intval($servings_low) && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
-				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email');
+				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email',$value->product_id);
+				
+				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
 						'ID' => $value->user_id,
 						'message' => $msg,
 						'product' => $product_name
 
-					);
+				);
 
 		}
 		
@@ -2196,8 +2206,47 @@ function send_stock_reminders()
 	
 }
 
+check_email_sent('stock_low_email',220,3);
+function check_email_sent($object_type,$user_id,$product_id){
 
-function notifications_low_stock($user_id,$product_name,$available,$type){
+
+	global $wpdb;
+
+	$communication = $wpdb->prefix . "ajcm_communications";
+	$communication_meta = $wpdb->prefix . "ajcm_communication_meta";
+	$results = $wpdb->get_results("SELECT * from $communication where communication_type=
+		'".$object_type."' and user_id=".$user_id."");
+
+	$comm_id = 0;
+	$date = date('Y-m-d H:i:s') ;
+	foreach ($results as $key => $value) {
+		$row = $wpdb->get_row("SELECT * from $communication_meta where meta_key=
+		'product_id' and communication_id=".$value->id." and meta_value=".$product_id."");
+
+		if(!is_null($row))
+		{
+			$comm_id = $row->communication_id;
+			$date = $value->processed;
+			break;
+		}
+
+		
+	}
+	
+	$last_seven = strtotime( '-7 days' , strtotime ( $date ) );
+	$d1 = strtotime(date('Y-m-d H:i:s',$last_seven));
+	$res = "";
+	if( intval($d1) > intval($last_seven) && intval($comm_id) == 0)
+		 $res =  1;
+	else
+		 $res = 0;
+
+
+	return $res;
+
+
+}
+function notifications_low_stock($user_id,$product_name,$available,$type,$product_id){
 
 	
 	global $aj_comm;
@@ -2217,7 +2266,8 @@ function notifications_low_stock($user_id,$product_name,$available,$type){
 		'available'       => $available,
 		'loginurl'		  => site_url().'/xooma-app/#login',
 		'img'			  => site_url().'/assets/logo.png',
-		'siteurl'			  => site_url()
+		'siteurl'		  => site_url(),
+		'product_id'	  => $product_id
 
 
 		);

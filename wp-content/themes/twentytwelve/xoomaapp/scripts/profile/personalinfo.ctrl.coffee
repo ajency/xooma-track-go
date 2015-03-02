@@ -22,6 +22,12 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	
 		
 	onRender:->
+		$('.data1').hide()
+		if App.currentUser.get('caps').administrator == true
+			$('.tabelements').attr('disabled', true)
+			$('.data').hide()
+			$('.data1').show()
+		
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		if !window.isWebView()
 			$('#birth_date').datepicker({
@@ -64,8 +70,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('#profile').parent().nextAll().addClass 'done'
 		
 		if App.currentUser.get('timezone') == null
-			$('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
-
+			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
+			# $("#timezone").val($("#timezone option:first").val());
 		
 		
 			
@@ -76,7 +82,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>
-		console.log APIURL
+		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		if App.currentUser.get('caps').administrator == true
 			console.log id = @model.get('profile').user_id
 		
@@ -91,6 +97,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				.fail @errorHandler
 
 	_successHandler:(response, status,xhr)=>
+		$('.loadingconusme').html ""
 		@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 		$('html, body').animate({
 						scrollTop: 0
@@ -98,6 +105,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	successHandler:(response, status,xhr)=>
+		$('.loadingconusme').html ""
 		state = App.currentUser.get 'state'
 		if xhr.status is 404
 			window.removeMsg()
@@ -124,6 +132,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		
 
 	errorHandler:(error)=>
+		$('.loadingconusme').html ""
 		window.removeMsg()
 		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 		$('html, body').animate({

@@ -8,11 +8,16 @@ class User
 		//get user meta for the user
         $data = array();
 		$user  = get_userdata( $id );
-		$user_details = get_user_meta($id,'user_details',true);
+		$userdetails = get_user_meta($id,'user_details',true);
 		$xooma_member_id = get_user_meta($id,'xooma_member_id',true);
         $user_products = get_user_meta($id,'user_products',true);
         if($user){
-			$user_details =   unserialize($user_details);
+            $user_details =   unserialize($userdetails);
+
+              
+        
+            
+            
             $data = array(
 				'xooma_member_id'	        => $xooma_member_id,
 				'phone_no'			        => $user_details['phone_no'],
@@ -325,11 +330,12 @@ class User
         $details = maybe_unserialize($user_details);
         date_default_timezone_set($details['timezone']);
         $datestring = $today; 
-        $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
+        $today_date = date("Y-m-d H:i:s", strtotime($datestring));
         $todaydate = date('Y-m-d');
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
+           
                    
             $product_type = $wpdb->get_row("SELECT * FROM $product_type_table WHERE id =".get_term_meta($val[0]['id'], 'product_type', true)." and type='product_type'");
                     
@@ -524,6 +530,7 @@ class User
         $reminder =  count($reminders) == 0 ? array(array('time' => ""),array('time' => "")) : $reminders;
        
         global $productList;
+        $productList = new ProductList();
         $all_terms = $productList->get_products($pid);
         
 

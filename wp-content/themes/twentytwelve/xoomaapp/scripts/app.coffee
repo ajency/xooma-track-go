@@ -1,14 +1,12 @@
 #start of the Application
-document.addEventListener "deviceready", ->
+jQuery(document).ready ($)->
 	
 	App.state 'login'
 
 		.state 'xooma',
 				url : '/'
 
-		.state 'faq',
-				url : 'faq'
-				parent : 'xooma'
+		
 						
 	
 
@@ -21,88 +19,45 @@ document.addEventListener "deviceready", ->
 		if window.isWebView()
 			window.userData = App.currentUser.toJSON()
 		App.trigger 'fb:status:connected'
-		
-		#Device
-		CordovaStorage.setUserData window.userData 
-		ParseCloud.register()
-		.then ->
-			App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
-		, (error)->
-			console.log 'ParseCloud Register Error'
-			App.currentUser.logout()
+		App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
 
-	
 	App.currentUser.on 'user:logged:out', ->
-		#Device
-		onLogout = ->
-			CordovaStorage.clearUserData()
-			arr = []
-			App.useProductColl.reset arr
-			delete window.userData
-
-		if App.getCurrentRoute() is 'login'
-			CordovaApp.facebookLogout().then onLogout
-		else
-			ParseCloud.deregister()
-			.then ->
-				CordovaApp.facebookLogout()
-				.then ->
-					onLogout()
-					App.navigate '#login', trigger:true , replace :true
+		arr = []
+		App.useProductColl.reset arr
+		delete window.userData
+		App.navigate '#login',trigger:true , replace :true
 
 
-
-	Offline.on 'confirmed-up', ->
-		# $('.error-connection').hide()
-		$('.error-connection').css
-			display: 'none'
-
-	Offline.on 'confirmed-down', ->
-		# $('.error-connection').show()
-		$('.error-connection').css
-			display: 'block'
+	Offline.options = 
+		interceptRequests: true
+		requests: true
+		checks: 
+			xhr: 
+				url: _SITEURL+'/'
 
 
-	#Device
-	Usage.notify.on  '$usage:notification', (event, data)->
-		console.log "$usage:notification triggered at #{data.notificationTime}"
-		CordovaNotification.schedule 'Get hydrated with X2O', data.notificationTime
-
-
+	Offline.on 'up', ->
+		$('.error-connection').css display: 'none'
+	
+	Offline.on 'down', ->
+		$('.error-connection').css display: 'block'
+				
 
 	App.addInitializer ->
+		Backbone.history.start();
 
-		$('.error-connection').hide()
-
-		Offline.options = 
-			interceptRequests: true
-			requests: true
-			checks: 
-				xhr: 
-					url: _SITEURL
-
-		#Device
-		CordovaApp.updateXoomaMessages()
-		CordovaNotification.registerPermission()
-		Push.register()
-		Usage.track days:5
-
-
-		Backbone.history.start()
-		
 
 	App.on 'fb:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
+	App.on 'cordova:register:push:notification', ->
+		console.log "registered"
+
 	App.on 'cordova:hide:splash:screen', ->
-		CordovaApp.hideSplashscreen() if window.isWebView()
+		console.log "triggered"
+
 
 	
 	App.start()
-
-
-, false
-
-
 
