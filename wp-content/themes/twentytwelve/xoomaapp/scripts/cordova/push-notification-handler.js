@@ -1,18 +1,39 @@
-var Push, onNotificationAPN, onNotificationGCM;
+var Push, cordovaPushNavigation, onNotificationAPN, onNotificationGCM;
+
+cordovaPushNavigation = function(data) {
+  var homeDate;
+  switch (data.type) {
+    case 'consume':
+      homeDate = App.currentUser.get('homeDate');
+      if (data.title.toUpperCase() === 'X2O') {
+        return App.navigate("#/products/" + data.productId + "/bmi/" + homeDate, true);
+      } else {
+        return App.navigate("#/products/" + data.productId + "/consume/" + homeDate, true);
+      }
+      break;
+    case 'inventory':
+      return App.navigate("#/inventory/" + data.productId + "/edit", true);
+    case 'New Product':
+      return App.navigate('#products', true);
+  }
+};
 
 onNotificationGCM = function(e) {
   console.log('Received notification for Android');
   console.log(e);
   if (e.event === 'message') {
     if (!e.foreground) {
-      return App.navigate('#settings', true);
+      return cordovaPushNavigation(e.payload.data);
     }
   }
 };
 
 onNotificationAPN = function(e) {
   console.log('Received notification for iOS');
-  return console.log(e);
+  console.log(e);
+  if (e.foreground === "0") {
+    return cordovaPushNavigation(e);
+  }
 };
 
 Push = {

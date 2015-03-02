@@ -33,11 +33,26 @@
                     <h5 class="text-center"> Timely notification and email reminders<br>to support your product use and health goals</h5>
                     </div>
                     
-                    <div><h3> <img src="./images/chart.png" alt="" class="center-block img-responsive" ></h3>
+                    <div><h3> <img src="./images/fitness.png" alt="" class="center-block img-responsive" ></h3>
                     <h5 class="text-center">Measure the improvements <br> in your shape and size</h5>
                     </div>
                    <div><h3>   <img src="./images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
                     <h5 class="text-center"> Get notified when you are running low<br>on your xooma products </h5>
+                    </div>
+                    
+                           <div><h3>   <img src="./images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <h6 class="text-center"> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and 
+
+additionally help you properly maintain your personal regime of Xooma’s entire supplement line. </h6>
+                    </div>
+                    <div><h3>   <img src="./images/products-2.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <h6 class="text-center"> As you may already know, Xooma’s X2O helps you get the most out of your water by increasing the 
+
+alkalinity (pH) of your water, optimizing hydration, and revitalizing your body with 70+ essential trace 
+
+minerals.  Now “Xooma Track & Go” can help you get the most out of your X2O and other Xooma 
+
+Products.</h6>
                     </div>
                     <div><h3> <img src="./images/platform.png" alt="" class="center-block img-responsive"  ></h3>
           
@@ -126,7 +141,7 @@
         </div>
     </script>
     <script id="profile-template" type="text/template">
-    <div class="sub-header home-sub-header">
+    <div class="sub-header home-sub-header profile-template">
                 <div class="container">
                         <div class="row">
                                 <div class="col-sm-12">
@@ -206,6 +221,7 @@
               
               
               </div>
+              <div class="loadingconusme"></div>
             <div class="col-md-2">
          </div>
         </div>
@@ -278,7 +294,7 @@
                                                 <div class="form-group">
                                                         <label for="text3" class="col-sm-3 col-xs-4 control-label">Email</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" readonly class="form-control" name="user_email">
+                                                                <input type="email" readonly class="form-control" name="user_email">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
@@ -347,6 +363,7 @@
                                                 </div>
 
                                                 <div class="row">
+                                                <div class="loadingconusme"></div>
                                                         <div class="col-sm-12">
                                                                 <button type="submit" id="add_user" name="add_user" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i> Save</button>
                                                         </div>
@@ -616,6 +633,7 @@
     <button type="button" id="save_measure" name="save_measure" class="btn btn-primary center-block aj-submit-button hidden-xs"><i class="fa fa-check"></i> Save Measurements</button>
                                </div>   </div>
                                 <div class="row">
+                                 <div class="loadingconusme"></div>
                                                 <div class="col-sm-12"><hr>
                                                         <button type="button" id="save_measure" name="save_measure" class="btn btn-primary center-block aj-submit-button visible-xs"><i class="fa fa-check"></i> Save Measurements</button>
                                                 </div>
@@ -624,7 +642,18 @@
         </div>
     </script>
     <script id="home-template" type="text/template">
+<!--<div class="error-connection">
+    <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center text-muted m-t-30">
+               <h2 > <i class="fa fa-wifi"></i></h2>
+                        <h4 > No Connection Found</h4>
+                        Your connection to the wireless network is turned off.<br> Restore your connection and try again
+                </div>
 
+        </div>
+    </div>
+</div>-->
         <div class="container" id="homeregion"> 
         <!--<div class="alert alert-warning alert-msg measurements_update text-center" role="alert">
                   <i class="fa fa-bullhorn"></i>  Pick up a date here and update your consumptions for that day
@@ -728,275 +757,7 @@
         </div>
 
     </div>
-<!--
-<div class="panel-group faq-list" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          How do I benefit with Xooma Track & Go?
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-       <span class="dropcap simple">A: </span> Xooma Track & Go is specially designed to track your intake of Xooma supplements by giving you timely reminders for products under ‘My Xooma products’
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          What are My Xooma products?
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>This are the supplements which you take and will be notified for. You can add them from ‘List of Xooma products’.
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          What is ‘List of Xooma products’?
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span> This are the Xooma products. You have to click on ‘Add’ (Available under each product) to make them a part of ‘My Xooma products’. Once clicked on add the product is no longer available under ‘List of Xooma products’ .You get reminders for a product only when the product is added to ‘My Xooma Product’
 
-      </div>
-    </div>
-  </div>
-
-    <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading4">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapseTwo">
-         How can I set reminders for product intake?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Reminder has to be set for each serving of a product. Fields for reminders get populated depending on the number of servings selected.You just have to choose a time for the reminder for each serving.Also by default the reminders will be on at app level (Available for mobile phones, under settings
-You have got two options from where you can set reminders
-a. While adding product(From ‘list of Xooma products’): The product is available to edit and hence reminders can be set from here
-b. Menu option on the card: Once the product has been added it is available under my product list.Each product has its card, wherein menu icon is available. From the menu icon select option edit product and reminders can be sent.
-
-      </div>
-    </div>
-  </div>
-
-    <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading5">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapseTwo">
-          How do i consume X2O?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>You have to be on homepage to accomplish this action.Click on ‘Hydrate’(on the X2O bottle) and you will be diverted to the consumption screen.You have to long press on the X2O bottle and the content in the bottle will keep decreasing.When the desired consuption level is reached release the mouse button, amount of your consumption will be displayed. You have to click on confirm to save the consumption.
-      </div>
-    </div>
-  </div>
-
-   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading6">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapseTwo">
-          How to I consume a supplement?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>This action can be accomplished from the homepage.You have to just click on ‘Tap to take’ for any product and you will be diverted to the consumption screen.You can select the time you consume and hence save the consumption.
-
-      </div>
-    </div>
-  </div>
-
-     <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading7">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapseTwo">
-          How do I add stock for a product?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>You can manage your stock with the help of ‘inventory’.  Each product has its own inventory.
-Here you can refill your inventory and also adjust your existing inventory.
-Steps to reach inventory screen are:<br>
-   a.Go to ‘My Xooma products’<br>
-   b.For each product card there is a menu option available. Click on it.<br>
-   c.Select the inventory option
-
-      </div>
-    </div>
-  </div>
-
-     <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading8">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapseTwo">
-          How do i manage my inventory ?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>After stock for a product is added the inventory will keep reducing as per your consumption.
-You also have option to adjust your inventory(add/subtract number of supplements available) by using the slider in the inventory.
-
-
-      </div>
-    </div>
-  </div>
-
-       <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading9">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapseTwo">
-          What happens when I ‘remove product’?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Once a product is removed is does not form a part of users ‘my product list’,hence no reminders will be given once a product is removed.
-You can add the product back from List of Xooma products,however all the previous consumptions of the product will be cleared.
-
-
-      </div>
-    </div>
-  </div>
-
-       <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading10">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapseTwo">
-          Why do I have to update my measurements?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Measurements are required to track your progress.Updating the measurements daily helps us to show you how your body benefits with Xooma supplements with the help of progress charts.
-    </div>
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading11">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="false" aria-controls="collapseTwo">
-          What is progress chart?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Progress chart displays the measurements you update in graphical form.You have to select the part of the body and the time duration  for which you want to see your progress for
-By default progress fro weight will be displayed.
-
-    </div>
-    </div>
-  </div>
-
-      <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading12">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="false" aria-controls="collapseTwo">
-        What is the difference between the progress chart for weight and Bmi?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Measurements are required to track your progress.Updating the measurements daily helps us to show you how your body benefits with Xooma supplements with the help of progress charts
-    </div>
-    </div>
-  </div>
-
-   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading13">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13" aria-expanded="false" aria-controls="heading13">
-          Why do I have to update my measurements?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading13">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Progress chart for weight is displayed according to the weight you enter whereas BMI (Body Mass Index) chart calculates your BMI depending on your measurements,and hence displays whether your BMI ratio is in the normal range or not.
-    </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading14">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse14" aria-expanded="false" aria-controls="collapseTwo">
-         Can I see my previous updated consumptions and measurements.?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>Yes you can see your previous updated consumptions and measurements by using the history option.Each suppletion has its own history,
-Steps to view consumption history of any product :<br>
-a. Go to home <br>
-b. Go to the card of the desired product and click on the ‘menu’ option (Top right corner of the card) and select the option consumption history
-Steps to view Measurement history  
-a. Go to the home page<br>
-b. Go to the progress chart card , click on menu on the card and select the option ‘measurement history’  
-
-    </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="heading15">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse15" aria-expanded="false" aria-controls="collapseTwo">
-         How can i go to the consumption screen of any supplement?
-        </a>
-      </h4>
-    </div>
-    <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>You have to be on the home page for this.For X2O you have to click on ‘hydrate’ and for any other supplement you have to click on 'Tap to take'.
-    </div>
-    </div>
-  </div>
-   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-         How can i get email notifications?
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        <span class="dropcap simple">A: </span>An option ‘Email alerts’ is available for the same.You have to  put it on, to get email alerts.
-This is available under Menu>Settings>Email alerts.
-
-    </div>
-    </div>
-  </div>
-</div>
--->
     </script>
     <script id="produts-template" type="h-template">
 <div id="xoomaproduct" class="section-list"> 
@@ -1073,6 +834,16 @@ This is available under Menu>Settings>Email alerts.
     </script>
     <script id="add-product-template" type="h-template">
 <div id="listproduct" >
+<div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/profile/my-products"><i class="fa fa-chevron-left"></i> Back </a> | <b>My Xooma products</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
     <div class="container">
         <div class="aj-response-message"></div> 
               <div class="row">
@@ -1081,7 +852,7 @@ This is available under Menu>Settings>Email alerts.
                     <div>
                     <div class="row m-t-10">
                         <div class="col-sm-6 col-xs-6">
-                                <h5 class="bold margin-none"> Add Products</h5>
+                                <h5 class="bold margin-none"> List of products</h5>
                          </div> 
                             <div class="col-sm-6 col-xs-6">
                                 <div class="cbp-vm-options">
@@ -1334,6 +1105,7 @@ This is available under Menu>Settings>Email alerts.
     </div>
     </div>
     <div class="form-group">
+    <div class="loadingconusme"></div>
     <div class="col-sm-offset-2 col-sm-10">
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
@@ -1463,6 +1235,8 @@ This is available under Menu>Settings>Email alerts.
 
                 <div class="">
                     <div class="pull-right">
+                    <div class="loadingconusme"></div>
+                                 
                     <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
                           <input type="hidden" name="total" value="{{total}}" / >
                      <a href="#/profile/my-products" class="btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</a> 
@@ -1586,7 +1360,7 @@ This is available under Menu>Settings>Email alerts.
     <br>
     <br>
     <div class="container"> 
-    <div class="aj-response-message"></div>
+    <div class="tab aj-response-message"></div>
 
 
 
@@ -1598,10 +1372,10 @@ This is available under Menu>Settings>Email alerts.
             <div class="col-md-4 "> 
             </div>
             <div class="col-md-4 col-xs-12">
-            
+                
                 <div class="water-100 water-marker"> 
                     100% ---
-
+                    
                 </div>
                 <div class="water-75 water-marker"> 
                     75% ---
@@ -1618,7 +1392,7 @@ This is available under Menu>Settings>Email alerts.
                 
                 <img src="./images/bottle-cap.png" class="center-block bottle-cap"/></div>
                 <div class="bottle-bg">
-                        <div class="bottle"></div>
+                        <div class="bottle">/div>
                         
                         
                  </div>
@@ -1678,8 +1452,8 @@ This is available under Menu>Settings>Email alerts.
     </div>
     </div>
     <div class="container"> 
-    <div class="section "> 
-    <div class="aj-response-message"></div>
+    <div class="section section-normal"> 
+    <div class="aj-response-message" ></div>
     <form id="consume" class="form-horizontal" role="form" method="POST">
     <br>
 
@@ -1710,7 +1484,7 @@ This is available under Menu>Settings>Email alerts.
         <input type="hidden" name="date" id="date" value="" / >
         <input type="hidden" name="org_qty" id="org_qty" value="" / >
         <input type="hidden" name="meta_id" id="meta_id" value="" / >
-        
+        <input type="hidden" name="datehide" id="datehide" value="" / >
           <button type="submit" data-count="0" id="confirm" class="change-progress intake btn btn-primary  " > <i class="fa fa-check"></i>  Confirm </button>
            <button type="submit" data-count="0" id="skip" class="change-progress  btn btn-default  " > <i class="fa fa-angle-double-right"></i> Skip </button>
                 <button class="reset-progress btn-link reset text-muted " type="button" > <i class="fa fa-refresh"></i> Reset</button>
@@ -1750,6 +1524,294 @@ This is available under Menu>Settings>Email alerts.
         
  
   </script>
+  <script id="faq-template" type="text/template">
+  <div class="sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>FAQ</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <br>
+                <div class="container">
+                        
+<div class="panel-group faq-list" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          How do I benefit with Xooma Track & Go?
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+       <span class="dropcap simple">A: </span> Xooma Track & Go is specially designed to track your intake of Xooma supplements by giving you timely reminders for products under ‘My Xooma products’
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          What are My Xooma products?
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>This are the supplements which you take and will be notified for. You can add them from ‘List of Xooma products’.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          What is ‘List of Xooma products’?
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span> This are the Xooma products. You have to click on ‘Add’ (Available under each product) to make them a part of ‘My Xooma products’. Once clicked on add the product is no longer available under ‘List of Xooma products’ .You get reminders for a product only when the product is added to ‘My Xooma Product’
+
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading4">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapseTwo">
+         How can I set reminders for product intake?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Reminder has to be set for each serving of a product. Fields for reminders get populated depending on the number of servings selected.You just have to choose a time for the reminder for each serving.Also by default the reminders will be on at app level (Available for mobile phones, under settings
+You have got two options from where you can set reminders
+a. While adding product(From ‘list of Xooma products’): The product is available to edit and hence reminders can be set from here
+b. Menu option on the card: Once the product has been added it is available under my product list.Each product has its card, wherein menu icon is available. From the menu icon select option edit product and reminders can be sent.
+
+      </div>
+    </div>
+  </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading5">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapseTwo">
+          How do i consume X2O?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>You have to be on homepage to accomplish this action.Click on ‘Hydrate’(on the X2O bottle) and you will be diverted to the consumption screen.You have to long press on the X2O bottle and the content in the bottle will keep decreasing.When the desired consuption level is reached release the mouse button, amount of your consumption will be displayed. You have to click on confirm to save the consumption.
+      </div>
+    </div>
+  </div>
+
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading6">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapseTwo">
+          How to I consume a supplement?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>This action can be accomplished from the homepage.You have to just click on ‘Tap to take’ for any product and you will be diverted to the consumption screen.You can select the time you consume and hence save the consumption.
+
+      </div>
+    </div>
+  </div>
+
+     <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading7">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapseTwo">
+          How do I add stock for a product?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>You can manage your stock with the help of ‘inventory’.  Each product has its own inventory.
+Here you can refill your inventory and also adjust your existing inventory.
+Steps to reach inventory screen are:<br>
+   a.Go to ‘My Xooma products’<br>
+   b.For each product card there is a menu option available. Click on it.<br>
+   c.Select the inventory option
+
+      </div>
+    </div>
+  </div>
+
+     <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading8">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapseTwo">
+          How do i manage my inventory ?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>After stock for a product is added the inventory will keep reducing as per your consumption.
+You also have option to adjust your inventory(add/subtract number of supplements available) by using the slider in the inventory.
+
+
+      </div>
+    </div>
+  </div>
+
+       <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading9">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapseTwo">
+          What happens when I ‘remove product’?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Once a product is removed is does not form a part of users ‘my product list’,hence no reminders will be given once a product is removed.
+You can add the product back from List of Xooma products,however all the previous consumptions of the product will be cleared.
+
+
+      </div>
+    </div>
+  </div>
+
+       <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading10">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapseTwo">
+          Why do I have to update my measurements?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Measurements are required to track your progress.Updating the measurements daily helps us to show you how your body benefits with Xooma supplements with the help of progress charts.
+    </div>
+    </div>
+  </div>
+
+      <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading11">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="false" aria-controls="collapseTwo">
+          What is progress chart?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Progress chart displays the measurements you update in graphical form.You have to select the part of the body and the time duration  for which you want to see your progress for
+By default progress fro weight will be displayed.
+
+    </div>
+    </div>
+  </div>
+
+      <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading12">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="false" aria-controls="collapseTwo">
+        What is the difference between the progress chart for weight and Bmi?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Measurements are required to track your progress.Updating the measurements daily helps us to show you how your body benefits with Xooma supplements with the help of progress charts
+    </div>
+    </div>
+  </div>
+
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading13">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse13" aria-expanded="false" aria-controls="heading13">
+          Why do I have to update my measurements?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading13">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Progress chart for weight is displayed according to the weight you enter whereas BMI (Body Mass Index) chart calculates your BMI depending on your measurements,and hence displays whether your BMI ratio is in the normal range or not.
+    </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading14">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse14" aria-expanded="false" aria-controls="collapseTwo">
+         Can I see my previous updated consumptions and measurements.?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>Yes you can see your previous updated consumptions and measurements by using the history option.Each suppletion has its own history,
+Steps to view consumption history of any product :<br>
+a. Go to home <br>
+b. Go to the card of the desired product and click on the ‘menu’ option (Top right corner of the card) and select the option consumption history
+Steps to view Measurement history  
+a. Go to the home page<br>
+b. Go to the progress chart card , click on menu on the card and select the option ‘measurement history’  
+
+    </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading15">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse15" aria-expanded="false" aria-controls="collapseTwo">
+         How can i go to the consumption screen of any supplement?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>You have to be on the home page for this.For X2O you have to click on ‘hydrate’ and for any other supplement you have to click on 'Tap to take'.
+    </div>
+    </div>
+  </div>
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading16">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse16" aria-expanded="false" aria-controls="collapseTwo">
+         How can i get email notifications?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <span class="dropcap simple">A: </span>An option ‘Email alerts’ is available for the same.You have to  put it on, to get email alerts.
+This is available under Menu>Settings>Email alerts.
+
+    </div>
+    </div>
+  </div>
+</div>
+                </div>
+       
+        <div class="clearfix"></div>
+        
+ 
+  </script>
+
 
     <title></title>
 </head>

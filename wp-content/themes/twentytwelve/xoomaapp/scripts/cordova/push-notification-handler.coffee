@@ -1,18 +1,33 @@
 	#Push Notification Handler
 
-	onNotificationGCM = (e)->
+	cordovaPushNavigation = (data)->
+		switch data.type
+			when 'consume'
+				homeDate = App.currentUser.get 'homeDate'
+				if data.title.toUpperCase() is 'X2O'
+					App.navigate "#/products/#{data.productId}/bmi/#{homeDate}", true
+				else
+					App.navigate "#/products/#{data.productId}/consume/#{homeDate}", true
 
+			when 'inventory'
+				App.navigate "#/inventory/#{data.productId}/edit", true
+			when 'New Product'
+				App.navigate '#products', true
+
+
+	onNotificationGCM = (e)->
 		console.log 'Received notification for Android'
 		console.log e
 		if e.event is 'message'
 			if not e.foreground
-				App.navigate '#settings', true
+				cordovaPushNavigation e.payload.data
 
-
+	
 	onNotificationAPN = (e)->
-
 		console.log 'Received notification for iOS'
 		console.log e
+		if e.foreground is "0"
+			cordovaPushNavigation e
 
 
 	Push = 
