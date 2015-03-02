@@ -1929,9 +1929,11 @@ function cron_job_reminders($args)
 				{
 					$usersToBeNotified[] = array(
 
-							'ID' => $user->user_id,
-							'message' => $msg,
-							'product' => $product[0]['name']
+							'ID' 			=> $user->user_id,
+							'message' 		=> $msg,
+							'product' 		=> $product[0]['name'],
+							'product_id'	=> $value->product_id,
+							'type'			=> 'consume'
 						);
 
 				}
@@ -2100,9 +2102,11 @@ function send_stock_reminders_over(){
 				
 				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
-						'ID' => $value->user_id,
-						'message' => $msg,
-						'product' => $product_name
+						'ID' 			=> $value->user_id,
+						'message' 		=> $msg,
+						'product' 		=> $product_name,
+						'product_id'	=> $value->product_id,
+						'type'			=> 'inventory'
 
 					);
 
@@ -2189,9 +2193,11 @@ function send_stock_reminders()
 				
 				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
-						'ID' => $value->user_id,
-						'message' => $msg,
-						'product' => $product_name
+						'ID' 			=> $value->user_id,
+						'message' 		=> $msg,
+						'product' 		=> $product_name,
+						'product_id'	=> $value->product_id,
+						'type'			=> 'inventory'
 
 				);
 
@@ -2350,7 +2356,7 @@ function notifications_add_product($product_id,$product_name,$description){
 
 		}
 	
-	send_add_product_notification($admins,$product_id,$product_name,$description);
+	//send_add_product_notification($admins,$product_id,$product_name,$description);
 
 	
 
@@ -2376,12 +2382,16 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 	
 		if($notifications_flag == 1)	
 		$usersToBeNotified[] = array(
-						'ID' => $value->ID,
-						'message' => $msg,
-						'product' => $product_name
+						'ID' 			=> $value->ID,
+						'message' 		=> $msg,
+						'product' 		=> $product_name,
+						'product_id'	=> $value->product_id,
+						'type'			=> 'New Prodcut'
 
 					);
 	}
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
 
 	
 }
