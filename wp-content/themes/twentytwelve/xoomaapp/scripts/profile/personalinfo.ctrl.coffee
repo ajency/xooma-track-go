@@ -142,10 +142,17 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
+		url = '#'+App.currentUser.get 'state'
+        computed_url = '#'+window.location.hash.split('#')[1]
+        if url != computed_url && url != '#/home'
+            @show new workflow
 
-		@show @parent().parent().getLLoadingView()
 
-		App.currentUser.getProfile().done(@_showView).fail @errorHandler
+        else
+
+			@show @parent().parent().getLLoadingView()
+
+			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView

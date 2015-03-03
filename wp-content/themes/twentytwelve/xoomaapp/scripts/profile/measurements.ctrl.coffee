@@ -218,9 +218,18 @@ class ProfileMeasurementsView extends Marionette.ItemView
 class App.UserMeasurementCtrl extends Ajency.RegionController
 
 	initialize: (options)->
+
 		@show @parent().parent().getLLoadingView()
-		xhr = @_get_measurement_details()
-		xhr.done(@_showView).fail @errorHandler
+		url = '#'+App.currentUser.get 'state'
+        computed_url = '#'+window.location.hash.split('#')[1]
+        if url != computed_url && url != '#/home' && App.currentUser.get('measurements') == undefined
+
+            @show new workflow
+
+
+        else
+			xhr = @_get_measurement_details()
+			xhr.done(@_showView).fail @errorHandler
 
 	
 
