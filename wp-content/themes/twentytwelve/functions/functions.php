@@ -861,6 +861,14 @@ function check_workflow($user_model){
 
 		$user_model->timezone = $user_data['timezone'];
 
+		$dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
+		$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+		$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+
+  		$t =  $dateTimeTaipei->format('P');
+
+		$user_model->offset = $t;
+
 		$user_model->notification = get_user_meta($user_model->ID,'notification',true);
 
 		$user_model->emails = get_user_meta($user_model->ID,'emails',true);
@@ -1868,6 +1876,10 @@ function cron_job_reminders($args)
 
 
 	$start_dt = date('Y-m-d H:i:s', $last_cron);
+
+
+
+
 
 
 	$current_date = strtotime($start_dt);

@@ -14,6 +14,12 @@ class User
         if($user){
             $user_details =   unserialize($userdetails);
 
+            $dateTimeZoneTaipei = new DateTimeZone($user_details['timezone']);
+            $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+            $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+
+            $t =  $dateTimeTaipei->format('P');
+
               
         
             
@@ -27,7 +33,8 @@ class User
 				'display_name'              => $user->display_name,
                 'user_products'             => $user_products,
                 'user_email'                => $user->user_email,
-                'user_id'                   => $id
+                'user_id'                   => $id,
+                'offset'                    => $t
 			);
 
 			
@@ -328,9 +335,7 @@ class User
         $user_details = get_user_meta($id,'user_details',true);
 
         $details = maybe_unserialize($user_details);
-        date_default_timezone_set($details['timezone']);
-        $datestring = $today; 
-        $today_date = date("Y-m-d H:i:s", strtotime($datestring));
+        $today_date = date('Y-m-d H:i:s');
         $todaydate = date('Y-m-d');
         foreach ($sql_query as $key => $term) {
 

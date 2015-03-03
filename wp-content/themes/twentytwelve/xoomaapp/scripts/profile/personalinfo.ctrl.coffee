@@ -118,6 +118,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				window.removeMsg()
 				App.currentUser.set 'profile', response
 				App.currentUser.set 'timezone', response.timezone
+				App.currentUser.set 'offset', response.offset
 				
 				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 				$('html, body').animate({
