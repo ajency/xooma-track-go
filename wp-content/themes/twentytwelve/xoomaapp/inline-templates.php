@@ -1271,6 +1271,7 @@ Products.</h6>
     <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
     <h5 class="text-center bold product_name">Product name</h5>
+    <small class="text-center center-block msg bottle-msg text-warning">Click on each card to view consumption details </small>
     <ul id='timeline' class="viewInventory">
     </ul>
     </div>
