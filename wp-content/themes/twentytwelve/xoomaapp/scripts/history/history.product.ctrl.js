@@ -164,13 +164,8 @@ ViewProductHistoryView = (function(_super) {
         i = 0;
         data = ViewProductHistoryView.prototype.getCount(index.get('meta_value'));
         return $.each(data, function(ind, val) {
-          var fromnow, time1, timestamp;
           i++;
-          d = new Date(val.date);
-          timestamp = d.getTime();
-          time = moment.utc(timestamp).zone(timezone).format("h:mm A");
-          time1 = moment(timestamp).zone(timezone).format("x");
-          fromnow = moment(time1).fromNow();
+          time = moment.utc(val.date).zone(timezone).format("h:mm A");
           qty = val.qty;
           meta_id = parseInt(index.get('meta_id')) + parseInt(i);
           arr++;

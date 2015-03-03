@@ -1531,7 +1531,7 @@ Products.</h6>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                   <a href="#/home"><i class="fa fa-chevron-left"></i> Back </a> | <b>FAQ</b>
+                   <a class="faqlink" href="#"><i class="fa fa-chevron-left"></i> Back </a> | <b>FAQ</b>
                 </div>
             </div>
         </div>

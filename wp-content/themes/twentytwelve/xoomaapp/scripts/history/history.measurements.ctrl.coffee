@@ -99,7 +99,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 			html += '<li><span class="circle"></span><span>Thigh : </span>'+coll.thigh+ '<span class="'+classarr['thigh']+'"> inches</span>'
 			html += '<li><span class="circle"></span><span>MidCalf : </span>'+coll.midcalf+ '<span class="'+classarr['midcalf']+'"> inches</span>'
 		else
-			html = '<li><span>No data available.Please go to settings and update your Progress Chart.</span></li>'
+			html = '<li><span>No data available.</li>'
 		$('.viewHistory').html html
 
 				

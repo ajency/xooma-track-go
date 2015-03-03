@@ -377,7 +377,7 @@ App.HomeCtrl = (function(_super) {
     var state;
     state = App.currentUser.get('state');
     if (state !== '/home') {
-      $('.aj-response-message').addClass('alert alert-danger').text("Complete your Profile first!");
+      this.show(new workflow);
       return false;
     }
     if (App.useProductColl.length === 0 || App.currentUser.hasChanged('timezone')) {
