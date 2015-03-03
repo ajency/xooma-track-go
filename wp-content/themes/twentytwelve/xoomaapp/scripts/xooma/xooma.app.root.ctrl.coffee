@@ -43,7 +43,7 @@ class XoomaAppRootView extends Marionette.LayoutView
 
         $('.display_name').text App.currentUser.get 'display_name'
         $('.user_email').text App.currentUser.get 'user_email'
-        if App.currentUser.get('ID') == undefined
+        if App.currentUser.get('ID') == undefined || App.currentUser.get('caps').administrator == true
             $('.profile-template').hide()
             $('.menulink').hide()
 

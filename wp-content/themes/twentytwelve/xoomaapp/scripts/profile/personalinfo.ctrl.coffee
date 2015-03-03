@@ -45,8 +45,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		$('.data1').hide()
 		if App.currentUser.get('caps').administrator == true
 			$('.profile-template').hide()
-            
-			$('.tabelements').attr('disabled', true)
+            $('.tabelements').attr('disabled', true)
 			$('.data').hide()
 			$('.data1').show()
 		App.trigger 'cordova:hide:splash:screen'
