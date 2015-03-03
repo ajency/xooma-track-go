@@ -42,7 +42,7 @@ class AsperbmiView extends Marionette.ItemView
 			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
 			
 			t = $('#consume_time').val()
-			time  = moment(t,"HH:mm a").format("HH:mm:ss")
+			time  = moment(t,"hh:mm A").format("HH:mm:ss")
 			$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time

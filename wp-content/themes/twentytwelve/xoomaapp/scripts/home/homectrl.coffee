@@ -477,7 +477,7 @@ class HomeX2OView extends Marionette.ItemView
 		if occurrenceArr.length != 0 
 			recent = _.last occurrenceArr
 			offset = App.currentUser.get('offset')
-			d = new Date(recent)
+			console.log d = new Date(recent)
 			timestamp = d.getTime()
 			data.time = moment.utc(recent).zone(offset).format("ddd, h:mm A")
 			
@@ -659,7 +659,7 @@ class HomeX2OView extends Marionette.ItemView
 			
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0 
-				msg = ""
+				msg = "Pending "
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
 				actualtime = occurrence['time']

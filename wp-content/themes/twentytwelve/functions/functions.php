@@ -1950,7 +1950,7 @@ function cron_job_reminders($args)
 							'ID' 			=> $user->user_id,
 							'message' 		=> $msg,
 							'product' 		=> $product[0]['name'],
-							'product_id'	=> $value->product_id,
+							'product_id'	=> $user->product_id,
 							'type'			=> 'consume'
 						);
 
@@ -2403,7 +2403,7 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 						'ID' 			=> $value->ID,
 						'message' 		=> $msg,
 						'product' 		=> $product_name,
-						'product_id'	=> $value->product_id,
+						'product_id'	=> $product_id,
 						'type'			=> 'New Prodcut'
 
 					);

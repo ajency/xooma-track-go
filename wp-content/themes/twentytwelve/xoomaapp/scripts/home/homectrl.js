@@ -476,7 +476,7 @@ HomeX2OView = (function(_super) {
     if (occurrenceArr.length !== 0) {
       recent = _.last(occurrenceArr);
       offset = App.currentUser.get('offset');
-      d = new Date(recent);
+      console.log(d = new Date(recent));
       timestamp = d.getTime();
       data.time = moment.utc(recent).zone(offset).format("ddd, h:mm A");
       data.occurr = occurrenceArr.length;
@@ -660,7 +660,7 @@ HomeX2OView = (function(_super) {
       occurrence = HomeX2OView.prototype.get_occurrence(val);
       i = parseInt(ind) + 1;
       if (occurrence['value'] === 0) {
-        msg = "";
+        msg = "Pending ";
         occurrence['value'] = 1;
       }
       if (occurrence['time'].length !== 0) {

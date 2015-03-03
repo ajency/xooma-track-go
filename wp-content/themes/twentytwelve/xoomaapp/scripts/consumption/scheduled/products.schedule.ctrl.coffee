@@ -69,7 +69,7 @@ class ScheduleView extends Marionette.ItemView
 				
 				t = $('#consume_time').val()
 				console.log seltime  = moment.utc(t,"HH:mm a").format('YYYY-MM-DD hh:mm A')
-				time  = moment(t,"HH:mm a").format("HH:mm:ss")
+				time  = moment(t,"hh:mm a").format("HH:mm:ss")
 				if t == ""
 					time  = moment().format("HH:mm:ss")
 					seltime  = moment().format('YYYY-MM-DD hh:mm A')
