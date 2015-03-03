@@ -112,6 +112,9 @@ require_once (get_template_directory().'/classes/productList.class.php');
 require_once (get_template_directory().'/classes/setting.class.php');
 require_once (get_template_directory().'/classes/user.class.php');
 require_once (get_template_directory().'/functions/functions.php');
+require_once (get_template_directory().'/functions/Carbon.php');
+
+use Carbon\Carbon;
 
 #load all the classes
 

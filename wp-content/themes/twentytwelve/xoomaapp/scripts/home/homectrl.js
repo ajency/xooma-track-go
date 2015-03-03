@@ -195,11 +195,11 @@ HomeLayoutView = (function(_super) {
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
     App.trigger('cordova:register:push:notification');
-    timezone = App.currentUser.get('timezone');
-    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
-    console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-    console.log(d = new Date(s));
-    console.log(actual_time = d.getTime());
+    timezone = App.currentUser.get('offset');
+    currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
+    s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    d = new Date(s);
+    actual_time = d.getTime();
     current = new Date(actual_time);
     day_night = current.getHours();
     if (parseInt(day_night) <= 12) {
@@ -208,8 +208,8 @@ HomeLayoutView = (function(_super) {
       $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/night.gif');
     }
     $('#update').val(App.currentUser.get('homeDate'));
-    console.log(selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss"));
-    console.log(selected_time = moment(selectedtimestamp).zone(timezone).format('x'));
+    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+    selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     if (!window.isWebView()) {
       if (parseInt(actual_time) === parseInt(selected_time)) {
@@ -442,8 +442,7 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.serializeData = function() {
-    var actual_time, bonusArr, consumed, currentime, d, data, howmuch, howmuchqty, occurrenceArr, qtyarr, qtyconsumed, recent, s, selected_time, selectedtimestamp, texmsg, timestamp, timezone, todays_date, totalservings;
-    console.log(this.model);
+    var actual_time, bonusArr, consumed, currentime, d, data, howmuch, howmuchqty, occurrenceArr, offset, qtyarr, qtyconsumed, recent, s, selected_time, selectedtimestamp, texmsg, timestamp, timezone, todays_date, totalservings;
     data = HomeX2OView.__super__.serializeData.call(this);
     texmsg = "";
     timezone = App.currentUser.get('timezone');
@@ -455,7 +454,6 @@ HomeX2OView = (function(_super) {
     qtyarr = 0;
     qtyconsumed = [];
     totalservings = 0;
-    console.log(this.model.get('occurrence'));
     $.each(this.model.get('occurrence'), function(ind, val) {
       var expected, occurrence, q;
       occurrence = _.has(val, "occurrence");
@@ -476,13 +474,13 @@ HomeX2OView = (function(_super) {
     });
     if (occurrenceArr.length !== 0) {
       recent = _.last(occurrenceArr);
+      offset = App.currentUser.get('offset');
       d = new Date(recent);
       timestamp = d.getTime();
-      data.time = moment(timestamp).zone(timezone).format("ddd, h:mm A");
+      data.time = moment.utc(timestamp).zone(offset).format("ddd, h:mm A");
       data.occurr = occurrenceArr.length;
     }
-    console.log(howmuchqty = parseInt(this.model.get('occurrence').length) * 4);
-    console.log(totalservings);
+    howmuchqty = parseInt(this.model.get('occurrence').length) * 4;
     howmuch = parseInt(totalservings) / parseInt(howmuchqty);
     selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss");
     d = new Date(App.currentUser.get('today'));
@@ -505,16 +503,17 @@ HomeX2OView = (function(_super) {
   };
 
   HomeX2OView.prototype.generateStatus = function(consumed, howmuch) {
-    var currentime, d, how, per, per1, s, texmsg, time, timearr, timearray, timearry, timeslot, timestamp, timezone;
-    timezone = App.currentUser.get('timezone');
+    var currentime, d, how, per, per1, s, sw, texmsg, time, timearr, timearray, timearry, timeslot, timestamp, timezone;
+    timezone = App.currentUser.get('offset');
     texmsg = "";
     timeslot = "";
     timearray = [];
     d = new Date();
     timestamp = d.getTime();
     s = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD');
-    console.log(currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-    console.log(time = moment(currentime).format("x"));
+    currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
+    sw = moment(s + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A');
+    time = new Date(Date.parse(sw)).getTime();
     per = [0, 25, 50, 75, 100, 'bonus'];
     per1 = ['0_25', '25_50', '50_75', '75_100'];
     timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
@@ -525,17 +524,16 @@ HomeX2OView = (function(_super) {
     }
     $.each(timearry, function(ind, val) {
       var d0, d1, temp, timestamp0, timestamp1, v;
-      console.log(v = timearr[ind]);
+      v = timearr[ind];
       temp = val.split('-');
       d0 = new Date(s + ' ' + temp[0]);
-      console.log(timestamp0 = d0.getTime());
+      timestamp0 = d0.getTime();
       d1 = new Date(s + ' ' + temp[1]);
-      console.log(timestamp1 = d1.getTime());
+      timestamp1 = d1.getTime();
       if (parseInt(timestamp0) <= parseInt(time) && parseInt(timestamp1) >= parseInt(time)) {
         return timeslot = x2oMessages[v];
       }
     });
-    console.log(timeslot);
     $.each(per, function(ind, val) {
       if (val === how) {
         return texmsg = x2oMessages[val + '_' + timeslot];
@@ -730,7 +728,7 @@ ProductChildView = (function(_super) {
   ProductChildView.prototype.events = {
     'click #original': function(e) {
       var available;
-      console.log(available = this.model.get('available'));
+      available = this.model.get('available');
       if (parseInt(available) <= 0) {
         e.preventDefault();
         window.removeMsg();
@@ -820,7 +818,7 @@ ProductChildView = (function(_super) {
     });
     data.no_servings = no_servings;
     data.serving_size = temp.length;
-    console.log(skip = this.checkSkip(temp));
+    skip = this.checkSkip(temp);
     tt = moment().zone(timezone).format('x');
     todays_date = moment().format('YYYY-MM-DD');
     currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
@@ -895,29 +893,30 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.checkStatus = function(howmuch) {
-    var currentime, d, per, per1, s, texmsg, time, timearr, timearray, timearry, timeslot, timestamp, timezone;
+    var currentime, d, per, per1, s, sw, texmsg, time, timearr, timearray, timearry, timeslot, timestamp, timezone;
     per = [0, 25, 50, 75, 100];
     per1 = ['25_50', '50_75'];
     timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
     timearry = ["12:00:00 AM-10:59:59 AM", "11:00:00 AM-3:59:59 PM", "4:00:00 PM-8:59:59 PM", "9:00:00 PM-11:59:59 PM"];
     timearray = [];
-    timezone = App.currentUser.get('timezone');
+    timezone = App.currentUser.get('offset');
     timeslot = "";
     texmsg = "";
     d = new Date();
     timestamp = d.getTime();
     timearray.push(moment().zone(timezone).format("x"));
     s = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD');
-    console.log(currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-    console.log(time = moment(currentime).format("x"));
+    currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
+    sw = moment(s + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A');
+    time = new Date(Date.parse(sw)).getTime();
     $.each(timearry, function(ind, val) {
       var d0, d1, temp, timestamp0, timestamp1, v;
       v = timearr[ind];
       temp = val.split('-');
       d0 = new Date(s + ' ' + temp[0]);
-      console.log(timestamp0 = d0.getTime());
+      timestamp0 = d0.getTime();
       d1 = new Date(s + ' ' + temp[1]);
-      console.log(timestamp1 = d1.getTime());
+      timestamp1 = d1.getTime();
       if (parseInt(timestamp0) <= parseInt(time) && parseInt(timestamp1) >= parseInt(time)) {
         return timeslot = Messages[v];
       }
@@ -989,13 +988,11 @@ ProductChildView = (function(_super) {
   };
 
   ProductChildView.prototype.occurredfunc = function(val, key, model) {
-    var d, html, i, meta_id, newClass, product_type, qty, schedule_id, temp, time, timestamp, timezone;
+    var html, i, meta_id, newClass, product_type, qty, schedule_id, temp, time, timezone;
     temp = [];
     i = 0;
-    timezone = App.currentUser.get('timezone');
-    d = new Date(val.meta_value.date);
-    timestamp = d.getTime();
-    time = moment(timestamp).zone(timezone).format("h:mm A");
+    timezone = App.currentUser.get('offset');
+    time = moment.utc(val.meta_value.date).zone(timezone).format("h:mm A");
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
     qty = val.meta_value.qty;

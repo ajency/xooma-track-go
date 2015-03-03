@@ -149,20 +149,13 @@ ViewProductHistoryView = (function(_super) {
     arr = 0;
     d = new Date();
     n = -(d.getTimezoneOffset());
-    timezone = n;
-    if (App.currentUser.get('timezone') !== null) {
-      timezone = App.currentUser.get('timezone');
-    }
+    timezone = App.currentUser.get('offset');
     coll.each(function(index) {
-      var data, fromnow, i, meta_id, meta_value, qty, time, time1, timestamp;
+      var data, i, meta_id, meta_value, qty, time;
       if (index.get('meta_value').length !== 0 && response.name.toUpperCase() !== 'X2O') {
         meta_value = index.get('meta_value');
         meta_id = index.get('meta_value');
-        d = new Date(meta_value.date);
-        timestamp = d.getTime();
-        time = moment(timestamp).zone(timezone).format("h:mm A");
-        time1 = moment(timestamp).zone(timezone).format("x");
-        fromnow = moment(time1).fromNow();
+        time = moment.utc(meta_value.date).zone(timezone).format("h:mm A");
         qty = meta_value.qty;
         arr++;
         return html += '<li class="work' + meta_id + '"><div class="relative"> <label class="labels" class="m-t-20" for="work' + meta_id + '">' + qty + ' CONSUMED</label> <span class="date"><i class="fa fa-clock-o"></i> ' + time + ' <small class=""></small></span> <span class="circle"></span> </div><li>';
@@ -170,10 +163,11 @@ ViewProductHistoryView = (function(_super) {
         i = 0;
         data = ViewProductHistoryView.prototype.getCount(index.get('meta_value'));
         return $.each(data, function(ind, val) {
+          var fromnow, time1, timestamp;
           i++;
           d = new Date(val.date);
           timestamp = d.getTime();
-          time = moment(timestamp).zone(timezone).format("h:mm A");
+          time = moment.utc(timestamp).zone(timezone).format("h:mm A");
           time1 = moment(timestamp).zone(timezone).format("x");
           fromnow = moment(time1).fromNow();
           qty = val.qty;

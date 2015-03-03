@@ -124,18 +124,13 @@ class ViewProductHistoryView extends Marionette.ItemView
 		d = new Date()
 		n = -(d.getTimezoneOffset())
 		
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'offset'
 		coll.each (index)->
 			if index.get('meta_value').length != 0 && response.name.toUpperCase() != 'X2O'
 				meta_value = index.get('meta_value')
 				meta_id = index.get('meta_value')
-				d = new Date(meta_value.date)
-				timestamp = d.getTime()
-				time = moment(timestamp).zone(timezone).format("h:mm A")
-				time1 = moment(timestamp).zone(timezone).format("x")
-				fromnow = moment(time1).fromNow()
+				time = moment.utc(meta_value.date).zone(timezone).format("h:mm A")
+				
 				
 				qty = meta_value.qty
 				arr++
@@ -151,7 +146,7 @@ class ViewProductHistoryView extends Marionette.ItemView
 					i++
 					d = new Date(val.date)
 					timestamp = d.getTime()
-					time = moment(timestamp).zone(timezone).format("h:mm A")
+					time = moment.utc(timestamp).zone(timezone).format("h:mm A")
 					time1 = moment(timestamp).zone(timezone).format("x")
 					fromnow = moment(time1).fromNow()
 					qty = val.qty
