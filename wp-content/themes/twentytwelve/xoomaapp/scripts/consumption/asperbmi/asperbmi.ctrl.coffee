@@ -41,7 +41,8 @@ class AsperbmiView extends Marionette.ItemView
 			currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
 			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
 			
-			time  = moment().format('hh:mm A')
+			t = $('#consume_time').val()
+			time  = moment(t,"HH:mm a").format("HH:mm:ss")
 			$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
@@ -147,6 +148,10 @@ class AsperbmiView extends Marionette.ItemView
 
 	onShow:->
 			date  = Marionette.getOption( @, 'date')
+
+			$('.input-small').timepicker(
+		        defaultTime : 'current'
+		    )
 			
 			$('#date').val date
 			@generate(@model.get('occurrence'))

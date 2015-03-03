@@ -479,7 +479,7 @@ class HomeX2OView extends Marionette.ItemView
 			offset = App.currentUser.get('offset')
 			d = new Date(recent)
 			timestamp = d.getTime()
-			data.time = moment.utc(timestamp).zone(offset).format("ddd, h:mm A")
+			data.time = moment.utc(recent).zone(offset).format("ddd, h:mm A")
 			
 			data.occurr = occurrenceArr.length
 		howmuchqty = parseInt(@model.get('occurrence').length) * 4
@@ -627,12 +627,12 @@ class HomeX2OView extends Marionette.ItemView
 			arr['time'] = qty[1]
 			
 			
-		else if occurrence == false && expected == true
+		if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['value'] = qty[0]
 			arr['time'] = qty[1]
 			
-		else if occurrence == true && expected == false
+		if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
 			arr['value'] = qty[0]
 			arr['time'] = qty[1]
@@ -644,6 +644,11 @@ class HomeX2OView extends Marionette.ItemView
 	drawBottle:(data)->
 		d = new Date()
 		n = -(d.getTimezoneOffset())
+
+		data.sort( (a,b)->
+			return parseInt(a.meta_id) - parseInt(b.meta_id)
+
+		)
 		
 		timezone = n
 		if App.currentUser.get('timezone') != null
@@ -668,6 +673,9 @@ class HomeX2OView extends Marionette.ItemView
 					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']
 					label: msg
+
+
+		
 				
 		doughnutData
 

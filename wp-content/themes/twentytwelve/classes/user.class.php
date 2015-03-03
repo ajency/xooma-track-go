@@ -14,11 +14,16 @@ class User
         if($user){
             $user_details =   unserialize($userdetails);
 
-            $dateTimeZoneTaipei = new DateTimeZone($user_details['timezone']);
-            $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
-            $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+            $t = "";
+            if($user_details['timezone']!="" && $user_details['timezone']!=null)
+            {
+                $dateTimeZoneTaipei = new DateTimeZone($user_details['timezone']);
+                $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+                $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
 
-            $t =  $dateTimeTaipei->format('P');
+                $t =  $dateTimeTaipei->format('P');
+            }
+            
 
               
         

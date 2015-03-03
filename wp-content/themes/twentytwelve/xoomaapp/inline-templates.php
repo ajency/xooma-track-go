@@ -1364,7 +1364,7 @@ Products.</h6>
     <div class="tab aj-response-message"></div>
 
 
-
+<input type="hidden" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small home-datepicker  hasDatepicker" />
         <h5 class=" text-center"><span class="serving"></span><small class="bonus"></small></h5>
            <small class="text-center center-block msg bottle-msg text-warning"></small> 
     <!-- <h4 class="text-center"><span class="bottlecnt">{{confirm}}</span>/1<small>Bottle</small></h4>-->

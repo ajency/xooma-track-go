@@ -478,7 +478,7 @@ HomeX2OView = (function(_super) {
       offset = App.currentUser.get('offset');
       d = new Date(recent);
       timestamp = d.getTime();
-      data.time = moment.utc(timestamp).zone(offset).format("ddd, h:mm A");
+      data.time = moment.utc(recent).zone(offset).format("ddd, h:mm A");
       data.occurr = occurrenceArr.length;
     }
     howmuchqty = parseInt(this.model.get('occurrence').length) * 4;
@@ -629,11 +629,13 @@ HomeX2OView = (function(_super) {
       arr['color'] = "#6bbfff";
       arr['value'] = qty[0];
       arr['time'] = qty[1];
-    } else if (occurrence === false && expected === true) {
+    }
+    if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
       arr['value'] = qty[0];
       arr['time'] = qty[1];
-    } else if (occurrence === true && expected === false) {
+    }
+    if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
       arr['value'] = qty[0];
       arr['time'] = qty[1];
@@ -645,6 +647,9 @@ HomeX2OView = (function(_super) {
     var d, doughnutData, n, timezone;
     d = new Date();
     n = -(d.getTimezoneOffset());
+    data.sort(function(a, b) {
+      return parseInt(a.meta_id) - parseInt(b.meta_id);
+    });
     timezone = n;
     if (App.currentUser.get('timezone') !== null) {
       timezone = App.currentUser.get('timezone');
