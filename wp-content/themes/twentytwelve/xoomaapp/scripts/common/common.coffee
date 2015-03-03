@@ -103,8 +103,8 @@ _.extend Ajency.CurrentUser::,
 		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
 		 	date = App.currentUser.get('homeDate')
 		else
-			timezone = App.currentUser.get('timezone')
-			console.log date =  moment().zone(timezone).format('YYYY-MM-DD')
+			timezone = App.currentUser.get('offset')
+			console.log date =  moment().format('YYYY-MM-DD')
 			App.currentUser.set 'homeDate' , date
 		_successHandler = (response, status, xhr)=>
 			if xhr.status is 200
@@ -136,8 +136,8 @@ _.extend Ajency.CurrentUser::,
 		if App.currentUser.get('homeDate') != undefined && App.currentUser.get('homeDate') != ""
 		 	date = App.currentUser.get('homeDate')
 		else
-			timezone = App.currentUser.get('timezone')
-			console.log date =  moment().zone(timezone).format('YYYY-MM-DD')
+			timezone = App.currentUser.get('offset')
+			console.log date =  moment().format('YYYY-MM-DD')
 			App.currentUser.set 'homeDate' , date
 
 		console.log date
