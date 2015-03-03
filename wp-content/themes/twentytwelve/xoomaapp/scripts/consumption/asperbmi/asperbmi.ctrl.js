@@ -178,10 +178,14 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.onShow = function() {
-    var date;
+    var currentime, date, s, timezone, todays_date;
+    timezone = App.currentUser.get('offset');
+    todays_date = moment().format('YYYY-MM-DD');
     date = Marionette.getOption(this, 'date');
+    currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
+    console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
     $('.input-small').timepicker({
-      defaultTime: 'current'
+      defaultTime: s
     });
     $('#date').val(date);
     return this.generate(this.model.get('occurrence'));

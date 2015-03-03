@@ -39,11 +39,18 @@ ScheduleView = (function(_super) {
       return this.valueOutput(e.currentTarget);
     },
     'click .reset': function(e) {
-      var qty;
+      var currentime, qty, s, timezone, todays_date;
       qty = $('#org_qty').val();
       this.ui.rangeSliders.val(parseInt(qty));
       this.ui.rangeSliders.parent().find("output").html(qty);
-      $('#consume_time').val("");
+      todays_date = moment().format('YYYY-MM-DD');
+      timezone = App.currentUser.get('offset');
+      currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
+      s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
+      $('#consume_time').val(s);
+      $('.input-small').timepicker({
+        defaultTime: s
+      });
       return $('.now').text('Now');
     },
     'click @ui.servings': function(e) {
@@ -156,7 +163,7 @@ ScheduleView = (function(_super) {
 
   ScheduleView.prototype.onShow = function() {
     var currentime, date, occurr, qty, s, temp, timezone, todays_date;
-    timezone = App.currentUser.get('timezone');
+    timezone = App.currentUser.get('offset');
     date = Marionette.getOption(this, 'date');
     occurr = this.model.get('occurrence');
     temp = [];
@@ -178,10 +185,10 @@ ScheduleView = (function(_super) {
     });
     $('#date').val(date);
     todays_date = moment().format('YYYY-MM-DD');
-    currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
+    currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
     console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
     $('.input-small').timepicker({
-      defaultTime: 'current'
+      defaultTime: s
     });
     this.ui.rangeSliders.each((function(_this) {
       return function(index, ele) {

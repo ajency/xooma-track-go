@@ -26,7 +26,14 @@ class ScheduleView extends Marionette.ItemView
 			qty  = $('#org_qty').val()
 			@ui.rangeSliders.val parseInt(qty)
 			@ui.rangeSliders.parent().find("output").html qty
-			$('#consume_time').val ""
+			todays_date = moment().format('YYYY-MM-DD')
+			timezone = App.currentUser.get 'offset'
+			currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
+			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
+			$('#consume_time').val s		
+			$('.input-small').timepicker(
+		        defaultTime : s
+		    )
 			$('.now').text 'Now'
 
 		'click @ui.servings':(e)->
@@ -139,7 +146,7 @@ class ScheduleView extends Marionette.ItemView
 		
 
 	onShow:->
-		timezone = App.currentUser.get('timezone')
+		timezone = App.currentUser.get('offset')
 		
 		
 		
@@ -162,11 +169,14 @@ class ScheduleView extends Marionette.ItemView
 		
 		$('#date').val date
 		todays_date = moment().format('YYYY-MM-DD')
-		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		# currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
+		# console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
+		
+		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
 		console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
-			
+				
 		$('.input-small').timepicker(
-	        defaultTime : 'current'
+	        defaultTime : s
 	    )
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false

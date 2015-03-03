@@ -147,10 +147,14 @@ class AsperbmiView extends Marionette.ItemView
 		data
 
 	onShow:->
+			timezone = App.currentUser.get('offset')
+			todays_date = moment().format('YYYY-MM-DD')
 			date  = Marionette.getOption( @, 'date')
-
+			currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
+			console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
+		
 			$('.input-small').timepicker(
-		        defaultTime : 'current'
+		        defaultTime : s
 		    )
 			
 			$('#date').val date

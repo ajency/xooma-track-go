@@ -859,19 +859,32 @@ function check_workflow($user_model){
 
 		$user_model->products = $products;
 
-		$user_model->timezone = $user_data['timezone'];
-
+		
 		$t = "";
-		 if($user_data['timezone']!="" && $user_data['timezone']!=null)
+		$timezone  = "America/New_York";
+		if($user_data['timezone']!="" && $user_data['timezone']!=null)
         {
-		$dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
-		$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
-		$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+			$dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
+			$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+			$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
 			$t =  $dateTimeTaipei->format('P');
+			$timezone  = $user_data['timezone'];
+			
 
-	}
+		}
+		else
+		{
+			$dateTimeZoneTaipei = new DateTimeZone($timezone);
+			$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+			$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+			$t =  $dateTimeTaipei->format('P');
+			
+		}
+ 
+		
 
-  	
+  		$user_model->timezone = $timezone;
+
 
 		$user_model->offset = $t;
 

@@ -15,6 +15,7 @@ class User
             $user_details =   unserialize($userdetails);
 
             $t = "";
+            $timezone  = "America/New_York";
             if($user_details['timezone']!="" && $user_details['timezone']!=null)
             {
                 $dateTimeZoneTaipei = new DateTimeZone($user_details['timezone']);
@@ -22,7 +23,24 @@ class User
                 $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
 
                 $t =  $dateTimeTaipei->format('P');
+                $timezone  = $user_details['timezone'];
+               
             }
+            else
+        {
+            $dateTimeZoneTaipei = new DateTimeZone($timezone);
+            $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+            $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+            $t =  $dateTimeTaipei->format('P');
+            
+        }
+
+           
+
+
+           
+
+
             
 
               
@@ -34,7 +52,7 @@ class User
 				'phone_no'			        => $user_details['phone_no'],
 				'gender'			        => $user_details['gender'],
 				'birth_date'		        => $user_details['birth_date'],
-				'timezone'			        => $user_details['timezone'],
+				'timezone'			        => $timezone,
 				'display_name'              => $user->display_name,
                 'user_products'             => $user_products,
                 'user_email'                => $user->user_email,
