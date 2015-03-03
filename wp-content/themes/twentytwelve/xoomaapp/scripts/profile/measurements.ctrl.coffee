@@ -92,13 +92,13 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			$('#update').val 'TODAY'
 			
 			$('#update').datepicker(
-			    dateFormat : 'yy-mm-dd'
-			    changeYear: true,
-			    changeMonth: true,
-			    maxDate: new Date()
-			    minDate : new Date(date)
-			    onSelect: (dateText, inst)->
-			    	$('#date_field').val dateText
+				dateFormat : 'yy-mm-dd'
+				changeYear: true,
+				changeMonth: true,
+				maxDate: new Date()
+				minDate : new Date(date)
+				onSelect: (dateText, inst)->
+					$('#date_field').val dateText
 			)
 
 		#Changes for Mobile
@@ -163,7 +163,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			formdata = @measurements
 			@model.saveMeasurements(formdata).done(@successHandler).fail(@errorHandler)
 
-	    
+		
 
 	successHandler : (response, status,xhr)=>
 		$('.loadingconusme').html ""
@@ -221,13 +221,13 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 
 		@show @parent().parent().getLLoadingView()
 		url = '#'+App.currentUser.get 'state'
-        computed_url = '#'+window.location.hash.split('#')[1]
-        if url != computed_url && url != '#/home' && App.currentUser.get('measurements') == undefined
+		computed_url = '#'+window.location.hash.split('#')[1]
+		if url != computed_url && url != '#/home' && App.currentUser.get('measurements') == undefined
 
-            @show new workflow
+			@show new workflow
 
 
-        else
+		else
 			xhr = @_get_measurement_details()
 			xhr.done(@_showView).fail @errorHandler
 
