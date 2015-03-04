@@ -128,9 +128,11 @@ class EditProductsView extends Marionette.ItemView
 				@showReminders()
 				
 			@loadCheckedData()
-			$('.input-small').timepicker(
-				defaultTime : false
-			);
+
+			if window.isWebView()
+				$('.input-small').timepicker(
+					defaultTime : false
+				);
 
 
 		'change .no_of_container':(e)->
@@ -260,6 +262,21 @@ class EditProductsView extends Marionette.ItemView
 				$('.input-small').each (ind,val)->
 					val.name = 'reminder_time'+ind
 					val.id = 'reminder_time'+ind
+
+					#Changes for mobile
+					if window.isWebView()
+						$('#reminder_time'+ind)
+							.parent().click ->
+								defaultTime = '1:00 AM'
+								$('#reminder_time'+ind).val defaultTime
+
+								options = 
+									date: moment(defaultTime, 'hh:mm A').toDate()
+									mode: 'time'
+
+								datePicker.show options, (time)->
+									if not _.isUndefined time
+										$('#reminder_time'+ind).val moment(time).format('hh:mm A')
 				
 		else
 			$('.reminder_div').hide()
@@ -274,11 +291,10 @@ class EditProductsView extends Marionette.ItemView
 				val.id = 'reminder_time'+ind
 				val.value = ""
 
-		$('.input-small').timepicker(
-			defaultTime : false
-		);
-
-
+		if !window.isWebView()
+			$('.input-small').timepicker(
+				defaultTime : false
+			);
 	
 
 
@@ -362,9 +378,16 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
-		$('.input-small').timepicker(
-			defaultTime : false
-		);
+
+		if !window.isWebView()
+			$('.input-small').timepicker(
+				defaultTime : false
+			);
+
+		#Changes for mobile
+		if window.isWebView()
+			$('.input-small').prop disabled: true
+
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
 		reminder_flag = @model.get('reminder_flag')
