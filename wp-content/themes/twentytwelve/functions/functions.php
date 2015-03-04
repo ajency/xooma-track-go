@@ -859,13 +859,32 @@ function check_workflow($user_model){
 
 		$user_model->products = $products;
 
-		$user_model->timezone = $user_data['timezone'];
+		
+		$t = "";
+		$timezone  = "America/New_York";
+		if($user_data['timezone']!="" && $user_data['timezone']!=null)
+        {
+			$dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
+			$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+			$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+			$t =  $dateTimeTaipei->format('P');
+			$timezone  = $user_data['timezone'];
+			
 
-		$dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
-		$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
-		$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+		}
+		else
+		{
+			$dateTimeZoneTaipei = new DateTimeZone($timezone);
+			$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+			$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+			$t =  $dateTimeTaipei->format('P');
+			
+		}
+ 
+		
 
-  		$t =  $dateTimeTaipei->format('P');
+  		$user_model->timezone = $timezone;
+
 
 		$user_model->offset = $t;
 
@@ -1944,7 +1963,7 @@ function cron_job_reminders($args)
 							'ID' 			=> $user->user_id,
 							'message' 		=> $msg,
 							'product' 		=> $product[0]['name'],
-							'product_id'	=> $value->product_id,
+							'product_id'	=> $user->product_id,
 							'type'			=> 'consume'
 						);
 
@@ -2397,7 +2416,7 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 						'ID' 			=> $value->ID,
 						'message' 		=> $msg,
 						'product' 		=> $product_name,
-						'product_id'	=> $value->product_id,
+						'product_id'	=> $product_id,
 						'type'			=> 'New Prodcut'
 
 					);

@@ -29,7 +29,7 @@ AsperbmiView = (function(_super) {
 
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
-      var currentime, date, meta_id, product, qty, s, time, todays_date;
+      var currentime, date, meta_id, product, qty, s, t, time, todays_date;
       $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
@@ -57,7 +57,8 @@ AsperbmiView = (function(_super) {
       todays_date = moment().format('YYYY/MM/DD');
       currentime = moment(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss');
       s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
-      time = moment().format('hh:mm A');
+      t = $('#consume_time').val();
+      time = moment(t, "hh:mm A").format("HH:mm:ss");
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
@@ -176,8 +177,15 @@ AsperbmiView = (function(_super) {
   };
 
   AsperbmiView.prototype.onShow = function() {
-    var date;
+    var currentime, date, s, timezone, todays_date;
+    timezone = App.currentUser.get('offset');
+    todays_date = moment().format('YYYY-MM-DD');
     date = Marionette.getOption(this, 'date');
+    currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
+    console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
+    $('.input-small').timepicker({
+      defaultTime: s
+    });
     $('#date').val(date);
     return this.generate(this.model.get('occurrence'));
   };

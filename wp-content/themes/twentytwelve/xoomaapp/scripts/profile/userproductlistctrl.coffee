@@ -15,49 +15,49 @@ class ProductChildView extends Marionette.ItemView
 		 @$el.prop("id", 'cart'+@model.get("id"))
 
 	template  : '
-          <div class="panel-body ">
-            <h5 class=" mid-title margin-none"><div> {{name}}</div>
-              <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
-                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
-                        <li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
-                        <li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li>
-                        <li class="divider"></li>
-                        <li class="remove hidden"><div>Remove</div></li>
-                      </ul>
-              </h5>
-                      <ul class="list-inline  ">
-                      	 <li class="col-md-6 col-xs-6 col-sm-6 dotted-line">
-                      	 	<ul class="list-inline no-dotted responsive">
-                        
-                        	
-                        	{{#servings}}
-                        	<li>
-                        	<h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3>
-                                
+		  <div class="panel-body ">
+			<h5 class=" mid-title margin-none"><div> {{name}}</div>
+			  <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+					 <ul class="dropdown-menu pull-right" role="menu">
+						<li class="add hidden"><a href="#/product/{{id}}/edit">Edit product</a></li>
+						<li class="update hidden"><a href="#/inventory/{{id}}/edit">Inventory</a></li>
+						<li class="update hidden"><a href="#/inventory/{{id}}/view">Inventory history</a></li>
+						<li class="divider"></li>
+						<li class="remove hidden"><div>Remove</div></li>
+					  </ul>
+			  </h5>
+					  <ul class="list-inline  ">
+						 <li class="col-md-6 col-xs-6 col-sm-6 dotted-line">
+							<ul class="list-inline no-dotted responsive">
+						
+							
+							{{#servings}}
+							<li>
+							<h3 class="bold margin-none"><div class="cap {{classname}}"></div><span class="badge badge-primary">{{qty}}</span></h3>
+								
 							 </li>
-                        	{{/servings}}	
-                          
-                       
-                        </ul>
-                        <div class="end-bar"></div>
-                        </li>
-                        <li class="col-md-6 col-xs-6  col-sm-6 dotted">
-                        	<div class="row">
-                        		<div class="col-sm-5"> <img src="{{image}}" class="hidden-xs pull-left product-medium"/>
-                        		 <h3 class="bold {{newClass}} {{hidden}} avail m-t-10">{{servingsleft}}</h3></div>
-                        		<div class="col-sm-7"> <small> <span class="servings_text center-block">{{servings_text}}</span>
-                          <i class="fa fa-frown-o {{frown}}"></i>
-                         <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div>
-                        	</div>
-                        
-                        </li>
-                    </ul>
-                </div>
-                <div class="panel-footer">
-          <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> 
-           {{reminder}}
-          </div>' 
+							{{/servings}}	
+						  
+					   
+						</ul>
+						<div class="end-bar"></div>
+						</li>
+						<li class="col-md-6 col-xs-6  col-sm-6 dotted">
+							<div class="row">
+								<div class="col-sm-5"> <img src="{{image}}" class="hidden-xs pull-left product-medium"/>
+								 <h3 class="bold {{newClass}} {{hidden}} avail m-t-10">{{servingsleft}}</h3></div>
+								<div class="col-sm-7"> <small> <span class="servings_text center-block">{{servings_text}}</span>
+						  <i class="fa fa-frown-o {{frown}}"></i>
+						 <span class="center-block {{hidden}}">{{containers}} container(s) ({{available}} {{product_type}}(s))</span> </small></div>
+							</div>
+						
+						</li>
+					</ul>
+				</div>
+				<div class="panel-footer">
+		  <i id="bell{{id}}" class="fa fa-bell-slash no-remiander"></i> 
+		   {{reminder}}
+		  </div>' 
 
 	events:
 		'click .remove':(e)->
@@ -103,7 +103,7 @@ class ProductChildView extends Marionette.ItemView
 							}, 'slow')
 	
 
-                            
+							
 
 	onShow:->
 		App.trigger 'cordova:hide:splash:screen'
@@ -251,7 +251,7 @@ class UserProductListView extends Marionette.CompositeView
 		
 	onRender:->
 		@trigger "remove:loader"
-	    
+		
 		if App.currentUser.get('state') == '/home'
 			# @ui.saveProducts.hide()
 			$('#product').parent().removeClass 'done'
@@ -298,12 +298,20 @@ class App.UserProductListCtrl extends Ajency.RegionController
 
 	initialize:->
 		@listenTo @, "remove:loader" , @removeLoader
-		
-		if App.useProductColl.length == 0
-			App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+
+		console.log url = '#'+App.currentUser.get 'state'
+		console.log computed_url = '#'+window.location.hash.split('#')[1]
+		if url != computed_url && url != '#/home' 
+			@show new workflow
+
+
 		else
-			@show new UserProductListView
-						collection : App.useProductColl
+		
+			if App.useProductColl.length == 0
+				App.currentUser.getUserProducts().done(@_showView).fail @errorHandler
+			else
+				@show new UserProductListView
+							collection : App.useProductColl
 
 
 	removeLoader:=>

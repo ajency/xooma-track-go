@@ -55,8 +55,7 @@ ProfileCtrlView = (function(_super) {
   };
 
   ProfileCtrlView.prototype.onShow = function() {
-    if (App.currentUser.get('ID') === void 0) {
-      console.log("aaaaaaaa");
+    if (App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true) {
       $('.profile-template').hide();
       $('.menulink').hide();
     }

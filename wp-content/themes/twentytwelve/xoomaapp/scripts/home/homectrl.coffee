@@ -166,7 +166,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#param').trigger( "change" )
 		$('.time_period').trigger( "change" )
-		todays_date = moment().format('YYYY-MM-DD')
+		console.log todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
 		App.trigger 'cordova:register:push:notification'
@@ -175,7 +175,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
 		d = new Date(s)
 		actual_time = d.getTime()
-		
+		console.log App.currentUser.get('homeDate')
 		current = new Date(actual_time)
 		day_night = current.getHours()
 		if(parseInt(day_night)<=12)
@@ -184,20 +184,20 @@ class HomeLayoutView extends Marionette.LayoutView
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		
 		$('#update').val App.currentUser.get('homeDate')
-		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
+		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD")
 		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 
 		if !window.isWebView()
-			if parseInt(actual_time) == parseInt(selected_time)
+			if todays_date == App.currentUser.get('homeDate')
 				$('#update').val 'TODAY'
 			
 			$('#update').datepicker(
 					dateFormat : 'yy-mm-dd'
 					changeYear: true,
 					changeMonth: true,
-					maxDate: new Date()
+					maxDate: new Date(todays_date)
 					minDate : new Date(reg_date)
 					onSelect: (dateText, inst)->
 						$('#showHome').show()
@@ -205,7 +205,7 @@ class HomeLayoutView extends Marionette.LayoutView
 						selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
 						selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 			
-						if parseInt(actual_time) == parseInt(selected_time)
+						if todays_date == App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
 						
 
@@ -362,8 +362,7 @@ class App.HomeCtrl extends Ajency.RegionController
 	initialize:->
 		state = App.currentUser.get 'state'
 		if state != '/home'
-			$('.aj-response-message').addClass('alert alert-danger').text("Complete your Profile first!")
-			
+			@show new workflow
 			return false
 		if App.useProductColl.length == 0 || App.currentUser.hasChanged('timezone')
 			window.param = 'weight'
@@ -477,9 +476,9 @@ class HomeX2OView extends Marionette.ItemView
 		if occurrenceArr.length != 0 
 			recent = _.last occurrenceArr
 			offset = App.currentUser.get('offset')
-			d = new Date(recent)
+			console.log d = new Date(recent)
 			timestamp = d.getTime()
-			data.time = moment.utc(timestamp).zone(offset).format("ddd, h:mm A")
+			data.time = moment.utc(recent).zone(offset).format("ddd, h:mm A")
 			
 			data.occurr = occurrenceArr.length
 		howmuchqty = parseInt(@model.get('occurrence').length) * 4
@@ -627,12 +626,12 @@ class HomeX2OView extends Marionette.ItemView
 			arr['time'] = qty[1]
 			
 			
-		else if occurrence == false && expected == true
+		if occurrence == false && expected == true
 			arr['color'] = "#e3e3e3"
 			arr['value'] = qty[0]
 			arr['time'] = qty[1]
 			
-		else if occurrence == true && expected == false
+		if occurrence == true && expected == false
 			arr['color'] = "#ffaa06"
 			arr['value'] = qty[0]
 			arr['time'] = qty[1]
@@ -644,6 +643,11 @@ class HomeX2OView extends Marionette.ItemView
 	drawBottle:(data)->
 		d = new Date()
 		n = -(d.getTimezoneOffset())
+
+		data.sort( (a,b)->
+			return parseInt(a.meta_id) - parseInt(b.meta_id)
+
+		)
 		
 		timezone = n
 		if App.currentUser.get('timezone') != null
@@ -654,7 +658,7 @@ class HomeX2OView extends Marionette.ItemView
 			
 			i = parseInt(ind) + 1
 			if occurrence['value'] == 0 
-				msg = ""
+				msg = "Pending "
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
 				actualtime = occurrence['time']
@@ -668,6 +672,9 @@ class HomeX2OView extends Marionette.ItemView
 					value: parseFloat(occurrence['value']) * 100 
 					color:occurrence['color']
 					label: msg
+
+
+		
 				
 		doughnutData
 

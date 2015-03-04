@@ -16,6 +16,29 @@ FaqView = (function(_super) {
 
   FaqView.prototype.template = '#faq-template';
 
+  FaqView.prototype.ui = {
+    faqlink: '.faqlink'
+  };
+
+  FaqView.prototype.events = {
+    'click @ui.faqlink': function(e) {
+      var state;
+      e.preventDefault();
+      state = App.currentUser.get('state');
+      if (state === '/home') {
+        return App.navigate('#/home', {
+          trigger: true,
+          replace: true
+        });
+      } else {
+        return App.navigate('#' + App.currentUser.get('state'), {
+          trigger: true,
+          replace: true
+        });
+      }
+    }
+  };
+
   return FaqView;
 
 })(Marionette.ItemView);

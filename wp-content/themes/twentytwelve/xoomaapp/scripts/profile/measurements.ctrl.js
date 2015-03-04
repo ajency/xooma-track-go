@@ -256,10 +256,16 @@ App.UserMeasurementCtrl = (function(_super) {
   }
 
   UserMeasurementCtrl.prototype.initialize = function(options) {
-    var xhr;
+    var computed_url, url, xhr;
     this.show(this.parent().parent().getLLoadingView());
-    xhr = this._get_measurement_details();
-    return xhr.done(this._showView).fail(this.errorHandler);
+    url = '#' + App.currentUser.get('state');
+    computed_url = '#' + window.location.hash.split('#')[1];
+    if (url !== computed_url && url !== '#/home' && App.currentUser.get('measurements') === void 0) {
+      return this.show(new workflow);
+    } else {
+      xhr = this._get_measurement_details();
+      return xhr.done(this._showView).fail(this.errorHandler);
+    }
   };
 
   UserMeasurementCtrl.prototype._showView = function() {

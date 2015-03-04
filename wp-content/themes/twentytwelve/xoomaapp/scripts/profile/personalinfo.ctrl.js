@@ -45,15 +45,9 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
-    $('.data1').hide();
-    if (App.currentUser.get('caps').administrator === true) {
-      $('.tabelements').attr('disabled', true);
-      $('.data').hide();
-      $('.data1').show();
-    }
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     if (!window.isWebView()) {
-      return $('#birth_date').datepicker({
+      $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',
         changeYear: true,
         changeMonth: true,
@@ -61,12 +55,14 @@ ProfilePersonalInfoView = (function(_super) {
         yearRange: "-100:+0"
       });
     }
+    return $('.data1').hide();
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
     var state;
     $('.data1').hide();
     if (App.currentUser.get('caps').administrator === true) {
+      $('.profile-template').hide();
       $('.tabelements').attr('disabled', true);
       $('.data').hide();
       $('.data1').show();

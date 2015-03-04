@@ -191,7 +191,7 @@ HomeLayoutView = (function(_super) {
     $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
     $('#param').trigger("change");
     $('.time_period').trigger("change");
-    todays_date = moment().format('YYYY-MM-DD');
+    console.log(todays_date = moment().format('YYYY-MM-DD'));
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
     App.trigger('cordova:register:push:notification');
@@ -200,6 +200,7 @@ HomeLayoutView = (function(_super) {
     s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     d = new Date(s);
     actual_time = d.getTime();
+    console.log(App.currentUser.get('homeDate'));
     current = new Date(actual_time);
     day_night = current.getHours();
     if (parseInt(day_night) <= 12) {
@@ -208,25 +209,25 @@ HomeLayoutView = (function(_super) {
       $('.daynightclass').attr('src', _SITEURL + '/wp-content/themes/twentytwelve/images/night.gif');
     }
     $('#update').val(App.currentUser.get('homeDate'));
-    selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+    selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD");
     selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
     if (!window.isWebView()) {
-      if (parseInt(actual_time) === parseInt(selected_time)) {
+      if (todays_date === App.currentUser.get('homeDate')) {
         $('#update').val('TODAY');
       }
       $('#update').datepicker({
         dateFormat: 'yy-mm-dd',
         changeYear: true,
         changeMonth: true,
-        maxDate: new Date(),
+        maxDate: new Date(todays_date),
         minDate: new Date(reg_date),
         onSelect: function(dateText, inst) {
           $('#showHome').show();
           App.currentUser.set('homeDate', dateText);
           selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
           selected_time = moment(selectedtimestamp).zone(timezone).format('x');
-          if (parseInt(actual_time) === parseInt(selected_time)) {
+          if (todays_date === App.currentUser.get('homeDate')) {
             return $('#update').val('TODAY');
           }
         }
@@ -376,7 +377,7 @@ App.HomeCtrl = (function(_super) {
     var state;
     state = App.currentUser.get('state');
     if (state !== '/home') {
-      $('.aj-response-message').addClass('alert alert-danger').text("Complete your Profile first!");
+      this.show(new workflow);
       return false;
     }
     if (App.useProductColl.length === 0 || App.currentUser.hasChanged('timezone')) {
@@ -475,9 +476,9 @@ HomeX2OView = (function(_super) {
     if (occurrenceArr.length !== 0) {
       recent = _.last(occurrenceArr);
       offset = App.currentUser.get('offset');
-      d = new Date(recent);
+      console.log(d = new Date(recent));
       timestamp = d.getTime();
-      data.time = moment.utc(timestamp).zone(offset).format("ddd, h:mm A");
+      data.time = moment.utc(recent).zone(offset).format("ddd, h:mm A");
       data.occurr = occurrenceArr.length;
     }
     howmuchqty = parseInt(this.model.get('occurrence').length) * 4;
@@ -628,11 +629,13 @@ HomeX2OView = (function(_super) {
       arr['color'] = "#6bbfff";
       arr['value'] = qty[0];
       arr['time'] = qty[1];
-    } else if (occurrence === false && expected === true) {
+    }
+    if (occurrence === false && expected === true) {
       arr['color'] = "#e3e3e3";
       arr['value'] = qty[0];
       arr['time'] = qty[1];
-    } else if (occurrence === true && expected === false) {
+    }
+    if (occurrence === true && expected === false) {
       arr['color'] = "#ffaa06";
       arr['value'] = qty[0];
       arr['time'] = qty[1];
@@ -644,6 +647,9 @@ HomeX2OView = (function(_super) {
     var d, doughnutData, n, timezone;
     d = new Date();
     n = -(d.getTimezoneOffset());
+    data.sort(function(a, b) {
+      return parseInt(a.meta_id) - parseInt(b.meta_id);
+    });
     timezone = n;
     if (App.currentUser.get('timezone') !== null) {
       timezone = App.currentUser.get('timezone');
@@ -654,7 +660,7 @@ HomeX2OView = (function(_super) {
       occurrence = HomeX2OView.prototype.get_occurrence(val);
       i = parseInt(ind) + 1;
       if (occurrence['value'] === 0) {
-        msg = "";
+        msg = "Pending ";
         occurrence['value'] = 1;
       }
       if (occurrence['time'].length !== 0) {

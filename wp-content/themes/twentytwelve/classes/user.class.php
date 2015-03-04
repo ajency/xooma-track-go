@@ -14,11 +14,34 @@ class User
         if($user){
             $user_details =   unserialize($userdetails);
 
-            $dateTimeZoneTaipei = new DateTimeZone($user_details['timezone']);
+            $t = "";
+            $timezone  = "America/New_York";
+            if($user_details['timezone']!="" && $user_details['timezone']!=null)
+            {
+                $dateTimeZoneTaipei = new DateTimeZone($user_details['timezone']);
+                $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+                $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+
+                $t =  $dateTimeTaipei->format('P');
+                $timezone  = $user_details['timezone'];
+               
+            }
+            else
+        {
+            $dateTimeZoneTaipei = new DateTimeZone($timezone);
             $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
             $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
-
             $t =  $dateTimeTaipei->format('P');
+            
+        }
+
+           
+
+
+           
+
+
+            
 
               
         
@@ -29,7 +52,7 @@ class User
 				'phone_no'			        => $user_details['phone_no'],
 				'gender'			        => $user_details['gender'],
 				'birth_date'		        => $user_details['birth_date'],
-				'timezone'			        => $user_details['timezone'],
+				'timezone'			        => $timezone,
 				'display_name'              => $user->display_name,
                 'user_products'             => $user_products,
                 'user_email'                => $user->user_email,
@@ -74,7 +97,7 @@ class User
 
         //all the rules defined//
         $v->rule('required', ['gender', 'xooma_member_id','birth_date']);
-        $v->rule('integer', ['phone_no','xooma_member_id']);
+        $v->rule('numeric', ['phone_no','xooma_member_id']);
         $v->rule('equalTo', 'gender', 'male');
         $v->rule('fixedLength', 'xooma_member_id', 6);
         $v->rule('date', 'birth_date');
@@ -390,7 +413,13 @@ class User
 
             
 
-           
+           $homedate = $date;
+            if($date == "")
+            {
+                $date = date('Y-m-d');
+                $homedate = date('Y-m-d');
+            }
+                
 
 
 
@@ -468,7 +497,7 @@ class User
     
   
     return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,
-        'weight'=>$data['response']['weight'],'today'=>$today_date);
+        'weight'=>$data['response']['weight'],'today'=>$today_date,'homeDate'=>$homedate);
         
 
     }

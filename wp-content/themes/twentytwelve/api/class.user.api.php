@@ -399,8 +399,7 @@ class User_API
 
         $date = $_REQUEST['date'];
 
-        if($date == "")
-            $date = date('Y-m-d');
+        
 
         
         $response = $user->get_user_home_products($id,$pid="",$date);
@@ -539,6 +538,7 @@ class User_API
         }
         else
         {
+            
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
             $date = date('Y-m-d');
             $product = $user->get_user_home_products($id,$pid,$date);
