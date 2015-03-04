@@ -859,7 +859,34 @@ function check_workflow($user_model){
 
 		$user_model->products = $products;
 
-		$user_model->timezone = $user_data['timezone'];
+		
+		$t = "";
+		$timezone  = "America/New_York";
+		if($user_data['timezone']!="" && $user_data['timezone']!=null)
+        {
+			$dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
+			$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+			$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+			$t =  $dateTimeTaipei->format('P');
+			$timezone  = $user_data['timezone'];
+			
+
+		}
+		else
+		{
+			$dateTimeZoneTaipei = new DateTimeZone($timezone);
+			$dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+			$timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+			$t =  $dateTimeTaipei->format('P');
+			
+		}
+ 
+		
+
+  		$user_model->timezone = $timezone;
+
+
+		$user_model->offset = $t;
 
 		$user_model->notification = get_user_meta($user_model->ID,'notification',true);
 
@@ -1870,6 +1897,10 @@ function cron_job_reminders($args)
 	$start_dt = date('Y-m-d H:i:s', $last_cron);
 
 
+
+
+
+
 	$current_date = strtotime($start_dt);
 
 	$nextdate = $current_date+(60*intval($args));
@@ -1929,9 +1960,11 @@ function cron_job_reminders($args)
 				{
 					$usersToBeNotified[] = array(
 
-							'ID' => $user->user_id,
-							'message' => $msg,
-							'product' => $product[0]['name']
+							'ID' 			=> $user->user_id,
+							'message' 		=> $msg,
+							'product' 		=> $product[0]['name'],
+							'product_id'	=> $user->product_id,
+							'type'			=> 'consume'
 						);
 
 				}
@@ -2100,9 +2133,11 @@ function send_stock_reminders_over(){
 				
 				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
-						'ID' => $value->user_id,
-						'message' => $msg,
-						'product' => $product_name
+						'ID' 			=> $value->user_id,
+						'message' 		=> $msg,
+						'product' 		=> $product_name,
+						'product_id'	=> $value->product_id,
+						'type'			=> 'inventory'
 
 					);
 
@@ -2189,9 +2224,11 @@ function send_stock_reminders()
 				
 				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
-						'ID' => $value->user_id,
-						'message' => $msg,
-						'product' => $product_name
+						'ID' 			=> $value->user_id,
+						'message' 		=> $msg,
+						'product' 		=> $product_name,
+						'product_id'	=> $value->product_id,
+						'type'			=> 'inventory'
 
 				);
 
@@ -2242,7 +2279,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 		 $res = 0;
 
 
-	echo $res;
+	return $res;
 
 
 }
@@ -2350,7 +2387,7 @@ function notifications_add_product($product_id,$product_name,$description){
 
 		}
 	
-	send_add_product_notification($admins,$product_id,$product_name,$description);
+	//send_add_product_notification($admins,$product_id,$product_name,$description);
 
 	
 
@@ -2376,12 +2413,16 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 	
 		if($notifications_flag == 1)	
 		$usersToBeNotified[] = array(
-						'ID' => $value->ID,
-						'message' => $msg,
-						'product' => $product_name
+						'ID' 			=> $value->ID,
+						'message' 		=> $msg,
+						'product' 		=> $product_name,
+						'product_id'	=> $product_id,
+						'type'			=> 'New Prodcut'
 
 					);
 	}
+	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+
 
 	
 }

@@ -40,11 +40,12 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 
     onShow:->
+            
+        
 
         $('.display_name').text App.currentUser.get 'display_name'
         $('.user_email').text App.currentUser.get 'user_email'
-        if App.currentUser.get('ID') == undefined
-            console.log "aaaaaaaa"
+        if App.currentUser.get('ID') == undefined || App.currentUser.get('caps').administrator == true
             $('.profile-template').hide()
             $('.menulink').hide()
 
@@ -107,8 +108,6 @@ class XoomaAppRootView extends Marionette.LayoutView
 
 class App.XoomaCtrl extends Ajency.RegionController
     initialize: (options)->
-
-
         @show new XoomaAppRootView
                          
 

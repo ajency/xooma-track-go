@@ -312,13 +312,20 @@ App.UserProductListCtrl = (function(_super) {
   }
 
   UserProductListCtrl.prototype.initialize = function() {
+    var computed_url, url;
     this.listenTo(this, "remove:loader", this.removeLoader);
-    if (App.useProductColl.length === 0) {
-      return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+    console.log(url = '#' + App.currentUser.get('state'));
+    console.log(computed_url = '#' + window.location.hash.split('#')[1]);
+    if (url !== computed_url && url !== '#/home') {
+      return this.show(new workflow);
     } else {
-      return this.show(new UserProductListView({
-        collection: App.useProductColl
-      }));
+      if (App.useProductColl.length === 0) {
+        return App.currentUser.getUserProducts().done(this._showView).fail(this.errorHandler);
+      } else {
+        return this.show(new UserProductListView({
+          collection: App.useProductColl
+        }));
+      }
     }
   };
 

@@ -399,8 +399,7 @@ class User_API
 
         $date = $_REQUEST['date'];
 
-        if($date == "")
-            $date = date('Y-m-d');
+        
 
         
         $response = $user->get_user_home_products($id,$pid="",$date);
@@ -539,6 +538,7 @@ class User_API
         }
         else
         {
+            
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
             $date = date('Y-m-d');
             $product = $user->get_user_home_products($id,$pid,$date);
@@ -613,11 +613,16 @@ class User_API
         $user_details = get_user_meta($id,'user_details',true);
 
         $details = maybe_unserialize($user_details);
-        date_default_timezone_set($details['timezone']);
-        $datestring = $start;  //Pulled in from somewhere
-        $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
 
-        //$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+        $date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start, $details['timezone']);
+        $date->setTimezone('UTC');
+        $today_date = $date->format("Y-m-d H:i:s");
+        // date_default_timezone_set($details['timezone']);
+        // $datestring = $start;  //Pulled in from somewhere
+        // $today_date = date('Y-m-d H:i:s',strtotime($datestring . ' UTC'));
+        // // date_default_timezone_set("UTC");
+        // $datestring1 = $datestring;
+        // $today_date = date("Y-m-d H:i:s", strtotime($datestring1. ' UTC'));
         
                         
        

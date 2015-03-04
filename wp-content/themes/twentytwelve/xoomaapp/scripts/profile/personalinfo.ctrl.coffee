@@ -22,11 +22,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	
 		
 	onRender:->
-		$('.data1').hide()
-		if App.currentUser.get('caps').administrator == true
-			$('.tabelements').attr('disabled', true)
-			$('.data').hide()
-			$('.data1').show()
 		
 		Backbone.Syphon.deserialize @, @model.toJSON()
 		if !window.isWebView()
@@ -41,12 +36,16 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				
 			});
 
+		$('.data1').hide()
+		
+
 
 
 	onShow:->
 		$('.data1').hide()
 		if App.currentUser.get('caps').administrator == true
-			$('.tabelements').attr('disabled', true)
+			$('.profile-template').hide()
+            $('.tabelements').attr('disabled', true)
 			$('.data').hide()
 			$('.data1').show()
 		App.trigger 'cordova:hide:splash:screen'
@@ -118,6 +117,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				window.removeMsg()
 				App.currentUser.set 'profile', response
 				App.currentUser.set 'timezone', response.timezone
+				App.currentUser.set 'offset', response.offset
 				
 				@ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!")
 				$('html, body').animate({
@@ -142,10 +142,17 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 class App.UserPersonalInfoCtrl extends Ajency.RegionController
 
 	initialize: (options)->
+		url = '#'+App.currentUser.get 'state'
+        computed_url = '#'+window.location.hash.split('#')[1]
+        if url != computed_url && url != '#/home'
+            @show new workflow
 
-		@show @parent().parent().getLLoadingView()
 
-		App.currentUser.getProfile().done(@_showView).fail @errorHandler
+        else
+
+			@show @parent().parent().getLLoadingView()
+
+			App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView
