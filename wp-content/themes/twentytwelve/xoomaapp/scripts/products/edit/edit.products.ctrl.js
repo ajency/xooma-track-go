@@ -318,8 +318,13 @@ EditProductsView = (function(_super) {
       });
     }
     if (!window.isWebView()) {
-      return $('.input-small').timepicker({
+      $('.input-small').timepicker({
         defaultTime: false
+      });
+    }
+    if (window.isWebView()) {
+      return $('.input-small').prop({
+        disabled: true
       });
     }
   };
@@ -418,11 +423,6 @@ EditProductsView = (function(_super) {
     if (!window.isWebView()) {
       $('.input-small').timepicker({
         defaultTime: false
-      });
-    }
-    if (window.isWebView()) {
-      $('.input-small').prop({
-        disabled: true
       });
     }
     $('#timeset').val(this.model.get('time_set'));
