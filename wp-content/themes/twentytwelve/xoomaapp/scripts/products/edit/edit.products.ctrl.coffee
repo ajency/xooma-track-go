@@ -295,6 +295,10 @@ class EditProductsView extends Marionette.ItemView
 			$('.input-small').timepicker(
 				defaultTime : false
 			);
+
+		#Changes for mobile
+		if window.isWebView()
+			$('.input-small').prop disabled: true
 	
 
 
@@ -383,10 +387,6 @@ class EditProductsView extends Marionette.ItemView
 			$('.input-small').timepicker(
 				defaultTime : false
 			);
-
-		#Changes for mobile
-		if window.isWebView()
-			$('.input-small').prop disabled: true
 
 		$('#timeset').val @model.get 'time_set'
 		container = @model.get('no_of_container')
