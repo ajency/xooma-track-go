@@ -129,7 +129,7 @@ class EditProductsView extends Marionette.ItemView
 				
 			@loadCheckedData()
 
-			if window.isWebView()
+			if !window.isWebView()
 				$('.input-small').timepicker(
 					defaultTime : false
 				);

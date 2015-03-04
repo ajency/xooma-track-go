@@ -140,7 +140,7 @@ EditProductsView = (function(_super) {
         this.showReminders();
       }
       this.loadCheckedData();
-      if (window.isWebView()) {
+      if (!window.isWebView()) {
         return $('.input-small').timepicker({
           defaultTime: false
         });
