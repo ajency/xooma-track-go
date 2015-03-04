@@ -140,9 +140,11 @@ EditProductsView = (function(_super) {
         this.showReminders();
       }
       this.loadCheckedData();
-      return $('.input-small').timepicker({
-        defaultTime: false
-      });
+      if (window.isWebView()) {
+        return $('.input-small').timepicker({
+          defaultTime: false
+        });
+      }
     },
     'change .no_of_container': function(e) {
       var cnt;
@@ -284,7 +286,23 @@ EditProductsView = (function(_super) {
       $('.reminder_div').append(html1);
       $('.input-small').each(function(ind, val) {
         val.name = 'reminder_time' + ind;
-        return val.id = 'reminder_time' + ind;
+        val.id = 'reminder_time' + ind;
+        if (window.isWebView()) {
+          return $('#reminder_time' + ind).parent().click(function() {
+            var defaultTime, options;
+            defaultTime = '1:00 AM';
+            $('#reminder_time' + ind).val(defaultTime);
+            options = {
+              date: moment(defaultTime, 'hh:mm A').toDate(),
+              mode: 'time'
+            };
+            return datePicker.show(options, function(time) {
+              if (!_.isUndefined(time)) {
+                return $('#reminder_time' + ind).val(moment(time).format('hh:mm A'));
+              }
+            });
+          });
+        }
       });
     } else {
       $('.reminder_div').hide();
@@ -299,9 +317,11 @@ EditProductsView = (function(_super) {
         return val.value = "";
       });
     }
-    return $('.input-small').timepicker({
-      defaultTime: false
-    });
+    if (!window.isWebView()) {
+      return $('.input-small').timepicker({
+        defaultTime: false
+      });
+    }
   };
 
   EditProductsView.prototype.successSave = function(response, status, xhr) {
@@ -395,9 +415,16 @@ EditProductsView = (function(_super) {
     products = App.currentUser.get('products');
     $('#homeDate').val(App.currentUser.get('homeDate'));
     this.checkMode();
-    $('.input-small').timepicker({
-      defaultTime: false
-    });
+    if (!window.isWebView()) {
+      $('.input-small').timepicker({
+        defaultTime: false
+      });
+    }
+    if (window.isWebView()) {
+      $('.input-small').prop({
+        disabled: true
+      });
+    }
     $('#timeset').val(this.model.get('time_set'));
     container = this.model.get('no_of_container');
     reminder_flag = this.model.get('reminder_flag');

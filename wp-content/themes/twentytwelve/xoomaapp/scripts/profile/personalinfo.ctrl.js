@@ -166,8 +166,15 @@ App.UserPersonalInfoCtrl = (function(_super) {
   }
 
   UserPersonalInfoCtrl.prototype.initialize = function(options) {
-    this.show(this.parent().parent().getLLoadingView());
-    return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
+    var computed_url, url;
+    url = '#' + App.currentUser.get('state');
+    computed_url = '#' + window.location.hash.split('#')[1];
+    if (url !== computed_url && url !== '#/home') {
+      return this.show(new workflow);
+    } else {
+      this.show(this.parent().parent().getLLoadingView());
+      return App.currentUser.getProfile().done(this._showView).fail(this.errorHandler);
+    }
   };
 
   UserPersonalInfoCtrl.prototype._showView = function(userModel) {
