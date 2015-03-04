@@ -27,6 +27,9 @@ CordovaApp = {
       return navigator.splashscreen.hide();
     }, 500);
   },
+  openAboutXooma: function() {
+    return window.open('http://xooma.com/', '_system', 'location=yes');
+  },
   updateXoomaMessages: function() {
     var date, difference, message_set_date, today, update;
     update = false;

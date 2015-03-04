@@ -28,7 +28,7 @@ allSystemCaps = [ 'access_login', 'read', 'level_0', 'subscriber'
 				, 'access_home', 'access_profile', 'access_schedule', 'access_settings', 'access_usermeasurement'
 				, 'access_userpersonalinfo', 'access_userproductlist', 'access_viewinventory'
 				, 'access_viewmeasurementhistory', 'access_viewproducthistory', 'access_xooma'
-				, 'edit_occurrence', 'edit_schedule', 'editproducts']
+				, 'edit_occurrence', 'edit_schedule', 'editproducts', 'access_faq']
 
 
 #Messages

@@ -20,6 +20,10 @@
 			, 500
 
 
+		openAboutXooma : ->
+			window.open 'http://xooma.com/', '_system', 'location=yes'
+
+
 		updateXoomaMessages : ->
 			update = false
 			date = CordovaStorage.getMessages().date
