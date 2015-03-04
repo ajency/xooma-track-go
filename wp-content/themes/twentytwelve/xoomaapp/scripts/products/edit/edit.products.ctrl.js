@@ -318,13 +318,8 @@ EditProductsView = (function(_super) {
       });
     }
     if (!window.isWebView()) {
-      $('.input-small').timepicker({
+      return $('.input-small').timepicker({
         defaultTime: false
-      });
-    }
-    if (window.isWebView()) {
-      return $('.input-small').prop({
-        disabled: true
       });
     }
   };

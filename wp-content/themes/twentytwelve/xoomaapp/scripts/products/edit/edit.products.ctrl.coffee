@@ -295,10 +295,6 @@ class EditProductsView extends Marionette.ItemView
 			$('.input-small').timepicker(
 				defaultTime : false
 			);
-
-		#Changes for mobile
-		if window.isWebView()
-			$('.input-small').prop disabled: true
 	
 
 
