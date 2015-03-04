@@ -413,7 +413,13 @@ class User
 
             
 
-           
+           $homedate = $date;
+            if($date == "")
+            {
+                $date = date('Y-m-d');
+                $homedate = date('Y-m-d');
+            }
+                
 
 
 
@@ -491,7 +497,7 @@ class User
     
   
     return array('response'=>$sub, 'graph'=> $graph,'reg_date' => $reg_date,
-        'weight'=>$data['response']['weight'],'today'=>$today_date);
+        'weight'=>$data['response']['weight'],'today'=>$today_date,'homeDate'=>$homedate);
         
 
     }

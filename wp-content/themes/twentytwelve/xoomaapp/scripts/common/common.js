@@ -143,14 +143,12 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getUserProducts: function() {
-    var date, timezone, _successHandler;
+    var date, _successHandler;
     date = "";
     if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
       date = App.currentUser.get('homeDate');
     } else {
-      timezone = App.currentUser.get('offset');
-      console.log(date = moment().format('YYYY-MM-DD'));
-      App.currentUser.set('homeDate', date);
+      console.log(date = "");
     }
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
@@ -165,6 +163,7 @@ _.extend(Ajency.CurrentUser.prototype, {
           App.graph.set('param', param);
           App.graph.set('reg_date', response.reg_date);
           App.currentUser.set('today', response.today);
+          App.currentUser.set('homeDate', response.homeDate);
           products = [];
           $.each(data, function(ind, val) {
             products.push(parseInt(val.id));
@@ -182,17 +181,14 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getHomeProducts: function() {
-    var date, deferred, timezone, _successHandler;
+    var date, deferred, _successHandler;
     deferred = Marionette.Deferred();
     date = "";
     if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
       date = App.currentUser.get('homeDate');
     } else {
-      timezone = App.currentUser.get('offset');
-      console.log(date = moment().format('YYYY-MM-DD'));
-      App.currentUser.set('homeDate', date);
+      console.log(date = "");
     }
-    console.log(date);
     _successHandler = (function(_this) {
       return function(response, status, xhr) {
         var data, dates, param;
@@ -205,6 +201,7 @@ _.extend(Ajency.CurrentUser.prototype, {
         App.graph.set('param', param);
         App.graph.set('reg_date', response.reg_date);
         App.currentUser.set('today', response.today);
+        App.currentUser.set('homeDate', response.homeDate);
         if (xhr.status === 200) {
           $.each(data, function(index, value) {
             return App.useProductColl.add(value);
