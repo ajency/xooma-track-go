@@ -32,8 +32,8 @@ class ScheduleView extends Marionette.ItemView
 			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
 			$('#consume_time').val s		
 			$('.input-small').timepicker(
-		        defaultTime : s
-		    )
+				defaultTime : s
+			)
 			$('.now').text 'Now'
 
 		'click @ui.servings':(e)->
@@ -174,10 +174,28 @@ class ScheduleView extends Marionette.ItemView
 		
 		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
 		console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
-				
-		$('.input-small').timepicker(
-	        defaultTime : s
-	    )
+		
+		if !window.isWebView()	
+			$('.input-small').timepicker(
+				defaultTime : s
+			)
+
+		#Changes for mobile
+		if window.isWebView()
+			$('.input-small')
+				.val s
+				.prop disabled: true
+				.parent().click ->
+					options = 
+						date: moment($('.input-small').val(), 'hh:mm A').toDate()
+						mode: 'time'
+					
+					datePicker.show options, (time)->
+						if not _.isUndefined time
+							$('.input-small').val moment(time).format('hh:mm A')
+
+
+
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
 		@ui.rangeSliders.rangeslider polyfill: false
 
