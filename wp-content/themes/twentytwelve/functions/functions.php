@@ -743,6 +743,7 @@ function send_notifications_to_admin($user_id){
 		$aj_comm->create_communication($args,$meta,$recipients_args);
 
 		}
+		$aj_comm->cron_process_communication_queue("xooma_users",'xooma_admin_email');
 
 
 
@@ -790,6 +791,9 @@ function send_notifications_to_user($user_id){
 										);
 
 	$aj_comm->create_communication($args,$meta,$recipients_args);
+
+	$aj_comm->cron_process_communication_queue("xooma_users",'xooma_user_email');
+
 
 	return true;
 
@@ -2465,17 +2469,23 @@ function get_next_occurrence($object_id)
 
 function get_timezone_date($id,$date)
 {
-
 	$user_details = get_user_meta($id,'user_details',true);
 
 	$details = maybe_unserialize($user_details);
+
+
+
+    // $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date, $details['timezone']);
+    // $date1->setTimezone('UTC');
+    // $today_date = $date1->format("Y-m-d H:i:s");
+        
 	date_default_timezone_set($details['timezone']);
 	$datestring = $date;  //Pulled in from somewhere
 	//date("Y-m-d\TH:i:s.000\Z", strtotime($datestring . ' UTC'));
-	$date = date("Y-m-d\TH:i:s", strtotime($datestring));
+	$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
 	
 
-	return $date;
+	return $today_date;
 }
 
 function my_logout(){

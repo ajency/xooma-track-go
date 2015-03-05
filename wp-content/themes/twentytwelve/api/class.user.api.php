@@ -602,13 +602,13 @@ class User_API
         $qty = $_REQUEST['qty'];
 
         $meta_id = $_REQUEST['meta_id'];
-        $date = $_REQUEST['date'];
+        $actual_date = $_REQUEST['date'];
         $time = $_REQUEST['time'];
         
 
 
         $timee = date("H:i:s", strtotime($time));
-        $start = date("$date $timee");
+        $start = date("$actual_date $timee");
 
         $user_details = get_user_meta($id,'user_details',true);
 
@@ -634,7 +634,7 @@ class User_API
             'id'            => $id,
             'pid'           => $pid,
             'meta_id'       => $meta_id,
-            'date'          => $date,
+            'date'          => $actual_date,
             'time'          => $time,
             'qty'           => $qty,
             'meta_value'    => array(

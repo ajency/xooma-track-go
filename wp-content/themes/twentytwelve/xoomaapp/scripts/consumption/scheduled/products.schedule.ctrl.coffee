@@ -244,20 +244,21 @@ class ScheduleView extends Marionette.ItemView
 		
 class App.ScheduleCtrl extends Ajency.RegionController
 	initialize : (options = {})->
-		url = window.location.hash.split('#')
-		locationurl = url[1].split('/')
-		product = parseInt locationurl[2]
-		date = locationurl[4]
-		products = []
-		App.useProductColl.each (val)->
-			products.push val
+		# url = window.location.hash.split('#')
+		# locationurl = url[1].split('/')
+		# product = parseInt locationurl[2]
+		# date = locationurl[4]
+		# products = []
+		# App.useProductColl.each (val)->
+		# 	products.push val
 		
-		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:parseInt(product)})
-		if productModel.length == 0
+		# productsColl =  new Backbone.Collection products
+		# productModel = productsColl.where({id:parseInt(product)})
+		# if productModel.length == 0
+			@show @parent().getLLoadingView()
 			App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
-		else
-			@_showView(productModel[0],date)
+		# else
+		# 	@_showView(productModel[0],date)
 
 	showView:(Collection)=>
 		url = window.location.hash.split('#')

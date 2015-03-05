@@ -41,6 +41,8 @@ class ViewInventoryView extends Marionette.CompositeView
 		ID  = Marionette.getOption( @, 'ID' )
 		model = App.useProductColl.findWhere({id:parseInt(ID)})
 		$('.product_name').text model.get 'name'
+		if parseInt(@collection.length) == 1
+			$('.bottle-msg').hide()
 
 class App.ViewInventoryCtrl extends Ajency.RegionController
 	initialize : (options = {})->
