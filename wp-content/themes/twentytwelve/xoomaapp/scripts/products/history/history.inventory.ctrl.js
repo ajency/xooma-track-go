@@ -46,7 +46,10 @@ ViewInventoryView = (function(_super) {
     model = App.useProductColl.findWhere({
       id: parseInt(ID)
     });
-    return $('.product_name').text(model.get('name'));
+    $('.product_name').text(model.get('name'));
+    if (parseInt(this.collection.length) === 1) {
+      return $('.bottle-msg').hide();
+    }
   };
 
   return ViewInventoryView;

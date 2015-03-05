@@ -360,6 +360,12 @@ class User
         $details = maybe_unserialize($user_details);
         $today_date = date('Y-m-d H:i:s');
         $todaydate = date('Y-m-d');
+         $homedate = $date;
+            if($date == "")
+            {
+                $date = date('Y-m-d');
+                $homedate = date('Y-m-d');
+            }
         foreach ($sql_query as $key => $term) {
 
             $val = $productList->get_products($term->product_id);
@@ -413,12 +419,7 @@ class User
 
             
 
-           $homedate = $date;
-            if($date == "")
-            {
-                $date = date('Y-m-d');
-                $homedate = date('Y-m-d');
-            }
+          
                 
 
 

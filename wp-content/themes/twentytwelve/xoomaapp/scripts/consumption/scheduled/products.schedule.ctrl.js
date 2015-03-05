@@ -287,27 +287,11 @@ App.ScheduleCtrl = (function(_super) {
   }
 
   ScheduleCtrl.prototype.initialize = function(options) {
-    var date, locationurl, product, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
-    url = window.location.hash.split('#');
-    locationurl = url[1].split('/');
-    product = parseInt(locationurl[2]);
-    date = locationurl[4];
-    products = [];
-    App.useProductColl.each(function(val) {
-      return products.push(val);
-    });
-    productsColl = new Backbone.Collection(products);
-    productModel = productsColl.where({
-      id: parseInt(product)
-    });
-    if (productModel.length === 0) {
-      return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
-    } else {
-      return this._showView(productModel[0], date);
-    }
+    this.show(this.parent().getLLoadingView());
+    return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
   };
 
   ScheduleCtrl.prototype.showView = function(Collection) {
