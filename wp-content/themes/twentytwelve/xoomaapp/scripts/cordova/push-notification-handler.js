@@ -19,11 +19,19 @@ cordovaPushNavigation = function(data) {
 };
 
 onNotificationGCM = function(e) {
+  var data, payload;
   console.log('Received notification for Android');
   console.log(e);
   if (e.event === 'message') {
     if (!e.foreground) {
-      return cordovaPushNavigation(e.payload.data);
+      payload = e.payload.data;
+      data = {
+        title: payload.header,
+        alert: payload.message,
+        productId: payload.productId,
+        type: payload.type
+      };
+      return cordovaPushNavigation(data);
     }
   }
 };

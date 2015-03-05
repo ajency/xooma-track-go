@@ -20,7 +20,14 @@
 		console.log e
 		if e.event is 'message'
 			if not e.foreground
-				cordovaPushNavigation e.payload.data
+				payload = e.payload.data
+				data = 
+					title: payload.header
+					alert: payload.message
+					productId: payload.productId
+					type: payload.type
+
+				cordovaPushNavigation data
 
 	
 	onNotificationAPN = (e)->
