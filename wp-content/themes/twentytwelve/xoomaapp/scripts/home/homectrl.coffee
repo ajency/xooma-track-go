@@ -263,7 +263,7 @@ class HomeLayoutView extends Marionette.LayoutView
 				
 				{
 					label: "My Second dataset",
-					fillColor : "#ffffff",
+					fillColor : "rgba(255, 255, 255, 0.12)",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
@@ -275,7 +275,7 @@ class HomeLayoutView extends Marionette.LayoutView
 				{
 		     
 		            label: "My First dataset",
-		            fillColor: "##63c8ed",
+		            fillColor: "rgba(255, 255, 255, 0.12)",
 		            strokeColor: "rgba(151,187,205,1)",
 		            pointColor: "rgba(151,187,205,1)",
 		            pointStrokeColor: "#fff",
@@ -286,7 +286,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		        {
 		        
 		            label: "My Second dataset",
-		            fillColor: "#ffffff",
+		            fillColor: "rgba(255, 255, 255, 0.12)",
 		            strokeColor: "rgba(151,187,205,1)",
 		            pointColor: "rgba(151,187,205,1)",
 		            pointStrokeColor: "#fff",
