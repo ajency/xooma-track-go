@@ -1877,7 +1877,7 @@ function store_emails($id,$emails)
 
 }
 
-cron_job_reminders(1440);
+
 function cron_job_reminders($args)
 {
 

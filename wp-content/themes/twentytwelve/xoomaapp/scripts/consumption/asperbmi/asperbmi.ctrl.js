@@ -111,7 +111,7 @@ AsperbmiView = (function(_super) {
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
       msg = this.showMessage(cnt);
-      if (parseInt(count1) <= parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) === 1) {
+      if (parseInt(count1) >= parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) === 1) {
         $('.bonus').text('(Bonus)');
       }
       $('.msg').html(msg);
