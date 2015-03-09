@@ -713,7 +713,7 @@ function send_notifications_to_admin($user_id){
 		'registered'      => $user['user_registered'],
 		'siteurl'         => site_url().'/wp-admin',
 		'loginurl'		  => site_url().'/xooma-app/#login',
-		'img'			  => site_url().'/assets/logo.png'
+		'img'			  => get_template_directory_uri().'/xoomaapp/images/logo.png'
 
 
 		);
@@ -775,7 +775,7 @@ function send_notifications_to_user($user_id){
 		'registered'      => $user['user_registered'],
 		'siteurl'         => site_url().'/xooma-app/#profile/personal-info',
 		'loginurl'		  => site_url().'/xooma-app/#login',
-		'img'			  => site_url().'/assets/logo.png'
+		'img'			  => get_template_directory_uri().'/xoomaapp/images/logo.png'
 
 
 		);
@@ -2306,7 +2306,7 @@ function notifications_low_stock($user_id,$product_name,$available,$type,$produc
 		'product_name'    => $product_name,
 		'available'       => $available,
 		'loginurl'		  => site_url().'/xooma-app/#login',
-		'img'			  => site_url().'/assets/logo.png',
+		'img'			  => get_template_directory_uri().'/xoomaapp/images/logo.png',
 		'siteurl'		  => site_url(),
 		'product_id'	  => $product_id
 
@@ -2355,7 +2355,7 @@ function notifications_add_product($product_id,$product_name,$description){
 		'product_name'    => $product_name,
 		'description'       => $description,
 		'loginurl'		  => site_url().'/xooma-app/#login',
-		'img'			  => site_url().'/assets/logo.png',
+		'img'			  => get_template_directory_uri().'/xoomaapp/images/logo.png',
 		'siteurl'			  => site_url()
 
 
