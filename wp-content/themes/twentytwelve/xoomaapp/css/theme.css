@@ -11983,14 +11983,12 @@ input.cmn-toggle-round-flat:checked + label:after {
   width: 91%;
   height: 80px;
   overflow: auto;
-  background: #ccc;
   margin: auto;
   position: absolute;
   top: 0;
   left: 0;
-  bottom: -169px;
+  bottom: 0px;
   right: 0;
-  line-height: 80px;
 }
 /* Minus Plus Button */
 .range-button {
