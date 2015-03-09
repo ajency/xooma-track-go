@@ -14,6 +14,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	modelEvents :
 		'change:profile_picture' : 'render'
 
+		'keypress .form-control' :(e)->
+			if(e.which == 9 )
+        		e.preventDefault()
+    
+
 	initialize : ->
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()

@@ -47,6 +47,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 
 	keydown:(e)->
+		if(e.which == 9)
+        	e.preventDefault()
 		if (e.charCode == 13)
 			$('#mcttCloseButton').trigger('click')
 		
@@ -61,6 +63,10 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 		
 	keyup:(e)->
+		if(e.which == 9)
+        	e.preventDefault()
+        	return 
+		
 		@measurements[e.target.id] = $('#'+e.target.id).val()
 		
 

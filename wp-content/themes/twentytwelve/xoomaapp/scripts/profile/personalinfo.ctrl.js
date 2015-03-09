@@ -34,7 +34,12 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.modelEvents = {
-    'change:profile_picture': 'render'
+    'change:profile_picture': 'render',
+    'keypress .form-control': function(e) {
+      if (e.which === 9) {
+        return e.preventDefault();
+      }
+    }
   };
 
   ProfilePersonalInfoView.prototype.initialize = function() {
