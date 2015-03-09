@@ -233,7 +233,9 @@ class HomeLayoutView extends Marionette.LayoutView
 								}, 'slow')
 
 		if window.param == 'bmi'
-			@generateBMIGraph()
+			window.param = 'weight'
+			window.time_period = 'all'
+			@generateGraph()
 		else
 			@generateGraph()
 		# @ui.start_date.pickadate(

@@ -255,7 +255,9 @@ HomeLayoutView = (function(_super) {
       }, 'slow');
     }
     if (window.param === 'bmi') {
-      return this.generateBMIGraph();
+      window.param = 'weight';
+      window.time_period = 'all';
+      return this.generateGraph();
     } else {
       return this.generateGraph();
     }
