@@ -154,8 +154,8 @@ class AsperbmiView extends Marionette.ItemView
 			console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
 		
 			$('.input-small').timepicker(
-		        defaultTime : s
-		    )
+				defaultTime : s
+			)
 			
 			$('#date').val date
 			@generate(@model.get('occurrence'))
@@ -257,21 +257,21 @@ class App.AsperbmiCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
 		#productId  = @getParams()
-		url = window.location.hash.split('#')
-		locationurl = url[1].split('/')
-		product = parseInt locationurl[2]
-		date = locationurl[4]
-		products = []
-		App.useProductColl.each (val)->
-			products.push val
+		# url = window.location.hash.split('#')
+		# locationurl = url[1].split('/')
+		# product = parseInt locationurl[2]
+		# date = locationurl[4]
+		# products = []
+		# App.useProductColl.each (val)->
+		# 	products.push val
 		
-		productsColl =  new Backbone.Collection products
-		productModel = productsColl.where({id:parseInt(product)})
+		# productsColl =  new Backbone.Collection products
+		# productModel = productsColl.where({id:parseInt(product)})
 		
-		if parseInt(productModel.length) == 0
-			App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
-		else
-			@_showView(productModel[0],date)
+		# if parseInt(productModel.length) == 0
+		App.currentUser.getHomeProducts().done(@showView).fail @errorHandler
+		# else
+		# 	@_showView(productModel[0],date)
 		
 
 	showView:(Collection)=>
