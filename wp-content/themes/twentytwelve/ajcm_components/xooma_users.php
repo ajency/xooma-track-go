@@ -36,7 +36,7 @@ function getvars_xooma_user_email($recipients_email,$comm_data){
 
 	global $aj_comm;
     
-	$template_data['name'] = 'xooma_admin_email'; // [slug] name or slug of a template that exists in the user's mandrill account
+	$template_data['name'] = 'xooma_user_email'; // [slug] name or slug of a template that exists in the user's mandrill account
 	$template_data['subject'] = 'User Registration Notification';
 	$template_data['from_email'] = 'noreply@xooma.com';
 	$template_data['from_name'] = 'Xooma';

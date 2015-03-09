@@ -710,7 +710,7 @@ function send_notifications_to_admin($user_id){
 		'username'        => $user['display_name'],
 		'email'           => $user['user_email'],
 		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
-		'registered'      => $user['user_registered'],
+		'registered'      => date('Y-m-d' ,strtotime($user['user_registered'])),
 		'siteurl'         => site_url().'/wp-admin',
 		'loginurl'		  => site_url().'/xooma-app/#login',
 		'img'			  => get_template_directory_uri().'/xoomaapp/images/logo.png'
@@ -743,7 +743,7 @@ function send_notifications_to_admin($user_id){
 		$aj_comm->create_communication($args,$meta,$recipients_args);
 
 		}
-		$aj_comm->cron_process_communication_queue("xooma_users",'xooma_admin_email');
+		
 
 
 
@@ -772,7 +772,7 @@ function send_notifications_to_user($user_id){
 		'username'        => $user['display_name'],
 		'email'           => $user['user_email'],
 		'xoomaid'         => get_user_meta($user_id,'xooma_member_id',true),
-		'registered'      => $user['user_registered'],
+		'registered'      => date('Y-m-d' ,strtotime($user['user_registered'])),
 		'siteurl'         => site_url().'/xooma-app/#profile/personal-info',
 		'loginurl'		  => site_url().'/xooma-app/#login',
 		'img'			  => get_template_directory_uri().'/xoomaapp/images/logo.png'
@@ -792,7 +792,7 @@ function send_notifications_to_user($user_id){
 
 	$aj_comm->create_communication($args,$meta,$recipients_args);
 
-	$aj_comm->cron_process_communication_queue("xooma_users",'xooma_user_email');
+	
 
 
 	return true;
@@ -928,12 +928,13 @@ function login_response($user_id){
 		$user = array();
 		$user_info = get_userdata($user_id);
 		
-		$usermeta = get_user_meta($user_id);
+		$first_name = get_user_meta( $user_id, 'first_name',true); 
+		$last_name = get_user_meta( $user_id, 'last_name',true); 
 		$user['status'] = 'true';
 		$user['id'] = $user_id;
 		$user['user_login'] = $user_info->data->user_login;
 		$user['user_email'] = $user_info->data->user_email;
-		$user['display_name'] = $usermeta['first_name'][0]." ".$usermeta['last_name'][0];
+		$user['display_name'] = $first_name." ".$last_name;
 		$user['user_registered'] = $user_info->data->user_registered;
 
 		return  $user;
@@ -1456,7 +1457,7 @@ function store_consumption_details($args){
 		$today_date = get_timezone_date($id,$start);
 
 		
-		
+	
 		
 		$occurrence_data = array(
 						'schedule_id' =>  $schedule,
@@ -1876,7 +1877,7 @@ function store_emails($id,$emails)
 
 }
 
-
+cron_job_reminders(1440);
 function cron_job_reminders($args)
 {
 
@@ -1917,7 +1918,7 @@ function cron_job_reminders($args)
 
 	
 	$usersToBeNotified = array();
-
+	
 	foreach ($occurrences as $key => $value) {
 
 		$next_occurrence = strtotime($value->next_occurrence);
@@ -1947,6 +1948,8 @@ function cron_job_reminders($args)
 				$userdata  = get_userdata( $user->user_id );
 				$name = $userdata->display_name;
 				$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+
+
 						
 						
 				date_default_timezone_set($details['timezone']);
@@ -2128,7 +2131,7 @@ function send_stock_reminders_over(){
 		eval("\$msg = \"$msg\";");
 		$notifications_flag = get_user_meta($value->user_id,'notification' , true);
 		$email_flag = get_user_meta($value->user_id,'emails' , true);
-		$check_email_sent = check_email_sent('stock_low_email',$value->user_id,$value->product_id);
+		$check_email_sent = check_email_sent('stock_over_email',$value->user_id,$value->product_id);
 
 		if(intval($available) == 0 && intval($check_email_sent) == 1 )
 		{
@@ -2198,21 +2201,21 @@ function send_stock_reminders()
 		
 
 		$data  = $user->get_user_home_products($value->user_id,$value->product_id,$date="");
-	
+		
 		$servings_left = $object->no_of_days;
 
-		$servings_low = intval($data[0]['total']) * intval($servings_left);
+		$servings_low = intval($data['response'][0]['total']) * intval($servings_left);
 		
 		$userdata  = get_userdata( $value->user_id );
 
 		$qty_size = 0;
-		foreach ($data[0]['qty'] as $key => $value) {
+		foreach ($data['response'][0]['qty'] as $key => $value) {
 			$qty_size = $qty_size + $value->qty;
 		}
 
 		$serv = round(intval($available) * intval($servings)/intval($qty_size));
 		$name = $userdata->display_name;
-		$product_name = $data[0]['name'];
+		$product_name = $data['response'][0]['name'];
 
 		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
 
@@ -2247,7 +2250,7 @@ function send_stock_reminders()
 	
 }
 
-check_email_sent('stock_low_email',220,3);
+
 function check_email_sent($object_type,$user_id,$product_id){
 
 
@@ -2260,6 +2263,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 
 	$comm_id = 0;
 	$date = date('Y-m-d H:i:s') ;
+	$pro_date = date('Y-m-d H:i:s') ;
 	foreach ($results as $key => $value) {
 		$row = $wpdb->get_row("SELECT * from $communication_meta where meta_key=
 		'product_id' and communication_id=".$value->id." and meta_value=".$product_id."");
@@ -2267,7 +2271,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 		if(!is_null($row))
 		{
 			$comm_id = $row->communication_id;
-			$date = $value->processed;
+			$pro_date =  date('Y-m-d H:i:s',$value->processed );
 			break;
 		}
 
@@ -2275,9 +2279,9 @@ function check_email_sent($object_type,$user_id,$product_id){
 	}
 	
 	$last_seven = strtotime( '-7 days' , strtotime ( $date ) );
-	$d1 = strtotime(date('Y-m-d H:i:s',$last_seven));
+	$new = strtotime($pro_date);
 	$res = "";
-	if( intval($d1) > intval($last_seven) && intval($comm_id) == 0)
+	if( intval($new) >= intval($last_seven) && intval($comm_id) == 0)
 		 $res =  1;
 	else
 		 $res = 0;

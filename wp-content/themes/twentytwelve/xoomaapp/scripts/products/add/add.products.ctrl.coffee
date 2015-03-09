@@ -59,10 +59,16 @@ class App.AddProductsCtrl extends Ajency.RegionController
 	initialize : (options = {})->
 
 		@listenTo @, "remove:loader" , @removeLoader
-		if App.productCollection.length is 0
-			App.productCollection.fetch().done(@_showProducts).fail(@errorHandler)
+
+		url = '#'+App.currentUser.get 'state'
+		computed_url = '#'+window.location.hash.split('#')[1]
+		if url!= '#/profile/my-products'  && url != '#/home' 
+			@show new workflow
 		else
-			@_showProducts()
+			if App.productCollection.length is 0
+				App.productCollection.fetch().done(@_showProducts).fail(@errorHandler)
+			else
+				@_showProducts()
 
 	removeLoader:=>
 		@show @parent().getLLoadingView()
