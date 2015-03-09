@@ -233,7 +233,14 @@ class HomeLayoutView extends Marionette.LayoutView
 								}, 'slow')
 
 		if window.param == 'bmi'
-			@generateBMIGraph()
+			window.param = 'weight'
+			window.time_period = 'all'
+			@ui.time_period.show()
+			$('#param option[value="'+window.param+'"]').prop("selected",true)
+			$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
+			
+		
+			@generateGraph()
 		else
 			@generateGraph()
 		# @ui.start_date.pickadate(
