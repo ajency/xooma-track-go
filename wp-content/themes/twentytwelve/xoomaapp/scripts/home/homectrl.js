@@ -257,6 +257,9 @@ HomeLayoutView = (function(_super) {
     if (window.param === 'bmi') {
       window.param = 'weight';
       window.time_period = 'all';
+      this.ui.time_period.show();
+      $('#param option[value="' + window.param + '"]').prop("selected", true);
+      $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
       return this.generateGraph();
     } else {
       return this.generateGraph();
