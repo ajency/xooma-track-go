@@ -232,7 +232,10 @@ class HomeLayoutView extends Marionette.LayoutView
 								scrollTop: 0
 								}, 'slow')
 
-		@generateGraph()
+		if window.param == 'bmi'
+			@generateBMIGraph()
+		else
+			@generateGraph()
 		# @ui.start_date.pickadate(
 		# 	formatSubmit: 'yyyy-mm-dd'
 		# 	hiddenName: true
