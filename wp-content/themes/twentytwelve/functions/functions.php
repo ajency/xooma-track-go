@@ -2207,12 +2207,14 @@ function send_stock_reminders()
 		$servings_low = intval($data['response'][0]['total']) * intval($servings_left);
 		
 		$userdata  = get_userdata( $value->user_id );
-
+		$servings = count($data['response'][0]['qty'][0]);
 		$qty_size = 0;
-		foreach ($data['response'][0]['qty'] as $key => $value) {
-			$qty_size = $qty_size + $value->qty;
+		
+		foreach ($data['response'][0]['qty'] as $key => $val) {
+			$qty_size = $qty_size + $val['qty'];
 		}
-
+		if(intval($qty_size) == 0)
+			$qty_size = 1;
 		$serv = round(intval($available) * intval($servings)/intval($qty_size));
 		$name = $userdata->display_name;
 		$product_name = $data['response'][0]['name'];

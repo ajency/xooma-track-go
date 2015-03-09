@@ -49,15 +49,15 @@ class ProfileMeasurementsView extends Marionette.ItemView
 	keydown:(e)->
 		if(e.which == 9)
         	e.preventDefault()
-		if (e.charCode == 13)
+		if (e.which == 13)
 			$('#mcttCloseButton').trigger('click')
 		
 
-		if  e.charCode == 46
+		if  e.which == 46
 			inputVal = $(e.target).val().split('.').length
 			if parseInt(inputVal) >= 2
 				return  false
-		e.charCode >= 48 && e.charCode <= 57 || e.charCode == 46 || e.charCode == 8
+		e.which >= 48 && e.which <= 57 || e.which == 46 || e.which == 8
 	
 
 
