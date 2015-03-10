@@ -1883,6 +1883,7 @@ function cron_job_reminders($args)
 
 
 
+
 	global $wpdb;
 
 
@@ -1947,15 +1948,22 @@ function cron_job_reminders($args)
 				$details = maybe_unserialize($user_details);
 				$userdata  = get_userdata( $user->user_id );
 				$name = $userdata->display_name;
-				$date = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+				$d = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
 
 
 						
 						
-				date_default_timezone_set($details['timezone']);
-				$datestring = $date;  //Pulled in from somewhere
-				$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
-				$time = date('H:i A',strtotime($today_date));
+				// date_default_timezone_set($details['timezone']);
+				// $datestring = $date;  //Pulled in from somewhere
+				// $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+				// $time = date('H:i A',strtotime($today_date));
+
+				$date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $d, 'UTC' );
+        		$date->setTimezone($details['timezone']);
+        
+        		$today_date = $date->format("Y-m-d H:i:s");
+        		$time = date('H:i A',strtotime($today_date));
+
 				$product_name = $product[0]['name'];
 				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 				
@@ -2479,16 +2487,16 @@ function get_timezone_date($id,$date)
 
 	$details = maybe_unserialize($user_details);
 
+	$d = date('Y-m-d H:i:s', strtotime($date));
 
-
-    // $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date, $details['timezone']);
-    // $date1->setTimezone('UTC');
-    // $today_date = $date1->format("Y-m-d H:i:s");
+    $date1 = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $d, $details['timezone']);
+    $date1->setTimezone('UTC');
+    $today_date = $date1->format("Y-m-d H:i:s");
         
-	date_default_timezone_set($details['timezone']);
-	$datestring = $date;  //Pulled in from somewhere
-	//date("Y-m-d\TH:i:s.000\Z", strtotime($datestring . ' UTC'));
-	$today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
+	// date_default_timezone_set($details['timezone']);
+	// $datestring = $date;  //Pulled in from somewhere
+	// //date("Y-m-d\TH:i:s.000\Z", strtotime($datestring . ' UTC'));
+	// $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
 	
 
 	return $today_date;

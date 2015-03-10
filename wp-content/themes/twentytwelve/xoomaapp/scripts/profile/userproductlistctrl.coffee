@@ -156,7 +156,7 @@ class ProductChildView extends Marionette.ItemView
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
 		name = @model.get('name')
-		timezone = @model.get('timezone')
+		timezone =App.currentUser.get('offset')
 		
 		servings = []
 		reminderArr = []
@@ -173,7 +173,7 @@ class ProductChildView extends Marionette.ItemView
 			console.log val.time
 			d = new Date(val.time)
 			timestamp = d.getTime()
-			time = moment(timestamp).zone(timezone).format("h:mm A")
+			time = moment.utc(val.time).zone(timezone).format("h:mm A")
 			
 			reminderArr.push time
 
