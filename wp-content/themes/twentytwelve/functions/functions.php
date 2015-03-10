@@ -1959,10 +1959,13 @@ function cron_job_reminders($args)
 				// $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
 				// $time = date('H:i A',strtotime($today_date));
 
-				$date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $d, 'UTC' );
-        		$date->setTimezone($details['timezone']);
+				$utc = new Carbon\Carbon($d);
+				$warsaw = $utc->timezone($details['timezone']);
+
+				// $date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $d, 'UTC' );
+    //     		$date->setTimezone($details['timezone']);
         
-        		$today_date = $date->format("Y-m-d H:i:s");
+        		$today_date = $warsaw->format("Y-m-d H:i:s");
         		$time = date('H:i A',strtotime($today_date));
 
 				$product_name = $product[0]['name'];
