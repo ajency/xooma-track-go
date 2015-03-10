@@ -5,7 +5,7 @@ function getvars_add_product_email($recipients_email,$comm_data){
 	global $aj_comm;
     
 	$template_data['name'] = 'add_product_email'; // [slug] name or slug of a template that exists in the user's mandrill account
-	$template_data['subject'] = 'Add Product Ntification';
+	$template_data['subject'] = 'Add Product Notification';
 	$template_data['from_email'] = 'noreply@xooma.com';
 	$template_data['from_name'] = 'Xooma';
 

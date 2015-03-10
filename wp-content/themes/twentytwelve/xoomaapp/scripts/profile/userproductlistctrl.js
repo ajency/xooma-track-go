@@ -134,7 +134,7 @@ ProductChildView = (function(_super) {
     reminder = this.model.get('reminder');
     type = this.model.get('type');
     name = this.model.get('name');
-    timezone = this.model.get('timezone');
+    timezone = App.currentUser.get('offset');
     servings = [];
     reminderArr = [];
     totalqty = 0;
@@ -157,7 +157,7 @@ ProductChildView = (function(_super) {
       console.log(val.time);
       d = new Date(val.time);
       timestamp = d.getTime();
-      time = moment(timestamp).zone(timezone).format("h:mm A");
+      time = moment.utc(val.time).zone(timezone).format("h:mm A");
       return reminderArr.push(time);
     });
     remind = reminderArr.join(',');

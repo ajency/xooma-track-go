@@ -14,6 +14,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	modelEvents :
 		'change:profile_picture' : 'render'
 
+		'keypress .form-control' :(e)->
+			if(e.which == 9 )
+        		e.preventDefault()
+    
+
 	initialize : ->
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
@@ -144,15 +149,9 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 	initialize: (options)->
 		url = '#'+App.currentUser.get 'state'
 		computed_url = '#'+window.location.hash.split('#')[1]
-		if url != computed_url && url != '#/home'
-			@show new workflow
+		@show @parent().parent().getLLoadingView()
 
-
-		else
-
-			@show @parent().parent().getLLoadingView()
-
-			App.currentUser.getProfile().done(@_showView).fail @errorHandler
+		App.currentUser.getProfile().done(@_showView).fail @errorHandler
 
 	_showView : (userModel)=>
 		@show new ProfilePersonalInfoView
