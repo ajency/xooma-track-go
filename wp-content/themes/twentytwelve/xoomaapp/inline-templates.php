@@ -747,7 +747,14 @@ Products.</h6>
                                     <canvas id="canvas" height="450" width="600"></canvas></div>
                                 <div id="y-axis" class="text-center"><b></b></div>
          <div id="x-axis" class="text-center">Date</div>
- <div id="bmi" class="text-center">Normal</div>
+         <div class="row">
+            <div class="col-sm-12">
+            <div id="bmi" >Legend :  <i class="fa fa-circle"></i> Normal</div>
+            </div>
+             
+            </div>
+         </div>
+
                                 </div>
                     
             
