@@ -8082,6 +8082,7 @@ packet_expected_class {
   .ios .home-sub-header {
     bottom: 0px !important;
     position: fixed!important;
+    top: intial !important;
   }
 }
 @media (max-width: 768px) {
