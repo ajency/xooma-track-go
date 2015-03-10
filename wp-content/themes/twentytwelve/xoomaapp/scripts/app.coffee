@@ -57,10 +57,10 @@ document.addEventListener "deviceready", ->
 				url: _SITEURL+'/'
 
 
-	Offline.on 'up', ->
+	Offline.on 'confirmed-up', ->
 		$('.error-connection').css display: 'none'
 	
-	Offline.on 'down', ->
+	Offline.on 'confirmed-down', ->
 		$('.error-connection').css display: 'block'
 
 
