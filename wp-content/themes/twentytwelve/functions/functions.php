@@ -1951,6 +1951,7 @@ function cron_job_reminders($args)
 				$d = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
 
 
+
 						
 						
 				// date_default_timezone_set($details['timezone']);
