@@ -110,7 +110,7 @@ AsperbmiView = (function(_super) {
       cnt = this.getCount(model.get('meta_value'));
       this.originalBottleRemaining = this.bottleRemaining;
       msg = this.showMessage(cnt);
-      if (parseInt(count1) <= parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) === 1) {
+      if (parseInt(count1) >= parseInt(response.occurrence[0].occurrence.length) && parseInt(cnt) === 1) {
         $('.bonus').text('(Bonus)');
       }
       $('.msg').html(msg);
@@ -310,28 +310,11 @@ App.AsperbmiCtrl = (function(_super) {
   }
 
   AsperbmiCtrl.prototype.initialize = function(options) {
-    var date, locationurl, product, productModel, products, productsColl, url;
     if (options == null) {
       options = {};
     }
     this.show(this.parent().getLLoadingView());
-    url = window.location.hash.split('#');
-    locationurl = url[1].split('/');
-    product = parseInt(locationurl[2]);
-    date = locationurl[4];
-    products = [];
-    App.useProductColl.each(function(val) {
-      return products.push(val);
-    });
-    productsColl = new Backbone.Collection(products);
-    productModel = productsColl.where({
-      id: parseInt(product)
-    });
-    if (parseInt(productModel.length) === 0) {
-      return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
-    } else {
-      return this._showView(productModel[0], date);
-    }
+    return App.currentUser.getHomeProducts().done(this.showView).fail(this.errorHandler);
   };
 
   AsperbmiCtrl.prototype.showView = function(Collection) {

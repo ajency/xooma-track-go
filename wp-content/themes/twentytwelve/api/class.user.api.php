@@ -579,7 +579,7 @@ class User_API
 
         $date = $_REQUEST['date'];
 
-        $response = get_consumption_details($id,$pid,$date="");
+        $response = get_consumption_details($id,$pid,$date);
 
         if (is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
@@ -613,9 +613,9 @@ class User_API
         $user_details = get_user_meta($id,'user_details',true);
 
         $details = maybe_unserialize($user_details);
-
         $date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start, $details['timezone']);
         $date->setTimezone('UTC');
+        
         $today_date = $date->format("Y-m-d H:i:s");
         // date_default_timezone_set($details['timezone']);
         // $datestring = $start;  //Pulled in from somewhere

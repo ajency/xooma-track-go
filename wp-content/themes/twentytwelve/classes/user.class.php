@@ -510,8 +510,10 @@ class User
         global $user;
 
         $user = new User();
-
+         $timezone = "";
         $user_data = $user->get_user_details($id);
+        if($user_data)
+            $timezone = $user_data['timezone'];
         
         $product_main_table = $wpdb->prefix . "product_main";
 
@@ -596,7 +598,7 @@ class User
             'image'                 => $all_terms[0]['image'],
             'time_set'              => $count,
             'reminders'             => $reminder,
-            'timezone'              => $user_data['timezone'],
+            'timezone'              => $timezone,
             'bmi'                   => get_term_meta($all_terms[0]['id'], 'BMI', true)
                 
             

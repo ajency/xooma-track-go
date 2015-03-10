@@ -86,14 +86,21 @@ App.AddProductsCtrl = (function(_super) {
   }
 
   AddProductsCtrl.prototype.initialize = function(options) {
+    var computed_url, url;
     if (options == null) {
       options = {};
     }
     this.listenTo(this, "remove:loader", this.removeLoader);
-    if (App.productCollection.length === 0) {
-      return App.productCollection.fetch().done(this._showProducts).fail(this.errorHandler);
+    url = '#' + App.currentUser.get('state');
+    computed_url = '#' + window.location.hash.split('#')[1];
+    if (url !== '#/profile/my-products' && url !== '#/home') {
+      return this.show(new workflow);
     } else {
-      return this._showProducts();
+      if (App.productCollection.length === 0) {
+        return App.productCollection.fetch().done(this._showProducts).fail(this.errorHandler);
+      } else {
+        return this._showProducts();
+      }
     }
   };
 

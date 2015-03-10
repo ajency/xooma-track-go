@@ -513,20 +513,13 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showEditScheduleData = function(model) {
-    var d, n, qty, reminders, time, timestamp, timezone;
-    d = new Date();
-    n = -(d.getTimezoneOffset());
-    timezone = n;
-    if (App.currentUser.get('timezone') !== null) {
-      timezone = App.currentUser.get('timezone');
-    }
+    var qty, reminders, time, timezone;
+    timezone = App.currentUser.get('offset');
     qty = model.get('qty');
     reminders = model.get('reminders');
     $('.qty0 option[value="' + qty[0].qty + '"]').prop("selected", true);
     $('.when0 option[value="' + qty[0].when + '"]').prop("selected", true);
-    d = new Date(reminders[0].time);
-    timestamp = d.getTime();
-    time = moment(timestamp).zone(timezone).format("h:mm A");
+    time = moment.utc(reminders[0].time).zone(timezone).format("h:mm A");
     if (parseInt(this.model.get('reminder_flag')) !== 0) {
       $('#reminder_time0').val(time);
     }
@@ -535,9 +528,7 @@ EditProductsView = (function(_super) {
     } else {
       $('.qty1 option[value="' + qty[1].qty + '"]').prop("selected", true);
       $('.when1 option[value="' + qty[1].when + '"]').prop("selected", true);
-      d = new Date(reminders[1].time);
-      timestamp = d.getTime();
-      time = moment(timestamp).zone(timezone).format("h:mm A");
+      time = moment.utc(reminders[1].time).zone(timezone).format("h:mm A");
       if (parseInt(this.model.get('reminder_flag')) !== 0) {
         return $('#reminder_time1').val(time);
       }
@@ -557,13 +548,8 @@ EditProductsView = (function(_super) {
   };
 
   EditProductsView.prototype.showServings = function(model) {
-    var d, n, qty, reminders, timezone;
-    d = new Date();
-    n = -(d.getTimezoneOffset());
-    timezone = n;
-    if (App.currentUser.get('timezone') !== null) {
-      timezone = App.currentUser.get('timezone');
-    }
+    var qty, reminders, timezone;
+    timezone = App.currentUser.get('offset');
     qty = model.get('qty');
     reminders = model.get('reminders');
     if (parseInt(model.get('check')) === 1) {
@@ -578,10 +564,8 @@ EditProductsView = (function(_super) {
     }
     if (parseInt(this.model.get('reminder_flag')) !== 0) {
       return $.each(reminders, function(ind, val) {
-        var time, timestamp;
-        d = new Date(val.time);
-        timestamp = d.getTime();
-        time = moment(timestamp).zone(timezone).format("h:mm A");
+        var time;
+        time = moment.utc(val.time).zone(timezone).format("h:mm A");
         return $('#reminder_time' + ind).val(time);
       });
     }

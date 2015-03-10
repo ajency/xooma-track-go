@@ -232,7 +232,17 @@ class HomeLayoutView extends Marionette.LayoutView
 								scrollTop: 0
 								}, 'slow')
 
-		@generateGraph()
+		if window.param == 'bmi'
+			window.param = 'weight'
+			window.time_period = 'all'
+			@ui.time_period.show()
+			$('#param option[value="'+window.param+'"]').prop("selected",true)
+			$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
+			
+		
+			@generateGraph()
+		else
+			@generateGraph()
 		# @ui.start_date.pickadate(
 		# 	formatSubmit: 'yyyy-mm-dd'
 		# 	hiddenName: true
@@ -263,7 +273,7 @@ class HomeLayoutView extends Marionette.LayoutView
 				
 				{
 					label: "My Second dataset",
-					fillColor : "#ffffff",
+					fillColor: "rgba(255, 255, 255, 0.0)",
 					strokeColor : "rgba(151,187,205,1)",
 					pointColor : "rgba(151,187,205,1)",
 					pointStrokeColor : "#fff",
@@ -275,26 +285,29 @@ class HomeLayoutView extends Marionette.LayoutView
 				{
 		     
 		            label: "My First dataset",
-		            fillColor: "##63c8ed",
-		            strokeColor: "rgba(151,187,205,1)",
+		            fillColor: "rgba(48, 153, 234, 0.27)",
+		            strokeColor: "#000000",
 		            pointColor: "rgba(151,187,205,1)",
 		            pointStrokeColor: "#fff",
 		            pointHighlightFill: "#fff",
 		            pointHighlightStroke: "rgba(220,220,220,1)",
+		            datasetFill : false,
 		            data: [24.9,24.9]
 		        },
 		        {
 		        
 		            label: "My Second dataset",
-		            fillColor: "#ffffff",
-		            strokeColor: "rgba(151,187,205,1)",
+		            fillColor: "rgba(255, 255, 255, 0.76)",
+		            strokeColor: "#000000",
 		            pointColor: "rgba(151,187,205,1)",
 		            pointStrokeColor: "#fff",
 		            pointHighlightFill: "#fff",
+		            datasetFill : false,
 		            pointHighlightStroke: "rgba(151,187,205,1)",
 		            data: [18.5,18.5]
 
 		        }
+		       
 		       
 				
 			]

@@ -56,12 +56,12 @@ document.addEventListener("deviceready", function() {
       }
     }
   };
-  Offline.on('up', function() {
+  Offline.on('confirmed-up', function() {
     return $('.error-connection').css({
       display: 'none'
     });
   });
-  Offline.on('down', function() {
+  Offline.on('confirmed-down', function() {
     return $('.error-connection').css({
       display: 'block'
     });
