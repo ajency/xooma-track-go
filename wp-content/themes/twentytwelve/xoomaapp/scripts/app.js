@@ -71,6 +71,7 @@ document.addEventListener("deviceready", function() {
     return CordovaNotification.schedule("Hey user achieve your today's health goal.", data.notificationTime);
   });
   App.addInitializer(function() {
+    FastClick.attach(document.body);
     CordovaApp.updateXoomaMessages();
     CordovaNotification.registerPermission();
     Usage.track({

@@ -73,6 +73,7 @@ document.addEventListener "deviceready", ->
 	App.addInitializer ->
 
 		#Device
+		FastClick.attach document.body
 		CordovaApp.updateXoomaMessages()
 		CordovaNotification.registerPermission()
 		Usage.track days:5
