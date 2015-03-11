@@ -6400,6 +6400,11 @@ html,
 body {
   height: 100%;
 }
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /* Disable selection/copy in UIWebView */
+}
 .product-medium {
   width: 55px;
   margin-right: 5px;
@@ -7476,7 +7481,7 @@ packet_expected_class {
 }
 .blur-background {
   color: #ffffff;
-  background: url(../images/23.jpg) no-repeat;
+  background: url(../../images/23.jpg) no-repeat;
   height: 100%;
   position: fixed;
   width: 100%;
@@ -8083,6 +8088,13 @@ packet_expected_class {
     bottom: 0px !important;
     position: fixed!important;
     top: initial !important;
+  }
+  .ios .panel-body i.dropdown-toggle {
+    width: 100%;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    z-index: 999;
   }
 }
 @media (max-width: 768px) {
