@@ -6400,6 +6400,11 @@ html,
 body {
   height: 100%;
 }
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /* Disable selection/copy in UIWebView */
+}
 .product-medium {
   width: 55px;
   margin-right: 5px;
@@ -8078,6 +8083,18 @@ packet_expected_class {
   }
   .ios .sub-header {
     top: 60px;
+  }
+  .ios .home-sub-header {
+    bottom: 0px !important;
+    position: fixed!important;
+    top: initial !important;
+  }
+  .ios .panel-body i.dropdown-toggle {
+    width: 100%;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    z-index: 999;
   }
 }
 @media (max-width: 768px) {
