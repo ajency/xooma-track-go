@@ -186,7 +186,7 @@ HomeLayoutView = (function(_super) {
   };
 
   HomeLayoutView.prototype.onShow = function() {
-    var actual_time, current, currentime, d, day_night, reg_date, s, selected_time, selectedtimestamp, timezone, todays_date;
+    var actual_time, current, currentime, d, dateObj, day_night, reg_date, s, selected_time, selectedtimestamp, timezone, todays_date;
     $('#param option[value="' + window.param + '"]').prop("selected", true);
     $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
     $('#param').trigger("change");
@@ -212,10 +212,10 @@ HomeLayoutView = (function(_super) {
     selectedtimestamp = moment(App.currentUser.get('homeDate'), 'YYYY-MM-DD').format("YYYY-MM-DD");
     selected_time = moment(selectedtimestamp).zone(timezone).format('x');
     reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
+    if (todays_date === App.currentUser.get('homeDate')) {
+      $('#update').val('TODAY');
+    }
     if (!window.isWebView()) {
-      if (todays_date === App.currentUser.get('homeDate')) {
-        $('#update').val('TODAY');
-      }
       $('#update').datepicker({
         dateFormat: 'yy-mm-dd',
         changeYear: true,
@@ -234,14 +234,35 @@ HomeLayoutView = (function(_super) {
       });
     }
     if (window.isWebView()) {
-      $('#update').attr({
-        max: moment().format('YYYY-MM-DD'),
-        min: reg_date
-      }).change(function() {
-        $('#showHome').show();
-        App.currentUser.set('homeDate', $('#update').val());
-        selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
-        return selected_time = moment(selectedtimestamp).zone(timezone).format('x');
+      dateObj = new Date();
+      $('#update').prop({
+        disabled: true
+      }).parent().click(function() {
+        var maxDate, minDate, options;
+        minDate = CordovaApp.isPlatformIOS() ? new Date(reg_date) : (new Date(reg_date)).valueOf();
+        maxDate = CordovaApp.isPlatformIOS() ? new Date(todays_date) : (new Date(todays_date)).valueOf();
+        options = {
+          mode: 'date',
+          date: dateObj,
+          minDate: minDate,
+          maxDate: maxDate
+        };
+        return datePicker.show(options, function(date) {
+          var dateText;
+          if (!_.isUndefined(date)) {
+            dateObj = date;
+            dateText = moment(dateObj).format('YYYY-MM-DD');
+            $('#update').val(dateText);
+            App.currentUser.set('homeDate', dateText);
+            selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
+            selected_time = moment(selectedtimestamp).zone(timezone).format('x');
+            if (todays_date === App.currentUser.get('homeDate')) {
+              return $('#update').val('TODAY');
+            } else {
+              return $('#showHome').show();
+            }
+          }
+        });
       });
     }
     $('.history').attr('href', '#/measurements/' + App.currentUser.get('ID') + '/history');
