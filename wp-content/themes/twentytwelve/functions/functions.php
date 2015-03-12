@@ -1899,42 +1899,55 @@ function cron_job_reminders()
 
 	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
 
+	
+
+
+
+
+
+
+	
+	
+	
+
 	foreach ($results as $key => $val) {
 
-		$include = array($val->user_id);
-		$blogusers = get_users(array('include'=>$include));
-		
+	$include = array($val->user_id);
+	$blogusers = get_users(array('include'=>$include));
 	
-		if(count($blogusers)!= 0){
+	
+	if(count($blogusers)!= 0)
+		{
 
 	
 			$start_dt = date('Y-m-d H:i:s', $last_cron);
-			
-
-
-
-
 
 			$current_date = strtotime($start_dt);
 
 			$nextdate = date("Y-m-d H:i:s", strtotime('+30 minutes', $current_date));
 
-
-
-	
-
 			$end_date = date('Y-m-d H:i:s',strtotime($nextdate));
-
-
-				
 
 			$occurrences = \ajency\ScheduleReminder\Occurrence::
 							get_upcoming_occurrences($object_type,$end_date,$start_dt,$val->id);
 
+
 	
 			if(count($occurrences) == 0){
 
+
+	
+
+
+
+
+		
+
+				$occurrences = \ajency\ScheduleReminder\Occurrence::
+					get_upcoming_occurrences($object_type,$end_date,$start_dt,$val->id);
+
 				$table_name = "{$wpdb->prefix}aj_schedules";
+
 
 				$query = $wpdb->prepare("SELECT id FROM $table_name WHERE object_type=%s AND object_id=%d",'user_product_reminder', $val->id);
 
@@ -1992,10 +2005,24 @@ function cron_job_reminders()
 
 
 
+
 						
 					
 						$utc = new Carbon\Carbon($d);
 						$warsaw = $utc->timezone($details['timezone']);
+
+
+				$utc = new Carbon\Carbon($d);
+				$warsaw = $utc->timezone($details['timezone']);
+
+      
+        		$today_date = $warsaw->format("Y-m-d H:i:s");
+        		$time = date('h:i A',strtotime($today_date));
+
+				$product_name = $product[0]['name'];
+				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
+				trim($msg, "'");
+				eval("\$msg = \"$msg\";");
 
 							
 		        		$today_date = $warsaw->format("Y-m-d H:i:s");
@@ -2005,6 +2032,7 @@ function cron_job_reminders()
 						$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
 						trim($msg, "'");
 						eval("\$msg = \"$msg\";");
+
 
 						$notifications_flag = get_user_meta($user->user_id,'notification' , true);
 						//build push array 
