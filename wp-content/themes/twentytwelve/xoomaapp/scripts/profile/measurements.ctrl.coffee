@@ -112,8 +112,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			dateObj = new Date()
 
 			$ '#update'
-			.prop disabled: true
-			.parent().click ->
+			.prop 'readonly', true
+			.click ->
 				minDate = if CordovaApp.isPlatformIOS() then new Date(date) else (new Date(date)).valueOf()
 				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
 				options = mode: 'date', date: dateObj, minDate: minDate, maxDate: maxDate
@@ -125,9 +125,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 						dateText = moment(dateObj).format dateFormat
 						$('#date_field').val dateText
 						$('#update').val dateText
-
-						currentDate = moment().format dateFormat
-						if moment(dateText, dateFormat).isSame(moment(currentDate, dateFormat))
+						
+						if dateText is moment().format(dateFormat)
 							$('#update').val 'TODAY'
 
 

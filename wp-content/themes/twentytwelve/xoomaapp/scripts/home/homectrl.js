@@ -235,9 +235,7 @@ HomeLayoutView = (function(_super) {
     }
     if (window.isWebView()) {
       dateObj = new Date();
-      $('#update').prop({
-        disabled: true
-      }).parent().click(function() {
+      $('#update').prop('readonly', true).click(function() {
         var maxDate, minDate, options;
         minDate = CordovaApp.isPlatformIOS() ? new Date(reg_date) : (new Date(reg_date)).valueOf();
         maxDate = CordovaApp.isPlatformIOS() ? new Date(todays_date) : (new Date(todays_date)).valueOf();
