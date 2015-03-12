@@ -36,9 +36,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				changeMonth: true,
 				maxDate: new Date(),
 				yearRange: "-100:+0",
-					 
-				   
-				
 			});
 
 		$('.data1').hide()
@@ -53,7 +50,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('.tabelements').attr('disabled', true)
 			$('.data').hide()
 			$('.data1').show()
+		
 		App.trigger 'cordova:hide:splash:screen'
+		
 		if !window.isWebView()
 			$('#birth_date').datepicker({
 				dateFormat : 'yy-mm-dd'
@@ -61,10 +60,25 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				changeMonth: true,
 				maxDate: new Date(),
 				yearRange: "-100:+0",
-					 
-				   
-				
 			});
+
+		#Changes for mobile
+		if window.isWebView()
+			dateObj = new Date($('#birth_date').val())
+
+			$ '#birth_date'
+			.prop 'readonly', true
+			.click ->
+				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
+				options = mode: 'date', date: dateObj, maxDate: maxDate
+
+				datePicker.show options, (selectedDate)->
+					if not _.isUndefined selectedDate
+						dateObj = selectedDate
+						dateText = moment(dateObj).format 'YYYY-MM-DD'
+						$('#birth_date').val dateText
+		
+		
 		state = App.currentUser.get 'state'
 		if state == '/home'
 			$('.measurements_update').removeClass 'hidden'
@@ -76,10 +90,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		if App.currentUser.get('timezone') == null
 			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
 			# $("#timezone").val($("#timezone option:first").val());
-		
-		
-			
-		
 
 
 		

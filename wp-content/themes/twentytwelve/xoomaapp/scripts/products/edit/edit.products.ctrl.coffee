@@ -266,17 +266,17 @@ class EditProductsView extends Marionette.ItemView
 					#Changes for mobile
 					if window.isWebView()
 						$('#reminder_time'+ind)
-							.parent().click ->
-								defaultTime = '1:00 AM'
-								$('#reminder_time'+ind).val defaultTime
+						.click ->
+							defaultTime = '1:00 AM'
+							$('#reminder_time'+ind).val defaultTime
 
-								options = 
-									date: moment(defaultTime, 'hh:mm A').toDate()
-									mode: 'time'
+							options = 
+								date: moment(defaultTime, 'hh:mm A').toDate()
+								mode: 'time'
 
-								datePicker.show options, (time)->
-									if not _.isUndefined time
-										$('#reminder_time'+ind).val moment(time).format('hh:mm A')
+							datePicker.show options, (time)->
+								if not _.isUndefined time
+									$('#reminder_time'+ind).val moment(time).format('hh:mm A')
 				
 		else
 			$('.reminder_div').hide()
@@ -295,6 +295,10 @@ class EditProductsView extends Marionette.ItemView
 			$('.input-small').timepicker(
 				defaultTime : false
 			);
+
+		#Changes for mobile
+		if window.isWebView()
+			$('.input-small').prop 'readonly', true
 	
 
 
