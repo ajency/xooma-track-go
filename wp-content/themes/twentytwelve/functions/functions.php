@@ -2279,7 +2279,6 @@ function send_stock_reminders()
 		
 		$servings_left = $object->no_of_days;
 
-		$servings_low = intval($data['response'][0]['total']) * intval($servings_left);
 		
 		$userdata  = get_userdata( $value->user_id );
 		$servings = count($data['response'][0]['qty']);
@@ -2288,6 +2287,9 @@ function send_stock_reminders()
 		foreach ($data['response'][0]['qty'] as $key => $val) {
 			$qty_size = $qty_size + $val['qty'];
 		}
+
+		$servings_low = intval($qty_size) * intval($servings_left);
+		
 		if(intval($qty_size) == 0)
 			$qty_size = 1;
 		$serv = round(intval($available) * intval($servings)/intval($qty_size));

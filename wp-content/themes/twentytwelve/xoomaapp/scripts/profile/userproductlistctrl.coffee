@@ -152,7 +152,6 @@ class ProductChildView extends Marionette.ItemView
 		qty = @model.get 'qty'
 		product_type = @model.get('product_type')
 		product_type = product_type.toLowerCase()
-		settings = parseInt(@model.get 'settings') * parseInt(qty.length)
 		reminder = @model.get 'reminder'
 		type = @model.get('type') 
 		name = @model.get('name')
@@ -168,6 +167,9 @@ class ProductChildView extends Marionette.ItemView
 				newClass = 'x2o_default_class'
 			totalqty += parseInt(value.qty)
 			servings.push classname : newClass , qty : value.qty
+
+		settings = parseInt(@model.get 'settings') * parseInt(totalqty)
+		
 		console.log reminder
 		$.each reminder , (ind,val)->
 			console.log val.time
