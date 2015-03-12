@@ -90,7 +90,7 @@ ProfileMeasurementsView = (function(_super) {
   };
 
   ProfileMeasurementsView.prototype.onShow = function() {
-    var date, height, i, obj, select, state, timezone, weight;
+    var date, dateObj, height, i, obj, select, state, timezone, weight;
     select = document.getElementById('weight');
     select.options.length = 0;
     i = 30;
@@ -110,8 +110,8 @@ ProfileMeasurementsView = (function(_super) {
     timezone = App.currentUser.get('timezone');
     $('#date_field').val(moment().zone(timezone).format('YYYY-MM-DD'));
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
+    $('#update').val('TODAY');
     if (!window.isWebView()) {
-      $('#update').val('TODAY');
       $('#update').datepicker({
         dateFormat: 'yy-mm-dd',
         changeYear: true,
@@ -124,12 +124,33 @@ ProfileMeasurementsView = (function(_super) {
       });
     }
     if (window.isWebView()) {
-      $('#update').val(moment().format('YYYY-MM-DD'));
-      $('#update').attr({
-        max: moment().format('YYYY-MM-DD'),
-        min: date
-      }).change(function() {
-        return $('#date_field').val($('#update').val());
+      dateObj = new Date();
+      $('#update').prop({
+        disabled: true
+      }).parent().click(function() {
+        var maxDate, minDate, options;
+        minDate = CordovaApp.isPlatformIOS() ? new Date(date) : (new Date(date)).valueOf();
+        maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
+        options = {
+          mode: 'date',
+          date: dateObj,
+          minDate: minDate,
+          maxDate: maxDate
+        };
+        return datePicker.show(options, function(selectedDate) {
+          var currentDate, dateFormat, dateText;
+          if (!_.isUndefined(selectedDate)) {
+            dateObj = selectedDate;
+            dateFormat = 'YYYY-MM-DD';
+            dateText = moment(dateObj).format(dateFormat);
+            $('#date_field').val(dateText);
+            $('#update').val(dateText);
+            currentDate = moment().format(dateFormat);
+            if (moment(dateText, dateFormat).isSame(moment(currentDate, dateFormat))) {
+              return $('#update').val('TODAY');
+            }
+          }
+        });
       });
     }
     this.ui.rangeSliders.each((function(_this) {
