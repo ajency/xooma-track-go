@@ -189,10 +189,10 @@ class HomeLayoutView extends Marionette.LayoutView
 		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 
+		if todays_date == App.currentUser.get('homeDate')
+			$('#update').val 'TODAY'
+
 		if !window.isWebView()
-			if todays_date == App.currentUser.get('homeDate')
-				$('#update').val 'TODAY'
-			
 			$('#update').datepicker(
 					dateFormat : 'yy-mm-dd'
 					changeYear: true,
@@ -207,21 +207,33 @@ class HomeLayoutView extends Marionette.LayoutView
 			
 						if todays_date == App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
-						
-
 			)
 
 		#Changes for Mobile
 		if window.isWebView()
-			$('#update')
-			.attr
-				max: moment().format 'YYYY-MM-DD'
-				min: reg_date
-			.change ->
-				$('#showHome').show()
-				App.currentUser.set 'homeDate', $('#update').val()
-				selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-				selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+			dateObj = new Date()
+
+			$ '#update'
+			.prop disabled: true
+			.parent().click ->
+				minDate = if CordovaApp.isPlatformIOS() then new Date(reg_date) else (new Date(reg_date)).valueOf()
+				maxDate = if CordovaApp.isPlatformIOS() then new Date(todays_date) else (new Date(todays_date)).valueOf()
+				options = mode: 'date', date: dateObj, minDate: minDate, maxDate: maxDate
+				
+				datePicker.show options, (date)->
+					if not _.isUndefined date
+						dateObj = date
+						dateText = moment(dateObj).format 'YYYY-MM-DD'
+						$('#update').val dateText
+						App.currentUser.set 'homeDate', dateText
+						selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
+						selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+
+						if todays_date == App.currentUser.get('homeDate')
+							$('#update').val 'TODAY'
+						else
+							$('#showHome').show()
+							
 
 		$('.history').attr('href' ,'#/measurements/'+App.currentUser.get('ID')+'/history' )
 		$('.update').attr('href' ,'#/profile/measurements' )	
@@ -283,32 +295,32 @@ class HomeLayoutView extends Marionette.LayoutView
 				
 				},
 				{
-		     
-		            label: "My First dataset",
-		            fillColor: "rgba(48, 153, 234, 0.27)",
-		            strokeColor: "#000000",
-		            pointColor: "rgba(151,187,205,1)",
-		            pointStrokeColor: "#fff",
-		            pointHighlightFill: "#fff",
-		            pointHighlightStroke: "rgba(220,220,220,1)",
-		            datasetFill : false,
-		            data: [24.9,24.9]
-		        },
-		        {
-		        
-		            label: "My Second dataset",
-		            fillColor: "rgba(255, 255, 255, 0.76)",
-		            strokeColor: "#000000",
-		            pointColor: "rgba(151,187,205,1)",
-		            pointStrokeColor: "#fff",
-		            pointHighlightFill: "#fff",
-		            datasetFill : false,
-		            pointHighlightStroke: "rgba(151,187,205,1)",
-		            data: [18.5,18.5]
+			 
+					label: "My First dataset",
+					fillColor: "rgba(48, 153, 234, 0.27)",
+					strokeColor: "#000000",
+					pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					datasetFill : false,
+					data: [24.9,24.9]
+				},
+				{
+				
+					label: "My Second dataset",
+					fillColor: "rgba(255, 255, 255, 0.76)",
+					strokeColor: "#000000",
+					pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					datasetFill : false,
+					pointHighlightStroke: "rgba(151,187,205,1)",
+					data: [18.5,18.5]
 
-		        }
-		       
-		       
+				}
+			   
+			   
 				
 			]
 
