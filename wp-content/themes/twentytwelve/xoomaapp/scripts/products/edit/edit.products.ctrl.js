@@ -288,7 +288,7 @@ EditProductsView = (function(_super) {
         val.name = 'reminder_time' + ind;
         val.id = 'reminder_time' + ind;
         if (window.isWebView()) {
-          return $('#reminder_time' + ind).parent().click(function() {
+          return $('#reminder_time' + ind).click(function() {
             var defaultTime, options;
             defaultTime = '1:00 AM';
             $('#reminder_time' + ind).val(defaultTime);
@@ -318,9 +318,12 @@ EditProductsView = (function(_super) {
       });
     }
     if (!window.isWebView()) {
-      return $('.input-small').timepicker({
+      $('.input-small').timepicker({
         defaultTime: false
       });
+    }
+    if (window.isWebView()) {
+      return $('.input-small').prop('readonly', true);
     }
   };
 

@@ -125,9 +125,7 @@ ProfileMeasurementsView = (function(_super) {
     }
     if (window.isWebView()) {
       dateObj = new Date();
-      $('#update').prop({
-        disabled: true
-      }).parent().click(function() {
+      $('#update').prop('readonly', true).click(function() {
         var maxDate, minDate, options;
         minDate = CordovaApp.isPlatformIOS() ? new Date(date) : (new Date(date)).valueOf();
         maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
@@ -138,15 +136,14 @@ ProfileMeasurementsView = (function(_super) {
           maxDate: maxDate
         };
         return datePicker.show(options, function(selectedDate) {
-          var currentDate, dateFormat, dateText;
+          var dateFormat, dateText;
           if (!_.isUndefined(selectedDate)) {
             dateObj = selectedDate;
             dateFormat = 'YYYY-MM-DD';
             dateText = moment(dateObj).format(dateFormat);
             $('#date_field').val(dateText);
             $('#update').val(dateText);
-            currentDate = moment().format(dateFormat);
-            if (moment(dateText, dateFormat).isSame(moment(currentDate, dateFormat))) {
+            if (dateText === moment().format(dateFormat)) {
               return $('#update').val('TODAY');
             }
           }
