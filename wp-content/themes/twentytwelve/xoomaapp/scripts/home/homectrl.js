@@ -932,10 +932,6 @@ ProductChildView = (function(_super) {
 
   ProductChildView.prototype.checkStatus = function(howmuch) {
     var currentime, d, per, per1, s, sw, texmsg, time, timearr, timearray, timearry, timeslot, timestamp, timezone;
-    per = [0, 25, 50, 75, 100];
-    per1 = ['25_50', '50_75'];
-    timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
-    timearry = ["12:00:00 AM-10:59:59 AM", "11:00:00 AM-3:59:59 PM", "4:00:00 PM-8:59:59 PM", "9:00:00 PM-11:59:59 PM"];
     timearray = [];
     timezone = App.currentUser.get('offset');
     timeslot = "";
@@ -947,6 +943,10 @@ ProductChildView = (function(_super) {
     currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
     sw = moment(s + currentime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A');
     time = new Date(Date.parse(sw)).getTime();
+    per = [0, 25, 50, 75, 100, 'bonus'];
+    per1 = ['0_25', '25_50', '50_75', '75_100'];
+    timearr = ["12AM-11AM", "11AM-4PM", "4PM-9PM", "9PM-12AM"];
+    timearry = ["12:00:00 AM-10:59:59 AM", "11:00:00 AM-3:59:59 PM", "4:00:00 PM-8:59:59 PM", "9:00:00 PM-11:59:59 PM"];
     $.each(timearry, function(ind, val) {
       var d0, d1, temp, timestamp0, timestamp1, v;
       v = timearr[ind];
@@ -980,7 +980,7 @@ ProductChildView = (function(_super) {
     i = 0;
     html = "";
     d = new Date();
-    timezone = App.currentUser.get('timezone');
+    timezone = App.currentUser.get('offset');
     product_type = model.get('product_type');
     product_type = product_type.toLowerCase();
     qty = model.get('qty');
@@ -1002,7 +1002,7 @@ ProductChildView = (function(_super) {
       time = reminders[key].time;
       d = new Date(time);
       timestamp = d.getTime();
-      time = moment(timestamp).zone(timezone).format("h:mm A");
+      time = moment.utc(reminders[key].time).zone(timezone).format("h:mm A");
       serving_text = time;
     }
     newClass = product_type + '_expected_class';
