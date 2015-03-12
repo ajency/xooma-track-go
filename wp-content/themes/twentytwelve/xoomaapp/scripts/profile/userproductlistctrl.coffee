@@ -201,7 +201,7 @@ class ProductChildView extends Marionette.ItemView
 			data.frown = 'hidden'
 		else if parseInt(servingsleft) <= parseInt(totalservings) && parseInt(servingsleft) != 0
 			data.newClass = 'text-warning'
-		else if parseInt(servingsleft) >= parseInt(totalservings) && parseInt(servingsleft) != 0
+		else if parseInt(servingsleft) > parseInt(totalservings) && parseInt(servingsleft) != 0
 			data.newClass = 'text-success'
 		data.servings = servings
 		data.reminder  = remind
