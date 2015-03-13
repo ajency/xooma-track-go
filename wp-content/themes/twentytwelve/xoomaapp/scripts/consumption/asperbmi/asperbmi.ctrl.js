@@ -182,7 +182,7 @@ AsperbmiView = (function(_super) {
     todays_date = moment().format('YYYY-MM-DD');
     date = Marionette.getOption(this, 'date');
     currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
-    console.log(s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A'));
+    s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
     $('.input-small').val(s);
     $('#date').val(date);
     return this.generate(this.model.get('occurrence'));

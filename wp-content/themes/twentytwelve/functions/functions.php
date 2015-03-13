@@ -2202,12 +2202,12 @@ function send_stock_reminders_over(){
 		$product_name = $data[0]['name'];
 
 		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
-		trim($msg, "'");
 		eval("\$msg = \"$msg\";");
+		
 		$notifications_flag = get_user_meta($value->user_id,'notification' , true);
 		$email_flag = get_user_meta($value->user_id,'emails' , true);
 		$check_email_sent = check_email_sent('stock_over_email',$value->user_id,$value->product_id);
-
+		
 		if(intval($available) == 0 && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
@@ -2224,6 +2224,8 @@ function send_stock_reminders_over(){
 					);
 
 		}
+
+		
 		
 	}
 
@@ -2279,7 +2281,6 @@ function send_stock_reminders()
 		
 		$servings_left = $object->no_of_days;
 
-		$servings_low = intval($data['response'][0]['total']) * intval($servings_left);
 		
 		$userdata  = get_userdata( $value->user_id );
 		$servings = count($data['response'][0]['qty']);
@@ -2288,6 +2289,9 @@ function send_stock_reminders()
 		foreach ($data['response'][0]['qty'] as $key => $val) {
 			$qty_size = $qty_size + $val['qty'];
 		}
+
+		$servings_low = intval($qty_size) * intval($servings_left);
+		
 		if(intval($qty_size) == 0)
 			$qty_size = 1;
 		$serv = round(intval($available) * intval($servings)/intval($qty_size));
@@ -2301,6 +2305,7 @@ function send_stock_reminders()
 		$email_flag = get_user_meta($value->user_id,'emails' , true);
 		
 		$check_email_sent = check_email_sent('stock_low_email',$value->user_id,$value->product_id);
+		
 		if(intval($serv) <= intval($servings_low) && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
@@ -2348,7 +2353,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 		if(!is_null($row))
 		{
 			$comm_id = $row->communication_id;
-			$pro_date =  date('Y-m-d H:i:s',$value->processed );
+			$pro_date =  date('Y-m-d H:i:s',strtotime($value->processed));
 			break;
 		}
 
@@ -2363,6 +2368,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 	else
 		 $res = 0;
 
+	
 
 	return $res;
 

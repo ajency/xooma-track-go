@@ -130,7 +130,6 @@ ProductChildView = (function(_super) {
     qty = this.model.get('qty');
     product_type = this.model.get('product_type');
     product_type = product_type.toLowerCase();
-    settings = parseInt(this.model.get('settings')) * parseInt(qty.length);
     reminder = this.model.get('reminder');
     type = this.model.get('type');
     name = this.model.get('name');
@@ -151,6 +150,7 @@ ProductChildView = (function(_super) {
         qty: value.qty
       });
     });
+    settings = parseInt(this.model.get('settings')) * parseInt(totalqty);
     console.log(reminder);
     $.each(reminder, function(ind, val) {
       var d, time, timestamp;
@@ -182,7 +182,7 @@ ProductChildView = (function(_super) {
       data.frown = 'hidden';
     } else if (parseInt(servingsleft) <= parseInt(totalservings) && parseInt(servingsleft) !== 0) {
       data.newClass = 'text-warning';
-    } else if (parseInt(servingsleft) >= parseInt(totalservings) && parseInt(servingsleft) !== 0) {
+    } else if (parseInt(servingsleft) > parseInt(totalservings) && parseInt(servingsleft) !== 0) {
       data.newClass = 'text-success';
     }
     data.servings = servings;
