@@ -192,7 +192,7 @@ Products.</h6>
     </div>
 
 
-    <div class="form-group notificationclass">
+    <div class="form-group ">
     <label class="col-sm-8 col-xs-8  control-label">Notifications</label>
     <div class="col-sm-4 col-xs-4 ">
      <div class="switch">
