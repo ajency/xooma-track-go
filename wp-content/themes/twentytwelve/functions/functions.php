@@ -705,7 +705,7 @@ function send_notifications_to_admin($user_id){
 		);
 	// user data
 	$user = login_response($user_id);
-
+	
 	$meta = array(
 		'username'        => $user['display_name'],
 		'email'           => $user['user_email'],
@@ -922,19 +922,22 @@ function get_user_products($id){
 
 		return $product_arr;
 }
+
 function login_response($user_id){
 
-		global $user_ID,  $wp_roles ;
+		
 		$user = array();
 		$user_info = get_userdata($user_id);
+
 		
-		$first_name = get_user_meta( $user_id, 'first_name',true); 
-		$last_name = get_user_meta( $user_id, 'last_name',true); 
+		
+
+		
 		$user['status'] = 'true';
 		$user['id'] = $user_id;
 		$user['user_login'] = $user_info->data->user_login;
 		$user['user_email'] = $user_info->data->user_email;
-		$user['display_name'] = $first_name." ".$last_name;
+		$user['display_name'] = $user_info->data->display_name;
 		$user['user_registered'] = $user_info->data->user_registered;
 
 		return  $user;
@@ -1052,7 +1055,13 @@ function store_reminders($main_id,$servings,$reminder){
 
 						$scheduleobj = (object)$schedule;
 
-						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
+						$table_name = "{$wpdb->prefix}aj_schedules";
+
+						$wpdb->update($table_name, 
+									  array( 'next_occurrence' => $today_date ),
+									  array( 'id' => $scheduleobj->id ));
+
+						// $update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
 
 		return  $id;
 					 
@@ -1878,115 +1887,167 @@ function store_emails($id,$emails)
 }
 
 
-function cron_job_reminders($args)
+function cron_job_reminders()
 {
 
-
-
-
 	global $wpdb;
-
-
-
-	
 	$table = $wpdb->prefix . "product_main";
 
 	$object_type = 'user_product_reminder';
 
-	
-
 	$last_cron = get_option( 'last_cron_job', strtotime(date('Y-m-d H:i:s') ));
 
-
-
-
-	$start_dt = date('Y-m-d H:i:s', $last_cron);
-
-
-
-
-
-
-	$current_date = strtotime($start_dt);
-
-	$nextdate = $current_date+(60*intval($args));
-
-	$end_date = date('Y-m-d H:i:s',$nextdate);
-	
-
-	$occurrences = \ajency\ScheduleReminder\Occurrence::
-					get_upcoming_occurrences($object_type,$end_date,$start_dt,$object_id = 0);
+	$results = $wpdb->get_results("SELECT * from $table where deleted_flag=0");
 
 	
-	$usersToBeNotified = array();
+
+
+
+
+
+
 	
-	foreach ($occurrences as $key => $value) {
+	
+	
 
-		$next_occurrence = strtotime($value->next_occurrence);
+	foreach ($results as $key => $val) {
 
-
-		
-		if($next_occurrence < $current_date)
+	$include = array($val->user_id);
+	$blogusers = get_users(array('include'=>$include));
+	
+	
+	if(count($blogusers)!= 0)
 		{
-			update_occurrence($value);
-		}
-		if( $next_occurrence > $current_date)
-		{
-			
-			$user = $wpdb->get_row("SELECT * from $table where id=".$value->object_id);
 
-			$include = array($user->user_id);
-			$blogusers = get_users(array('include'=>$include));
+	
+			$start_dt = date('Y-m-d H:i:s', $last_cron);
+
+			$current_date = strtotime($start_dt);
+
+			$nextdate = date("Y-m-d H:i:s", strtotime('+30 minutes', $current_date));
+
+			$end_date = date('Y-m-d H:i:s',strtotime($nextdate));
+
+			$occurrences = \ajency\ScheduleReminder\Occurrence::
+							get_upcoming_occurrences($object_type,$end_date,$start_dt,$val->id);
+
+
+	
+			if(count($occurrences) == 0){
+
+
+	
+
+
+
+
+		
+
+				$occurrences = \ajency\ScheduleReminder\Occurrence::
+					get_upcoming_occurrences($object_type,$end_date,$start_dt,$val->id);
+
+				$table_name = "{$wpdb->prefix}aj_schedules";
+
+
+				$query = $wpdb->prepare("SELECT id FROM $table_name WHERE object_type=%s AND object_id=%d",'user_product_reminder', $val->id);
+
+				$schedule = (array)$wpdb->get_results($query);
+				
+				if(!is_wp_error($schedule))
+
+				{
+					foreach ($schedule as $key => $value) {
+						# code...
+				
+						$schedule = \ajency\ScheduleReminder\Schedule::get($value->id);
+						$scheduleobj = (object)$schedule;
+						
+						$update_next = \ajency\ScheduleReminder\Schedule::update_next_occurrence($scheduleobj);
+						
+
+					}
+				}
+
+
+			}
+	
+			$usersToBeNotified = array();
+	
+			foreach ($occurrences as $key => $value) {
+
+				$next_occurrence = strtotime($value->next_occurrence);
+
+
+				
+				if($next_occurrence < $current_date)
+				{
+					update_occurrence($value);
+				}
+				if( $next_occurrence > $current_date)
+				{
+					
+					$user = $wpdb->get_row("SELECT * from $table where id=".$value->object_id);
+
+					$include = array($user->user_id);
+					$blogusers = get_users(array('include'=>$include));
 		
 		
-			if(count($blogusers)!= 0)
-			{
-				$stock = get_stock_count_user($user->user_id,$user->product_id);
-				$ProductList = new ProductList();
-				$product = $ProductList->get_products($user->product_id);
-				$user_details = get_user_meta($user->user_id,'user_details',true);
-				$details = maybe_unserialize($user_details);
-				$userdata  = get_userdata( $user->user_id );
-				$name = $userdata->display_name;
-				$d = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+					if(count($blogusers)!= 0)
+					{
+						$stock = get_stock_count_user($user->user_id,$user->product_id);
+						$ProductList = new ProductList();
+						$product = $ProductList->get_products($user->product_id);
+						$user_details = get_user_meta($user->user_id,'user_details',true);
+						$details = maybe_unserialize($user_details);
+						$userdata  = get_userdata( $user->user_id );
+						$name = $userdata->display_name;
+						$d = date("Y-m-d H:i:s", strtotime($value->next_occurrence));
+
 
 
 
 						
-						
-				// date_default_timezone_set($details['timezone']);
-				// $datestring = $date;  //Pulled in from somewhere
-				// $today_date = date("Y-m-d\TH:i:s", strtotime($datestring));
-				// $time = date('H:i A',strtotime($today_date));
+					
+						$utc = new Carbon\Carbon($d);
+						$warsaw = $utc->timezone($details['timezone']);
+
 
 				$utc = new Carbon\Carbon($d);
 				$warsaw = $utc->timezone($details['timezone']);
 
-				// $date = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $d, 'UTC' );
-    //     		$date->setTimezone($details['timezone']);
-        
+      
         		$today_date = $warsaw->format("Y-m-d H:i:s");
-        		$time = date('H:i A',strtotime($today_date));
+        		$time = date('h:i A',strtotime($today_date));
 
 				$product_name = $product[0]['name'];
 				$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
-				
+				trim($msg, "'");
 				eval("\$msg = \"$msg\";");
 
-				$notifications_flag = get_user_meta($user->user_id,'notification' , true);
-				//build push array 
-				if (intval($stock) != 0 && $notifications_flag == 1)
-				{
-					$usersToBeNotified[] = array(
+							
+		        		$today_date = $warsaw->format("Y-m-d H:i:s");
+		        		$time = date('h:i A',strtotime($today_date));
 
-							'ID' 			=> $user->user_id,
-							'message' 		=> $msg,
-							'product' 		=> $product[0]['name'],
-							'product_id'	=> $user->product_id,
-							'type'			=> 'consume'
-						);
+						$product_name = $product[0]['name'];
+						$msg = send_message($user->user_id,$user->product_id,'reminder',$next_occurrence);
+						trim($msg, "'");
+						eval("\$msg = \"$msg\";");
 
-				}
+
+						$notifications_flag = get_user_meta($user->user_id,'notification' , true);
+						//build push array 
+						if (intval($stock) != 0 && $notifications_flag == 1)
+						{
+							$usersToBeNotified[] = array(
+
+									'ID' 			=> $user->user_id,
+									'message' 		=> $msg,
+									'product' 		=> $product[0]['name'],
+									'product_id'	=> $user->product_id,
+									'type'			=> 'consume'
+								);
+
+						}
 				
 			}
 		
@@ -1998,6 +2059,8 @@ function cron_job_reminders($args)
 		
 		
 	$result = Parse\ParseCloud::run('sendPushByUserId', ['usersToBeNotified' => $usersToBeNotified] );
+}
+}
 
 }
 
@@ -2139,12 +2202,12 @@ function send_stock_reminders_over(){
 		$product_name = $data[0]['name'];
 
 		$msg = send_message($value->user_id,$value->product_id,'stock_over',$time=0);
-
 		eval("\$msg = \"$msg\";");
+		
 		$notifications_flag = get_user_meta($value->user_id,'notification' , true);
 		$email_flag = get_user_meta($value->user_id,'emails' , true);
 		$check_email_sent = check_email_sent('stock_over_email',$value->user_id,$value->product_id);
-
+		
 		if(intval($available) == 0 && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
@@ -2161,6 +2224,8 @@ function send_stock_reminders_over(){
 					);
 
 		}
+
+		
 		
 	}
 
@@ -2216,15 +2281,17 @@ function send_stock_reminders()
 		
 		$servings_left = $object->no_of_days;
 
-		$servings_low = intval($data['response'][0]['total']) * intval($servings_left);
 		
 		$userdata  = get_userdata( $value->user_id );
-		$servings = count($data['response'][0]['qty'][0]);
+		$servings = count($data['response'][0]['qty']);
 		$qty_size = 0;
 		
 		foreach ($data['response'][0]['qty'] as $key => $val) {
 			$qty_size = $qty_size + $val['qty'];
 		}
+
+		$servings_low = intval($qty_size) * intval($servings_left);
+		
 		if(intval($qty_size) == 0)
 			$qty_size = 1;
 		$serv = round(intval($available) * intval($servings)/intval($qty_size));
@@ -2232,16 +2299,17 @@ function send_stock_reminders()
 		$product_name = $data['response'][0]['name'];
 
 		$msg = send_message($value->user_id,$value->product_id,'stock_low',$time=0);
-
+		trim($msg, "'");
 		eval("\$msg = \"$msg\";");
 		$notifications_flag = get_user_meta($value->user_id,'notification' , true);
 		$email_flag = get_user_meta($value->user_id,'emails' , true);
 		
 		$check_email_sent = check_email_sent('stock_low_email',$value->user_id,$value->product_id);
+		
 		if(intval($serv) <= intval($servings_low) && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
-				notifications_low_stock($value->user_id,$product_name,$available,'stock_low_email',$value->product_id);
+				notifications_low_stock($value->user_id,$product_name,$serv,'stock_low_email',$value->product_id);
 				
 				if($notifications_flag == 1)
 				$usersToBeNotified[] = array(
@@ -2285,7 +2353,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 		if(!is_null($row))
 		{
 			$comm_id = $row->communication_id;
-			$pro_date =  date('Y-m-d H:i:s',$value->processed );
+			$pro_date =  date('Y-m-d H:i:s',strtotime($value->processed));
 			break;
 		}
 
@@ -2300,6 +2368,7 @@ function check_email_sent($object_type,$user_id,$product_id){
 	else
 		 $res = 0;
 
+	
 
 	return $res;
 
@@ -2429,7 +2498,7 @@ function send_add_product_notification($users,$product_id,$product_name,$descrip
 		$product_name = $product_name;
 
 		$msg = send_message($value->ID,$product_id,'add_product',$time=0);
-
+		trim($msg, "'");
 		eval("\$msg = \"$msg\";");
 		$notifications_flag = get_user_meta($value->ID,'notification' , true);
 	

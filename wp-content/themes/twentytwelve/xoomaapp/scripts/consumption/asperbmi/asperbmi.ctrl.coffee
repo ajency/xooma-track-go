@@ -151,11 +151,13 @@ class AsperbmiView extends Marionette.ItemView
 			todays_date = moment().format('YYYY-MM-DD')
 			date  = Marionette.getOption( @, 'date')
 			currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
-			console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
-		
-			$('.input-small').timepicker(
-				defaultTime : s
-			)
+			s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('hh:mm A')
+			
+			#Commented as this does not work on mobile
+			# $('.input-small').timepicker(
+			# 	defaultTime : s
+			# )
+			$('.input-small').val s
 			
 			$('#date').val date
 			@generate(@model.get('occurrence'))

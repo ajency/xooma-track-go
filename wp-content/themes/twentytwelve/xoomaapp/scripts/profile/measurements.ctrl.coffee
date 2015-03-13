@@ -94,9 +94,9 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 		date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 
+		$('#update').val 'TODAY'
+
 		if !window.isWebView()
-			$('#update').val 'TODAY'
-			
 			$('#update').datepicker(
 				dateFormat : 'yy-mm-dd'
 				changeYear: true,
@@ -109,14 +109,25 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 		#Changes for Mobile
 		if window.isWebView()
-			$('#update').val moment().format 'YYYY-MM-DD'
+			dateObj = new Date()
 
-			$('#update')
-			.attr
-				max: moment().format 'YYYY-MM-DD'
-				min: date
-			.change ->
-				$('#date_field').val $('#update').val()
+			$ '#update'
+			.prop 'readonly', true
+			.click ->
+				minDate = if CordovaApp.isPlatformIOS() then new Date(date) else (new Date(date)).valueOf()
+				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
+				options = mode: 'date', date: dateObj, minDate: minDate, maxDate: maxDate
+
+				datePicker.show options, (selectedDate)->
+					if not _.isUndefined selectedDate
+						dateObj = selectedDate
+						dateFormat = 'YYYY-MM-DD'
+						dateText = moment(dateObj).format dateFormat
+						$('#date_field').val dateText
+						$('#update').val dateText
+						
+						if dateText is moment().format(dateFormat)
+							$('#update').val 'TODAY'
 
 
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele

@@ -209,7 +209,7 @@ function twentytwelve_scripts_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'twentytwelve_scripts_styles' );
 
-/**
+/*
  * Creates a nicely formatted and more specific title element text
  * for output in head of document, based on current view.
  *
@@ -1495,7 +1495,7 @@ add_filter('add_commponents_filter','dba_add_communication_components',10,1);
 add_action('CRON_SCHEDULE_SEND_REMINDERS', 'cron_job_reminders', 2,1);
 add_action('CRON_SCHEDULE_LOW_STOCK', 'send_stock_reminders', 2,0);
 add_action('CRON_SCHEDULE_OVER_STOCK', 'send_stock_reminders_over', 2,0);
-//add_action('admin_init', 'send_stock_reminders', 2, 1);
+//add_action('admin_init', 'send_stock_reminders_over', 2, 0);
 
 
 

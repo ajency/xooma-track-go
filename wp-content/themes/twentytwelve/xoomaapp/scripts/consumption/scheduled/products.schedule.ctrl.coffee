@@ -71,18 +71,15 @@ class ScheduleView extends Marionette.ItemView
 				todays_date = moment().format('YYYY-MM-DD')
 				sel_date = App.currentUser.get 'homeDate'
 				currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
-				console.log s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A')
-				current = new Date(Date.parse(s))
-				
+				s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY/MM/DD hh:mm A')
+				current = new Date(Date.parse(s)).getTime()
 				t = $('#consume_time').val()
-				console.log seltime  = moment.utc(t,"HH:mm a").format('YYYY-MM-DD hh:mm A')
+				seltime  = moment(t,"hh:mm a").format('YYYY/MM/DD hh:mm A')
 				time  = moment(t,"hh:mm a").format("HH:mm:ss")
-				if t == ""
-					time  = moment().format("HH:mm:ss")
-					seltime  = moment().format('YYYY-MM-DD hh:mm A')
+				d1 = new Date(Date.parse(seltime)).getTime()
 
-				d1 = new Date(Date.parse(seltime))
-				if d1 > current && todays_date == sel_date
+				
+				if parseInt(d1) > parseInt(current) && todays_date == sel_date
 					window.removeMsg()
 					@ui.responseMessage.addClass('alert alert-danger').text("Cannot select future time!")
 					$('html, body').animate({

@@ -166,16 +166,15 @@ class HomeLayoutView extends Marionette.LayoutView
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#param').trigger( "change" )
 		$('.time_period').trigger( "change" )
-		console.log todays_date = moment().format('YYYY-MM-DD')
+		todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
 		App.trigger 'cordova:register:push:notification'
 		timezone = App.currentUser.get('offset')
 		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
-		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY/MM/DD HH:mm:ss')
 		d = new Date(s)
 		actual_time = d.getTime()
-		console.log App.currentUser.get('homeDate')
 		current = new Date(actual_time)
 		day_night = current.getHours()
 		if(parseInt(day_night)<=12)
@@ -184,15 +183,12 @@ class HomeLayoutView extends Marionette.LayoutView
 			$('.daynightclass').attr('src' , _SITEURL+'/wp-content/themes/twentytwelve/images/night.gif')
 		
 		$('#update').val App.currentUser.get('homeDate')
-		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD")
-		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
-		
 		reg_date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD')
 
+		if todays_date == App.currentUser.get('homeDate')
+			$('#update').val 'TODAY'
+
 		if !window.isWebView()
-			if todays_date == App.currentUser.get('homeDate')
-				$('#update').val 'TODAY'
-			
 			$('#update').datepicker(
 					dateFormat : 'yy-mm-dd'
 					changeYear: true,
@@ -202,26 +198,34 @@ class HomeLayoutView extends Marionette.LayoutView
 					onSelect: (dateText, inst)->
 						$('#showHome').show()
 						App.currentUser.set 'homeDate' , dateText
-						selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-						selected_time = moment(selectedtimestamp).zone(timezone).format('x')
-			
+						
 						if todays_date == App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
-						
-
 			)
 
 		#Changes for Mobile
 		if window.isWebView()
-			$('#update')
-			.attr
-				max: moment().format 'YYYY-MM-DD'
-				min: reg_date
-			.change ->
-				$('#showHome').show()
-				App.currentUser.set 'homeDate', $('#update').val()
-				selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-				selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+			dateObj = new Date()
+
+			$ '#update'
+			.prop 'readonly', true
+			.click ->
+				minDate = if CordovaApp.isPlatformIOS() then new Date(reg_date) else (new Date(reg_date)).valueOf()
+				maxDate = if CordovaApp.isPlatformIOS() then new Date(todays_date) else (new Date(todays_date)).valueOf()
+				options = mode: 'date', date: dateObj, minDate: minDate, maxDate: maxDate
+				
+				datePicker.show options, (date)->
+					if not _.isUndefined date
+						dateObj = date
+						dateText = moment(dateObj).format 'YYYY-MM-DD'
+						$('#update').val dateText
+						App.currentUser.set 'homeDate', dateText
+
+						if todays_date is App.currentUser.get('homeDate')
+							$('#update').val 'TODAY'
+						else
+							$('#showHome').show()
+							
 
 		$('.history').attr('href' ,'#/measurements/'+App.currentUser.get('ID')+'/history' )
 		$('.update').attr('href' ,'#/profile/measurements' )	
@@ -283,32 +287,32 @@ class HomeLayoutView extends Marionette.LayoutView
 				
 				},
 				{
-		     
-		            label: "My First dataset",
-		            fillColor: "rgba(48, 153, 234, 0.27)",
-		            strokeColor: "#000000",
-		            pointColor: "rgba(151,187,205,1)",
-		            pointStrokeColor: "#fff",
-		            pointHighlightFill: "#fff",
-		            pointHighlightStroke: "rgba(220,220,220,1)",
-		            datasetFill : false,
-		            data: [24.9,24.9]
-		        },
-		        {
-		        
-		            label: "My Second dataset",
-		            fillColor: "rgba(255, 255, 255, 0.76)",
-		            strokeColor: "#000000",
-		            pointColor: "rgba(151,187,205,1)",
-		            pointStrokeColor: "#fff",
-		            pointHighlightFill: "#fff",
-		            datasetFill : false,
-		            pointHighlightStroke: "rgba(151,187,205,1)",
-		            data: [18.5,18.5]
+			 
+					label: "My First dataset",
+					fillColor: "rgba(48, 153, 234, 0.27)",
+					strokeColor: "#000000",
+					pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					datasetFill : false,
+					data: [24.9,24.9]
+				},
+				{
+				
+					label: "My Second dataset",
+					fillColor: "rgba(255, 255, 255, 0.76)",
+					strokeColor: "#000000",
+					pointColor: "rgba(151,187,205,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					datasetFill : false,
+					pointHighlightStroke: "rgba(151,187,205,1)",
+					data: [18.5,18.5]
 
-		        }
-		       
-		       
+				}
+			   
+			   
 				
 			]
 
@@ -458,7 +462,7 @@ class HomeX2OView extends Marionette.ItemView
 		
 		data = super()
 		texmsg = ""
-		timezone = App.currentUser.get('timezone')
+		timezone = App.currentUser.get('offset')
 		occurrenceArr = []
 		bonusArr = 0
 		recent = '--'
@@ -497,18 +501,10 @@ class HomeX2OView extends Marionette.ItemView
 		howmuchqty = parseInt(@model.get('occurrence').length) * 4
 		
 		howmuch = parseInt(totalservings) / parseInt(howmuchqty)
-		selectedtimestamp = moment(App.currentUser.get('homeDate'),'YYYY-MM-DD').format("YYYY-MM-DD HH:mm:ss")
-		d = new Date(App.currentUser.get('today'))
 		todays_date = moment().format('YYYY-MM-DD')
-		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
-		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
-		d = new Date(s)
-		actual_time = d.getTime()
-		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 		
 		texmsg = "The day has passed by"
-		if parseInt(actual_time) == parseInt(selected_time)
+		if todays_date == App.currentUser.get('homeDate')
 			texmsg = @generateStatus(consumed,howmuch)
 		
 		data.texmsg = texmsg
@@ -524,9 +520,9 @@ class HomeX2OView extends Marionette.ItemView
 		timearray = []
 		d = new Date()
 		timestamp = d.getTime()
-		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
+		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY/MM/DD')
 		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
-		sw = moment(s+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A')
+		sw = moment(s+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY/MM/DD hh:mm A')
 		time = new Date(Date.parse(sw)).getTime()
 		
 		per = [0,25,50,75,100,'bonus']
@@ -654,17 +650,12 @@ class HomeX2OView extends Marionette.ItemView
 
 
 	drawBottle:(data)->
-		d = new Date()
-		n = -(d.getTimezoneOffset())
-
 		data.sort( (a,b)->
 			return parseInt(a.meta_id) - parseInt(b.meta_id)
 
 		)
 		
-		timezone = n
-		if App.currentUser.get('timezone') != null
-			timezone = App.currentUser.get('timezone')
+		timezone = App.currentUser.get('offset')
 		doughnutData = []
 		$.each data, (ind,val)->
 			occurrence = HomeX2OView::get_occurrence(val)
@@ -674,10 +665,7 @@ class HomeX2OView extends Marionette.ItemView
 				msg = "Pending "
 				occurrence['value'] = 1
 			if occurrence['time'].length != 0
-				actualtime = occurrence['time']
-				d = new Date(actualtime)
-				timestamp = d.getTime()
-				time = moment(timestamp).zone(timezone).format('h:mm A')
+				time = moment.utc(occurrence['time']).zone(timezone).format('h:mm A')
 			
 				
 				msg = "(%) of Bottle "+ i+ ' consumed '
@@ -807,8 +795,6 @@ class ProductChildView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		data.occur = 0
-		data.bonus = 0
 		occurrenceArr = []
 		no_servings  = []
 		bonusArr = 0
@@ -820,11 +806,7 @@ class ProductChildView extends Marionette.ItemView
 		texmsg = ""
 		timeslot = ""
 		time = ""
-		timearray = []
-		timezone = App.currentUser.get 'timezone'
-		d = new Date()
-		timestamp = d.getTime()
-		timearray.push moment().zone(timezone).format("x")	
+		timezone = App.currentUser.get 'offset'
 		$.each @model.get('occurrence') , (ind,val)->
 			if qty[ind] != undefined
 				temp.push val
@@ -849,18 +831,13 @@ class ProductChildView extends Marionette.ItemView
 		data.no_servings =  no_servings
 		data.serving_size = temp.length
 		skip = @checkSkip(temp)
-		tt = moment().zone(timezone).format('x')
 		todays_date = moment().format('YYYY-MM-DD')
-		currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss')
-		s = moment(todays_date+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
-		d = new Date(s)
-		actual_time = d.getTime()
-		selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-		selected_time = moment(selectedtimestamp).zone(timezone).format('x')
+		
+		
 		texmsg = "The day has passed by"
-		if skip[0].length != 0 && parseInt(actual_time) == parseInt(selected_time)
+		if skip[0].length != 0 && todays_date == App.currentUser.get('homeDate')
 			texmsg = skip[1]
-		else if skip[0].length == 0 && parseInt(actual_time) == parseInt(selected_time)
+		else if skip[0].length == 0 && todays_date == App.currentUser.get('homeDate')
 			howmuch = parseFloat(parseInt(consumed)/parseInt(temp.length)) * 100
 			texmsg = @checkStatus(howmuch)
 		
@@ -869,26 +846,26 @@ class ProductChildView extends Marionette.ItemView
 			msg = "No reminders set"
 		data.remindermsg = 'fa fa-bell-slash no-remiander'
 		recent = _.last occurrenceArr
-		if @model.get('upcoming').length != 0
-			$.each @model.get('upcoming') , (ind,val)->
-				if recent == undefined
-					data.remindermsg = 'fa fa-bell-o element-animation'
-					timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
-					msg = 'Your next reminder is at '+timedisplay
-					return false
+		# if @model.get('upcoming').length != 0
+		# 	$.each @model.get('upcoming') , (ind,val)->
+		# 		if recent == undefined
+		# 			data.remindermsg = 'fa fa-bell-o element-animation'
+		# 			timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
+		# 			msg = 'Your next reminder is at '+timedisplay
+		# 			return false
 
-				d1 = new Date(recent)
-				timestamp1 = d1.getTime()
-				rec = moment(timestamp1).zone(timezone).format("x")
-				d = new Date(val.next)
-				timestamp = d.getTime()
-				time1 = moment(timestamp).zone(timezone).format("x")
+		# 		d1 = new Date(recent)
+		# 		timestamp1 = d1.getTime()
+		# 		rec = moment(timestamp1).zone(timezone).format("x")
+		# 		d = new Date(val.next)
+		# 		timestamp = d.getTime()
+		# 		time1 = moment(timestamp).zone(timezone).format("x")
 				
-				if parseInt(rec) < parseInt(time1)
-					data.remindermsg = 'fa fa-bell-o element-animation'
-					timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
-					msg = 'Your next reminder is at '+timedisplay
-					return false
+		# 		if parseInt(rec) < parseInt(time1)
+		# 			data.remindermsg = 'fa fa-bell-o element-animation'
+		# 			timedisplay = moment(val.next+timezone, "HH:mm Z").format('h:mm A')
+		# 			msg = 'Your next reminder is at '+timedisplay
+		# 			return false
 		data.texmsg = texmsg
 		data.username = App.currentUser.get('display_name')
 		data.msg = msg
@@ -912,31 +889,24 @@ class ProductChildView extends Marionette.ItemView
 		[skip_arr,msg]
 
 	checkStatus:(howmuch)->
-		per = [0,25,50,75,100]
-		per1 = ['25_50','50_75']
-		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
-		timearry = ["12:00:00 AM-10:59:59 AM","11:00:00 AM-3:59:59 PM","4:00:00 PM-8:59:59 PM","9:00:00 PM-11:59:59 PM"]
-		
-		timearray = []
 		timezone = App.currentUser.get 'offset'
 		timeslot = ""
 		texmsg = ""
-		d = new Date()
-		timestamp = d.getTime()
-		timearray.push moment().zone(timezone).format("x")
-		# s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
-		# currentime = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
-		# time = moment(currentime).format("x")
-
-		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD')
+		s = moment(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').format('YYYY/MM/DD')
 		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
-		sw = moment(s+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD hh:mm A')
+		sw = moment(s+currentime,'YYYY-MM-DD HH:mm:ss').format('YYYY/MM/DD hh:mm A')
 		time = new Date(Date.parse(sw)).getTime()
 		
+		per = [0,25,50,75,100,'bonus']
+		per1 = ['0_25','25_50','50_75','75_100']
+		timearr = ["12AM-11AM","11AM-4PM","4PM-9PM","9PM-12AM"]
+		timearry = ["12:00:00 AM-10:59:59 AM","11:00:00 AM-3:59:59 PM","4:00:00 PM-8:59:59 PM","9:00:00 PM-11:59:59 PM"]
 		$.each timearry , (ind,val)->
 			v = timearr[ind]
 			temp = val.split('-')
+			
 			d0 = new Date(s+' '+temp[0])
+
 			timestamp0 = d0.getTime()
 			d1 = new Date(s+' '+temp[1])
 			timestamp1 = d1.getTime()
@@ -959,8 +929,7 @@ class ProductChildView extends Marionette.ItemView
 		temp = []
 		i = 0
 		html = ""
-		d = new Date()
-		timezone = App.currentUser.get 'timezone'
+		timezone = App.currentUser.get 'offset'
 		product_type = model.get 'product_type'
 		product_type = product_type.toLowerCase()
 		qty = model.get 'qty'
@@ -983,7 +952,7 @@ class ProductChildView extends Marionette.ItemView
 			time = reminders[key].time
 			d = new Date(time)
 			timestamp = d.getTime()
-			time = moment(timestamp).zone(timezone).format("h:mm A")
+			time = moment.utc(reminders[key].time).zone(timezone).format("h:mm A")
 			serving_text = time
 
 		newClass = product_type+'_expected_class'
