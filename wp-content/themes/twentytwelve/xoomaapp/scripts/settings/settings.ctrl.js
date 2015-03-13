@@ -70,14 +70,15 @@ SettingsView = (function(_super) {
     $('.loadingconusme').html('');
     window.removeMsg();
     if (xhr.status === 201) {
-      App.currentUser.set('notifications', parseInt(response.notifications));
+      App.currentUser.set('notification', parseInt(response.notification));
       this.ui.responseMessage.addClass('alert alert-success').text("Notification alerts saved!");
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
-      return this.showErr();
+      this.showErr();
     }
+    return App.trigger('cordova:set:user:data');
   };
 
   SettingsView.prototype.showErr = function() {
@@ -95,12 +96,13 @@ SettingsView = (function(_super) {
     if (xhr.status === 201) {
       App.currentUser.set('emails', parseInt(response.emails));
       this.ui.responseMessage.addClass('alert alert-success').text("Email alerts saved!");
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: 0
       }, 'slow');
     } else {
-      return this.showErr();
+      this.showErr();
     }
+    return App.trigger('cordova:set:user:data');
   };
 
   SettingsView.prototype.onShow = function() {

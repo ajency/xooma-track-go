@@ -50,17 +50,17 @@ class SettingsView extends Marionette.ItemView
 		
 		window.removeMsg()
 		if xhr.status == 201
-			App.currentUser.set 'notifications' , parseInt(response.notifications)
+			App.currentUser.set 'notification' , parseInt(response.notification)
 			@ui.responseMessage.addClass('alert alert-success').text("Notification alerts saved!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 			
-			
-			
-		else
-			@showErr()
+		else @showErr()
 
+		App.trigger 'cordova:set:user:data'
+
+	
 	showErr:->
 		$('.loadingconusme').html ''
 		window.removeMsg()
@@ -81,11 +81,11 @@ class SettingsView extends Marionette.ItemView
 							scrollTop: 0
 							}, 'slow')
 			
-			
-			
-		else
-			@showErr()
+		else @showErr()
 
+		App.trigger 'cordova:set:user:data'
+
+	
 	onShow:->
 		if !window.isWebView()
 			$('.notificationclass').hide()

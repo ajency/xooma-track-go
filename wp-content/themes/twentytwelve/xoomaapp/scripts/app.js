@@ -33,16 +33,16 @@ jQuery(document).ready(function($) {
     requests: true,
     checks: {
       xhr: {
-        url: _SITEURL + '/'
+        url: "" + _SITEURL + "/"
       }
     }
   };
-  Offline.on('up', function() {
+  Offline.on('confirmed-up', function() {
     return $('.error-connection').css({
       display: 'none'
     });
   });
-  Offline.on('down', function() {
+  Offline.on('confirmed-down', function() {
     return $('.error-connection').css({
       display: 'block'
     });
@@ -56,10 +56,19 @@ jQuery(document).ready(function($) {
     }
   });
   App.on('cordova:register:push:notification', function() {
-    return console.log("registered");
+    if (window.isWebView()) {
+      return Push.register();
+    }
+  });
+  App.on('cordova:set:user:data', function() {
+    if (window.isWebView()) {
+      return CordovaStorage.setUserData(App.currentUser.toJSON());
+    }
   });
   App.on('cordova:hide:splash:screen', function() {
-    return console.log("triggered");
+    if (window.isWebView()) {
+      return CordovaApp.hideSplashscreen();
+    }
   });
   return App.start();
 });

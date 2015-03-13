@@ -33,13 +33,13 @@ jQuery(document).ready ($)->
 		requests: true
 		checks: 
 			xhr: 
-				url: _SITEURL+'/'
+				url: "#{_SITEURL}/"
 
 
-	Offline.on 'up', ->
+	Offline.on 'confirmed-up', ->
 		$('.error-connection').css display: 'none'
 	
-	Offline.on 'down', ->
+	Offline.on 'confirmed-down', ->
 		$('.error-connection').css display: 'block'
 				
 
@@ -52,10 +52,13 @@ jQuery(document).ready ($)->
 			App.currentUser.getFacebookPicture()
 
 	App.on 'cordova:register:push:notification', ->
-		console.log "registered"
+		Push.register() if window.isWebView()
+
+	App.on 'cordova:set:user:data', ->
+		CordovaStorage.setUserData(App.currentUser.toJSON()) if window.isWebView()
 
 	App.on 'cordova:hide:splash:screen', ->
-		console.log "triggered"
+		CordovaApp.hideSplashscreen() if window.isWebView()
 
 
 	

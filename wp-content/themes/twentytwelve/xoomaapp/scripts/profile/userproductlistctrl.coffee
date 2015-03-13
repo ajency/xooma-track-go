@@ -263,7 +263,14 @@ class UserProductListView extends Marionette.CompositeView
 		
 		if parseInt(App.useProductColl.length) == 0 || parseInt(App.useProductColl.length) < 10
 				@ui.add1.hide()
-				
+
+
+	onShow : ->
+		#Changes for mobile
+		if window.isWebView()
+			# Class 'fadeIn' is removed for mobile on 'My Products' view
+			# as it breaks the UI.
+			$('.fadeIn').removeClass('fadeIn')
 			
 
 	_successHandler:(response, status, xhr)=>
