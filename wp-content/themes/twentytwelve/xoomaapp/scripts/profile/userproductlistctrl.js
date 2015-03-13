@@ -270,6 +270,12 @@ UserProductListView = (function(_super) {
     }
   };
 
+  UserProductListView.prototype.onShow = function() {
+    if (window.isWebView()) {
+      return $('.fadeIn').removeClass('fadeIn');
+    }
+  };
+
   UserProductListView.prototype._successHandler = function(response, status, xhr) {
     var listview, region;
     console.log(xhr.status);
