@@ -89,6 +89,11 @@ document.addEventListener("deviceready", function() {
       return Push.register();
     }
   });
+  App.on('cordova:set:user:data', function() {
+    if (window.isWebView()) {
+      return CordovaStorage.setUserData(App.currentUser.toJSON());
+    }
+  });
   App.on('cordova:hide:splash:screen', function() {
     if (window.isWebView()) {
       return CordovaApp.hideSplashscreen();

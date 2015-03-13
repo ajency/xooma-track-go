@@ -88,6 +88,9 @@ document.addEventListener "deviceready", ->
 	App.on 'cordova:register:push:notification', ->
 		Push.register() if window.isWebView()
 
+	App.on 'cordova:set:user:data', ->
+		CordovaStorage.setUserData(App.currentUser.toJSON()) if window.isWebView()
+
 	App.on 'cordova:hide:splash:screen', ->
 		CordovaApp.hideSplashscreen() if window.isWebView()
 
