@@ -70,7 +70,7 @@ SettingsView = (function(_super) {
     $('.loadingconusme').html('');
     window.removeMsg();
     if (xhr.status === 201) {
-      App.currentUser.set('notifications', parseInt(response.notifications));
+      App.currentUser.set('notification', parseInt(response.notification));
       this.ui.responseMessage.addClass('alert alert-success').text("Notification alerts saved!");
       return $('html, body').animate({
         scrollTop: 0

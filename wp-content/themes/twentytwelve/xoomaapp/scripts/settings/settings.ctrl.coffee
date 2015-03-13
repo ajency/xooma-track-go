@@ -50,13 +50,11 @@ class SettingsView extends Marionette.ItemView
 		
 		window.removeMsg()
 		if xhr.status == 201
-			App.currentUser.set 'notifications' , parseInt(response.notifications)
+			App.currentUser.set 'notification' , parseInt(response.notification)
 			@ui.responseMessage.addClass('alert alert-success').text("Notification alerts saved!")
 			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
-			
-			
 			
 		else
 			@showErr()
