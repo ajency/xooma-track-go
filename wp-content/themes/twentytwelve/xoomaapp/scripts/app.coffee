@@ -54,7 +54,7 @@ document.addEventListener "deviceready", ->
 		requests: true
 		checks: 
 			xhr: 
-				url: _SITEURL+'/'
+				url: "#{_SITEURL}/"
 
 
 	Offline.on 'confirmed-up', ->

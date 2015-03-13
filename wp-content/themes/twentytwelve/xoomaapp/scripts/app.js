@@ -52,7 +52,7 @@ document.addEventListener("deviceready", function() {
     requests: true,
     checks: {
       xhr: {
-        url: _SITEURL + '/'
+        url: "" + _SITEURL + "/"
       }
     }
   };
