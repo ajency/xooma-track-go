@@ -56,9 +56,11 @@ class SettingsView extends Marionette.ItemView
 							scrollTop: 0
 							}, 'slow')
 			
-		else
-			@showErr()
+		else @showErr()
 
+		App.trigger 'cordova:set:user:data'
+
+	
 	showErr:->
 		$('.loadingconusme').html ''
 		window.removeMsg()
@@ -79,11 +81,11 @@ class SettingsView extends Marionette.ItemView
 							scrollTop: 0
 							}, 'slow')
 			
-			
-			
-		else
-			@showErr()
+		else @showErr()
 
+		App.trigger 'cordova:set:user:data'
+
+	
 	onShow:->
 		if !window.isWebView()
 			$('.notificationclass').hide()
