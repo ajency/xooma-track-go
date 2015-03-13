@@ -241,14 +241,12 @@ HomeLayoutView = (function(_super) {
           maxDate: maxDate
         };
         return datePicker.show(options, function(date) {
-          var dateText, selected_time, selectedtimestamp;
+          var dateText;
           if (!_.isUndefined(date)) {
             dateObj = date;
             dateText = moment(dateObj).format('YYYY-MM-DD');
             $('#update').val(dateText);
             App.currentUser.set('homeDate', dateText);
-            selectedtimestamp = moment(App.currentUser.get('homeDate') + currentime, 'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss");
-            selected_time = moment(selectedtimestamp).zone(timezone).format('x');
             if (todays_date === App.currentUser.get('homeDate')) {
               return $('#update').val('TODAY');
             } else {
