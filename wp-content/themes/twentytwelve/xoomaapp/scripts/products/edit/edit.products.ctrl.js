@@ -345,10 +345,11 @@ EditProductsView = (function(_super) {
       });
     }
     if ($(".save_another").attr('clicked')) {
-      return App.navigate('#/products', true);
+      App.navigate('#/products', true);
     } else {
-      return App.navigate('#/profile/my-products', true);
+      App.navigate('#/profile/my-products', true);
     }
+    return App.trigger('cordova:set:user:data');
   };
 
   EditProductsView.prototype.errorSave = function(response, status, xhr) {

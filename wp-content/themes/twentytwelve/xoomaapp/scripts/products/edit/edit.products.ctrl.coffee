@@ -319,6 +319,8 @@ class EditProductsView extends Marionette.ItemView
 		else
 			App.navigate '#/profile/my-products', true
 
+		App.trigger 'cordova:set:user:data'
+
 
 	errorSave :(response,status,xhr)=>
 		$('.loadingconusme').html ""

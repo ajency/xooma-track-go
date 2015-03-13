@@ -96,11 +96,12 @@ Products.</h6>
 
                                 <div class="row">
 
-                                        <div class="col-sm-3 col-xs-3 menulink">
+                                        <div class="col-sm-3 col-xs-3 ">
+                                        <div class="menulink">
                                               <a class="menuanchor" href="#menu">
                                                      <h4 class="margin-none"><i class="fa fa-bars "></i></h4>
                                                 </a>
-                                            
+                                          </div>  
                                         </div>
                                           <div class="col-sm-6 col-xs-6">
                 

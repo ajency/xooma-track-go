@@ -220,10 +220,8 @@ class HomeLayoutView extends Marionette.LayoutView
 						dateText = moment(dateObj).format 'YYYY-MM-DD'
 						$('#update').val dateText
 						App.currentUser.set 'homeDate', dateText
-						selectedtimestamp = moment(App.currentUser.get('homeDate')+currentime,'YYYY-MM-DD HH:mm:ss').format("YYYY-MM-DD HH:mm:ss")
-						selected_time = moment(selectedtimestamp).zone(timezone).format('x')
 
-						if todays_date == App.currentUser.get('homeDate')
+						if todays_date is App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
 						else
 							$('#showHome').show()
