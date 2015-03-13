@@ -6541,7 +6541,6 @@ body > .container {
 @media (max-width: 768px) {
   .home-datepicker {
     font-size: 1.2em;
-    /*width: 110px;*/
     width: 80px;
   }
 }
@@ -6555,7 +6554,7 @@ body > .container {
 }
 @media (max-width: 768px) {
   .home-datepicker-sub {
-    width: 110px;
+    width: 80px;
   }
 }
 .section {
@@ -7482,7 +7481,7 @@ packet_expected_class {
 }
 .blur-background {
   color: #ffffff;
-  background: url(../images/23.jpg) no-repeat;
+  background: url(../../images/23.jpg) no-repeat;
   height: 100%;
   position: fixed;
   width: 100%;
@@ -8096,6 +8095,20 @@ packet_expected_class {
     right: 0px;
     text-align: right;
     z-index: 999;
+  }
+  .ios a,
+  .ios button,
+  .ios .myelements {
+    -ms-touch-action: manipulation;
+    /* IE10  */
+    touch-action: manipulation;
+    /* IE11+ */
+  }
+  .ios .blur-background {
+    background: url(../images/23.jpg) no-repeat !important;
+  }
+  .android .blur-background {
+    background: url(../images/23.jpg) no-repeat !important;
   }
 }
 @media (max-width: 768px) {
