@@ -6541,7 +6541,7 @@ body > .container {
 @media (max-width: 768px) {
   .home-datepicker {
     font-size: 1.2em;
-    width: 80px;
+    width: 90px;
   }
 }
 .home-datepicker-sub {
@@ -6554,7 +6554,7 @@ body > .container {
 }
 @media (max-width: 768px) {
   .home-datepicker-sub {
-    width: 80px;
+    width: 90px;
   }
 }
 .section {
@@ -11374,6 +11374,10 @@ packet_expected_class {
 }
 @media (max-width: 768px) {
   .cbp-vm-image {
+    height: 88px;
+    overflow: visible !important;
+  }
+  .cbp-vm-image img {
     height: 88px;
   }
 }

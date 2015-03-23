@@ -2208,7 +2208,7 @@ function send_stock_reminders_over(){
 		$email_flag = get_user_meta($value->user_id,'emails' , true);
 		$check_email_sent = check_email_sent('stock_over_email',$value->user_id,$value->product_id);
 		
-		if(intval($available) == 0 && intval($check_email_sent) == 1 )
+		if(intval($available) <= 0 && intval($check_email_sent) == 1 )
 		{
 				if($email_flag == 1)
 				notifications_low_stock($value->user_id,$product_name,$available,'stock_over_email',$value->product_id);

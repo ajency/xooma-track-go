@@ -26,7 +26,7 @@ class SettingsView extends Marionette.ItemView
 					url : "#{_SITEURL}/wp-json/notifications/#{App.currentUser.get('ID')}"
 					data : data
 					success : @successnotiSave
-					error : @errornotiSave
+					error : @showErr
 
 		'click @ui.emails':(e)->
 			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
@@ -43,7 +43,7 @@ class SettingsView extends Marionette.ItemView
 					url : "#{_SITEURL}/wp-json/emails/#{App.currentUser.get('ID')}"
 					data : data
 					success : @successSave
-					error : @errorSave
+					error : @showErr
 
 	successnotiSave:(response,status,xhr)=>
 		$('.loadingconusme').html ''

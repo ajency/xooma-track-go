@@ -42,7 +42,7 @@ SettingsView = (function(_super) {
         url: "" + _SITEURL + "/wp-json/notifications/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successnotiSave,
-        error: this.errornotiSave
+        error: this.showErr
       });
     },
     'click @ui.emails': function(e) {
@@ -61,7 +61,7 @@ SettingsView = (function(_super) {
         url: "" + _SITEURL + "/wp-json/emails/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successSave,
-        error: this.errorSave
+        error: this.showErr
       });
     }
   };
