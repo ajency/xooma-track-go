@@ -59,6 +59,7 @@ ProductChildView = (function(_super) {
         el: '#xoomaproduct'
       });
       region.show(listview);
+      App.trigger('cordova:set:user:data');
       if (parseInt(App.useProductColl.length) === 0) {
         $('.add1').hide();
         return $('.save_products').hide();
@@ -286,7 +287,8 @@ UserProductListView = (function(_super) {
       region = new Marionette.Region({
         el: '#xoomaapptemplate'
       });
-      return region.show(listview);
+      region.show(listview);
+      return App.trigger('cordova:set:user:data');
     } else {
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");
