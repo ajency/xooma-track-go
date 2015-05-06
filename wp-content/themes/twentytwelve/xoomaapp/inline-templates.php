@@ -37,7 +37,7 @@
                     <h5 class="text-center">Measure the improvements <br> in your shape and size</h5>
                     </div>
                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
-                    <h5 class="text-center"> Get notified when you're running low<br>on your xooma products </h5>
+                    <h5 class="text-center"> Get notified when you are running low<br>on your xooma products </h5>
                     </div>
                     
                            <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
