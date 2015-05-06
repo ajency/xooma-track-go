@@ -6399,10 +6399,12 @@ button.close {
 html,
 body {
   height: 100%;
-}
-* {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+}
+* {
+  /*-webkit-touch-callout: none;
+  -webkit-user-select: none;*/
   /* Disable selection/copy in UIWebView */
 }
 .product-medium {
@@ -11675,7 +11677,7 @@ textarea.form-control {
     width: 100%;
   }
   .rd-gender .parsley-errors-list {
-    bottom: -67px;
+    /*bottom: -67px;*/
   }
 }
 .rd-visual.male::before {
