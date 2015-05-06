@@ -64,7 +64,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 		#Changes for mobile
 		if window.isWebView()
-			dateObj = new Date($('#birth_date').val())
+			dateStr = $('#birth_date').val()
+			dateObj = if dateStr is '' then new Date() else new Date(dateStr)
 
 			$ '#birth_date'
 			.prop 'readonly', true
