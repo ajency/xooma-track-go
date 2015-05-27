@@ -81,3 +81,30 @@
     50% { COLOR: rgba(255,0,0,0); }
     100% { COLOR: rgba(255,0,0,0.5); }
 }
+@media (max-width: @screen-sm-min) {
+.ios{
+  .imageMap{
+    a {
+    width:40px;
+        i{
+            
+            -webkit-animation:none !important; 
+        }
+    }
+ }
+ .convertweight, .convertheight{
+     text-align:left;
+     margin: 0px 22%;
+    color: #3099EA;
+ }
+ #listproduct .sub-header a{
+    height: 22px;
+    display: inline-block;
+    width: 42px;
+    z-index: 99999;
+ }
+ .fa-navicon:before, .fa-reorder:before, .fa-bars:before {
+  display: block;
+}
+}
+}
