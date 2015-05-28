@@ -403,7 +403,7 @@ Products.</h6>
             <div id="demo2_tip">
                 <b>Neck (inches)</b><br />
            <input type="number" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5"/> 
-           <small>Press enter when done</small></div>
+           <small>Please press enter</small></div>
 
         </div>
 
@@ -414,7 +414,7 @@ Products.</h6>
             <div id="demo3_tip">
                 <b>Chest (inches)</b><br />
            <input type="number" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"/>
-            <small >Press enter when done</small> </div>
+            <small >Please press enter</small> </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -423,7 +423,7 @@ Products.</h6>
             <div id="demo4_tip">
                 <b>Arm (inches)</b><br />
            <input type="number" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-            <small >Press enter when done</small> </div>
+            <small >Please press enter</small> </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -432,7 +432,7 @@ Products.</h6>
             <div id="demo5_tip">
                 <b>Abdomen (inches)</b><br />
            <input type="number" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            <small >Press enter when done</small></div>
+            <small >Please press enter</small></div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
 
@@ -441,7 +441,7 @@ Products.</h6>
             <div id="demo6_tip">
                 <b>Waist (inches)</b><br />
            <input type="number" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-           <small >Press enter when done</small></div>
+           <small >Please press enter</small></div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -451,7 +451,7 @@ Products.</h6>
             <div id="demo7_tip">
                 <b>Hips (inches)</b><br />
            <input type="number" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            <small >Press enter when done</small></div>
+            <small >Please press enter</small></div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
                <i class="fa fa-dot-circle-o"></i>
@@ -460,7 +460,7 @@ Products.</h6>
             <div id="demo8_tip">
                 <b>Thigh (inches)</b><br />
            <input type="number" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-            <small >Press enter when done</small></div>
+            <small >Please press enter</small></div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
                <i class="fa fa-dot-circle-o"></i>
@@ -470,7 +470,7 @@ Products.</h6>
             <div id="demo9_tip">
                 <b>Midcalf (inches)</b><br />
            <input type="number" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-            <small >Press enter when done</small></div>
+            <small >Please press enter</small></div>
         </div> 
           
 
@@ -559,7 +559,7 @@ Products.</h6>
                                                         </div>
                                                         <div class="col-md-5">
                                                                 <h4 class="text-left">
-             <label for="valueA" class="pull-right"><small> Ft/inches</small></label>
+             <label for="valueA" class="pull-right"><h5 class="margin-none">Height</h5><h6 class="text-muted margin-none"> Ft/inches</h6></label>
             <select value="{{measurements.height}}" id="height" name="height" class="default-select">
                 <option value="4">4&rsquo;</option>
                     <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
@@ -612,7 +612,7 @@ Products.</h6>
                                                                 <img src="./images/weight.jpg" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-5 ">
-                                                                <h4 class="text-left">  <label for="valueA" class="pull-right"><small>pounds</small></label>
+                                                                <h4 class="text-left">  <label for="valueA" class="pull-right"><h5 class="margin-none">Weight</h5><h6 class="text-muted margin-none">pounds</h6></label>
             <select value="{{measurements.weight}}" id="weight" name="weight" class="default-select">
                     
             </select></h4>
@@ -702,7 +702,7 @@ Products.</h6>
                     <form id="generate_graph" method="POST"  role="form">
                         <div class="row m-t-30">
                             <div class="col-md-4 col-xs-6"> 
-                                <label for="exampleInputFile">Select</label>
+                                <label for="exampleInputFile">Measurement Area</label>
                                     <select class="form-control" aj-field-required="true" id="param" name="param">
                                               <option value="">Please select</option>
                                               <option value="weight">Weight</option>
@@ -723,7 +723,7 @@ Products.</h6>
                                 <input type="hidden"  id="end_date" name="end_date">
                         
                         
-                           <label for="exampleInputFile " class="time_period">Duration</label>
+                           <label for="exampleInputFile " class="time_period">Period of Time</label>
                                 <select class="form-control time_period ">
                                   <option value="">--Select--</option>
                                   <option value="30">Last 30 days</option>
