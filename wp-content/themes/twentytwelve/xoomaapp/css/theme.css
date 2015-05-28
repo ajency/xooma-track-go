@@ -8095,7 +8095,7 @@ packet_expected_class {
   }
   .ios .home-sub-header {
     bottom: 0px !important;
-    position: absolute!important;
+    position: fixed !important;
     top: initial !important;
   }
   .ios .panel-body i.dropdown-toggle {
@@ -13820,12 +13820,13 @@ html.mm-opened.mm-black .mm-page {
   .ios .fa-reorder:before,
   .ios .fa-bars:before {
     display: block;
+    height: 50px;
   }
   .ios .rd-gender .radio {
     position: absolute;
     z-index: 9999;
     bottom: -10px;
-    width: 100%;
+    /* width:100%; */
     display: block !important;
     left: initial !important;
     /* visibility: hidden; */
