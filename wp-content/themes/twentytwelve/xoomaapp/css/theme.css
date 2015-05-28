@@ -8108,9 +8108,9 @@ packet_expected_class {
   .ios a,
   .ios button,
   .ios .myelements {
-    -ms-touch-action: manipulation;
+    /* -ms-touch-action: manipulation; */
     /* IE10  */
-    touch-action: manipulation;
+    /*touch-action: manipulation; */
     /* IE11+ */
   }
   .ios .blur-background {
@@ -13821,6 +13821,20 @@ html.mm-opened.mm-black .mm-page {
   .ios .fa-bars:before {
     display: block;
     height: 50px;
+  }
+  .ios .menuanchor .fa-navicon:before,
+  .ios .menuanchor .fa-reorder:before,
+  .ios .menuanchor .fa-bars:before {
+    display: block;
+    height: 50px;
+    width: 50px;
+  }
+  .ios .cbp-vm-options a {
+    display: inline-block;
+    width: 30px;
+  }
+  .ios .cbp-vm-options a:before {
+    width: 30px;
   }
   .ios .rd-gender .radio {
     position: absolute;
