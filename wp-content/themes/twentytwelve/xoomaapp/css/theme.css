@@ -12536,6 +12536,7 @@ html.mm-opened .mm-page {
 .mm-page {
   box-sizing: border-box;
   position: relative;
+  height: 100%;
 }
 .mm-slideout {
   -webkit-transition: -webkit-transform 0.4s ease;
