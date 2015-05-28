@@ -865,8 +865,8 @@ Products.</h6>
                          </div> 
                             <div class="col-sm-6 col-xs-6">
                                 <div class="cbp-vm-options">
-                                    <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid">Grid View</a>
-                                    <a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list">List View</a>
+                                    <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid"></a>
+                                    <a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list"></a>
                                 </div>
                             </div>
                     </div>  
