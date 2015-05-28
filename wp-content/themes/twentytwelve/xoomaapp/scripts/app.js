@@ -60,11 +60,17 @@ document.addEventListener("deviceready", function() {
           replace: true
         });
       }
+      $('.mm-page').removeAttr('style');
       return $('.error-connection').css({
         display: 'none'
       });
     }, false);
     document.addEventListener("offline", function() {
+      if (App.getCurrentRoute() === 'settings') {
+        $('.mm-page').css({
+          height: '100%'
+        });
+      }
       return $('.error-connection').css({
         display: 'block'
       });
@@ -83,6 +89,9 @@ document.addEventListener("deviceready", function() {
     });
     if (!CordovaApp.isDeviceOnline()) {
       window.offlineOnAppStart = true;
+      $('.mm-page').css({
+        height: '100%'
+      });
       $('.error-connection').css({
         display: 'block'
       });

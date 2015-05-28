@@ -56,10 +56,15 @@ document.addEventListener "deviceready", ->
 				window.offlineOnAppStart = false
 				App.navigate '#settings', trigger:true , replace :true
 				App.navigate '#home', trigger:true , replace :true
+				
+			$('.mm-page').removeAttr 'style'	
 			$('.error-connection').css display: 'none'
 		, false
 
 		document.addEventListener "offline", ->
+			if App.getCurrentRoute() is 'settings'
+				$('.mm-page').css height: '100%'
+				
 			$('.error-connection').css display: 'block'
 		, false
 
@@ -79,6 +84,7 @@ document.addEventListener "deviceready", ->
 		Usage.track days:5
 		if !CordovaApp.isDeviceOnline()
 			window.offlineOnAppStart = true
+			$('.mm-page').css height: '100%'
 			$('.error-connection').css display: 'block'
 			App.trigger 'cordova:hide:splash:screen'
 
