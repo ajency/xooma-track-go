@@ -8108,9 +8108,9 @@ packet_expected_class {
   .ios a,
   .ios button,
   .ios .myelements {
-    -ms-touch-action: manipulation;
+    /* -ms-touch-action: manipulation; */
     /* IE10  */
-    touch-action: manipulation;
+    /*touch-action: manipulation; */
     /* IE11+ */
   }
   .ios .blur-background {
