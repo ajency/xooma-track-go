@@ -47,25 +47,29 @@ document.addEventListener("deviceready", function() {
       });
     }
   });
-  Offline.options = {
-    interceptRequests: true,
-    requests: true,
-    checks: {
-      xhr: {
-        url: "" + _SITEURL + "/"
+  if (window.isWebView()) {
+    document.addEventListener("online", function() {
+      if (window.offlineOnAppStart) {
+        window.offlineOnAppStart = false;
+        App.navigate('#settings', {
+          trigger: true,
+          replace: true
+        });
+        App.navigate('#home', {
+          trigger: true,
+          replace: true
+        });
       }
-    }
-  };
-  Offline.on('confirmed-up', function() {
-    return $('.error-connection').css({
-      display: 'none'
-    });
-  });
-  Offline.on('confirmed-down', function() {
-    return $('.error-connection').css({
-      display: 'block'
-    });
-  });
+      return $('.error-connection').css({
+        display: 'none'
+      });
+    }, false);
+    document.addEventListener("offline", function() {
+      return $('.error-connection').css({
+        display: 'block'
+      });
+    }, false);
+  }
   Usage.notify.on('$usage:notification', function(event, data) {
     console.log("$usage:notification triggered at " + data.notificationTime);
     return CordovaNotification.schedule("Hey user achieve your today's health goal.", data.notificationTime);
@@ -77,6 +81,13 @@ document.addEventListener("deviceready", function() {
     Usage.track({
       days: 5
     });
+    if (!CordovaApp.isDeviceOnline()) {
+      window.offlineOnAppStart = true;
+      $('.error-connection').css({
+        display: 'block'
+      });
+      App.trigger('cordova:hide:splash:screen');
+    }
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {

@@ -47,21 +47,21 @@ document.addEventListener "deviceready", ->
 				.then ->
 					onLogout()
 					App.navigate '#login', trigger:true , replace :true
-
-
-	Offline.options = 
-		interceptRequests: true
-		requests: true
-		checks: 
-			xhr: 
-				url: "#{_SITEURL}/"
-
-
-	Offline.on 'confirmed-up', ->
-		$('.error-connection').css display: 'none'
 	
-	Offline.on 'confirmed-down', ->
-		$('.error-connection').css display: 'block'
+
+	if window.isWebView()
+		document.addEventListener "online", ->
+			if window.offlineOnAppStart
+				#Hack to reload home view when app is offline at start
+				window.offlineOnAppStart = false
+				App.navigate '#settings', trigger:true , replace :true
+				App.navigate '#home', trigger:true , replace :true
+			$('.error-connection').css display: 'none'
+		, false
+
+		document.addEventListener "offline", ->
+			$('.error-connection').css display: 'block'
+		, false
 
 
 	#Device
@@ -77,6 +77,10 @@ document.addEventListener "deviceready", ->
 		CordovaApp.updateXoomaMessages()
 		CordovaNotification.registerPermission()
 		Usage.track days:5
+		if !CordovaApp.isDeviceOnline()
+			window.offlineOnAppStart = true
+			$('.error-connection').css display: 'block'
+			App.trigger 'cordova:hide:splash:screen'
 
 		Backbone.history.start();
 
