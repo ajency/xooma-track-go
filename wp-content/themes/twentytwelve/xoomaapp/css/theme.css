@@ -12147,6 +12147,9 @@ hr {
 .lg-icon {
   font-size: 34px;
 }
+.panel-title > a {
+  font-weight: 600;
+}
 .btn,
 .tap {
   border-radius: 2px;
