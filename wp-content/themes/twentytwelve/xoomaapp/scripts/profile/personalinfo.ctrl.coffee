@@ -144,6 +144,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				App.currentUser.set 'timezone', response.timezone
 				App.currentUser.set 'state' , '/profile/measurements'
 				App.navigate '#'+App.currentUser.get('state') , true
+
+			App.trigger 'cordova:set:user:data'
 		
 
 	errorHandler:(error)=>

@@ -227,13 +227,14 @@ ProfileMeasurementsView = (function(_super) {
       if (state === '/home') {
         window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!");
-        return $('html, body').animate({
+        $('html, body').animate({
           scrollTop: 0
         }, 'slow');
       } else {
         App.currentUser.set('state', '/profile/my-products');
-        return App.navigate('#' + App.currentUser.get('state'), true);
+        App.navigate('#' + App.currentUser.get('state'), true);
       }
+      return App.trigger('cordova:set:user:data');
     }
   };
 

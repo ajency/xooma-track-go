@@ -6399,8 +6399,6 @@ button.close {
 html,
 body {
   height: 100%;
-}
-* {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   /* Disable selection/copy in UIWebView */
@@ -8064,6 +8062,9 @@ packet_expected_class {
   display: none;
 }
 @media (max-width: 768px) {
+  .menulink a {
+    display: block;
+  }
   .navbar {
     margin-bottom: 0px;
   }
@@ -8078,6 +8079,14 @@ packet_expected_class {
   .ios .topheader .navbar {
     padding-top: 10px !important;
   }
+  .ios .top-panel-picker {
+    display: inline-block;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+  .ios .top-panel-picker input {
+    border-bottom: 1px solid #ccc;
+  }
   .ios #homeregion {
     padding-top: 10px;
   }
@@ -8086,7 +8095,7 @@ packet_expected_class {
   }
   .ios .home-sub-header {
     bottom: 0px !important;
-    position: fixed!important;
+    position: fixed !important;
     top: initial !important;
   }
   .ios .panel-body i.dropdown-toggle {
@@ -8099,9 +8108,9 @@ packet_expected_class {
   .ios a,
   .ios button,
   .ios .myelements {
-    -ms-touch-action: manipulation;
+    /* -ms-touch-action: manipulation; */
     /* IE10  */
-    touch-action: manipulation;
+    /*touch-action: manipulation; */
     /* IE11+ */
   }
   .ios .blur-background {
@@ -12115,6 +12124,9 @@ h6.brand {
   h6 {
     font-size: 12px;
   }
+  .fill-bottle h6 {
+    font-size: 14px;
+  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -12134,6 +12146,9 @@ hr {
 }
 .lg-icon {
   font-size: 34px;
+}
+.panel-title > a {
+  font-weight: 600;
 }
 .btn,
 .tap {
@@ -13783,5 +13798,57 @@ html.mm-opened.mm-black .mm-page {
   }
   100% {
     COLOR: rgba(255, 0, 0, 0.5);
+  }
+}
+@media (max-width: 768px) {
+  .ios .imageMap a {
+    width: 40px;
+  }
+  .ios .imageMap a i {
+    -webkit-animation: none !important;
+  }
+  .ios .convertweight,
+  .ios .convertheight {
+    text-align: left;
+    margin: 0px 22%;
+    color: #3099EA;
+  }
+  .ios #listproduct .sub-header a {
+    height: 22px;
+    display: inline-block;
+    width: 42px;
+    z-index: 99999;
+  }
+  .ios .fa-navicon:before,
+  .ios .fa-reorder:before,
+  .ios .fa-bars:before {
+    display: block;
+    height: 50px;
+  }
+  .ios .menuanchor .fa-navicon:before,
+  .ios .menuanchor .fa-reorder:before,
+  .ios .menuanchor .fa-bars:before {
+    display: block;
+    height: 50px;
+    width: 50px;
+  }
+  .ios .cbp-vm-options a {
+    display: inline-block;
+    width: 30px;
+  }
+  .ios .cbp-vm-options a:before {
+    width: 30px;
+  }
+  .ios .rd-gender .radio {
+    position: absolute;
+    z-index: 9999;
+    bottom: -10px;
+    /* width:100%; */
+    display: block !important;
+    left: initial !important;
+    /* visibility: hidden; */
+    opacity: 0;
+    text-align: center;
+    padding: 30px !important;
   }
 }

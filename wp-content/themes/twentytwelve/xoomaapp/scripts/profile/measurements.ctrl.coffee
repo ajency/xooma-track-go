@@ -201,6 +201,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			else
 				App.currentUser.set 'state' , '/profile/my-products'
 				App.navigate '#'+App.currentUser.get('state') , true
+
+			App.trigger 'cordova:set:user:data'
 			
 
 	errorHandler : (error)=>

@@ -156,15 +156,16 @@ ProfilePersonalInfoView = (function(_super) {
         App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('offset', response.offset);
         this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
-        return $('html, body').animate({
+        $('html, body').animate({
           scrollTop: 0
         }, 'slow');
       } else {
         App.currentUser.set('profile', response);
         App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('state', '/profile/measurements');
-        return App.navigate('#' + App.currentUser.get('state'), true);
+        App.navigate('#' + App.currentUser.get('state'), true);
       }
+      return App.trigger('cordova:set:user:data');
     }
   };
 
