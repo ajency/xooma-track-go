@@ -8098,7 +8098,7 @@ packet_expected_class {
   }
   .ios .home-sub-header {
     bottom: 0px !important;
-    position: fixed !important;
+    position: fixed ;
     top: initial !important;
   }
   .ios .panel-body i.dropdown-toggle {
