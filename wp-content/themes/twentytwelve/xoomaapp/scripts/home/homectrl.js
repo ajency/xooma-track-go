@@ -271,10 +271,11 @@ HomeLayoutView = (function(superClass) {
       this.ui.time_period.show();
       $('#param option[value="' + window.param + '"]').prop("selected", true);
       $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
-      return this.generateGraph();
+      this.generateGraph();
     } else {
-      return this.generateGraph();
+      this.generateGraph();
     }
+    return CordovaApp.headerFooterIOSFix();
   };
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {

@@ -92,15 +92,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
 			# $("#timezone").val($("#timezone option:first").val());
 
-		#New changes
-		if CordovaApp.isPlatformIOS()
-			$('input').on 'focusin', ->
-				$('.topheader').css({'position':'absolute'})
-				$('.home-sub-header').css({'position':'absolute'})
-
-			$('input').on 'blur', ->
-				$('.topheader').css({'position':'fixed'})
-				$('.home-sub-header').css({'position':'fixed'})
+		#IOS hot fix
+		CordovaApp.headerFooterIOSFix()
 		
 
 	#to initialize validate plugin

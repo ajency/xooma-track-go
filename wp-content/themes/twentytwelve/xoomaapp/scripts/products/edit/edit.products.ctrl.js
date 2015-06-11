@@ -469,8 +469,9 @@ EditProductsView = (function(superClass) {
     }
     if ($.inArray(product, products) === -1) {
       $('.remove').hide();
-      return $('.reminder_div').hide();
+      $('.reminder_div').hide();
     }
+    return CordovaApp.headerFooterIOSFix();
   };
 
   EditProductsView.prototype.checkMode = function() {

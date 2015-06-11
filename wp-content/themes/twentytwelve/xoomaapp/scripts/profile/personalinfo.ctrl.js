@@ -114,24 +114,7 @@ ProfilePersonalInfoView = (function(superClass) {
     if (App.currentUser.get('timezone') === null) {
       this.$el.find('#timezone option[value="' + $('#timezone').val() + '"]').prop("selected", true);
     }
-    if (CordovaApp.isPlatformIOS()) {
-      $('input').on('focusin', function() {
-        $('.topheader').css({
-          'position': 'absolute'
-        });
-        return $('.home-sub-header').css({
-          'position': 'absolute'
-        });
-      });
-      return $('input').on('blur', function() {
-        $('.topheader').css({
-          'position': 'fixed'
-        });
-        return $('.home-sub-header').css({
-          'position': 'fixed'
-        });
-      });
-    }
+    return CordovaApp.headerFooterIOSFix();
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {

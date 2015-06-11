@@ -187,24 +187,7 @@ ProfileMeasurementsView = (function(superClass) {
       $('#measurement').parent().prevAll().addClass('done');
       $('#measurement').parent().nextAll().addClass('done');
     }
-    if (CordovaApp.isPlatformIOS()) {
-      $('input').on('focusin', function() {
-        $('.topheader').css({
-          'position': 'absolute'
-        });
-        return $('.home-sub-header').css({
-          'position': 'absolute'
-        });
-      });
-      return $('input').on('blur', function() {
-        $('.topheader').css({
-          'position': 'fixed'
-        });
-        return $('.home-sub-header').css({
-          'position': 'fixed'
-        });
-      });
-    }
+    return CordovaApp.headerFooterIOSFix();
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {

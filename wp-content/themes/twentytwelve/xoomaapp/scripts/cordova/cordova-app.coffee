@@ -63,4 +63,13 @@
 
 			defer.promise()
 
+		headerFooterIOSFix : ->
+			if CordovaApp.isPlatformIOS()
+				$('input, select').on 'focusin', ->
+					$('.topheader').css({'position':'absolute'})
+					$('.home-sub-header').css({'position':'absolute'})
+
+				$('input, select').on 'focusout', ->
+					$('.topheader').css({'position':'fixed'})
+					$('.home-sub-header').css({'position':'fixed'})
 

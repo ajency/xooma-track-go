@@ -256,6 +256,9 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	hiddenName: true
 		# 	)
 
+		#IOS hot fix
+		CordovaApp.headerFooterIOSFix()
+
 	generateBMIGraph:(response)->
 		$('#bmi').show()
 		@reset()

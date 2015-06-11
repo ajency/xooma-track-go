@@ -436,6 +436,9 @@ class EditProductsView extends Marionette.ItemView
 			$('.remove').hide()
 			$('.reminder_div').hide()
 
+		#IOS hot fix
+		CordovaApp.headerFooterIOSFix()
+
 	checkMode:()->
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
