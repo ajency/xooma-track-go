@@ -1741,7 +1741,7 @@ b. Menu option on the product card: Once the product has been added it is availa
         </a>
       </h4>
     </div>
-    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
       <div class="panel-body">
         <span class="dropcap simple">A: </span>The progress chart for weight is displayed according to the weight you enter whereas your BMI (Body Mass Index) chart calculates your BMI based on your measurements, and displays your results compared to the normal BMI ratio scale for someone in your age bracket.
 
