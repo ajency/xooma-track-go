@@ -1,16 +1,16 @@
 var ProfilePersonalInfoView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-ProfilePersonalInfoView = (function(_super) {
-  __extends(ProfilePersonalInfoView, _super);
+ProfilePersonalInfoView = (function(superClass) {
+  extend(ProfilePersonalInfoView, superClass);
 
   function ProfilePersonalInfoView() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
-    this._successHandler = __bind(this._successHandler, this);
-    this.onFormSubmit = __bind(this.onFormSubmit, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this.successHandler = bind(this.successHandler, this);
+    this._successHandler = bind(this._successHandler, this);
+    this.onFormSubmit = bind(this.onFormSubmit, this);
     return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
   }
 
@@ -183,12 +183,12 @@ ProfilePersonalInfoView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.UserPersonalInfoCtrl = (function(_super) {
-  __extends(UserPersonalInfoCtrl, _super);
+App.UserPersonalInfoCtrl = (function(superClass) {
+  extend(UserPersonalInfoCtrl, superClass);
 
   function UserPersonalInfoCtrl() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this._showView = __bind(this._showView, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this._showView = bind(this._showView, this);
     return UserPersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }
 

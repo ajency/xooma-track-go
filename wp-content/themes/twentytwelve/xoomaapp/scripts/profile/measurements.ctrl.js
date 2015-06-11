@@ -1,16 +1,16 @@
 var ProfileMeasurementsView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-ProfileMeasurementsView = (function(_super) {
-  __extends(ProfileMeasurementsView, _super);
+ProfileMeasurementsView = (function(superClass) {
+  extend(ProfileMeasurementsView, superClass);
 
   function ProfileMeasurementsView() {
-    this.valueOutput = __bind(this.valueOutput, this);
-    this.errorHandler = __bind(this.errorHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
-    this.onFormSubmit = __bind(this.onFormSubmit, this);
+    this.valueOutput = bind(this.valueOutput, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this.successHandler = bind(this.successHandler, this);
+    this.onFormSubmit = bind(this.onFormSubmit, this);
     return ProfileMeasurementsView.__super__.constructor.apply(this, arguments);
   }
 
@@ -272,12 +272,12 @@ ProfileMeasurementsView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.UserMeasurementCtrl = (function(_super) {
-  __extends(UserMeasurementCtrl, _super);
+App.UserMeasurementCtrl = (function(superClass) {
+  extend(UserMeasurementCtrl, superClass);
 
   function UserMeasurementCtrl() {
-    this.successHandler = __bind(this.successHandler, this);
-    this._showView = __bind(this._showView, this);
+    this.successHandler = bind(this.successHandler, this);
+    this._showView = bind(this._showView, this);
     return UserMeasurementCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -303,7 +303,7 @@ App.UserMeasurementCtrl = (function(_super) {
   UserMeasurementCtrl.prototype._get_measurement_details = function() {
     return $.ajax({
       method: 'GET',
-      url: "" + _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+      url: _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
       success: this.successHandler
     });
   };

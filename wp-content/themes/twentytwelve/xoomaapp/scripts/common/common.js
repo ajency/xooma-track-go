@@ -1,5 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.LoginCtrl = Ajency.LoginCtrl;
 
@@ -25,8 +25,8 @@ _.extend(Ajency.LoginView.prototype, {
   }
 });
 
-Ajency.FormView = (function(_super) {
-  __extends(FormView, _super);
+Ajency.FormView = (function(superClass) {
+  extend(FormView, superClass);
 
   function FormView() {
     return FormView.__super__.constructor.apply(this, arguments);
@@ -57,10 +57,10 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   _getUrl: function(property) {
-    return "" + APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
+    return APIURL + "/users/" + (App.currentUser.get('ID')) + "/" + property;
   },
   saveMeasurements: function(measurements) {
-    var formdata, _successHandler;
+    var _successHandler, formdata;
     formdata = $.param(measurements);
     _successHandler = (function(_this) {
       return function(resp) {
@@ -76,7 +76,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getProfile: function() {
-    var deferred, _successHandler;
+    var _successHandler, deferred;
     deferred = Marionette.Deferred();
     _successHandler = (function(_this) {
       return function(response, status, responseCode) {
@@ -142,7 +142,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getUserProducts: function() {
-    var date, _successHandler;
+    var _successHandler, date;
     date = "";
     if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
       date = App.currentUser.get('homeDate');
@@ -180,7 +180,7 @@ _.extend(Ajency.CurrentUser.prototype, {
     });
   },
   getHomeProducts: function() {
-    var date, deferred, _successHandler;
+    var _successHandler, date, deferred;
     deferred = Marionette.Deferred();
     date = "";
     if (App.currentUser.get('homeDate') !== void 0 && App.currentUser.get('homeDate') !== "") {
@@ -212,15 +212,15 @@ _.extend(Ajency.CurrentUser.prototype, {
     $.ajax({
       method: 'GET',
       data: 'date=' + date,
-      url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
+      url: APIURL + "/records/" + (App.currentUser.get('ID')),
       success: _successHandler
     });
     return deferred.promise();
   }
 });
 
-Ajency.HTTPRequestFailView = (function(_super) {
-  __extends(HTTPRequestFailView, _super);
+Ajency.HTTPRequestFailView = (function(superClass) {
+  extend(HTTPRequestFailView, superClass);
 
   function HTTPRequestFailView() {
     return HTTPRequestFailView.__super__.constructor.apply(this, arguments);
@@ -232,8 +232,8 @@ Ajency.HTTPRequestFailView = (function(_super) {
 
 })(Marionette.ItemView);
 
-Ajency.HTTPRequestCtrl = (function(_super) {
-  __extends(HTTPRequestCtrl, _super);
+Ajency.HTTPRequestCtrl = (function(superClass) {
+  extend(HTTPRequestCtrl, superClass);
 
   function HTTPRequestCtrl() {
     return HTTPRequestCtrl.__super__.constructor.apply(this, arguments);

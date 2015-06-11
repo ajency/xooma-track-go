@@ -1,19 +1,19 @@
 var MeasurementHistoryView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('ViewMeasurementHistory', {
   url: '/measurements/:id/history',
   parent: 'xooma'
 });
 
-MeasurementHistoryView = (function(_super) {
-  __extends(MeasurementHistoryView, _super);
+MeasurementHistoryView = (function(superClass) {
+  extend(MeasurementHistoryView, superClass);
 
   function MeasurementHistoryView() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this.successHandler = bind(this.successHandler, this);
     return MeasurementHistoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -65,7 +65,7 @@ MeasurementHistoryView = (function(_super) {
     return $.ajax({
       method: 'GET',
       data: 'date=' + date,
-      url: "" + _SITEURL + "/wp-json/measurements/" + (App.currentUser.get('ID')) + "/history",
+      url: _SITEURL + "/wp-json/measurements/" + (App.currentUser.get('ID')) + "/history",
       success: this.successHandler,
       error: this.errorHandler
     });
@@ -139,8 +139,8 @@ MeasurementHistoryView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.ViewMeasurementHistoryCtrl = (function(_super) {
-  __extends(ViewMeasurementHistoryCtrl, _super);
+App.ViewMeasurementHistoryCtrl = (function(superClass) {
+  extend(ViewMeasurementHistoryCtrl, superClass);
 
   function ViewMeasurementHistoryCtrl() {
     return ViewMeasurementHistoryCtrl.__super__.constructor.apply(this, arguments);

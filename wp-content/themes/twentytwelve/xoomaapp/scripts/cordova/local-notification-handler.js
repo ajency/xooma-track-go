@@ -23,14 +23,14 @@ CordovaNotification = {
     hr = moment().hours();
     min = moment().minutes();
     triggerTime = moment(time, 'HH:mm');
-    currenttime = moment("" + hr + ":" + min, 'HH:mm');
+    currenttime = moment(hr + ":" + min, 'HH:mm');
     if (triggerTime.isAfter(currenttime)) {
       currentDate = moment().format('DD/MM/YYYY');
-      date = moment("" + currentDate + " " + time, 'DD/MM/YYYY HH:mm');
+      date = moment(currentDate + " " + time, 'DD/MM/YYYY HH:mm');
     } else {
       tomorrow = moment().add(1, 'd');
       nextDate = moment(tomorrow).format('DD/MM/YYYY');
-      date = moment("" + nextDate + " " + time, 'DD/MM/YYYY HH:mm');
+      date = moment(nextDate + " " + time, 'DD/MM/YYYY HH:mm');
     }
     return date.toDate();
   },

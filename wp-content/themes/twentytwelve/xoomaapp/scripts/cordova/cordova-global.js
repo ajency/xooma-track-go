@@ -1,4 +1,4 @@
-var APIURL, APP_ID, CLIENT_KEY, JS_KEY, Messages, allSystemCaps, notLoggedInCaps, userData, x2oMessages, _SITEURL;
+var APIURL, APP_ID, CLIENT_KEY, JS_KEY, Messages, _SITEURL, allSystemCaps, notLoggedInCaps, userData, x2oMessages;
 
 APP_ID = '7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1';
 

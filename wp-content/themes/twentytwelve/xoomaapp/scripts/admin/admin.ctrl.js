@@ -1,15 +1,15 @@
 var AdminView,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 App.state('Admin', {
   url: '/user_id/:id',
   parent: 'xooma'
 });
 
-AdminView = (function(_super) {
-  __extends(AdminView, _super);
+AdminView = (function(superClass) {
+  extend(AdminView, superClass);
 
   function AdminView() {
     return AdminView.__super__.constructor.apply(this, arguments);
@@ -25,11 +25,11 @@ AdminView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.AdminCtrl = (function(_super) {
-  __extends(AdminCtrl, _super);
+App.AdminCtrl = (function(superClass) {
+  extend(AdminCtrl, superClass);
 
   function AdminCtrl() {
-    this._successHandler = __bind(this._successHandler, this);
+    this._successHandler = bind(this._successHandler, this);
     return AdminCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -43,7 +43,7 @@ App.AdminCtrl = (function(_super) {
     id = user_id[0];
     return $.ajax({
       method: 'GET',
-      url: "" + APIURL + "/users/" + id + "/profile",
+      url: APIURL + "/users/" + id + "/profile",
       success: this._successHandler
     });
   };

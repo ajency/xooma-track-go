@@ -1,5 +1,5 @@
 (function() {
-  var addInstances, checkTimeSlot, end, formatHour, get3MaxTimeSlots, getBestTimes, getCurrentDate, getCurrentHour, getDate, i, inSlot, inTrackingPeriod, notify, setTimeSlot, start, timeSlots, triggerUsageEvent, updateTimeSlot, _i, _storage, _track_for_days;
+  var _storage, _track_for_days, addInstances, checkTimeSlot, end, formatHour, get3MaxTimeSlots, getBestTimes, getCurrentDate, getCurrentHour, getDate, i, inSlot, inTrackingPeriod, j, notify, setTimeSlot, start, timeSlots, triggerUsageEvent, updateTimeSlot;
   window.Usage = window.Usage || {};
   _storage = $.localStorage;
   _track_for_days = 10;
@@ -25,7 +25,7 @@
     return before || same;
   };
   timeSlots = [];
-  for (i = _i = 0; _i <= 23; i = _i += 1) {
+  for (i = j = 0; j <= 23; i = j += 1) {
     start = formatHour(i);
     end = formatHour(i + 1);
     timeSlots[i] = {
@@ -47,11 +47,11 @@
     return slot;
   };
   setTimeSlot = function() {
-    var dayOfWeek, days, statistics, _j, _ref;
+    var dayOfWeek, days, k, ref, statistics;
     days = _track_for_days;
     dayOfWeek = moment().day();
     statistics = [];
-    for (i = _j = 0, _ref = days - 1; _j <= _ref; i = _j += 1) {
+    for (i = k = 0, ref = days - 1; k <= ref; i = k += 1) {
       statistics[i] = {
         date: getDate(dayOfWeek + i),
         timeSlots: JSON.parse(JSON.stringify(timeSlots))
@@ -141,7 +141,7 @@
     size = _.size(bestTimes);
     index = _.random(0, size - 1);
     bestTime = bestTimes[index];
-    time = "" + bestTime.start + ":30";
+    time = bestTime.start + ":30";
     _storage.set('usage_trigger_date', getCurrentDate());
     return Usage.notify.trigger('$usage:notification', {
       notificationTime: time
