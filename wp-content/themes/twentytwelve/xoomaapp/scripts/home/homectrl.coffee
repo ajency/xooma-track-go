@@ -340,7 +340,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		if $('#param').val() == 'weight'
 			units = 'pounds'
 			size = 'Weight'
-		$('#y-axis').text size+'('+units+')'
+		$('#y-axis').text size+' ('+units+')'
 		$('#canvasregion').show()
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'

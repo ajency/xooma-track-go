@@ -6403,6 +6403,9 @@ body {
   -webkit-user-select: none;
   /* Disable selection/copy in UIWebView */
 }
+.ios html body {
+  font-size: 13px !important;
+}
 .product-medium {
   width: 55px;
   margin-right: 5px;
@@ -8209,6 +8212,15 @@ packet_expected_class {
   60% {
     transform: translateY(-5px);
   }
+}
+.anytime input[type="checkbox"] {
+  margin-left: -22px !important;
+  margin-top: 2px !important;
+}
+#graph-container canvas {
+  width: 90% !important;
+  margin: auto!important;
+  display: block!important;
 }
 /* -------------------------------------
  * timeline
@@ -12014,8 +12026,8 @@ input.cmn-toggle-round-flat:checked + label:after {
   top: 50%;
   bottom: 0%;
   text-align: center;
-  width: 10px;
-  left: -2%;
+  width: 110px;
+  left: -8%;
   height: 10px;
 }
 @media (max-width: 768px) {
@@ -12146,6 +12158,9 @@ hr {
 }
 .lg-icon {
   font-size: 34px;
+}
+.panel-title > a {
+  font-weight: 600;
 }
 .btn,
 .tap {
@@ -13798,6 +13813,9 @@ html.mm-opened.mm-black .mm-page {
   }
 }
 @media (max-width: 768px) {
+  .ios html body {
+    font-size: 13px !important;
+  }
   .ios .imageMap a {
     width: 40px;
   }
