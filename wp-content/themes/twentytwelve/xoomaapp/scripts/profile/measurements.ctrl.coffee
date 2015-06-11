@@ -152,6 +152,17 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			$('#measurement').parent().siblings().removeClass 'selected'
 			$('#measurement').parent().prevAll().addClass 'done'
 			$('#measurement').parent().nextAll().addClass 'done'
+
+
+		#New changes
+		if CordovaApp.isPlatformIOS()
+			$('input').on 'focusin', ->
+				$('.topheader').css({'position':'absolute'})
+				$('.home-sub-header').css({'position':'absolute'})
+
+			$('input').on 'blur', ->
+				$('.topheader').css({'position':'fixed'})
+				$('.home-sub-header').css({'position':'fixed'})
 		
 		
 		

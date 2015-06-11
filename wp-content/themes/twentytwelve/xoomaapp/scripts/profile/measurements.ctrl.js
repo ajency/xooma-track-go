@@ -185,7 +185,25 @@ ProfileMeasurementsView = (function(superClass) {
       $('#measurement').parent().addClass('selected');
       $('#measurement').parent().siblings().removeClass('selected');
       $('#measurement').parent().prevAll().addClass('done');
-      return $('#measurement').parent().nextAll().addClass('done');
+      $('#measurement').parent().nextAll().addClass('done');
+    }
+    if (CordovaApp.isPlatformIOS()) {
+      $('input').on('focusin', function() {
+        $('.topheader').css({
+          'position': 'absolute'
+        });
+        return $('.home-sub-header').css({
+          'position': 'absolute'
+        });
+      });
+      return $('input').on('blur', function() {
+        $('.topheader').css({
+          'position': 'fixed'
+        });
+        return $('.home-sub-header').css({
+          'position': 'fixed'
+        });
+      });
     }
   };
 
