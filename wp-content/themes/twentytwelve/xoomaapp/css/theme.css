@@ -6403,6 +6403,9 @@ body {
   -webkit-user-select: none;
   /* Disable selection/copy in UIWebView */
 }
+.ios html body {
+  font-size: 13px !important;
+}
 .product-medium {
   width: 55px;
   margin-right: 5px;
@@ -13810,6 +13813,9 @@ html.mm-opened.mm-black .mm-page {
   }
 }
 @media (max-width: 768px) {
+  .ios html body {
+    font-size: 13px !important;
+  }
   .ios .imageMap a {
     width: 40px;
   }
