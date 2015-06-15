@@ -1114,9 +1114,10 @@ Products.</h6>
     </div>
     </div>
     </div>
-    <div class="form-group">
-    <div class="loadingconusme"></div>
-    <div class="col-sm-offset-2 col-sm-10">
+    
+   
+    <div >
+     <div class="loadingconusme"></div>
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
       <button type="submit" class="btn btn-primary aj-submit-button save pull-right m-r-10" name="save"><i class="fa fa-check"></i> Save</button>
@@ -1125,7 +1126,7 @@ Products.</h6>
          <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
          
 
-    </div>
+    
     </div>
 
            
@@ -1244,7 +1245,7 @@ Products.</h6>
     </div>-->           
 
                 <div class="">
-                    <div class="pull-right">
+                    <div class="">
                     <div class="loadingconusme"></div>
                                  
                     <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
