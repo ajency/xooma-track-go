@@ -167,6 +167,7 @@
     .menulink{
         a{
              display: block;
+             z-index:999;
         }
     }
         .navbar{
@@ -182,6 +183,10 @@
             line-height: 24px;
             }
             .ios{
+            .text-muted {
+                color: #969696;
+                font-weight: 500;
+            }
                 #rays{
                       width: 215px;
                       height: 215px;
@@ -214,11 +219,12 @@
                     top:initial !important;
                 }
                 .panel-body i.dropdown-toggle {
-                      width: 100%;
-                      position: absolute;
-                      right: 0px;
-                      text-align: right;
-                      z-index: 999;
+                    position: absolute;
+                    right: 0px;
+                    top:-5px;
+                    text-align: right;
+                    z-index: 999;
+                    padding: 5px 10px
                     }
                     a, button, .myelements
                         {

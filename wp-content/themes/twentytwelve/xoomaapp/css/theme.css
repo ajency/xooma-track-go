@@ -8067,6 +8067,7 @@ packet_expected_class {
 @media (max-width: 768px) {
   .menulink a {
     display: block;
+    z-index: 999;
   }
   .navbar {
     margin-bottom: 0px;
@@ -8078,6 +8079,10 @@ packet_expected_class {
   }
   .alert-msg {
     line-height: 24px;
+  }
+  .ios .text-muted {
+    color: #969696;
+    font-weight: 500;
   }
   .ios #rays {
     width: 215px;
@@ -8109,11 +8114,12 @@ packet_expected_class {
     top: initial !important;
   }
   .ios .panel-body i.dropdown-toggle {
-    width: 100%;
     position: absolute;
     right: 0px;
+    top: -5px;
     text-align: right;
     z-index: 999;
+    padding: 5px 10px;
   }
   .ios a,
   .ios button,
@@ -12067,7 +12073,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 @media (max-width: 768px) {
   #y-axis {
-    left: -20px;
+    left: -24%;
   }
 }
 #bmi {
