@@ -7424,10 +7424,10 @@ packet_expected_class {
     background: #444C54;
     padding: 0px;
   }
-  html body .home-sub-header li {
+  html body .home-sub-header z-index:999 li {
     width: 30%;
   }
-  html body .home-sub-header li img {
+  html body .home-sub-header z-index:999 li img {
     opacity: 0.4;
   }
   html body .home-sub-header li.selected img {
@@ -8079,6 +8079,13 @@ packet_expected_class {
   .alert-msg {
     line-height: 24px;
   }
+  .ios #rays {
+    width: 215px;
+    height: 215px;
+    margin: auto;
+    top: 191px;
+    background-size: 100%;
+  }
   .ios .topheader .navbar {
     padding-top: 10px !important;
   }
@@ -8128,6 +8135,34 @@ packet_expected_class {
     padding: 0px;
   }
 }
+body .default-select {
+  padding: 5px 8px;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 100px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #fff;
+  background: #3099ea url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+}
+.default-select {
+  padding: 5px 8px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select:focus {
+  outline: none;
+}
+.loadingconusme {
+  float: left;
+  margin-right: 10px;
+}
 /* Sub - Header */
 .sub-header {
   background: #ffffff;
@@ -8135,7 +8170,7 @@ packet_expected_class {
   position: fixed;
   width: 100%;
   top: 68px;
-  z-index: 9;
+  z-index: 999;
 }
 @media (max-width: 768px) {
   .sub-header {
