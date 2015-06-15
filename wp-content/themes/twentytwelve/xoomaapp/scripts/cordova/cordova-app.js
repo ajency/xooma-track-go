@@ -76,18 +76,12 @@ CordovaApp = {
   headerFooterIOSFix: function() {
     if (CordovaApp.isPlatformIOS()) {
       $('input, select').on('focusin', function() {
-        $('.topheader').css({
-          'position': 'absolute'
-        });
-        return $('.home-sub-header').css({
+        return $('.topheader, .home-sub-header, .sub-header').css({
           'position': 'absolute'
         });
       });
       return $('input, select').on('focusout', function() {
-        $('.topheader').css({
-          'position': 'fixed'
-        });
-        return $('.home-sub-header').css({
+        return $('.topheader, .home-sub-header, .sub-header').css({
           'position': 'fixed'
         });
       });
