@@ -8073,6 +8073,8 @@ packet_expected_class {
   .menulink a {
     display: block;
     z-index: 999;
+    outline: none;
+    outline-offset: inherit;
   }
   .navbar {
     margin-bottom: 0px;
