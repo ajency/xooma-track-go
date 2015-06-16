@@ -65,9 +65,11 @@
 
 		headerFooterIOSFix : ->
 			if CordovaApp.isPlatformIOS()
-				$('input, select').on 'focusin', ->
+				$('input, select').on 'focusin', (e)->
+					e.preventDefault()
 					$('.topheader, .home-sub-header, .sub-header').css({'position':'absolute'})
 
-				$('input, select').on 'focusout', ->
+				$('input, select').on 'focusout', (e)->
+					e.preventDefault()
 					$('.topheader, .home-sub-header, .sub-header').css({'position':'fixed'})
 

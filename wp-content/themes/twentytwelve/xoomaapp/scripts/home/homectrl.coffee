@@ -219,12 +219,11 @@ class HomeLayoutView extends Marionette.LayoutView
 						dateObj = date
 						dateText = moment(dateObj).format 'YYYY-MM-DD'
 						$('#update').val dateText
+						$('#showHome').show()
 						App.currentUser.set 'homeDate', dateText
 
 						if todays_date is App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
-						else
-							$('#showHome').show()
 							
 
 		$('.history').attr('href' ,'#/measurements/'+App.currentUser.get('ID')+'/history' )
@@ -370,6 +369,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		ctdx = document.getElementById("canvas").getContext("2d");
 		window.myLine = new Chart(ctdx).Line(lineChartData, 
 			responsive: true
+			scaleLabel: "<%= ' ' + value%>"
 		);
 
 		
