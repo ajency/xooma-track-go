@@ -7537,7 +7537,7 @@ packet_expected_class {
   border: 0px;
 }
 /* Card Animation */
-@keyframes a1 {
+@keyframes circlebtn {
   0% {
     transform: scale(0.8);
     opacity: .5;
@@ -7549,7 +7549,7 @@ packet_expected_class {
     transform: scale(0.8);
   }
 }
-@-webkit-keyframes a1 {
+@-webkit-keyframes circlebtn {
   0% {
     -webkit-transform: scale(0.8);
   }
@@ -7560,7 +7560,7 @@ packet_expected_class {
     -webkit-transform: scale(0.8);
   }
 }
-@-moz-keyframes a1 {
+@-moz-keyframes circlebtn {
   0% {
     -moz-transform: scale(0.8);
   }
@@ -7572,12 +7572,17 @@ packet_expected_class {
   }
 }
 .circle-btn {
-  animation: a1 1.5s infinite;
+  animation: circlebtn 1.5s infinite;
   /* IE 10+ */
-  -webkit-animation: a1 1.5s infinite;
+  -webkit-animation: circlebtn 1.5s infinite;
   /* IE 10+ */
-  -moz-animation: a1 1.5s infinite;
+  -moz-animation: circlebtn 1.5s infinite;
   /* IE 10+ */
+  -webkit-animation-name: circlebtn;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
 }
 .top-panel-picker {
   position: relative;
@@ -8068,6 +8073,8 @@ packet_expected_class {
   .menulink a {
     display: block;
     z-index: 999;
+    outline: none;
+    outline-offset: inherit;
   }
   .navbar {
     margin-bottom: 0px;
@@ -8083,6 +8090,9 @@ packet_expected_class {
   .ios .text-muted {
     color: #969696;
     font-weight: 500;
+  }
+  .ios #y-axis {
+    left: -22%;
   }
   .ios #rays {
     width: 215px;

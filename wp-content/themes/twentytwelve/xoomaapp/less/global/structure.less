@@ -964,7 +964,7 @@ img {
 
 
 
-@keyframes a1 {
+@keyframes circlebtn {
   0%   {
     transform: scale(.8);
     opacity: .5;
@@ -976,7 +976,7 @@ img {
     transform: scale(.8);
   }
 }
- @-webkit-keyframes a1 {
+ @-webkit-keyframes circlebtn {
   0%   {
     -webkit-transform: scale(.8);
   }
@@ -987,7 +987,7 @@ img {
     -webkit-transform: scale(.8);
   }
     }
-    @-moz-keyframes a1 {
+    @-moz-keyframes circlebtn {
       0%   {
     -moz-transform: scale(.8);
     
@@ -1000,9 +1000,14 @@ img {
   }
     }
 .circle-btn {
-  animation: a1 1.5s infinite; /* IE 10+ */
-  -webkit-animation: a1 1.5s infinite; /* IE 10+ */
-  -moz-animation: a1 1.5s infinite; /* IE 10+ */
+  animation: circlebtn 1.5s infinite; /* IE 10+ */
+  -webkit-animation: circlebtn 1.5s infinite; /* IE 10+ */
+  -moz-animation: circlebtn 1.5s infinite; /* IE 10+ */
+  -webkit-animation-name: circlebtn;
+-webkit-animation-duration: 1.5s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+-webkit-animation-fill-mode: forwards;
 }
 
 .top-panel-picker {
