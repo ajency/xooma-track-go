@@ -12083,7 +12083,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 @media (max-width: 768px) {
   #y-axis {
-    left: -24%;
+    left: -21%;
   }
 }
 #bmi {
