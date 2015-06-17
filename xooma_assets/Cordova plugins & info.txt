@@ -16,3 +16,8 @@ cordova -d plugin add  https://github.com/Wizcorp/phonegap-facebook-plugin/ --va
 keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 
 Password: android
+
+#Android release hash key for Facebook
+keytool -exportcert -alias "xooma track & go" -keystore /Users/deepak/Desktop/XoomaTrack\&GoKeystore | openssl sha1 -binary | openssl base64
+
+Password: ajency#123
