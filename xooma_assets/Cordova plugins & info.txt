@@ -10,7 +10,7 @@ Xooma Cordova Plugins
 8) org.apache.cordova.device
 
 #Facebook Plugin
-cordova -d plugin add  https://github.com/Wizcorp/phonegap-facebook-plugin/ --variable APP_ID="355178387994693" --variable APP_NAME="Xooma Local"
+cordova -d plugin add  https://github.com/Wizcorp/phonegap-facebook-plugin/ --variable APP_ID="101968866648981" --variable APP_NAME="Xooma Testimonials"
 
 #Android development hash key for Facebook
 keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
