@@ -6403,6 +6403,9 @@ body {
   -webkit-user-select: none;
   /* Disable selection/copy in UIWebView */
 }
+.ios html body {
+  font-size: 13px !important;
+}
 .product-medium {
   width: 55px;
   margin-right: 5px;
@@ -7421,10 +7424,10 @@ packet_expected_class {
     background: #444C54;
     padding: 0px;
   }
-  html body .home-sub-header li {
+  html body .home-sub-header z-index:999 li {
     width: 30%;
   }
-  html body .home-sub-header li img {
+  html body .home-sub-header z-index:999 li img {
     opacity: 0.4;
   }
   html body .home-sub-header li.selected img {
@@ -7534,7 +7537,7 @@ packet_expected_class {
   border: 0px;
 }
 /* Card Animation */
-@keyframes a1 {
+@keyframes circlebtn {
   0% {
     transform: scale(0.8);
     opacity: .5;
@@ -7546,7 +7549,7 @@ packet_expected_class {
     transform: scale(0.8);
   }
 }
-@-webkit-keyframes a1 {
+@-webkit-keyframes circlebtn {
   0% {
     -webkit-transform: scale(0.8);
   }
@@ -7557,7 +7560,7 @@ packet_expected_class {
     -webkit-transform: scale(0.8);
   }
 }
-@-moz-keyframes a1 {
+@-moz-keyframes circlebtn {
   0% {
     -moz-transform: scale(0.8);
   }
@@ -7569,12 +7572,17 @@ packet_expected_class {
   }
 }
 .circle-btn {
-  animation: a1 1.5s infinite;
+  animation: circlebtn 1.5s infinite;
   /* IE 10+ */
-  -webkit-animation: a1 1.5s infinite;
+  -webkit-animation: circlebtn 1.5s infinite;
   /* IE 10+ */
-  -moz-animation: a1 1.5s infinite;
+  -moz-animation: circlebtn 1.5s infinite;
   /* IE 10+ */
+  -webkit-animation-name: circlebtn;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
 }
 .top-panel-picker {
   position: relative;
@@ -8064,6 +8072,9 @@ packet_expected_class {
 @media (max-width: 768px) {
   .menulink a {
     display: block;
+    z-index: 999;
+    outline: none;
+    outline-offset: inherit;
   }
   .navbar {
     margin-bottom: 0px;
@@ -8075,6 +8086,20 @@ packet_expected_class {
   }
   .alert-msg {
     line-height: 24px;
+  }
+  .ios .text-muted {
+    color: #969696;
+    font-weight: 500;
+  }
+  .ios #y-axis {
+    left: -22%;
+  }
+  .ios #rays {
+    width: 215px;
+    height: 215px;
+    margin: auto;
+    top: 191px;
+    background-size: 100%;
   }
   .ios .topheader .navbar {
     padding-top: 10px !important;
@@ -8095,15 +8120,16 @@ packet_expected_class {
   }
   .ios .home-sub-header {
     bottom: 0px !important;
-    position: fixed !important;
+    position: fixed ;
     top: initial !important;
   }
   .ios .panel-body i.dropdown-toggle {
-    width: 100%;
     position: absolute;
     right: 0px;
+    top: -5px;
     text-align: right;
     z-index: 999;
+    padding: 5px 10px;
   }
   .ios a,
   .ios button,
@@ -8125,6 +8151,34 @@ packet_expected_class {
     padding: 0px;
   }
 }
+body .default-select {
+  padding: 5px 8px;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 100px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #fff;
+  background: #3099ea url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+}
+.default-select {
+  padding: 5px 8px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select:focus {
+  outline: none;
+}
+.loadingconusme {
+  float: left;
+  margin-right: 10px;
+}
 /* Sub - Header */
 .sub-header {
   background: #ffffff;
@@ -8132,7 +8186,7 @@ packet_expected_class {
   position: fixed;
   width: 100%;
   top: 68px;
-  z-index: 9;
+  z-index: 999;
 }
 @media (max-width: 768px) {
   .sub-header {
@@ -12029,7 +12083,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 }
 @media (max-width: 768px) {
   #y-axis {
-    left: -20px;
+    left: -21%;
   }
 }
 #bmi {
@@ -13810,6 +13864,9 @@ html.mm-opened.mm-black .mm-page {
   }
 }
 @media (max-width: 768px) {
+  .ios html body {
+    font-size: 13px !important;
+  }
   .ios .imageMap a {
     width: 40px;
   }

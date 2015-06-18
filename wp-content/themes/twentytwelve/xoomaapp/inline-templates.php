@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
     <script id="login-template" type="text/template">
 <div class="topheader" id="logintemplate">
@@ -404,7 +405,7 @@ Products.</h6>
             <div id="demo2_tip">
                 <b>Neck (inches)</b><br />
            <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5" tabindex=1/> 
-           <small>Please press enter</small></div>
+           <small>Please press enter or return</small></div>
 
         </div>
 
@@ -415,7 +416,7 @@ Products.</h6>
             <div id="demo3_tip">
                 <b>Chest (inches)</b><br />
            <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"  tabindex=2/>
-            <small >Please press enter</small> </div>
+            <small >Please press enter or return</small> </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -424,7 +425,7 @@ Products.</h6>
             <div id="demo4_tip">
                 <b>Arm (inches)</b><br />
            <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-            <small >Please press enter</small> </div>
+            <small >Please press enter or return</small> </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -433,7 +434,7 @@ Products.</h6>
             <div id="demo5_tip">
                 <b>Abdomen (inches)</b><br />
            <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            <small >Please press enter</small></div>
+            <small >Please press enter or return</small></div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
 
@@ -442,7 +443,7 @@ Products.</h6>
             <div id="demo6_tip">
                 <b>Waist (inches)</b><br />
            <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-           <small >Please press enter</small></div>
+           <small >Please press enter or return</small></div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -452,7 +453,7 @@ Products.</h6>
             <div id="demo7_tip">
                 <b>Hips (inches)</b><br />
            <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            <small >Please press enter</small></div>
+            <small >Please press enter or return</small></div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
                <i class="fa fa-dot-circle-o"></i>
@@ -461,7 +462,7 @@ Products.</h6>
             <div id="demo8_tip">
                 <b>Thigh (inches)</b><br />
            <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-            <small >Please press enter</small></div>
+            <small >Please press enter or return</small></div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
                <i class="fa fa-dot-circle-o"></i>
@@ -471,7 +472,7 @@ Products.</h6>
             <div id="demo9_tip">
                 <b>Midcalf (inches)</b><br />
            <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-            <small >Please press enter</small></div>
+            <small >Please press enter or return</small></div>
         </div> 
           
 
@@ -1113,9 +1114,10 @@ Products.</h6>
     </div>
     </div>
     </div>
-    <div class="form-group">
-    <div class="loadingconusme"></div>
-    <div class="col-sm-offset-2 col-sm-10">
+    
+   
+    <div >
+     <div class="loadingconusme"></div>
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
       <button type="submit" class="btn btn-primary aj-submit-button save pull-right m-r-10" name="save"><i class="fa fa-check"></i> Save</button>
@@ -1124,7 +1126,7 @@ Products.</h6>
          <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
          
 
-    </div>
+    
     </div>
 
            
@@ -1243,7 +1245,7 @@ Products.</h6>
     </div>-->           
 
                 <div class="">
-                    <div class="pull-right">
+                    <div class="">
                     <div class="loadingconusme"></div>
                                  
                     <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
