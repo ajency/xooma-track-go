@@ -419,6 +419,7 @@ EditProductsView = (function(superClass) {
     products = App.currentUser.get('products');
     $('#homeDate').val(App.currentUser.get('homeDate'));
     this.checkMode();
+    App.trigger('ios:header:footer:fix');
     if (!window.isWebView()) {
       $('.input-small').timepicker({
         defaultTime: false
@@ -469,9 +470,8 @@ EditProductsView = (function(superClass) {
     }
     if ($.inArray(product, products) === -1) {
       $('.remove').hide();
-      $('.reminder_div').hide();
+      return $('.reminder_div').hide();
     }
-    return CordovaApp.headerFooterIOSFix();
   };
 
   EditProductsView.prototype.checkMode = function() {

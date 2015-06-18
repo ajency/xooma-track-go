@@ -169,6 +169,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 		App.trigger 'cordova:register:push:notification'
 		timezone = App.currentUser.get('offset')
 		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
@@ -254,9 +255,6 @@ class HomeLayoutView extends Marionette.LayoutView
 		# 	formatSubmit: 'yyyy-mm-dd'
 		# 	hiddenName: true
 		# 	)
-
-		#IOS hot fix
-		CordovaApp.headerFooterIOSFix()
 
 	generateBMIGraph:(response)->
 		$('#bmi').show()

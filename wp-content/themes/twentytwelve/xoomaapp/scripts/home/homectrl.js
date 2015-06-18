@@ -194,6 +194,7 @@ HomeLayoutView = (function(superClass) {
     todays_date = moment().format('YYYY-MM-DD');
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     App.trigger('cordova:register:push:notification');
     timezone = App.currentUser.get('offset');
     currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
@@ -270,11 +271,10 @@ HomeLayoutView = (function(superClass) {
       this.ui.time_period.show();
       $('#param option[value="' + window.param + '"]').prop("selected", true);
       $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
-      this.generateGraph();
+      return this.generateGraph();
     } else {
-      this.generateGraph();
+      return this.generateGraph();
     }
-    return CordovaApp.headerFooterIOSFix();
   };
 
   HomeLayoutView.prototype.generateBMIGraph = function(response) {

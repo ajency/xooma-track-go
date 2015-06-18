@@ -52,6 +52,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('.data1').show()
 		
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 		
 		if !window.isWebView()
 			$('#birth_date').datepicker({
@@ -91,9 +92,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		if App.currentUser.get('timezone') == null
 			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
 			# $("#timezone").val($("#timezone option:first").val());
-
-		#IOS hot fix
-		CordovaApp.headerFooterIOSFix()
 		
 
 	#to initialize validate plugin

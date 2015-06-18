@@ -384,6 +384,7 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
+		App.trigger 'ios:header:footer:fix'
 
 		if !window.isWebView()
 			$('.input-small').timepicker(
@@ -435,9 +436,6 @@ class EditProductsView extends Marionette.ItemView
 		if $.inArray( product, products ) == -1
 			$('.remove').hide()
 			$('.reminder_div').hide()
-
-		#IOS hot fix
-		CordovaApp.headerFooterIOSFix()
 
 	checkMode:()->
 		product = parseInt @model.get('id')

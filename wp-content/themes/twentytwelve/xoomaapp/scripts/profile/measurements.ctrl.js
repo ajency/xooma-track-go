@@ -107,6 +107,7 @@ ProfileMeasurementsView = (function(superClass) {
     $('#height').trigger("change");
     $('#weight').trigger("change");
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     timezone = App.currentUser.get('timezone');
     $('#date_field').val(moment().zone(timezone).format('YYYY-MM-DD'));
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
@@ -182,9 +183,8 @@ ProfileMeasurementsView = (function(superClass) {
       $('#measurement').parent().addClass('selected');
       $('#measurement').parent().siblings().removeClass('selected');
       $('#measurement').parent().prevAll().addClass('done');
-      $('#measurement').parent().nextAll().addClass('done');
+      return $('#measurement').parent().nextAll().addClass('done');
     }
-    return CordovaApp.headerFooterIOSFix();
   };
 
   ProfileMeasurementsView.prototype.onFormSubmit = function(_formData) {
