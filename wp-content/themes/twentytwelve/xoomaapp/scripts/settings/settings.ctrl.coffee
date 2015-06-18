@@ -23,7 +23,7 @@ class SettingsView extends Marionette.ItemView
 			data = 'notification='+$(e.target).val()
 			$.ajax
 					method : 'POST'
-					url : "#{_SITEURL}/wp-json/notifications/#{App.currentUser.get('ID')}"
+					url : "#{APIURL}/notifications/#{App.currentUser.get('ID')}"
 					data : data
 					success : @successnotiSave
 					error : @showErr
@@ -40,7 +40,7 @@ class SettingsView extends Marionette.ItemView
 			data = 'emails='+$(e.target).val()
 			$.ajax
 					method : 'POST'
-					url : "#{_SITEURL}/wp-json/emails/#{App.currentUser.get('ID')}"
+					url : "#{APIURL}/emails/#{App.currentUser.get('ID')}"
 					data : data
 					success : @successSave
 					error : @showErr

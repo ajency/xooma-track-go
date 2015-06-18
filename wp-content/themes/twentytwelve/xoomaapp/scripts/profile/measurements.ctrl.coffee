@@ -131,7 +131,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 
 
 		@ui.rangeSliders.each (index, ele)=> @valueOutput ele
-		@ui.rangeSliders.rangeslider polyfill: false
+		# @ui.rangeSliders.rangeslider polyfill: false
 		@measurements = {'arm' :'', 'chest':'','neck':'','waist':'','abdomen':'','midcalf':'','thigh':'','hips':''} 
 		
 		if App.currentUser.get('measurements') != undefined
@@ -259,7 +259,7 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 	_get_measurement_details:->
 		$.ajax
 			method : 'GET'
-			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+			url : "#{APIURL}/users/#{App.currentUser.get('ID')}/measurements"
 			success: @successHandler
 		
 

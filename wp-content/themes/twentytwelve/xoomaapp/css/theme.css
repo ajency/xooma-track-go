@@ -6399,11 +6399,12 @@ button.close {
 html,
 body {
   height: 100%;
-}
-* {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   /* Disable selection/copy in UIWebView */
+}
+.ios html body {
+  font-size: 13px !important;
 }
 .product-medium {
   width: 55px;
@@ -7423,10 +7424,10 @@ packet_expected_class {
     background: #444C54;
     padding: 0px;
   }
-  html body .home-sub-header li {
+  html body .home-sub-header z-index:999 li {
     width: 30%;
   }
-  html body .home-sub-header li img {
+  html body .home-sub-header z-index:999 li img {
     opacity: 0.4;
   }
   html body .home-sub-header li.selected img {
@@ -7536,7 +7537,7 @@ packet_expected_class {
   border: 0px;
 }
 /* Card Animation */
-@keyframes a1 {
+@keyframes circlebtn {
   0% {
     transform: scale(0.8);
     opacity: .5;
@@ -7548,7 +7549,7 @@ packet_expected_class {
     transform: scale(0.8);
   }
 }
-@-webkit-keyframes a1 {
+@-webkit-keyframes circlebtn {
   0% {
     -webkit-transform: scale(0.8);
   }
@@ -7559,7 +7560,7 @@ packet_expected_class {
     -webkit-transform: scale(0.8);
   }
 }
-@-moz-keyframes a1 {
+@-moz-keyframes circlebtn {
   0% {
     -moz-transform: scale(0.8);
   }
@@ -7571,12 +7572,17 @@ packet_expected_class {
   }
 }
 .circle-btn {
-  animation: a1 1.5s infinite;
+  animation: circlebtn 1.5s infinite;
   /* IE 10+ */
-  -webkit-animation: a1 1.5s infinite;
+  -webkit-animation: circlebtn 1.5s infinite;
   /* IE 10+ */
-  -moz-animation: a1 1.5s infinite;
+  -moz-animation: circlebtn 1.5s infinite;
   /* IE 10+ */
+  -webkit-animation-name: circlebtn;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
 }
 .top-panel-picker {
   position: relative;
@@ -8064,6 +8070,12 @@ packet_expected_class {
   display: none;
 }
 @media (max-width: 768px) {
+  .menulink a {
+    display: block;
+    z-index: 999;
+    outline: none;
+    outline-offset: inherit;
+  }
   .navbar {
     margin-bottom: 0px;
   }
@@ -8075,8 +8087,30 @@ packet_expected_class {
   .alert-msg {
     line-height: 24px;
   }
+  .ios .text-muted {
+    color: #969696;
+    font-weight: 500;
+  }
+  .ios #y-axis {
+    left: -22%;
+  }
+  .ios #rays {
+    width: 215px;
+    height: 215px;
+    margin: auto;
+    top: 191px;
+    background-size: 100%;
+  }
   .ios .topheader .navbar {
     padding-top: 10px !important;
+  }
+  .ios .top-panel-picker {
+    display: inline-block;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+  .ios .top-panel-picker input {
+    border-bottom: 1px solid #ccc;
   }
   .ios #homeregion {
     padding-top: 10px;
@@ -8086,22 +8120,23 @@ packet_expected_class {
   }
   .ios .home-sub-header {
     bottom: 0px !important;
-    position: fixed!important;
+    position: fixed ;
     top: initial !important;
   }
   .ios .panel-body i.dropdown-toggle {
-    width: 100%;
     position: absolute;
     right: 0px;
+    top: -5px;
     text-align: right;
     z-index: 999;
+    padding: 5px 10px;
   }
   .ios a,
   .ios button,
   .ios .myelements {
-    -ms-touch-action: manipulation;
+    /* -ms-touch-action: manipulation; */
     /* IE10  */
-    touch-action: manipulation;
+    /*touch-action: manipulation; */
     /* IE11+ */
   }
   .ios .blur-background {
@@ -8116,6 +8151,34 @@ packet_expected_class {
     padding: 0px;
   }
 }
+body .default-select {
+  padding: 5px 8px;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 100px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #fff;
+  background: #3099ea url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+}
+.default-select {
+  padding: 5px 8px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select:focus {
+  outline: none;
+}
+.loadingconusme {
+  float: left;
+  margin-right: 10px;
+}
 /* Sub - Header */
 .sub-header {
   background: #ffffff;
@@ -8123,7 +8186,7 @@ packet_expected_class {
   position: fixed;
   width: 100%;
   top: 68px;
-  z-index: 9;
+  z-index: 999;
 }
 @media (max-width: 768px) {
   .sub-header {
@@ -8200,6 +8263,15 @@ packet_expected_class {
   60% {
     transform: translateY(-5px);
   }
+}
+.anytime input[type="checkbox"] {
+  margin-left: -22px !important;
+  margin-top: 2px !important;
+}
+#graph-container canvas {
+  width: 90% !important;
+  margin: auto!important;
+  display: block!important;
 }
 /* -------------------------------------
  * timeline
@@ -12005,13 +12077,13 @@ input.cmn-toggle-round-flat:checked + label:after {
   top: 50%;
   bottom: 0%;
   text-align: center;
-  width: 10px;
-  left: -2%;
+  width: 110px;
+  left: -8%;
   height: 10px;
 }
 @media (max-width: 768px) {
   #y-axis {
-    left: -20px;
+    left: -21%;
   }
 }
 #bmi {
@@ -12115,6 +12187,9 @@ h6.brand {
   h6 {
     font-size: 12px;
   }
+  .fill-bottle h6 {
+    font-size: 14px;
+  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -12134,6 +12209,9 @@ hr {
 }
 .lg-icon {
   font-size: 34px;
+}
+.panel-title > a {
+  font-weight: 600;
 }
 .btn,
 .tap {
@@ -13783,5 +13861,60 @@ html.mm-opened.mm-black .mm-page {
   }
   100% {
     COLOR: rgba(255, 0, 0, 0.5);
+  }
+}
+@media (max-width: 768px) {
+  .ios html body {
+    font-size: 13px !important;
+  }
+  .ios .imageMap a {
+    width: 40px;
+  }
+  .ios .imageMap a i {
+    -webkit-animation: none !important;
+  }
+  .ios .convertweight,
+  .ios .convertheight {
+    text-align: left;
+    margin: 0px 22%;
+    color: #3099EA;
+  }
+  .ios #listproduct .sub-header a {
+    height: 22px;
+    display: inline-block;
+    width: 42px;
+    z-index: 99999;
+  }
+  .ios .fa-navicon:before,
+  .ios .fa-reorder:before,
+  .ios .fa-bars:before {
+    display: block;
+    height: 50px;
+  }
+  .ios .menuanchor .fa-navicon:before,
+  .ios .menuanchor .fa-reorder:before,
+  .ios .menuanchor .fa-bars:before {
+    display: block;
+    height: 50px;
+    width: 50px;
+  }
+  .ios .cbp-vm-options a {
+    display: inline-block;
+    width: 30px;
+  }
+  .ios .cbp-vm-options a:before {
+    width: 30px;
+  }
+  .ios .rd-gender .radio {
+    position: absolute;
+    z-index: 9999;
+    bottom: -10px;
+    /* width:100%; */
+    display: block !important;
+    left: initial !important;
+    /* visibility: hidden; */
+    opacity: 0;
+    text-align: center;
+    padding: 30px !important;
   }
 }

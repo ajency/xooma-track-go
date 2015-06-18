@@ -50,7 +50,7 @@ class MeasurementHistoryView extends Marionette.ItemView
 			$.ajax
 				method : 'GET'
 				data : 'date='+date
-				url : "#{_SITEURL}/wp-json/measurements/#{App.currentUser.get('ID')}/history"
+				url : "#{APIURL}/measurements/#{App.currentUser.get('ID')}/history"
 				success : @successHandler
 				error : @errorHandler
 
