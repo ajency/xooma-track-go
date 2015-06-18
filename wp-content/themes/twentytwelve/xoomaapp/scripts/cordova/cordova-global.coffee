@@ -19,8 +19,14 @@ userData = CordovaStorage.getUserData()
 
 
 #Xooma URL
-APIURL   = 'http://www.xooma.ajency.in/wp-json'
-_SITEURL = 'http://www.xooma.ajency.in'
+#Test site
+# _SITEURL = 'http://www.xooma.ajency.in'
+
+#Live site
+_SITEURL = 'http://mystory.xoomaworldwide.com/?page_id=1114'
+
+APIURL   = "#{_SITEURL}/wp-json"
+
 
 
 #User capabilities
