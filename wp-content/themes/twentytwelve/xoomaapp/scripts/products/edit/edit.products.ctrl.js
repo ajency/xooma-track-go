@@ -182,7 +182,7 @@ EditProductsView = (function(superClass) {
       product = this.model.get('id');
       return $.ajax({
         method: 'POST',
-        url: _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
         data: data,
         success: this.successSave,
         error: this.errorSave
@@ -213,7 +213,7 @@ EditProductsView = (function(superClass) {
     product = model.get('id');
     return $.ajax({
       method: 'POST',
-      url: _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+      url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
       data: data,
       success: this.successSave,
       error: this.errorSave
@@ -601,7 +601,7 @@ App.EditProductsCtrl = (function(superClass) {
     if ($.inArray(product, products) > -1 || App.productCollection.length === 0) {
       return $.ajax({
         method: 'GET',
-        url: _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.successHandler,
         error: this.erroraHandler
       });

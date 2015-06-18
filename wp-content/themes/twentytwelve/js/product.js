@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
   			
 			$.ajax({
 				type : 'POST',
-				url : SITEURL+'/wp-json/products',
+				url : APIURL+'/products',
 				data : $('#add_product_form').serialize(),
 				success:function(response){
 					$('#response_msg').text('Product was created successfully');
@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
 								}, 'slow')
 				},
 				error:function(error){
-					console.log(error.responseJSON.status);
+					
 					if(error.responseJSON.status == 201){
 						$('#response_msg').text('Product was created successfully');
 						$('html, body').animate({
@@ -81,7 +81,7 @@ jQuery(document).ready(function($) {
 
     wp.media.editor.send.attachment = function(props, attachment) {
 
-    	console.log(attachment.sizes.thumbnail);
+    	
     	if(attachment.sizes.thumbnail != undefined){
 	        $('.custom_media_image').attr('src', attachment.sizes.thumbnail.url);
 	        $('.custom_media_url').val(attachment.sizes.thumbnail.url);
@@ -154,7 +154,7 @@ jQuery(document).ready(function($) {
 	$('#serving_size').live('change',function(event){
 		
 		size = this.value == "" ? 0 : this.value;
-		console.log($('#serving_size_clone').val());
+		
 		serving = $('#serving_per_container').val()== "" ? 0 : $('#serving_per_container').val();
 		if($('#serving_size_clone').val() == "" || $('#serving_size_clone').val() == undefined)
 		{
@@ -189,7 +189,7 @@ jQuery(document).ready(function($) {
 	$('#serving_per_container').live('change',function(event){
 
 		size = $('#serving_size').val() == "" ? 0 : $('#serving_size').val();
-		console.log($('#serving_size_clone').val());
+	
 		if($('#serving_size_clone').val() =="" || $('#serving_size_clone').val() == undefined)
 		{
 			serving_size_clone = 0;
@@ -268,7 +268,7 @@ jQuery(document).ready(function($) {
     		$('<td>').append(row2)
 			);
 		    $('#count').val($("table .add_rows tr").length - 1);
-		    console.log($('#count').val());
+		   
 		     
 
 		 }
@@ -375,7 +375,7 @@ jQuery(document).ready(function($) {
 
 
 		id = $('#'+this.id).attr('data-del');
-		console.log(id);
+		
 		if(parseInt(id) == 0){
 			$('#response_msg').text('Enter atleast one BMI Value ')
 			$('html, body').animate({
@@ -397,7 +397,7 @@ jQuery(document).ready(function($) {
 		
 		$.ajax({
 			type : 'GET',
-			url : SITEURL+'/wp-json/products',
+			url : APIURL+'/products',
 			//url : AJAXURL+'?action=get_products',
 			data : "",
 			success:function(response){
@@ -433,11 +433,11 @@ jQuery(document).ready(function($) {
 
 		$.ajax({
 			type : 'GET',
-			url : SITEURL+'/wp-json/products/'+this.id,
+			url : APIURL+'/products/'+this.id,
 			//url : AJAXURL+'?action=get_products',
 			data :'',
 			success:function(response){
-				console.log(response);
+				
 				show_edit_product(response);
 				
 			},
@@ -490,13 +490,13 @@ jQuery(document).ready(function($) {
 			bmi_display = "";
 			bmi_text = '<td><input type="button" name="add" id="add" value="Add Values for BMI" ></td><td><table class="add_rows"><tr><td><label>From</label></td><td><label>To</label></td><td><label>Quantity</label></td></tr>';
 			$.each(bmi,function(inde,value) {
-				console.log(value);
+				
 				range = value.range;
-				console.log(range);
+				
 				range_arr = range.split('<');
-				console.log(range_arr[1]);
+				
 				quantity = value.quantity;
-				console.log(quantity);
+				
 				i = inde
 				bmi_text += 
 		    	'<tr id="row'+i+'"><td><input class="check_number" type="textbox" required id="weight_from'+i+'" name="weight_from'+i+'" value="'+range_arr[0]+'"></td>'+
@@ -652,10 +652,10 @@ jQuery(document).ready(function($) {
 			  },
 
 		submitHandler: function(form) {
-			console.log($('#edit_product_form').serialize());
+			
 			$.ajax({
 				type : 'PUT',
-				url : SITEURL+'/wp-json/products/'+$('#id').val(),
+				url : APIURL+'/products/'+$('#id').val(),
 				//url : AJAXURL+'?action=update_product',
 				data : $('#edit_product_form').serialize(),
 				success:function(response){
@@ -781,7 +781,7 @@ jQuery(document).ready(function($) {
 				{
 					data.append(key, value);
 				});
-		console.log(data);
+		
 		$.ajax({
 			type : 'POST',
 			//url : SITEURL+'/api/v1/products',
@@ -826,7 +826,7 @@ jQuery(document).ready(function($) {
 			
 			$.ajax({
 				type : 'POST',
-				url : SITEURL+'/wp-json/settings',
+				url : APIURL+'/settings',
 				//url : AJAXURL+'?action=update_product',
 				data : $('#settings_form').serializeArray(),
 				success:function(response){

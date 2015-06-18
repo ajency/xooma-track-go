@@ -155,9 +155,6 @@ ProfileMeasurementsView = (function(superClass) {
         return _this.valueOutput(ele);
       };
     })(this));
-    this.ui.rangeSliders.rangeslider({
-      polyfill: false
-    });
     this.measurements = {
       'arm': '',
       'chest': '',
@@ -304,7 +301,7 @@ App.UserMeasurementCtrl = (function(superClass) {
   UserMeasurementCtrl.prototype._get_measurement_details = function() {
     return $.ajax({
       method: 'GET',
-      url: _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+      url: APIURL + "/users/" + (App.currentUser.get('ID')) + "/measurements",
       success: this.successHandler
     });
   };

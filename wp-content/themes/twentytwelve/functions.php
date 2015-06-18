@@ -100,7 +100,6 @@ require_once (get_template_directory().'/vendor/autoload.php');
 require_once (get_template_directory().'/parse-php-sdk/autoload.php');
 
 use Parse\ParseClient;
- 
 ParseClient::initialize('7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1', 'wiISNnx0aKjpFKXyT2ZxEhWf4aVlBLqSleRWXN8o', 'MzPgucLWJU2mlPWpmCJHmI2c0JoVWPfPRqrbknCB');
 
 
@@ -1126,6 +1125,7 @@ if ( is_development_environment() ) {
 
         wp_enqueue_media();
         wp_localize_script(  "product_script", "SITEURL", site_url() );
+        wp_localize_script(  "product_script", "APIURL", site_url().'/?json_route=' );
         wp_localize_script(  "product_script", "AJAXURL", admin_url( "admin-ajax.php" ) );
         wp_localize_script(  "product_script", "ajaxurl", admin_url( "admin-ajax.php" ) );
         wp_localize_script(  "product_script", "UPLOADURL", admin_url( "async-upload.php" ) );
@@ -1154,6 +1154,7 @@ if (! is_development_environment() ) {
 
     		wp_enqueue_media();
             wp_localize_script( "product_script", "SITEURL", site_url() );
+             wp_localize_script(  "product_script", "APIURL", site_url().'/?json_route=' );
             wp_localize_script(  "product_script", "AJAXURL", admin_url( "admin-ajax.php" ) );
             wp_localize_script(  "product_script", "ajaxurl", admin_url( "admin-ajax.php" ) );
             wp_localize_script(  "product_script", "UPLOADURL", admin_url( "async-upload.php" ) );
@@ -1539,3 +1540,11 @@ function my_custom_action_link($actions, $user_object) {
 	return $actions; 
 } 
 add_filter('user_row_actions', 'my_custom_action_link', 10, 2);
+
+
+function my_json_url($url)
+{
+	echo $url;
+}
+
+add_filter('json_url', 'my_json_url', 10, 2);
