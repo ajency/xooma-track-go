@@ -1,13 +1,13 @@
 var XoomaAppRootView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-XoomaAppRootView = (function(_super) {
-  __extends(XoomaAppRootView, _super);
+XoomaAppRootView = (function(superClass) {
+  extend(XoomaAppRootView, superClass);
 
   function XoomaAppRootView() {
-    this._successHandler = __bind(this._successHandler, this);
+    this._successHandler = bind(this._successHandler, this);
     return XoomaAppRootView.__super__.constructor.apply(this, arguments);
   }
 
@@ -66,7 +66,7 @@ XoomaAppRootView = (function(_super) {
       e.preventDefault();
       return $.ajax({
         method: 'GET',
-        url: "" + APIURL + "/logout",
+        url: APIURL + "/logout",
         success: XoomaAppRootView.prototype._successHandler
       });
     });
@@ -112,8 +112,8 @@ XoomaAppRootView = (function(_super) {
 
 })(Marionette.LayoutView);
 
-App.XoomaCtrl = (function(_super) {
-  __extends(XoomaCtrl, _super);
+App.XoomaCtrl = (function(superClass) {
+  extend(XoomaCtrl, superClass);
 
   function XoomaCtrl() {
     return XoomaCtrl.__super__.constructor.apply(this, arguments);

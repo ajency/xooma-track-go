@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
     requests: true,
     checks: {
       xhr: {
-        url: "" + _SITEURL + "/"
+        url: _SITEURL + "/"
       }
     }
   };

@@ -1,19 +1,19 @@
 var ScheduleView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('Schedule', {
   url: '/products/:id/consume/:date',
   parent: 'xooma'
 });
 
-ScheduleView = (function(_super) {
-  __extends(ScheduleView, _super);
+ScheduleView = (function(superClass) {
+  extend(ScheduleView, superClass);
 
   function ScheduleView() {
-    this.valueOutput = __bind(this.valueOutput, this);
-    this.saveHandler = __bind(this.saveHandler, this);
+    this.valueOutput = bind(this.valueOutput, this);
+    this.saveHandler = bind(this.saveHandler, this);
     return ScheduleView.__super__.constructor.apply(this, arguments);
   }
 
@@ -115,7 +115,7 @@ ScheduleView = (function(_super) {
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
-        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
@@ -137,7 +137,7 @@ ScheduleView = (function(_super) {
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
-        url: "" + _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
@@ -274,11 +274,11 @@ ScheduleView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.ScheduleCtrl = (function(_super) {
-  __extends(ScheduleCtrl, _super);
+App.ScheduleCtrl = (function(superClass) {
+  extend(ScheduleCtrl, superClass);
 
   function ScheduleCtrl() {
-    this.showView = __bind(this.showView, this);
+    this.showView = bind(this.showView, this);
     return ScheduleCtrl.__super__.constructor.apply(this, arguments);
   }
 
