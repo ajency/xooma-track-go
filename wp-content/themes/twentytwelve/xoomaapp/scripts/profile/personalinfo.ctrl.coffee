@@ -52,6 +52,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('.data1').show()
 		
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 		
 		if !window.isWebView()
 			$('#birth_date').datepicker({

@@ -384,6 +384,7 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
+		App.trigger 'ios:header:footer:fix'
 
 		if !window.isWebView()
 			$('.input-small').timepicker(

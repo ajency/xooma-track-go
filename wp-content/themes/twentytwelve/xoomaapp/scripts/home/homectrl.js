@@ -194,6 +194,7 @@ HomeLayoutView = (function(superClass) {
     todays_date = moment().format('YYYY-MM-DD');
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     App.trigger('cordova:register:push:notification');
     timezone = App.currentUser.get('offset');
     currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
