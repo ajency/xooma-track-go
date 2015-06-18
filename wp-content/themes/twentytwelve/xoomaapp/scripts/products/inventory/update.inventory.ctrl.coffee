@@ -109,7 +109,7 @@ class EditInventoryView extends Marionette.ItemView
 			product = @model.get('id')
 			$.ajax
 					method : 'POST'
-					url : "#{_SITEURL}/wp-json/inventory/#{App.currentUser.get('ID')}/products/#{product}"
+					url : "#{APIURL}/inventory/#{App.currentUser.get('ID')}/products/#{product}"
 					data : data
 					success : @successSave
 					error : @errorSave
