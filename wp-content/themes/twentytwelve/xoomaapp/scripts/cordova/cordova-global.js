@@ -10,9 +10,9 @@ $("#inlineTemplate").load("inline-templates.html");
 
 userData = CordovaStorage.getUserData();
 
-_SITEURL = 'http://mystory.xoomaworldwide.com/?page_id=1114';
+_SITEURL = 'https://mystory.xoomaworldwide.com';
 
-APIURL = _SITEURL + "/wp-json";
+APIURL = _SITEURL + "/?json_route=";
 
 notLoggedInCaps = {
   'access_login': true,
