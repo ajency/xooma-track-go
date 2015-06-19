@@ -156,6 +156,9 @@ ProfileMeasurementsView = (function(superClass) {
         return _this.valueOutput(ele);
       };
     })(this));
+    this.ui.rangeSliders.rangeslider({
+      polyfill: false
+    });
     this.measurements = {
       'arm': '',
       'chest': '',
