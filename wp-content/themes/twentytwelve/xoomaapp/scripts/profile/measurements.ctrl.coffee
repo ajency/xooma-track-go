@@ -88,6 +88,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		$( '#height' ).trigger( "change" )
 		$( '#weight').trigger( "change" )
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 			
 		timezone = App.currentUser.get('timezone')
 		$('#date_field').val moment().zone(timezone).format('YYYY-MM-DD')
