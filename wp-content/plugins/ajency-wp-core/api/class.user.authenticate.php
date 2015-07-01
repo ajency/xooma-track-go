@@ -137,6 +137,8 @@ class AjUserAuthenicationApi{
 	        wp_update_user( $userprofiledata );
 	        update_user_meta( $user_id, 'facebook_uid', $user_data['id'] );
 	    }
+	    
+
 	    return $user_id;
 	}
 

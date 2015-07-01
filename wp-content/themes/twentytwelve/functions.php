@@ -1542,9 +1542,13 @@ function my_custom_action_link($actions, $user_object) {
 add_filter('user_row_actions', 'my_custom_action_link', 10, 2);
 
 
-function my_json_url($url)
-{
-	echo $url;
-}
 
-add_filter('json_url', 'my_json_url', 10, 2);
+
+// function login_check($user_login, $user) {
+// 	$user = get_user_by('login',$login);
+// 	$user_ID = $user->ID;
+// 	$havemeta = get_user_meta($user_ID, 'facebook_uid', true);
+// 	if(!$havemeta)
+//     	update_user_meta( $user_ID, 'facebook_uid', $user->ID );
+// }
+// add_action('wp_login', 'login_check' , 99);
