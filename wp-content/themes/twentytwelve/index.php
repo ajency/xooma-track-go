@@ -236,6 +236,9 @@ margin-left: 28px;" allowTransparency="true"></iframe>
 					<div style=" margin: 12px; ">
 					<a href="<?php echo site_url(); ?>/business-testimonials/" style="text-align:center; text-decoration:underline;"> View Business Testimonials</a>
 					</div>
+					<div style=" margin: 12px; ">
+					<a href="<?php echo site_url(); ?>/video-testimonials/" style="text-align:center; text-decoration:underline;"> View Video Testimonials</a>
+					</div>
 					<div id="filters">
 						<h3>Categories</h3>
 

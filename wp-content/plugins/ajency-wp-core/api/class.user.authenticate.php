@@ -137,7 +137,13 @@ class AjUserAuthenicationApi{
 	        wp_update_user( $userprofiledata );
 	        update_user_meta( $user_id, 'facebook_uid', $user_data['id'] );
 	    }
-	    
+	    else if(email_exists($user_data['email']))
+	    {
+	    	$user_id = email_exists($user_data['email']);
+	    	$havemeta = get_user_meta($user_id, 'facebook_uid', true);
+			if(!$havemeta)
+		    	update_user_meta( $user_id, 'facebook_uid', $user_data['id'] );
+		}
 
 	    return $user_id;
 	}

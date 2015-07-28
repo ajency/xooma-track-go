@@ -2,7 +2,7 @@
 
 	/*
 
-		Template Name: Business Testimonials
+		Template Name: Vidoe Testimonials
 
 	*/
 
@@ -310,13 +310,13 @@ if (('POST' === strtoupper( $_SERVER['REQUEST_METHOD'] )) && isset($_POST['email
 
 				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));	
 
-				wp_mail($admin_email ,'New Business Testimonial waiting for approval', $message);
+				wp_mail($admin_email ,'New Video Testimonial waiting for approval', $message);
 
 			}	
 
 			setcookie('submitted', 'yes',  time() + 50, '/');
 
-		    header("Location: " . site_url('business-testimonials'));
+		    header("Location: " . site_url('video-testimonials'));
 
 		    exit;
 
@@ -811,8 +811,8 @@ margin-left: 28px;" allowTransparency="true"></iframe>
 			</form>		
 
 		</div>		
-<?php get_footer(); ?>
-		<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery-1.8.3.min.js"></script>
+
+	<script src="<?php echo get_template_directory_uri(); ?>/js/vendor/jquery-1.8.3.min.js"></script>
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/vendor/bootstrap.min.js"></script>
 
@@ -862,13 +862,19 @@ margin-left: 28px;" allowTransparency="true"></iframe>
 
 				$testimonials = query_posts($args);
 
-				
+				$testimonials = query_posts($args);
+				$myarray = array();
+				foreach ($testimonials as $key => $value) {
+					if (strpos($value->post_content,'iframe') !== false) {
+				    	array_push($myarray, $value);
+					}
+				}
 
 				$ids = '';
 
 				
 
-				foreach($testimonials as $testimonial):
+				foreach($myarray as $testimonial):
 
 					
 

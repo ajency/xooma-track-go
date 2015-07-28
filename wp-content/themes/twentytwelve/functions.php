@@ -1517,8 +1517,19 @@ function load_x2o()
 
 }
 function wpse_11244_restrict_admin() {
-    if ( ! current_user_can( 'manage_options' ) ) {
-        wp_die( __('You are not allowed to access this part of the site') );
+    // if ( ! current_user_can( 'manage_options' ) ) {
+    //     wp_die( __('You are not allowed to access this part of the site') );
+    // }
+    global $wp_roles; 
+
+    $user_ID = get_current_user_id();
+
+	$userRole = new WP_User( $user_ID ); 
+	
+	
+	if ($userRole->roles[0] == 'subscriber')
+	{
+		 wp_die( __('You are not allowed to access this part of the site') );
     }
 }
 add_action( 'admin_init', 'wpse_11244_restrict_admin', 1 );
