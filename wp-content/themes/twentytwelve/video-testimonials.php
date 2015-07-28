@@ -850,11 +850,11 @@ margin-left: 28px;" allowTransparency="true"></iframe>
 
 				$args['orderby'] 		= 'rand';
 
-				$args['posts_per_page'] = 46;
+				$args['posts_per_page'] = -1;
 
 				$args['post_type'] 		= 'post';
 
-				$args['tag_id'] 		= 80;
+				// $args['tag_id'] 		= 80;
 
 				
 
