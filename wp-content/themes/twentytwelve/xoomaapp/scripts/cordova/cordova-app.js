@@ -88,5 +88,17 @@ CordovaApp = {
         });
       });
     }
+  },
+  publishFbFeed: function(model) {
+    var fbFeedBool;
+    fbFeedBool = CordovaStorage.publishFeedDialog('get');
+    if (fbFeedBool) {
+      return facebookConnectPlugin.showDialog({
+        method: "feed",
+        picture: model.get('image'),
+        name: 'Xooma Track & Go',
+        description: "Hey I just had " + (model.get('name'))
+      });
+    }
   }
 };

@@ -148,6 +148,7 @@ ScheduleView = (function(superClass) {
     var model;
     console.log(response);
     this.model.set('occurrence', response.occurrence[0].occurrence);
+    App.trigger('fb:publish:feed', this.model);
     model = new UserProductModel;
     model.set(response.occurrence[0]);
     App.useProductColl.add(model, {

@@ -124,5 +124,10 @@ document.addEventListener("deviceready", function() {
       return CordovaApp.headerFooterIOSFix();
     }
   });
+  App.on('fb:publish:feed', function(model) {
+    if (window.isWebView()) {
+      return CordovaApp.publishFbFeed(model);
+    }
+  });
   return App.start();
 }, false);

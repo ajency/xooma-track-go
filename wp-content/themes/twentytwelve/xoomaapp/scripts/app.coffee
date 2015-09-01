@@ -107,6 +107,9 @@ document.addEventListener "deviceready", ->
 	App.on 'ios:header:footer:fix', ->
 		CordovaApp.headerFooterIOSFix() if window.isWebView()
 
+	App.on 'fb:publish:feed', (model)->
+		CordovaApp.publishFbFeed(model) if window.isWebView()
+
 	
 	App.start()
 

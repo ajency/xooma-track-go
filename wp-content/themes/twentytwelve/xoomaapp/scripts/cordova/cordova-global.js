@@ -1,18 +1,20 @@
 var APIURL, APP_ID, CLIENT_KEY, JS_KEY, Messages, _SITEURL, allSystemCaps, notLoggedInCaps, userData, x2oMessages;
 
-APP_ID = 'fQBYzCQ6rmU8cTbwBUX5vFqtujZTugSmOPOvm2Tf';
+APP_ID = '7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1';
 
-CLIENT_KEY = 'reAavTNAeqb533EiuF0nAK2zl81Wk23gbTnRStz2';
+CLIENT_KEY = 'UEkdQeVTf7lERGv8p0HnKCPrIIr3MXLtAZlU9r7M';
 
-JS_KEY = 'GBtzJkx64pmyFbm93JMJFpwAfFKAhDoraeF7q5E0';
+JS_KEY = 'pIKddWWKvSdtM8IrsuyURRaHjxAPulgkvdHiQQzP';
 
 $("#inlineTemplate").load("inline-templates.html");
 
 userData = CordovaStorage.getUserData();
 
-_SITEURL = 'https://mystory.xoomaworldwide.com';
+CordovaStorage.publishFeedDialog('init');
 
-APIURL = _SITEURL + "/?json_route=";
+_SITEURL = 'http://www.xooma.ajency.in';
+
+APIURL = _SITEURL + "/wp-json";
 
 notLoggedInCaps = {
   'access_login': true,

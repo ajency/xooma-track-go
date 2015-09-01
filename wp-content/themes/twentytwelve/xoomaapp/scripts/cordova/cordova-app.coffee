@@ -73,3 +73,12 @@
 					e.preventDefault()
 					$('.topheader, .home-sub-header, .sub-header').css({'position':'fixed'})
 
+		publishFbFeed : (model)->
+			fbFeedBool = CordovaStorage.publishFeedDialog 'get'
+			if fbFeedBool
+				facebookConnectPlugin.showDialog
+					method: "feed"
+					picture: model.get 'image'
+					name:'Xooma Track & Go'
+					description: "Hey I just had #{model.get('name')}"
+

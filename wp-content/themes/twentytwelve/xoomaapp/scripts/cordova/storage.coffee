@@ -16,3 +16,13 @@
 
 		getMessages : ->
 			$.localStorage.get 'xooma_messages'
+
+		publishFeedDialog : (action, bool)->
+			switch action
+				when 'get'
+					$.localStorage.get 'publish_feed_dialog'
+				when 'set'
+					$.localStorage.set 'publish_feed_dialog', bool
+				when 'init'
+					if _.isNull $.localStorage.get('publish_feed_dialog')
+						$.localStorage.set 'publish_feed_dialog', true

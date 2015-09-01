@@ -44,6 +44,7 @@ class SettingsView extends Marionette.ItemView
 					data : data
 					success : @successSave
 					error : @showErr
+			
 
 	successnotiSave:(response,status,xhr)=>
 		$('.loadingconusme').html ''
@@ -106,7 +107,21 @@ class SettingsView extends Marionette.ItemView
 		else
 			@ui.emails.prop('checked',false)
 			@ui.emails.val '0'
-	
+
+		fbFeedBool = CordovaStorage.publishFeedDialog 'get'
+		if fbFeedBool
+			$('#fbfeed')
+				.prop 'checked', true
+				.val '1'
+		else
+			$('#fbfeed')
+				.prop 'checked', false
+				.val '0'
+
+		$('#fbfeed').change (e)->
+			checked = $(e.target).is ":checked"
+			CordovaStorage.publishFeedDialog 'set', checked
+
 
 
 class App.SettingsCtrl extends Ajency.RegionController

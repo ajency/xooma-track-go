@@ -121,9 +121,10 @@ AsperbmiView = (function(superClass) {
       $('.bottlecnt').text(cnt);
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-success').text("Consumption saved!");
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: 0
       }, 'slow');
+      return App.trigger('fb:publish:feed', this.model);
     } else {
       return this.showErrorMsg();
     }

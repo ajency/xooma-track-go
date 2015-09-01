@@ -1,14 +1,14 @@
 #Parse Keys
 
 #deepak@ajency.in
-# APP_ID     = '7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1'
-# CLIENT_KEY = 'UEkdQeVTf7lERGv8p0HnKCPrIIr3MXLtAZlU9r7M'
-# JS_KEY     = 'pIKddWWKvSdtM8IrsuyURRaHjxAPulgkvdHiQQzP'
+APP_ID     = '7yCBpn4nUCUZMV31PSCNETE3bdzTF8kbx7ESGWJ1'
+CLIENT_KEY = 'UEkdQeVTf7lERGv8p0HnKCPrIIr3MXLtAZlU9r7M'
+JS_KEY     = 'pIKddWWKvSdtM8IrsuyURRaHjxAPulgkvdHiQQzP'
 
 #zack@xooma.com
-APP_ID     = 'fQBYzCQ6rmU8cTbwBUX5vFqtujZTugSmOPOvm2Tf'
-CLIENT_KEY = 'reAavTNAeqb533EiuF0nAK2zl81Wk23gbTnRStz2'
-JS_KEY     = 'GBtzJkx64pmyFbm93JMJFpwAfFKAhDoraeF7q5E0'
+# APP_ID     = 'fQBYzCQ6rmU8cTbwBUX5vFqtujZTugSmOPOvm2Tf'
+# CLIENT_KEY = 'reAavTNAeqb533EiuF0nAK2zl81Wk23gbTnRStz2'
+# JS_KEY     = 'GBtzJkx64pmyFbm93JMJFpwAfFKAhDoraeF7q5E0'
 
 
 #Load inline template
@@ -16,16 +16,17 @@ $("#inlineTemplate").load "inline-templates.html"
 
 #Init
 userData = CordovaStorage.getUserData()
+CordovaStorage.publishFeedDialog 'init'
 
 
 #Xooma URL
 #Test site
-# _SITEURL = 'http://www.xooma.ajency.in'
-# APIURL   = "#{_SITEURL}/wp-json"
+_SITEURL = 'http://www.xooma.ajency.in'
+APIURL   = "#{_SITEURL}/wp-json"
 
 #Live site
-_SITEURL = 'https://mystory.xoomaworldwide.com'
-APIURL   = "#{_SITEURL}/?json_route="
+# _SITEURL = 'https://mystory.xoomaworldwide.com'
+# APIURL   = "#{_SITEURL}/?json_route="
 
 
 

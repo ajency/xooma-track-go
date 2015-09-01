@@ -106,6 +106,8 @@ class AsperbmiView extends Marionette.ItemView
 			$('html, body').animate({
 								scrollTop: 0
 								}, 'slow')
+
+			App.trigger 'fb:publish:feed', @model
 		else
 			@showErrorMsg()
 

@@ -135,6 +135,7 @@ class ScheduleView extends Marionette.ItemView
 	saveHandler:(response,status,xhr)=>
 		console.log response
 		@model.set 'occurrence' , response.occurrence[0].occurrence
+		App.trigger 'fb:publish:feed', @model
 		model = new UserProductModel 
 		model.set response.occurrence[0]
 		App.useProductColl.add model , {merge: true}
