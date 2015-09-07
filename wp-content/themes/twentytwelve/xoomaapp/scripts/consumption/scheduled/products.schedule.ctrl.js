@@ -116,7 +116,12 @@ ScheduleView = (function(superClass) {
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
         url: APIURL + "/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
-        success: this.saveHandler,
+        success: (function(_this) {
+          return function(response, status, xhr) {
+            _this.saveHandler(response, status, xhr);
+            return App.trigger('fb:publish:feed', _this.model);
+          };
+        })(this),
         error: this.erroraHandler
       });
     },
@@ -148,7 +153,6 @@ ScheduleView = (function(superClass) {
     var model;
     console.log(response);
     this.model.set('occurrence', response.occurrence[0].occurrence);
-    App.trigger('fb:publish:feed', this.model);
     model = new UserProductModel;
     model.set(response.occurrence[0]);
     App.useProductColl.add(model, {

@@ -101,7 +101,9 @@ class ScheduleView extends Marionette.ItemView
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
 						url : "#{APIURL}/intakes/#{App.currentUser.get('ID')}/products/#{product}"
-						success: @saveHandler
+						success: (response,status,xhr)=>
+							@saveHandler response, status, xhr
+							App.trigger 'fb:publish:feed', @model
 						error :@erroraHandler
 
 
@@ -135,7 +137,6 @@ class ScheduleView extends Marionette.ItemView
 	saveHandler:(response,status,xhr)=>
 		console.log response
 		@model.set 'occurrence' , response.occurrence[0].occurrence
-		App.trigger 'fb:publish:feed', @model
 		model = new UserProductModel 
 		model.set response.occurrence[0]
 		App.useProductColl.add model , {merge: true}
