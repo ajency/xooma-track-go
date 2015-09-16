@@ -106,6 +106,10 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				data : JSON.stringify _formData['profile']
 				success:@_successHandler
 		else
+			#Changes done for ios build to get acceptance on AppStore
+			_formData['profile'].gender = 'male'
+			_formData['profile'].birth_date = moment().format 'YYYY-MM-DD'
+
 			@model.saveProfile _formData['profile']
 				.done @successHandler
 				.fail @errorHandler
