@@ -1,0 +1,23 @@
+Xooma Cordova Plugins
+
+1) https://github.com/katzer/cordova-plugin-badge.git
+2) https://github.com/katzer/cordova-plugin-local-notifications.git
+3) org.apache.cordova.splashscreen
+4) https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git
+5) org.apache.cordova.network-information
+6) https://github.com/avivais/phonegap-parse-plugin.git
+7) https://github.com/phonegap-build/PushPlugin
+8) org.apache.cordova.device
+
+#Facebook Plugin
+cordova -d plugin add  https://github.com/Wizcorp/phonegap-facebook-plugin/ --variable APP_ID="101968866648981" --variable APP_NAME="Xooma Testimonials"
+
+#Android development hash key for Facebook
+keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
+
+Password: android
+
+#Android release hash key for Facebook
+keytool -exportcert -alias "xooma track & go" -keystore /Users/deepak/Desktop/XoomaTrack\&GoKeystore | openssl sha1 -binary | openssl base64
+
+Password: ajency#123

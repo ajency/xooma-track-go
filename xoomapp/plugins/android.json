@@ -1,0 +1,40 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "de.appplant.cordova.plugin.badge": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "com.xoomaapp"
+        }
+    }
+}
