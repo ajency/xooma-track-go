@@ -1,0 +1,50 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "de.appplant.cordova.common.registerusernotificationsettings": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "de.appplant.cordova.plugin.badge": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "org.apache.cordova.core.parseplugin": {
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        },
+        "phonegap-facebook-plugin": {
+            "APP_ID": "101968866648981",
+            "APP_NAME": "Xooma Testimonials",
+            "PACKAGE_NAME": "mystory.xoomaworldwide.com"
+        }
+    },
+    "dependent_plugins": {}
+}
