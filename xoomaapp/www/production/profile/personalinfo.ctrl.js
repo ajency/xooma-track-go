@@ -1,16 +1,16 @@
 var ProfilePersonalInfoView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-ProfilePersonalInfoView = (function(_super) {
-  __extends(ProfilePersonalInfoView, _super);
+ProfilePersonalInfoView = (function(superClass) {
+  extend(ProfilePersonalInfoView, superClass);
 
   function ProfilePersonalInfoView() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
-    this._successHandler = __bind(this._successHandler, this);
-    this.onFormSubmit = __bind(this.onFormSubmit, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this.successHandler = bind(this.successHandler, this);
+    this._successHandler = bind(this._successHandler, this);
+    this.onFormSubmit = bind(this.onFormSubmit, this);
     return ProfilePersonalInfoView.__super__.constructor.apply(this, arguments);
   }
 
@@ -64,7 +64,7 @@ ProfilePersonalInfoView = (function(_super) {
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    var dateObj, state;
+    var dateObj, dateStr, state;
     $('.data1').hide();
     if (App.currentUser.get('caps').administrator === true) {
       $('.profile-template').hide();
@@ -73,6 +73,7 @@ ProfilePersonalInfoView = (function(_super) {
       $('.data1').show();
     }
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',
@@ -83,7 +84,8 @@ ProfilePersonalInfoView = (function(_super) {
       });
     }
     if (window.isWebView()) {
-      dateObj = new Date($('#birth_date').val());
+      dateStr = $('#birth_date').val();
+      dateObj = dateStr === '' ? new Date() : new Date(dateStr);
       $('#birth_date').prop('readonly', true).click(function() {
         var maxDate, options;
         maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
@@ -127,6 +129,8 @@ ProfilePersonalInfoView = (function(_super) {
         success: this._successHandler
       });
     } else {
+      _formData['profile'].gender = 'male';
+      _formData['profile'].birth_date = moment().format('YYYY-MM-DD');
       return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
     }
   };
@@ -182,12 +186,12 @@ ProfilePersonalInfoView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.UserPersonalInfoCtrl = (function(_super) {
-  __extends(UserPersonalInfoCtrl, _super);
+App.UserPersonalInfoCtrl = (function(superClass) {
+  extend(UserPersonalInfoCtrl, superClass);
 
   function UserPersonalInfoCtrl() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this._showView = __bind(this._showView, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this._showView = bind(this._showView, this);
     return UserPersonalInfoCtrl.__super__.constructor.apply(this, arguments);
   }
 

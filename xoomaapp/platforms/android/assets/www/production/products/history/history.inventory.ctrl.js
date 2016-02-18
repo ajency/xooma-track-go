@@ -1,15 +1,15 @@
 var InventoryChildView, ViewInventoryView,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 App.state('ViewInventory', {
   url: '/inventory/:id/view',
   parent: 'xooma'
 });
 
-InventoryChildView = (function(_super) {
-  __extends(InventoryChildView, _super);
+InventoryChildView = (function(superClass) {
+  extend(InventoryChildView, superClass);
 
   function InventoryChildView() {
     return InventoryChildView.__super__.constructor.apply(this, arguments);
@@ -25,8 +25,8 @@ InventoryChildView = (function(_super) {
 
 })(Marionette.ItemView);
 
-ViewInventoryView = (function(_super) {
-  __extends(ViewInventoryView, _super);
+ViewInventoryView = (function(superClass) {
+  extend(ViewInventoryView, superClass);
 
   function ViewInventoryView() {
     return ViewInventoryView.__super__.constructor.apply(this, arguments);
@@ -56,13 +56,13 @@ ViewInventoryView = (function(_super) {
 
 })(Marionette.CompositeView);
 
-App.ViewInventoryCtrl = (function(_super) {
-  __extends(ViewInventoryCtrl, _super);
+App.ViewInventoryCtrl = (function(superClass) {
+  extend(ViewInventoryCtrl, superClass);
 
   function ViewInventoryCtrl() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
-    this._showView = __bind(this._showView, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this.successHandler = bind(this.successHandler, this);
+    this._showView = bind(this._showView, this);
     return ViewInventoryCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -100,7 +100,7 @@ App.ViewInventoryCtrl = (function(_super) {
     product = model.get('id');
     return $.ajax({
       method: 'GET',
-      url: "" + _APIURL + "/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
+      url: APIURL + "/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
       success: this.successHandler,
       error: this.errorHandler
     });

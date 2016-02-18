@@ -1,9 +1,9 @@
 var ProductCollection, ProductModel, UserProductCollection, UserProductModel,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-ProductModel = (function(_super) {
-  __extends(ProductModel, _super);
+ProductModel = (function(superClass) {
+  extend(ProductModel, superClass);
 
   function ProductModel() {
     return ProductModel.__super__.constructor.apply(this, arguments);
@@ -15,8 +15,8 @@ ProductModel = (function(_super) {
 
 })(Backbone.Model);
 
-ProductCollection = (function(_super) {
-  __extends(ProductCollection, _super);
+ProductCollection = (function(superClass) {
+  extend(ProductCollection, superClass);
 
   function ProductCollection() {
     return ProductCollection.__super__.constructor.apply(this, arguments);
@@ -25,7 +25,7 @@ ProductCollection = (function(_super) {
   ProductCollection.prototype.model = ProductModel;
 
   ProductCollection.prototype.url = function() {
-    return "" + APIURL + "/products";
+    return APIURL + "/products";
   };
 
   return ProductCollection;
@@ -34,8 +34,8 @@ ProductCollection = (function(_super) {
 
 App.productCollection = new ProductCollection();
 
-UserProductModel = (function(_super) {
-  __extends(UserProductModel, _super);
+UserProductModel = (function(superClass) {
+  extend(UserProductModel, superClass);
 
   function UserProductModel() {
     return UserProductModel.__super__.constructor.apply(this, arguments);
@@ -47,8 +47,8 @@ UserProductModel = (function(_super) {
 
 })(Backbone.Model);
 
-UserProductCollection = (function(_super) {
-  __extends(UserProductCollection, _super);
+UserProductCollection = (function(superClass) {
+  extend(UserProductCollection, superClass);
 
   function UserProductCollection() {
     return UserProductCollection.__super__.constructor.apply(this, arguments);

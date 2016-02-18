@@ -32,34 +32,8 @@ module.exports = (grunt) ->
 		'bower_components/ajency.marionette/dist/ajency.marionette.js'
 	]
 
-	appcode = [
-		'../js/tooltip.js'
-		'../js/slick.min.js'
-		'../js/offline.min.js'
-		'../js/android.ios.html.class.js'
-		'../xoomaapp/scripts/common/common.js'
-		'../xoomaapp/scripts/xooma/xooma.app.root.ctrl.js'
-		'../xoomaapp/scripts/profile/profile.ctrl.js'
-		'../xoomaapp/scripts/profile/personalinfo.ctrl.js'
-		'../xoomaapp/scripts/profile/measurements.ctrl.js'
-		'../xoomaapp/scripts/products/product.entity.js'
-		'../xoomaapp/scripts/products/add/add.products.ctrl.js'
-		'../xoomaapp/scripts/products/products.js'
-		'../xoomaapp/scripts/profile/userproductlistctrl.js'
-		'../xoomaapp/scripts/home/homectrl.js'
-		'../xoomaapp/scripts/products/edit/edit.products.ctrl.js'
-		'../xoomaapp/scripts/products/inventory/update.inventory.ctrl.js'
-		'../xoomaapp/scripts/products/history/history.inventory.ctrl.js'
-		'../xoomaapp/scripts/consumption/asperbmi/asperbmi.ctrl.js'
-		'../xoomaapp/scripts/consumption/scheduled/products.schedule.ctrl.js'
-		'../xoomaapp/scripts/history/history.product.ctrl.js'
-		'../xoomaapp/scripts/settings/settings.ctrl.js'
-		'../xoomaapp/scripts/history/history.measurements.ctrl.js'
-		'../xoomaapp/scripts/loading/loading.ctrl.js'
-		'../xoomaapp/scripts/loading/workflow.ctrl.js'
-		'../xoomaapp/scripts/admin/admin.ctrl.js'
-		'../xoomaapp/scripts/faq/faq.ctrl.js'
-		'../xoomaapp/scripts/app.js'		
+	appjscode = [
+		'dev/js/*.js'	
 	]
 
 	grunt.initConfig
@@ -89,8 +63,8 @@ module.exports = (grunt) ->
 
 			develop:
 				files: [
-					"../xoomaapp/scripts/**/*.coffee"
-					"../xoomaapp/scripts/*.coffee"
+					"dev/scripts/**/*.coffee"
+					"dev/scripts/*.coffee"
 				]
 				tasks: ["coffee:develop"]
 
@@ -101,9 +75,9 @@ module.exports = (grunt) ->
 			develop:
 				files :[
 					expand: true
-					cwd: "../xoomaapp/scripts"
+					cwd: "dev/scripts"
 					src: ["**/*.coffee"]
-					dest: "../xoomaapp/production"
+					dest: "www/production"
 					ext: ".js"
 					extDot: 'last'
 				]
@@ -112,7 +86,8 @@ module.exports = (grunt) ->
 			app:
 				files: [
 					'www/dist/plugins.min.js': plugins
-					'../xoomaapp/dist/appliction.min.js': appcode
+					'www/dist/jsfiles.min.js' : appjscode
+					
 				]
 
 

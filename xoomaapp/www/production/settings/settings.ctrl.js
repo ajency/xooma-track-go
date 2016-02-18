@@ -1,19 +1,19 @@
 var SettingsView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('Settings', {
   url: '/settings',
   parent: 'xooma'
 });
 
-SettingsView = (function(_super) {
-  __extends(SettingsView, _super);
+SettingsView = (function(superClass) {
+  extend(SettingsView, superClass);
 
   function SettingsView() {
-    this.successSave = __bind(this.successSave, this);
-    this.successnotiSave = __bind(this.successnotiSave, this);
+    this.successSave = bind(this.successSave, this);
+    this.successnotiSave = bind(this.successnotiSave, this);
     return SettingsView.__super__.constructor.apply(this, arguments);
   }
 
@@ -39,7 +39,7 @@ SettingsView = (function(_super) {
       data = 'notification=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: "" + _APIURL + "/notifications/" + (App.currentUser.get('ID')),
+        url: APIURL + "/notifications/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successnotiSave,
         error: this.showErr
@@ -58,7 +58,7 @@ SettingsView = (function(_super) {
       data = 'emails=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: "" + _APIURL + "/emails/" + (App.currentUser.get('ID')),
+        url: APIURL + "/emails/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successSave,
         error: this.showErr
@@ -106,7 +106,7 @@ SettingsView = (function(_super) {
   };
 
   SettingsView.prototype.onShow = function() {
-    var emails, notification;
+    var emails, fbFeedBool, notification;
     if (!window.isWebView()) {
       $('.notificationclass').hide();
     }
@@ -121,19 +121,30 @@ SettingsView = (function(_super) {
     emails = App.currentUser.get('emails');
     if (parseInt(emails) === 1) {
       this.ui.emails.prop('checked', true);
-      return this.ui.emails.val('1');
+      this.ui.emails.val('1');
     } else {
       this.ui.emails.prop('checked', false);
-      return this.ui.emails.val('0');
+      this.ui.emails.val('0');
     }
+    fbFeedBool = CordovaStorage.publishFeedDialog('get');
+    if (fbFeedBool) {
+      $('#fbfeed').prop('checked', true).val('1');
+    } else {
+      $('#fbfeed').prop('checked', false).val('0');
+    }
+    return $('#fbfeed').change(function(e) {
+      var checked;
+      checked = $(e.target).is(":checked");
+      return CordovaStorage.publishFeedDialog('set', checked);
+    });
   };
 
   return SettingsView;
 
 })(Marionette.ItemView);
 
-App.SettingsCtrl = (function(_super) {
-  __extends(SettingsCtrl, _super);
+App.SettingsCtrl = (function(superClass) {
+  extend(SettingsCtrl, superClass);
 
   function SettingsCtrl() {
     return SettingsCtrl.__super__.constructor.apply(this, arguments);

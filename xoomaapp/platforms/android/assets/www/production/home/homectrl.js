@@ -1,7 +1,7 @@
 var HomeLayoutView, HomeOtherProductsView, HomeX2OView, ProductChildView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('home', {
   url: '/home',
@@ -16,14 +16,14 @@ App.state('home', {
   }
 });
 
-HomeLayoutView = (function(_super) {
-  __extends(HomeLayoutView, _super);
+HomeLayoutView = (function(superClass) {
+  extend(HomeLayoutView, superClass);
 
   function HomeLayoutView() {
-    this._errorHandler = __bind(this._errorHandler, this);
-    this._successHandler = __bind(this._successHandler, this);
-    this.onFormSubmit = __bind(this.onFormSubmit, this);
-    this._showView = __bind(this._showView, this);
+    this._errorHandler = bind(this._errorHandler, this);
+    this._successHandler = bind(this._successHandler, this);
+    this.onFormSubmit = bind(this.onFormSubmit, this);
+    this._showView = bind(this._showView, this);
     return HomeLayoutView.__super__.constructor.apply(this, arguments);
   }
 
@@ -152,7 +152,7 @@ HomeLayoutView = (function(_super) {
     return $.ajax({
       method: 'GET',
       data: _formData,
-      url: "" + APIURL + "/graphs/" + (App.currentUser.get('ID')),
+      url: APIURL + "/graphs/" + (App.currentUser.get('ID')),
       success: this._successHandler,
       error: this._errorHandler
     });
@@ -194,6 +194,7 @@ HomeLayoutView = (function(_super) {
     todays_date = moment().format('YYYY-MM-DD');
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     App.trigger('cordova:register:push:notification');
     timezone = App.currentUser.get('offset');
     currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
@@ -246,11 +247,10 @@ HomeLayoutView = (function(_super) {
             dateObj = date;
             dateText = moment(dateObj).format('YYYY-MM-DD');
             $('#update').val(dateText);
+            $('#showHome').show();
             App.currentUser.set('homeDate', dateText);
             if (todays_date === App.currentUser.get('homeDate')) {
               return $('#update').val('TODAY');
-            } else {
-              return $('#showHome').show();
             }
           }
         });
@@ -379,7 +379,8 @@ HomeLayoutView = (function(_super) {
     };
     ctdx = document.getElementById("canvas").getContext("2d");
     return window.myLine = new Chart(ctdx).Line(lineChartData, {
-      responsive: true
+      responsive: true,
+      scaleLabel: "<%= ' ' + value%>"
     });
   };
 
@@ -387,12 +388,12 @@ HomeLayoutView = (function(_super) {
 
 })(Marionette.LayoutView);
 
-App.HomeCtrl = (function(_super) {
-  __extends(HomeCtrl, _super);
+App.HomeCtrl = (function(superClass) {
+  extend(HomeCtrl, superClass);
 
   function HomeCtrl() {
-    this.errorHandler = __bind(this.errorHandler, this);
-    this._showView = __bind(this._showView, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this._showView = bind(this._showView, this);
     return HomeCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -434,8 +435,8 @@ App.HomeCtrl = (function(_super) {
 
 })(Ajency.RegionController);
 
-HomeX2OView = (function(_super) {
-  __extends(HomeX2OView, _super);
+HomeX2OView = (function(superClass) {
+  extend(HomeX2OView, superClass);
 
   function HomeX2OView() {
     return HomeX2OView.__super__.constructor.apply(this, arguments);
@@ -690,11 +691,11 @@ HomeX2OView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.HomeX2OCtrl = (function(_super) {
-  __extends(HomeX2OCtrl, _super);
+App.HomeX2OCtrl = (function(superClass) {
+  extend(HomeX2OCtrl, superClass);
 
   function HomeX2OCtrl() {
-    this._showView = __bind(this._showView, this);
+    this._showView = bind(this._showView, this);
     return HomeX2OCtrl.__super__.constructor.apply(this, arguments);
   }
 
@@ -722,11 +723,11 @@ App.HomeX2OCtrl = (function(_super) {
 
 })(Ajency.RegionController);
 
-ProductChildView = (function(_super) {
-  __extends(ProductChildView, _super);
+ProductChildView = (function(superClass) {
+  extend(ProductChildView, superClass);
 
   function ProductChildView() {
-    this.saveHandler = __bind(this.saveHandler, this);
+    this.saveHandler = bind(this.saveHandler, this);
     return ProductChildView.__super__.constructor.apply(this, arguments);
   }
 
@@ -991,8 +992,8 @@ ProductChildView = (function(_super) {
 
 })(Marionette.ItemView);
 
-HomeOtherProductsView = (function(_super) {
-  __extends(HomeOtherProductsView, _super);
+HomeOtherProductsView = (function(superClass) {
+  extend(HomeOtherProductsView, superClass);
 
   function HomeOtherProductsView() {
     return HomeOtherProductsView.__super__.constructor.apply(this, arguments);
@@ -1006,11 +1007,11 @@ HomeOtherProductsView = (function(_super) {
 
 })(Marionette.CompositeView);
 
-App.HomeOtherProductsCtrl = (function(_super) {
-  __extends(HomeOtherProductsCtrl, _super);
+App.HomeOtherProductsCtrl = (function(superClass) {
+  extend(HomeOtherProductsCtrl, superClass);
 
   function HomeOtherProductsCtrl() {
-    this._showView = __bind(this._showView, this);
+    this._showView = bind(this._showView, this);
     return HomeOtherProductsCtrl.__super__.constructor.apply(this, arguments);
   }
 

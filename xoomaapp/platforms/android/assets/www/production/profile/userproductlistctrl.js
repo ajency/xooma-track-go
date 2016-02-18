@@ -1,14 +1,14 @@
 var EmptyView, ProductChildView, UserProductListView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-ProductChildView = (function(_super) {
-  __extends(ProductChildView, _super);
+ProductChildView = (function(superClass) {
+  extend(ProductChildView, superClass);
 
   function ProductChildView() {
-    this.erroraHandler = __bind(this.erroraHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
+    this.erroraHandler = bind(this.erroraHandler, this);
+    this.successHandler = bind(this.successHandler, this);
     return ProductChildView.__super__.constructor.apply(this, arguments);
   }
 
@@ -38,7 +38,7 @@ ProductChildView = (function(_super) {
       products = App.currentUser.get('products');
       return $.ajax({
         method: 'DELETE',
-        url: "" + _APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.successHandler,
         error: this.erroraHandler
       });
@@ -197,8 +197,8 @@ ProductChildView = (function(_super) {
 
 })(Marionette.ItemView);
 
-EmptyView = (function(_super) {
-  __extends(EmptyView, _super);
+EmptyView = (function(superClass) {
+  extend(EmptyView, superClass);
 
   function EmptyView() {
     return EmptyView.__super__.constructor.apply(this, arguments);
@@ -222,12 +222,12 @@ EmptyView = (function(_super) {
 
 })(Marionette.ItemView);
 
-UserProductListView = (function(_super) {
-  __extends(UserProductListView, _super);
+UserProductListView = (function(superClass) {
+  extend(UserProductListView, superClass);
 
   function UserProductListView() {
-    this._errorHandler = __bind(this._errorHandler, this);
-    this._successHandler = __bind(this._successHandler, this);
+    this._errorHandler = bind(this._errorHandler, this);
+    this._successHandler = bind(this._successHandler, this);
     return UserProductListView.__super__.constructor.apply(this, arguments);
   }
 
@@ -251,7 +251,7 @@ UserProductListView = (function(_super) {
     'click @ui.saveProducts': function(e) {
       return $.ajax({
         method: 'POST',
-        url: "" + APIURL + "/records/" + (App.currentUser.get('ID')),
+        url: APIURL + "/records/" + (App.currentUser.get('ID')),
         success: this._successHandler,
         error: this._errorHandler
       });
@@ -310,12 +310,12 @@ UserProductListView = (function(_super) {
 
 })(Marionette.CompositeView);
 
-App.UserProductListCtrl = (function(_super) {
-  __extends(UserProductListCtrl, _super);
+App.UserProductListCtrl = (function(superClass) {
+  extend(UserProductListCtrl, superClass);
 
   function UserProductListCtrl() {
-    this._showView = __bind(this._showView, this);
-    this.removeLoader = __bind(this.removeLoader, this);
+    this._showView = bind(this._showView, this);
+    this.removeLoader = bind(this.removeLoader, this);
     return UserProductListCtrl.__super__.constructor.apply(this, arguments);
   }
 

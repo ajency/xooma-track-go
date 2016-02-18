@@ -1,23 +1,23 @@
 var AsperbmiView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('Asperbmi', {
   url: '/products/:id/bmi/:date',
   parent: 'xooma'
 });
 
-AsperbmiView = (function(_super) {
-  __extends(AsperbmiView, _super);
+AsperbmiView = (function(superClass) {
+  extend(AsperbmiView, superClass);
 
   function AsperbmiView() {
-    this.stopProgress = __bind(this.stopProgress, this);
-    this.startProgress = __bind(this.startProgress, this);
-    this.update_occurrences = __bind(this.update_occurrences, this);
-    this.create_occurrences = __bind(this.create_occurrences, this);
-    this.erroraHandler = __bind(this.erroraHandler, this);
-    this.saveHandler = __bind(this.saveHandler, this);
+    this.stopProgress = bind(this.stopProgress, this);
+    this.startProgress = bind(this.startProgress, this);
+    this.update_occurrences = bind(this.update_occurrences, this);
+    this.create_occurrences = bind(this.create_occurrences, this);
+    this.erroraHandler = bind(this.erroraHandler, this);
+    this.saveHandler = bind(this.saveHandler, this);
     return AsperbmiView.__super__.constructor.apply(this, arguments);
   }
 
@@ -62,7 +62,7 @@ AsperbmiView = (function(_super) {
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
-        url: "" + _APIURL + "/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
@@ -121,9 +121,10 @@ AsperbmiView = (function(_super) {
       $('.bottlecnt').text(cnt);
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-success').text("Consumption saved!");
-      return $('html, body').animate({
+      $('html, body').animate({
         scrollTop: 0
       }, 'slow');
+      return App.trigger('fb:publish:feed', this.model);
     } else {
       return this.showErrorMsg();
     }
@@ -299,11 +300,11 @@ AsperbmiView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.AsperbmiCtrl = (function(_super) {
-  __extends(AsperbmiCtrl, _super);
+App.AsperbmiCtrl = (function(superClass) {
+  extend(AsperbmiCtrl, superClass);
 
   function AsperbmiCtrl() {
-    this.showView = __bind(this.showView, this);
+    this.showView = bind(this.showView, this);
     return AsperbmiCtrl.__super__.constructor.apply(this, arguments);
   }
 

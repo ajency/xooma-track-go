@@ -1,22 +1,22 @@
 var ViewProductHistoryView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('ViewProductHistory', {
   url: '/product/:id/history',
   parent: 'xooma'
 });
 
-ViewProductHistoryView = (function(_super) {
-  __extends(ViewProductHistoryView, _super);
+ViewProductHistoryView = (function(superClass) {
+  extend(ViewProductHistoryView, superClass);
 
   function ViewProductHistoryView() {
-    this.getCount = __bind(this.getCount, this);
-    this.errorHandler = __bind(this.errorHandler, this);
-    this.successHandler = __bind(this.successHandler, this);
-    this.loadData = __bind(this.loadData, this);
-    this.showView = __bind(this.showView, this);
+    this.getCount = bind(this.getCount, this);
+    this.errorHandler = bind(this.errorHandler, this);
+    this.successHandler = bind(this.successHandler, this);
+    this.loadData = bind(this.loadData, this);
+    this.showView = bind(this.showView, this);
     return ViewProductHistoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -115,7 +115,7 @@ ViewProductHistoryView = (function(_super) {
     return $.ajax({
       method: 'GET',
       data: 'date=' + date,
-      url: "" + _APIURL + "/history/" + (App.currentUser.get('ID')) + "/products/" + product,
+      url: APIURL + "/history/" + (App.currentUser.get('ID')) + "/products/" + product,
       success: this.successHandler,
       error: this.errorHandler
     });
@@ -226,8 +226,8 @@ ViewProductHistoryView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.ViewProductHistoryCtrl = (function(_super) {
-  __extends(ViewProductHistoryCtrl, _super);
+App.ViewProductHistoryCtrl = (function(superClass) {
+  extend(ViewProductHistoryCtrl, superClass);
 
   function ViewProductHistoryCtrl() {
     return ViewProductHistoryCtrl.__super__.constructor.apply(this, arguments);
