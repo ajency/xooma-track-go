@@ -40,18 +40,18 @@ module.exports = (grunt) ->
 
 		copy :
 			project :
-				cwd : '../xoomaapp'
-				src: ['**', '!node_modules/**', '!bower_components/**']
-				dest: '../../../../../xooma-app/www/'
+				cwd : 'dev'
+				src: ['**', '!js/**','!scripts/**']
+				dest: 'www/'
 				expand : true
 			indexfile :
 				cwd : 'cordova-app'
 				src : ['index.html']
-				dest : '../../../../../xooma-app/www/'
+				dest : 'www/'
 				expand : true
 				options :
 					process : (content, srcPath)->
-						templates = grunt.file.read '../xoomaapp/inline-templates.php'
+						templates = grunt.file.read 'dev/inline-templates.html'
 						content = content.replace '<!-- TEMPLATES HERE -->', templates
 						content
 
@@ -67,6 +67,12 @@ module.exports = (grunt) ->
 					"dev/scripts/*.coffee"
 				]
 				tasks: ["coffee:develop"]
+
+			copy:
+				files: [
+					"dev/inline-templates.html"
+				]
+				tasks: ["copy"]	
 
 		coffee :
 			options:
