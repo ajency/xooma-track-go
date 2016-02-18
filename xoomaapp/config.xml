@@ -16,7 +16,7 @@
     <icon src="xooma_assets/Resources/icon_ios.png" platform="ios" width="57" height="57" density="mdpi" />
     <icon src="xooma_assets/Resources/icon_android.png" platform="android" width="57" height="57" 
     density="mdpi" />
-    <splash src="xooma_assets/Resources/splash"/>
+    <splash src="xooma_assets/Resources/splash.png"/>
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />

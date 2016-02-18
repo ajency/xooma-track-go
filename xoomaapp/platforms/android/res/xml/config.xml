@@ -52,7 +52,7 @@
     <preference name="FadeSplashScreen" value="false" />
     <icon density="mdpi" height="57" platform="ios" src="xooma_assets/Resources/icon_ios.png" width="57" />
     <icon density="mdpi" height="57" platform="android" src="xooma_assets/Resources/icon_android.png" width="57" />
-    <splash src="xooma_assets/Resources/splash" />
+    <splash src="xooma_assets/Resources/splash.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
