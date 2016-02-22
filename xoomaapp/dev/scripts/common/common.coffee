@@ -2,6 +2,8 @@ App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
+Ajency.SignInView::template= '#sign_in_template'
+Ajency.SignUpView::template= '#sign_up_template'
 
 _.extend Ajency.LoginView::,
 
@@ -16,6 +18,12 @@ _.extend Ajency.LoginView::,
 			autoplay: true,
   			autoplaySpeed: 2000,
 		);
+
+
+_.extend Ajency.SignInView.prototype, onShow: ->
+  console.log 'Sign In View Initialized'
+_.extend Ajency.SignUpView.prototype, onShow: ->
+  console.log 'Sign Up View Initialized'
 
 class Ajency.FormView extends Marionette.LayoutView
 	behaviors : 
