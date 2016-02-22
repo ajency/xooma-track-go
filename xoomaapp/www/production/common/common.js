@@ -9,6 +9,10 @@ Ajency.CurrentUserView.prototype.template = '#current-user-template';
 
 Ajency.LoginView.prototype.template = '#login-template';
 
+Ajency.SignInView.prototype.template = '#sign_in_template';
+
+Ajency.SignUpView.prototype.template = '#sign_up_template';
+
 _.extend(Ajency.LoginView.prototype, {
   onShow: function() {
     App.trigger('cordova:hide:splash:screen');
@@ -22,6 +26,18 @@ _.extend(Ajency.LoginView.prototype, {
     }, {
       autoplaySpeed: 2000
     });
+  }
+});
+
+_.extend(Ajency.SignInView.prototype, {
+  onShow: function() {
+    return console.log('Sign In View Initialized');
+  }
+});
+
+_.extend(Ajency.SignUpView.prototype, {
+  onShow: function() {
+    return console.log('Sign Up View Initialized');
   }
 });
 
