@@ -36,7 +36,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   }
 })(this, function(root, $, Backbone, _, Marionette, Handlebars) {
   "use strict";
-  var Ajency, NothingFoundView, authNS, currentUser, currentUserNS, currentUserTemplate, loginViewTemplate, uploadTemplate;
+  var Ajency, NothingFoundView, authNS, currentUser, currentUserNS, currentUserTemplate, loginViewTemplate, uploadTemplate, SignInTemplate, SignUpTemplate;
   Ajency = {};
   authNS = $.initNamespaceStorage('auth');
   currentUserNS = $.initNamespaceStorage('currentUser');
@@ -185,7 +185,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       if (!window.FB && $("#fb-root").length > 0) {
         console.log("launching FB SDK");
         e = document.createElement("script");
-        e.src = "http://connect.facebook.net/en_US/sdk.js";
+        e.src = document.location.protocol + "//connect.facebook.net/en_US/sdk.js";
         e.async = true;
         document.getElementById("fb-root").appendChild(e);
       }
@@ -417,7 +417,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   });
 
   /*
-  	 * Ajency.ActiveLinkBehavior
+     * Ajency.ActiveLinkBehavior
    */
   Ajency.ActiveLinkBehavior = (function(_super) {
     __extends(ActiveLinkBehavior, _super);
@@ -627,6 +627,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     return RegionController;
 
   })(Marionette.RegionController);
+
   loginViewTemplate = '<div class="container-fluid"> <div class="row"> <div class="col-md-12"> <h3 class="special brand text-center m-b-50 m-t-5">Sign In</h3> <div class="response-message"></div> <div class="form-group fly-group m-t-20"> <label class="fly-label classic">Username</label> <input type="text" required name="user_login" id="user_login" class="srch-filters form-control" placeholder="Username" aria-label="Username"> <span class="fa fa-user form-control-feedback" aria-hidden="true"></span> </div> <div class="form-group fly-group m-t-30"> <label class="fly-label classic">Password</label> <input type="password" required name="user_pass" id="user_pass" class="srch-filters form-control" placeholder="Password" aria-label="Password"> <span class="fa fa-lock form-control-feedback" aria-hidden="true"></span> </div> <button type="button" class="btn btn-primary btn-block raised aj-submit-button aj-login-button m-t-40 m-b-20">SIGN IN</button> </div> </div> </div>';
   Ajency.LoginView = (function(_super) {
     __extends(LoginView, _super);
@@ -648,12 +649,16 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       'loginBtn': '.aj-submit-button',
       'fbLoginButton': '.aj-fb-login-button',
       'userLogin': 'input[name="user_login"]',
-      'userPass': 'input[name="user_pass"]'
+      'userPass': 'input[name="user_pass"]',
+      'SignIn': 'aj-login-button',
+      'SignUp': 'aj-sign-up-button'
     };
 
     LoginView.prototype.events = {
       'click @ui.loginBtn': 'loginDefault',
-      'click @ui.fbLoginButton': 'loginWithFacebook'
+      'click @ui.fbLoginButton': 'loginWithFacebook',
+      'click @ui.SignIn': 'SignInDefault',
+      'click @ui.SignUp': 'SignUpDefault'
     };
 
     LoginView.prototype.behaviors = {
@@ -669,6 +674,14 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       return this.listenTo(currentUser, 'user:auth:failed', function(response) {
         return this.triggerMethod('user:auth:failed', response);
       });
+    };
+
+    LoginView.prototype.SignInDefault = function(evt){
+      return this.show(new SignInView);
+    };
+
+    LoginView.prototype.SigUpInDefault = function(evt){
+      return this.show(new SignUpView);
     };
 
     LoginView.prototype.loginWithFacebook = function(evt) {
@@ -748,6 +761,57 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     return LoginView;
 
   })(Marionette.ItemView);
+
+
+ Ajency.SignInView = (function(_super){
+    __extends(SignInView, _super);
+
+SignInTemplate = '<div class="container-fluid"> <div class="row"> <div class="col-md-12"> <h3 class="special brand text-center m-b-50 m-t-5">SIGN IN VIEW</h3></div></div>';
+    function SignInView(){
+      return SignInView.__super__.constructor.apply(this, arguments);
+    }
+
+    SignInView.prototype.template = Handlebars.compile(SignInTemplate);
+
+   /* SignInView.prototype.ui = {
+      'responseMessage' : '.response-message',
+      'SignInButton' :'.aj-sign-in-button',
+      'userName' : '[name="username"]',
+      'password' : '[name="password"]'
+    };
+
+    SignInView.prototype.events = {
+      'click @ui.SignInButton' : 'SignIn'
+
+    };*/
+
+
+  })(Marionette.ItemView);
+
+
+  SignUpTemplate = '<div class="container-fluid"> <div class="row"> <div class="col-md-12"> <h3 class="special brand text-center m-b-50 m-t-5">SIGN UP VIEW</h3></div></div>';
+    function SignUpView(){
+      return SignUpView.__super__.constructor.apply(this, arguments);
+    }
+
+    SignUpView.prototype.template = Handlebars.compile(SignUpTemplate);
+
+   /* SignInView.prototype.ui = {
+      'responseMessage' : '.response-message',
+      'SignInButton' :'.aj-sign-in-button',
+      'userName' : '[name="username"]',
+      'password' : '[name="password"]'
+    };
+
+    SignInView.prototype.events = {
+      'click @ui.SignInButton' : 'SignIn'
+
+    };*/
+
+
+  })(Marionette.ItemView);
+
+
   Ajency.LoginCtrl = (function(_super) {
     __extends(LoginCtrl, _super);
 

@@ -25,6 +25,18 @@ _.extend(Ajency.LoginView.prototype, {
   }
 });
 
+_.extend(Ajency.SignInView.prototype, {
+  onShow: function(){
+    return console.log("Sign In View Initialized");
+  }
+});
+
+_.extend(Ajency.SignUpView.prototype, {
+  onShow: function(){
+    return console.log("Sign Up View Initialized");
+  }
+});
+
 Ajency.FormView = (function(superClass) {
   extend(FormView, superClass);
 
