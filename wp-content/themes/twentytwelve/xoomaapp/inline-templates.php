@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
     <script id="login-template" type="text/template">
 <div class="topheader" id="logintemplate">
@@ -37,7 +38,7 @@
                     <h5 class="text-center">Measure the improvements <br> in your shape and size</h5>
                     </div>
                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
-                    <h5 class="text-center"> Get notified when you're running low<br>on your xooma products </h5>
+                    <h5 class="text-center"> Get notified when you are running low<br>on your xooma products </h5>
                     </div>
                     
                            <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
@@ -74,9 +75,94 @@ Products.</h6>
                     </div>
             </div>
             <br>
-            <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button>
+            <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br><br>
+            <button type="button" class="btn btn-primary btn-lg center-block aj-login-button">Login In</button><br>
+            <a href="#" class="aj-sign-up-button">Sign Up</a>
+            
+
     </div>
     </script>
+
+    <script id="sign_up_template" type="text/template">
+       <div class="container">
+           <div class="row">
+           <form>
+           <div class="form-group">
+               <label>Full name: </label>
+               <input type="text" name="firstname" id="firstname" placeholder="First name" />
+               <label>Last name: </label>
+               <input type="text" name="lastname" id="lastname" placeholder="Last name" />
+            </div>
+            <div class="form-group">
+               <label>Email: </label>
+               <input type="email" name="email" id="email"/>
+            </div>
+            <div class="form-group">
+               <label>Password: </label>
+               <input type="password" name="password" id="password"/>
+            </div>
+            <div class="form-group">
+               <label>Re-type Password: </label>
+               <input type="password" name="repassword" id="repassword"/>
+            </div>
+
+            <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Day
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>    
+            </ul>
+
+            <button class="btn btn-default dropdown-toggle" id="menu2" type="button" data-toggle="dropdown">Month
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">jan</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">feb</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">mar</a></li>    
+            </ul>
+
+            <button class="btn btn-default dropdown-toggle" id="menu3" type="button" data-toggle="dropdown">Year
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu3">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2014</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2015</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2016</a></li>    
+            </ul>
+            </div>
+
+            <label class="radio-inline">
+                <input type="radio" name="genradio">Female
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="genradio">Male
+            </label>
+            <input type="button" value="Sign Up" id="sign-up"/>
+               </form>
+           </div>
+       </div> 
+
+    </script>
+
+    <script id="sign_in_template" type="text/template">        
+               <div class="container">
+           <div class="row">
+           <form>
+           <div class="form-group">
+               <label>Username: </label>
+               <input type="text" name="username" id="username"/>
+            </div>
+            <div class="form-group">
+               <label>Password: </label>
+               <input type="password" name="password" id="password"/>
+            </div>
+            <input type="button" value="Sign In" id="sign-in"/>
+               </form>
+           </div>
+       </div> 
+    </script>
+
     <script id="404-template" type="text/template">
     <div class="container">
             <div class="row">
@@ -175,7 +261,7 @@ Products.</h6>
          <div class="col-md-2">
          </div>
             <div class="col-md-8 col-xs-12">
-              
+              <br>
               <form class="form-horizontal ">
     <div class="form-group link"  onclick="location.href='#profile/my-products'">
     <label class="col-sm-12 col-xs-12  control-label">My Xooma Products</label></a>
@@ -404,7 +490,7 @@ Products.</h6>
             <div id="demo2_tip">
                 <b>Neck (inches)</b><br />
            <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5" tabindex=1/> 
-           <small>Press enter when done</small></div>
+           <small>Please press enter or return</small></div>
 
         </div>
 
@@ -415,7 +501,7 @@ Products.</h6>
             <div id="demo3_tip">
                 <b>Chest (inches)</b><br />
            <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"  tabindex=2/>
-            <small >Press enter when done</small> </div>
+            <small >Please press enter or return</small> </div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -424,7 +510,7 @@ Products.</h6>
             <div id="demo4_tip">
                 <b>Arm (inches)</b><br />
            <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-            <small >Press enter when done</small> </div>
+            <small >Please press enter or return</small> </div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -433,7 +519,7 @@ Products.</h6>
             <div id="demo5_tip">
                 <b>Abdomen (inches)</b><br />
            <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            <small >Press enter when done</small></div>
+            <small >Please press enter or return</small></div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
 
@@ -442,7 +528,7 @@ Products.</h6>
             <div id="demo6_tip">
                 <b>Waist (inches)</b><br />
            <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-           <small >Press enter when done</small></div>
+           <small >Please press enter or return</small></div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -452,7 +538,7 @@ Products.</h6>
             <div id="demo7_tip">
                 <b>Hips (inches)</b><br />
            <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            <small >Press enter when done</small></div>
+            <small >Please press enter or return</small></div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
                <i class="fa fa-dot-circle-o"></i>
@@ -461,7 +547,7 @@ Products.</h6>
             <div id="demo8_tip">
                 <b>Thigh (inches)</b><br />
            <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-            <small >Press enter when done</small></div>
+            <small >Please press enter or return</small></div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
                <i class="fa fa-dot-circle-o"></i>
@@ -471,7 +557,7 @@ Products.</h6>
             <div id="demo9_tip">
                 <b>Midcalf (inches)</b><br />
            <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-            <small >Press enter when done</small></div>
+            <small >Please press enter or return</small></div>
         </div> 
           
 
@@ -481,8 +567,8 @@ Products.</h6>
                                         <small>Click on the blinking red spot to enter the measurement of the selected part of the body in inches.</small><br><br>
                                         </div>
                                     <div class="col-sm-6 ">
-                                    			<div class="panel-default panel">
-                                    			<div class="panel-body ">
+                                                <div class="panel-default panel">
+                                                <div class="panel-body ">
                                               <!--  <div class="row">
                                                 <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
                                                         <div class="col-md-5 col-xs-5">
@@ -550,7 +636,7 @@ Products.</h6>
                                                         <input type="range" min="111" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
                                                         <div class="convertweight text-center m-t-30 text-muted"></div>
                                                 </div>
-                             					 </br>
+                                                 </br>
                                                 </br>-->
 
                                      <div class="row">
@@ -560,7 +646,7 @@ Products.</h6>
                                                         </div>
                                                         <div class="col-md-5">
                                                                 <h4 class="text-left">
-             <label for="valueA" class="pull-right"><small> Ft/inches</small></label>
+             <label for="valueA" class="pull-right"><h5 class="margin-none">Height</h5><h6 class="text-muted margin-none"> Ft/inches</h6></label>
             <select value="{{measurements.height}}" id="height" name="height" class="default-select">
                 <option value="4">4&rsquo;</option>
                     <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
@@ -613,7 +699,7 @@ Products.</h6>
                                                                 <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-5 ">
-                                                                <h4 class="text-left">  <label for="valueA" class="pull-right"><small>pounds</small></label>
+                                                                <h4 class="text-left">  <label for="valueA" class="pull-right"><h5 class="margin-none">Weight</h5><h6 class="text-muted margin-none">pounds</h6></label>
             <select value="{{measurements.weight}}" id="weight" name="weight" class="default-select">
                     
             </select></h4>
@@ -703,7 +789,7 @@ Products.</h6>
                     <form id="generate_graph" method="POST"  role="form">
                         <div class="row m-t-30">
                             <div class="col-md-4 col-xs-6"> 
-                                <label for="exampleInputFile">Select</label>
+                                <label for="exampleInputFile">Measurement Area</label>
                                     <select class="form-control" aj-field-required="true" id="param" name="param">
                                               <option value="">Please select</option>
                                               <option value="weight">Weight</option>
@@ -724,7 +810,7 @@ Products.</h6>
                                 <input type="hidden"  id="end_date" name="end_date">
                         
                         
-                           <label for="exampleInputFile " class="time_period">Duration</label>
+                           <label for="exampleInputFile " class="time_period">Period of Time</label>
                                 <select class="form-control time_period ">
                                   <option value="">--Select--</option>
                                   <option value="30">Last 30 days</option>
@@ -865,8 +951,8 @@ Products.</h6>
                          </div> 
                             <div class="col-sm-6 col-xs-6">
                                 <div class="cbp-vm-options">
-                                    <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid">Grid View</a>
-                                    <a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list">List View</a>
+                                    <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected grid" data-view="cbp-vm-view-grid"></a>
+                                    <a href="#" class="cbp-vm-icon cbp-vm-list grid" data-view="cbp-vm-view-list"></a>
                                 </div>
                             </div>
                     </div>  
@@ -1113,9 +1199,10 @@ Products.</h6>
     </div>
     </div>
     </div>
-    <div class="form-group">
-    <div class="loadingconusme"></div>
-    <div class="col-sm-offset-2 col-sm-10">
+    
+   
+    <div >
+     <div class="loadingconusme"></div>
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
       <button type="submit" class="btn btn-primary aj-submit-button save pull-right m-r-10" name="save"><i class="fa fa-check"></i> Save</button>
@@ -1124,7 +1211,7 @@ Products.</h6>
          <!--<a href="#/inventory/{{id}}/view" class="btn btn-primary view hidden" >View History</a>-->
          
 
-    </div>
+    
     </div>
 
            
@@ -1243,7 +1330,7 @@ Products.</h6>
     </div>-->           
 
                 <div class="">
-                    <div class="pull-right">
+                    <div class="">
                     <div class="loadingconusme"></div>
                                  
                     <input type="hidden" id="subtract" name="subtract" aj-field-type="number" value="" />
@@ -1559,7 +1646,7 @@ Products.</h6>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-       <span class="dropcap simple">A: </span> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and additionally help you properly maintain your personal regime of Xooma’s entire supplement line. Simply tell us a little bit about yourself (Height, Weight, Health Goals, & Selection of Xooma Products that you use and when you use them) and Xooma Track & Go will provide you with your Personal Daily Hydration Goal and also remind you when to take your Xooma Products.  This fun and interactive interface has been designed to help you reach your own personal health goals through Xooma products.
+       <span class="dropcap simple">A: </span> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and additionally help you stay on track with your personal health goals using other Xooma products. Simply tell us a little bit about yourself (Height, Weight, Health Goals, which Xooma products you use and when you use them). Once you eneter this information Xooma Track & Go will provide you with your Personal Daily Hydration Goal and also remind you when to take your other Xooma Products.  This fun and interactive app has been designed to help you achieve your personal health goals with Xooma’s products.
 
       </div>
     </div>
@@ -1568,13 +1655,13 @@ Products.</h6>
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          What are My Xooma products?
+          What is 'My Xooma Products'?
         </a>
       </h4>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>These are the Xooma supplements which you take and will be notified for. You can add them from the complete ‘List of Xooma products’.         
+        <span class="dropcap simple">A: </span>These are the Xooma supplements you currently take. You can add them from the complete 'List of Xooma products' and this app will keep track of your daily usage and notify you when your inventory is running low.
       </div>
     </div>
   </div>
@@ -1582,13 +1669,13 @@ Products.</h6>
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          What is ‘List of Xooma products’?
+          What is 'List of Xooma products'?
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span> This area of the Xooma Track & Go App allows you to click on ‘Add’ (Available under each product) to select that product as a part of the ‘My Xooma products’ which you wish to track. Once you have clicked on “add”, the product is no longer displayed under ‘List of Xooma products’.  You can opt to receive reminders for a product only when that product is added to ‘My Xooma Product’
+        <span class="dropcap simple">A: </span> This area of the Xooma Track & Go App allows you to click on 'Add' (Available under each product) to select that product as a part of the 'My Xooma products' that you wish to track. Once you have clicked on “add”, the product is no longer displayed under 'List of Xooma products'.  You can choose to receive reminders for a product only when that product is added to 'My Xooma Product'
 
       </div>
     </div>
@@ -1605,10 +1692,11 @@ Products.</h6>
     </div>
     <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>Reminders can be set for each serving of a product. Fields for reminders are populated depending on the number of servings selected.You simply have to choose a time for the reminder for each serving. By default, the reminders will be on at the app level (Available for mobile phones, under settings)
-<br>There are two options from where you can set reminders<br>
-a. While adding product(From ‘list of Xooma products’): The product is available to edit and hence reminders can be set from here<br>
-b. Menu option on the card: Once the product has been added it is available under my product list.Each product has its card, wherein menu icon is available. From the menu icon select option edit product and reminders can be sent.
+        <span class="dropcap simple">A: </span>Reminders can be set for each serving of a product. Fields for reminders are populated depending on the number of servings selected. You simply have to choose a time for the reminder for each serving. By default, the reminders will be turned ‘on’ at the app level (Available for mobile phones, under 'settings')<br>
+There are two options for setting reminders:<br>
+a. While adding a product (from 'List of Xooma products'): The product is available to edit and your reminders can be set from here.
+<br>
+b. Menu option on the product card: Once the product has been added it is available under the 'My product list' section. Each product has a card, wherein a menu icon is available. From the menu icon (3 bars displayed on the right side of the card) select the option to 'edit' and reminders for your product can then be sent.
 
       </div>
     </div>
@@ -1618,13 +1706,13 @@ b. Menu option on the card: Once the product has been added it is available unde
     <div class="panel-heading" role="tab" id="heading5">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapseTwo">
-          How do I log my consumption of X2O ?
+          How do I track my consumption of X2O?
         </a>
       </h4>
     </div>
     <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>On the home screen, click on ‘Hydrate’(on the X2O bottle) and you will be directed to the consumption screen. From here, simply long press on the X2O bottle and the content in the bottle will keep decreasing. When the desired bottle consumption level is reached release the press and the amount of your consumption will be displayed. You have to click on confirm to save the consumption.
+        <span class="dropcap simple">A: </span>On the home screen, click on 'Hydrate' (on the X2O bottle in the center) and you will be directed to the consumption screen. From here, simply long press your finger on the X2O bottle and the liquid in the bottle will keep decreasing.When your desired bottle consumption level is reached, release your finger and the amount of your consumption will be displayed. Then click on ‘confirm’ to save your consumption amount.
 
       </div>
     </div>
@@ -1634,14 +1722,14 @@ b. Menu option on the card: Once the product has been added it is available unde
     <div class="panel-heading" role="tab" id="heading6">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapseTwo">
-          How to I consume a supplement?
+          How to I show that I’ve consumed a supplement?
 
         </a>
       </h4>
     </div>
     <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>This action can be accomplished from the home screen.  You have to just click on ‘Tap to take’ for any product listed and you will be directed to the consumption screen for that product. You can select the time which consume the product and save your progress.
+        <span class="dropcap simple">A: </span>This action can be accomplished from the home screen.  Just click on 'Tap to take' for any product listed and you will be directed to the consumption screen for that product. You can select the time when you consumed the product and then save your progress.
 
       </div>
     </div>
@@ -1651,18 +1739,16 @@ b. Menu option on the card: Once the product has been added it is available unde
     <div class="panel-heading" role="tab" id="heading7">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapseTwo">
-          How do I add stock for a product?
+          How do I 'add stock' (inventory) for a product?
         </a>
       </h4>
     </div>
     <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>You can manage your stock with the help of ‘Inventory’.  Each product has its own inventory tracking.
-Here you can refill your inventory and also adjust your existing inventory levels with the amount of product that you have on hand.
-Steps to reach inventory screen are:<br>
-   a.Go to ‘My Xooma products’<br>
-   b.For each product card there is a menu option available. Click on it.<br>
-   c.Select the inventory option
+        <span class="dropcap simple">A: </span>You can manage your stock with the help of 'Inventory'.  Each product has its own inventory tracking. Here you can refill your inventory and also adjust your existing inventory levels with the amount of product that you have on hand. Steps to reach the inventory screen are:<br><br>
+  a. Go to 'My Xooma products'<br>
+  b. For each product card there is a menu option available. Click on it.<br>
+  c. Select the inventory option
 
       </div>
     </div>
@@ -1672,14 +1758,13 @@ Steps to reach inventory screen are:<br>
     <div class="panel-heading" role="tab" id="heading8">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapseTwo">
-          How do i manage my inventory ?
+          How do I manage my inventory?
         </a>
       </h4>
     </div>
     <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>After your stock for a product is added, the inventory continue to reduce per your consumption.
-You also have option to adjust your inventory(add/subtract number of supplements available) by using the slider in the inventory.
+        <span class="dropcap simple">A: </span>After your stock for a product is added, the inventory will continue to reduce every time you add your consumption. You also have the option to adjust your inventory (add/subtract number of supplements available) by using the slider bar in the inventory section.
 
 
       </div>
@@ -1696,8 +1781,7 @@ You also have option to adjust your inventory(add/subtract number of supplements
     </div>
     <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>Once a product is removed, it does not form a part of users 'my product list', hence no reminders will be given once a product is removed.
-You can add the product back from List of Xooma products,however all the previous consumption data will have been cleared.
+        <span class="dropcap simple">A: </span>Once a product is removed, it is no longer part of your 'my product list'. So, no reminders will be given once a product is removed. You can add the product back to your personal list anytime from the 'List of Xooma products', however all your previous consumption data will have been cleared.
 
 
 
@@ -1709,13 +1793,13 @@ You can add the product back from List of Xooma products,however all the previou
     <div class="panel-heading" role="tab" id="heading10">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapseTwo">
-          Why should I update my measurements?
+          Why should I enter my measurements?
         </a>
       </h4>
     </div>
     <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>Measurements are required to track your progress. Updating the measurements helps us to track your personal success with Xooma supplements which can be displayed in the progress chart.
+        <span class="dropcap simple">A: </span>By entering your body measurements, we can help you track your progress – especially if you are trying to lose weight or re-shape your body. Updating the measurements on a regular basis helps us to track your personal success with Xooma supplements which can be displayed in the progress chart.
     </div>
     </div>
   </div>
@@ -1730,7 +1814,7 @@ You can add the product back from List of Xooma products,however all the previou
     </div>
     <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>Progress chart displays the measurements you update in graphical form over time. Simply select the part of the body and the time duration for which you want to see your progress. By default progress for weight will be displayed.
+        <span class="dropcap simple">A: </span>The 'progress chart' displays the measurements you enter and update in a graphical format over time. Simply select the part of the body and the time duration you want to see to determine your progress. By default your progress for your weight measurement will be displayed.
 
     </div>
     </div>
@@ -1740,13 +1824,13 @@ You can add the product back from List of Xooma products,however all the previou
     <div class="panel-heading" role="tab" id="heading12">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="false" aria-controls="collapseTwo">
-        What is the difference between the progress chart for weight and Bmi ?
+        What is the difference between the progress chart for weight and BMI?
         </a>
       </h4>
     </div>
-    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>Progress chart for weight is displayed according to the weight you enter whereas BMI (Body Mass Index) chart calculates your BMI based on your measurements, and displays your results compared to the normal BMI ratio scale.
+        <span class="dropcap simple">A: </span>The progress chart for weight is displayed according to the weight you enter whereas your BMI (Body Mass Index) chart calculates your BMI based on your measurements, and displays your results compared to the normal BMI ratio scale for someone in your age bracket.
 
     </div>
     </div>
@@ -1759,19 +1843,19 @@ You can add the product back from List of Xooma products,however all the previou
     <div class="panel-heading" role="tab" id="heading14">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse14" aria-expanded="false" aria-controls="collapseTwo">
-         Can I see my previous updated consumptions and measurements.?
+       Can I see my previous updated consumptions and measurements?
         </a>
       </h4>
     </div>
     <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>Yes you can see your previous updated consumptions and measurements by using the history option. Each Xooma product will track and maintain a usage history,
+        <span class="dropcap simple">A: </span>Yes. You can see your previous updated consumptions and measurements by using the 'history' option. Each Xooma product will have a usage history.
 <b>Steps to view consumption history of any product :</b><br>
-a. Go to home screen <br>
-b. Go to the card of the desired product and click on the ‘menu’ option (Top right corner of the card) and select the option ‘consumption history’<br>
+a. Go to your home screen <br>
+b. Select the card of the desired product and click on the ‘menu’ option (Top right corner of the card) and select the option 'consumption history'<br>
 <b>Steps to view Measurement history </b> <br>
-a. Go to the home screen<br>
-b. Go to the progress chart card, click on menu on the card and select the option ‘measurement history’  
+a. Go to your home screen.<br>
+b. Go to the progress chart card, click the menu on the card and select the option 'measurement history'.  
 
     </div>
     </div>
@@ -1781,13 +1865,13 @@ b. Go to the progress chart card, click on menu on the card and select the optio
     <div class="panel-heading" role="tab" id="heading15">
       <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse15" aria-expanded="false" aria-controls="collapseTwo">
-         How can i go to the consumption screen of a Xooma product?
+         How do I view the consumption screen of a Xooma product?
         </a>
       </h4>
     </div>
     <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>From the home screen follow the following steps:<br>
+        <span class="dropcap simple">A: </span>From your home screen take the following steps:<br>
        a. For X2O, click on ‘hydrate’ or<br>
        b. For any other supplement, click on ‘Tap to take’.
 
@@ -1804,8 +1888,7 @@ b. Go to the progress chart card, click on menu on the card and select the optio
     </div>
     <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>An option ‘Email alerts’ is available.  Simply select ‘on’ to receive email alerts.
-This is available under Menu>Settings>Email alerts.
+        <span class="dropcap simple">A: </span>An 'Email alerts' option is available. This is available under Menu>Settings>Email alerts  simply select the 'on' switch to receive email alerts.
 
     </div>
     </div>
