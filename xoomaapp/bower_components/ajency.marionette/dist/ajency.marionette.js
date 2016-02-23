@@ -650,7 +650,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       'fbLoginButton': '.aj-fb-login-button',
       'userLogin': 'input[name="user_login"]',
       'userPass': 'input[name="user_pass"]',
-      'SignIn': '.aj-login-button',
+      'SignIn': '.aj-login-to-button',
       'SignUp': '.aj-sign-up-button'
     };
 
