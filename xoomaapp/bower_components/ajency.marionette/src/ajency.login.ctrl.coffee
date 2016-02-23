@@ -29,13 +29,10 @@ class Ajency.LoginView extends Marionette.ItemView
 		'fbLoginButton' : '.aj-fb-login-button'
 		'userLogin' : 'input[name="user_login"]'
 		'userPass' : 'input[name="user_pass"]'
-		'SignIn' : '.aj-login-to-button'
-		'SignUp' : '.aj-sign-up-button'
+
 	events :
 		'click @ui.loginBtn' : 'loginDefault'
 		'click @ui.fbLoginButton' : 'loginWithFacebook'
-		'click @ui.SignIn' : 'SignInDefault'
-		'click @ui.SignUp' : 'SignUpDefault'
 
 	behaviors : 
 		FormBehavior : 
@@ -54,12 +51,6 @@ class Ajency.LoginView extends Marionette.ItemView
 				facebookConnectPlugin.login _scope, @_fbSuccessLoginHandler, @_fbFailureLoginHandler 
 			else
 				@_fbLoginSuccess()
-
-	SignInDefault : (evt)=>
-		console.log 'Default sign in'
-
-	SignUpDefault : (evt)=>
-		console.log 'Default sign Up' 
 
 
 	_getScope : ->

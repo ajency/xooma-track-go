@@ -36,7 +36,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   }
 })(this, function(root, $, Backbone, _, Marionette, Handlebars) {
   "use strict";
-  var Ajency, NothingFoundView, authNS, currentUser, currentUserNS, currentUserTemplate, loginViewTemplate, uploadTemplate, SignInTemplate, SignUpTemplate;
+  var Ajency, NothingFoundView, authNS, currentUser, currentUserNS, currentUserTemplate, loginViewTemplate, uploadTemplate;
   Ajency = {};
   authNS = $.initNamespaceStorage('auth');
   currentUserNS = $.initNamespaceStorage('currentUser');
@@ -649,16 +649,12 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       'loginBtn': '.aj-submit-button',
       'fbLoginButton': '.aj-fb-login-button',
       'userLogin': 'input[name="user_login"]',
-      'userPass': 'input[name="user_pass"]',
-      'SignIn': '.aj-login-to-button',
-      'SignUp': '.aj-sign-up-button'
+      'userPass': 'input[name="user_pass"]'
     };
 
     LoginView.prototype.events = {
       'click @ui.loginBtn': 'loginDefault',
-      'click @ui.fbLoginButton': 'loginWithFacebook',
-      'click @ui.SignIn': 'SignInDefault',
-      'click @ui.SignUp': 'SignUpDefault'
+      'click @ui.fbLoginButton': 'loginWithFacebook'
     };
 
     LoginView.prototype.behaviors = {
@@ -761,62 +757,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     return LoginView;
 
   })(Marionette.ItemView);
-
-
- Ajency.SignInView = (function(_super){
-    __extends(SignInView, _super);
-
-SignInTemplate = '<div class="container-fluid"> <div class="row"> <div class="col-md-12"> <h3 class="special brand text-center m-b-50 m-t-5">SIGN IN VIEW</h3></div></div>';
-    function SignInView(){
-      return SignInView.__super__.constructor.apply(this, arguments);
-    }
-
-    SignInView.prototype.template = Handlebars.compile(SignInTemplate);
-
-   /* SignInView.prototype.ui = {
-      'responseMessage' : '.response-message',
-      'SignInButton' :'.aj-sign-in-button',
-      'userName' : '[name="username"]',
-      'password' : '[name="password"]'
-    };
-
-    SignInView.prototype.events = {
-      'click @ui.SignInButton' : 'SignIn'
-
-    };
-    
-    OR
-
-    App.navigate('#/profile/my-products', true);
-    
-    */
-
-
-  })(Marionette.ItemView);
-
-
-  SignUpTemplate = '<div class="container-fluid"> <div class="row"> <div class="col-md-12"> <h3 class="special brand text-center m-b-50 m-t-5">SIGN UP VIEW</h3></div></div>';
-    function SignUpView(){
-      return SignUpView.__super__.constructor.apply(this, arguments);
-    }
-
-    SignUpView.prototype.template = Handlebars.compile(SignUpTemplate);
-
-   /* SignInView.prototype.ui = {
-      'responseMessage' : '.response-message',
-      'SignInButton' :'.aj-sign-in-button',
-      'userName' : '[name="username"]',
-      'password' : '[name="password"]'
-    };
-
-    SignInView.prototype.events = {
-      'click @ui.SignInButton' : 'SignIn'
-
-    };*/
-
-
-  })(Marionette.ItemView);
-
 
   Ajency.LoginCtrl = (function(_super) {
     __extends(LoginCtrl, _super);

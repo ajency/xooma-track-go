@@ -1,31 +1,12 @@
-App.state 'SignIn',
-			url : '/signIn'
-			parent : 'xooma'
-
-App.state 'SignUp',
-			url : '/signUp'
-			parent : 'xooma'
 
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
+
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
 
-class SignInView extends Marionette.ItemView
-	template : '#sign_in_template'
-	class : 'animated fadeIn'
-
-class SignUpView extends Marionette.ItemView
-	template : '#sign_up_template'
-	class : 'animated fadeIn'
-
-class App.SignInCtrl extends Marionette.RegionController
-	@show new SignInView
-
-class App.SignUpCtrl extends Marionette.RegionController
-	@show new SignUpView
 
 _.extend Ajency.LoginView::,
 
