@@ -650,8 +650,8 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       'fbLoginButton': '.aj-fb-login-button',
       'userLogin': 'input[name="user_login"]',
       'userPass': 'input[name="user_pass"]',
-      'SignIn': 'aj-login-button',
-      'SignUp': 'aj-sign-up-button'
+      'SignIn': '.aj-login-button',
+      'SignUp': '.aj-sign-up-button'
     };
 
     LoginView.prototype.events = {
@@ -783,7 +783,13 @@ SignInTemplate = '<div class="container-fluid"> <div class="row"> <div class="co
     SignInView.prototype.events = {
       'click @ui.SignInButton' : 'SignIn'
 
-    };*/
+    };
+    
+    OR
+
+    App.navigate('#/profile/my-products', true);
+    
+    */
 
 
   })(Marionette.ItemView);
