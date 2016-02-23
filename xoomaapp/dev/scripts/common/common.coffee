@@ -2,7 +2,7 @@ App.state 'SignIn',
 			url : '/signIn'
 			parent : 'xooma'
 
-App.state 'SignUp',
+	.state 'SignUp',
 			url : '/signUp'
 			parent : 'xooma'
 
