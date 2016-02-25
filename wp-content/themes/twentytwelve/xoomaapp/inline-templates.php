@@ -75,91 +75,119 @@ Products.</h6>
                     </div>
             </div>
             <br>
-            <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br><br>
-            <button type="button" class="btn btn-primary btn-lg center-block aj-login-button">Login In</button><br>
-            <a href="#" class="aj-sign-up-button">Sign Up</a>
+            <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
+            <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
+            <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
             
 
     </div>
     </script>
 
     <script id="sign_up_template" type="text/template">
-       <div class="container">
-           <div class="row">
-           <form>
-           <div class="form-group">
-               <label>Full name: </label>
-               <input type="text" name="firstname" id="firstname" placeholder="First name" />
-               <label>Last name: </label>
-               <input type="text" name="lastname" id="lastname" placeholder="Last name" />
-            </div>
-            <div class="form-group">
-               <label>Email: </label>
-               <input type="email" name="email" id="email"/>
-            </div>
-            <div class="form-group">
-               <label>Password: </label>
-               <input type="password" name="password" id="password"/>
-            </div>
-            <div class="form-group">
-               <label>Re-type Password: </label>
-               <input type="password" name="repassword" id="repassword"/>
-            </div>
+        <div id="signuptemplate" class="section-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <form role="form" class="form-horizontal">
+                            <h5 class="text-center bold margin-none">Register</h5>
+                            <br>
+                            <div class="aj-response-message"> </div>
 
-            <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Day
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>    
-            </ul>
+                                <div class="form-group">
+                                    <label for="text1" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
+                                        <div class="col-sm-9 col-xs-8 col-lg-8">
+                                            <input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Full name:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="text" class="form-control tabelements" name="fullname" id="firstname" placeholder="Full name" required />
+                                    </div>
+                                    <!--input type="text" name="lastname" id="lastname" placeholder="Last name" /-->
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Email:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="email" class="form-control tabelements" name="email" id="email" required />
+                                    </div>
+                                    </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Password:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="password" class="form-control tabelements" name="password" id="password" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Re-type Password:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="password" class="form-control tabelements" name="repassword" id="repassword" required />
+                                    </div>
+                                </div>
 
-            <button class="btn btn-default dropdown-toggle" id="menu2" type="button" data-toggle="dropdown">Month
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">jan</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">feb</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">mar</a></li>    
-            </ul>
+                                <div class="form-group">
+                                    <label for="text5" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Gender  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                        <div class="rd-gender">
+                                        <label class="wrap pull-left">
+                                        <input type="radio" aj-field-required="true" name="profile[gender]" class="radio tabelements" value="male" />
+                                        <span class="rd-visual male" title="Male"></span>
+                                        </label>
 
-            <button class="btn btn-default dropdown-toggle" id="menu3" type="button" data-toggle="dropdown">Year
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu3">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2014</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2015</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2016</a></li>    
-            </ul>
-            </div>
+                                        <label class="wrap pull-left">
+                                        <input type="radio" aj-field-required="true" name="profile[gender]" class="radio tabelements" value="female" />
 
-            <label class="radio-inline">
-                <input type="radio" name="genradio">Female
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="genradio">Male
-            </label>
-            <input type="button" value="Sign Up" id="sign-up"/>
+                                        <span class="rd-visual female" title="Female"></span>
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+
+                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required />
+                                    </div>
+                                </div>
+                    <div class="col-sm-12">
+                        <button type="submit" id="user_sign_up" name="user_sign_up" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign Up</button>
+                    </div>
                </form>
+               </div>
            </div>
-       </div> 
-
+       </div>
+       </div>
     </script>
 
-    <script id="sign_in_template" type="text/template">        
-               <div class="container">
-           <div class="row">
-           <form>
-           <div class="form-group">
-               <label>Username: </label>
-               <input type="text" name="username" id="username"/>
-            </div>
-            <div class="form-group">
-               <label>Password: </label>
-               <input type="password" name="password" id="password"/>
-            </div>
-            <input type="button" value="Sign In" id="sign-in"/>
+    <script id="sign_in_template" type="text/template">
+        <div id="signintemplate" class="section-list">        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <form role="form" class="form-horizontal sign-in-user">
+                    <h5 class="text-center bold margin-none">Sign In</h5>
+                    <br>
+                    <div class="aj-response-message"> </div>
+                    <div class="form-group">
+                        <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Username: </label>
+                        <div class="col-sm-9 col-xs-8 col-lg-8">
+                        <input class="form-control tabelements" type="text" name="username" id="username"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Password: </label>
+                        <div class="col-sm-9 col-xs-8 col-lg-8">
+                        <input class="form-control tabelements" type="password" name="password" id="password"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <button type="submit" id="user_sign_in" name="user_sign_in" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign In</button>
+                    </div>
                </form>
+               </div>
            </div>
+       </div>
        </div> 
     </script>
 
