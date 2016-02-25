@@ -88,7 +88,7 @@ Products.</h6>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-offset-3 col-sm-6">
-                        <form role="form" class="form-horizontal">
+                        <form role="form" class="form-horizontal user-sign-up">
                             <h5 class="text-center bold margin-none">Register</h5>
                             <br>
                             <div class="aj-response-message"> </div>
