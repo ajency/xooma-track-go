@@ -74,11 +74,11 @@ class SignUpView extends Marionette.ItemView
 
 
 	_successHandler: (response, status,xhr)->
-		#app.trigger 'fb:status:connected'
 		console.log response+" - response"
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!")
-		#document.location = "#/profile/personal-info"
+		#app.trigger 'fb:status:connected'
+		document.location = "#/profile/personal-info"
 
 	_errorHandler:(response, status,xhr)=>
 		console.log response.status+" -error"

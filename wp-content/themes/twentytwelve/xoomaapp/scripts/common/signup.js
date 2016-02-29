@@ -102,7 +102,8 @@
     SignUpView.prototype._successHandler = function(response, status, xhr) {
       console.log(response + " - response");
       $('.loadingconusme').html("");
-      return $('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!");
+      $('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!");
+      return document.location = "#/profile/personal-info";
     };
 
     SignUpView.prototype._errorHandler = function(response, status, xhr) {

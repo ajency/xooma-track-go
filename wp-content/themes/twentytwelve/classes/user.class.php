@@ -24,7 +24,7 @@ class User
         $user_id = wp_create_user( $data['email'], $password, $data['email'] ) ;
         //wp_create_user can also be used
         /**/
-        $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password));
+        $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password, 'display_name'=>$data['fullname']));
         $profile = $data['profile'];
         $profile['phone_no'] = '9158785580';
 
@@ -60,8 +60,8 @@ class User
             update_user_meta($user_id, 'birthday', $profile['birth_date']);
             update_user_meta($user_id, 'user_details', $user_meta_value);
             
-            wp_set_current_user( $user_id, $data['email']);
-            wp_set_auth_cookie( $user_id);
+            //wp_set_current_user( $user_id, $data['email']);
+            wp_set_auth_cookie( $user_id, true);
             return "User created : ". $user_id;
 
         }
@@ -87,10 +87,25 @@ class User
 
         else
         {
-            wp_set_current_user( $user_id, $useremail);
-            wp_set_auth_cookie( $user_id);
+            //wp_set_current_user( $user_id, $useremail);
+            $table = $wpdb->prefix . "workflow_user";
+            
+            $data = $wpdb->get_results("SELECT * FROM $table WHERE user_id='".$user_id->ID."' order by form_id asc");
+            /*$status = count($data);*/
+            foreach ($data as $result) {
+                $status = $result->status;
+                $form_id = $result->form_id;
+                if($status == 'incomplete'){
+                    break;
+                }
+                else{
+                    $form_id = 0;
+                }
+
+            }
+            wp_set_auth_cookie( $user_id->ID, true);
             //wp_set_auth_cookie( $user_id->ID ,true);
-            return $user_id->ID;
+            return $form_id;
             
         }
 

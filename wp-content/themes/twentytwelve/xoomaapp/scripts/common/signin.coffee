@@ -40,7 +40,28 @@ class SignInView extends Marionette.ItemView
 		#app.trigger 'fb:status:connected'
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!")
+
+		if response == '1'
+			App.currentUser.set 'state', '/profile/personal-info'
+			App.navigate '#/profile/personal-info', true
+
+
+		if response == '2'
+			App.currentUser.set 'state', '/profile/measurements'
+			App.navigate '#/profile/measurements', true
+
+
+
+		if response == '3'
+			App.currentUser.set 'state', '/profile/my-products'
+			App.navigate '#/profile/my-products', true
+
+		else 
+			App.currentUser.set 'state', '/home'
+			App.navigate '#/home', true
+					
 		#document.location = "#/profile/personal-info"
+
 
 	_errorHandler:(response)=>
 		console.log response+" -error"
