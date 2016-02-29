@@ -4,7 +4,7 @@ var AddProductsView, NoProductsChildView, ProductChildView,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 App.state('AddProducts', {
-  url: '/signIn',
+  url: '/products',
   parent: 'xooma'
 });
 

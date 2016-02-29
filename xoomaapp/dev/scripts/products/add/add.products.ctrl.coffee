@@ -1,5 +1,5 @@
 App.state 'AddProducts',
-					url : '/signIn'
+					url : '/products'
 					parent : 'xooma'
 	
 
