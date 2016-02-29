@@ -3,6 +3,69 @@
 
 class User
 {
+
+    public function register_user_details($data){
+
+        $password = $data['password'];
+
+       // $password = md5($data['password']);
+
+        $user_data = array(
+            'user_login'=>$data['email'],
+            'user_pass'=> $password,
+            'user_nicename'=>$data['fullname'],
+            'user_email'=>$data['email'],
+            'display_name'=>$data['fullname']
+
+            );
+
+        //$user_id = wp_insert_user( $user_data ) ;
+        $user_id = wp_create_user( $data['email'], $password, $data['email'] ) ;
+        //wp_create_user can also be used
+        /**/
+        $update = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password));
+        $profile = $data['profile'];
+
+        //On success
+        if ( ! is_wp_error( $update ) ) {
+
+            update_user_meta($user_id, 'xooma_member_id', $profile['xooma_member_id']);
+            update_user_meta($user_id, 'gender', $profile['gender']);
+            update_user_meta($user_id, 'birthday', $profile['birth_date']);
+
+            wp_set_auth_cookie( $user_id->ID );
+            return "User created : ". $update;
+
+        }
+       return new WP_Error( 'json_user_details_not_updated', __( 'User Could not be Registered.' ));
+
+       //return $user_id;
+    }
+
+    public function get_user_id($data){
+
+        global $wpdb;
+        global $user;
+
+        $useremail = $data['useremail'];
+        $password = $data['password'];
+
+      $user_id = wp_authenticate($useremail, $password);
+
+        if (is_wp_error( $user_id )){
+
+           return new WP_Error( 'json_could_not_be_logged in', __( 'Invalid Login Credentials' ));
+        }
+
+        else
+        {
+            wp_set_auth_cookie( $user_id->ID ,true);
+            return $user_id->ID;
+            
+        }
+
+    }
+
 	public function get_user_details($id){
 
 		//get user meta for the user

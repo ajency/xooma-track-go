@@ -37,6 +37,15 @@ class User_API
             array( array( $this, 'xooma_update_user_profile_details'), WP_JSON_Server::EDITABLE | WP_JSON_Server::ACCEPT_JSON ),
 
         );
+        //new user Register
+        $routes['/users/newprofile'] = array(
+            array( array( $this, 'xooma_register_user'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+        );
+
+        //user sign in
+        $routes['/users/login'] = array(
+            array( array( $this, 'xooma_user_login'), WP_JSON_Server::CREATABLE | WP_JSON_Server::ACCEPT_JSON ),
+        );
         //users
         $routes['/users/(?P<id>\d+)/products'] = array(
             array( array( $this, 'xooma_save_user_product_details'), WP_JSON_Server::CREATABLE),
@@ -118,6 +127,72 @@ class User_API
 
 
         return $routes;
+    }
+
+    public function xooma_register_user($data){
+
+        global $user;
+/*
+        $response .= " Full name - " . $data['fullname'];
+        $response .= " Email - " . $data['email'];
+        $response .= " Password - " . $data['password'];
+
+*/
+        $email = $data['email'];
+        if(email_exists($email)){
+
+            $response = array('response' => 'Email already exists');
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+           // $response = new WP_JSON_Response( $response );
+            
+            //$response->set_status('Email already exists');
+            //$response->set_responseText('email id already exists');
+
+        }
+        else{
+        $response = $user->register_user_details($data);
+
+
+       if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+             $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+        }
+
+    }
+        return $response;
+
+    }
+
+    public function xooma_user_login($data){
+
+        global $user;
+
+        $response = $user->get_user_id($data);
+
+    // $response = $data['username'];
+        if(is_wp_error($response)){
+            $response = new WP_JSON_Response( $response );
+            $response->set_status(404);
+
+        }
+        else
+        {
+            if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
+             $response = new WP_JSON_Response( $response );
+            }
+            $response->set_status( 200 );
+        }
+
+        return $response;
     }
 
     public function xooma_get_user_profile_details($id){

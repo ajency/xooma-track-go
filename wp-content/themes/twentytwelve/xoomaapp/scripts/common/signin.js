@@ -1,5 +1,6 @@
 (function() {
   var SignInView,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -12,6 +13,7 @@
     extend(SignInView, superClass);
 
     function SignInView() {
+      this._errorHandler = bind(this._errorHandler, this);
       return SignInView.__super__.constructor.apply(this, arguments);
     }
 
@@ -23,6 +25,53 @@
       FormBehavior: {
         behaviorClass: Ajency.FormBehavior
       }
+    };
+
+    SignInView.prototype.ui = {
+      form: '.sign-in-user',
+      responseMessage: '.aj-response-message',
+      reError: '.creError'
+    };
+
+    SignInView.prototype.modelEvents = {
+      'change:profile_picture': 'render',
+      'keypress .form-control': function(e) {
+        if (e.which === 9) {
+          return e.preventDefault();
+        }
+      }
+    };
+
+    SignInView.prototype.onFormSubmit = function(_formData) {
+      console.log(JSON.stringify(_formData));
+      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
+      return $.ajax({
+        method: 'POST',
+        url: APIURL + '/users/login',
+        data: JSON.stringify(_formData),
+        success: this._successHandler,
+        error: this._errorHandler
+      });
+    };
+
+    SignInView.prototype._successHandler = function(response) {
+      console.log(response + " - response");
+      $('.loadingconusme').html("");
+      $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    };
+
+    SignInView.prototype._errorHandler = function(response) {
+      console.log(response + " -error");
+      console.log(response.status + " -error");
+      $('.loadingconusme').html("");
+      window.removeMsg();
+      this.ui.responseMessage.addClass('alert alert-danger').text("Invalid Login Credentials");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     };
 
     return SignInView;

@@ -92,6 +92,7 @@ Products.</h6>
                             <h5 class="text-center bold margin-none">Register</h5>
                             <br>
                             <div class="aj-response-message"> </div>
+                            <input type="hidden" value="" id="current_time" name="current_time" class="" />
 
                                 <div class="form-group">
                                     <label for="text1" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
@@ -121,8 +122,10 @@ Products.</h6>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Re-type Password:  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
-                                    <input type="password" class="form-control tabelements" name="repassword" id="repassword" required />
+                                    <input type="password" class="form-control tabelements repassword" name="repassword" id="repassword" required />
+                                    <span style="display:none;" class="parsley-errors-list filled reError"></span>
                                     </div>
+
                                 </div>
 
                                 <div class="form-group">
@@ -147,9 +150,10 @@ Products.</h6>
                                     <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
 
-                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required />
+                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
                                     </div>
                                 </div>
+                                <div class="loadingconusme"></div>
                     <div class="col-sm-12">
                         <button type="submit" id="user_sign_up" name="user_sign_up" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign Up</button>
                     </div>
@@ -170,17 +174,19 @@ Products.</h6>
                     <br>
                     <div class="aj-response-message"> </div>
                     <div class="form-group">
-                        <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Username: </label>
+                        <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Email: </label>
                         <div class="col-sm-9 col-xs-8 col-lg-8">
-                        <input class="form-control tabelements" type="text" name="username" id="username"/>
+                        <input class="form-control tabelements" type="email" name="useremail" id="useremail" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Password: </label>
                         <div class="col-sm-9 col-xs-8 col-lg-8">
-                        <input class="form-control tabelements" type="password" name="password" id="password"/>
+                        <input type="password" class="form-control tabelements" name="password" id="password" required />
+                        <span style="display:none;" class="parsley-errors-list filled creError"></span>
                         </div>
                     </div>
+
                     <div class="col-sm-12">
                         <button type="submit" id="user_sign_in" name="user_sign_in" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign In</button>
                     </div>
