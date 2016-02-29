@@ -37,11 +37,10 @@ class SignInView extends Marionette.ItemView
 
 	_successHandler: (response)->
 		console.log response+ " - response"
+		#app.trigger 'fb:status:connected'
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!")
-		$('html, body').animate({
-						scrollTop: 0
-						}, 'slow')
+		#document.location = "#/profile/personal-info"
 
 	_errorHandler:(response)=>
 		console.log response+" -error"

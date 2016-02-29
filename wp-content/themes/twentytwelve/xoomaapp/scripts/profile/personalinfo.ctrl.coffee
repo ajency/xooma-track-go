@@ -23,8 +23,10 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
-
-	
+				
+		@listenTo App, 'user:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()	
 		
 	onRender:->
 		

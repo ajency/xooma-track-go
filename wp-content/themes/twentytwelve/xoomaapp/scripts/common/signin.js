@@ -57,10 +57,7 @@
     SignInView.prototype._successHandler = function(response) {
       console.log(response + " - response");
       $('.loadingconusme').html("");
-      $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
-      return $('html, body').animate({
-        scrollTop: 0
-      }, 'slow');
+      return $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
     };
 
     SignInView.prototype._errorHandler = function(response) {

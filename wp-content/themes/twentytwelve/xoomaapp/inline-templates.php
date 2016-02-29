@@ -129,6 +129,14 @@ Products.</h6>
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Phone No:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="text" class="form-control tabelements" name="phone_no" id="phone_no" placeholder="Phone number" required />
+                                    </div>
+                                    <!--input type="text" name="lastname" id="lastname" placeholder="Last name" /-->
+                                </div>
+
+                                <div class="form-group">
                                     <label for="text5" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Gender  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
                                         <div class="rd-gender">

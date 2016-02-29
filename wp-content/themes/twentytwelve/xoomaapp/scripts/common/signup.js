@@ -102,10 +102,7 @@
     SignUpView.prototype._successHandler = function(response, status, xhr) {
       console.log(response + " - response");
       $('.loadingconusme').html("");
-      $('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!");
-      return $('html, body').animate({
-        scrollTop: 0
-      }, 'slow');
+      return $('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!");
     };
 
     SignUpView.prototype._errorHandler = function(response, status, xhr) {

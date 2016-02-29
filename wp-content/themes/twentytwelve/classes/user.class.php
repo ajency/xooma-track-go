@@ -7,6 +7,7 @@ class User
     public function register_user_details($data){
 
         $password = $data['password'];
+        $timezone  = "America/New_York";
 
        // $password = md5($data['password']);
 
@@ -23,18 +24,45 @@ class User
         $user_id = wp_create_user( $data['email'], $password, $data['email'] ) ;
         //wp_create_user can also be used
         /**/
-        $update = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password));
+        $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password));
         $profile = $data['profile'];
+        $profile['phone_no'] = '9158785580';
 
         //On success
         if ( ! is_wp_error( $update ) ) {
 
+            /* $data = array(
+                'xooma_member_id'           => $xooma_member_id,
+                'phone_no'                  => $user_details['phone_no'],
+                'gender'                    => $user_details['gender'],
+                'birth_date'                => $user_details['birth_date'],
+                'timezone'                  => $timezone,
+                'display_name'              => $user->display_name,
+                'user_products'             => $user_products,
+                'user_email'                => $user->user_email,
+                'user_id'                   => $id,
+                'offset'                    => $t
+            );*/
+
+            $user_meta_value = maybe_serialize($profile);
+          /*  $data = array(
+                'xooma_member_id'           => $profile['xooma_member_id'],
+                'phone_no'                  => $profile['phone_no'],
+                'gender'                    => $profile['gender'],
+                'birth_date'                => $profile['birth_date'],
+                'timezone'                  => $timezone,
+                'id'                        => $user_id,
+                );*/
+
             update_user_meta($user_id, 'xooma_member_id', $profile['xooma_member_id']);
+            
             update_user_meta($user_id, 'gender', $profile['gender']);
             update_user_meta($user_id, 'birthday', $profile['birth_date']);
-
-            wp_set_auth_cookie( $user_id->ID );
-            return "User created : ". $update;
+            update_user_meta($user_id, 'user_details', $user_meta_value);
+            
+            wp_set_current_user( $user_id, $data['email']);
+            wp_set_auth_cookie( $user_id);
+            return "User created : ". $user_id;
 
         }
        return new WP_Error( 'json_user_details_not_updated', __( 'User Could not be Registered.' ));
@@ -59,7 +87,9 @@ class User
 
         else
         {
-            wp_set_auth_cookie( $user_id->ID ,true);
+            wp_set_current_user( $user_id, $useremail);
+            wp_set_auth_cookie( $user_id);
+            //wp_set_auth_cookie( $user_id->ID ,true);
             return $user_id->ID;
             
         }

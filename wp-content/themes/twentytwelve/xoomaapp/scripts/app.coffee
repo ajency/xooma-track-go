@@ -21,6 +21,10 @@ jQuery(document).ready ($)->
 		App.trigger 'fb:status:connected'
 		App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true
 
+	App.currentUser.on 'user:lauth:success', ->
+		App.trigger 'user:status:connected'
+		App.navigate '#'+App.currentUser.get('state'), trigger:true, replace :true
+
 	App.currentUser.on 'user:logged:out', ->
 		arr = []
 		App.useProductColl.reset arr
@@ -48,6 +52,10 @@ jQuery(document).ready ($)->
 
 
 	App.on 'fb:status:connected', ->
+		if not App.currentUser.hasProfilePicture()
+			App.currentUser.getFacebookPicture()
+
+	App.on 'user:status:connected', ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
