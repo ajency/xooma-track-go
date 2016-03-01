@@ -76,7 +76,7 @@ Products.</h6>
             </div>
             <br>
             <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
-            <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
+            <a href="#/faq"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
             <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
             
 
