@@ -7,7 +7,7 @@ var FaqView,
     parent: 'xooma'
   });
 
-  SignUpView = (function(superClass) {
+  SignUpView = (function(_super) {
     extend(SignUpView, superClass);
 
     function SignUpView() {
