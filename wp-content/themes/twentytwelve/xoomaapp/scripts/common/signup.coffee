@@ -74,18 +74,23 @@ class SignUpView extends Marionette.ItemView
 
 
 	_successHandler: (response, status,xhr)->
-		console.log response+" - response"
+		console.log response
+		localStorage.setItem 'user_registered',response
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!")
 		#app.trigger 'fb:status:connected'
 		document.location = "#/profile/personal-info"
 
 	_errorHandler:(response, status,xhr)=>
-		console.log response.status+" -error"
+		console.log response.status + " -error"
 		$('.loadingconusme').html ""
 		window.removeMsg()
-		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
-		$('html, body').animate({
+		if response.status == 400
+			$('.aj-response-message').removeClass('alert alert-success')
+			@ui.reError.show().text("Email ID already exists")
+		else
+			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
+			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 

@@ -20,6 +20,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
     
 
 	initialize : ->
+		#abc = localStorage.getItem 'user_registered'
+		#console.log abc + "registered user"
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()

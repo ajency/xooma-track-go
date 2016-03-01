@@ -143,7 +143,9 @@ class User_API
 
             $response = array('response' => 'Email already exists');
             $response = new WP_JSON_Response( $response );
-            $response->set_status(404);
+            //$response->set_status(404);
+            $response->set_status(400);
+            //return "Email Id already exists";
            // $response = new WP_JSON_Response( $response );
             
             //$response->set_status('Email already exists');

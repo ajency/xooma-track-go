@@ -43,6 +43,9 @@
     };
 
     ProfilePersonalInfoView.prototype.initialize = function() {
+      //var abc =localStorage.getItem('user_registered');
+      //console.log(abc + "registered user");
+
       this.listenTo(App, 'fb:status:connected', function() {
         if (!App.currentUser.hasProfilePicture()) {
           return App.currentUser.getFacebookPicture();

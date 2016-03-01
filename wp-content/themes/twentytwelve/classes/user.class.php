@@ -26,7 +26,7 @@ class User
         /**/
         $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password, 'display_name'=>$data['fullname']));
         $profile = $data['profile'];
-        $profile['phone_no'] = '9158785580';
+        //$profile['phone_no'] = '9158785580';
 
         //On success
         if ( ! is_wp_error( $update ) ) {
@@ -62,7 +62,7 @@ class User
             
             //wp_set_current_user( $user_id, $data['email']);
             wp_set_auth_cookie( $user_id, true);
-            return "User created : ". $user_id;
+            return $user_id;
 
         }
        return new WP_Error( 'json_user_details_not_updated', __( 'User Could not be Registered.' ));

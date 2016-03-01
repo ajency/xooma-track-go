@@ -100,7 +100,8 @@
     };
 
     SignUpView.prototype._successHandler = function(response, status, xhr) {
-      console.log(response + " - response");
+      console.log(response);
+      localStorage.setItem('user_registered',response);
       $('.loadingconusme').html("");
       $('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!");
       return document.location = "#/profile/personal-info";
@@ -110,10 +111,16 @@
       console.log(response.status + " -error");
       $('.loadingconusme').html("");
       window.removeMsg();
+      if (response.status == 400){
+          $('.aj-response-message').removeClass('alert alert-success');
+          return this.ui.reError.show().text("Email ID already exists");
+      }
+      else{
       this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
+      }
     };
 
     return SignUpView;
