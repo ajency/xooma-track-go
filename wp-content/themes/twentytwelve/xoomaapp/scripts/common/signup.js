@@ -1,13 +1,15 @@
-var SignUpView,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+(function() {
+  var SignUpView,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
 
   App.state('SignUp', {
-    url: '/faq',
+    url: '/signup',
     parent: 'xooma'
   });
 
-  SignUpView = (function(_super) {
+  SignUpView = (function(superClass) {
     extend(SignUpView, superClass);
 
     function SignUpView() {
@@ -140,3 +142,4 @@ var SignUpView,
 
   })(Ajency.RegionController);
 
+}).call(this);
