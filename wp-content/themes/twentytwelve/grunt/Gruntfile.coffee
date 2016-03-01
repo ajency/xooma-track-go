@@ -38,6 +38,8 @@ module.exports = (grunt) ->
 		'../js/offline.min.js'
 		'../js/android.ios.html.class.js'
 		'../xoomaapp/scripts/common/common.js'
+		'../xoomaapp/scripts/common/signin.js'
+		'../xoomaapp/scripts/common/signup.js'
 		'../xoomaapp/scripts/xooma/xooma.app.root.ctrl.js'
 		'../xoomaapp/scripts/profile/profile.ctrl.js'
 		'../xoomaapp/scripts/profile/personalinfo.ctrl.js'
