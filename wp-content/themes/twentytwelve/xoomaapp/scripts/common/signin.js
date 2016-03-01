@@ -1,19 +1,18 @@
-(function() {
   var SignInView,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
+    __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   App.state('SignIn', {
     url: '/signin',
     parent: 'xooma'
   });
 
-  SignInView = (function(superClass) {
-    extend(SignInView, superClass);
+  SignInView = (function(_super) {
+    __extends(SignInView, _super);
 
     function SignInView() {
-      this._errorHandler = bind(this._errorHandler, this);
+      //this._errorHandler = bind(this._errorHandler, this);
       return SignInView.__super__.constructor.apply(this, arguments);
     }
 
@@ -90,8 +89,8 @@
 
   })(Marionette.ItemView);
 
-  App.SignInCtrl = (function(superClass) {
-    extend(SignInCtrl, superClass);
+  App.SignInCtrl = (function(_super) {
+    __extends(SignInCtrl, _super);
 
     function SignInCtrl() {
       return SignInCtrl.__super__.constructor.apply(this, arguments);
@@ -105,5 +104,3 @@
     return SignInCtrl;
 
   })(Ajency.RegionController);
-
-}).call(this);
