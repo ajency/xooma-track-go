@@ -1,7 +1,7 @@
   var SignInView,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   App.state('SignIn', {
     url: '/signin',
@@ -32,7 +32,7 @@
       reError: '.creError'
     };
 
-    SignInView.prototype.modelEvents = {
+   /* SignInView.prototype.modelEvents = {
       'change:profile_picture': 'render',
       'keypress .form-control': function(e) {
         if (e.which === 9) {
@@ -83,7 +83,7 @@
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
-    };
+    };*/
 
     return SignInView;
 
