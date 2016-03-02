@@ -41,6 +41,7 @@ class SignUpView extends Marionette.ItemView
 
 			$ '#birth_date'
 
+
 			.click ->
 				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
 				options = mode: 'date', date: dateObj, maxDate: maxDate
@@ -53,12 +54,12 @@ class SignUpView extends Marionette.ItemView
 
 
 	onFormSubmit: (_formData)->
-		console.log JSON.stringify _formData
+		#console.log JSON.stringify _formData
+		@ui.reError.show().text("")
+		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		pass = $('#password').val()
 		repass = $('#repassword').val()
 		if pass == repass && pass.length > 5
-			@ui.reError.show().text("")
-			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 			$.ajax
 				method : 'POST'
 				url : APIURL+'/users/newprofile'
@@ -72,7 +73,8 @@ class SignUpView extends Marionette.ItemView
 
 
 	_successHandler: (response, status,xhr)->
-		console.log response+" - response"
+		console.log response
+		localStorage.setItem 'user_reg_id',response
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!")
 		#app.trigger 'fb:status:connected'
