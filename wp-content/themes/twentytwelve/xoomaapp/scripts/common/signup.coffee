@@ -40,7 +40,6 @@ class SignUpView extends Marionette.ItemView
 			dateObj = new Date($('#birth_date').val())
 
 			$ '#birth_date'
-			.prop 'readonly', true
 
 
 			.click ->
