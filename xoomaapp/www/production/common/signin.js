@@ -64,7 +64,7 @@
       console.log(localStorage.getItem('user_reg_id'));
       $('.loadingconusme').html("");
       $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
-      if (response === '1') {
+      if (response === '1' || response === '0') {
         App.currentUser.set('state', '/profile/personal-info');
         return App.navigate('#/profile/personal-info', true);
       }
