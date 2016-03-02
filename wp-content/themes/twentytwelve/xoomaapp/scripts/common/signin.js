@@ -32,7 +32,7 @@
       reError: '.creError'
     };
 
-   /* SignInView.prototype.modelEvents = {
+    SignInView.prototype.modelEvents = {
       'change:profile_picture': 'render',
       'keypress .form-control': function(e) {
         if (e.which === 9) {
@@ -83,7 +83,7 @@
       return $('html, body').animate({
         scrollTop: 0
       }, 'slow');
-    };*/
+    };
 
     return SignInView;
 
