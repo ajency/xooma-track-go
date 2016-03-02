@@ -91,17 +91,22 @@ class User
             $table = $wpdb->prefix . "workflow_user";
             
             $data = $wpdb->get_results("SELECT * FROM $table WHERE user_id='".$user_id->ID."' order by form_id asc");
-            /*$status = count($data);*/
-            foreach ($data as $result) {
-                $status = $result->status;
-                $form_id = $result->form_id;
-                if($status == 'incomplete'){
-                    break;
-                }
-                else{
-                    $form_id = 0;
-                }
+            $number = count($data);
+            if($number == 0){
+                $form_id = 0;
+            }
+            else{
+                foreach ($data as $result) {
+                    $status = $result->status;
+                    $form_id = $result->form_id;
+                        if($status == 'incomplete'){
+                            break;
+                        }
+                        else{
+                            $form_id = 4;
+                        }
 
+                }
             }
             wp_set_auth_cookie( $user_id->ID, true);
             //wp_set_auth_cookie( $user_id->ID ,true);
