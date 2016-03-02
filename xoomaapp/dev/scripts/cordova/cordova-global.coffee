@@ -37,7 +37,7 @@ notLoggedInCaps =
 	'level_0': true
 
 
-allSystemCaps = [ 'access_login', 'read', 'level_0', 'subscriber'
+allSystemCaps = [ 'access_login', 'read', 'level_0', 'subscriber', 'access_signin', 'access_signup',
 				, 'access_addproducts', 'access_asperbmi', 'access_editinventory', 'access_editproducts'
 				, 'access_home', 'access_profile', 'access_schedule', 'access_settings', 'access_usermeasurement'
 				, 'access_userpersonalinfo', 'access_userproductlist', 'access_viewinventory'
