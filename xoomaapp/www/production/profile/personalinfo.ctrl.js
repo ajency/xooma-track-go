@@ -42,6 +42,7 @@ ProfilePersonalInfoView = (function(superClass) {
   };
 
   ProfilePersonalInfoView.prototype.initialize = function() {
+    console.log("Personal View");
     return this.listenTo(App, 'fb:status:connected', function() {
       if (!App.currentUser.hasProfilePicture()) {
         return App.currentUser.getFacebookPicture();
