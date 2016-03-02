@@ -24,7 +24,7 @@ class SignInView extends Marionette.ItemView
 
 
 	onFormSubmit: (_formData)->
-		console.log JSON.stringify _formData
+		#console.log JSON.stringify _formData
 		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		$.ajax
 			method : 'POST'
@@ -37,7 +37,12 @@ class SignInView extends Marionette.ItemView
 
 	_successHandler: (response)->
 		console.log response+ " - response"
-		#app.trigger 'fb:status:connected'
+		response = response
+		user_id = response.split("-")
+		response = user_id[0]
+		user_reg_id = user_id[1]
+		localStorage.setItem 'user_reg_id',user_reg_id
+		console.log localStorage.getItem 'user_reg_id'
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!")
 

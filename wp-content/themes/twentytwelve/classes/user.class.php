@@ -105,7 +105,7 @@ class User
             }
             wp_set_auth_cookie( $user_id->ID, true);
             //wp_set_auth_cookie( $user_id->ID ,true);
-            return $form_id;
+            return $form_id."-".$user_id->ID;
             
         }
 

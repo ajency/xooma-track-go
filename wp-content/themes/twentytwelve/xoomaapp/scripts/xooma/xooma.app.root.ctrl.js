@@ -50,6 +50,8 @@ XoomaAppRootView = (function(_super) {
   };
 
   XoomaAppRootView.prototype._successHandler = function(response, status, xhr) {
+    localStorage.clear();
+    //console.log("logout clicked");
     return App.currentUser.logout();
   };
 
