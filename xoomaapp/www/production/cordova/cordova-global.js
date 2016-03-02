@@ -12,9 +12,9 @@ userData = CordovaStorage.getUserData();
 
 CordovaStorage.publishFeedDialog('init');
 
-_SITEURL = 'https://mystory.xoomaworldwide.com';
+_SITEURL = 'http://www.xooma.ajency.in';
 
-APIURL = _SITEURL + "/?json_route=";
+APIURL = _SITEURL + "/wp-json";
 
 notLoggedInCaps = {
   'access_login': true,
