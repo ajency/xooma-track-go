@@ -81,11 +81,15 @@ class SignUpView extends Marionette.ItemView
 		document.location = "#/profile/personal-info"
 
 	_errorHandler:(response, status,xhr)=>
-		console.log response.status+" -error"
+		console.log response.status + " -error"
 		$('.loadingconusme').html ""
 		window.removeMsg()
-		@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
-		$('html, body').animate({
+		if response.status == 400
+			$('.aj-response-message').removeClass('alert alert-success')
+			@ui.reError.show().text("Email ID already exists")
+		else
+			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
+			$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
 

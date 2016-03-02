@@ -50,8 +50,6 @@ class SignInView extends Marionette.ItemView
 			App.currentUser.set 'state', '/profile/measurements'
 			App.navigate '#/profile/measurements', true
 
-
-
 		if response == '3'
 			App.currentUser.set 'state', '/profile/my-products'
 			App.navigate '#/profile/my-products', true

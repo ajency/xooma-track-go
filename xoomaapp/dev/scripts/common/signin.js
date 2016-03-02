@@ -58,18 +58,20 @@
       console.log(response + " - response");
       $('.loadingconusme').html("");
       $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
+
       if (response === '1') {
         App.currentUser.set('state', '/profile/personal-info');
-        App.navigate('#/profile/personal-info', true);
+        return App.navigate('#/profile/personal-info', true);
       }
       if (response === '2') {
         App.currentUser.set('state', '/profile/measurements');
-        App.navigate('#/profile/measurements', true);
+        return App.navigate('#/profile/measurements', true);
       }
       if (response === '3') {
         App.currentUser.set('state', '/profile/my-products');
         return App.navigate('#/profile/my-products', true);
-      } else {
+      }
+      else {
         App.currentUser.set('state', '/home');
         return App.navigate('#/home', true);
       }

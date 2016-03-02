@@ -109,10 +109,15 @@ SignUpView = (function(superClass) {
     console.log(response.status + " -error");
     $('.loadingconusme').html("");
     window.removeMsg();
-    this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
-    return $('html, body').animate({
-      scrollTop: 0
-    }, 'slow');
+    if (response.status === 400) {
+      $('.aj-response-message').removeClass('alert alert-success');
+      return this.ui.reError.show().text("Email ID already exists");
+    } else {
+      this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    }
   };
 
   return SignUpView;
