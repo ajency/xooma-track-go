@@ -34,6 +34,8 @@ APIURL   = "#{_SITEURL}/wp-json"
 notLoggedInCaps = 
 	'access_login': true
 	'access_xooma': true
+  	'access_signin': true
+  	'access_signup': true
 	'level_0': true
 
 
