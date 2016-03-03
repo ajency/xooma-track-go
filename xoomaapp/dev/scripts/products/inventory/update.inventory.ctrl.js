@@ -122,7 +122,7 @@ EditInventoryView = (function(superClass) {
       product = this.model.get('id');
       return $.ajax({
         method: 'POST',
-        url: APIURL + "/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
         data: data,
         success: this.successSave,
         error: this.errorSave

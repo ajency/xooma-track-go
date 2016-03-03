@@ -166,7 +166,7 @@ class EditProductsView extends Marionette.ItemView
 			product = @model.get('id')
 			$.ajax
 				method : 'POST'
-				url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 				data : data
 				success : @successSave
 				error : @errorSave
@@ -196,7 +196,7 @@ class EditProductsView extends Marionette.ItemView
 		product = model.get('id')
 		$.ajax
 			method : 'POST'
-			url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+			url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 			data : data
 			success : @successSave
 			error : @errorSave
@@ -384,7 +384,6 @@ class EditProductsView extends Marionette.ItemView
 		products = App.currentUser.get 'products'
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
-		App.trigger 'ios:header:footer:fix'
 
 		if !window.isWebView()
 			$('.input-small').timepicker(
@@ -551,7 +550,7 @@ class App.EditProductsCtrl extends Ajency.RegionController
 		if $.inArray( product, products ) > -1 || App.productCollection.length == 0
 			$.ajax
 				method : 'GET'
-				url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 				success: @successHandler
 				error :@erroraHandler
 		else 
