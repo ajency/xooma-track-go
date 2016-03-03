@@ -30,6 +30,7 @@ module.exports = (grunt) ->
 		'../xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
 		'../xoomaapp/bower_components/marionette.state/dist/marionette.state.js'
 		'../xoomaapp/bower_components/ajency.marionette/dist/ajency.marionette.js'
+		'../xoomaapp/bower_components/localforage/src/localforage.js'
 	]
 
 	appcode = [

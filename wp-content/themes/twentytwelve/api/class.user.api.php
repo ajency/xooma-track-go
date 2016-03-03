@@ -145,6 +145,7 @@ class User_API
             $response = new WP_JSON_Response( $response );
             //$response->set_status(404);
             $response->set_status(400);
+            return $response;
             //return "Email Id already exists";
            // $response = new WP_JSON_Response( $response );
             
@@ -161,16 +162,38 @@ class User_API
             $response->set_status(404);
 
         }
-        else
+        /*else
         {
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
              $response = new WP_JSON_Response( $response );
             }
             $response->set_status( 200 );
-        }
+        }*/
+
+            $user_model = array();
+
+    if($response === 0){
+        return $user_model;
+    }
+
+    $user_data = get_userdata( $response );
+
+    $user_model = $user_data->data;
+
+    unset($user_model->user_pass);
+    unset($user_model->user_activation_key);
+    unset($user_model->user_url);
+
+    $user_model->caps = (object)array_merge((array)$user_data->allcaps, (array)$user_data->caps);
+
+    //$user_model->profile_picture = aj_get_user_profile_picture($user_id);
+
+    $user_model->ID = (int) $user_data->ID;
+
+    return apply_filters( 'default_user_model', $user_model );
 
     }
-        return $response;
+        //return $response;
 
     }
 
@@ -180,13 +203,15 @@ class User_API
 
         $response = $user->get_user_id($data);
 
+
+
     // $response = $data['username'];
         if(is_wp_error($response)){
             $response = new WP_JSON_Response( $response );
             $response->set_status(404);
 
         }
-        else
+       /* else
         {
             if ( ! ( $response instanceof WP_JSON_ResponseInterface ) ) {
              $response = new WP_JSON_Response( $response );
@@ -194,7 +219,29 @@ class User_API
             $response->set_status( 200 );
         }
 
-        return $response;
+        return $response;*/
+
+    $user_model = array();
+
+    if($response === 0){
+        return $user_model;
+    }
+
+    $user_data = get_userdata( $response );
+
+    $user_model = $user_data->data;
+
+    unset($user_model->user_pass);
+    unset($user_model->user_activation_key);
+    unset($user_model->user_url);
+
+    $user_model->caps = (object)array_merge((array)$user_data->allcaps, (array)$user_data->caps);
+
+    //$user_model->profile_picture = aj_get_user_profile_picture($user_id);
+
+    $user_model->ID = (int) $user_data->ID;
+
+    return apply_filters( 'default_user_model', $user_model );
     }
 
     public function xooma_get_user_profile_details($id){

@@ -162,6 +162,14 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
+		if App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true
+      		$('.profile-template').hide()
+      		$('.menulink').hide()
+
+    	else
+      		$('.profile-template').show();
+      		$('.menulink').show();
+
 		$('#param option[value="'+window.param+'"]').prop("selected",true)
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#param').trigger( "change" )

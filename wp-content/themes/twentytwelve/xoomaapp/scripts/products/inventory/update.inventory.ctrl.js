@@ -1,20 +1,20 @@
 var EditInventoryView,
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('EditInventory', {
   url: '/inventory/:id/edit',
   parent: 'xooma'
 });
 
-EditInventoryView = (function(_super) {
-  __extends(EditInventoryView, _super);
+EditInventoryView = (function(superClass) {
+  extend(EditInventoryView, superClass);
 
   function EditInventoryView() {
-    this.errorSave = __bind(this.errorSave, this);
-    this.successSave = __bind(this.successSave, this);
-    this.valueOutput = __bind(this.valueOutput, this);
+    this.errorSave = bind(this.errorSave, this);
+    this.successSave = bind(this.successSave, this);
+    this.valueOutput = bind(this.valueOutput, this);
     return EditInventoryView.__super__.constructor.apply(this, arguments);
   }
 
@@ -122,7 +122,7 @@ EditInventoryView = (function(_super) {
       product = this.model.get('id');
       return $.ajax({
         method: 'POST',
-        url: "" + _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
         data: data,
         success: this.successSave,
         error: this.errorSave
@@ -220,11 +220,11 @@ EditInventoryView = (function(_super) {
 
 })(Marionette.ItemView);
 
-App.EditInventoryCtrl = (function(_super) {
-  __extends(EditInventoryCtrl, _super);
+App.EditInventoryCtrl = (function(superClass) {
+  extend(EditInventoryCtrl, superClass);
 
   function EditInventoryCtrl() {
-    this._showView = __bind(this._showView, this);
+    this._showView = bind(this._showView, this);
     return EditInventoryCtrl.__super__.constructor.apply(this, arguments);
   }
 

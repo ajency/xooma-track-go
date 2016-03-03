@@ -26,7 +26,7 @@ class User
         /**/
         $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password, 'display_name'=>$data['fullname']));
         $profile = $data['profile'];
-        //$profile['phone_no'] = '9158785580';
+        $profile['phone_no'] = $data['phone_no'];
 
         //On success
         if ( ! is_wp_error( $update ) ) {
@@ -88,7 +88,7 @@ class User
         else
         {
             //wp_set_current_user( $user_id, $useremail);
-            $table = $wpdb->prefix . "workflow_user";
+            /*$table = $wpdb->prefix . "workflow_user";
             
             $data = $wpdb->get_results("SELECT * FROM $table WHERE user_id='".$user_id->ID."' order by form_id asc");
             $number = count($data);
@@ -107,10 +107,11 @@ class User
                         }
 
                 }
-            }
+            }*/
             wp_set_auth_cookie( $user_id->ID, true);
             //wp_set_auth_cookie( $user_id->ID ,true);
-            return $form_id."-".$user_id->ID;
+            //return $form_id."-".$user_id->ID;
+            return $user_id->ID;
             
         }
 

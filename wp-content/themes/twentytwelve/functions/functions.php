@@ -818,6 +818,8 @@ function get_all_timezones(){
 
 add_filter( 'aj_user_model', 'check_workflow' );
 
+add_filter('default_user_model', 'check_workflow');
+
 add_action( 'user_register', 'send_emails', 10, 1 );
 
 function send_emails($user_id){

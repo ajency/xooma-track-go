@@ -1,15 +1,15 @@
 var AddProductsView, NoProductsChildView, ProductChildView,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 App.state('AddProducts', {
   url: '/products',
   parent: 'xooma'
 });
 
-ProductChildView = (function(_super) {
-  __extends(ProductChildView, _super);
+ProductChildView = (function(superClass) {
+  extend(ProductChildView, superClass);
 
   function ProductChildView() {
     return ProductChildView.__super__.constructor.apply(this, arguments);
@@ -31,8 +31,8 @@ ProductChildView = (function(_super) {
 
 })(Marionette.ItemView);
 
-NoProductsChildView = (function(_super) {
-  __extends(NoProductsChildView, _super);
+NoProductsChildView = (function(superClass) {
+  extend(NoProductsChildView, superClass);
 
   function NoProductsChildView() {
     return NoProductsChildView.__super__.constructor.apply(this, arguments);
@@ -44,8 +44,8 @@ NoProductsChildView = (function(_super) {
 
 })(Marionette.ItemView);
 
-AddProductsView = (function(_super) {
-  __extends(AddProductsView, _super);
+AddProductsView = (function(superClass) {
+  extend(AddProductsView, superClass);
 
   function AddProductsView() {
     return AddProductsView.__super__.constructor.apply(this, arguments);
@@ -76,12 +76,12 @@ AddProductsView = (function(_super) {
 
 })(Marionette.CompositeView);
 
-App.AddProductsCtrl = (function(_super) {
-  __extends(AddProductsCtrl, _super);
+App.AddProductsCtrl = (function(superClass) {
+  extend(AddProductsCtrl, superClass);
 
   function AddProductsCtrl() {
-    this._showProducts = __bind(this._showProducts, this);
-    this.removeLoader = __bind(this.removeLoader, this);
+    this._showProducts = bind(this._showProducts, this);
+    this.removeLoader = bind(this.removeLoader, this);
     return AddProductsCtrl.__super__.constructor.apply(this, arguments);
   }
 
