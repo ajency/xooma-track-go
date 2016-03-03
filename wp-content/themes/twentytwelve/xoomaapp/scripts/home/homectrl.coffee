@@ -162,7 +162,7 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
-		if App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true
+		if App.currentUser.get('ID') == undefined || App.currentUser.get('caps').administrator == true
       		$('.profile-template').hide()
       		$('.menulink').hide()
 
