@@ -42,7 +42,6 @@ class SignUpView extends Marionette.ItemView
 
 			$ '#birth_date'
 
-
 			.click ->
 				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
 				options = mode: 'date', date: dateObj, maxDate: maxDate

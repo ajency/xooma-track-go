@@ -167,9 +167,11 @@ class HomeLayoutView extends Marionette.LayoutView
       		$('.menulink').hide()
 
     	else
-      		$('.profile-template').show();
-      		$('.menulink').show();
-
+      		$('.profile-template').show()
+      		$('.menulink').show()
+      	localforage.getItem('user_reg_id').then(function(user_reg_id){
+			console.log user_reg_id.value		
+		)}
 		$('#param option[value="'+window.param+'"]').prop("selected",true)
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#param').trigger( "change" )

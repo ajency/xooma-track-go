@@ -18,13 +18,6 @@ jQuery(document).ready(function($) {
       replace: true
     });
   });
-  /*App.currentUser.on('user:lauth:success', function() {
-    App.trigger('user:status:connected');
-    return App.navigate('#' + App.currentUser.get('state'), {
-      trigger: true,
-      replace: true
-    });
-  });*/
   App.currentUser.on('user:logged:out', function() {
     var arr;
     arr = [];

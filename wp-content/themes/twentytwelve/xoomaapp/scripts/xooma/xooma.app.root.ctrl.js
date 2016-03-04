@@ -50,7 +50,7 @@ XoomaAppRootView = (function(superClass) {
   };
 
   XoomaAppRootView.prototype._successHandler = function(response, status, xhr) {
-    localStorage.clear();
+    localforage.clear();
     return App.currentUser.logout();
   };
 
@@ -77,9 +77,9 @@ XoomaAppRootView = (function(superClass) {
     });
     state = App.currentUser.get('state');
     if (state !== '/home') {
-      return $('.link').hide();
+      $('.link').hide();
     } else {
-      return $('.link').show();
+      $('.link').show();
     }
   };
 

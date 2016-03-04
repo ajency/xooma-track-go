@@ -36,7 +36,7 @@ class XoomaAppRootView extends Marionette.LayoutView
         data
 
     _successHandler:(response, status,xhr)=>
-        localStorage.clear()
+        localforage.clear()
         App.currentUser.logout()
 
 
