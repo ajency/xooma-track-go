@@ -42,6 +42,7 @@ SignInView = (function(superClass) {
   };
 
   SignInView.prototype.onFormSubmit = function(_formData) {
+    console.log(JSON.stringify(_formData));
     $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     return $.ajax({
       method: 'POST',
@@ -53,18 +54,24 @@ SignInView = (function(superClass) {
   };
 
   SignInView.prototype._successHandler = function(response) {
-    var display_name;
-    window.userData = response;
+    console.log(response + " - response");
     $('.loadingconusme').html("");
     $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
-    App.currentUser.set(window.userData);
-    display_name = App.currentUser.get('display_name');
-    $('.display_name').text(App.currentUser.get('display_name'));
-    $('.user_email').text(App.currentUser.get('user_email'));
-    if (window.isWebView()) {
-      localforage.setItem('user_reg_id', App.currentUser.get('ID'));
+    if (response === '1') {
+      App.currentUser.set('state', '/profile/personal-info');
+      return App.navigate('#/profile/personal-info', true);
     }
-    return App.navigate('#' + App.currentUser.get('state'), true);
+    if (response === '2') {
+      App.currentUser.set('state', '/profile/measurements');
+      return App.navigate('#/profile/measurements', true);
+    }
+    if (response === '3') {
+      App.currentUser.set('state', '/profile/my-products');
+      return App.navigate('#/profile/my-products', true);
+    } else {
+      App.currentUser.set('state', '/home');
+      return App.navigate('#/home', true);
+    }
   };
 
   SignInView.prototype._errorHandler = function(response) {

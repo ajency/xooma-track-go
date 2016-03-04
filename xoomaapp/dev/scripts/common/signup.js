@@ -33,8 +33,7 @@
       dateElement: 'input[name="profile[birth_date]"]',
       xooma_member_id: '.xooma_member_id',
       repassword: '.repassword',
-      reError: '.reError',
-      emailError: '.emailError'
+      reError: '.reError'
     };
 
     SignUpView.prototype.modelEvents = {
@@ -81,11 +80,12 @@
 
     SignUpView.prototype.onFormSubmit = function(_formData) {
       var pass, repass;
-      this.ui.reError.show().text("");
-      $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
+      console.log(JSON.stringify(_formData));
       pass = $('#password').val();
       repass = $('#repassword').val();
       if (pass === repass && pass.length > 5) {
+        this.ui.reError.show().text("");
+        $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
         return $.ajax({
           method: 'POST',
           url: APIURL + '/users/newprofile',
@@ -94,37 +94,26 @@
           error: this._errorHandler
         });
       } else {
-        $('.loadingconusme').html("");
         $('.aj-response-message').removeClass('alert alert-success');
         return this.ui.reError.show().text("Passwords do not match");
       }
     };
 
     SignUpView.prototype._successHandler = function(response, status, xhr) {
-      console.log(response);
-      window.userData = response;
+      console.log(response + " - response");
       $('.loadingconusme').html("");
       $('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!");
-      App.currentUser.set(window.userData);
-      console.log(window.userData);
-      $('.display_name').text(App.currentUser.get('display_name'));
-      $('.user_email').text(App.currentUser.get('user_email'));
-      return App.navigate('#' + App.currentUser.get('state'), true);
+      return document.location = "#/profile/personal-info";
     };
 
     SignUpView.prototype._errorHandler = function(response, status, xhr) {
-      console.log(response + " -error");
+      console.log(response.status + " -error");
       $('.loadingconusme').html("");
       window.removeMsg();
-      if (response.status === 400) {
-        $('.aj-response-message').removeClass('alert alert-success');
-        return this.ui.emailError.show().text("Email ID already exists");
-      } else {
-        this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
-        return $('html, body').animate({
-          scrollTop: 0
-        }, 'slow');
-      }
+      this.ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!");
+      return $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
     };
 
     return SignUpView;
