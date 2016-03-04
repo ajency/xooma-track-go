@@ -43,12 +43,14 @@ class SignInView extends Marionette.ItemView
 		$('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!")
 		App.currentUser.set window.userData
 		display_name = App.currentUser.get('display_name')
-		$('.display_name').text(App.currentUser.get('display_name'));
-		$('.user_email').text(App.currentUser.get('user_email'));
-		#console.log App.currentUser.get('ID') + "ID"
-		#console.log App.currentUser.get('caps').administrator
+		$('.display_name').text(App.currentUser.get('display_name'))
+		$('.user_email').text(App.currentUser.get('user_email'))
+		#console.log App.currentUser.get('ID')
+		#localforage.setItem('user_reg_id', App.currentUser.get('ID'),'')
+		localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id')
+		if App.currentUser.get('state') == '/home'
+        	$('.link').show()
 		App.navigate '#' + App.currentUser.get('state'), true
-
 
 
 	_errorHandler:(response)=>
@@ -63,8 +65,10 @@ class SignInView extends Marionette.ItemView
 
 
 
-
 class App.SignInCtrl extends Ajency.RegionController
 	initialize : ->
+		localforage.getItem('user_reg_id').then(function(user_reg_id){
+			console.log user_reg_id.value		
+		)}
 		console.log "sign in"
 		@show new SignInView
