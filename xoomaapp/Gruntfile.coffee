@@ -30,6 +30,7 @@ module.exports = (grunt) ->
 		'bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
 		'bower_components/marionette.state/dist/marionette.state.js'
 		'bower_components/ajency.marionette/dist/ajency.marionette.js'
+		'bower_components/localforage/dist/localforage.js'
 	]
 
 	appjscode = [

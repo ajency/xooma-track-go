@@ -194,9 +194,6 @@ HomeLayoutView = (function(superClass) {
       $('.profile-template').show();
       $('.menulink').show();
     }
-    if (window.isWebView()) {
-      console.log(App.localforage.getItem('user_reg_id'));
-    }
     $('#param option[value="' + window.param + '"]').prop("selected", true);
     $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
     $('#param').trigger("change");

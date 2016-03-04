@@ -16,6 +16,7 @@ class SignUpView extends Marionette.ItemView
 		xooma_member_id : '.xooma_member_id'
 		repassword : '.repassword'
 		reError : '.reError'
+		emailError : '.emailError'
 
 	modelEvents :
 		'change:profile_picture' : 'render'
@@ -53,12 +54,12 @@ class SignUpView extends Marionette.ItemView
 
 
 	onFormSubmit: (_formData)->
-		console.log JSON.stringify _formData
+		#console.log JSON.stringify _formData
+		@ui.reError.show().text("")
+		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		pass = $('#password').val()
 		repass = $('#repassword').val()
 		if pass == repass && pass.length > 5
-			@ui.reError.show().text("")
-			$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 			$.ajax
 				method : 'POST'
 				url : APIURL+'/users/newprofile'
@@ -67,24 +68,30 @@ class SignUpView extends Marionette.ItemView
 				error:@_errorHandler
 
 		else 
+			$('.loadingconusme').html ""
 			$('.aj-response-message').removeClass('alert alert-success')
 			@ui.reError.show().text("Passwords do not match")
 
 
 	_successHandler: (response, status,xhr)->
-		console.log response+" - response"
+		console.log response
+		window.userData = response
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Registered Successfully!")
-		#app.trigger 'fb:status:connected'
-		document.location = "#/profile/personal-info"
+		App.currentUser.set window.userData
+		console.log window.userData
+		$('.display_name').text(App.currentUser.get('display_name'));
+		$('.user_email').text(App.currentUser.get('user_email'));
+		App.navigate '#' + App.currentUser.get('state'), true
+
 
 	_errorHandler:(response, status,xhr)=>
-		console.log response.status + " -error"
+		console.log response + " -error"
 		$('.loadingconusme').html ""
 		window.removeMsg()
 		if response.status == 400
 			$('.aj-response-message').removeClass('alert alert-success')
-			@ui.reError.show().text("Email ID already exists")
+			@ui.emailError.show().text("Email ID already exists")
 		else
 			@ui.responseMessage.addClass('alert alert-danger').text("Data couldn't be saved due to some error!")
 			$('html, body').animate({
