@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
     <script id="login-template" type="text/template">
 <div class="topheader" id="logintemplate">
@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-xs-12">
                    
-                                <img alt="Brand" src="<?php echo get_template_directory_uri(); ?>/img/logo.png" class="tp-img-align  center-block" width="200px">
+                                <img alt="Brand" src="./images/logo.png" class="tp-img-align  center-block" width="200px">
                          
                         
                     </div>
@@ -27,26 +27,26 @@
     <br>
 
     <div class="slider single-item">
-                    <div><h3><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
+                    <div><h3><img src="./images/slider1.jpg" alt="" class="center-block img-responsive"></h3>
                         <h5 class="text-center">Fun and Easy way to keep track <br>of your Xooma product usage</h5>
                     </div>
-                     <div><h3>  <img src="<?php echo get_template_directory_uri(); ?>/images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
+                     <div><h3>  <img src="./images/low-stock.png" alt="" class="center-block img-responsive" ></h3>
                     <h5 class="text-center"> Timely notification and email reminders<br>to support your product use and health goals</h5>
                     </div>
                     
-                    <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/fitness.png" alt="" class="center-block img-responsive" ></h3>
+                    <div><h3> <img src="./images/fitness.png" alt="" class="center-block img-responsive" ></h3>
                     <h5 class="text-center">Measure the improvements <br> in your shape and size</h5>
                     </div>
-                   <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
+                   <div><h3>   <img src="./images/reminder.png " alt="" class="center-block img-responsive"  ></h3>
                     <h5 class="text-center"> Get notified when you are running low<br>on your xooma products </h5>
                     </div>
                     
-                           <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
+                           <div><h3>   <img src="./images/products-1.jpg " alt="" class="center-block img-responsive"  ></h3>
                     <h6 class="text-center"> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and 
 
 additionally help you properly maintain your personal regime of Xooma’s entire supplement line. </h6>
                     </div>
-                    <div><h3>   <img src="<?php echo get_template_directory_uri(); ?>/images/products-2.jpg " alt="" class="center-block img-responsive"  ></h3>
+                    <div><h3>   <img src="./images/products-2.jpg " alt="" class="center-block img-responsive"  ></h3>
                     <h6 class="text-center"> As you may already know, Xooma’s X2O helps you get the most out of your water by increasing the 
 
 alkalinity (pH) of your water, optimizing hydration, and revitalizing your body with 70+ essential trace 
@@ -55,14 +55,14 @@ minerals.  Now “Xooma Track & Go” can help you get the most out of your X2O 
 
 Products.</h6>
                     </div>
-                    <div><h3> <img src="<?php echo get_template_directory_uri(); ?>/images/platform.png" alt="" class="center-block img-responsive"  ></h3>
+                    <!-- <div><h3> <img src="./images/platform.png" alt="" class="center-block img-responsive"  ></h3>
           
                         <div class="row app-link">
-                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/google-btn.png" alt="" class="center-block "  ></a></div>
-                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/apple-btn.png" alt="" class="center-block "  ></a></div>
+                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="./images/google-btn.png" alt="" class="center-block "  ></a></div>
+                            <div class="col-md-6 col-xs-6"> <a href="#"><img src="./images/apple-btn.png" alt="" class="center-block "  ></a></div>
                         </div>
                  
-                    </div>
+                    </div> -->
                    
                 </div>
 
@@ -75,91 +75,132 @@ Products.</h6>
                     </div>
             </div>
             <br>
-            <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br><br>
-            <button type="button" class="btn btn-primary btn-lg center-block aj-login-button">Login In</button><br>
-            <a href="#" class="aj-sign-up-button">Sign Up</a>
-            
-
+            <button type="button" fb-scope="public_profile, email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
+            <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
+            <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
     </div>
     </script>
 
     <script id="sign_up_template" type="text/template">
-       <div class="container">
-           <div class="row">
-           <form>
-           <div class="form-group">
-               <label>Full name: </label>
-               <input type="text" name="firstname" id="firstname" placeholder="First name" />
-               <label>Last name: </label>
-               <input type="text" name="lastname" id="lastname" placeholder="Last name" />
-            </div>
-            <div class="form-group">
-               <label>Email: </label>
-               <input type="email" name="email" id="email"/>
-            </div>
-            <div class="form-group">
-               <label>Password: </label>
-               <input type="password" name="password" id="password"/>
-            </div>
-            <div class="form-group">
-               <label>Re-type Password: </label>
-               <input type="password" name="repassword" id="repassword"/>
-            </div>
+        <div id="signuptemplate" class="section-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <form role="form" class="form-horizontal user-sign-up">
+                            <h5 class="text-center bold margin-none">Register</h5>
+                            <br>
+                            <div class="aj-response-message"> </div>
+                            <input type="hidden" value="" id="current_time" name="current_time" class="" />
 
-            <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Day
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">3</a></li>    
-            </ul>
+                                <div class="form-group">
+                                    <label for="text1" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
+                                        <div class="col-sm-9 col-xs-8 col-lg-8">
+                                            <input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Full name:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="text" class="form-control tabelements" name="fullname" id="firstname" placeholder="Full name" required />
+                                    </div>
+                                    <!--input type="text" name="lastname" id="lastname" placeholder="Last name" /-->
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Email:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="email" class="form-control tabelements" name="email" id="email" required />
+                                    <span style="display:none;" class="parsley-errors-list filled emailError"></span>
+                                    </div>
+                                    </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Password:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="password" class="form-control tabelements" name="password" id="password" required />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Re-type Password:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="password" class="form-control tabelements repassword" name="repassword" id="repassword" required />
+                                    <span style="display:none;" class="parsley-errors-list filled reError"></span>
+                                    </div>
 
-            <button class="btn btn-default dropdown-toggle" id="menu2" type="button" data-toggle="dropdown">Month
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">jan</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">feb</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">mar</a></li>    
-            </ul>
+                                </div>
 
-            <button class="btn btn-default dropdown-toggle" id="menu3" type="button" data-toggle="dropdown">Year
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu3">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2014</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2015</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2016</a></li>    
-            </ul>
-            </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Phone No:  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                    <input type="text" class="form-control tabelements" name="phone_no" id="phone_no" placeholder="Phone number" required />
+                                    </div>
+                                    <!--input type="text" name="lastname" id="lastname" placeholder="Last name" /-->
+                                </div>
 
-            <label class="radio-inline">
-                <input type="radio" name="genradio">Female
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="genradio">Male
-            </label>
-            <input type="button" value="Sign Up" id="sign-up"/>
+                                <div class="form-group">
+                                    <label for="text5" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Gender  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+                                        <div class="rd-gender">
+                                        <label class="wrap pull-left">
+                                        <input type="radio" aj-field-required="true" name="profile[gender]" class="radio tabelements" value="male" />
+                                        <span class="rd-visual male" title="Male"></span>
+                                        </label>
+
+                                        <label class="wrap pull-left">
+                                        <input type="radio" aj-field-required="true" name="profile[gender]" class="radio tabelements" value="female" />
+
+                                        <span class="rd-visual female" title="Female"></span>
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
+                                    <div class="col-sm-9 col-xs-8 col-lg-8">
+
+                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="loadingconusme"></div>
+                    <div class="col-sm-12">
+                        <button type="submit" id="user_sign_up" name="user_sign_up" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign Up</button>
+                    </div>
                </form>
+               </div>
            </div>
-       </div> 
-
+       </div>
+       </div>
     </script>
 
-    <script id="sign_in_template" type="text/template">        
-               <div class="container">
-           <div class="row">
-           <form>
-           <div class="form-group">
-               <label>Username: </label>
-               <input type="text" name="username" id="username"/>
-            </div>
-            <div class="form-group">
-               <label>Password: </label>
-               <input type="password" name="password" id="password"/>
-            </div>
-            <input type="button" value="Sign In" id="sign-in"/>
+    <script id="sign_in_template" type="text/template">
+        <div id="signintemplate" class="section-list">        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <form role="form" class="form-horizontal sign-in-user">
+                    <h5 class="text-center bold margin-none">Sign In</h5>
+                    <br>
+                    <div class="aj-response-message"> </div>
+                    <div class="form-group">
+                        <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Email: </label>
+                        <div class="col-sm-9 col-xs-8 col-lg-8">
+                        <input class="form-control tabelements" type="email" name="useremail" id="useremail" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" col-sm-3 col-xs-4 col-lg-4 control-label">Password: </label>
+                        <div class="col-sm-9 col-xs-8 col-lg-8">
+                        <input type="password" class="form-control tabelements" name="password" id="password" required />
+                        <span style="display:none;" class="parsley-errors-list filled creError"></span>
+                        </div>
+                    </div>
+                    <div class="loadingconusme"></div>
+                    <div class="col-sm-12">
+                        <button type="submit" id="user_sign_in" name="user_sign_in" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign In</button>
+                    </div>
                </form>
+               </div>
            </div>
+       </div>
        </div> 
     </script>
 
@@ -168,7 +209,7 @@ Products.</h6>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/404.jpg" class="center-block"/>
+                <img src="./images/404.jpg" class="center-block"/>
                 <h4 class="text-center" > We can't seem to find page you're looking for</h4>
                 </div>
                 <div class="col-md-3"></div>
@@ -182,17 +223,16 @@ Products.</h6>
 
                                 <div class="row">
 
-                                        <div class="col-sm-3 col-xs-3 ">
-                                        <div class="menulink">
+                                        <div class="col-sm-3 col-xs-3 menulink">
                                               <a class="menuanchor" href="#menu">
                                                      <h4 class="margin-none"><i class="fa fa-bars "></i></h4>
                                                 </a>
-                                          </div>  
+                                            
                                         </div>
                                           <div class="col-sm-6 col-xs-6">
                 
                                                         <a href="#" >
-                                                                <img alt="Brand"  src="<?php echo get_template_directory_uri(); ?>/xoomaapp/images/logo.png" class=" tp-img-align logo_link center-block" width="200px">
+                                                                <img alt="Brand"  src="./images/logo.png" class=" tp-img-align logo_link center-block" width="200px">
                                                             </a>
                                                
                                         </div>
@@ -233,13 +273,13 @@ Products.</h6>
                         <div class="row">
                                 <div class="col-sm-12">
                                         <ul class="list-inline">
-                                                <li class="tag"><a  id="profile" href="#/profile/personal-info"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
+                                                <li class="tag"><a  id="profile" href="#/profile/personal-info"><img  src="./images/icon3.png"/>
                                                         <span class="hidden-xs"> My Personal Info</span></a>
                                                 </li>
-                                                <li class="tag"><a id="measurement" href="#/profile/measurements"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
+                                                <li class="tag"><a id="measurement" href="#/profile/measurements"><img  src="./images/icon2.png"/>
                                                         <span  class="hidden-xs"> My Measurements</span></a>
                                                 </li>
-                                                <li class="tag"><a id="product" href="#/profile/my-products"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
+                                                <li class="tag"><a id="product" href="#/profile/my-products"><img  src="./images/icon1.png"/>
 
                                                         <span class="hidden-xs" >My Products</span></a>
 
@@ -279,7 +319,7 @@ Products.</h6>
     </div>
 
 
-    <div class="form-group ">
+    <div class="form-group">
     <label class="col-sm-8 col-xs-8  control-label">Notifications</label>
     <div class="col-sm-4 col-xs-4 ">
      <div class="switch">
@@ -297,11 +337,20 @@ Products.</h6>
     </div>
     </div>
     </div> 
-    <a href="http://xooma.com/" target="_blank" style="color:#787878">
+    <div class="form-group">
+    <label  class="col-sm-8 col-xs-8 control-label">Facebook Feed Alert</label>
+    <div class="col-sm-4 col-xs-4 ">
+    <div class="switch">
+            <input id="fbfeed" name="fbfeed" value="" class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+            <label for="fbfeed"></label>
+    </div>
+    </div>
+    </div> 
+    <!-- <a href="http://xooma.com/" target="_blank" style="color:#787878">
      <div class="form-group link"  >
     <label  class="col-sm-12 col-xs-12  control-label " >About Xooma</label>
     </div>
-    </a>
+    </a> -->
     </form>
               
               
@@ -321,7 +370,7 @@ Products.</h6>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/noaccess.jpg" class="center-block"/>
+                <img src="./images/noaccess.jpg" class="center-block"/>
                 <h4 class="text-center" > You do not have permission to view the page</h4>
                 </div>
                 <div class="col-md-3"></div>
@@ -331,7 +380,7 @@ Products.</h6>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/noaccess.jpg" class="center-block"/>
+                <img src="./images/noaccess.jpg" class="center-block"/>
                 <h4 class="text-center" > Please login to view this page</h4>
                 <a class="btn btn-primary aj-submit-button center-block" href="#/login">Click here to login</a>
                 </div>
@@ -369,7 +418,7 @@ Products.</h6>
                                                 <div class="form-group">
                                                         <label for="text1" class=" col-sm-3 col-xs-4 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
+                                                                <input type="number" tabindex="1" aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
@@ -378,20 +427,22 @@ Products.</h6>
                                                                 <input type="text"  readonly class="form-control " name="display_name">
                                                         </div>
                                                 </div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                         <label for="text3" class="col-sm-3 col-xs-4 control-label">Email</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" readonly class="form-control" name="user_email">
+                                                                <input type="email" readonly class="form-control" name="user_email">
                                                         </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="form-group">
                                                         <label for="text4" class="col-sm-3 col-xs-4  control-label">Phone</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" aj-field-type="number" class="form-control tabelements" name="profile[phone_no]">
+                                                                <input type="tel" tabindex="2" aj-field-type="number" class="form-control tabelements" name="profile[phone_no]">
                                                         </div>
                                                 </div>
-                                                <div class="form-group">
-                                                        <label for="text5" class=" col-sm-3 col-xs-4  control-label">Gender  <span class="requiredField text-danger"> * </span></label>
+                                                <!-- <div class="form-group">
+                                                        <label for="text5" class=" col-sm-3 col-xs-4  control-label">Gender  
+                                                            <span class="requiredField text-danger"> * </span> 
+                                                        </label>
                                                         <div class="col-sm-9 col-xs-8">
                                                                 <div class="rd-gender">
                                                                         <label class="wrap pull-left">
@@ -408,12 +459,14 @@ Products.</h6>
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
-                                                        <label for="text7" class=" col-sm-3 col-xs-4  control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
+                                                        <label for="text7" class=" col-sm-3 col-xs-4  control-label">Birth date  
+                                                           <span class="requiredField text-danger"> * </span>
+                                                        </label>
                                                         <div class="col-sm-9 col-xs-8">
 
-                                                                <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required />
+                                                                <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]"/>
                                                         </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="form-group">
                                                         <label for="text8" class=" col-sm-3 col-xs-4  control-label">Time zone</label>
                                                         <div class="col-sm-9 col-xs-8">
@@ -466,7 +519,7 @@ Products.</h6>
     <div id="measuremnt" class="section-list">
                 
                 <div class="container ">
-                <h5 class="text-center bold margin-none">Set your measurements for  <span class="measurements_update top-panel-picker "><img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /><input type="text"  id="update" class="home-datepicker-sub" placeholder="&#xf073;"></span></h5>
+                <h5 class="text-center bold margin-none">Set your measurements for  <span class="measurements_update top-panel-picker "><img src="./images/arrow-down.png" /><input type="text"  id="update" class="home-datepicker-sub" placeholder="&#xf073;"></span></h5>
                 <p class="text-center">Knowing this information will help us determine the ideal amount of X2O water that your body needs on a daily basis 
     </p>                <!--<div class="alert alert-warning alert-msg measurements_update hidden" role="alert">
                   <i class="fa fa-bullhorn"></i> Choose a date from the calender and update your measurement by clicking on save!
@@ -489,7 +542,7 @@ Products.</h6>
         <div style="display:none;">
             <div id="demo2_tip">
                 <b>Neck (inches)</b><br />
-           <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5" tabindex=1/> 
+           <input type="number" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5"/> 
            <small>Please press enter or return</small></div>
 
         </div>
@@ -500,8 +553,8 @@ Products.</h6>
         <div style="display:none;">
             <div id="demo3_tip">
                 <b>Chest (inches)</b><br />
-           <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"  tabindex=2/>
-            <small >Please press enter or return</small> </div>
+           <input type="number" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"/>
+            <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -509,8 +562,8 @@ Products.</h6>
            <div style="display:none;">
             <div id="demo4_tip">
                 <b>Arm (inches)</b><br />
-           <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-            <small >Please press enter or return</small> </div>
+           <input type="number" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
+            <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -518,8 +571,8 @@ Products.</h6>
         <div style="display:none;">
             <div id="demo5_tip">
                 <b>Abdomen (inches)</b><br />
-           <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            <small >Please press enter or return</small></div>
+           <input type="number" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
+            <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
 
@@ -527,8 +580,8 @@ Products.</h6>
          <div style="display:none;">
             <div id="demo6_tip">
                 <b>Waist (inches)</b><br />
-           <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-           <small >Please press enter or return</small></div>
+           <input type="number" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
+           <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -537,8 +590,8 @@ Products.</h6>
                           <div style="display:none;">
             <div id="demo7_tip">
                 <b>Hips (inches)</b><br />
-           <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            <small >Please press enter or return</small></div>
+           <input type="number" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
+            <small>Please press enter or return</small></div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
                <i class="fa fa-dot-circle-o"></i>
@@ -546,8 +599,8 @@ Products.</h6>
                           <div style="display:none;">
             <div id="demo8_tip">
                 <b>Thigh (inches)</b><br />
-           <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-            <small >Please press enter or return</small></div>
+           <input type="number" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
+            <small>Please press enter or return</small></div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
                <i class="fa fa-dot-circle-o"></i>
@@ -556,14 +609,14 @@ Products.</h6>
                          <div style="display:none;">
             <div id="demo9_tip">
                 <b>Midcalf (inches)</b><br />
-           <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-            <small >Please press enter or return</small></div>
+           <input type="number" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
+            <small>Please press enter or return</small></div>
         </div> 
           
 
 
 
-           <img id="body" src="<?php echo get_template_directory_uri();?>/images/humanbody.png" class="center-block">
+           <img id="body" src="./images/humanbody.png" class="center-block">
                                         <small>Click on the blinking red spot to enter the measurement of the selected part of the body in inches.</small><br><br>
                                         </div>
                                     <div class="col-sm-6 ">
@@ -572,7 +625,7 @@ Products.</h6>
                                               <!--  <div class="row">
                                                 <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
                                                         <div class="col-md-5 col-xs-5">
-                                                                <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
+                                                                <img src="./images/height.png" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-7">
                                                                 <h4 class="text-left"> <output class="heightcms"></output><small> Ft/inches</small></h4>
@@ -627,7 +680,7 @@ Products.</h6>
                                                 </br>
                                                 <div class="row">
                                                         <div class="col-md-5 col-xs-5">
-                                                                <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
+                                                                <img src="./images/weight.jpg" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-7 ">
                                                                 <h4 class="text-left"> <output class="weightcms"></output><small> pounds</small></h4>
@@ -642,7 +695,7 @@ Products.</h6>
                                      <div class="row">
                                                 <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
                                                         <div class="col-md-3 col-xs-3">
-                                                                <img src="<?php echo get_template_directory_uri();?>/images/height.png" class="pull-right m-t-10">
+                                                                <img src="./images/height.png" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-5">
                                                                 <h4 class="text-left">
@@ -696,7 +749,7 @@ Products.</h6>
                                                
                                                 <div class="row">
                                                         <div class="col-md-3 col-xs-3">
-                                                                <img src="<?php echo get_template_directory_uri();?>/images/weight.jpg" class="pull-right m-t-10">
+                                                                <img src="./images/weight.jpg" class="pull-right m-t-10">
                                                         </div>
                                                         <div class="col-md-5 ">
                                                                 <h4 class="text-left">  <label for="valueA" class="pull-right"><h5 class="margin-none">Weight</h5><h6 class="text-muted margin-none">pounds</h6></label>
@@ -755,9 +808,9 @@ Products.</h6>
          <div class="col-md-8"> 
          <div class="panel panel-default panel-mobile">
                   <div class="panel-body  ">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/icon-calender.png" class="m-t--10" width="22px"/>
+                    <img src="./images/icon-calender.png" class="m-t--10" width="22px"/>
                         <span class="top-panel-picker ">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" />
+                    <img src="./images/arrow-down.png" />
                     <input type="text"  id="update" class="home-datepicker " >
                     </span>
                 <a id="showHome">( Apply ) </a> <img src="" class="daynightclass pull-right"/>
@@ -982,7 +1035,7 @@ Products.</h6>
                 <div class="hidden popover-content">
                     <div class="text-center">
                         <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-                        <a href="<?php echo wp_logout_url(site_url().'/xooma-app/#login'); ?>" class="btn btn-small logout-button" >Logout</a>
+                        <a href='#/login'); ?>" class="btn btn-small logout-button" >Logout</a>
                     </div>
                 </div>
     </script>
@@ -1193,15 +1246,15 @@ Products.</h6>
     <label for="inputPassword3" class="col-sm-6 col-xs-5  control-label">Remind me at</label>
     <div class="col-sm-6 col-xs-7 input-append  ">
     <div class="bootstrap-timepicker">
-    <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /> <input name="reminder_time0" id="reminder_time0" disabled class="input-small inputcss" type="text" value="{{reminder}}" ></span>
+    <span class="top-panel-picker ">     <img src="./images/arrow-down.png" /> <input name="reminder_time0" id="reminder_time0" disabled class="input-small inputcss" type="text" value="{{reminder}}" ></span>
     <span class="add-on"><i class="icon-time"></i></span></div>
     </div>
     </div>
     </div>
     </div>
     
-   
-    <div >
+
+    <div>
      <div class="loadingconusme"></div>
      <button type="button" class=" btn-link cancel pull-right"><i class="fa fa-times "></i> Cancel</button> 
 
@@ -1460,6 +1513,7 @@ Products.</h6>
     <div class="tab aj-response-message"></div>
 
 
+
 <input type="hidden" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small home-datepicker  hasDatepicker" />
         <h5 class=" text-center"><span class="serving"></span><small class="bonus"></small></h5>
            <small class="text-center center-block msg bottle-msg text-warning"></small> 
@@ -1487,7 +1541,7 @@ Products.</h6>
 
                 <div> 
                 
-                <img src="<?php echo site_url() ?>/wp-content/themes/twentytwelve/xoomaapp/images/bottle-cap.png" class="center-block bottle-cap"/></div>
+                <img src="./images/bottle-cap.png" class="center-block bottle-cap"/></div>
                 <div class="bottle-bg">
                         <div class="bottle">/div>
                         
@@ -1569,7 +1623,7 @@ Products.</h6>
 
                    <h4 class="text-center margin-none "> <output class="text-muted"></output></h4>
                     <input class="pull-left" type="range" min="1" max="4" step="1" name="qty" value="{{qty}}" data-rangeslider>
-                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i> <span class="top-panel-picker ">     <img src="<?php echo get_template_directory_uri(); ?>/images/arrow-down.png" /><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small home-datepicker  hasDatepicker" /></span></h5>
+                 <h5 class="text-center m-t-40"><i class="fa fa-clock-o text-muted"></i> <span class="top-panel-picker ">     <img src="./images/arrow-down.png" /><input type="text" value="" id="consume_time" name="consume_time" class="fa fa-clock-o  text-muetd input-small home-datepicker  hasDatepicker" /></span></h5>
             </div>
             <div class="col-md-3">
          
@@ -1599,13 +1653,13 @@ Products.</h6>
                         <div class="row">
                                 <div class="col-sm-12">
                                         <ul class="list-inline">
-                                                <li class="tag"><a  id="profile" class="link" href="#"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon3.png"/>
+                                                <li class="tag"><a  id="profile" class="link" href="#"><img  src="./images/icon3.png"/>
                                                         <span class="hidden-xs"> My Personal Info</span></a>
                                                 </li>
-                                                <li class="tag"><a id="measurement" class="link" href="#"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon2.png"/>
+                                                <li class="tag"><a id="measurement" class="link" href="#"><img  src="./images/icon2.png"/>
                                                         <span  class="hidden-xs"> My Measurements</span></a>
                                                 </li>
-                                                <li class="tag"><a id="product" class="link" href="#"><img  src="<?php echo get_template_directory_uri(); ?>/images/icon1.png"/>
+                                                <li class="tag"><a id="product" class="link" href="#"><img  src="./images/icon1.png"/>
 
                                                         <span class="hidden-xs" >My Products</span></a>
 
