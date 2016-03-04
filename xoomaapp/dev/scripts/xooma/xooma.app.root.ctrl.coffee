@@ -50,10 +50,6 @@ class XoomaAppRootView extends Marionette.LayoutView
             $('.profile-template').hide()
             $('.menulink').hide()
 
-        else
-            $('.profile-template').show()
-            $('.menulink').show()
-
         
         
          

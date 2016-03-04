@@ -1,4 +1,7 @@
-xoomaapp/plugins
-xoomaapp/platforms
-xoomaapp/node_modules
-xoomaapp/hooks
+wp-config.php
+wp-content/themes/twentytwelve/bower_components
+wp-content/themes/twentytwelve/xoomaapp/bower_components
+.htaccess
+wp-content/debug.log
+node_modules
+wp-content/themes/twentytwelve/grunt/node_modules
