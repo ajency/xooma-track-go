@@ -19,6 +19,39 @@ class User
             'display_name'=>$data['fullname']
 
             );
+        $args = $data['profile'];
+        //server side valiadation//
+        $v = new Valitron\Validator($args);
+
+        //custom validation rules//
+        $v->addRule('fixedLength', function($field, $value, array $params) {
+            return strlen($value) == 6;
+        },'must contain only 6 digits.');
+
+        $v->addRule('equalTo', function($field, $value, array $params) {
+            $gender = array('male','female');
+            if(in_array($value, $gender))
+            {
+              return $value;
+            }
+
+        },'is not matching');
+
+        //custom validation rules//
+
+        //all the rules defined//
+        $v->rule('required', ['gender', 'xooma_member_id','birth_date']);
+        //$v->rule('numeric', ['phone_no','xooma_member_id']);
+        $v->rule('numeric', 'xooma_member_id');
+        //$v->rule('equalTo', 'gender', 'male');
+        $v->rule('fixedLength', 'xooma_member_id', 6);
+        $v->rule('date', 'birth_date');
+        $v->rule('dateFormat','birth_date','Y-m-d');
+        //all the rules defined//
+
+        if(!($v->validate())) {
+           return new WP_Error( 'json_user_details_not_updated', __( 'User Not registered.' ));
+        }
 
         //$user_id = wp_insert_user( $user_data ) ;
         $user_id = wp_create_user( $data['email'], $password, $data['email'] ) ;
