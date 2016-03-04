@@ -67,8 +67,5 @@ class SignInView extends Marionette.ItemView
 
 class App.SignInCtrl extends Ajency.RegionController
 	initialize : ->
-		localforage.getItem('user_reg_id').then(function(user_reg_id){
-			console.log user_reg_id.value		
-		)}
 		console.log "sign in"
 		@show new SignInView
