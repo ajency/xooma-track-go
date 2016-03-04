@@ -39,7 +39,7 @@ SettingsView = (function(superClass) {
       data = 'notification=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: APIURL + "/notifications/" + (App.currentUser.get('ID')),
+        url: _SITEURL + "/wp-json/notifications/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successnotiSave,
         error: this.showErr
@@ -58,7 +58,7 @@ SettingsView = (function(superClass) {
       data = 'emails=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: APIURL + "/emails/" + (App.currentUser.get('ID')),
+        url: _SITEURL + "/wp-json/emails/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successSave,
         error: this.showErr
@@ -106,7 +106,7 @@ SettingsView = (function(superClass) {
   };
 
   SettingsView.prototype.onShow = function() {
-    var emails, fbFeedBool, notification;
+    var emails, notification;
     if (!window.isWebView()) {
       $('.notificationclass').hide();
     }
@@ -121,22 +121,11 @@ SettingsView = (function(superClass) {
     emails = App.currentUser.get('emails');
     if (parseInt(emails) === 1) {
       this.ui.emails.prop('checked', true);
-      this.ui.emails.val('1');
+      return this.ui.emails.val('1');
     } else {
       this.ui.emails.prop('checked', false);
-      this.ui.emails.val('0');
+      return this.ui.emails.val('0');
     }
-    fbFeedBool = CordovaStorage.publishFeedDialog('get');
-    if (fbFeedBool) {
-      $('#fbfeed').prop('checked', true).val('1');
-    } else {
-      $('#fbfeed').prop('checked', false).val('0');
-    }
-    return $('#fbfeed').change(function(e) {
-      var checked;
-      checked = $(e.target).is(":checked");
-      return CordovaStorage.publishFeedDialog('set', checked);
-    });
   };
 
   return SettingsView;

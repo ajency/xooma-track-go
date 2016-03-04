@@ -41,6 +41,9 @@ class ProfileCtrlView extends Marionette.LayoutView
 			$('.profile-template').hide()
 			$('.menulink').hide()
 
+		else
+			$('.menulink').show()	
+
 		
 		@handleMenu
 		# evt.preventDefault()
