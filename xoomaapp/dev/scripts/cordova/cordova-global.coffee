@@ -34,12 +34,12 @@ APIURL   = "#{_SITEURL}/wp-json"
 notLoggedInCaps = 
 	'access_login': true
 	'access_xooma': true
-	'access_signin': true
-	'access_signup': true
+  	'access_signin': true
+  	'access_signup': true
 	'level_0': true
 
 
-allSystemCaps = [ 'access_login', 'read', 'level_0', 'subscriber', 'access_signin', 'access_signup'
+allSystemCaps = [ 'access_login', 'read', 'level_0', 'subscriber', 'access_signin', 'access_signup',
 				, 'access_addproducts', 'access_asperbmi', 'access_editinventory', 'access_editproducts'
 				, 'access_home', 'access_profile', 'access_schedule', 'access_settings', 'access_usermeasurement'
 				, 'access_userpersonalinfo', 'access_userproductlist', 'access_viewinventory'

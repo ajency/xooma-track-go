@@ -9,6 +9,10 @@ Ajency.CurrentUserView.prototype.template = '#current-user-template';
 
 Ajency.LoginView.prototype.template = '#login-template';
 
+Ajency.CurrentUserView.prototype.template = '#current-user-template';
+
+Ajency.LoginView.prototype.template = '#login-template';
+
 _.extend(Ajency.LoginView.prototype, {
   onShow: function() {
     App.trigger('cordova:hide:splash:screen');

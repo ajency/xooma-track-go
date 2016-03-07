@@ -1,7 +1,12 @@
+
 App.LoginCtrl = Ajency.LoginCtrl
 App.NothingFoundCtrl  = Ajency.NothingFoundCtrl
+
 Ajency.CurrentUserView::template = '#current-user-template'
 Ajency.LoginView::template = '#login-template'
+Ajency.CurrentUserView::template = '#current-user-template'
+Ajency.LoginView::template = '#login-template'
+
 
 _.extend Ajency.LoginView::,
 

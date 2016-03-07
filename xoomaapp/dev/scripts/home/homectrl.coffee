@@ -162,16 +162,6 @@ class HomeLayoutView extends Marionette.LayoutView
 
 
 	onShow:->
-		if App.currentUser.get('ID') == undefined || App.currentUser.get('caps').administrator == true
-      		$('.profile-template').hide()
-      		$('.menulink').hide()
-
-    	else
-      		$('.profile-template').show()
-      		$('.menulink').show()
-      	#localforage.getItem('user_reg_id').then(function(user_reg_id){
-			#console.log user_reg_id.value		
-		#)}
 		$('#param option[value="'+window.param+'"]').prop("selected",true)
 		$('.time_period option[value="'+window.time_period+'"]').prop("selected",true)
 		$('#param').trigger( "change" )
@@ -179,6 +169,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		todays_date = moment().format('YYYY-MM-DD')
 		$('#showHome').hide()
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 		App.trigger 'cordova:register:push:notification'
 		timezone = App.currentUser.get('offset')
 		currentime = moment.utc(App.currentUser.get('today'),'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss')
@@ -229,12 +220,11 @@ class HomeLayoutView extends Marionette.LayoutView
 						dateObj = date
 						dateText = moment(dateObj).format 'YYYY-MM-DD'
 						$('#update').val dateText
+						$('#showHome').show()
 						App.currentUser.set 'homeDate', dateText
 
 						if todays_date is App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
-						else
-							$('#showHome').show()
 							
 
 		$('.history').attr('href' ,'#/measurements/'+App.currentUser.get('ID')+'/history' )
@@ -350,7 +340,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		if $('#param').val() == 'weight'
 			units = 'pounds'
 			size = 'Weight'
-		$('#y-axis').text size+'('+units+')'
+		$('#y-axis').text size+' ('+units+')'
 		$('#canvasregion').show()
 		dates = App.graph.get 'dates'
 		param = App.graph.get 'param'
@@ -377,6 +367,7 @@ class HomeLayoutView extends Marionette.LayoutView
 		ctdx = document.getElementById("canvas").getContext("2d");
 		window.myLine = new Chart(ctdx).Line(lineChartData, 
 			responsive: true
+			scaleLabel: "<%= ' ' + value%>"
 		);
 
 		

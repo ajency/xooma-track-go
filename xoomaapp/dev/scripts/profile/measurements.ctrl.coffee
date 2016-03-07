@@ -88,6 +88,7 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		$( '#height' ).trigger( "change" )
 		$( '#weight').trigger( "change" )
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 			
 		timezone = App.currentUser.get('timezone')
 		$('#date_field').val moment().zone(timezone).format('YYYY-MM-DD')
@@ -155,7 +156,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 		
 		
 		
-		
 
 	onFormSubmit : (_formData)=>
 		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
@@ -201,6 +201,8 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			else
 				App.currentUser.set 'state' , '/profile/my-products'
 				App.navigate '#'+App.currentUser.get('state') , true
+
+			App.trigger 'cordova:set:user:data'
 			
 
 	errorHandler : (error)=>
@@ -257,7 +259,7 @@ class App.UserMeasurementCtrl extends Ajency.RegionController
 	_get_measurement_details:->
 		$.ajax
 			method : 'GET'
-			url : "#{_SITEURL}/wp-json/users/#{App.currentUser.get('ID')}/measurements"
+			url : "#{APIURL}/users/#{App.currentUser.get('ID')}/measurements"
 			success: @successHandler
 		
 

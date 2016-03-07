@@ -1,13 +1,13 @@
 var XoomaAppRootView,
-  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  hasProp = {}.hasOwnProperty;
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-XoomaAppRootView = (function(superClass) {
-  extend(XoomaAppRootView, superClass);
+XoomaAppRootView = (function(_super) {
+  __extends(XoomaAppRootView, _super);
 
   function XoomaAppRootView() {
-    this._successHandler = bind(this._successHandler, this);
+    this._successHandler = __bind(this._successHandler, this);
     return XoomaAppRootView.__super__.constructor.apply(this, arguments);
   }
 
@@ -50,7 +50,8 @@ XoomaAppRootView = (function(superClass) {
   };
 
   XoomaAppRootView.prototype._successHandler = function(response, status, xhr) {
-    localforage.clear();
+    localStorage.clear();
+    //console.log("logout clicked");
     return App.currentUser.logout();
   };
 
@@ -61,16 +62,13 @@ XoomaAppRootView = (function(superClass) {
     if (App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true) {
       $('.profile-template').hide();
       $('.menulink').hide();
-    } else {
-      $('.profile-template').show();
-      $('.menulink').show();
     }
     this.showViews();
     $('.logout-button').on('click', function(e) {
       e.preventDefault();
       return $.ajax({
         method: 'GET',
-        url: APIURL + "/logout",
+        url: "" + APIURL + "/logout",
         success: XoomaAppRootView.prototype._successHandler
       });
     });
@@ -116,8 +114,8 @@ XoomaAppRootView = (function(superClass) {
 
 })(Marionette.LayoutView);
 
-App.XoomaCtrl = (function(superClass) {
-  extend(XoomaCtrl, superClass);
+App.XoomaCtrl = (function(_super) {
+  __extends(XoomaCtrl, _super);
 
   function XoomaCtrl() {
     return XoomaCtrl.__super__.constructor.apply(this, arguments);

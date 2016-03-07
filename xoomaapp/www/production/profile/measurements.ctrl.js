@@ -107,6 +107,7 @@ ProfileMeasurementsView = (function(superClass) {
     $('#height').trigger("change");
     $('#weight').trigger("change");
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     timezone = App.currentUser.get('timezone');
     $('#date_field').val(moment().zone(timezone).format('YYYY-MM-DD'));
     date = moment(App.currentUser.get('user_registered')).format('YYYY-MM-DD');
@@ -227,13 +228,14 @@ ProfileMeasurementsView = (function(superClass) {
       if (state === '/home') {
         window.removeMsg();
         this.ui.responseMessage.addClass('alert alert-success').text("Measurements successfully updated!");
-        return $('html, body').animate({
+        $('html, body').animate({
           scrollTop: 0
         }, 'slow');
       } else {
         App.currentUser.set('state', '/profile/my-products');
-        return App.navigate('#' + App.currentUser.get('state'), true);
+        App.navigate('#' + App.currentUser.get('state'), true);
       }
+      return App.trigger('cordova:set:user:data');
     }
   };
 
@@ -302,7 +304,7 @@ App.UserMeasurementCtrl = (function(superClass) {
   UserMeasurementCtrl.prototype._get_measurement_details = function() {
     return $.ajax({
       method: 'GET',
-      url: _SITEURL + "/wp-json/users/" + (App.currentUser.get('ID')) + "/measurements",
+      url: APIURL + "/users/" + (App.currentUser.get('ID')) + "/measurements",
       success: this.successHandler
     });
   };
