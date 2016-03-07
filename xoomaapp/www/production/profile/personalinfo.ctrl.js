@@ -132,6 +132,8 @@ ProfilePersonalInfoView = (function(superClass) {
         success: this._successHandler
       });
     } else {
+      _formData['profile'].gender = 'male';
+      _formData['profile'].birth_date = moment().format('YYYY-MM-DD');
       return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
     }
   };
