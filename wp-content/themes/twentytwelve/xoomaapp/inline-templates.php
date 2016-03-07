@@ -164,7 +164,12 @@ Products.</h6>
                                 </div>
                                 <div class="loadingconusme"></div>
                     <div class="col-sm-12">
-                        <button type="submit" id="user_sign_up" name="user_sign_up" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign Up</button>
+                    <div class="row">
+                        <!--a href="#/login" class=" btn-link  pull-right"><i class="fa  fa-times"></i> Cancel</a-->
+                        <a href="#/login"><button type="button" class="btn btn-default col-lg-2 center-block pull-right" style="margin-left: 2%"><i class="fa fa-times"></i> Cancel</button></a>
+                        <button type="submit" id="user_sign_up" name="user_sign_up" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign Up</button>                        
+                        
+                    </div>
                     </div>
                </form>
                </div>
@@ -197,6 +202,7 @@ Products.</h6>
                     </div>
                     <div class="loadingconusme"></div>
                     <div class="col-sm-12">
+                        <a href="#/login"><button type="button" class="btn btn-default col-lg-2 center-block pull-right" style="margin-left: 2%"><i class="fa fa-times"></i> Cancel</button></a>
                         <button type="submit" id="user_sign_in" name="user_sign_in" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign In</button>
                     </div>
                </form>
