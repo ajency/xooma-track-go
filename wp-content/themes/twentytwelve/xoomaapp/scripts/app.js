@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
     requests: true,
     checks: {
       xhr: {
-        url: _SITEURL + "/"
+        url: "" + _SITEURL + "/"
       }
     }
   };
@@ -51,11 +51,6 @@ jQuery(document).ready(function($) {
     return Backbone.history.start();
   });
   App.on('fb:status:connected', function() {
-    if (!App.currentUser.hasProfilePicture()) {
-      return App.currentUser.getFacebookPicture();
-    }
-  });
-  App.on('user:status:connected', function() {
     if (!App.currentUser.hasProfilePicture()) {
       return App.currentUser.getFacebookPicture();
     }

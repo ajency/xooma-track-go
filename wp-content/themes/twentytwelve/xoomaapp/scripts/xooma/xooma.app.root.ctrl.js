@@ -50,7 +50,7 @@ XoomaAppRootView = (function(superClass) {
   };
 
   XoomaAppRootView.prototype._successHandler = function(response, status, xhr) {
-    localforage.clear();
+    //localforage.clear();
     return App.currentUser.logout();
   };
 
@@ -90,12 +90,12 @@ XoomaAppRootView = (function(superClass) {
       App.currentUser.set({});
       $('.link').hide();
       $('.user-data').hide();
-      App.navigate('#login', {
+      return App.navigate('#login', {
         trigger: true,
         replace: true
       });
-      App.stop();
-      return App.start();
+      //App.stop();
+      //return App.start();
     } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === '/home') {
       App.navigate('#home', {
         trigger: true,
