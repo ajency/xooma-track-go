@@ -20,11 +20,15 @@ class ProfilePersonalInfoView extends Marionette.ItemView
     
 
 	initialize : ->
+		#abc = localStorage.getItem 'user_registered'
+		#console.log abc + "registered user"
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
-
-	
+				
+		@listenTo App, 'user:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()	
 		
 	onRender:->
 		
@@ -52,7 +56,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('.data1').show()
 		
 		App.trigger 'cordova:hide:splash:screen'
-		App.trigger 'ios:header:footer:fix'
 		
 		if !window.isWebView()
 			$('#birth_date').datepicker({
@@ -65,8 +68,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 		#Changes for mobile
 		if window.isWebView()
-			dateStr = $('#birth_date').val()
-			dateObj = if dateStr is '' then new Date() else new Date(dateStr)
+			dateObj = new Date($('#birth_date').val())
 
 			$ '#birth_date'
 			.prop 'readonly', true
@@ -92,6 +94,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		if App.currentUser.get('timezone') == null
 			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
 			# $("#timezone").val($("#timezone option:first").val());
+
+
 		
 
 	#to initialize validate plugin
@@ -106,10 +110,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				data : JSON.stringify _formData['profile']
 				success:@_successHandler
 		else
-			#Changes done for ios build to get acceptance on AppStore
-			_formData['profile'].gender = 'male'
-			_formData['profile'].birth_date = moment().format 'YYYY-MM-DD'
-
 			@model.saveProfile _formData['profile']
 				.done @successHandler
 				.fail @errorHandler
@@ -148,8 +148,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				App.currentUser.set 'timezone', response.timezone
 				App.currentUser.set 'state' , '/profile/measurements'
 				App.navigate '#'+App.currentUser.get('state') , true
-
-			App.trigger 'cordova:set:user:data'
 		
 
 	errorHandler:(error)=>

@@ -38,7 +38,7 @@ ProductChildView = (function(superClass) {
       products = App.currentUser.get('products');
       return $.ajax({
         method: 'DELETE',
-        url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.successHandler,
         error: this.erroraHandler
       });
@@ -59,7 +59,6 @@ ProductChildView = (function(superClass) {
         el: '#xoomaproduct'
       });
       region.show(listview);
-      App.trigger('cordova:set:user:data');
       if (parseInt(App.useProductColl.length) === 0) {
         $('.add1').hide();
         return $('.save_products').hide();
@@ -287,8 +286,7 @@ UserProductListView = (function(superClass) {
       region = new Marionette.Region({
         el: '#xoomaapptemplate'
       });
-      region.show(listview);
-      return App.trigger('cordova:set:user:data');
+      return region.show(listview);
     } else {
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.");

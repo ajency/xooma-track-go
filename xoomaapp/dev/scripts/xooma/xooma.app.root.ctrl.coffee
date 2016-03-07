@@ -36,7 +36,7 @@ class XoomaAppRootView extends Marionette.LayoutView
         data
 
     _successHandler:(response, status,xhr)=>
-        localStorage.clear()
+        #localforage.clear()
         App.currentUser.logout()
 
 
@@ -49,6 +49,10 @@ class XoomaAppRootView extends Marionette.LayoutView
         if App.currentUser.get('ID') == undefined || App.currentUser.get('caps').administrator == true
             $('.profile-template').hide()
             $('.menulink').hide()
+
+        else
+            $('.profile-template').show()
+            $('.menulink').show()
 
         
         

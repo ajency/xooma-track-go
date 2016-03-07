@@ -36,36 +36,21 @@ class SignInView extends Marionette.ItemView
 
 
 	_successHandler: (response)->
-		console.log response+ " - response"
-		response = response
-		user_id = response.split("-")
-		response = user_id[0]
-		user_reg_id = user_id[1]
-		localStorage.setItem 'user_reg_id',user_reg_id
-		console.log localStorage.getItem 'user_reg_id'
+		#console.log response+ " - response"
+		window.userData = response
+		#console.log window.userData
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!")
-
-		if response == '1'
-			App.currentUser.set 'state', '/profile/personal-info'
-			App.navigate '#/profile/personal-info', true
-
-
-		if response == '2'
-			App.currentUser.set 'state', '/profile/measurements'
-			App.navigate '#/profile/measurements', true
-
-
-
-		if response == '3'
-			App.currentUser.set 'state', '/profile/my-products'
-			App.navigate '#/profile/my-products', true
-
-		else 
-			App.currentUser.set 'state', '/home'
-			App.navigate '#/home', true
-					
-		#document.location = "#/profile/personal-info"
+		App.currentUser.set window.userData
+		display_name = App.currentUser.get('display_name')
+		$('.display_name').text(App.currentUser.get('display_name'))
+		$('.user_email').text(App.currentUser.get('user_email'))
+		#console.log App.currentUser.get('ID')
+		#localforage.setItem('user_reg_id', App.currentUser.get('ID'),'')
+		localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id')
+		if App.currentUser.get('state') == '/home'
+        	$('.link').show()
+		App.navigate '#' + App.currentUser.get('state'), true
 
 
 	_errorHandler:(response)=>
@@ -77,7 +62,6 @@ class SignInView extends Marionette.ItemView
 		$('html, body').animate({
 							scrollTop: 0
 							}, 'slow')
-
 
 
 

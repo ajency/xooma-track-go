@@ -23,7 +23,7 @@ class SettingsView extends Marionette.ItemView
 			data = 'notification='+$(e.target).val()
 			$.ajax
 					method : 'POST'
-					url : "#{APIURL}/notifications/#{App.currentUser.get('ID')}"
+					url : "#{_SITEURL}/wp-json/notifications/#{App.currentUser.get('ID')}"
 					data : data
 					success : @successnotiSave
 					error : @showErr
@@ -40,11 +40,10 @@ class SettingsView extends Marionette.ItemView
 			data = 'emails='+$(e.target).val()
 			$.ajax
 					method : 'POST'
-					url : "#{APIURL}/emails/#{App.currentUser.get('ID')}"
+					url : "#{_SITEURL}/wp-json/emails/#{App.currentUser.get('ID')}"
 					data : data
 					success : @successSave
 					error : @showErr
-			
 
 	successnotiSave:(response,status,xhr)=>
 		$('.loadingconusme').html ''
@@ -107,21 +106,7 @@ class SettingsView extends Marionette.ItemView
 		else
 			@ui.emails.prop('checked',false)
 			@ui.emails.val '0'
-
-		fbFeedBool = CordovaStorage.publishFeedDialog 'get'
-		if fbFeedBool
-			$('#fbfeed')
-				.prop 'checked', true
-				.val '1'
-		else
-			$('#fbfeed')
-				.prop 'checked', false
-				.val '0'
-
-		$('#fbfeed').change (e)->
-			checked = $(e.target).is ":checked"
-			CordovaStorage.publishFeedDialog 'set', checked
-
+	
 
 
 class App.SettingsCtrl extends Ajency.RegionController
