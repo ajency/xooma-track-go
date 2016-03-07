@@ -4,32 +4,33 @@ module.exports = (grunt) ->
 	require('time-grunt')(grunt)
 
 	plugins = [ 
-		'bower_components/underscore/underscore.js'
-		'bower_components/jquery/dist/jquery.min.js'
-		'bower_components/jquery-ui/jquery-ui.min.js'
-		'bower_components/backbone/backbone.js'
-		'bower_components/backbone.marionette/lib/backbone.marionette.min.js'
-		'bower_components/backbone.syphon/lib/backbone.syphon.js'
-		'bower_components/bootstrap/dist/js/bootstrap.min.js'
-		'bower_components/parsleyjs/dist/parsley.js'
-		'bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js'
-		'bower_components/handlebars/handlebars.js'
-		'bower_components/plupload/js/moxie.min.js'
-		'bower_components/plupload/js/plupload.full.min.js'
-		'bower_components/jQuery-Storage-API/jquery.storageapi.js'
-		'bower_components/cryptojslib/rollups/md5.js'
-		'bower_components/rrule/lib/rrule.js'
-		'bower_components/rrule/lib/nlp.js'
-		'bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js'
-		'bower_components/rangeslider.js/dist/rangeslider.min.js'
-		'bower_components/classie/classie.js'
-		'bower_components/moment/min/moment.min.js'
-		'bower_components/chartjs/Chart.js'
-		'bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js'
-		'bower_components/moment-timezone/moment-timezone.js'
-		'bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
-		'bower_components/marionette.state/dist/marionette.state.js'
-		'bower_components/ajency.marionette/dist/ajency.marionette.js'
+		'bower_components/underscore/underscore.js',
+		'bower_components/jquery/dist/jquery.min.js',
+		'bower_components/jquery-ui/jquery-ui.min.js',
+		'bower_components/backbone/backbone.js',
+		'bower_components/backbone.marionette/lib/backbone.marionette.min.js',
+		'bower_components/backbone.syphon/lib/backbone.syphon.js',
+		'bower_components/bootstrap/dist/js/bootstrap.min.js',
+		'bower_components/parsleyjs/dist/parsley.js',
+		'bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js',
+		'bower_components/handlebars/handlebars.js',
+		'bower_components/plupload/js/moxie.min.js',
+		'bower_components/plupload/js/plupload.full.min.js',
+		'bower_components/jQuery-Storage-API/jquery.storageapi.js',
+		'bower_components/cryptojslib/rollups/md5.js',
+		'bower_components/rrule/lib/rrule.js',
+		'bower_components/rrule/lib/nlp.js',
+		'bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js',
+		'bower_components/rangeslider.js/dist/rangeslider.min.js',
+		'bower_components/classie/classie.js',
+		'bower_components/moment/min/moment.min.js',
+		'bower_components/chartjs/Chart.js',
+		'bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js',
+		'bower_components/moment-timezone/moment-timezone.js',
+		'bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js',
+		'bower_components/marionette.state/dist/marionette.state.js',
+		'bower_components/ajency.marionette/dist/ajency.marionette.js',
+		'bower_components/localforage/dist/localforage.min.js'
 	]
 
 	appjscode = [
