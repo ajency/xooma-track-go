@@ -132,7 +132,7 @@ Products.</h6>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Phone No:  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
-                                    <input type="text" class="form-control tabelements" name="phone_no" id="phone_no" placeholder="Phone number" required />
+                                    <input type="text" class="form-control tabelements" name="profile[phone_no]" id="phone_no" aj-field-equalToNum="10" placeholder="Phone number" aj-field-required="true" />
                                     </div>
                                     <!--input type="text" name="lastname" id="lastname" placeholder="Last name" /-->
                                 </div>

@@ -209,6 +209,11 @@ window.ParsleyValidator
   	return value.length == requirement;
   })
   .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
+
+  .addValidator('equalToNum', function (value, requirement) {
+    return value.length == requirement;
+  })
+  .addMessage('en', 'equalToNum', 'Enter valid 10 digits Phone Number')
 $(document).ready(function() {
 $('.single-item').slick({
 dots: true,

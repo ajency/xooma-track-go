@@ -28,6 +28,11 @@ class User
             return strlen($value) == 6;
         },'must contain only 6 digits.');
 
+        //custom validation rule for phone number//
+        $v->addRule('fixedLengthNum', function($field, $value, array $params) {
+            return strlen($value) == 10;
+        },'must contain only 10 digits.');
+
         $v->addRule('equalTo', function($field, $value, array $params) {
             $gender = array('male','female');
             if(in_array($value, $gender))
@@ -41,10 +46,11 @@ class User
 
         //all the rules defined//
         $v->rule('required', ['gender', 'xooma_member_id','birth_date']);
-        //$v->rule('numeric', ['phone_no','xooma_member_id']);
-        $v->rule('numeric', 'xooma_member_id');
+        $v->rule('numeric', ['phone_no','xooma_member_id']);
+        //$v->rule('numeric', 'xooma_member_id');
         //$v->rule('equalTo', 'gender', 'male');
         $v->rule('fixedLength', 'xooma_member_id', 6);
+        $v->rule('fixedLengthNum', 'phone_no', 10);
         $v->rule('date', 'birth_date');
         $v->rule('dateFormat','birth_date','Y-m-d');
         //all the rules defined//
@@ -59,7 +65,7 @@ class User
         /**/
         $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password, 'display_name'=>$data['fullname']));
         $profile = $data['profile'];
-        $profile['phone_no'] = $data['phone_no'];
+        //$profile['phone_no'] = $data['phone_no'];
 
         //On success
         if ( ! is_wp_error( $update ) ) {
