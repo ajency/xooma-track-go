@@ -30,7 +30,10 @@ module.exports = (grunt) ->
     'bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js',
     'bower_components/marionette.state/dist/marionette.state.js',
     'bower_components/ajency.marionette/dist/ajency.marionette.js',
-    'bower_components/localforage/dist/localforage.min.js'
+    'bower_components/localforage/dist/localforage.min.js',
+    'bower_components/pickadate/lib/compressed/picker.js',
+    'bower_components/pickadate/lib/compressed/picker.date.js',
+    'bower_components/pickadate/lib/compressed/picker.time.js'
   ]
 
   appjscode = [
