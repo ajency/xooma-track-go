@@ -74,6 +74,7 @@ ProfilePersonalInfoView = (function(superClass) {
     }
     App.trigger('cordova:hide:splash:screen');
     App.trigger('ios:header:footer:fix');
+
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',

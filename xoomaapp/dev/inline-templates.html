@@ -74,8 +74,8 @@ Products.</h6>
                             <!-- Login Button  -->
                     </div>
             </div>
-            <br>
-            <div class="col-sm-12" style="text-align: center;">
+            <br>            
+            <div class="col-sm-12" style="margin: auto">
             <button type="button" fb-scope="public_profile, email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
             <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
             <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
@@ -159,7 +159,7 @@ Products.</h6>
                                     <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
 
-                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required/>
+                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
                                     </div>
                                 </div>
                                 <div class="loadingconusme"></div>
@@ -401,7 +401,7 @@ Products.</h6>
                 <div class="col-md-3"></div>
             </div>  {{/if}}
     </script>
-        <script id="profile-personal-info-template" type="text/template">
+    <script id="profile-personal-info-template" type="text/template">
 
         <div id="personalinfo" class="section-list">
 
@@ -422,7 +422,7 @@ Products.</h6>
                                                 <div class="form-group">
                                                         <label for="text1" class=" col-sm-3 col-xs-4 control-label">Xooma ID  <span class="requiredField text-danger"> * </span></label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text"  aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
+                                                                <input type="number" tabindex="1" aj-field-type="number" aj-field-equalTo="6" aj-field-required="true" class="form-control " name="profile[xooma_member_id]">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
@@ -434,13 +434,13 @@ Products.</h6>
                                                 <div class="form-group">
                                                         <label for="text3" class="col-sm-3 col-xs-4 control-label">Email</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" readonly class="form-control" name="user_email">
+                                                                <input type="email" readonly class="form-control" name="user_email">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
                                                         <label for="text4" class="col-sm-3 col-xs-4  control-label">Phone</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" aj-field-type="number" class="form-control tabelements" name="profile[phone_no]">
+                                                                <input type="tel" tabindex="2" aj-field-type="number" class="form-control tabelements" name="profile[phone_no]">
                                                         </div>
                                                 </div>
                                                 <div class="form-group">
@@ -907,7 +907,7 @@ Products.</h6>
     </div>
 
     </script>
-    <script id="produts-template" type="text/template">
+    <script id="produts-template" type="h-template">
 <div id="xoomaproduct" class="section-list"> 
                 <h5 class="text-center bold margin-none">My Xooma products</h5>
                 <p class="text-center">Your xooma products are displayed here once you add them.
@@ -980,7 +980,7 @@ Products.</h6>
                 </div>
 
     </script>
-    <script id="add-product-template" type="text/template">
+    <script id="add-product-template" type="h-template">
 <div id="listproduct" >
 <div class="sub-header">
         <div class="container">
@@ -1035,7 +1035,7 @@ Products.</h6>
                 <div class="hidden popover-content">
                     <div class="text-center">
                         <img class="media-object dp img-rounded" src="{{profile_picture.sizes.thumbnail.url}}" style="width: 100px;height:100px;">
-                        <a href='#/login'); ?>" class="btn btn-small logout-button" >Logout</a>
+                        <a href="#/login" class="btn btn-small logout-button" >Logout</a>
                     </div>
                 </div>
     </script>
@@ -1700,7 +1700,7 @@ Products.</h6>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-       <span class="dropcap simple">A: </span> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and additionally help you stay on track with your personal health goals using other Xooma products. Simply tell us a little bit about yourself (Height, Weight, Health Goals, which Xooma products you use and when you use them). Once you eneter this information Xooma Track & Go will provide you with your Personal Daily Hydration Goal and also remind you when to take your other Xooma Products.  This fun and interactive app has been designed to help you achieve your personal health goals with Xooma’s products.
+       <span class="dropcap simple">A: </span> Xooma Track & Go has been designed to help you track your personal X2O Water Consumption and additionally help you stay on track with your personal health goals using other Xooma products. Simply tell us a little bit about yourself (Height, Weight, Health Goals, which Xooma products you use and when you use them). Once you eneter this information Xooma Track & Go will provide you with your Personal Daily Hydration Goal and also remind you when to take your other Xooma Products.  This fun and interactive app has been designed to help you achieve your personal health goals with Xooma’s products.
 
       </div>
     </div>
@@ -1729,7 +1729,7 @@ Products.</h6>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span> This area of the Xooma Track & Go App allows you to click on 'Add' (Available under each product) to select that product as a part of the 'My Xooma products' that you wish to track. Once you have clicked on “add”, the product is no longer displayed under 'List of Xooma products'.  You can choose to receive reminders for a product only when that product is added to 'My Xooma Product'
+        <span class="dropcap simple">A: </span> This area of the Xooma Track & Go App allows you to click on 'Add' (Available under each product) to select that product as a part of the 'My Xooma products' that you wish to track. Once you have clicked on “add”, the product is no longer displayed under 'List of Xooma products'.  You can choose to receive reminders for a product only when that product is added to 'My Xooma Product'
 
       </div>
     </div>
@@ -1783,7 +1783,7 @@ b. Menu option on the product card: Once the product has been added it is availa
     </div>
     <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>This action can be accomplished from the home screen.  Just click on 'Tap to take' for any product listed and you will be directed to the consumption screen for that product. You can select the time when you consumed the product and then save your progress.
+        <span class="dropcap simple">A: </span>This action can be accomplished from the home screen.  Just click on 'Tap to take' for any product listed and you will be directed to the consumption screen for that product. You can select the time when you consumed the product and then save your progress.
 
       </div>
     </div>
@@ -1799,7 +1799,7 @@ b. Menu option on the product card: Once the product has been added it is availa
     </div>
     <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
       <div class="panel-body">
-        <span class="dropcap simple">A: </span>You can manage your stock with the help of 'Inventory'.  Each product has its own inventory tracking. Here you can refill your inventory and also adjust your existing inventory levels with the amount of product that you have on hand. Steps to reach the inventory screen are:<br><br>
+        <span class="dropcap simple">A: </span>You can manage your stock with the help of 'Inventory'.  Each product has its own inventory tracking. Here you can refill your inventory and also adjust your existing inventory levels with the amount of product that you have on hand. Steps to reach the inventory screen are:<br><br>
   a. Go to 'My Xooma products'<br>
   b. For each product card there is a menu option available. Click on it.<br>
   c. Select the inventory option
