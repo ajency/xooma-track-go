@@ -51,6 +51,7 @@ XoomaAppRootView = (function(superClass) {
 
   XoomaAppRootView.prototype._successHandler = function(response, status, xhr) {
     //localforage.clear();
+    console.log("logout clicked");
     return App.currentUser.logout();
   };
 

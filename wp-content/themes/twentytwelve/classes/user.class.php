@@ -48,7 +48,7 @@ class User
         $v->rule('required', ['gender', 'xooma_member_id','birth_date']);
         $v->rule('numeric', ['phone_no','xooma_member_id']);
         //$v->rule('numeric', 'xooma_member_id');
-        //$v->rule('equalTo', 'gender', 'male');
+        $v->rule('equalTo', 'gender', 'male');
         $v->rule('fixedLength', 'xooma_member_id', 6);
         $v->rule('fixedLengthNum', 'phone_no', 10);
         $v->rule('date', 'birth_date');

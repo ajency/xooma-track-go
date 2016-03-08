@@ -75,9 +75,13 @@ Products.</h6>
                     </div>
             </div>
             <br>
+            <div class="col-sm-12" style="margin: auto">
             <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
             <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
             <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
+            <br>
+            <br>
+            </div>
             
 
     </div>
@@ -113,7 +117,7 @@ Products.</h6>
                                     <input type="email" class="form-control tabelements" name="email" id="email" required />
                                     <span style="display:none;" class="parsley-errors-list filled emailError"></span>
                                     </div>
-                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 col-xs-4 col-lg-4 control-label">Password:  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
@@ -126,7 +130,6 @@ Products.</h6>
                                     <input type="password" class="form-control tabelements repassword" name="repassword" id="repassword" required />
                                     <span style="display:none;" class="parsley-errors-list filled reError"></span>
                                     </div>
-
                                 </div>
 
                                 <div class="form-group">
@@ -134,7 +137,6 @@ Products.</h6>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
                                     <input type="text" class="form-control tabelements" name="profile[phone_no]" id="phone_no" aj-field-equalToNum="10" placeholder="Phone number" aj-field-required="true" />
                                     </div>
-                                    <!--input type="text" name="lastname" id="lastname" placeholder="Last name" /-->
                                 </div>
 
                                 <div class="form-group">
@@ -159,7 +161,7 @@ Products.</h6>
                                     <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
 
-                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
+                                    <input class="form-control tabelements" type="date" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
                                     </div>
                                 </div>
                                 <div class="loadingconusme"></div>
@@ -201,7 +203,7 @@ Products.</h6>
                         </div>
                     </div>
                     <div class="loadingconusme"></div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="text-align: center;">
                         <a href="#/login"><button type="button" class="btn btn-default col-lg-2 center-block pull-right" style="margin-left: 2%"><i class="fa fa-times"></i> Cancel</button></a>
                         <button type="submit" id="user_sign_in" name="user_sign_in" class="btn btn-primary pull-right aj-submit-button"><i class="fa fa-check"></i>Sign In</button>
                     </div>
