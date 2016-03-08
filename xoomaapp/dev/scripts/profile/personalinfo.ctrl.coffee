@@ -1,4 +1,3 @@
-
 class ProfilePersonalInfoView extends Marionette.ItemView
 	className : 'animated fadeIn'
 	template : '#profile-personal-info-template'
@@ -65,7 +64,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 		#Changes for mobile
 		if window.isWebView()
-			dateObj = new Date($('#birth_date').val())
+			dateStr = $('#birth_date').val()
+			dateObj = if dateStr is '' then new Date() else new Date(dateStr)
 
 			$ '#birth_date'
 			.prop 'readonly', true
@@ -91,8 +91,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 		if App.currentUser.get('timezone') == null
 			@$el.find('#timezone option[value="'+$('#timezone').val()+'"]').prop("selected",true)
 			# $("#timezone").val($("#timezone option:first").val());
-
-
 		
 
 	#to initialize validate plugin
@@ -107,6 +105,10 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				data : JSON.stringify _formData['profile']
 				success:@_successHandler
 		else
+			#Changes done for ios build to get acceptance on AppStore
+			_formData['profile'].gender = 'male'
+			_formData['profile'].birth_date = moment().format 'YYYY-MM-DD'
+
 			@model.saveProfile _formData['profile']
 				.done @successHandler
 				.fail @errorHandler
@@ -173,6 +175,3 @@ class App.UserPersonalInfoCtrl extends Ajency.RegionController
 	errorHandler : (error)=>
 		@region =  new Marionette.Region el : '#404-template'
 		new Ajency.HTTPRequestCtrl region : @region
-
-	
-		

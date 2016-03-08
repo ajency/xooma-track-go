@@ -1,6 +1,3 @@
-
-
-
 class ProfileMeasurementsView extends Marionette.ItemView
 
 	template  : '#profile-measurements-template'
@@ -153,7 +150,6 @@ class ProfileMeasurementsView extends Marionette.ItemView
 			$('#measurement').parent().siblings().removeClass 'selected'
 			$('#measurement').parent().prevAll().addClass 'done'
 			$('#measurement').parent().nextAll().addClass 'done'
-		
 		
 		
 		

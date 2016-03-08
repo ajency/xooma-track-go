@@ -247,11 +247,10 @@ HomeLayoutView = (function(superClass) {
             dateObj = date;
             dateText = moment(dateObj).format('YYYY-MM-DD');
             $('#update').val(dateText);
+            $('#showHome').show();
             App.currentUser.set('homeDate', dateText);
             if (todays_date === App.currentUser.get('homeDate')) {
               return $('#update').val('TODAY');
-            } else {
-              return $('#showHome').show();
             }
           }
         });
@@ -380,7 +379,8 @@ HomeLayoutView = (function(superClass) {
     };
     ctdx = document.getElementById("canvas").getContext("2d");
     return window.myLine = new Chart(ctdx).Line(lineChartData, {
-      responsive: true
+      responsive: true,
+      scaleLabel: "<%= ' ' + value%>"
     });
   };
 
