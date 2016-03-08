@@ -66,11 +66,12 @@ class ProductChildView extends Marionette.ItemView
 			products = App.currentUser.get 'products'
 			$.ajax
 					method : 'DELETE'
-					url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					url : APIURL+'/trackers/'+App.currentUser.get("ID")+'/products/'+product
 					success: @successHandler
 					error :@erroraHandler
 
 	successHandler:(response, status, xhr)=>
+		console.log "success" + response
 		if xhr.status == 200
 			products = App.currentUser.get 'products'
 			products = _.without(products,parseInt(response))
@@ -88,6 +89,7 @@ class ProductChildView extends Marionette.ItemView
 				$('.save_products').hide()
 			
 		else
+			console.log "Error" + response
 			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.")
 			$('html, body').animate({

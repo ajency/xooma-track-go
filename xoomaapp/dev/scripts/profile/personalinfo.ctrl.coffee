@@ -62,7 +62,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				yearRange: "-100:+0",
 			});
 
-		console.log window.isWebView()
+		#console.log window.isWebView()
+		console.log window.isWebView() + " check date for web"
 		#Changes for mobile
 		if window.isWebView()
 

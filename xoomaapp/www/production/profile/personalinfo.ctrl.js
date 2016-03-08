@@ -83,7 +83,7 @@ ProfilePersonalInfoView = (function(superClass) {
         yearRange: "-100:+0"
       });
     }
-    console.log(window.isWebView());
+    console.log(window.isWebView() + " check date for web");
     if (window.isWebView()) {
       dateStr = $('#birth_date').val();
       dateObj = dateStr === '' ? new Date() : new Date(dateStr);

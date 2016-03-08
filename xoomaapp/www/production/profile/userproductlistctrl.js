@@ -38,7 +38,7 @@ ProductChildView = (function(superClass) {
       products = App.currentUser.get('products');
       return $.ajax({
         method: 'DELETE',
-        url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + '/trackers/' + App.currentUser.get("ID") + '/products/' + product,
         success: this.successHandler,
         error: this.erroraHandler
       });
@@ -47,6 +47,7 @@ ProductChildView = (function(superClass) {
 
   ProductChildView.prototype.successHandler = function(response, status, xhr) {
     var listview, products, region;
+    console.log("success" + response);
     if (xhr.status === 200) {
       products = App.currentUser.get('products');
       products = _.without(products, parseInt(response));
@@ -65,6 +66,7 @@ ProductChildView = (function(superClass) {
         return $('.save_products').hide();
       }
     } else {
+      console.log("Error" + response);
       window.removeMsg();
       this.ui.responseMessage.addClass('alert alert-danger').text("Sorry!Couldn't delete the product.");
       return $('html, body').animate({
