@@ -20,15 +20,11 @@ class ProfilePersonalInfoView extends Marionette.ItemView
     
 
 	initialize : ->
-		#abc = localStorage.getItem 'user_registered'
-		#console.log abc + "registered user"
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
-				
-		@listenTo App, 'user:status:connected', ->
-			if not App.currentUser.hasProfilePicture()
-				App.currentUser.getFacebookPicture()	
+
+	
 		
 	onRender:->
 		
@@ -56,6 +52,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$('.data1').show()
 		
 		App.trigger 'cordova:hide:splash:screen'
+		App.trigger 'ios:header:footer:fix'
 		
 		if !window.isWebView()
 			$('#birth_date').datepicker({
@@ -148,6 +145,8 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				App.currentUser.set 'timezone', response.timezone
 				App.currentUser.set 'state' , '/profile/measurements'
 				App.navigate '#'+App.currentUser.get('state') , true
+
+			App.trigger 'cordova:set:user:data'
 		
 
 	errorHandler:(error)=>

@@ -108,6 +108,7 @@ SignUpView = (function(superClass) {
     console.log(window.userData);
     $('.display_name').text(App.currentUser.get('display_name'));
     $('.user_email').text(App.currentUser.get('user_email'));
+    localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id');
     return App.navigate('#' + App.currentUser.get('state'), true);
   };
 

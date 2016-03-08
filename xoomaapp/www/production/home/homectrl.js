@@ -187,13 +187,6 @@ HomeLayoutView = (function(superClass) {
 
   HomeLayoutView.prototype.onShow = function() {
     var actual_time, current, currentime, d, dateObj, day_night, reg_date, s, timezone, todays_date;
-    if (App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true) {
-      $('.profile-template').hide();
-      $('.menulink').hide();
-    } else {
-      $('.profile-template').show();
-      $('.menulink').show();
-    }
     $('#param option[value="' + window.param + '"]').prop("selected", true);
     $('.time_period option[value="' + window.time_period + '"]').prop("selected", true);
     $('#param').trigger("change");
@@ -201,6 +194,7 @@ HomeLayoutView = (function(superClass) {
     todays_date = moment().format('YYYY-MM-DD');
     $('#showHome').hide();
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     App.trigger('cordova:register:push:notification');
     timezone = App.currentUser.get('offset');
     currentime = moment.utc(App.currentUser.get('today'), 'YYYY-MM-DD HH:mm:ss').zone(timezone).format('HH:mm:ss');
@@ -360,7 +354,7 @@ HomeLayoutView = (function(superClass) {
       units = 'pounds';
       size = 'Weight';
     }
-    $('#y-axis').text(size + '(' + units + ')');
+    $('#y-axis').text(size + ' (' + units + ')');
     $('#canvasregion').show();
     dates = App.graph.get('dates');
     param = App.graph.get('param');

@@ -42,12 +42,7 @@ ProfilePersonalInfoView = (function(superClass) {
   };
 
   ProfilePersonalInfoView.prototype.initialize = function() {
-    this.listenTo(App, 'fb:status:connected', function() {
-      if (!App.currentUser.hasProfilePicture()) {
-        return App.currentUser.getFacebookPicture();
-      }
-    });
-    return this.listenTo(App, 'user:status:connected', function() {
+    return this.listenTo(App, 'fb:status:connected', function() {
       if (!App.currentUser.hasProfilePicture()) {
         return App.currentUser.getFacebookPicture();
       }
@@ -78,6 +73,7 @@ ProfilePersonalInfoView = (function(superClass) {
       $('.data1').show();
     }
     App.trigger('cordova:hide:splash:screen');
+    App.trigger('ios:header:footer:fix');
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',
@@ -132,8 +128,6 @@ ProfilePersonalInfoView = (function(superClass) {
         success: this._successHandler
       });
     } else {
-      _formData['profile'].gender = 'male';
-      _formData['profile'].birth_date = moment().format('YYYY-MM-DD');
       return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
     }
   };
@@ -163,15 +157,16 @@ ProfilePersonalInfoView = (function(superClass) {
         App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('offset', response.offset);
         this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
-        return $('html, body').animate({
+        $('html, body').animate({
           scrollTop: 0
         }, 'slow');
       } else {
         App.currentUser.set('profile', response);
         App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('state', '/profile/measurements');
-        return App.navigate('#' + App.currentUser.get('state'), true);
+        App.navigate('#' + App.currentUser.get('state'), true);
       }
+      return App.trigger('cordova:set:user:data');
     }
   };
 

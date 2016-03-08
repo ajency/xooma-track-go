@@ -39,7 +39,7 @@ SettingsView = (function(superClass) {
       data = 'notification=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: _SITEURL + "/wp-json/notifications/" + (App.currentUser.get('ID')),
+        url: APIURL + "/notifications/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successnotiSave,
         error: this.showErr
@@ -58,7 +58,7 @@ SettingsView = (function(superClass) {
       data = 'emails=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: _SITEURL + "/wp-json/emails/" + (App.currentUser.get('ID')),
+        url: APIURL + "/emails/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successSave,
         error: this.showErr
