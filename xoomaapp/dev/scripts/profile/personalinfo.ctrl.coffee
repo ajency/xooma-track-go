@@ -36,6 +36,23 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				maxDate: new Date(),
 				yearRange: "-100:+0",
 			});
+			
+		if window.isWebView()
+
+			dateStr = $('#birth_date').val()
+			dateObj = if dateStr is '' then new Date() else new Date(dateStr)
+
+			$ '#birth_date'
+			.prop 'readonly', true
+			.click ->
+				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
+				options = mode: 'date', date: dateObj, maxDate: maxDate
+
+				datePicker.show options, (selectedDate)->
+					if not _.isUndefined selectedDate
+						dateObj = selectedDate
+						dateText = moment(dateObj).format 'YYYY-MM-DD'
+						$('#birth_date').val dateText
 
 		$('.data1').hide()
 		

@@ -50,6 +50,7 @@ ProfilePersonalInfoView = (function(superClass) {
   };
 
   ProfilePersonalInfoView.prototype.onRender = function() {
+    var dateObj, dateStr;
     Backbone.Syphon.deserialize(this, this.model.toJSON());
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
@@ -58,6 +59,27 @@ ProfilePersonalInfoView = (function(superClass) {
         changeMonth: true,
         maxDate: new Date(),
         yearRange: "-100:+0"
+      });
+    }
+    if (window.isWebView()) {
+      dateStr = $('#birth_date').val();
+      dateObj = dateStr === '' ? new Date() : new Date(dateStr);
+      $('#birth_date').prop('readonly', true).click(function() {
+        var maxDate, options;
+        maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
+        options = {
+          mode: 'date',
+          date: dateObj,
+          maxDate: maxDate
+        };
+        return datePicker.show(options, function(selectedDate) {
+          var dateText;
+          if (!_.isUndefined(selectedDate)) {
+            dateObj = selectedDate;
+            dateText = moment(dateObj).format('YYYY-MM-DD');
+            return $('#birth_date').val(dateText);
+          }
+        });
       });
     }
     return $('.data1').hide();
