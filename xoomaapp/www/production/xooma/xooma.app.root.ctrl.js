@@ -61,6 +61,9 @@ XoomaAppRootView = (function(superClass) {
     if (App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true) {
       $('.profile-template').hide();
       $('.menulink').hide();
+    } else {
+      $('.profile-template').show();
+      $('.menulink').show();
     }
     this.showViews();
     $('.logout-button').on('click', function(e) {

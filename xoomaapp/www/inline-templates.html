@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
     <script id="login-template" type="text/template">
 <div class="topheader" id="logintemplate">
@@ -75,7 +75,7 @@ Products.</h6>
                     </div>
             </div>
             <br>
-            <div class="col-sm-12" style="margin: auto">
+            <div class="col-sm-12" style="text-align: center;">
             <button type="button" fb-scope="public_profile, email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
             <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
             <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
@@ -159,7 +159,7 @@ Products.</h6>
                                     <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
 
-                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
+                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" required/>
                                     </div>
                                 </div>
                                 <div class="loadingconusme"></div>
@@ -542,7 +542,7 @@ Products.</h6>
         <div style="display:none;">
             <div id="demo2_tip">
                 <b>Neck (inches)</b><br />
-           <input type="text" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5" tabindex=1/> 
+           <input type="number" name="neck" id="neck" class="inpt_el" value="{{measurements.neck}}" class="col-sm-5"/> 
            <small>Please press enter or return</small></div>
 
         </div>
@@ -553,8 +553,8 @@ Products.</h6>
         <div style="display:none;">
             <div id="demo3_tip">
                 <b>Chest (inches)</b><br />
-           <input type="text" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"  tabindex=2/>
-            <small >Please press enter or return</small> </div>
+           <input type="number" name="chest" id="chest" class="inpt_el" value="{{measurements.chest}}"/>
+            <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-arm link" href="#demo4_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo4_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -562,8 +562,8 @@ Products.</h6>
            <div style="display:none;">
             <div id="demo4_tip">
                 <b>Arm (inches)</b><br />
-           <input type="text" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
-            <small >Please press enter or return</small> </div>
+           <input type="number" name="arm" id="arm" class="inpt_el" value="{{measurements.arm}}" />
+            <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-abdomen link" href="#demo5_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo5_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -571,8 +571,8 @@ Products.</h6>
         <div style="display:none;">
             <div id="demo5_tip">
                 <b>Abdomen (inches)</b><br />
-           <input type="text" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
-            <small >Please press enter or return</small></div>
+           <input type="number" name="abdomen" id="abdomen" class="inpt_el" value="{{measurements.abdomen}}" />
+            <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-waist link" href="#demo6_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo6_tip', {sticky:true})">                  <i class="fa fa-dot-circle-o"></i>
 
@@ -580,8 +580,8 @@ Products.</h6>
          <div style="display:none;">
             <div id="demo6_tip">
                 <b>Waist (inches)</b><br />
-           <input type="text" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
-           <small >Please press enter or return</small></div>
+           <input type="number" name="waist" id="waist" class="inpt_el" value="{{measurements.waist}}" />
+           <small>Please press enter or return</small></div>
         </div>
            <a class="hotspot-hips link "  href="#demo7_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo7_tip', {sticky:true})">
                 <i class="fa fa-dot-circle-o"></i>
@@ -590,8 +590,8 @@ Products.</h6>
                           <div style="display:none;">
             <div id="demo7_tip">
                 <b>Hips (inches)</b><br />
-           <input type="text" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
-            <small >Please press enter or return</small></div>
+           <input type="number" name="hips" id="hips" class="inpt_el" value="{{measurements.hips}}" />
+            <small>Please press enter or return</small></div>
         </div>  
            <a class="hotspot-thigh link " href="#demo8_tip"  onclick="return false;" onmouseover="tooltip.pop(this, '#demo8_tip', {sticky:true})">
                <i class="fa fa-dot-circle-o"></i>
@@ -599,8 +599,8 @@ Products.</h6>
                           <div style="display:none;">
             <div id="demo8_tip">
                 <b>Thigh (inches)</b><br />
-           <input type="text" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
-            <small >Please press enter or return</small></div>
+           <input type="number" name="thigh" id="thigh" class="inpt_el" value="{{measurements.thigh}}" />
+            <small>Please press enter or return</small></div>
         </div>  
            <a class="hotspot-midcalf link " href="#demo9_tip" onclick="return false;" onmouseover="tooltip.pop(this, '#demo9_tip', {sticky:true})"  >
                <i class="fa fa-dot-circle-o"></i>
@@ -609,8 +609,8 @@ Products.</h6>
                          <div style="display:none;">
             <div id="demo9_tip">
                 <b>Midcalf (inches)</b><br />
-           <input type="text" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
-            <small >Please press enter or return</small></div>
+           <input type="number" name="midcalf" id="midcalf" class="inpt_el" value="{{measurements.midcalf}}"/>
+            <small>Please press enter or return</small></div>
         </div> 
           
 
@@ -622,6 +622,76 @@ Products.</h6>
                                     <div class="col-sm-6 ">
                                                 <div class="panel-default panel">
                                                 <div class="panel-body ">
+                                              <!--  <div class="row">
+                                                <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
+                                                        <div class="col-md-5 col-xs-5">
+                                                                <img src="./images/height.png" class="pull-right m-t-10">
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                                <h4 class="text-left"> <output class="heightcms"></output><small> Ft/inches</small></h4>
+                                                        </div>
+                                                        <input type="range" min="4.0" max="9.0" step="0.1" value="{{measurements.height}}" id="height" name="height" required data-rangeslider>
+                                                <div class="convertheight text-center m-t-30 text-muted"></div>
+                                                </div>
+                                                        <fieldset>
+            <label for="valueA">Height:</label>
+            <select value="{{measurements.height}}" id="height" name="height">
+               <option value="4">4&rsquo;</option>
+                    <option value="4.1">4&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="4.2;">4&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="4.3">4&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="4.4">4&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="4.5">4&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="4.6">4&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="4.7">4&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="4.8">4&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="4.9">4&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="4.10">4&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="4.11">4&rsquo;&nbsp;11&rdquo;</option>
+               <option value="5">5&rsquo;</option>
+                    <option value="5.1">5&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="5.2">5&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="5.3">5&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="5.4">5&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="5.5">5&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="5.6">5&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="5.7">5&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="5.8">5&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="5.9">5&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="5.10">5&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="5.11">5&rsquo;&nbsp;11&rdquo;</option>
+                <option value="6">6&rsquo;</option>
+                    <option value="6.1">6&rsquo;&nbsp;1&rdquo;</option>
+                    <option value="6.2">6&rsquo;&nbsp;2&rdquo;</option>
+                    <option value="6.3">6&rsquo;&nbsp;3&rdquo;</option>
+                    <option value="6.4">6&rsquo;&nbsp;4&rdquo;</option>
+                    <option value="6.5">6&rsquo;&nbsp;5&rdquo;</option>
+                    <option value="6.6">6&rsquo;&nbsp;6&rdquo;</option>
+                    <option value="6.7">6&rsquo;&nbsp;7&rdquo;</option>
+                    <option value="6.8">6&rsquo;&nbsp;8&rdquo;</option>
+                    <option value="6.9">6&rsquo;&nbsp;9&rdquo;</option>
+                    <option value="6.10">6&rsquo;&nbsp;10&rdquo;</option>
+                    <option value="6.11">6&rsquo;&nbsp;11&rdquo;</option>
+                
+            </select>
+    
+        </fieldset>
+                                                </br>
+                                                </br>
+                                                <div class="row">
+                                                        <div class="col-md-5 col-xs-5">
+                                                                <img src="./images/weight.jpg" class="pull-right m-t-10">
+                                                        </div>
+                                                        <div class="col-md-7 ">
+                                                                <h4 class="text-left"> <output class="weightcms"></output><small> pounds</small></h4>
+                                                        </div>
+
+                                                        <input type="range" min="111" max="500" step="1" value="{{measurements.weight}}" id="weight" name="weight" required data-rangeslider>
+                                                        <div class="convertweight text-center m-t-30 text-muted"></div>
+                                                </div>
+                                                 </br>
+                                                </br>-->
+
                                      <div class="row">
                                                 <input type="hidden" name="date_field" id="date_field" value="{{measurements.date}}" />
                                                         <div class="col-md-3 col-xs-3">
@@ -837,115 +907,7 @@ Products.</h6>
     </div>
 
     </script>
-<script id="home-template" type="text/template">
-        <div class="container" id="homeregion"> 
-        <div class="aj-response-message no-tab"> </div>
-     <div class="row section-nm">
-            <div class="col-md-2"> 
-            </div>
-         <div class="col-md-8"> 
-         <div class="panel panel-default panel-mobile">
-                  <div class="panel-body  ">
-                    <img src="./images/icon-calender.png" class="m-t--10" width="22px"/>
-                        <span class="top-panel-picker ">
-                    <img src="./images/arrow-down.png" />
-                    <input type="text"  id="update" class="home-datepicker " >
-                    </span>
-                <a id="showHome">( Apply ) </a> <img src="" class="daynightclass pull-right"/>
-
-                  </div>
-            </div>
-
-                <div class="loading"></div> 
-                 <div ui-region="x2o" id="x2oregion">
-                      
-                    </div>
-        
-
-       <div ui-region="other-products" id="otherproducts">
-       
-         </div>         
-
-
-
-
-    <div class="panel panel-default">
-          <div class="panel-body">
-            <h5 class=" margin-none mid-title ">Progress Chart <i type="button" class="fa fa-bars pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
-                     <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#" class="update">Update Measurements</a></li>
-                        <li><a href="#" class="history">Measurements History</a></li>
-                        </ul>
-                                      </h5>
-                    <form id="generate_graph" method="POST"  role="form">
-                        <div class="row m-t-30">
-                            <div class="col-md-4 col-xs-6"> 
-                                <label for="exampleInputFile">Measurement Area</label>
-                                    <select class="form-control" aj-field-required="true" id="param" name="param">
-                                              <option value="">Please select</option>
-                                              <option value="weight">Weight</option>
-                                              <option value="neck">Neck</option>
-                                              <option value="chest">Chest</option>
-                                              <option value="arm">Arm</option>
-                                              <option value="abdomen">Abdomen</option>
-                                              <option value="waist">Waist</option>
-                                              <option value="hips">Hips</option>
-                                              <option value="thigh">Thigh</option>
-                                              <option value="bmi">BMI</option>
-                                     
-                                    </select>
-
-                            </div>
-                            <div class="col-md-4 col-xs-6"> 
-         <input type="hidden" id="start_date" name="start_date" >
-                                <input type="hidden"  id="end_date" name="end_date">
-                        
-                        
-                           <label for="exampleInputFile " class="time_period">Period of Time</label>
-                                <select class="form-control time_period ">
-                                  <option value="">--Select--</option>
-                                  <option value="30">Last 30 days</option>
-                                  <option value="60">Last 60 days</option>
-                                  <option value="all">All time</option>
-                                </select>
-                            </div>
-                               
-                       <div class="col-md-4 col-xs-12"> <br>
-   <button type="button" name="generate" class="aj-submit-button  btn-link" >Generate Graph <i class="fa fa-arrow-right"></i></button>
-                            </div>
-                        </div>  
-        
-                 
-    <div class="clearfix"></div><br><div class="loadinggraph"></div> 
-
-                <div id="canvasregion" style="width:100%">
-
-                                <div>
-                                <div id="graph-container">
-                                    <canvas id="canvas" height="450" width="600"></canvas></div>
-                                <div id="y-axis" class="text-center"><b></b></div>
-         <div id="x-axis" class="text-center">Date</div>
-         <div class="row">
-            <div class="col-sm-12">
-            <div id="bmi" >Legend :  <i class="fa fa-circle"></i> Normal</div>
-            </div>
-             
-            </div>
-         </div>
-
-                                </div>
-                    
-            
-            </div>
-
-            <div class="col-md-2"> 
-            </div>
-        </div>
-
-    </div>
-
-    </script>
-<script id="produts-template" type="text/template">
+    <script id="produts-template" type="text/template">
 <div id="xoomaproduct" class="section-list"> 
                 <h5 class="text-center bold margin-none">My Xooma products</h5>
                 <p class="text-center">Your xooma products are displayed here once you add them.
@@ -957,6 +919,56 @@ Products.</h6>
                   <div class="col-md-8">
                <a href="#/products" class="btn btn-primary center-block add" style="width:180px"><i class="fa fa-plus-circle"></i> Add Products</a>
                <br>
+
+    <!--<div class="panel panel-default">
+          <div class="panel-body ">
+            <h5 class="bold margin-none mid-title ">Focus Up
+              <i type="button" class="fa fa-ellipsis-v pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+                     <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Edit product</a></li>
+                        <li><a href="#">Inventory</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Remove the product</a></li>
+                      </ul>
+              </h5>
+                      <ul class="list-inline   m-t-20">
+                        <li class="col-md-7 col-xs-7 dotted-line">
+                                  <ul class="list-inline no-dotted ">
+        
+                                <li> <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
+                                
+                                       
+                              </li>
+                                 <li>
+
+                                          <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
+                                   
+                                       
+                              </li>
+                                <li>
+
+                                          <h3 class="bold margin-none"><div class="cap capsule_occurred_class"></div>3</h3>
+                                   
+                                        
+                              </li>
+                          </ul>      
+                        </li>
+                        <li class="col-md-1 col-xs-1">
+                    <h4>    <i class="fa fa-random text-muted m-t-20"></i></h4>
+                        </li>
+                        <li class="col-md-4  col-xs-4 text-center">
+                         Servings left
+                          <h2 class="margin-none bold text-danger">3</h2>
+                          10 container (300 sachet)
+                      
+                        </li>
+                    </ul>
+          </div>
+          <div class="panel-footer">
+          <i id="bell" class="fa fa-bell-slash no-remiander"></i> 
+           No Remiander is set
+          </div>
+        </div>-->
         
     <div class="userproducts"></div>
      <a href="#/products" class="btn btn-primary pull-left add1"><i class="fa fa-plus-circle"></i> Add Products</a>
@@ -968,7 +980,6 @@ Products.</h6>
                 </div>
 
     </script>
-    
     <script id="add-product-template" type="text/template">
 <div id="listproduct" >
 <div class="sub-header">

@@ -40,6 +40,9 @@ class ProfileCtrlView extends Marionette.LayoutView
 		if App.currentUser.get('ID') == undefined || App.currentUser.get('caps').administrator == true
 			$('.profile-template').hide()
 			$('.menulink').hide()
+		else
+			$('.profile-template').show()
+			$('.menulink').show()
 
 		
 		@handleMenu
