@@ -59,7 +59,7 @@ SignUpView = (function(superClass) {
     }
     if (window.isWebView()) {
       return $('#dtBox').prop('readonly', true).click(function() {
-        return $("#dtBox").DateTimePicker();
+        return DateTimePicker();
       });
     }
   };

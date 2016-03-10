@@ -46,7 +46,7 @@ class SignUpView extends Marionette.ItemView
 			$ '#dtBox'
 			.prop 'readonly', true
 			.click ->
-				$("#dtBox").DateTimePicker();
+				DateTimePicker();
 
 
 	onFormSubmit: (_formData)->
