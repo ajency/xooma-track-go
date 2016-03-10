@@ -379,7 +379,7 @@ class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
 		console.log "home console is working - check"
-		console.log App.currentUser.get 'normal_login'
+		#console.log App.currentUser.get 'normal_login'
 		state = App.currentUser.get 'state'
 		if state != '/home'
 			@show new workflow

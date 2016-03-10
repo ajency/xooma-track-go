@@ -33,17 +33,10 @@ document.addEventListener "deviceready", ->
 	App.currentUser.on 'user:logged:out', ->
 		#Device
 		onLogout = ->
-			if App.currentUser.get('normal_login') == 1
-				console.log "log out here"
-				localforage.clear()
-				delete window.userData
-				App.navigate '#login', trigger:true , replace :true
-
-			else
-				CordovaStorage.clearUserData()
-				arr = []
-				App.useProductColl.reset arr
-				delete window.userData
+			CordovaStorage.clearUserData()
+			arr = []
+			App.useProductColl.reset arr
+			delete window.userData
 
 		if App.getCurrentRoute() is 'login'
 			CordovaApp.facebookLogout().then onLogout

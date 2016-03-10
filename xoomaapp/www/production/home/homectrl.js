@@ -400,7 +400,6 @@ App.HomeCtrl = (function(superClass) {
   HomeCtrl.prototype.initialize = function() {
     var state;
     console.log("home console is working - check");
-    console.log(App.currentUser.get('normal_login'));
     state = App.currentUser.get('state');
     if (state !== '/home') {
       this.show(new workflow);
