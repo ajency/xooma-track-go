@@ -221,8 +221,7 @@ class HomeLayoutView extends Marionette.LayoutView
 						$('#update').val dateText
 						$('#showHome').show()
 						App.currentUser.set 'homeDate', dateText
-
-						if todays_date is App.currentUser.get('homeDate')
+					if todays_date is App.currentUser.get('homeDate')
 							$('#update').val 'TODAY'
 							
 

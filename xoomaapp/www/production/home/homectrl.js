@@ -241,7 +241,7 @@ HomeLayoutView = (function(superClass) {
           minDate: minDate,
           maxDate: maxDate
         };
-        datePicker.show(options, function(date) {
+        return datePicker.show(options, function(date) {
           var dateText;
           if (!_.isUndefined(date)) {
             dateObj = date;
@@ -249,9 +249,9 @@ HomeLayoutView = (function(superClass) {
             $('#update').val(dateText);
             $('#showHome').show();
             App.currentUser.set('homeDate', dateText);
-            if (todays_date === App.currentUser.get('homeDate')) {
-              $('#update').val('TODAY');
-            }
+          }
+          if (todays_date === App.currentUser.get('homeDate')) {
+            return $('#update').val('TODAY');
           }
         });
       });

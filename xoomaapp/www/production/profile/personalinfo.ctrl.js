@@ -72,12 +72,12 @@ ProfilePersonalInfoView = (function(superClass) {
           date: dateObj,
           maxDate: maxDate
         };
-        datePicker.show(options, function(selectedDate) {
+        return datePicker.show(options, function(selectedDate) {
           var dateText;
           if (!_.isUndefined(selectedDate)) {
             dateObj = selectedDate;
             dateText = moment(dateObj).format('YYYY-MM-DD');
-            $('#birth_date').val(dateText);
+            return $('#birth_date').val(dateText);
           }
         });
       });
@@ -117,12 +117,12 @@ ProfilePersonalInfoView = (function(superClass) {
           date: dateObj,
           maxDate: maxDate
         };
-        datePicker.show(options, function(selectedDate) {
+        return datePicker.show(options, function(selectedDate) {
           var dateText;
           if (!_.isUndefined(selectedDate)) {
             dateObj = selectedDate;
             dateText = moment(dateObj).format('YYYY-MM-DD');
-            $('#birth_date').val(dateText);
+            return $('#birth_date').val(dateText);
           }
         });
       });

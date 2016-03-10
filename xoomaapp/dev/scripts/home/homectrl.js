@@ -249,7 +249,7 @@ HomeLayoutView = (function(superClass) {
             $('#update').val(dateText);
             $('#showHome').show();
             App.currentUser.set('homeDate', dateText);
-            if (todays_date === App.currentUser.get('homeDate')) {
+            if (todays_date === App.currentUser.get('homeDate')){
               $('#update').val('TODAY');
             }
           }
