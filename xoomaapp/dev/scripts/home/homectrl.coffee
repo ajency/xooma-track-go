@@ -378,6 +378,7 @@ class HomeLayoutView extends Marionette.LayoutView
 class App.HomeCtrl extends Ajency.RegionController
 
 	initialize:->
+		console.log CordovaStorage.getUserData()
 		console.log "home console is working - check"
 		#console.log App.currentUser.get 'normal_login'
 		state = App.currentUser.get 'state'
