@@ -27,7 +27,8 @@ class SignUpView extends Marionette.ItemView
 
 
 	onShow:->
-		if !window.isWebView()
+		$("#dtBox").DateTimePicker();
+		###if !window.isWebView()
 			console.log window.isWebView() + "check date for non web"
 			$('#birth_dates').datepicker({
 				dateFormat : 'yy-mm-dd'
@@ -52,7 +53,7 @@ class SignUpView extends Marionette.ItemView
 					if not _.isUndefined selectedDate
 						dateObj = selectedDate
 						dateText = moment(dateObj).format 'YYYY-MM-DD'
-						$('#birth_dates').val dateText
+						$('#birth_dates').val dateText###
 
 
 	onFormSubmit: (_formData)->

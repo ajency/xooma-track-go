@@ -399,8 +399,6 @@ App.HomeCtrl = (function(superClass) {
 
   HomeCtrl.prototype.initialize = function() {
     var state;
-    console.log(CordovaStorage.getUserData());
-    console.log("home console is working - check");
     state = App.currentUser.get('state');
     if (state !== '/home') {
       this.show(new workflow);

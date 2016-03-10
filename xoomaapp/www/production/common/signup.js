@@ -46,38 +46,35 @@ SignUpView = (function(superClass) {
   };
 
   SignUpView.prototype.onShow = function() {
-    var dateObj;
-    if (!window.isWebView()) {
-      console.log(window.isWebView() + "check date for non web");
-      $('#birth_dates').datepicker({
-        dateFormat: 'yy-mm-dd',
-        changeYear: true,
-        changeMonth: true,
-        maxDate: new Date(),
-        yearRange: "-100:+0"
-      });
-    }
-    if (window.isWebView()) {
-      console.log(window.isWebView() + " check date for web");
-      dateObj = new Date($('#birth_dates').val());
-      return $('#birth_dates').prop('readonly', true).click(function() {
-        var maxDate, options;
-        maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
-        options = {
-          mode: 'date',
-          date: dateObj,
-          maxDate: maxDate
-        };
-        return datepicker.show(options, function(selectedDate) {
-          var dateText;
-          if (!_.isUndefined(selectedDate)) {
-            dateObj = selectedDate;
-            dateText = moment(dateObj).format('YYYY-MM-DD');
-            return $('#birth_dates').val(dateText);
-          }
-        });
-      });
-    }
+    return $("#dtBox").DateTimePicker();
+
+    /*if !window.isWebView()
+    			console.log window.isWebView() + "check date for non web"
+    			$('#birth_dates').datepicker({
+    				dateFormat : 'yy-mm-dd'
+    				changeYear: true,
+    				changeMonth: true,
+    				maxDate: new Date(),
+    				yearRange: "-100:+0",
+    			});
+    
+    		#Changes for mobile
+    		if window.isWebView()
+    			console.log window.isWebView() + " check date for web"
+    			dateObj = new Date($('#birth_dates').val())
+    
+    			$ '#birth_dates'
+    			.prop 'readonly', true
+    			.click ->
+    				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
+    				options = mode: 'date', date: dateObj, maxDate: maxDate
+    
+    				datepicker.show options, (selectedDate)->
+    					if not _.isUndefined selectedDate
+    						dateObj = selectedDate
+    						dateText = moment(dateObj).format 'YYYY-MM-DD'
+    						$('#birth_dates').val dateText
+     */
   };
 
   SignUpView.prototype.onFormSubmit = function(_formData) {

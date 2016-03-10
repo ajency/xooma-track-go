@@ -48,7 +48,9 @@
     "jquery-ui": "~1.11.2",
     "moment-timezone": "~0.3.0",
     "bootstrap-timepicker": "~0.2.6",
-    "rangeslider.js": "~1.2.1"
+    "rangeslider.js": "~1.2.1",
+    "datetimepicker": "curioussolutions-datetimepicker#^0.1.26",
+    "localforage": "^1.4.0"
   },
   "resolutions": {
     "underscore": ">=1.5.0",
