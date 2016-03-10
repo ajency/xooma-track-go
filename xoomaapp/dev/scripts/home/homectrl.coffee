@@ -214,7 +214,6 @@ class HomeLayoutView extends Marionette.LayoutView
 				minDate = if CordovaApp.isPlatformIOS() then new Date(reg_date) else (new Date(reg_date)).valueOf()
 				maxDate = if CordovaApp.isPlatformIOS() then new Date(todays_date) else (new Date(todays_date)).valueOf()
 				options = mode: 'date', date: dateObj, minDate: minDate, maxDate: maxDate
-				
 				datePicker.show options, (date)->
 					if not _.isUndefined date
 						dateObj = date

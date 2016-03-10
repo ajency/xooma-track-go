@@ -47,7 +47,6 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			.click ->
 				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
 				options = mode: 'date', date: dateObj, maxDate: maxDate
-
 				datePicker.show options, (selectedDate)->
 					if not _.isUndefined selectedDate
 						dateObj = selectedDate

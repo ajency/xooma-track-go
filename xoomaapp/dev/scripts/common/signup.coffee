@@ -27,7 +27,6 @@ class SignUpView extends Marionette.ItemView
 
 
 	onShow:->
-		$("#dtBox").DateTimePicker();
 		if !window.isWebView()
 			console.log window.isWebView() + "check date for non web"
 			$('#birth_dates').datepicker({
@@ -40,13 +39,18 @@ class SignUpView extends Marionette.ItemView
 
 		#Changes for mobile
 		if window.isWebView()
-			#console.log window.isWebView() + " check date for web"
-			#dateObj = new Date($('#birth_dates').val())
-
-			$ '#dtBox'
+			console.log window.isWebView() + " check date for web"
+			dateObj = new Date($('#birth_dates').val())
+			$ '#birth_dates'
 			.prop 'readonly', true
 			.click ->
-				DateTimePicker();
+				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
+				options = mode: 'date', date: dateObj, maxDate: maxDate
+				datePicker.show options, (selectedDate)->
+					if not _.isUndefined selectedDate
+						dateObj = selectedDate
+						dateText = moment(dateObj).format 'YYYY-MM-DD'
+						$('#birth_dates').val dateText
 
 
 	onFormSubmit: (_formData)->

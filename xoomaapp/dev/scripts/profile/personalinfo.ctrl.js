@@ -95,12 +95,12 @@ ProfilePersonalInfoView = (function(superClass) {
           date: dateObj,
           maxDate: maxDate
         };
-        return datePicker.show(options, function(selectedDate) {
+        datePicker.show(options, function(selectedDate) {
           var dateText;
           if (!_.isUndefined(selectedDate)) {
             dateObj = selectedDate;
             dateText = moment(dateObj).format('YYYY-MM-DD');
-            return $('#birth_date').val(dateText);
+            $('#birth_date').val(dateText);
           }
         });
       });

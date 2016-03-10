@@ -46,7 +46,7 @@ SignUpView = (function(superClass) {
   };
 
   SignUpView.prototype.onShow = function() {
-    $("#dtBox").DateTimePicker();
+    var dateObj;
     if (!window.isWebView()) {
       console.log(window.isWebView() + "check date for non web");
       $('#birth_dates').datepicker({
@@ -58,8 +58,24 @@ SignUpView = (function(superClass) {
       });
     }
     if (window.isWebView()) {
-      return $('#dtBox').prop('readonly', true).click(function() {
-        return DateTimePicker();
+      console.log(window.isWebView() + " check date for web");
+      dateObj = new Date($('#birth_dates').val());
+      $('#birth_dates').prop('readonly', true).click(function() {
+        var maxDate, options;
+        maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
+        options = {
+          mode: 'date',
+          date: dateObj,
+          maxDate: maxDate
+        };
+        datePicker.show(options, function(selectedDate) {
+          var dateText;
+          if (!_.isUndefined(selectedDate)) {
+            dateObj = selectedDate;
+            dateText = moment(dateObj).format('YYYY-MM-DD');
+            $('#birth_dates').val(dateText);
+          }
+        });
       });
     }
   };

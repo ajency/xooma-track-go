@@ -58,7 +58,7 @@
       }
       if (window.isWebView()) {
         dateObj = new Date($('#birth_date').val());
-        return $('#birth_date').click(function() {
+        $('#birth_date').click(function() {
           var maxDate, options;
           maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
           options = {
@@ -66,12 +66,12 @@
             date: dateObj,
             maxDate: maxDate
           };
-          return datePicker.show(options, function(selectedDate) {
+          datePicker.show(options, function(selectedDate) {
             var dateText;
             if (!_.isUndefined(selectedDate)) {
               dateObj = selectedDate;
               dateText = moment(dateObj).format('YYYY-MM-DD');
-              return $('#birth_date').val(dateText);
+              $('#birth_date').val(dateText);
             }
           });
         });
