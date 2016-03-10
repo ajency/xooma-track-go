@@ -28,10 +28,20 @@ document.addEventListener("deviceready", function() {
     var onLogout;
     onLogout = function() {
       var arr;
-      CordovaStorage.clearUserData();
-      arr = [];
-      App.useProductColl.reset(arr);
-      return delete window.userData;
+      if (App.currentUser.get('normal_login') === 1) {
+        console.log("log out here");
+        localforage.clear();
+        delete window.userData;
+        return App.navigate('#login', {
+          trigger: true,
+          replace: true
+        });
+      } else {
+        CordovaStorage.clearUserData();
+        arr = [];
+        App.useProductColl.reset(arr);
+        return delete window.userData;
+      }
     };
     if (App.getCurrentRoute() === 'login') {
       return CordovaApp.facebookLogout().then(onLogout);
