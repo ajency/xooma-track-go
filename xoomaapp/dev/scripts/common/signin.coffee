@@ -51,6 +51,8 @@ class SignInView extends Marionette.ItemView
 		localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id')
 		if App.currentUser.get('state') == '/home'
         	$('.link').show()
+        	$('.profile-template').show()
+        	$('.menulink').show()
 		App.navigate '#' + App.currentUser.get('state'), true
 
 

@@ -60,7 +60,7 @@ SignUpView = (function(superClass) {
     if (window.isWebView()) {
       console.log(window.isWebView() + " check date for web");
       dateObj = new Date($('#birth_dates').val());
-      return $('#birth_dates').prop('readonly', false).click(function() {
+      return $('#birth_dates').prop('readonly', true).click(function() {
         var maxDate, options;
         maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
         options = {
@@ -68,7 +68,7 @@ SignUpView = (function(superClass) {
           date: dateObj,
           maxDate: maxDate
         };
-        return datePicker.show(options, function(selectedDate) {
+        return datepicker.show(options, function(selectedDate) {
           var dateText;
           if (!_.isUndefined(selectedDate)) {
             dateObj = selectedDate;
