@@ -42,7 +42,7 @@ class SignInView extends Marionette.ItemView
 		$('.loadingconusme').html ""
 		$('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!")
 		App.currentUser.set window.userData
-		App.currentUser.set 'normal_login',1
+		App.currentUser.set 'normal_login' , 1
 		display_name = App.currentUser.get('display_name')
 		$('.display_name').text(App.currentUser.get('display_name'))
 		$('.user_email').text(App.currentUser.get('user_email'))
