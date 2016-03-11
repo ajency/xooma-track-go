@@ -96,7 +96,7 @@ class User
             update_user_meta($user_id, 'xooma_member_id', $profile['xooma_member_id']);
             
             update_user_meta($user_id, 'gender', $profile['gender']);
-            update_user_meta($user_id, 'birthday', $profile['birth_date']);
+            update_user_meta($user_id, 'birth_date', $profile['birth_date']);
             update_user_meta($user_id, 'user_details', $user_meta_value);
             
             //wp_set_current_user( $user_id, $data['email']);
