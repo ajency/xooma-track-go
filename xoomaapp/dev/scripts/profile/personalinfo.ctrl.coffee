@@ -78,13 +78,9 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 				yearRange: "-100:+0",
 			});
 
-		#console.log window.isWebView()
-		console.log window.isWebView() + " check date for web"
 		#Changes for mobile
 		if window.isWebView()
-
-			dateStr = $('#birth_date').val()
-			dateObj = if dateStr is '' then new Date() else new Date(dateStr)
+			dateObj = new Date($('#birth_date').val())
 
 			$ '#birth_date'
 			.prop 'readonly', true

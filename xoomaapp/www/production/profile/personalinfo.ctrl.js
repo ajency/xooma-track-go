@@ -86,7 +86,7 @@ ProfilePersonalInfoView = (function(superClass) {
   };
 
   ProfilePersonalInfoView.prototype.onShow = function() {
-    var dateObj, dateStr, state;
+    var dateObj, state;
     $('.data1').hide();
     if (App.currentUser.get('caps').administrator === true) {
       $('.profile-template').hide();
@@ -105,10 +105,8 @@ ProfilePersonalInfoView = (function(superClass) {
         yearRange: "-100:+0"
       });
     }
-    console.log(window.isWebView() + " check date for web");
     if (window.isWebView()) {
-      dateStr = $('#birth_date').val();
-      dateObj = dateStr === '' ? new Date() : new Date(dateStr);
+      dateObj = new Date($('#birth_date').val());
       $('#birth_date').prop('readonly', true).click(function() {
         var maxDate, options;
         maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
