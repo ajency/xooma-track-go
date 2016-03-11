@@ -113,6 +113,7 @@ SignUpView = (function(superClass) {
     $('.display_name').text(App.currentUser.get('display_name'));
     $('.user_email').text(App.currentUser.get('user_email'));
     localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id');
+    App.trigger('cordova:set:user:data');
     return App.navigate('#' + App.currentUser.get('state'), true);
   };
 
