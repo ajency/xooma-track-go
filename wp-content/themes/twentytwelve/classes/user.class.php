@@ -265,7 +265,7 @@ class User
         $user_meta_value = maybe_serialize($args);
        
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
-        $birth_date = update_user_meta($args['id'], 'birth_date', $profile['birth_date']);
+        $birth_date = update_user_meta($args['id'], 'birth_date', $args['birth_date']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
             
         $metadata = get_user_meta($args['id'], 'user_details', true);

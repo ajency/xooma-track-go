@@ -439,7 +439,7 @@ Products.</h6>
                                                 <div class="form-group">
                                                         <label for="text4" class="col-sm-3 col-xs-4  control-label">Phone</label>
                                                         <div class="col-sm-9 col-xs-8">
-                                                                <input type="text" aj-field-type="number" class="form-control tabelements" name="profile[phone_no]">
+                                                                <input type="text" class="form-control tabelements" name="profile[phone_no]" id="phone_no" aj-field-equalToNum="10" placeholder="Phone number" aj-field-required="true" />
                                                         </div>
                                                 </div>
                                                 <div class="form-group">

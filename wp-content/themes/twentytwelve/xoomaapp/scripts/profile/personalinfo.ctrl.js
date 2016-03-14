@@ -27,7 +27,7 @@ ProfilePersonalInfoView = (function(superClass) {
   ProfilePersonalInfoView.prototype.ui = {
     form: '.update_user_details',
     responseMessage: '.aj-response-message',
-    dateElement: 'input[name="profile[birth_date]"]',
+    //dateElement: 'input[name="profile[birth_date]"]',
     xooma_member_id: '.xooma_member_id',
     timezone: 'input[name="profile[timezone]"]'
   };
@@ -61,6 +61,7 @@ ProfilePersonalInfoView = (function(superClass) {
 
   ProfilePersonalInfoView.prototype.onRender = function() {
     Backbone.Syphon.deserialize(this, this.model.toJSON());
+    //console.log(Backbone.Syphon.deserialize(this, this.model.toJSON()));
     if (!window.isWebView()) {
       $('#birth_date').datepicker({
         dateFormat: 'yy-mm-dd',
@@ -83,35 +84,36 @@ ProfilePersonalInfoView = (function(superClass) {
       $('.data1').show();
     }
     App.trigger('cordova:hide:splash:screen');
-    if (!window.isWebView()) {
-      $('#birth_date').datepicker({
-        dateFormat: 'yy-mm-dd',
-        changeYear: true,
-        changeMonth: true,
-        maxDate: new Date(),
-        yearRange: "-100:+0"
-      });
-    }
-    if (window.isWebView()) {
-      dateObj = new Date($('#birth_date').val());
-      $('#birth_date').prop('readonly', true).click(function() {
-        var maxDate, options;
-        maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
-        options = {
-          mode: 'date',
-          date: dateObj,
-          maxDate: maxDate
-        };
-        return datePicker.show(options, function(selectedDate) {
-          var dateText;
-          if (!_.isUndefined(selectedDate)) {
-            dateObj = selectedDate;
-            dateText = moment(dateObj).format('YYYY-MM-DD');
-            return $('#birth_date').val(dateText);
-          }
+     var dateObj;
+      if (!window.isWebView()) {
+        $('#birth_date').datepicker({
+          dateFormat: 'yy-mm-dd',
+          changeYear: true,
+          changeMonth: true,
+          maxDate: new Date(),
+          yearRange: "-100:+0"
         });
-      });
-    }
+      }
+      if (window.isWebView()) {
+        dateObj = new Date($('#birth_date').val());
+        return $('#birth_date').click(function() {
+          var maxDate, options;
+          maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
+          options = {
+            mode: 'date',
+            date: dateObj,
+            maxDate: maxDate
+          };
+          return datePicker.show(options, function(selectedDate) {
+            var dateText;
+            if (!_.isUndefined(selectedDate)) {
+              dateObj = selectedDate;
+              dateText = moment(dateObj).format('YYYY-MM-DD');
+              return $('#birth_date').val(dateText);
+            }
+          });
+        });
+      }
     state = App.currentUser.get('state');
     if (state === '/home') {
       $('.measurements_update').removeClass('hidden');
@@ -126,6 +128,7 @@ ProfilePersonalInfoView = (function(superClass) {
   };
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
+    console.log(_formData);
     var id;
     $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     if (App.currentUser.get('caps').administrator === true) {
@@ -137,8 +140,8 @@ ProfilePersonalInfoView = (function(superClass) {
         success: this._successHandler
       });
     } else {
-      _formData['profile'].gender = 'male';
-      _formData['profile'].birth_date = moment().format('YYYY-MM-DD');
+     // _formData['profile'].gender = 'male';
+      //_formData['profile'].birth_date = moment().format('YYYY-MM-DD');
       return this.model.saveProfile(_formData['profile']).done(this.successHandler).fail(this.errorHandler);
     }
   };
