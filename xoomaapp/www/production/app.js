@@ -35,6 +35,8 @@ document.addEventListener("deviceready", function() {
     };
     if (App.getCurrentRoute() === 'login') {
       return CordovaApp.facebookLogout().then(onLogout);
+    } else if (App.getCurrentRoute() === 'signin') {
+      return CordovaStorage.clearUserData();
     } else {
       return ParseCloud.deregister().then(function() {
         return CordovaApp.facebookLogout().then(function() {

@@ -40,6 +40,8 @@ document.addEventListener "deviceready", ->
 
 		if App.getCurrentRoute() is 'login'
 			CordovaApp.facebookLogout().then onLogout
+		else if App.getCurrentRoute() is 'signin'
+				CordovaStorage.clearUserData()				
 		else
 			ParseCloud.deregister()
 			.then ->
