@@ -36,8 +36,6 @@ class XoomaAppRootView extends Marionette.LayoutView
         data
 
     _successHandler:(response, status,xhr)=>
-        #localforage.clear()
-        console.log "logout clicked"
         App.currentUser.logout()
 
 
@@ -54,6 +52,7 @@ class XoomaAppRootView extends Marionette.LayoutView
         else
             $('.profile-template').show()
             $('.menulink').show()
+
 
         
         
