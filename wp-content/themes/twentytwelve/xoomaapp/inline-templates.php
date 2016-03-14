@@ -78,7 +78,7 @@ Products.</h6>
             <div class="col-sm-12" style="margin: auto">
             <button type="button" fb-scope="email" class="btn btn-primary btn-lg center-block aj-fb-login-button">Login with facebook</button><br>
             <a href="#/signin"><button type="button" class="btn btn-primary btn-lg center-block aj-log-in-button">Login In</button></a><br>
-            <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
+           <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
             <br>
             <br>
             </div>
@@ -161,9 +161,10 @@ Products.</h6>
                                     <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
 
-                                    <input class="form-control tabelements" type="date" id="birth_date" name="profile[birth_date]" required  autocomplete="off" />
+                                    <input class="form-control tabelements" type="text" id="birth_dates" name="profile[birth_date]" required/>
                                     </div>
                                 </div>
+                                <div id="dtBox"></div>
                                 <div class="loadingconusme"></div>
                     <div class="col-sm-12">
                     <div class="row">
