@@ -161,7 +161,7 @@ Products.</h6>
                                     <label for="text7" class=" col-sm-3 col-xs-4 col-lg-4 control-label">Birth date  <span class="requiredField text-danger"> * </span></label>
                                     <div class="col-sm-9 col-xs-8 col-lg-8">
 
-                                    <input class="form-control tabelements" type="text" id="birth_dates" name="profile[birth_date]" required/>
+                                    <input class="form-control tabelements" type="text" id="birth_date" name="profile[birth_date]" data-field="date" required/>
                                     </div>
                                 </div>
                                 <div id="dtBox"></div>
