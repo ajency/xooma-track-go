@@ -62,9 +62,9 @@
       display_name = App.currentUser.get('display_name');
       $('.display_name').text(App.currentUser.get('display_name'));
       $('.user_email').text(App.currentUser.get('user_email'));
-      //localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id');
-      if (App.currentUser.get('state') == '/home'){
-          $('.link').show();
+      App.trigger('cordova:set:user:data');
+      if (App.currentUser.get('state') === '/home') {
+        $('.link').show();
       }
       return App.navigate('#' + App.currentUser.get('state'), true);
     };
