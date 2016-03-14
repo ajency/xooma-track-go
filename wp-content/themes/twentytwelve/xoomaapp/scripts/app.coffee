@@ -60,6 +60,9 @@ jQuery(document).ready ($)->
 	App.on 'cordova:hide:splash:screen', ->
 		CordovaApp.hideSplashscreen() if window.isWebView()
 
+	App.on 'ios:header:footer:fix', ->
+		CordovaApp.headerFooterIOSFix() if window.isWebView()
 
 	
 	App.start()
+

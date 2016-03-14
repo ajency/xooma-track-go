@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
     requests: true,
     checks: {
       xhr: {
-        url: "" + _SITEURL + "/"
+        url: _SITEURL + "/"
       }
     }
   };
@@ -68,6 +68,11 @@ jQuery(document).ready(function($) {
   App.on('cordova:hide:splash:screen', function() {
     if (window.isWebView()) {
       return CordovaApp.hideSplashscreen();
+    }
+  });
+  App.on('ios:header:footer:fix', function() {
+    if (window.isWebView()) {
+      return CordovaApp.headerFooterIOSFix();
     }
   });
   return App.start();
