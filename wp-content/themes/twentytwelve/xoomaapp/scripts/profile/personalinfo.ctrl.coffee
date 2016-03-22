@@ -8,7 +8,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 	ui :
 		form : '.update_user_details'
 		responseMessage : '.aj-response-message'
-		dateElement : 'input[name="profile[birth_date]"]'
+		#dateElement : 'input[name="profile[birth_date]"]'
 		xooma_member_id : '.xooma_member_id'
 		timezone : 'input[name="profile[timezone]"]'
 	modelEvents :
@@ -20,11 +20,15 @@ class ProfilePersonalInfoView extends Marionette.ItemView
     
 
 	initialize : ->
+		#abc = localStorage.getItem 'user_registered'
+		#console.log abc + "registered user"
 		@listenTo App, 'fb:status:connected', ->
 			if not App.currentUser.hasProfilePicture()
 				App.currentUser.getFacebookPicture()
-
-	
+				
+		@listenTo App, 'user:status:connected', ->
+			if not App.currentUser.hasProfilePicture()
+				App.currentUser.getFacebookPicture()	
 		
 	onRender:->
 		
@@ -69,7 +73,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 			$ '#birth_date'
 			.prop 'readonly', true
 			.click ->
-				maxDate = if CordovaApp.isPlatformIOS() then new Date() else (new Date()).valueOf()
+				maxDate = if CordovaApp.isPlatformIOS() then new Date() else new Date()
 				options = mode: 'date', date: dateObj, maxDate: maxDate
 
 				datePicker.show options, (selectedDate)->
@@ -96,6 +100,7 @@ class ProfilePersonalInfoView extends Marionette.ItemView
 
 	#to initialize validate plugin
 	onFormSubmit: (_formData)=>
+		console.log _formData
 		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		if App.currentUser.get('caps').administrator == true
 			console.log id = @model.get('profile').user_id

@@ -3,6 +3,159 @@
 
 class User
 {
+
+    public function register_user_details($data){
+
+        $password = $data['password'];
+        $timezone  = "America/New_York";
+
+       // $password = md5($data['password']);
+
+        $user_data = array(
+            'user_login'=>$data['email'],
+            'user_pass'=> $password,
+            'user_nicename'=>$data['fullname'],
+            'user_email'=>$data['email'],
+            'display_name'=>$data['fullname']
+
+            );
+        $args = $data['profile'];
+        //server side valiadation//
+        $v = new Valitron\Validator($args);
+
+        //custom validation rules//
+        $v->addRule('fixedLength', function($field, $value, array $params) {
+            return strlen($value) == 6;
+        },'must contain only 6 digits.');
+
+        //custom validation rule for phone number//
+        $v->addRule('fixedLengthNum', function($field, $value, array $params) {
+            return strlen($value) == 10;
+        },'must contain only 10 digits.');
+
+        $v->addRule('equalTo', function($field, $value, array $params) {
+            $gender = array('male','female');
+            if(in_array($value, $gender))
+            {
+              return $value;
+            }
+
+        },'is not matching');
+
+        //custom validation rules//
+
+        //all the rules defined//
+        $v->rule('required', ['gender', 'xooma_member_id','birth_date']);
+        $v->rule('numeric', ['phone_no','xooma_member_id']);
+        //$v->rule('numeric', 'xooma_member_id');
+        $v->rule('equalTo', 'gender', 'male');
+        $v->rule('fixedLength', 'xooma_member_id', 6);
+        $v->rule('fixedLengthNum', 'phone_no', 10);
+        $v->rule('date', 'birth_date');
+        $v->rule('dateFormat','birth_date','Y-m-d');
+        //all the rules defined//
+
+        if(!($v->validate())) {
+           return new WP_Error( 'json_user_details_not_updated', __( 'User Not registered.' ));
+        }
+
+        //$user_id = wp_insert_user( $user_data ) ;
+        $user_id = wp_create_user( $data['email'], $password, $data['email'] ) ;
+        //wp_create_user can also be used
+        /**/
+        $user_id = wp_update_user(array('ID'=>$user_id, 'user_pass'=>$password, 'display_name'=>$data['fullname']));
+        $profile = $data['profile'];
+        //$profile['phone_no'] = $data['phone_no'];
+
+        //On success
+        if ( ! is_wp_error( $update ) ) {
+
+            /* $data = array(
+                'xooma_member_id'           => $xooma_member_id,
+                'phone_no'                  => $user_details['phone_no'],
+                'gender'                    => $user_details['gender'],
+                'birth_date'                => $user_details['birth_date'],
+                'timezone'                  => $timezone,
+                'display_name'              => $user->display_name,
+                'user_products'             => $user_products,
+                'user_email'                => $user->user_email,
+                'user_id'                   => $id,
+                'offset'                    => $t
+            );*/
+
+            $user_meta_value = maybe_serialize($profile);
+          /*  $data = array(
+                'xooma_member_id'           => $profile['xooma_member_id'],
+                'phone_no'                  => $profile['phone_no'],
+                'gender'                    => $profile['gender'],
+                'birth_date'                => $profile['birth_date'],
+                'timezone'                  => $timezone,
+                'id'                        => $user_id,
+                );*/
+
+            update_user_meta($user_id, 'xooma_member_id', $profile['xooma_member_id']);
+            
+            update_user_meta($user_id, 'gender', $profile['gender']);
+            update_user_meta($user_id, 'birth_date', $profile['birth_date']);
+            update_user_meta($user_id, 'user_details', $user_meta_value);
+            
+            //wp_set_current_user( $user_id, $data['email']);
+            wp_set_auth_cookie( $user_id, true);
+            return $user_id;
+
+        }
+       return new WP_Error( 'json_user_details_not_updated', __( 'User Could not be Registered.' ));
+
+       //return $user_id;
+    }
+
+    public function get_user_id($data){
+
+        global $wpdb;
+        global $user;
+
+        $useremail = $data['useremail'];
+        $password = $data['password'];
+
+      $user_id = wp_authenticate($useremail, $password);
+
+        if (is_wp_error( $user_id )){
+
+           return new WP_Error( 'json_could_not_be_logged in', __( 'Invalid Login Credentials' ));
+        }
+
+        else
+        {
+            //wp_set_current_user( $user_id, $useremail);
+            /*$table = $wpdb->prefix . "workflow_user";
+            
+            $data = $wpdb->get_results("SELECT * FROM $table WHERE user_id='".$user_id->ID."' order by form_id asc");
+            $number = count($data);
+            if($number == 0){
+                $form_id = 0;
+            }
+            else{
+                foreach ($data as $result) {
+                    $status = $result->status;
+                    $form_id = $result->form_id;
+                        if($status == 'incomplete'){
+                            break;
+                        }
+                        else{
+                            $form_id = 4;
+                        }
+
+                }
+            }*/
+            wp_set_auth_cookie( $user_id->ID, true);
+            //wp_set_auth_cookie( $user_id->ID ,true);
+            //return $form_id."-".$user_id->ID;
+            return $user_id->ID;
+            
+        }
+
+    }
+
 	public function get_user_details($id){
 
 		//get user meta for the user
@@ -112,8 +265,9 @@ class User
         $user_meta_value = maybe_serialize($args);
        
         $xooma_member_id = update_user_meta($args['id'],'xooma_member_id',$args['xooma_member_id']);
+        $birth_date = update_user_meta($args['id'], 'birth_date', $args['birth_date']);
         $user_details = update_user_meta($args['id'],'user_details',$user_meta_value);
-
+            
         $metadata = get_user_meta($args['id'], 'user_details', true);
         if($metadata!=""){
 

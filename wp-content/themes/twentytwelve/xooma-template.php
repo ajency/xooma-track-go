@@ -102,6 +102,9 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/ea-vertical-progress/dist/ea-progress-vertical.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment-timezone/moment-timezone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/localforage/dist/localforage.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/localforage/dist/localforage.nopromises.min.js"></script>
+
 
 <!-- endbuild -->
 
@@ -142,6 +145,8 @@ var x2oMessages = <?php echo json_encode(load_x2o());?>;
 <!-- build:js(*.js) application.js -->
 <?php if ( is_development_environment() ) { ?>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/common.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/signin.js"></script>
+<script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/common/signup.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/xooma/xooma.app.root.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/profile.ctrl.js"></script>
 <script "text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/scripts/profile/personalinfo.ctrl.js"></script>
@@ -204,6 +209,11 @@ window.ParsleyValidator
   	return value.length == requirement;
   })
   .addMessage('en', 'equalTo', 'Enter valid 6 digits Xooma ID')
+
+  .addValidator('equalToNum', function (value, requirement) {
+    return value.length == requirement;
+  })
+  .addMessage('en', 'equalToNum', 'Enter valid 10 digits Phone Number')
 $(document).ready(function() {
 $('.single-item').slick({
 dots: true,

@@ -37,6 +37,9 @@
     <script type="text/javascript" src="bower_components/rrule/lib/nlp.js"></script>
     <script type="text/javascript" src="bower_components/jQuery.mmenu/src/js/jquery.mmenu.min.all.js"></script>
     <script type="text/javascript" src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
+    <script type="text/javascript" src="bower_components/localforage/dist/localforage.min.js"></script>
+    <script type="text/javascript" src="bower_components/localforage/dist/localforage.nopromises.min.js"></script>
+    
     <!-- endbuild -->
 
     <!-- build:js({*.js}) scripts/ajency.js -->
@@ -46,11 +49,18 @@
 
     <script type="text/javascript">
     App = new Marionette.Application();
+
+    //_SITEURL = 'http://www.xooma.ajency.in';
+    //APIURL = _SITEURL + "/wp-json";
+
     APIURL = 'http://localhost/xooma/wp-json';
     _SITEURL = 'http://localhost/xooma';
+
     </script>
     <!-- build:js(*.js) application.js -->
     <script "text/javascript" src="scripts/common/common.js"></script>
+    <script "text/javascript" src="scripts/common/signin.js"></script>
+    <script "text/javascript" src="scripts/common/signup.js"></script>
     <script "text/javascript" src="scripts/xooma/xooma.app.root.ctrl.js"></script>
     <script "text/javascript" src="scripts/profile/ProfilePersonalInfoCtrl.js"></script>
     <script "text/javascript" src="scripts/profile/ProfilePersonalInfoView.js"></script>

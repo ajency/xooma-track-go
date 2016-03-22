@@ -1,6 +1,6 @@
 var ProfileCtrlView,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
 App.state('profile', {
   url: '/profile',
@@ -20,8 +20,8 @@ App.state('profile', {
   parent: 'profile'
 });
 
-ProfileCtrlView = (function(_super) {
-  __extends(ProfileCtrlView, _super);
+ProfileCtrlView = (function(superClass) {
+  extend(ProfileCtrlView, superClass);
 
   function ProfileCtrlView() {
     return ProfileCtrlView.__super__.constructor.apply(this, arguments);
@@ -58,6 +58,9 @@ ProfileCtrlView = (function(_super) {
     if (App.currentUser.get('ID') === void 0 || App.currentUser.get('caps').administrator === true) {
       $('.profile-template').hide();
       $('.menulink').hide();
+    }else{
+      $('.profile-template').show();
+      $('.menulink').show();
     }
     return this.handleMenu;
   };
@@ -118,8 +121,8 @@ ProfileCtrlView = (function(_super) {
 
 })(Marionette.LayoutView);
 
-App.ProfileCtrl = (function(_super) {
-  __extends(ProfileCtrl, _super);
+App.ProfileCtrl = (function(superClass) {
+  extend(ProfileCtrl, superClass);
 
   function ProfileCtrl() {
     return ProfileCtrl.__super__.constructor.apply(this, arguments);
