@@ -104,7 +104,7 @@ class User
             return $user_id;
 
         }
-       return new WP_Error( 'json_user_details_not_updated', __( 'User Could not be Registered.' ));
+       //return new WP_Error( 'json_user_details_not_updated', __( 'User Could not be Registered.' ));
 
        //return $user_id;
     }

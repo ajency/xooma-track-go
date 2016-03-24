@@ -172,7 +172,7 @@ class User_API
 
             $user_model = array();
 
-    if($response === 0){
+    if($response == 0){
         return $user_model;
     }
 
@@ -223,7 +223,7 @@ class User_API
 
     $user_model = array();
 
-    if($response === 0){
+    if($response == 0){
         return $user_model;
     }
 
