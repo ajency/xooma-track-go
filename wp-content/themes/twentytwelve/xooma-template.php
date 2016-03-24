@@ -103,7 +103,6 @@ window.ParsleyConfig = {
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/moment-timezone/moment-timezone.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/localforage/dist/localforage.min.js"></script>
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/xoomaapp/bower_components/localforage/dist/localforage.nopromises.min.js"></script>
 
 
 <!-- endbuild -->
