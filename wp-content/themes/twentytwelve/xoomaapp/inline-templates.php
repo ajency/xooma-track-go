@@ -81,6 +81,7 @@ Products.</h6>
            <a href="#/signup"><button type="button" class="btn-lg btn center-block aj-sign-up-button">Sign Up</button></a>
             <br>
             <br>
+            <!--br-->
             </div>
             
 
