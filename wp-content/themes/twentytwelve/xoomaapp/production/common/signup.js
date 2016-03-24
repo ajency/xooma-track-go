@@ -80,6 +80,7 @@ SignUpView = (function(superClass) {
 
   SignUpView.prototype.onFormSubmit = function(_formData) {
     var pass, repass;
+    console.log(JSON.stringify(_formData));
     this.ui.reError.show().text("");
     $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     pass = $('#password').val();
