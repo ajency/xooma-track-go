@@ -82,6 +82,7 @@ class SignUpView extends Marionette.ItemView
 		console.log window.userData
 		$('.display_name').text(App.currentUser.get('display_name'));
 		$('.user_email').text(App.currentUser.get('user_email'));
+		App.currentUser.set 'state' , '/profile/personal-info'
 		App.navigate '#' + App.currentUser.get('state'), true
 
 
