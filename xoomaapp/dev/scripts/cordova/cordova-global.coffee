@@ -21,12 +21,12 @@ CordovaStorage.publishFeedDialog 'init'
 
 #Xooma URL
 #Test site
-_SITEURL = 'http://www.xooma.ajency.in'
-APIURL   = "#{_SITEURL}/wp-json"
+#_SITEURL = 'http://www.xooma.ajency.in'
+#APIURL   = "#{_SITEURL}/wp-json"
 
 #Live site
-#_SITEURL = 'https://mystory.xoomaworldwide.com'
-#APIURL   = "#{_SITEURL}/?json_route="
+_SITEURL = 'https://mystory.xoomaworldwide.com'
+APIURL   = "#{_SITEURL}/?json_route="
 
 
 
