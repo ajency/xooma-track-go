@@ -27,6 +27,7 @@ ProfilePersonalInfoView = (function(superClass) {
   ProfilePersonalInfoView.prototype.ui = {
     form: '.update_user_details',
     responseMessage: '.aj-response-message',
+    dateElement: 'input[name="profile[birth_date]"]',
     xooma_member_id: '.xooma_member_id',
     timezone: 'input[name="profile[timezone]"]'
   };
@@ -41,12 +42,7 @@ ProfilePersonalInfoView = (function(superClass) {
   };
 
   ProfilePersonalInfoView.prototype.initialize = function() {
-    this.listenTo(App, 'fb:status:connected', function() {
-      if (!App.currentUser.hasProfilePicture()) {
-        return App.currentUser.getFacebookPicture();
-      }
-    });
-    return this.listenTo(App, 'user:status:connected', function() {
+    return this.listenTo(App, 'fb:status:connected', function() {
       if (!App.currentUser.hasProfilePicture()) {
         return App.currentUser.getFacebookPicture();
       }
@@ -90,7 +86,7 @@ ProfilePersonalInfoView = (function(superClass) {
       dateObj = new Date($('#birth_date').val());
       $('#birth_date').prop('readonly', true).click(function() {
         var maxDate, options;
-        maxDate = CordovaApp.isPlatformIOS() ? new Date() : new Date();
+        maxDate = CordovaApp.isPlatformIOS() ? new Date() : (new Date()).valueOf();
         options = {
           mode: 'date',
           date: dateObj,
@@ -121,7 +117,6 @@ ProfilePersonalInfoView = (function(superClass) {
 
   ProfilePersonalInfoView.prototype.onFormSubmit = function(_formData) {
     var id;
-    console.log(_formData);
     $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
     if (App.currentUser.get('caps').administrator === true) {
       console.log(id = this.model.get('profile').user_id);
@@ -161,15 +156,16 @@ ProfilePersonalInfoView = (function(superClass) {
         App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('offset', response.offset);
         this.ui.responseMessage.addClass('alert alert-success').text("Personal Information successfully updated!");
-        return $('html, body').animate({
+        $('html, body').animate({
           scrollTop: 0
         }, 'slow');
       } else {
         App.currentUser.set('profile', response);
         App.currentUser.set('timezone', response.timezone);
         App.currentUser.set('state', '/profile/measurements');
-        return App.navigate('#' + App.currentUser.get('state'), true);
+        App.navigate('#' + App.currentUser.get('state'), true);
       }
+      return App.trigger('cordova:set:user:data');
     }
   };
 

@@ -70,10 +70,5 @@ jQuery(document).ready(function($) {
       return CordovaApp.hideSplashscreen();
     }
   });
-  App.on('ios:header:footer:fix', function() {
-    if (window.isWebView()) {
-      return CordovaApp.headerFooterIOSFix();
-    }
-  });
   return App.start();
 });

@@ -62,10 +62,6 @@ XoomaAppRootView = (function(superClass) {
       $('.profile-template').hide();
       $('.menulink').hide();
     }
-    else{
-      $('.profile-template').show();
-      $('.menulink').show();
-    }
     this.showViews();
     $('.logout-button').on('click', function(e) {
       e.preventDefault();

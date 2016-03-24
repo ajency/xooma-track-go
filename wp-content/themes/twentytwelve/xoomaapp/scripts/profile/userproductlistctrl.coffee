@@ -66,7 +66,7 @@ class ProductChildView extends Marionette.ItemView
 			products = App.currentUser.get 'products'
 			$.ajax
 					method : 'DELETE'
-					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					url : "#{_APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 					success: @successHandler
 					error :@erroraHandler
 
@@ -81,7 +81,7 @@ class ProductChildView extends Marionette.ItemView
 			region =  new Marionette.Region el : '#xoomaproduct'
 			region.show listview
 			
-			
+			App.trigger 'cordova:set:user:data'
 
 			if parseInt(App.useProductColl.length) == 0
 				$('.add1').hide()
@@ -281,6 +281,7 @@ class UserProductListView extends Marionette.CompositeView
 			listview = new XoomaAppRootView
 			region =  new Marionette.Region el : '#xoomaapptemplate'
 			region.show listview
+			App.trigger 'cordova:set:user:data'
 		else
 			window.removeMsg()
 			@ui.responseMessage.addClass('alert alert-danger').text("Sorry!Some error occurred.")

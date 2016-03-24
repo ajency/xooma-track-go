@@ -39,7 +39,7 @@ SettingsView = (function(superClass) {
       data = 'notification=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: APIURL + "/notifications/" + (App.currentUser.get('ID')),
+        url: _APIURL + "/notifications/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successnotiSave,
         error: this.showErr
@@ -58,7 +58,7 @@ SettingsView = (function(superClass) {
       data = 'emails=' + $(e.target).val();
       return $.ajax({
         method: 'POST',
-        url: APIURL + "/emails/" + (App.currentUser.get('ID')),
+        url: _APIURL + "/emails/" + (App.currentUser.get('ID')),
         data: data,
         success: this.successSave,
         error: this.showErr
