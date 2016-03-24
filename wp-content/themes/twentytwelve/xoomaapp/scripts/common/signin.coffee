@@ -3,8 +3,6 @@ App.state 'SignIn',
 				parent : 'xooma'
 
 
-
-
 class SignInView extends Marionette.ItemView
 	class : 'animated fadeIn'
 	template : '#sign_in_template'
