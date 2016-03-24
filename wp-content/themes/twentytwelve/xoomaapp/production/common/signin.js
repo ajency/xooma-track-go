@@ -57,11 +57,11 @@ SignInView = (function(superClass) {
     window.userData = response;
     $('.loadingconusme').html("");
     $('.aj-response-message').addClass('alert alert-success').text("User Logged In Successfully!");
+    App.trigger('cordova:set:user:data');
     App.currentUser.set(window.userData);
     display_name = App.currentUser.get('display_name');
     $('.display_name').text(App.currentUser.get('display_name'));
     $('.user_email').text(App.currentUser.get('user_email'));
-    App.trigger('cordova:set:user:data');
     if (App.currentUser.get('state') === '/home') {
       $('.link').show();
     }

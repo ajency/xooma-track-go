@@ -54,7 +54,7 @@ class SignUpView extends Marionette.ItemView
 
 
 	onFormSubmit: (_formData)->
-		#console.log JSON.stringify _formData
+		console.log JSON.stringify _formData
 		@ui.reError.show().text("")
 		$('.loadingconusme').html '<img src="'+_SITEURL+'/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">'
 		pass = $('#password').val()
