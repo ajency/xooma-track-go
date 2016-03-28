@@ -39,6 +39,7 @@ class SignInView extends Marionette.ItemView
 
 	_successHandler: (response)->
 		#console.log response+ " - response"
+		#console.log response.status+" -response"
 		window.userData = response
 		#console.log window.userData
 		$('.loadingconusme').html ""
@@ -48,13 +49,14 @@ class SignInView extends Marionette.ItemView
 		display_name = App.currentUser.get('display_name')
 		$('.display_name').text(App.currentUser.get('display_name'))
 		$('.user_email').text(App.currentUser.get('user_email'))
-		App.trigger 'cordova:set:user:data'
+		#App.trigger 'cordova:set:user:data'
 		#CordovaStorage.setUserData window.userData
 		#console.log App.currentUser.get('ID')
 		#localforage.setItem('user_reg_id', App.currentUser.get('ID'),'')
 		#localforage.setItem('user_reg_id', App.currentUser.get('ID')).then('user_reg_id')
 		if App.currentUser.get('state') == '/home'
         	$('.link').show()
+        #App.currentUser.set 'state' , '/profile/personal-info'
 		App.navigate '#' + App.currentUser.get('state'), true
 
 
