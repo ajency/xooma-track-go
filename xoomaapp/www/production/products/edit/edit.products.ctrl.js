@@ -607,7 +607,7 @@ App.EditProductsCtrl = (function(superClass) {
       });
     } else {
       productModel = App.productCollection.where({
-        id: productId[0]
+        id: product
       });
       return this._showView(productModel[0]);
     }

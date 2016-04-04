@@ -555,7 +555,7 @@ class App.EditProductsCtrl extends Ajency.RegionController
 				success: @successHandler
 				error :@erroraHandler
 		else 
-			productModel = App.productCollection.where({id:productId[0]})
+			productModel = App.productCollection.where({id:product})
 			@_showView(productModel[0])
 		
 
