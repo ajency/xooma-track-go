@@ -166,7 +166,7 @@ class EditProductsView extends Marionette.ItemView
 			product = @model.get('id')
 			$.ajax
 				method : 'POST'
-				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+				url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 				data : data
 				success : @successSave
 				error : @errorSave
@@ -196,7 +196,7 @@ class EditProductsView extends Marionette.ItemView
 		product = model.get('id')
 		$.ajax
 			method : 'POST'
-			url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+			url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 			data : data
 			success : @successSave
 			error : @errorSave
@@ -380,10 +380,12 @@ class EditProductsView extends Marionette.ItemView
 	
 
 	onShow:->
+		console.log @model.get('id')
 		product = parseInt @model.get('id')
 		products = App.currentUser.get 'products'
 		$('#homeDate').val App.currentUser.get('homeDate')
 		@checkMode()
+		App.trigger 'ios:header:footer:fix'
 
 		if !window.isWebView()
 			$('.input-small').timepicker(
@@ -541,38 +543,49 @@ class EditProductsView extends Marionette.ItemView
 
 
 class App.EditProductsCtrl extends Ajency.RegionController
+	console.log "EditProductsCtrl"
 	initialize : (options = {})->
 		@show @parent().getLLoadingView()
 		productId  = @getParams()
 		product = parseInt productId[0]
+		console.log "this is product id" + product
+		console.log "ede" + productId
+
 		products = App.currentUser.get 'products'
 		
 		if $.inArray( product, products ) > -1 || App.productCollection.length == 0
+			console.log "if loop"
 			$.ajax
 				method : 'GET'
-				url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+				url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 				success: @successHandler
 				error :@erroraHandler
 		else 
-			productModel = App.productCollection.where({id:productId[0]})
+			console.log "else loop here: "
+			productModel = App.productCollection.where({id:product})
+			console.log productModel
 			@_showView(productModel[0])
 		
 
 
 	_showView:(productModel)->
+		console.log "product model array"
 		console.log productModel
 		@show new EditProductsView
 					model : productModel
 
 
 	successHandler:(response,status,xhr)=>
+		console.log "navigates here"
 		if xhr.status == 200
 			pid = App.productCollection.where({id:response.id})
 			model = new Backbone.Model response
 			@_showView(model)
 		else
+			console.log "else of success handler"
 			@region =  new Marionette.Region el : '#edit-product-template'
 			new Ajency.NothingFoundCtrl region : @region
 
 	erroraHandler:(response,status,xhr)=>
+		console.log "erroraHandler here"
 		App.navigate "#/products" , true

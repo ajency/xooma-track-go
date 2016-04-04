@@ -38,7 +38,7 @@ ProductChildView = (function(superClass) {
       products = App.currentUser.get('products');
       return $.ajax({
         method: 'DELETE',
-        url: _SITEURL + "/wp-json/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.successHandler,
         error: this.erroraHandler
       });

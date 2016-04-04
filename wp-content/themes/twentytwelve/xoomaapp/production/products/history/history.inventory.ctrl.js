@@ -100,7 +100,7 @@ App.ViewInventoryCtrl = (function(superClass) {
     product = model.get('id');
     return $.ajax({
       method: 'GET',
-      url: _SITEURL + "/wp-json/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
+      url: APIURL + "/inventory/" + (App.currentUser.get('ID')) + "/products/" + product,
       success: this.successHandler,
       error: this.errorHandler
     });
