@@ -115,7 +115,7 @@ ViewProductHistoryView = (function(superClass) {
     return $.ajax({
       method: 'GET',
       data: 'date=' + date,
-      url: _SITEURL + "/wp-json/history/" + (App.currentUser.get('ID')) + "/products/" + product,
+      url: APIURL + "/history/" + (App.currentUser.get('ID')) + "/products/" + product,
       success: this.successHandler,
       error: this.errorHandler
     });

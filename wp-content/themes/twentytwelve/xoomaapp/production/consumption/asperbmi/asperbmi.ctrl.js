@@ -29,7 +29,7 @@ AsperbmiView = (function(superClass) {
 
   AsperbmiView.prototype.events = {
     'click #confirm': function(e) {
-      var currentime, date, meta_id, product, qty, s, t, time, todays_date;
+      var currentime, date, id, meta_id, product, qty, s, t, time, todays_date;
       $('.loadingconusme').html('<img src="' + _SITEURL + '/wp-content/themes/twentytwelve/xoomaapp/images/ajax-loader.gif" width="40px">');
       e.preventDefault();
       meta_id = this.$el.find('#meta_id').val();
@@ -59,10 +59,11 @@ AsperbmiView = (function(superClass) {
       s = moment(todays_date + currentime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
       t = $('#consume_time').val();
       time = moment(t, "hh:mm A").format("HH:mm:ss");
+      id = App.currentUser.get('ID');
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
-        url: _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/intakes/" + id + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });

@@ -43,10 +43,11 @@ class AsperbmiView extends Marionette.ItemView
 			
 			t = $('#consume_time').val()
 			time  = moment(t,"hh:mm A").format("HH:mm:ss")
+			id= App.currentUser.get('ID')
 			$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
-						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+						url : APIURL+"/intakes/"+id+"/products/"+product
 						success: @saveHandler
 						error :@erroraHandler
 

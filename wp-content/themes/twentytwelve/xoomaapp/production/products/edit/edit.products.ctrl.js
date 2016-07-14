@@ -415,7 +415,6 @@ EditProductsView = (function(superClass) {
 
   EditProductsView.prototype.onShow = function() {
     var container, product, products, qty, reminder_flag, weight, weightbmi;
-    console.log(this.model.get('id'));
     product = parseInt(this.model.get('id'));
     products = App.currentUser.get('products');
     $('#homeDate').val(App.currentUser.get('homeDate'));
@@ -590,8 +589,6 @@ App.EditProductsCtrl = (function(superClass) {
     return EditProductsCtrl.__super__.constructor.apply(this, arguments);
   }
 
-  console.log("EditProductsCtrl");
-
   EditProductsCtrl.prototype.initialize = function(options) {
     var product, productId, productModel, products;
     if (options == null) {
@@ -600,11 +597,8 @@ App.EditProductsCtrl = (function(superClass) {
     this.show(this.parent().getLLoadingView());
     productId = this.getParams();
     product = parseInt(productId[0]);
-    console.log("this is product id" + product);
-    console.log("ede" + productId);
     products = App.currentUser.get('products');
     if ($.inArray(product, products) > -1 || App.productCollection.length === 0) {
-      console.log("if loop");
       return $.ajax({
         method: 'GET',
         url: APIURL + "/trackers/" + (App.currentUser.get('ID')) + "/products/" + product,
@@ -612,17 +606,14 @@ App.EditProductsCtrl = (function(superClass) {
         error: this.erroraHandler
       });
     } else {
-      console.log("else loop here: ");
       productModel = App.productCollection.where({
-        id: product
+        id: productId[0]
       });
-      console.log(productModel);
       return this._showView(productModel[0]);
     }
   };
 
   EditProductsCtrl.prototype._showView = function(productModel) {
-    console.log("product model array");
     console.log(productModel);
     return this.show(new EditProductsView({
       model: productModel
@@ -631,7 +622,6 @@ App.EditProductsCtrl = (function(superClass) {
 
   EditProductsCtrl.prototype.successHandler = function(response, status, xhr) {
     var model, pid;
-    console.log("navigates here");
     if (xhr.status === 200) {
       pid = App.productCollection.where({
         id: response.id
@@ -639,7 +629,6 @@ App.EditProductsCtrl = (function(superClass) {
       model = new Backbone.Model(response);
       return this._showView(model);
     } else {
-      console.log("else of success handler");
       this.region = new Marionette.Region({
         el: '#edit-product-template'
       });
@@ -650,7 +639,6 @@ App.EditProductsCtrl = (function(superClass) {
   };
 
   EditProductsCtrl.prototype.erroraHandler = function(response, status, xhr) {
-    console.log("erroraHandler here");
     return App.navigate("#/products", true);
   };
 

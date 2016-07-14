@@ -66,7 +66,7 @@ class ProductChildView extends Marionette.ItemView
 			products = App.currentUser.get 'products'
 			$.ajax
 					method : 'DELETE'
-					url : "#{_SITEURL}/wp-json/trackers/#{App.currentUser.get('ID')}/products/#{product}"
+					url : "#{APIURL}/trackers/#{App.currentUser.get('ID')}/products/#{product}"
 					success: @successHandler
 					error :@erroraHandler
 
