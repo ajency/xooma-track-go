@@ -98,6 +98,10 @@ class CommunicationModule{
                 // hook function to be configured in the wp-crontrol plugin settings
                 
                 add_action("ajcm_process_communication_queue", array($this, "cron_process_communication_queue"),10,2);
+
+                //html emails
+                #add_filter( 'wp_mail_content_type','wpse27856_set_content_type' );
+
                 
                 // hook function to register plugin defined and theme defined components
                 add_action("init", array($this, "register_components"));
@@ -652,10 +656,10 @@ class CommunicationModule{
          */
         public function cron_process_communication_queue($component='',$comm_type=''){
             global $wpdb;
+            
            
            // get all the communications which are needed to be processed 
            $pending_comms = $this->get_communications('queued',$component,$comm_type);
-           
            // loop through the pending communications and call process communication function
            foreach ($pending_comms as $comm){
                $comm_data  = $this->get_communication_data($comm);
@@ -758,7 +762,9 @@ class CommunicationModule{
             if(!empty($recipients_email)){
                 //$template_data = $this->get_template_details($recipients_email,$comm_data);
                 $template_data = $this->get_email_template_details($recipients_email,$comm_data);
-                $this->send_recipient_email($recipients_email,$comm_data,'mandrill',$template_data);
+
+                //replace 'mandrill' with 'smtp' and create a case
+                $this->send_recipient_email($recipients_email,$comm_data,'smtp',$template_data);
             }
             
             if(!empty($recipients_sms)){
@@ -904,10 +910,223 @@ class CommunicationModule{
                     
                     }
                     break;
+                case "smtp":
+                	
+                	$headers = array('Content-Type: text/html; charset=UTF-8');
+                	$subject = $template_data['subject'];
+
+                	if($comm_data['communication_type'] == 'xooma_admin_email'){
+                		$to = 'odrica.coutinho@gmail.com';
+                		#$to = 'zack@xoomaworldwide.com';
+
+                		$message = "<div>A new user has been registered to Xooma track and go!<br>Name : ". $template_data['global_merge_vars']['0']['content'] ."<br>Email : ". $template_data['global_merge_vars']['1']['content'] ."<br>Xooma ID : ". $template_data['global_merge_vars']['2']['content'] ."<br>Registered on : ". $template_data['global_merge_vars']['3']['content'] ."<br>Url : ". $template_data['global_merge_vars']['4']['content'] ."<br><br>Team Xooma.</div>";
+                	}
+
+
+                	if($comm_data['communication_type'] == 'xooma_user_email'){
+                		$to = $recipients_email[0]->value;
+                		$message = '<div style="margin:0 auto;background:#3099ea;padding:20px;width: 750px;">
+    						<div style="max-width:600px;margin:auto">
+      						<div style="text-align:center;margin:0;margin-top:20px;margin-bottom:20px;color:#b8b8b8"><img src="https://ci3.googleusercontent.com/proxy/2R5wPkvgs4AudqF5KhJiu22CwJi84UMdXQLNToRo6QWipEaX_s41KEATVpY4XUILZ8x54-0QV9fVMMP6_KY-mQ3t5no41U5ZntDSXp_hsbPN1G_a_L1CIxbh-ZvucoB6aOM-0sRbPUmy69sn8_FkOg=s0-d-e1-ft#https://mystory.xoomaworldwide.com/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" alt="Xooma" class="CToWUd"></div>
+
+
+      						<div style="border-radius:10px;clear:both;margin:0px;background:white;border:0px;font:14px/19px Helvetica,sans-serif;padding:20px 40px 25px;border:1px solid #ddd">
+
+
+        					<h1 style="font-weight:normal;padding-top:2px;min-height:64px;font:bold 25px/30px HelveticaNeue-Light,\'Helvetica Neue Light\',sans-serif;text-align:center;color:#616161">Thank you for registering with Xooma Track & Go!</h1>
+
+        					<p style="text-align:center;color:#616161;padding:0px 90px">You have created your very own Xooma Track & Go account with the following details
+        					</p>
+
+        					<p style="text-align:center;color:#616161;padding:0px 90px">Email :'.$template_data['global_merge_vars']['1']['content'].'<br>
+								Name : '.$template_data['global_merge_vars']['0']['content'].'<br>
+								Registered on : '.$template_data['global_merge_vars']['3']['content'].'
+							</p>
+
+      						<p style="text-align:center;color:#616161;padding:0px 90px">You’ve discovered the best-kept secret in the wellness industry! 
+								Your next step is to complete the profile (<a href="https://mystory.xoomaworldwide.com/xooma-app/#profile/personal-info">https://mystory.xoomaworldwide.com/xooma-app/#profile/personal-info</a> ) in order to monitor your progress on Xooma products. 
+								As Xooma products continues to grow and positively impact the lives of countless people around the world, we welcome you to join us in our mission to Change the Health of a Generation. Xooma Track & Go is designed to monitor your intake of Xooma supplements providing you with timely notifications of your servings and thus helping you make the most from our Xooma products. Timely reminders on the inventory ensures you never hit bottom for any of our products. 
+        					</p>
+
+      						<p style="text-align:center;color:#616161">
+        					<br><br>
+        					Change your Water ... Change your Life
+        					<br><br>
+        					Regards,
+        					Team Xooma
+      						</p>
+      						<a href="https://mystory.xoomaworldwide.com/xooma-app/#profile/personal-info" style="font-size:15px;color:white;text-decoration:none;display:block;padding:10px 16px;background:#f76d3e;border-radius:5px;margin:20px auto;max-width:160px;text-align:center" target="_blank">Complete your profile</a>
+    						</div>
+    						<div style="clear:both;margin:0px;">
+								<p style="text-align:center;color:#fff;font:12px/19px Helvetica,sans-serif;">You received this email because you are a registered Xooma user. We occasionally send system alerts with account information, planned outages, system improvements, and important customer-service updates. We will keep them brief and useful. Promise.</p>
+								<p style="text-align:center;color:#fff;font:13px/19px Helvetica,sans-serif;">©2016 Xooma. All Rights Reserved.<br>
+								<a href="https://mystory.xoomaworldwide.com/?page_id=1114">Log In to Xooma·</a><br>
+								</p>
+							</div>
+  							</div>';
+                	}
+
+
+                	if($comm_data['communication_type'] == 'stock_low_email'){
+                		$to = $recipients_email[0]->value;
+                		$message = '<div style="margin:0 auto;background:#3099ea;padding:20px;width: 750px;">
+    						<div style="max-width:600px;margin:auto">
+      						<div style="text-align:center;margin:0;margin-top:20px;margin-bottom:20px;color:#b8b8b8"><img src="https://ci3.googleusercontent.com/proxy/2R5wPkvgs4AudqF5KhJiu22CwJi84UMdXQLNToRo6QWipEaX_s41KEATVpY4XUILZ8x54-0QV9fVMMP6_KY-mQ3t5no41U5ZntDSXp_hsbPN1G_a_L1CIxbh-ZvucoB6aOM-0sRbPUmy69sn8_FkOg=s0-d-e1-ft#https://mystory.xoomaworldwide.com/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" alt="Xooma" class="CToWUd"></div>
+
+
+      						<div style="border-radius:10px;clear:both;margin:0px;background:white;border:0px;font:14px/19px Helvetica,sans-serif;padding:20px 40px 25px;border:1px solid #ddd">
+
+
+        					<h1 style="font-weight:normal;padding-top:2px;min-height:64px;font:bold 25px/30px HelveticaNeue-Light,\'Helvetica Neue Light\',sans-serif;text-align:center;color:#616161">You need to get your Xooma stock refilled to continue with you fabulous progress.</h1>
+
+        					<p style="text-align:center;color:#616161;padding:0px 90px">Your inventory is as follows:
+        					</p>
+
+        					<table cellpadding="10px" cellspacing="0" style="text-align:left" border="1px" width="100%">
+          					<tbody><tr>
+            				<td width="40%"><b>'.$template_data["global_merge_vars"]["1"]["content"].'</b></td> 
+            				<td width="60%"><p style="text-align:center;font-size:15px;color:#3099ea;margin:0px">'.$template_data["global_merge_vars"]["2"]["content"].'</p></td>  
+         	 				</tr>
+
+        					</tbody>
+      						</table>
+
+      						<p style="text-align:center;color:#616161;padding:0px 90px">You’ve discovered the best-kept secret in the wellness industry! 
+								Your next step is to complete the profile (http://localhost/xooma/xooma-app/#/profile/personal-info ) in order to monitor your progress on Xooma products. 
+								As Xooma products continues to grow and positively impact the lives of countless people around the world, we welcome you to join us in our mission to Change the Health of a Generation. Xooma Track & Go is designed to monitor your intake of Xooma supplements providing you with timely notifications of your servings and thus helping you make the most from our Xooma products. Timely reminders on the inventory ensures you never hit bottom for any of our products. 
+        					</p>
+
+      						<p style="text-align:center;color:#616161">
+        					<br><br>
+        					Change your Water ... Change your Life
+        					<br><br>
+        					Regards,
+        					Team Xooma
+      						</p>
+    						</div>
+    						<div style="clear:both;margin:0px;">
+								<p style="text-align:center;color:#fff;font:12px/19px Helvetica,sans-serif;">You received this email because you are a registered Xooma user. We occasionally send system alerts with account information, planned outages, system improvements, and important customer-service updates. We will keep them brief and useful. Promise.</p>
+								<p style="text-align:center;color:#fff;font:13px/19px Helvetica,sans-serif;">©2016 Xooma. All Rights Reserved.<br>
+								<a href="https://mystory.xoomaworldwide.com/?page_id=1114">Log In to Xooma·</a><br>
+								</p>
+							</div>
+  							</div>';
+                	}
+
+                	if($comm_data['communication_type'] == 'stock_over_email'){
+                		$to = $recipients_email[0]->value;
+                		$message = '<div style="margin:0 auto;background:#3099ea;padding:20px;width: 750px;">
+    						<div style="max-width:600px;margin:auto">
+      						<div style="text-align:center;margin:0;margin-top:20px;margin-bottom:20px;color:#b8b8b8"><img src="https://ci3.googleusercontent.com/proxy/2R5wPkvgs4AudqF5KhJiu22CwJi84UMdXQLNToRo6QWipEaX_s41KEATVpY4XUILZ8x54-0QV9fVMMP6_KY-mQ3t5no41U5ZntDSXp_hsbPN1G_a_L1CIxbh-ZvucoB6aOM-0sRbPUmy69sn8_FkOg=s0-d-e1-ft#https://mystory.xoomaworldwide.com/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" alt="Xooma" class="CToWUd"></div>
+
+
+      						<div style="border-radius:10px;clear:both;margin:0px;background:white;border:0px;font:14px/19px Helvetica,sans-serif;padding:20px 40px 25px;border:1px solid #ddd">
+
+
+        					<h1 style="font-weight:normal;padding-top:2px;min-height:64px;font:bold 25px/30px HelveticaNeue-Light,\'Helvetica Neue Light\',sans-serif;text-align:center;color:#616161">You need to get your Xooma stock refilled to continue with you fabulous progress.</h1>
+
+        					<p style="text-align:center;color:#616161;padding:0px 90px">Get your stock refilled at the earliest.<br>
+        					Your inventory is as follows:
+        					</p>
+
+        					<table cellpadding="10px" cellspacing="0" style="text-align:left" border="1px" width="100%">
+          					<tbody><tr>
+            				<td width="40%"><b>'.$template_data["global_merge_vars"]["0"]["content"].'</b></td> 
+            				<td width="60%"><p style="text-align:center;font-size:15px;color:#3099ea;margin:0px">'.$template_data["global_merge_vars"]["1"]["content"].'</p></td>  
+         	 				</tr>
+
+        					</tbody>
+      						</table>
+
+      						<p style="text-align:center;color:#616161">
+        					<br><br>
+        					Change your Water ... Change your Life
+        					<br><br>
+        					Regards,
+        					Team Xooma
+      						</p>
+    						</div>
+    						<div style="clear:both;margin:0px;">
+								<p style="text-align:center;color:#fff;font:12px/19px Helvetica,sans-serif;">You received this email because you are a registered Xooma user. We occasionally send system alerts with account information, planned outages, system improvements, and important customer-service updates. We will keep them brief and useful. Promise.</p>
+								<p style="text-align:center;color:#fff;font:13px/19px Helvetica,sans-serif;">©2016 Xooma. All Rights Reserved.<br>
+								<a href="https://mystory.xoomaworldwide.com/?page_id=1114">Log In to Xooma·</a><br>
+								</p>
+							</div>
+  							</div>';
+                	}
+
+                	if($comm_data['communication_type'] == 'add_product_email'){
+                		$to = $recipients_email[0]->value;
+                		$message = '<div style="margin:0 auto;background:#3099ea;padding:20px;width: 750px;">
+    						<div style="max-width:600px;margin:auto">
+      						<div style="text-align:center;margin:0;margin-top:20px;margin-bottom:20px;color:#b8b8b8"><img src="https://ci3.googleusercontent.com/proxy/2R5wPkvgs4AudqF5KhJiu22CwJi84UMdXQLNToRo6QWipEaX_s41KEATVpY4XUILZ8x54-0QV9fVMMP6_KY-mQ3t5no41U5ZntDSXp_hsbPN1G_a_L1CIxbh-ZvucoB6aOM-0sRbPUmy69sn8_FkOg=s0-d-e1-ft#https://mystory.xoomaworldwide.com/wp-content/themes/twentytwelve/xoomaapp/images/logo.png" alt="Xooma" class="CToWUd"></div>
+
+
+      						<div style="border-radius:10px;clear:both;margin:0px;background:white;border:0px;font:14px/19px Helvetica,sans-serif;padding:20px 40px 25px;border:1px solid #ddd">
+
+
+        					<h1 style="font-weight:normal;padding-top:2px;min-height:64px;font:bold 25px/30px HelveticaNeue-Light,\'Helvetica Neue Light\',sans-serif;text-align:center;color:#616161">Following product has been added.</h1>
+
+        					<p style="text-align:center;color:#616161;padding:0px 90px"> Hi,
+          						Our continuous efforts to serve you the best  makes us launch new cutting-edge health and wellness products that can only be described one way – life-changing!
+          						With years of scientific research, studies and development, we offer amazing products backed by world class research and high manufacturing standards. This commitment to quality and product integrity is why so many people around the world love Xooma’s products
+          						We bring to you this amazing new products
+        					</p>
+
+        					<table cellpadding="10px" cellspacing="0" style="text-align:left" border="1px" width="100%">
+          						<tbody>
+          						<tr>
+            						<td width="40%"><b>'.$template_data["global_merge_vars"]["0"]["content"].'</b></td> 
+            						<td width="60%"><p style="text-align:center;font-size:15px;color:#3099ea;margin:0px">'.$template_data["global_merge_vars"]["1"]["content"].'</p></td>  
+          						</tr>
+
+        						</tbody>
+      						</table>
+
+      						<p style="text-align:center;color:#616161">
+        					<br><br>
+        					Change your Water ... Change your Life
+        					<br><br>
+        					Regards,
+        					Team Xooma
+      						</p>
+    						</div>
+    						<div style="clear:both;margin:0px;">
+								<p style="text-align:center;color:#fff;font:12px/19px Helvetica,sans-serif;">You received this email because you are a registered Xooma user. We occasionally send system alerts with account information, planned outages, system improvements, and important customer-service updates. We will keep them brief and useful. Promise.</p>
+								<p style="text-align:center;color:#fff;font:13px/19px Helvetica,sans-serif;">©2016 Xooma. All Rights Reserved.<br>
+								<a href="https://mystory.xoomaworldwide.com/?page_id=1114">Log In to Xooma·</a><br>
+								</p>
+							</div>
+  							</div>';
+                	}
+
+                	if(wp_mail($to, $subject, $message, $headers)){
+
+                	add_filter('wp_mail_content_type',create_function('', 'return "text/html"; '));
+
+                		global $wpdb;
+
+                		//status
+                		$q = $wpdb->update($wpdb->ajcm_recipients,array('thirdparty_id'=>'smtp','status'=>'sent','reject_reason'=>''),
+                                            array('id'=>$recipients_email[0]->id));
+                		
+                		//proccesed time
+                		$r = $wpdb->update($wpdb->ajcm_communications,array('processed'=>current_time( 'mysql', true )),
+                                            array('id'=>$comm_data['id']));
+              		}
+                	
+                	
+	                
+                break;
+
                 default:
                     break;
             }
         }
+
+        public function wpse27856_set_content_type(){
+    					return "text/html";
+		}
         
         public function send_recipient_sms($recipient,$comm_data){
            //TODO function to send sms to recipient 
@@ -1029,7 +1248,7 @@ class CommunicationModule{
            
            if(! $this->valid_mandrill_api_key_exists()){?>
             <div class="error">
-               <p>Please enter a valid mandrill api key in Communication Module setting. </p>
+               <p>Mandrill is no longer used to send emails, emails will be sent from odorica@ajency.in</p>
            </div>              
            <?php } 
            elseif (!empty($invalid_components)){ ?>
