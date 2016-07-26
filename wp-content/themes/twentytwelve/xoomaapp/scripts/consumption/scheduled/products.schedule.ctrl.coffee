@@ -100,7 +100,7 @@ class ScheduleView extends Marionette.ItemView
 				$.ajax
 						method : 'POST'
 						data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
-						url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+						url : "#{APIURL}/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 						success: @saveHandler
 						error :@erroraHandler
 
@@ -127,7 +127,7 @@ class ScheduleView extends Marionette.ItemView
 			$.ajax
 					method : 'POST'
 					data : 'meta_id='+meta_id+'&qty='+qty+'&date='+date+'&time='+time
-					url : "#{_SITEURL}/wp-json/intakes/#{App.currentUser.get('ID')}/products/#{product}"
+					url : "#{APIURL}/intakes/#{App.currentUser.get('ID')}/products/#{product}"
 					success: @saveHandler
 					error :@erroraHandler
 			

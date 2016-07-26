@@ -16,6 +16,7 @@
 
 class ProductList
 {
+	//const USER_ERROR_DIR = './error_log'; 
 	public function get_products($term_id){
 
 		//TODO: remove dummy response
@@ -60,6 +61,10 @@ class ProductList
 
 
 		}
+		/*else{
+			error_log("This is message 29-03-92",3, self::USER_ERROR_DIR);
+			return null;
+		}*/
 
 		$terms_array = array();
 

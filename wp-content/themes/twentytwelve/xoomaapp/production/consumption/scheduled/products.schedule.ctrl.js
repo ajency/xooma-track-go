@@ -115,7 +115,7 @@ ScheduleView = (function(superClass) {
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
-        url: _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });
@@ -137,7 +137,7 @@ ScheduleView = (function(superClass) {
       return $.ajax({
         method: 'POST',
         data: 'meta_id=' + meta_id + '&qty=' + qty + '&date=' + date + '&time=' + time,
-        url: _SITEURL + "/wp-json/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
+        url: APIURL + "/intakes/" + (App.currentUser.get('ID')) + "/products/" + product,
         success: this.saveHandler,
         error: this.erroraHandler
       });

@@ -200,7 +200,7 @@ class User_API
     public function xooma_user_login($data){
 
         global $user;
-
+        global $aj_workflow;
         $response = $user->get_user_id($data);
 
 
@@ -241,7 +241,76 @@ class User_API
 
     $user_model->ID = (int) $user_data->ID;
 
-    return apply_filters( 'default_user_model', $user_model );
+    //return apply_filters( 'default_user_model', $user_model );
+
+        $user = new User();
+        $args = array(
+                'name'    => 'login',
+
+        );
+        $status = array(
+                'default'   => 'incomplete',
+                'complete'  => 'complete'
+
+
+            );
+        $aj_workflow->workflow_insert_main($args,$status);
+
+        //call workflow function
+
+        $state = $aj_workflow->workflow_needed($user_model->ID);
+
+        //call workflow function
+        //workflow plugin code
+        $products = get_user_products($user_model->ID);
+
+        $user_data = $user->get_user_details($user_model->ID);
+
+        $user_model->state = $state;
+
+        $user_model->products = $products;
+
+        
+        $t = "";
+        $timezone  = "America/New_York";
+        if($user_data['timezone']!="" && $user_data['timezone']!=null)
+        {
+            $dateTimeZoneTaipei = new DateTimeZone($user_data['timezone']);
+            $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+            $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+            $t =  $dateTimeTaipei->format('P');
+            $timezone  = $user_data['timezone'];
+            
+
+        }
+        else
+        {
+            $dateTimeZoneTaipei = new DateTimeZone($timezone);
+            $dateTimeTaipei = new DateTime("now", $dateTimeZoneTaipei);
+            $timeOffset = $dateTimeZoneTaipei->getOffset($dateTimeTaipei)/ 3600;
+            $t =  $dateTimeTaipei->format('P');
+            
+        }
+ 
+        
+
+        $user_model->timezone = $timezone;
+
+
+        $user_model->offset = $t;
+
+        $user_model->notification = get_user_meta($user_model->ID,'notification',true);
+
+        $user_model->emails = get_user_meta($user_model->ID,'emails',true);
+
+        
+
+
+
+
+
+        return $user_model;
+    //return $user_model;
     }
 
     public function xooma_get_user_profile_details($id){

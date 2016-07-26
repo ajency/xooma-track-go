@@ -67,7 +67,7 @@ class App.ViewInventoryCtrl extends Ajency.RegionController
 		product = model.get('id')
 		$.ajax
 			method : 'GET'
-			url : "#{_SITEURL}/wp-json/inventory/#{App.currentUser.get('ID')}/products/#{product}"
+			url : "#{APIURL}/inventory/#{App.currentUser.get('ID')}/products/#{product}"
 			success : @successHandler
 			error : @errorHandler	
 

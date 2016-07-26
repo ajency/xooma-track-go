@@ -65,7 +65,7 @@ MeasurementHistoryView = (function(superClass) {
     return $.ajax({
       method: 'GET',
       data: 'date=' + date,
-      url: _SITEURL + "/wp-json/measurements/" + (App.currentUser.get('ID')) + "/history",
+      url: APIURL + "/measurements/" + (App.currentUser.get('ID')) + "/history",
       success: this.successHandler,
       error: this.errorHandler
     });
