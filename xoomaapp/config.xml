@@ -8,16 +8,17 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="1500" />
     <preference name="FadeSplashScreen" value="false" />
-
-    <icon src="xooma_assets/Resources/icon_ios.png" platform="ios" width="57" height="57" density="mdpi" />
-    <icon src="xooma_assets/Resources/icon_android.png" platform="android" width="57" height="57" 
-    density="mdpi" />
-    <splash src="xooma_assets/Resources/splash.png"/>
-
+    <preference name="android-build-tool" value="gradle" />
+    <preference name="ParseAppId" value="fQBYzCQ6rmU8cTbwBUX5vFqtujZTugSmOPOvm2Tf"/>
+    <preference name="ParseClientKey" value="reAavTNAeqb533EiuF0nAK2zl81Wk23gbTnRStz2"/>
+    <preference name="ParseServerUrl" value="PARSE_DOT_COM"/>
+    <preference name="ParseAutoRegistration" value="false" />
+    <icon density="mdpi" height="57" platform="ios" src="xooma_assets/Resources/icon_ios.png" width="57" />
+    <icon density="mdpi" height="57" platform="android" src="xooma_assets/Resources/icon_android.png" width="57" />
+    <splash src="xooma_assets/Resources/splash.png" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -33,4 +34,8 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <!-- for Android -->
+    <feature name="Toast">
+      <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
 </widget>

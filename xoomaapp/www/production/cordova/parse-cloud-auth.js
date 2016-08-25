@@ -49,7 +49,7 @@ ParseCloud = {
   getInstallationId: function() {
     var defer;
     defer = $.Deferred();
-    parsePlugin.getInstallationId(function(installationId) {
+    ParsePushPlugin.getInstallationId(function(installationId) {
       return defer.resolve(installationId);
     }, function(error) {
       return defer.reject(error);

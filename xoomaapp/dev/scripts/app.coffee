@@ -97,9 +97,12 @@ document.addEventListener "deviceready", ->
 		if not App.currentUser.hasProfilePicture()
 			App.currentUser.getFacebookPicture()
 
-	App.on 'cordova:register:push:notification', ->
+	# App.on 'cordova:register:push:notification', ->
+	# 	Push.register() if window.isWebView()
+	ParsePushPlugin.on 'receivePN', (pn) ->
+		console.log 'yo i got this push notification:' + JSON.stringify(pn)
 		Push.register() if window.isWebView()
-
+		
 	App.on 'cordova:set:user:data', ->
 		CordovaStorage.setUserData(App.currentUser.toJSON()) if window.isWebView()
 

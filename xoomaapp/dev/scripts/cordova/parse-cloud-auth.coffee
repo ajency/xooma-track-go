@@ -55,7 +55,7 @@
 		getInstallationId : ->
 			defer = $.Deferred()
 
-			parsePlugin.getInstallationId (installationId)-> 
+			ParsePushPlugin.getInstallationId (installationId)-> 
 				defer.resolve installationId
 			, (error) ->
 				defer.reject error

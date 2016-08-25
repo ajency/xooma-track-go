@@ -144,7 +144,7 @@ unless window.cordova
 		if not window.FB and $("#fb-root").length > 0
 			console.log "launching FB SDK"
 			e = document.createElement("script")
-			e.src = document.location.protocol + "//connect.facebook.net/en_US/sdk.js"
+			e.src = "https://connect.facebook.net/en_US/sdk.js"
 			e.async = true
 			document.getElementById("fb-root").appendChild e
 		return

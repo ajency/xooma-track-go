@@ -42,7 +42,7 @@
 		register : ->
 			defer = $.Deferred()
 
-			parsePlugin.initialize APP_ID, CLIENT_KEY, ->
+			ParsePushPlugin.initialize APP_ID, CLIENT_KEY, ->
 				defer.resolve Push.bindPushNotificationEvents()
 			, (e)->
 				defer.reject e
@@ -51,7 +51,7 @@
 
 
 		bindPushNotificationEvents : ->
-			@pushNotification = window.plugins.pushNotification
+			@pushNotification = window.ParsePushPlugin
 
 			if CordovaApp.isPlatformAndroid() then @bindGCMEventListener()
 			else if CordovaApp.isPlatformIOS() then @bindAPNSEventListener()

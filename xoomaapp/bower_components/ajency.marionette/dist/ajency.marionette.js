@@ -185,7 +185,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       if (!window.FB && $("#fb-root").length > 0) {
         console.log("launching FB SDK");
         e = document.createElement("script");
-        e.src = document.location.protocol + "//connect.facebook.net/en_US/sdk.js";
+        e.src = "https://connect.facebook.net/en_US/sdk.js";
         e.async = true;
         document.getElementById("fb-root").appendChild(e);
       }
@@ -290,11 +290,13 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     CurrentUser.prototype.getFacebookPicture = function() {
+      console.log('Inside get profile picture function');
       return facebookConnectPlugin.api("/me/picture?width=200", [], this._setProfilePicture);
     };
 
     CurrentUser.prototype._setProfilePicture = function(resp) {
       var _picture;
+      console.log('Inside set profile picture function',resp);
       if (resp && !resp.error) {
         _picture = {
           'id': 0,
@@ -684,9 +686,12 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       var _scope;
       $(evt.target).text('Logging in... Please Wait...');
       this.$('.authentication-cancelled').empty();
+      console.log('Inside logging in function');
       _scope = this._getScope();
       return facebookConnectPlugin.getLoginStatus((function(_this) {
         return function(resp) {
+          console.log('Inside get login status function');
+          console.log(resp);
           if (resp.status !== 'connected') {
             return facebookConnectPlugin.login(_scope, _this._fbSuccessLoginHandler, _this._fbFailureLoginHandler);
           } else {
@@ -705,12 +710,16 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     LoginView.prototype._fbSuccessLoginHandler = function(response) {
+      console.log('Inside login success after triggering login');
+      console.log(response);
       if (response.authResponse) {
         return this._fbLoginSuccess();
       }
     };
 
-    LoginView.prototype._fbFailureLoginHandler = function() {
+    LoginView.prototype._fbFailureLoginHandler = function(error) {
+      console.log('Inside login error after triggering login');
+      console.log(error);
       this.triggerMethod('facebook:login:cancel');
       this.ui.fbLoginButton.text('Login with Facebook');
       return this.ui.fbLoginButton.after('<p class="text-center authentication-cancelled">Authentication cancelled by user</p>');
@@ -718,8 +727,11 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     LoginView.prototype._fbLoginSuccess = function() {
       return facebookConnectPlugin.api('/me', [], (function(_this) {
+        console.log('Inside facebook login success--already logged in');
         return function(user) {
+          console.log(user);
           return facebookConnectPlugin.getAccessToken(function(token) {
+            console.log('Inside get access token function',token);
             return _this.trigger('facebook:login:success', user, token);
           });
         };

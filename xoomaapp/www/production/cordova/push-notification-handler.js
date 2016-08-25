@@ -48,7 +48,7 @@ Push = {
   register: function() {
     var defer;
     defer = $.Deferred();
-    parsePlugin.initialize(APP_ID, CLIENT_KEY, function() {
+    ParsePushPlugin.initialize(APP_ID, CLIENT_KEY, function() {
       return defer.resolve(Push.bindPushNotificationEvents());
     }, function(e) {
       return defer.reject(e);
@@ -56,7 +56,7 @@ Push = {
     return defer.promise();
   },
   bindPushNotificationEvents: function() {
-    this.pushNotification = window.plugins.pushNotification;
+    this.pushNotification = window.ParsePushPlugin;
     if (CordovaApp.isPlatformAndroid()) {
       return this.bindGCMEventListener();
     } else if (CordovaApp.isPlatformIOS()) {

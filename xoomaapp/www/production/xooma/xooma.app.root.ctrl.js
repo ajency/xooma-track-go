@@ -93,21 +93,18 @@ XoomaAppRootView = (function(superClass) {
         trigger: true,
         replace: true
       });
-      App.stop();
       return App.start();
     } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state === '/home') {
       App.navigate('#home', {
         trigger: true,
         replace: true
       });
-      App.stop();
       return App.start();
     } else if (window.location.hash === '' && App.currentUser.get('ID') !== void 0 && state !== '/home') {
       App.navigate('#' + App.currentUser.get('state'), {
         trigger: true,
         replace: true
       });
-      App.stop();
       return App.start();
     }
   };
