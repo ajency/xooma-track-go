@@ -22,6 +22,7 @@ document.addEventListener "deviceready", ->
 		
 		#Device
 		CordovaStorage.setUserData window.userData 
+		App.currentUser.set window.userData
 		ParseCloud.register()
 		.then ->
 			App.navigate '#'+App.currentUser.get('state'), trigger:true , replace :true

@@ -44,6 +44,7 @@ class App.AdminCtrl extends Ajency.RegionController
 
 	_successHandler:(response,status,xhr)=>
 		model =  new Ajency.CurrentUser
+		console.log 'in admin ctrl',response
 		model.set 'display_name' ,  response.display_name
 		model.set 'user_email' ,  response.user_email
 		model.set 'profile', response

@@ -14,6 +14,7 @@ document.addEventListener("deviceready", function() {
     }
     App.trigger('fb:status:connected');
     CordovaStorage.setUserData(window.userData);
+    App.currentUser.set(window.userData);
     return ParseCloud.register().then(function() {
       return App.navigate('#' + App.currentUser.get('state'), {
         trigger: true,

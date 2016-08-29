@@ -2,6 +2,13 @@ var CordovaStorage;
 
 CordovaStorage = {
   setUserData: function(data) {
+    if ($.localStorage.get('user_data') !== null) {
+      data.user_email = $.localStorage.get('user_data').email;
+      if ($.localStorage.get('user_data').profile_picture) {
+        data.profile_picture = $.localStorage.get('user_data').profile_picture;
+      }
+      data.emails = 1;
+    }
     return $.localStorage.set('user_data', data);
   },
   getUserData: function() {

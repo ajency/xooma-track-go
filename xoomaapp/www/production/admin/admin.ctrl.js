@@ -51,6 +51,7 @@ App.AdminCtrl = (function(superClass) {
   AdminCtrl.prototype._successHandler = function(response, status, xhr) {
     var model;
     model = new Ajency.CurrentUser;
+    console.log('in admin ctrl', response);
     model.set('display_name', response.display_name);
     model.set('user_email', response.user_email);
     model.set('profile', response);

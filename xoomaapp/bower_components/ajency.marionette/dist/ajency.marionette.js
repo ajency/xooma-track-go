@@ -291,12 +291,11 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
     CurrentUser.prototype.getFacebookPicture = function() {
       console.log('Inside get profile picture function');
-      return facebookConnectPlugin.api("/me/picture?width=200", [], this._setProfilePicture);
+      return facebookConnectPlugin.api("/me?fields=picture?width=200", [], this._setProfilePicture);
     };
 
     CurrentUser.prototype._setProfilePicture = function(resp) {
       var _picture;
-      console.log('Inside set profile picture function',resp);
       if (resp && !resp.error) {
         _picture = {
           'id': 0,
@@ -304,10 +303,14 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
             "thumbnail": {
               "height": 150,
               "width": 150,
-              "url": resp.data.url
+              "url": resp.picture.data.url
             }
           }
         };
+        if(resp.picture.data.url!=undefined){
+            App.currentUser.set('profile_picture',_picture);
+            App.trigger('cordova:set:user:data');
+          }
         return this.set('profile_picture', _picture);
       }
     };
@@ -690,7 +693,6 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
       _scope = this._getScope();
       return facebookConnectPlugin.getLoginStatus((function(_this) {
         return function(resp) {
-          console.log('Inside get login status function');
           console.log(resp);
           if (resp.status !== 'connected') {
             return facebookConnectPlugin.login(_scope, _this._fbSuccessLoginHandler, _this._fbFailureLoginHandler);
@@ -710,26 +712,25 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
     };
 
     LoginView.prototype._fbSuccessLoginHandler = function(response) {
-      console.log('Inside login success after triggering login');
-      console.log(response);
       if (response.authResponse) {
         return this._fbLoginSuccess();
       }
     };
 
     LoginView.prototype._fbFailureLoginHandler = function(error) {
-      console.log('Inside login error after triggering login');
-      console.log(error);
       this.triggerMethod('facebook:login:cancel');
       this.ui.fbLoginButton.text('Login with Facebook');
       return this.ui.fbLoginButton.after('<p class="text-center authentication-cancelled">Authentication cancelled by user</p>');
     };
 
     LoginView.prototype._fbLoginSuccess = function() {
-      return facebookConnectPlugin.api('/me', [], (function(_this) {
-        console.log('Inside facebook login success--already logged in');
+      return facebookConnectPlugin.api('me?fields=id,name,email,gender', [], (function(_this) {
         return function(user) {
           console.log(user);
+          if(user.email!=undefined){
+            App.currentUser.set('email',user.email);
+            App.trigger('cordova:set:user:data');
+          }
           return facebookConnectPlugin.getAccessToken(function(token) {
             console.log('Inside get access token function',token);
             return _this.trigger('facebook:login:success', user, token);
