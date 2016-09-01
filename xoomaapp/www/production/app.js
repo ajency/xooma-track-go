@@ -107,8 +107,8 @@ document.addEventListener("deviceready", function() {
       return App.currentUser.getFacebookPicture();
     }
   });
-  ParsePushPlugin.on('receivePN', function(pn) {
-    console.log('yo i got this push notification:' + JSON.stringify(pn));
+  App.on('cordova:register:push:notification', function() {
+    console.log('In push notification');
     if (window.isWebView()) {
       return Push.register();
     }

@@ -22,5 +22,10 @@
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
     "load-grunt-tasks": "latest",
-    "time-grunt": "latest"  }
+    "time-grunt": "latest"
+  },
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }
