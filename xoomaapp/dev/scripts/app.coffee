@@ -101,9 +101,22 @@ document.addEventListener "deviceready", ->
 	App.on 'cordova:register:push:notification', ->
 		console.log 'In push notification'
 		Push.register() if window.isWebView()
-	# ParsePushPlugin.on 'receivePN', (pn) ->
-	# 	console.log 'yo i got this push notification:' + JSON.stringify(pn)
-	# 	Push.register() if window.isWebView()
+	ParsePushPlugin.on 'receivePN', (e) ->
+		console.log 'got this push notification:' + JSON.stringify(e)
+		navigator.notification.alert e.payload.data.message, alertDismissed, e.payload.data.header, 'Ok'
+		# if CordovaApp.isPlatformAndroid()
+		# 	 console.log 'Received notification for Android'
+		# 	 console.log e
+		# 		if e.event is 'message'
+		# 			navigator.notification.alert e.payload.data.message, alertDismissed, e.payload.data.header, 'Ok'
+		# else if CordovaApp.isPlatformIOS() 
+		# 	console.log 'Received notification for iOS'
+		# 	console.log e
+		# 	navigator.notification.alert payload.message, alertDismissed, payload.header, 'Ok'
+		# else console.log "Unknown Platform"
+
+		alertDismissed = ->
+			console.log 'Alert was dismissed'
 		
 	App.on 'cordova:set:user:data', ->
 		CordovaStorage.setUserData(App.currentUser.toJSON()) if window.isWebView()

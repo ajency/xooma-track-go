@@ -48,12 +48,16 @@ Push = {
   register: function() {
     var defer;
     defer = $.Deferred();
-    ParsePushPlugin.initialize(APP_ID, CLIENT_KEY, function() {
-      return defer.resolve(Push.bindPushNotificationEvents());
-    }, function(e) {
-      return defer.reject(e);
-    });
-    return defer.promise();
+    if (window.ParsePushPlugin) {
+      ParsePushPlugin.getInstallationId((function(id) {
+        console.log('device installationId: ' + id);
+        return defer.resolve(Push.bindPushNotificationEvents());
+      }), function(e) {
+        console.log('error');
+        return defer.reject(e);
+      });
+      return defer.promise();
+    }
   },
   bindPushNotificationEvents: function() {
     this.pushNotification = window.ParsePushPlugin;
@@ -67,12 +71,13 @@ Push = {
   },
   bindGCMEventListener: function() {
     return this.pushNotification.register(function(result) {
-      return console.log('Android event success');
+      return console.log('Android event success', result);
     }, function(error) {
       return console.log('Android event error');
     }, {
       "senderID": "dummy",
-      "ecb": "onNotificationGCM"
+      "ecb": "onNotificationGCM",
+      "forceShow": "true"
     });
   },
   bindAPNSEventListener: function() {

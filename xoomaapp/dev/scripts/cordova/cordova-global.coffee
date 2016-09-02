@@ -10,6 +10,11 @@ APP_ID     = 'fQBYzCQ6rmU8cTbwBUX5vFqtujZTugSmOPOvm2Tf'
 CLIENT_KEY = 'reAavTNAeqb533EiuF0nAK2zl81Wk23gbTnRStz2'
 JS_KEY     = 'GBtzJkx64pmyFbm93JMJFpwAfFKAhDoraeF7q5E0'
 
+#zack@xooma.com Xooma Testimonials
+# APP_ID     = '1V6K3YlkbNUpaQIRfwiW4Caie2APBebQtKFT9uSn'
+# CLIENT_KEY = 'tCFLT4f5CBHh3wihxwX3LRtj6kVRqv7LRmxl89Vv'
+# JS_KEY     = '9LVugnbCp6wyfoeLPmqEPkm5gMlIFa9p6rGQ7q6j'
+
 
 #Load inline template
 $("#inlineTemplate").load "inline-templates.html"

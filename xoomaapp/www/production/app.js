@@ -113,6 +113,14 @@ document.addEventListener("deviceready", function() {
       return Push.register();
     }
   });
+  ParsePushPlugin.on('receivePN', function(e) {
+    var alertDismissed;
+    console.log('got this push notification:' + JSON.stringify(e));
+    navigator.notification.alert(e.payload.data.message, alertDismissed, e.payload.data.header, 'Ok');
+    return alertDismissed = function() {
+      return console.log('Alert was dismissed');
+    };
+  });
   App.on('cordova:set:user:data', function() {
     if (window.isWebView()) {
       return CordovaStorage.setUserData(App.currentUser.toJSON());

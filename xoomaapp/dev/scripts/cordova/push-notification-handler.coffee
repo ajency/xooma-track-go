@@ -41,13 +41,24 @@
 
 		register : ->
 			defer = $.Deferred()
+			if window.ParsePushPlugin
+				ParsePushPlugin.getInstallationId ((id) ->
+					# note that the javascript client has its own installation id,
+					# which is different from the device installation id.
+					console.log 'device installationId: ' + id
+					defer.resolve Push.bindPushNotificationEvents()
+				), (e) ->
+					console.log 'error'
+					defer.reject e
+				defer.promise()
+			# defer = $.Deferred()
 
-			ParsePushPlugin.initialize APP_ID, CLIENT_KEY, ->
-				defer.resolve Push.bindPushNotificationEvents()
-			, (e)->
-				defer.reject e
+			# Parse.initialize APP_ID, CLIENT_KEY, ->
+			# 	defer.resolve Push.bindPushNotificationEvents()
+			# , (e)->
+			# 	defer.reject e
 
-			defer.promise()
+			# defer.promise()
 
 
 		bindPushNotificationEvents : ->
@@ -60,11 +71,11 @@
 
 		bindGCMEventListener : ->
 			@pushNotification.register (result)->
-				console.log 'Android event success'
+				console.log 'Android event success',result
 			, (error)->
 				console.log 'Android event error'
 
-			,{ "senderID":"dummy", "ecb":"onNotificationGCM" }
+			,{ "senderID":"dummy", "ecb":"onNotificationGCM","forceShow":"true" }
 
 
 		bindAPNSEventListener : ->
